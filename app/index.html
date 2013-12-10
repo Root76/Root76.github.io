@@ -7,23 +7,43 @@
         <!-- build:css styles/main.css -->
         <link rel="stylesheet" href="styles/style.css">
         <!-- endbuild -->
-</head>
+    </head>
     <body>
+        <div id="wrapper">
+            <h1>DayWon</h1>
+            <div class="user-icon"></div>
+            <div class="pass-icon"></div>
+            <form name="login-form" class="login-form" action="" method="post">
+                <div class="header">
+                    <span>Sign up to DayWon with your Google Account. You're just a few clicks away from making your web mail's Contacts, Calendar & Tasks more useful and productive.</span>
+                </div>
+                <div class="content">
+                    <label>Username
+                        <input name="username" type="text" class="input username" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@gmail.com" onfocus="this.value=''" />
+                    </label>
+                    <label>Password
+                        <input name="password" type="password" class="input password" value="Password" onfocus="this.value=''" />
+                    </label>
+                    <span id="tos">By clicking "Sign up", I agree to the <a href="main.html">Terms of Service</a> and <a href="main.html">Privacy Policy</a>.</span>
+                    <input type="submit" name="submit" value="Login" class="button" id="regbutton"/>
+                    <input type="submit" name="submit" value="Sign up" class="button" id="logbutton"/>
+                    <p>Note: At this time, this service only works with Gmail and & Google Apps accounts. Please send us feedback of your interest for use with other web mail platforms. Thank you for your interest.</p>
+                </div>
+            </form>
+        </div>
+        <div class="gradient"></div>
         <!-- build:js scripts/components.js -->
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/handlebars/handlebars.runtime.js"></script>
         <script src="bower_components/ember/ember.js"></script>
         <script src="bower_components/ember-data-shim/ember-data.js"></script>
         <!-- endbuild -->
-
         <!-- build:js(.tmp) scripts/templates.js -->
         <script src="scripts/compiled-templates.js"></script>
         <!-- endbuild -->
-
         <!-- build:js(.tmp) scripts/main.js -->
         <script src="scripts/combined-scripts.js"></script>
         <!-- endbuild -->
-
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/bootstrap-sass/js/affix.js"></script>
         <script src="bower_components/bootstrap-sass/js/alert.js"></script>
@@ -38,5 +58,5 @@
         <script src="bower_components/bootstrap-sass/js/collapse.js"></script>
         <script src="bower_components/bootstrap-sass/js/tab.js"></script>
         <!-- endbuild -->
-</body>
+    </body>
 </html>
