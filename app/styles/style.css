@@ -2,6 +2,20 @@
 @import url(http://fonts.googleapis.com/css?family=Bree+Serif);
 @import url(http://fonts.googleapis.com/css?family=Pacifico);
 
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
 ::selection {
 	color: #fff;
 	background: #f676b2; /* Safari */
@@ -281,20 +295,15 @@ label {
 	font-weight:400;
 }
 
-.gradient {
-	width: 100%;
-	height: 1000px;
-	position: fixed;
-	top: 50px;
-	background-image: url(../img/loginbg.png);
-	background-repeat: no-repeat; 
-	background-position:center;
-	background-image: -webkit-gradient(radial, 0% 0%, 0% 100%, from(rgba(255,255,255,1))), to(rgba(255,255,255,0))));
-	background-image: -webkit-radial-gradient(50% 50%, 40% 40%, rgba(255,255,255,1)), rgba(255,255,255,0)));
-	background-image: -moz-radial-gradient(50% 50%, 50% 50%, rgba(255,255,255,1)), rgba(255,255,255,0)));
-	background-image: -ms-radial-gradient(50% 50%, 50% 50%, rgba(255,255,255,1)), rgba(255,255,255,0)));
-	background-image: -o-radial-gradient(50% 50%, 50% 50%, rgba(255,255,255,1)), rgba(255,255,255,0)));
-	z-index:-1;
+#collapseall, #expandall {
+	display:inline;
+	margin-left:20px;
+}
+
+#homecont h3 {
+	margin-right:20px;
+	cursor:pointer;
+	width:100%;
 }
 
 .login-form {
@@ -493,14 +502,23 @@ label {
 	max-height:30px;
 }
 
+.ember-view {
+	max-width:1170px;
+	width:100%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
 
 #appcont {
 	background:#f7f7f7;
+	height:600px;
 	margin-top:25px;
-	min-height:600px;
+	max-height:600px;
 	-webkit-box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.5);
 	-moz-box-shadow:    0px 0px 10px rgba(50, 50, 50, 0.5);
 	box-shadow:         0px 0px 10px rgba(50, 50, 50, 0.5);
+	overflow:hidden;
 }
 
 #footer {
@@ -545,6 +563,11 @@ label {
 	padding-top:17px;
 }
 
+.section-container {
+	padding:15px;
+	height:100%;
+}
+
 #helpimg {
 	float:left;
 	max-height:25px;
@@ -581,4 +604,54 @@ label {
 
 #helplinks div:hover {
 	opacity:.7;
+}
+
+.list {
+	width:100%;
+	display:block;
+	list-style:none;
+	margin-bottom:0px;
+	padding:15px;
+	padding-top:0px;
+	padding-bottom:0px;
+	overflow-y:auto;
+	height:535px;
+	-webkit-overflow-scrolling:touch;
+}
+
+.listitem {
+	background:#fff;
+	margin-bottom:15px;
+	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
+	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.3);
+	box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.3);
+}
+
+.listitem:last-child {
+	margin-bottom:0px;
+}
+
+.listimg {
+	margin-left:10px;
+	margin-right:10px;
+}
+
+.listimg, .subicon {
+	width:60px;
+}
+
+.subitem {
+	margin-left:80px;
+}
+
+.mainsort {
+	position:relative;
+}
+
+.subitemtext {
+position:relative;
+top:2px;
+margin-right: 25px;
+font-size: 16px;
+color: #666;
 }
