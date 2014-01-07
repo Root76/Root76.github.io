@@ -1,0 +1,436 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"check",
+				"checked"
+			],
+			[
+				"mo",
+				"modalId"
+			],
+			[
+				"visiblel",
+				"visiblelist"
+			],
+			[
+				"visible",
+				"visiblelist"
+			],
+			[
+				"categ",
+				"categoryID"
+			],
+			[
+				"datePick",
+				"datePickerContainer"
+			],
+			[
+				"availa",
+				"availableDatesArray"
+			],
+			[
+				"mouse",
+				"mouse-over"
+			],
+			[
+				"tool",
+				"tooltipDialog"
+			],
+			[
+				"dijit",
+				"dijitPopup"
+			],
+			[
+				"l",
+				"listitem"
+			],
+			[
+				"app",
+				"Appomattox_WebLog"
+			],
+			[
+				"search",
+				"searchsubmit"
+			],
+			[
+				"moredetails",
+				"moredetailsSlideIn"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/wamp/www/daywon/daywon-frontend/app/index.html",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/daywon.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/styles/style.css",
+		"/C/wamp/www/mwl2/main.html",
+		"/C/Users/Work/Desktop/MWL BUG LIST",
+		"/C/wamp/www/mwl2/js/mwl.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/routes/create_route.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/routes/events_route.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/router.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/ender.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/app.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/daywon.html",
+		"/C/wamp/www/mwl2/styles/media_queries.css",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/header.php",
+		"/C/wamp/www/mwl2/styles/style.css",
+		"/C/wamp/www/daywon/daywon-frontend/app/styles/media_queries.css",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/models/contact_model.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/iscroll.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/iscroll-lite.js",
+		"/C/wamp/www/daywon/daywon-frontend/test/spec/test.js",
+		"/C/wamp/www/daywon/daywon-frontend/test/index.html",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/store.js",
+		"/C/wamp/www/daywon/daywon-frontend/app/main.html",
+		"/C/wamp/www/daywon/daywon-frontend/app/styles/bootstrap.css",
+		"/C/wamp/www/daywon/daywon-frontend/app/styles/media_queries",
+		"/C/wamp/www/giggle/index.html",
+		"/C/wamp/www/giggle/css/style.css",
+		"/C/wamp/www/daywon/daywon-frontend/app/styles/style.scss",
+		"/C/wamp/www/daywon/daywon-frontend/app/scripts/routes/index_route.js",
+		"/C/Users/Work/Desktop/DayWon CRM Application Design Document.docx",
+		"/C/wamp/www/kurve/index.html",
+		"/C/wamp/www/mmc2/wp-admin/includes/media.php",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/css/media-queries-r9.css",
+		"/C/wamp/www/mmc2/wp-content/plugins/shortcode-exec-php/buildExperience.php",
+		"/C/wamp/www/mmc2/wp-admin/css/colors-fresh.min.css",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/header-2.php",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/header-3.php",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/header-4.php",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/header-5.php",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/header-6.php",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/header-7.php",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/header-8.php",
+		"/C/Users/Work/Desktop/maxextent.html",
+		"/C/wamp/www/mmc2/wp-content/plugins/simple-basic-contact-form/js/misc.js",
+		"/C/wamp/www/mmc2/wp-includes/js/wplink.min.js",
+		"/C/wamp/www/mmc2/robots.txt",
+		"/C/wamp/www/mmc2/wp-content/plugins/simple-basic-contact-form/simple-basic-contact-form.php",
+		"/C/wamp/www/mmc2/wp-includes/js/wplink.js",
+		"/C/wamp/www/mmc2/wp-admin/includes/dashboard.php",
+		"/C/wamp/www/mmc2/wp-includes/class-wp-editor.php",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/about-page.php",
+		"/C/wamp/www/mmc2/wp-content/plugins/recent-posts-widget-extended/includes/widget-recent-posts-extended.php",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/css/main-r9.css",
+		"/C/wamp/www/mmc2/wp-content/plugins/shortcode-exec-php/js/dateTimePicker.js",
+		"/C/wamp/www/mmc2/wp-admin/edit-form-advanced.php",
+		"/C/wamp/www/mmc2/wp-content/plugins/put/js/langs/en.js",
+		"/C/wamp/www/mmc2/wp-content/plugins/put/put.php",
+		"/C/wamp/www/mmc2/wp-content/plugins/put/js/editor_plugin.js",
+		"/C/wamp/www/mmc2/wp-includes/script-loader.php",
+		"/C/wamp/www/mmc2/wp-includes/js/tinymce/plugins/wplink/editor_plugin_src.js",
+		"/C/wamp/www/mmc2/wp-content/themes/blankslate/footer.php",
+		"/C/wamp/www/mmc2/wp-content/plugins/recent-posts-widget-extended/rpwe.php",
+		"/C/wamp/www/mwl2/index.html",
+		"/C/Users/Work/Desktop/model.html",
+		"/C/wamp/www/mmc2/wp-content/plugins/shortcode-exec-php/css/jquery-ui-datepicker.min.css",
+		"/C/wamp/www/mmc2/wp-content/plugins/shortcode-exec-php/css/jquery-ui-datepicker.css",
+		"/C/wamp/www/mmc2/wp-content/plugins/shortcode-exec-php/drivingExperiences.php",
+		"/C/Users/Work/Desktop/buildExperienceOLD.html",
+		"/C/wamp/www/mmc/wp-content/plugins/shortcode-exec-php/buildExperience.php",
+		"/C/wamp/www/mmc/wp-content/plugins/shortcode-exec-php/drivingExperiences.php",
+		"/C/wamp/www/mmc/wp-content/themes/blankslate/header-8.php",
+		"/C/wamp/www/mmc/wp-content/plugins/shortcode-exec-php/js/dateTimePicker.js",
+		"/C/wamp/www/mmc/wp-content/plugins/shortcode-exec-php/js/moment.min.js",
+		"/C/wamp/www/mmc/wp-content/themes/blankslate/footer.php",
+		"/C/wamp/www/mmc/wp-content/themes/blankslate/css/main-r9.css",
+		"/C/wamp/www/mmc/wp-content/themes/blankslate/css/media-queries-r9.css",
+		"/C/wamp/www/mmc/wp-content/plugins/shortcode-exec-php/css/dateTimePicker.css",
+		"/C/Users/Work/Desktop/notes",
+		"/C/Users/Work/Desktop/BE WORKING.php",
+		"/C/wamp/www/mmc/wp-content/plugins/shortcode-exec-php/js/jquery-ui-datepicker.min.js",
+		"/C/wamp/www/mwl/sample.html",
+		"/C/wamp/www/mwl/styles/media_queries.css",
+		"/C/wamp/www/mwl/index.html",
+		"/C/wamp/www/mwl/main.html",
+		"/C/wamp/www/mwl/styles/style.css",
+		"/C/wamp/www/mwl/js/mwl.js",
+		"/C/wamp/www/mmc/wp-admin/css/colors-fresh.min.css",
+		"/C/Users/Work/Desktop/sample4.html",
+		"/C/Users/Work/Desktop/sample2.html",
+		"/C/Users/Work/Desktop/sample.html",
+		"/C/Users/Work/Desktop/sample_original.html",
+		"/C/wamp/www/Clearview/code/clearview-html5/clearview/leclairryan/header.php",
+		"/C/wamp/www/Clearview/code/clearview-html5/clearview/css/clients/leclairryan.css",
+		"/C/wamp/www/Clearview/code/clearview-html5/clearview/css/clients/clearview.css",
+		"/C/wamp/www/Clearview/code/clearview-html5/clearview/leclairryan/index.php",
+		"/C/wamp/www/Clearview/code/clearview-html5/clearview/leclairryan/footer.php",
+		"/C/wamp/www/Clearview/code/clearview-html5/clearview/footer.php",
+		"/C/wamp/www/Clearview/code/clearview-html5/clearview/css/main.css",
+		"/C/Users/Work/AppData/Roaming/Sublime Text 3/Packages/User/Distraction Free.sublime-settings",
+		"/C/Users/Work/AppData/Roaming/Sublime Text 3/Packages/User/JSON.sublime-settings"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"C:\\wamp\\www\\mmc2",
+			"C:\\Users\\Work\\EVERYTHING\\BigCommerce"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"sortcont",
+			"selectcont",
+			"subitemtext",
+			"h1",
+			"subitemtext",
+			"ubitem ",
+			"subitem",
+			"dashitem",
+			"dash",
+			"listitem",
+			"slideOut",
+			"new",
+			"daywon",
+			"subcontitem",
+			"showitem",
+			"subcontitem",
+			"1",
+			"-in-out",
+			"-out",
+			"1.5",
+			".7",
+			".5",
+			".1",
+			"selected",
+			"<li",
+			"sortby",
+			"hover",
+			"dev",
+			"Dashboard",
+			"dashboard",
+			"create/",
+			"/",
+			"{{#link-to 'create/contact'}}",
+			"</li>",
+			"}}",
+			"<li>",
+			"}}",
+			"{{",
+			"resource",
+			"closedI",
+			"map.graphics.clear",
+			"map.graphics.",
+			"move",
+			"centheat",
+			"slideout",
+			"parcels",
+			"parcelslideout",
+			"left:0px !important",
+			"ONDEMAND",
+			"mabutton",
+			"click",
+			"globebutton",
+			"moredetails",
+			"fast",
+			"ac-container",
+			"h3",
+			"div",
+			"sort",
+			"h4",
+			"h2",
+			"this",
+			"</a>",
+			"<a href=\"#/",
+			"iew",
+			"#/",
+			"js/",
+			"scripts/",
+			"styles/",
+			"styles",
+			"main",
+			"0.75",
+			"selectcont",
+			"navitem",
+			"108px",
+			"20",
+			"/>",
+			"<img",
+			"#s",
+			"15",
+			"form",
+			"0.5",
+			"rgba(",
+			"new iScroll",
+			"mapIn",
+			"map.addLayer",
+			"mapIn",
+			"detailsIn",
+			"size",
+			"image-size-item",
+			"Thumbnail",
+			"Enter a link URL or click above for presets",
+			"detailscroller",
+			"list",
+			">\"",
+			"\"\"",
+			"html = ",
+			").innerHTML",
+			".innerHTML",
+			"innerHTML",
+			"document.getElementById",
+			"innerHTML",
+			"document.getElementById",
+			"className",
+			"document.getElementById",
+			"className",
+			"document.getElementById",
+			"className",
+			"document.getElementById",
+			"className",
+			"document.getElementById",
+			"className",
+			"document.getElementById",
+			"className",
+			"document.getElementById",
+			"moredetails",
+			"scroll",
+			"iscroll",
+			"parceln",
+			"parcelinf",
+			"btm",
+			"backtomap",
+			"daddr",
+			"dijitPopup",
+			"480",
+			"closedialog",
+			"detailsIn",
+			"dijitTooltipDialog",
+			"$(\""
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "index.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 115.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

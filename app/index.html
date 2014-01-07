@@ -5,58 +5,969 @@
         <title>DayWon API tester</title>
 
         <!-- build:css styles/main.css -->
+        <link rel="stylesheet" href="styles/bootstrap.css">
         <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="styles/media_queries.css">
         <!-- endbuild -->
     </head>
     <body>
-        <div id="wrapper">
-            <h1>DayWon</h1>
-            <div class="user-icon"></div>
-            <div class="pass-icon"></div>
-            <form name="login-form" class="login-form" action="" method="post">
-                <div class="header">
-                    <span>Sign up to DayWon with your Google Account. You're just a few clicks away from making your web mail's Contacts, Calendar & Tasks more useful and productive.</span>
-                </div>
-                <div class="content">
-                    <label>Username
-                        <input name="username" type="text" class="input username" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@gmail.com" onfocus="this.value=''" />
-                    </label>
-                    <label>Password
-                        <input name="password" type="password" class="input password" value="Password" onfocus="this.value=''" />
-                    </label>
-                    <span id="tos">By clicking "Sign up", I agree to the <a href="daywon.html">Terms of Service</a> and <a href="daywon.html">Privacy Policy</a>.</span>
-                    <input type="submit" name="submit" value="Login" class="button" id="regbutton"/>
-                    <input type="submit" name="submit" value="Sign up" class="button" id="logbutton"/>
-                    <p>Note: At this time, this service only works with Gmail and & Google Apps accounts. Please send us feedback of your interest for use with other web mail platforms. Thank you for your interest.</p>
-                </div>
-            </form>
+      <script type="text/x-handlebars">
+        <nav class="navbar navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+                <form method="get" action="/search" class="search" id="mobilesearch">
+                    <input name="q" type="text" size="40" placeholder="Search..." />
+                </form>
+              <h1 id="logo">DayWon</h1>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><img src="img/home.png" class="navimg" />Home</a></li>
+                <li>{{#link-to 'dashboard'}}<img src="img/dashboard.png" class="navimg" />Dashboard{{/link-to}}</li>
+                <li class="dropdown" id="viewmenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/view.png" class="navimg" />View</a>
+                  <ul class="dropdown-menu">
+                    <li>{{#link-to 'contacts'}}<img src="img/contact.png" class="subnavimg" />Contacts{{/link-to}}</li>
+                    <li>{{#link-to 'events'}}<img src="img/events.png" class="subnavimg" />Events{{/link-to}}</li>
+                    <li>{{#link-to 'tasks'}}<img src="img/tasks.png" class="subnavimg" />Tasks{{/link-to}}</li>
+                    <li>{{#link-to 'tags'}}<img src="img/tags.png" class="subnavimg" />Tags{{/link-to}}</li>
+                    <li>{{#link-to 'orphans'}}<img src="img/orphans.png" class="subnavimg" />Orphans{{/link-to}}</li>
+                    <li>{{#link-to 'calendar'}}<img src="img/calendar.png" class="subnavimg" />Calendar{{/link-to}}</li>
+                  </ul>
+                </li>
+                <li class="dropdown" id="createmenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/create.png" class="navimg" />Create</a>
+                  <ul class="dropdown-menu">
+                    <li>{{#link-to 'create.contact'}}<img src="img/contact.png" class="subnavimg" />Contacts{{/link-to}}</li>
+                    <li>{{#link-to 'create.event'}}<img src="img/events.png" class="subnavimg" />Events{{/link-to}}</li>
+                    <li>{{#link-to 'create.task'}}<img src="img/tasks.png" class="subnavimg" />Tasks{{/link-to}}</li>
+                    <li>{{#link-to 'create.tag'}}<img src="img/tags.png" class="subnavimg" />Tags{{/link-to}}</li>
+                  </ul>
+                </li>
+                <li>{{#link-to 'settings'}}<img src="img/settings.png" class="navimg" />Settings{{/link-to}}</li>
+                <li>
+                  <form method="get" action="/search" class="search">
+                    <input name="q" type="text" size="40" placeholder="Search..." />
+                  </form>
+                </li>
+              </ul>
+            </div>
+            <div id="loggedin">
+              <span>captainfabulous@evenspring.com</span><a href="#">Logout</a>
+            </div>
+          </div>
+        </nav>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+                {{outlet}}
+            </div>
+          </div>
+        </div><!-- /.container -->
+        </script>
+        <div id="footer">
+          <div class="container">
+            <div id="helplinks">
+                <a href="#"><div><img src="img/help.png" id="helpimg" /><span>Help</span></div></a>
+                <a href="#"><div><img src="img/feedback.png" id="feedbackimg" /><span>Feedback</span></div></a>
+                <a href="#"><div><img src="img/share.png" id="socialimg" /><span>Tell Friends About DayWon</span></div></a>
+            </div>
+            <div id="sociallinks">
+                <a href="#"><img src="img/tumbler.png" /></a>
+                <a href="#"><img src="img/linkedin.png" /></a>
+                <a href="#"><img src="img/google.png" /></a>
+                <a href="#"><img src="img/twitter.png" /></a>
+                <a href="#"><img src="img/facebook.png" /></a>
+            </div>
+          </div>
         </div>
-        <div class="gradient"></div>
-        <!-- build:js scripts/components.js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/handlebars/handlebars.runtime.js"></script>
-        <script src="bower_components/ember/ember.js"></script>
-        <script src="bower_components/ember-data-shim/ember-data.js"></script>
-        <!-- endbuild -->
-        <!-- build:js(.tmp) scripts/templates.js -->
-        <script src="scripts/compiled-templates.js"></script>
-        <!-- endbuild -->
-        <!-- build:js(.tmp) scripts/main.js -->
-        <script src="scripts/combined-scripts.js"></script>
-        <!-- endbuild -->
-        <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/bootstrap-sass/js/affix.js"></script>
-        <script src="bower_components/bootstrap-sass/js/alert.js"></script>
-        <script src="bower_components/bootstrap-sass/js/dropdown.js"></script>
-        <script src="bower_components/bootstrap-sass/js/tooltip.js"></script>
-        <script src="bower_components/bootstrap-sass/js/modal.js"></script>
-        <script src="bower_components/bootstrap-sass/js/transition.js"></script>
-        <script src="bower_components/bootstrap-sass/js/button.js"></script>
-        <script src="bower_components/bootstrap-sass/js/popover.js"></script>
-        <script src="bower_components/bootstrap-sass/js/carousel.js"></script>
-        <script src="bower_components/bootstrap-sass/js/scrollspy.js"></script>
-        <script src="bower_components/bootstrap-sass/js/collapse.js"></script>
-        <script src="bower_components/bootstrap-sass/js/tab.js"></script>
-        <!-- endbuild -->
+        <script type="text/x-handlebars" id="index">
+        <div class="row" id="sortbycolumn">
+            <div class="col-lg-12">
+              <div id="showme" class="menucont">
+                <div><h2>Show me:</h2></div>
+                <div class="menusubcont">
+                  <div class="subcontitem showitem selected" id="mainevent"><img src="img/calendar.png" /></div>
+                  <div class="subcontitem showitem selected" id="maintask"><img src="img/tasks.png" /></div>
+                  <div class="subcontitem showitem selected" id="maincontact"><img src="img/contact.png" /></div>
+                  <div class="subcontitem showitem selected" id="maintag"><img src="img/tags.png" /></div>
+                </div>
+              </div>
+              <div id="sortby" class="menucont">
+                <div><h2>Sort by:</h2></div>
+                <div class="menusubcont">
+                  <div class="subcontitem sortitem">
+                    <img src="img/calendar.png" />
+                  </div>
+                  <div class="subcontitem sortitem">
+                    <img src="img/tasks.png" />
+                    <ul>
+                      <li class="suboption">Date</li>
+                      <li class="suboption">Priority</li>
+                      <li class="suboption">Alphabetical</li>
+                    </ul>    
+                  </div>
+                  <div class="subcontitem sortitem">
+                    <img src="img/contact.png" />
+                  </div>
+                  <div class="subcontitem sortitem">
+                    <img src="img/tags.png" />
+                    <ul>
+                      <li class="suboption">Alphabetical</li>
+                      <li class="suboption">Count</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div id="schedule" class="menucont">
+                <div><h2>Schedule:</h2></div>
+                <div class="selectcont">
+                  <select>
+                    <option>Today</option>
+                    <option>Tomorrow</option>
+                    <option>This Week</option>
+                    <option>Next Week</option>
+                    <option>All Open Activites</option>
+                  </select>
+                  <img src="img/downarrow.jpg" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="appcont" class="homeapp">
+            <div class="section-container" id="homecont">
+              <h3 id="collapseall">Collapse all</h3>
+              <h3 id="expandall">Expand all</h3>
+              <ul class="list">
+                <li class="listitem maincontact">
+                  <h3 class="mainsort"><img src="img/person.png" class="listimg" />Tyler Carbone</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Partner Meeting</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">SRRN</span>          
+                      <span class="subitemtext">Evenspring</span>        
+                      <span class="subitemtext">Boston</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Aujang Abadi</span>
+                      <span class="subitemtext">John Will</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Finish BBTC</span>
+                      <span class="subitemtext">Finish Day Won</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem maincontact">
+                  <h3 class="mainsort"><img src="img/person.png" class="listimg" />Allen Hatzi</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Investor Meeting</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Spreadsheets</span>          
+                      <span class="subitemtext">3 Monkeys</span>        
+                      <span class="subitemtext">Soccer</span>        
+                      <span class="subitemtext">Hatzi!</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Lizz</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">New chairs for 3 Monkeys</span>
+                      <span class="subitemtext">Be Hatzi</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem maincontact">
+                  <h3 class="mainsort"><img src="img/person.png" class="listimg" />Captain Fabulous</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem mainevent">
+                  <h3 class="mainsort"><img src="img/calendar.png" class="listimg" />Birthday Party</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem mainevent">
+                  <h3 class="mainsort"><img src="img/calendar.png" class="listimg" />Thanksgiving</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem mainevent">
+                  <h3 class="mainsort"><img src="img/calendar.png" class="listimg" />Town Meeting</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem maintask">
+                  <h3 class="mainsort"><img src="img/tasks.png" class="listimg" />Get a birthday cake</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem maintask">
+                  <h3 class="mainsort"><img src="img/tasks.png" class="listimg" />Fix the car</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem maintask">
+                  <h3 class="mainsort"><img src="img/tasks.png" class="listimg" />Go to the gym</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem maintag">
+                  <h3 class="mainsort"><img src="img/tags.png" class="listimg" />Awesome</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem maintag">
+                  <h3 class="mainsort"><img src="img/tags.png" class="listimg" />Fantastic</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="listitem maintag">
+                  <h3 class="mainsort"><img src="img/tags.png" class="listimg" />Incredible</h3>
+                  <div class="subitems">
+                    <div class="subitem ss1">
+                      <img class="subicon" src="img/calendar.png" />
+                      <span class="subitemtext">Save the world</span>
+                    </div>
+                    <div class="subitem ss2">
+                      <img class="subicon" src="img/tags.png" />
+                      <span class="subitemtext">Incredible</span>          
+                      <span class="subitemtext">Deadly</span>        
+                      <span class="subitemtext">Fabulous</span>        
+                      <span class="subitemtext">Pink</span>
+                    </div>
+                    <div class="subitem ss3">
+                      <img class="subicon" src="img/contact.png" />
+                      <span class="subitemtext">Bruce Lee</span>
+                      <span class="subitemtext">Rick James</span>
+                    </div>
+                    <div class="subitem ss4">
+                      <img class="subicon" src="img/tasks.png" />
+                      <span class="subitemtext">Fight crime</span>
+                      <span class="subitemtext">Kill the bad guys</span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="dashboard">
+          <div id="appcont">
+          <h1>Dashboard</h1>
+          <div class="section-container" id="homecont">
+            <h3 id="collapseall">Collapse all</h3>
+            <h3 id="expandall">Expand all</h3>
+            <ul class="list dashlist">
+              <li class="listitem dashitem" id="recentdash">
+                <h3 class="mainsort">Recent Activity</h3>
+                <div class="subitems">
+                  <div class="subitem subdash ss1">
+                    <img class="subicon" src="img/calendar.png" />
+                    <span class="subitemtext subdashtext">SPA</span>
+                  </div>
+                  <div class="subitem subdash ss2">
+                    <img class="subicon" src="img/tags.png" />
+                    <span class="subitemtext subdashtext">Work</span>          
+                  </div>
+                  <div class="subitem subdash ss3">
+                    <img class="subicon" src="img/contact.png" />
+                    <span class="subitemtext subdashtext">Liz</span>
+                  </div>
+                  <div class="subitem subdash ss4">
+                    <img class="subicon" src="img/tasks.png" />
+                    <span class="subitemtext subdashtext">Day Won meeting</span>
+                  </div>
+                </div>
+              </li>
+              <li class="listitem dashitem" id="tasksdash">
+                <h3 class="mainsort">Tasks
+                  <div class="sortcont">
+                    <select>
+                      <option>Overdue</option>
+                      <option>Today & Overdue</option>
+                      <option>Next 7 Days</option>
+                      <option>All Open</option>
+                    </select>
+                  </div>
+                </h3>
+                <div class="subitems">
+                  <div class="subitem subdash ss1">
+                    <img class="subicon" src="img/tasks.png" />
+                    <span class="subitemtext subdashtext">Call Doctor</span>
+                  </div>
+                  <div class="subitem subdash ss2">
+                    <img class="subicon" src="img/tasks.png" />
+                    <span class="subitemtext subdashtext">Oil Change</span>          
+                  </div>
+                  <div class="subitem subdash ss3">
+                    <img class="subicon" src="img/tasks.png" />
+                    <span class="subitemtext subdashtext">Save the World</span>
+                  </div>
+                  <div class="subitem subdash ss4">
+                    <img class="subicon" src="img/tasks.png" />
+                    <span class="subitemtext subdashtext">Kill the bad guys</span>
+                  </div>
+                </div>
+              </li>
+              <li class="listitem dashitem" id="eventsdash">
+                <h3 class="mainsort">Events</h3>
+                <div class="subitems">
+                  <ul id="eventslist">
+                    <li>
+                      <span>Monday 01/13</span>
+                      <ul class="eventssublist">
+                        <li>Lunch with Sam</li>
+                        <li>Dinner with Bob</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span>Tuesday 01/14</span>
+                      <ul class="eventssublist">
+                        <li>Pick Up Sarah from Airport</li>
+                        <li>Go Shopping</li>
+                        <li>Play Video Games</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span>Wednesday 01/15</span>
+                      <ul class="eventssublist">
+                        <li>Meet Mike at 7pm</li>
+                        <li>Get an Oil Change</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span>Thursday 01/15</span>
+                      <ul class="eventssublist">
+                        <li>Read a Book</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span>Friday 01/16</span>
+                      <ul class="eventssublist">
+                        <li>Work out</li>
+                        <li>Go hiking</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem dashitem" id="tagsdash">
+                <h3 class="mainsort">Tags
+                  <div class="sortcont">
+                    <select>
+                      <option>Name</option>
+                      <option>Tag Count</option>
+                    </select>
+                  </div>
+                </h3>
+                <div class="subitems">
+                  <div class="subitem subdash ss1">
+                    <img class="subicon" src="img/tags.png" />
+                    <span class="subitemtext subdashtext">Incredible</span>          
+                  </div>
+                  <div class="subitem subdash ss2">
+                    <img class="subicon" src="img/tags.png" />
+                    <span class="subitemtext subdashtext">Deadly</span>        
+                  </div>
+                  <div class="subitem subdash ss3">
+                    <img class="subicon" src="img/tags.png" />    
+                    <span class="subitemtext subdashtext">Fabulous</span>
+                  </div>
+                  <div class="subitem subdash ss4">
+                    <img class="subicon" src="img/tags.png" />        
+                    <span class="subitemtext subdashtext">Day Won</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          </div>    
+        </script>
+        <script type="text/x-handlebars" id="contacts">
+          <div id="appcont">
+            <div class="section-container" id="contactscont">
+              <div class="row">
+                <div class="col-md-4" id="contactpane1">
+                  <img src="img/contact.png" / class="contactpadding">
+                  <h1 class="contactpadding">Contacts (264)</h1>
+                  <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+                    <input name="q" type="text" size="40" placeholder="Search...">
+                  </form>
+                  <div class="filtercolumn contactpadding">
+                    <h4>Show:</h4>
+                    <div class="sortcont contsort">
+                      <select>
+                        <option>All</option>
+                        <option>Tagged</option>
+                        <option>New this Week</option>
+                        <option>New this Month</option>
+                        <option>Recent</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="filtercolumn contactpadding">
+                    <h4>Sorted by:</h4>
+                    <div class="sortcont contsort">
+                      <select>
+                        <option>Company</option>
+                        <option>Tagged</option>
+                        <option>New this Week</option>
+                        <option>New this Month</option>
+                        <option>Recent</option>
+                      </select>
+                    </div>
+                  </div>
+                  <ul id="contactlist">
+                    <li>Tyler Carbone</li>
+                    <li>Allen Hatzi</li>
+                    <li>Aujang Abadi</li>                    
+                    <li>John Will</li>
+                    <li>Momin Khan</li>
+                    <li>Chris Hooe</li>
+                    <li>Mike Odum</li>
+                    <li>Brendan Mauer</li>
+                    <li>Elizabeth Hatzi</li>
+                    <li>Emily XiaoXiao</li>
+                    <li>JP Bonner</li>
+                    <li>Dan Magnusson</li>
+                    <li>Lauren Morton</li>                                    
+                  </ul>
+                </div>
+                <div class="col-md-8" id="contactpanel2">
+                  <img id="profilepic" src="img/profile.png" />
+                  <h2 id="contactname">Tyler Carbone</h2>
+                  <div id="detailmenubar">
+                    <img src="img/contact.png" />
+                    <img src="img/tasks.png" />
+                    <img src="img/events.png" />
+                    <img src="img/tags.png" />   
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="contactcontent">
+                    <div class="contactinfo">
+                      <div class="contactrow">
+                        <img src="img/cellphone.png">
+                        <h4>804-123-4567</h4>
+                      </div>
+                      <div class="contactrow">
+                        <img src="img/openmail.png">
+                        <h4>tyler@evenspring.com</h4>
+                      </div>
+                      <div class="contactrow">
+                        <img src="img/birthday.png">
+                        <h4>June 15th, 1987</h4>
+                      </div>
+                      <div class="contactrow">
+                        <img src="img/location.png">
+                        <h4>Richmond, VA</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panelfooter" id="contactfooter">
+                    <h5>Note: met at the Convention last year in Aprii</h5>
+                  </div>
+                  <img src="img/close.png" id="closebutton"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul>
+          {{#each item in contacts}}
+            <li>{{item.name}} by {{item.id}}</li>
+          {{/each}}
+          </ul>
+        </script>
+        <script type="text/x-handlebars" id="events">
+          <div id="appcont">
+            <div class="section-container" id="taskscont">
+              <div class="row">
+                <div class="col-md-4" id="taskpane1">
+                  <img src="img/events.png" / class="contactpadding">
+                  <h1 class="contactpadding">Events (37)</h1>
+                  <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+                    <input name="q" type="text" size="40" placeholder="Search...">
+                  </form>
+                  <div class="filtercolumn contactpadding">
+                    <h4>Show:</h4>
+                    <div class="sortcont contsort">
+                      <select>
+                        <option>All</option>
+                        <option>Tagged</option>
+                        <option>New this Week</option>
+                        <option>New this Month</option>
+                        <option>Recent</option>
+                      </select>
+                    </div>
+                  </div>
+                  <ul id="eventlist">
+                    <li>Mom's Birthday</li>
+                    <li>BBTC Meeting</li>
+                    <li>Partner Meeting</li>                    
+                    <li>Investor Meeting</li>
+                    <li>MMC Meeting</li>
+                    <li>Clean the fridge</li>
+                    <li>Take out the trash</li>
+                    <li>Bake a cake</li>
+                    <li>Go shopping</li>
+                    <li>Write some code</li>
+                    <li>Eat dinner</li>
+                    <li>Go racing</li>
+                    <li>Fight bad guys</li>                                    
+                  </ul>
+                </div>
+                <div class="col-md-8" id="eventpanel2">
+                  <h2 id="contactname" class="taskname">Mom's Birthday</h2>
+                  <div id="detailmenubar" class="taskbar">
+                    <img src="img/contact.png" />
+                    <img src="img/tasks.png" />
+                    <img src="img/events.png" />
+                    <img src="img/tags.png" />   
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="taskscontent">
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    </p>
+                  </div>
+                  <img src="img/close.png" id="closebutton"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="tasks">
+          <div id="appcont">
+            <div class="section-container" id="taskscont">
+              <div class="row">
+                <div class="col-md-4" id="taskpane1">
+                  <img src="img/tasks.png" / class="contactpadding">
+                  <h1 class="contactpadding">Tasks (19)</h1>
+                  <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+                    <input name="q" type="text" size="40" placeholder="Search...">
+                  </form>
+                  <div class="filtercolumn contactpadding">
+                    <h4>Show:</h4>
+                    <div class="sortcont contsort">
+                      <select>
+                        <option>All</option>
+                        <option>Tagged</option>
+                        <option>New this Week</option>
+                        <option>New this Month</option>
+                        <option>Recent</option>
+                      </select>
+                    </div>
+                  </div>
+                  <ul id="tasklist">
+                    <li>Day Won Meeting</li>
+                    <li>BBTC Meeting</li>
+                    <li>Partner Meeting</li>                    
+                    <li>Investor Meeting</li>
+                    <li>MMC Meeting</li>
+                    <li>Clean the fridge</li>
+                    <li>Take out the trash</li>
+                    <li>Bake a cake</li>
+                    <li>Go shopping</li>
+                    <li>Write some code</li>
+                    <li>Eat dinner</li>
+                    <li>Go racing</li>
+                    <li>Fight bad guys</li>                                    
+                  </ul>
+                </div>
+                <div class="col-md-8" id="taskpanel2">
+                  <h2 id="contactname" class="taskname">Day Won Meeting</h2>
+                  <div id="detailmenubar" class="taskbar">
+                    <img src="img/contact.png" />
+                    <img src="img/tasks.png" />
+                    <img src="img/events.png" />
+                    <img src="img/tags.png" />   
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="taskscontent">
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    </p>
+                  </div>
+                  <img src="img/close.png" id="closebutton"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="tags">
+          <div id="appcont">
+            <div class="section-container" id="taskscont">
+              <div class="row">
+                <div class="col-md-4" id="taskpane1">
+                  <img src="img/tags.png" / class="contactpadding">
+                  <h1 class="contactpadding">Tags (79)</h1>
+                  <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+                    <input name="q" type="text" size="40" placeholder="Search...">
+                  </form>
+                  <div class="filtercolumn contactpadding">
+                    <h4>Show:</h4>
+                    <div class="sortcont contsort">
+                      <select>
+                        <option>All</option>
+                        <option>Tagged</option>
+                        <option>New this Week</option>
+                        <option>New this Month</option>
+                        <option>Recent</option>
+                      </select>
+                    </div>
+                  </div>
+                  <ul id="taglist">
+                    <li>Awesome</li>
+                    <li>Shopping</li>
+                    <li>Racing</li>                    
+                    <li>Developing</li>
+                    <li>2014</li>
+                    <li>SRRN</li>
+                    <li>Evenspring</li>
+                    <li>BBTC</li>
+                    <li>Party</li>
+                    <li>Day Won</li>
+                    <li>Stormwater Sentries</li>
+                    <li>Minor Lords</li>
+                    <li>Mobile</li>                                    
+                  </ul>
+                </div>
+                <div class="col-md-8" id="tagpanel2">
+                  <h2 id="contactname" class="taskname">Awesome</h2>
+                  <div id="detailmenubar" class="taskbar">
+                    <img src="img/contact.png" />
+                    <img src="img/tasks.png" />
+                    <img src="img/events.png" />
+                    <img src="img/tags.png" />   
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="taskscontent">
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    </p>
+                  </div>
+                  <img src="img/close.png" id="closebutton"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="orphans">
+        <div id="appcont">
+          <img id="orphanlogo" src="img/orphans.png" />
+          <h1 id="orphanhead">Orphans (60)</h1>
+          <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag.</h2>
+          <div id="orphancontainer">
+            <img src="img/events.png" /><h1 class="ocount">(11)</h1>
+            <img src="img/tasks.png" /><h1 class="ocount">(15)</h1>
+            <img src="img/tags.png" /><h1 class="ocount">(34)</h1>
+          </div>
+          <h4 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h4>
+        </div>
+        </script>
+        <script type="text/x-handlebars" id="calendar">
+          <div id="appcont">
+            <div class="section-container">
+              <div id="calendarcont">
+                
+              </div>
+            </div>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="settings">
+          <div id="appcont" class="settingspage">
+            <div class="section-container" id="taskscont">
+              <div class="row">
+                <div id="settingsummary">
+                  <img src="img/profile.png" id="settingimage" />
+                  <div class="itemcounts">
+                    <div class="itemcount">
+                      <img src="img/contact.png" /><p>(31)</p>
+                    </div>
+                    <div class="itemcount">
+                      <img src="img/events.png" /><p>(24)</p>
+                    </div>
+                    <div class="itemcount">
+                      <img src="img/tasks.png" /><p>(16)</p>
+                    </div>
+                    <div class="itemcount">
+                      <img src="img/tags.png" /><p>(43)</p>
+                    </div>
+                  </div>
+                </div>
+                <div id="settingmain">
+                  <a href="#">Revoke Gmail Access</a>
+                  <a href="#">Reconnect Gmail</a>
+                  <a href="#">Delete Account</a>
+                  <div id="settingname">
+                    <h1>Tyler Carbone</h1>
+                    <hr />
+                    <h3>tyler@evenspring.com</h3>
+                  </div>
+                </div>
+                <div id="settingfooter">
+                  <div class="settingoption">
+                    <h5>Contact sort preference:</h5>
+                    <a>First name</a>
+                    <a>Last name</a>
+                  </div>
+                  <div class="settingoption">
+                    <h5>Turn new user popups back on:</h5>
+                    <a>Y</a>
+                    <a>N</a>
+                  </div>
+                  <div class="settingoption">
+                    <h5>Always display note field for Contact:</h5>
+                    <a>Y</a>
+                    <a>N</a>
+                  </div>
+                  <div class="settingoption">
+                    <h5>Push contextual information into Web Mail activities:</h5>
+                    <a>Y</a>
+                    <a>N</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="create/contact">
+          <h1>Create > Contact</h1>
+        </script>
+        <script type="text/x-handlebars" id="create/event">
+          <h1>Create > Events</h1>
+        </script>
+        <script type="text/x-handlebars" id="create/tag">
+          <h1>Create > Tags</h1>
+        </script>
+        <script type="text/x-handlebars" id="create/task">
+          <h1>Create > Tasks</h1>
+        </script>
+
+        <script src="scripts/libs/jquery-1.10.2.js"></script>
+        <script src="scripts/libs/jquery-ui.js"></script>
+        <script src="scripts/libs/handlebars-1.1.2.js"></script>
+        <script src="scripts/libs/ember-1.2.0.js"></script>
+        <script src="scripts/bootstrap/bootstrap.min.js"></script>
+        <script src="scripts/iscroll-lite.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/router.js"></script>
+        <script src="scripts/daywon.js"></script>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-46373758-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
     </body>
 </html>
