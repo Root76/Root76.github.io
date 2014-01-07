@@ -1,3 +1,13 @@
+var App = window.App = Ember.Application.create({
+    /* Router logging */
+    LOG_TRANSITIONS: true,
+    LOG_TRANSITIONS_INTERNAL: true,
+    /* View logging */
+    LOG_VIEW_LOOKUPS: true,
+    /* Controller logging */
+    LOG_ACTIVE_GENERATION: true
+});
+
 App.Router.map(function () {
     this.resource("dashboard");
     this.resource("contacts", function() {
@@ -121,17 +131,126 @@ App.ApplicationController = Ember.Controller.extend({
 
         $('#calendarcont').datepicker();
 
+        console.log ("query string: " + authToken);
+        console.log ("email: " + userEmail);
+        $("#loggedin").find("span").html(userEmail);
+
+
     });
   }.observes('currentPath')
 });
 
-DS.RESTAdapter.reopen({
+var authToken;
+var userEmail;
+
+function QueryStringToJSON() {            
+    var pairs = location.search.slice(1).split('&');
+    var result = {};
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+    return JSON.parse(JSON.stringify(result));
+}
+
+var query_string = QueryStringToJSON();
+
+authToken = query_string.authentication_token;
+userEmail = query_string.user_email;
+
+App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: 'https://ec2-54-204-113-9.compute-1.amazonaws.com/',
   headers: {
-    "API_KEY": "secret key",
-    "ANOTHER_HEADER": "Some header value"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
   }
 });
+
+App.Store = DS.Store.extend({
+    adapter:  App.ApplicationAdapter.create()
+});
+
+
+/*Models*/
+App.Contact = DS.Model.extend({
+    name: DS.attr('string')
+});
+App.Event = DS.Model.extend({
+    title: DS.attr('string')
+});
+App.Task = DS.Model.extend({
+    title: DS.attr('string')
+});
+
+/*Routes*/
+    /*Index*/
+App.IndexRoute = Ember.Route.extend({
+    model: function () {
+        return 'Index Model Data';
+    }
+});
+    /*Tasks*/
+App.TasksRoute = Ember.Route.extend({
+  model: function() {
+    return this.get('store').find('task');
+  }
+});
+App.TasksIndexRoute = Ember.Route.extend({
+  model: function() {
+    return this.modelFor('tasks');
+  }
+});
+
+App.TaskRoute = Ember.Route.extend({
+  model: function(params) {
+    return this.get('store').find('task', params.Task_id);
+  }
+});
+    /*Events*/
+App.EventsRoute = Ember.Route.extend({
+    model: function () {
+        return this.store.find('event');
+    }
+});
+
+App.EventsIndexRoute = App.EventsRoute.extend({
+    model: function () {
+        return this.modelFor('events');
+    }
+});
+
+App.EventRoute = Ember.Route.extend({
+    model: function (params) {
+        return this.store.find('event', params.event_id);
+    }
+});
+    /*Contacts*/
+App.ContactsRoute = Ember.Route.extend({
+  model: function() {
+    return this.get('store').find('contact');
+  }
+});
+
+App.ContactsIndexRoute = Ember.Route.extend({
+  model: function() {
+    return this.modelFor('contacts');
+  }
+});
+
+App.ContactRoute = Ember.Route.extend({
+  model: function(params) {
+    return this.get('store').find('contact', params.contact_id);
+  }
+});
+
+
+
+
+/*var people = App.Contact.find(1);
+App.Contact = DS.Model.extend({
+  firstName: DS.attr('string'),
+  lastName: DS.attr('string'),
+});*/
 
 /*
 App.ContactsRoute = Ember.Route.extend({
