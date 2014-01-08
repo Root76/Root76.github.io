@@ -127,6 +127,15 @@ App.ApplicationController = Ember.Controller.extend({
             $(event.target).addClass("currentcontact");
         });
 
+        $('.calchoice').click(function(event){
+            if ($(event.target).hasClass('selected')) {
+                console.log('already selected');
+            } else {
+                $(event.target).parent().find('.selected').removeClass('selected');
+                $(event.target).addClass('selected');
+            }
+        });
+
         $('#calendarcont').datepicker();
 
         console.log ("query string: " + authToken);
@@ -156,6 +165,8 @@ var query_string = QueryStringToJSON();
 authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
+/***Rest Adapter***/
+
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: 'https://ec2-54-204-113-9.compute-1.amazonaws.com/',
   headers: {
@@ -183,13 +194,14 @@ App.Task = DS.Model.extend({
 /***Routes***/
 
 /*Index*/
-App.IndexRoute = Ember.Route.extend({
-    model: function () {
-        return 'Index Model Data';
+/*App.IndexRoute = Ember.Route.extend({
+    model: function() {
+      return this.modelFor('contacts');
     }
-});
+});*/
 
 /*Tasks*/
+
 App.TasksRoute = Ember.Route.extend({
   model: function() {
     return this.get('store').find('task');
@@ -207,6 +219,7 @@ App.TaskRoute = Ember.Route.extend({
 });
 
 /*Events*/
+
 App.EventsRoute = Ember.Route.extend({
     model: function () {
         return this.store.find('event');
@@ -224,6 +237,7 @@ App.EventRoute = Ember.Route.extend({
 });
 
 /*Contacts*/
+
 App.ContactsRoute = Ember.Route.extend({
   model: function() {
     return this.get('store').find('contact');
@@ -249,7 +263,7 @@ App.Contact = DS.Model.extend({
 /*
 App.ContactsRoute = Ember.Route.extend({
     model: function() {
-        return Ember.$.getJSON('http://staging-krqwhjugxs.elasticbeanstalk.com/contacts');
+        return Ember.$.getJSON('https://ec2-54-204-113-9.compute-1.amazonaws.com/');
     }
 });
 */
