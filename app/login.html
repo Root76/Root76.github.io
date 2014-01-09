@@ -28,12 +28,20 @@
             </form>
         </div>
         <div class="gradient"></div>
+        <script type="text/javascript">
+            $('form').submit(function(){
+            console.log('woohoo');
+            window.location.href = "http://staging-krqwhjugxs.elasticbeanstalk.com/users/auth/google_oauth2";
+            return false;
+        });
+        </script>
         <script src="scripts/libs/jquery-1.10.2.js"></script>
         <script src="scripts/libs/jquery-ui.js"></script>
         <script src="scripts/libs/handlebars-1.1.2.js"></script>
         <script src="scripts/libs/ember-1.2.0.js"></script>
         <script src="scripts/bootstrap/bootstrap.min.js"></script>
         <script src="scripts/iscroll-lite.js"></script>
+        <script src="scripts/app.js"></script>
         <script src="scripts/daywon.js"></script>
     </body>
 </html>

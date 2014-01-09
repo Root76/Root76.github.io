@@ -3,12 +3,6 @@ $(document).ready(function(){
 	
 	setTimeout(function(){
 
-		$('form').submit(function(){
-			console.log('woohoo');
-			window.location.href = "http://staging-krqwhjugxs.elasticbeanstalk.com/users/auth/google_oauth2";
-			return false;
-		});
-
 	    $(".listitem").accordion({
 	        active: false,
 	        collapsible: true
