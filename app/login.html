@@ -5,7 +5,9 @@
         <title>DayWon API tester</title>
 
         <!-- build:css styles/main.css -->
+        <link rel="stylesheet" href="styles/bootstrap.css">
         <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="styles/media_queries.css">
         <!-- endbuild -->
     </head>
     <body>
@@ -15,32 +17,58 @@
             <div class="pass-icon"></div>
             <form name="login-form" class="login-form" action="" method="post">
                 <div class="header">
-                    <span>Sign up to DayWon with your Google Account. You're just a few clicks away from making your web mail's Contacts, Calendar & Tasks more useful and productive.</span>
+                    <span>Sign up to Day Won with your Google Account. You're just a few clicks away from making your web mail's Contacts, Calendar & Tasks more useful and productive.</span>
                 </div>
                 <div class="content">
-                    <form>
-                        <span id="tos">By clicking "Sign up", I agree to the <a href="index.html">Terms of Service</a> and <a href="index.html">Privacy Policy</a>.</span>
-                        <input type="submit" name="submit" value="Log in" class="button" id="regbutton" />
-                        <input type="submit" name="submit" value="Sign up" class="button" id="logbutton" />
-                    </form>
-                    <p>Note: At this time, this service only works with Gmail and & Google Apps accounts. Please send us feedback of your interest for use with other web mail platforms. Thank you for your interest.</p>
+                        <span id="tos">By clicking "Sign up", I agree to the <a href="#openModal2">Terms of Service</a> and <a href="#openModal3">Privacy Policy</a>.</span>
+                        <a href="http://daywon-api-staging.herokuapp.com/users/auth/google_oauth2" id="logbutton" class="toAuth">Log in</a>
+                        <span class="signuptext">Don't have a Google Account?</span><a class="signuptext" href="https://accounts.google.com/SignUp?service=lso&continue=https%3A%2F%2Faccounts.google.com%2Fo%2Foauth2%2Fauth%3Fzt%3DChQ1YmI3RTNzZ2Y0dk1kRmswZ2pObRIfQWxadllhYXpqTU1XYURuXzZ5MFpRTmhnZUtsQmh3SQ%25E2%2588%2599APsBz4gAAAAAUtlQCFRIEcbgrrI6f50A7WfW9ixQ0Uh-%26from_login%3D1%26hl%3Den%26as%3D-2b9d6b93cd4a1faa&ltmpl=popup">Sign up</a>
+                    <p>Note: At this time, this service only works with Gmail and &amp; Google Apps accounts. Please send us <a href="#openModal">feedback</a> of your interest for use with other web mail platforms. Thank you for your interest.</p>
                 </div>
             </form>
         </div>
-        <div class="gradient"></div>
-        <script type="text/javascript">
-            $('form').submit(function(){
-            console.log('woohoo');
-            window.location.href = "http://staging-krqwhjugxs.elasticbeanstalk.com/users/auth/google_oauth2";
-            return false;
-        });
-        </script>
+        <div id="openModal" class="modalDialog">
+          <div>
+            <a href="#" title="Close" class="close">X</a>
+            <h2>Feedback</h2>
+            <form id="feedbacktext">
+              Your email: <input type="text" name="email" placeholder="youraddress@gmail.com" style="width:100%"><br /><br />
+              What service(s) would you like to see supported by Day Won?<br /><textarea></textarea>
+              <input type="submit"></input>
+            </form>
+          </div>
+        </div>
+        <div id="openModal2" class="modalDialog">
+          <div>
+            <a href="#" title="Close" class="close">X</a>
+            <h2>Terms of Service</h2>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lacinia semper augue quis euismod. Aliquam volutpat mauris sed ipsum dignissim convallis. Pellentesque ut rhoncus felis. Nullam a mauris nec mi fermentum eleifend ut sed tellus. In aliquet nisl congue enim lacinia pulvinar. Morbi at tincidunt eros, ac aliquet felis. Morbi eleifend diam id tincidunt blandit. Praesent condimentum ligula non odio tempor pulvinar. In a odio eros. Sed nec mi blandit, ornare nibh tristique, egestas enim. Donec ornare nisl diam, eu aliquet ante semper ac. Suspendisse potenti. Donec egestas tellus et fringilla interdum. Cras malesuada tellus dui. Nulla et sodales massa.</p>
+
+            <p>Aliquam luctus elit felis, vitae aliquam tortor tempus nec. Nullam pretium velit vel blandit commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc non quam eros. Pellentesque vitae magna vitae arcu porttitor vulputate et ut diam. Ut sagittis leo sed congue accumsan. Morbi elementum ac nisi ut imperdiet. Nam accumsan, felis vel tincidunt volutpat, purus mi posuere nisi, cursus fringilla augue magna sit amet ante. Ut ac elit magna. Quisque tincidunt justo et elit sagittis tempor. Suspendisse dignissim ullamcorper lorem eu commodo. Nulla non tristique lorem.</p>
+
+            <p>Nam mattis, lectus sit amet sodales fermentum, lorem mi consectetur sapien, id hendrerit nisi massa lobortis lacus. Duis nec lectus purus. Nullam ultricies augue nec hendrerit malesuada. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum consequat auctor posuere. Vestibulum id enim non nulla gravida tristique id vel lacus. Donec scelerisque felis nibh. Suspendisse non gravida est, quis fringilla nibh. Maecenas porttitor egestas velit eu congue. Vestibulum eget faucibus tortor. Integer id elit fermentum, pharetra nibh ut, placerat orci. Duis odio est, varius vitae elit non, pharetra laoreet arcu. Quisque hendrerit ligula fringilla, egestas orci vel, viverra est.
+            </p>
+          </div>
+        </div>      
+        <div id="openModal3" class="modalDialog">
+          <div>
+            <a href="#" title="Close" class="close">X</a>
+            <h2>Privacy Policy</h2>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lacinia semper augue quis euismod. Aliquam volutpat mauris sed ipsum dignissim convallis. Pellentesque ut rhoncus felis. Nullam a mauris nec mi fermentum eleifend ut sed tellus. In aliquet nisl congue enim lacinia pulvinar. Morbi at tincidunt eros, ac aliquet felis. Morbi eleifend diam id tincidunt blandit. Praesent condimentum ligula non odio tempor pulvinar. In a odio eros. Sed nec mi blandit, ornare nibh tristique, egestas enim. Donec ornare nisl diam, eu aliquet ante semper ac. Suspendisse potenti. Donec egestas tellus et fringilla interdum. Cras malesuada tellus dui. Nulla et sodales massa.</p>
+
+            <p>Aliquam luctus elit felis, vitae aliquam tortor tempus nec. Nullam pretium velit vel blandit commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc non quam eros. Pellentesque vitae magna vitae arcu porttitor vulputate et ut diam. Ut sagittis leo sed congue accumsan. Morbi elementum ac nisi ut imperdiet. Nam accumsan, felis vel tincidunt volutpat, purus mi posuere nisi, cursus fringilla augue magna sit amet ante. Ut ac elit magna. Quisque tincidunt justo et elit sagittis tempor. Suspendisse dignissim ullamcorper lorem eu commodo. Nulla non tristique lorem.</p>
+
+            <p>Nam mattis, lectus sit amet sodales fermentum, lorem mi consectetur sapien, id hendrerit nisi massa lobortis lacus. Duis nec lectus purus. Nullam ultricies augue nec hendrerit malesuada. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum consequat auctor posuere. Vestibulum id enim non nulla gravida tristique id vel lacus. Donec scelerisque felis nibh. Suspendisse non gravida est, quis fringilla nibh. Maecenas porttitor egestas velit eu congue. Vestibulum eget faucibus tortor. Integer id elit fermentum, pharetra nibh ut, placerat orci. Duis odio est, varius vitae elit non, pharetra laoreet arcu. Quisque hendrerit ligula fringilla, egestas orci vel, viverra est.
+            </p>
+          </div>
+        </div>
         <script src="scripts/libs/jquery-1.10.2.js"></script>
         <script src="scripts/libs/jquery-ui.js"></script>
         <script src="scripts/libs/handlebars-1.1.2.js"></script>
         <script src="scripts/libs/ember-1.2.0.js"></script>
         <script src="scripts/bootstrap/bootstrap.min.js"></script>
-        <script src="scripts/iscroll-lite.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/daywon.js"></script>
     </body>

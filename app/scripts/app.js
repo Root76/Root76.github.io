@@ -2,27 +2,28 @@ var App = window.App = Ember.Application.create();
 
 /***Router***/
 App.Router.map(function () {
-    this.resource("dashboard");
+    this.resource("reports");
     this.resource("contacts", function() {
-        this.resource("contact", { path: "/:contact_id" });    
+        this.route("contact", { path: "/:contact_id" });    
     });
     this.resource("events", function() {
-        this.resource("event", { path: "/:event_id" });    
+        this.route("event", { path: "/:event_id" });    
     });
     this.resource("tasks", function() {
-        this.resource("task", { path: "/:task_id" });
+        this.route("task", { path: "/:task_id" });
     });
     this.resource("tags", function() {
-        this.resource("tag", { path: "/:tag_id" });
+        this.route("tag", { path: "/:tag_id" });
     });
     this.resource("orphans", function() {
-        this.resource("orphan", { path: "/:orphan_id" });    
+        this.route("orphan", { path: "/:orphan_id" });    
     });
     this.resource("create", function() {
-        this.route("contact");
-        this.route("event");
-        this.route("task");
-        this.route("tag");
+        this.route("object");
+        this.route("contacts");
+        this.route("events");
+        this.route("tasks");
+        this.route("tags");
     });
     this.resource("calendar");
     this.resource("settings");
@@ -32,25 +33,47 @@ App.ApplicationController = Ember.Controller.extend({
   currentPathDidChange: function() {
     Ember.run.schedule('afterRender', this, function() {
 
+        var authToken;
+        var userEmail;
+
+        function QueryStringToJSON() {            
+            var pairs = location.search.slice(1).split('&');
+            var result = {};
+            pairs.forEach(function(pair) {
+                pair = pair.split('=');
+                result[pair[0]] = decodeURIComponent(pair[1] || '');
+            });
+            return JSON.parse(JSON.stringify(result));
+        }
+
+        var query_string = QueryStringToJSON();
+
+        authToken = query_string.authentication_token;
+        userEmail = query_string.user_email;
+        console.log ("AT: " + authToken);
+        console.log ("UE: " + userEmail);
+
         $(".listitem").accordion({
             active: false,
             collapsible: true
         });
 
         $('.showitem').click(function(event){
-            var sortType = event.target.id;;
-            var sortList = document.getElementsByClassName(sortType);;
+            var subSortType = event.target.id;
+            var subSortList = document.getElementsByClassName(subSortType);
             if ($(event.target).hasClass('selected')) {
                 $(event.target).removeClass('selected');
-                $(sortList).css("display", "none");
+                $(subSortList).css("display", "none");
             } else {
                 $(event.target).addClass('selected');
-                $(sortList).css("display", "block");                
+                $(subSortList).css("display", "block");
             }
         });
 
         $('.sortitem').click(function(event){
-            if ($(event.target).hasClass('selected') || $(event.target).parent().hasClass('sortby')) {
+            var sortType = event.target.id;
+            var sortList = document.getElementsByClassName(sortType);
+            if ($(event.target).hasClass('selected')) {
                 console.log('already selected');
                 if ($(event.target).find('ul').hasClass('invis')) {
                     $(event.target).find('ul').removeClass('invis');
@@ -58,13 +81,40 @@ App.ApplicationController = Ember.Controller.extend({
                     $(event.target).find('ul').addClass('invis');
                 }
             } else {
-                console.log("not selected");
+                $('.listitem').css("display", "none");
+                $(sortList).css("display", "block");
+                console.log("new selection");
                 $('.selected').find('ul').removeClass("sortby");
                 $(event.target).parent().find('.sortitem.selected').removeClass('selected');
                 $('.invis').removeClass('invis');
                 $(event.target).addClass('selected');
                 $(event.target).find('ul').addClass("sortby");
             }
+            $(".listitem").accordion({
+                active: false,
+                collapsible: true
+            });
+            $(".listitem").accordion("refresh");
+            $('.mainsort').click(function(event){
+                console.log(event.target);
+                var thisArrow = $(event.target).find(".accordionarrow");
+                if ($(thisArrow).hasClass("arrowdown")) {
+                    $(thisArrow).removeClass("arrowdown");
+                }
+                else {
+                    $(thisArrow).addClass("arrowdown");
+                }
+                /*if ($(event.target).attr("aria-selected") != "true") {
+                    $(event.target).click(function(){
+                        return false;
+                    });
+                }*/
+            });
+        });
+
+        $('.sortcont').click(function(e) {
+        }).on('click', 'h3', function(e) {
+            e.stopPropagation();
         });
 
         $('.suboption').click(function(event){
@@ -80,6 +130,7 @@ App.ApplicationController = Ember.Controller.extend({
                 active: false,
                 collapsible: true
             });
+            $('.accordionarrow').removeClass('arrowdown');
         });
 
         $('#expandall').click(function(){
@@ -93,14 +144,51 @@ App.ApplicationController = Ember.Controller.extend({
                     console.log("nope");
                 }
             }
+            $('.accordionarrow').addClass('arrowdown');
         });
 
-        $('form').submit(function(){
-            return false;
+        $('.listitem > .sortitem > select').click();
+        $('.mainsort').click(function(event){
+            console.log(event.target);
+            var thisArrow = $(event.target).find(".accordionarrow");
+            if ($(thisArrow).hasClass("arrowdown")) {
+                $(thisArrow).removeClass("arrowdown");
+            }
+            else {
+                $(thisArrow).addClass("arrowdown");
+            }
+            /*if ($(event.target).attr("aria-selected") != "true") {
+                $(event.target).click(function(){
+                    return false;
+                });
+            }*/
         });
 
-        $('.sidelist > li').click(function(event){
+        $('.settingoption > a').click(function(event){
+            if ($(event.target).hasClass('selected')) {
+                $(event.target).removeClass('selected');
+                $(event.target).siblings('a').addClass('selected');
+            } else {
+                $(event.target).addClass('selected');
+                $(event.target).siblings('a').removeClass('selected');
+            }
+        });
 
+        $('.sidelist > a > li').click(function(event){
+            var itemList = $('.sidelist > a > li').index(this);
+            console.log("itemlist: " + itemList);
+            var detailsList = $('.textrow');
+            var phoneNo = $('.phonenumber');
+            var contLoc = $('.contactlocation');
+            var eField = $('.emailfield');
+            $('.phonenumber.selected').removeClass('selected');
+            $(phoneNo[itemList]).addClass('selected');
+            $('.contactlocation.selected').removeClass('selected');
+            $(contLoc[itemList]).addClass('selected');            
+            $('.textrow.selected').removeClass("selected");
+            $(detailsList[itemList]).addClass("selected");
+            $('.emailfield.selected').removeClass('selected');
+            $(eField[itemList]).addClass('selected');
             $("#contactname").html($(event.target).html());
             $('.currentcontact').removeClass("currentcontact");
             $(event.target).addClass("currentcontact");
@@ -109,8 +197,8 @@ App.ApplicationController = Ember.Controller.extend({
             if (splitString.length > 1) {
                 var splitString2 = splitString[1].toLowerCase();
             }
-            $('#profilepic').attr("src", "img/" + splitString1 + ".png");
-            $('#emailfield').html(splitString1 + splitString2 + "@evenspring.com");
+            $('#profilepic').attr("src", "img/contact.png");
+            //$('#emailfield').html(splitString1 + splitString2 + "@evenspring.com");
 
             var text = "";
             var possible = "0123456789";
@@ -120,7 +208,7 @@ App.ApplicationController = Ember.Controller.extend({
                     text += "-";
                 }
             }
-            $("#phonenumber").html(text);
+            //$("#phonenumber").html(text);
 
             var personItem = new Array();
             var curPerson;
@@ -164,7 +252,8 @@ App.ApplicationController = Ember.Controller.extend({
 
             var textArray = new Array();
             var curText;
-            var textRow = $('#textrow');
+            var textRow = $('.textrow');
+            textRow = textRow[0];
             textArray[0] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere arcu a iaculis malesuada. Aenean pretium varius fermentum. Nam dolor sem, convallis bibendum libero eu, faucibus venenatis velit. Proin sed nulla non dui porttitor scelerisque et placerat purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi arcu nibh, egestas non egestas vitae, placerat vel enim. Proin ultrices lacinia nulla, a cursus dolor faucibus vel.";
             textArray[1] = "Vestibulum dictum arcu sit amet mollis hendrerit. Aenean sed enim at ipsum vehicula porttitor sed et lorem. Aenean eget urna vitae eros interdum hendrerit. Proin elementum arcu vel ligula ultrices hendrerit. Cras et tempor elit, nec rhoncus ante. Donec rutrum neque elit, at hendrerit nisi pulvinar a. Maecenas in dolor vel ligula aliquet facilisis sit amet vel augue. Donec at vestibulum tortor, quis hendrerit mauris. Curabitur rutrum augue sed pretium venenatis.";
             textArray[2] = "Donec sed nisl ut nulla adipiscing ornare. Suspendisse ullamcorper orci lectus, ut consequat purus condimentum nec. Curabitur elementum lacus eu ligula cursus euismod. Ut id suscipit justo. Donec dapibus, dolor sit amet hendrerit tincidunt, nisi mi hendrerit tortor, in convallis augue diam sit amet sapien. Pellentesque urna neque, fermentum at lorem vitae, consectetur blandit nunc. Pellentesque dapibus dictum turpis, ut convallis magna placerat sit amet. Vivamus feugiat dapibus risus. Fusce euismod, nisl vitae fermentum luctus, enim elit tincidunt mauris, sed feugiat quam massa sit amet nunc. Fusce faucibus eget tellus eget ornare. Ut eget erat eget sapien aliquet fringilla pellentesque at urna. Donec tincidunt velit faucibus tincidunt condimentum. Donec viverra tellus at porttitor egestas. Mauris consectetur iaculis commodo.";
@@ -176,10 +265,10 @@ App.ApplicationController = Ember.Controller.extend({
             textArray[8] = "Maecenas nec orci in sapien mattis ornare. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse nec tincidunt purus. Suspendisse pulvinar commodo adipiscing. Sed pulvinar mollis aliquam. Cras facilisis facilisis turpis. In lobortis mauris sed quam lacinia, vel tristique odio consectetur. Donec id mauris arcu. In volutpat malesuada felis, non laoreet purus gravida a. Duis aliquet sapien ante, at tempus dolor blandit vel. Nunc pharetra, est et sodales molestie, purus libero blandit ante, id fringilla ante justo a sem. Nunc malesuada elementum ante lacinia tempus. Cras ultrices lectus ullamcorper lectus auctor congue.";
             textArray[9] = "Sed nec magna at orci euismod pulvinar sed ut augue. Ut sollicitudin mi metus, non ultricies turpis fringilla id. Vestibulum sed ipsum quis magna fringilla posuere. Suspendisse potenti. Fusce condimentum auctor blandit. Vivamus urna lectus, interdum quis gravida vel, blandit ut justo. Sed id massa a est commodo porta. Donec mauris augue, gravida ut quam in, mattis posuere nunc. Phasellus eu est sed lectus scelerisque cursus nec non nibh. Cras semper orci quis sem tristique viverra. In vel nulla suscipit, tempor turpis a, molestie justo. In id nulla vitae turpis sollicitudin adipiscing ac nec magna. Vivamus sed arcu purus. Nulla condimentum condimentum aliquam. Vestibulum ut ultricies arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.";
 
-            for( var g=0; g < 5; g++ ) {
+            /*for( var g=0; g < 5; g++ ) {
                 curText = Math.floor(Math.random() * 10);
                 $(textRow).html(textArray[curText]);
-            }
+            }*/
 
             var mArray = new Array();
             var curMonth;
@@ -197,12 +286,12 @@ App.ApplicationController = Ember.Controller.extend({
             mArray[10] = "November";
             mArray[11] = "December";
 
-            for( var h=0; h < 5; h++ ) {
+            /*for( var h=0; h < 5; h++ ) {
                 curMonth = Math.floor(Math.random() * 11) + 1;
                 var ranDay = Math.floor(Math.random() * 28) + 1;
                 var ranYear = Math.floor(Math.random() * 10);
                 $(mRow[h]).html(mArray[curMonth] + " " + ranDay + ", " + "198" + ranYear);
-            }
+            }*/
 
             var taskItem = new Array();
             var curTask;
@@ -286,6 +375,145 @@ App.ApplicationController = Ember.Controller.extend({
 
         });
 
+        $("form").submit(function(event){
+            //Is this this tag form?
+            if ($(event.target).parent().hasClass("createTag")) {
+                var tagTitle = $("#tagName").val();
+                tagTitle = String(tagTitle);
+                var tagData = JSON.stringify({
+                    tag: {
+                        name: tagTitle
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: "http://daywon-api-staging.herokuapp.com/tags",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: tagData,
+                    headers: {
+                        "X-AUTHENTICATION-TOKEN": authToken,
+                        "X-AUTHENTICATION-EMAIL": userEmail
+                    },
+                    success: function (data) {
+                        console.log("success");
+                    },
+                    error: function (e) {
+                        console.log("error" + e);
+                    }
+                });
+            } else if ($(event.target).parent().hasClass("createTask")) {
+                var taskTitle = $("#taskName").val();
+                taskTitle = String(taskTitle);
+                var taskDesc = $("#taskNotes").val();
+                taskDesc = String(taskDesc);
+                var taskDue = $("#taskDue").val();
+                console.log("due: " + taskDue);
+                var taskData = JSON.stringify({
+                    task: {
+                        title: taskTitle,
+                        notes: taskDesc,
+                        status: false,
+                        due: taskDue
+                    }
+                });
+                console.log(taskData);
+                $.ajax({
+                    type: 'POST',
+                    url: "http://daywon-api-staging.herokuapp.com/tasks",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: taskData,
+                    headers: {
+                        "X-AUTHENTICATION-TOKEN": authToken,
+                        "X-AUTHENTICATION-EMAIL": userEmail
+                    },
+                    success: function (data) {
+                        console.log("success");
+                    },
+                    error: function (e) {
+                        console.log("error" + e);
+                    }
+                });
+            } else if ($(event.target).parent().hasClass("createContact")) {
+                var contactTitle = $("#contactName").val();
+                contactTitle = String(contactTitle);
+                var contactOrg = $("#contactOrg").val();
+                contactOrg = String(contactOrg);
+                var contactNo = $("#contactNumber").val();
+                contactNo = String(contactNo);
+                var contactAddress = $("#contactAddr").val();
+                contactAddress = String(contactAddress);
+                var contactPl = $("#contactPlace").val();
+                contactPl = String(contactPl);
+                console.log("Number: " + contactNumber);
+                var contactData = JSON.stringify({
+                    contact: {
+                        name: contactTitle,
+                        organization: contactOrg,
+                        phone: contactNo,
+                        address: contactAddress,
+                        place: contactPl
+                    }
+                });
+                console.log(contactData);
+                $.ajax({
+                    type: 'POST',
+                    url: "http://daywon-api-staging.herokuapp.com/contacts",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: contactData,
+                    headers: {
+                        "X-AUTHENTICATION-TOKEN": authToken,
+                        "X-AUTHENTICATION-EMAIL": userEmail
+                    },
+                    success: function (data) {
+                        console.log("success");
+                    },
+                    error: function (e) {
+                        console.log("error" + e);
+                    }
+                });
+            } else if ($(event.target).parent().hasClass("createEvent")) {
+                var eventTitle = $("#eventName").val();
+                eventTitle = String(eventTitle);
+                var eventDesc = $("#eventDetails").val();
+                eventDesc = String(eventDesc);
+                var eventLoc = $("#eventLocation").val();
+                eventLoc = String(eventLoc);
+                var eventSt = $("#eventStart").val();
+                var eventEn = $("#eventEnd").val();
+                var eventData = JSON.stringify({
+                    event: {
+                        title: eventTitle,
+                        description: eventDesc,
+                        location: eventLoc,
+                        start_datetime: eventSt,
+                        end_datetime: eventEn
+                    }
+                });
+                console.log(eventData);
+                $.ajax({
+                    type: 'POST',
+                    url: "http://daywon-api-staging.herokuapp.com/events",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: eventData,
+                    headers: {
+                        "X-AUTHENTICATION-TOKEN": authToken,
+                        "X-AUTHENTICATION-EMAIL": userEmail
+                    },
+                    success: function (data) {
+                        console.log("success");
+                    },
+                    error: function (e) {
+                        console.log("error" + e);
+                    }
+                });
+            }
+            return false;
+        });
+
         $('#tasklist > li').click(function(event){
             $("#contactname").html($(event.target).html());
             $('.currentcontact').removeClass("currentcontact");
@@ -310,6 +538,12 @@ App.ApplicationController = Ember.Controller.extend({
             } else {
                 $(event.target).parent().find('.selected').removeClass('selected');
                 $(event.target).addClass('selected');
+                var timeView = $(event.target).html();
+                timeView = timeView.toLowerCase();
+                if (timeView == "today") {
+                    timeView = "day";
+                }
+                $( "span:contains('" + timeView + "')" ).click();
             }
         });
 
@@ -329,16 +563,166 @@ App.ApplicationController = Ember.Controller.extend({
             }
         });
 
-        $('#calendarcont').datepicker();
+        $("#createselect").change(function(){
+            var chosen = "create" + $("#createselect option:selected").html();
+            var chosenForm = document.getElementsByClassName(chosen);
+            chosenForm = chosenForm[0];
+            $('.createForm.selected').removeClass('selected');
+            $(chosenForm).addClass('selected');
+        });
+
+        $('.flipswitch').click(function(){
+            var slider = $('#detailPanel');
+            if ($(slider).hasClass('panelIn')) {
+                $(slider).attr("class", "panelOut");
+                $('#fliparrow').addClass("flipagain");
+                setTimeout(function(){
+
+                }, 400)
+            } else {
+                $(slider).attr("class", "panelIn");
+                $('#fliparrow').attr("class", "flipimage");
+                setTimeout(function(){
+                    $('#fliparrow').attr("class", "flipped");
+                }, 400);
+            }
+        });
+
+        if ($('#calendarcont').length) {
+            $('#calendarcont').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                editable: true
+            });
+        }
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+
+        var yyyy = today.getFullYear();
+        if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} today = mm+'/'+dd+'/'+yyyy;
+        $('#curDate').html(today);
 
         console.log ("query string: " + authToken);
         console.log ("email: " + userEmail);
-        $("#loggedin").find("span").html(userEmail);
+        $("#eaddr option:first").html(userEmail);
+        setTimeout(function(){
+            $('#collapseall').click();
+            var fullCount = $('.sidelist > a > li');
+            $("#itemCount").html(fullCount.length);
+            setTimeout(function(){
+                $(".spaceimage").remove();
+                $(".dashitem").accordion("refresh");
+            }, 1000);
+        }, 1);
 
-
+        Opentip.styles.bottomtip = {
+          tipJoint: "top",
+          group: "tags",
+          target: true,
+          offset: [0, -140],
+          delay: 0
+          /*className: "myStyle",
+          background: "#000"*/
+        };
+        Opentip.styles.righttip = {
+          tipJoint: "left",
+          group: "tags",
+          target: true,
+          delay: 0,
+          offset: [10, -140]
+          /*className: "myStyle",
+          background: "#000"*/
+        };
+        if ($("#subEvent").length) {
+            new Opentip("#subEvent", "Events", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#subTask").length) {
+            new Opentip("#subTask", "Tasks", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#subContact").length) {
+            new Opentip("#subContact", "Contacts", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#subTag").length) {
+            new Opentip("#subTag", "Tags", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#mainevent").length) {
+            new Opentip("#mainevent", "Events", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#maintask").length) {
+            new Opentip("#maintask", "Tasks", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#maincontact").length) {
+            new Opentip("#maincontact", "Contacts", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#maintag").length) {
+            new Opentip("#maintag", "Tasks", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#printimg").length) {
+            new Opentip("#printimg", "Print", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#orphanimage").length) {
+            new Opentip("#orphanimage", "Orphans", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#detailmenubar").length) {
+            new Opentip("#detailmenubar > img:first-child", "Contacts", {
+                style: "bottomtip"
+            });     
+            new Opentip("#detailmenubar > img:nth-child(2)", "Events", {
+                style: "bottomtip"
+            });    
+            new Opentip("#detailmenubar > img:nth-child(3)", "Tasks", {
+                style: "bottomtip"
+            });     
+            new Opentip("#detailmenubar > img:nth-child(4)", "Tags", {
+                style: "bottomtip"
+            }); 
+            new Opentip("#detailmenubar > img:last-child", "Delete", {
+                style: "bottomtip"
+            }); 
+            new Opentip("#detailmenubar > a > img", "Create", {
+                style: "bottomtip"
+            }); 
+        }
+        if ($("#dashcreate").length) {
+            new Opentip("#dashcreate", "Create", {
+                style: "bottomtip"
+            });
+        }
+        if ($('.flipswitch').length) {
+            new Opentip(".flipswitch", "Details View", {
+                style: "righttip"
+            });
+        }
     });
   }.observes('currentPath')
 });
+
+/***Rest Adapter***/
 
 var authToken;
 var userEmail;
@@ -357,13 +741,9 @@ var query_string = QueryStringToJSON();
 
 authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
-console.log ("AT: " + authToken);
-console.log ("UE: " + userEmail);
-
-/***Rest Adapter***/
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: 'http://staging-krqwhjugxs.elasticbeanstalk.com',
+  host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
     "X-AUTHENTICATION-TOKEN": authToken,
     "X-AUTHENTICATION-EMAIL": userEmail
@@ -374,28 +754,87 @@ App.Store = DS.Store.extend({
     adapter:  App.ApplicationAdapter.create()
 });
 
+App.ApplicationView = Ember.View.extend({
+  actions: {
+    anActionName: function(){
+        alert("hello world!");
+    }
+  }
+});
+
+/*Sorting*/
+/*
+App.ContactsIndexController = Ember.ArrayController.extend({
+    sortProperties: ['name'],
+    sortAscending: true
+});
+
+App.ContactsController = Ember.ArrayController.extend({
+    sortProperties: ['name'],
+    sortAscending: true
+});
+
+App.ContactController = Ember.ArrayController.extend({
+    sortProperties: ['name'],
+    sortAscending: true
+});
+*/
+
 /***Models***/
 
 App.Contact = DS.Model.extend({
+    name: DS.attr('string'),
+    email: DS.attr('string'),
+    organization: DS.attr('string'),
+    phone: DS.attr('string'),
+    address: DS.attr('string'),
+    place: DS.attr('string')
+});
+
+App.Event = DS.Model.extend({
+    title: DS.attr('string'),
+    description: DS.attr('string'),
+    location: DS.attr('string'),
+    start_datetime: DS.attr('date'),
+    end_datetime: DS.attr('date')
+});
+
+App.Task = DS.Model.extend({
+    title: DS.attr('string'),
+    notes: DS.attr('string'),
+    status: DS.attr('boolean'),
+    due: DS.attr('date')
+});
+
+App.Tag = DS.Model.extend({
     name: DS.attr('string')
 });
-App.Event = DS.Model.extend({
-    title: DS.attr('string')
-});
-App.Task = DS.Model.extend({
-    title: DS.attr('string')
-});
 
-/*Routes
+/*Routes*/
 
-/*Index*/
-/*App.IndexRoute = Ember.Route.extend({
+App.IndexRoute = Ember.Route.extend({
     model: function() {
-      return this.modelFor('contacts');
+        return Ember.Object.create({
+            contacts: this.get('store').find('contact'), 
+            events: this.get('store').find('event'),
+            tasks: this.get('store').find('task'),
+            tags: this.get('store').find('tag')
+        });
     }
-});*/
+});
 
-/*Tasks
+App.ReportsRoute = Ember.Route.extend({
+    model: function() {
+        return Ember.Object.create({
+            contacts: this.get('store').find('contact'), 
+            events: this.get('store').find('event'),
+            tasks: this.get('store').find('task'),
+            tags: this.get('store').find('tag')
+        });
+    }
+});
+
+/*Tasks*/
 
 App.TasksRoute = Ember.Route.extend({
   model: function() {
@@ -409,11 +848,11 @@ App.TasksIndexRoute = Ember.Route.extend({
 });
 App.TaskRoute = Ember.Route.extend({
   model: function(params) {
-    return this.get('store').find('task', params.Task_id);
+    return this.get('store').find('task', params.task_id);
   }
 });
 
-/*Events
+/*Events*/
 
 App.EventsRoute = Ember.Route.extend({
     model: function () {
@@ -431,37 +870,50 @@ App.EventRoute = Ember.Route.extend({
     }
 });
 
-/*Contacts
+/*Contacts*/
 
 App.ContactsRoute = Ember.Route.extend({
   model: function() {
     return this.get('store').find('contact');
+  },
+  setupController: function(controller, model) {
+    controller.set('model', model);
   }
 });
 App.ContactsIndexRoute = Ember.Route.extend({
   model: function() {
     return this.modelFor('contacts');
+  },
+  setupController: function(controller, model) {
+    controller.set('model', model);
   }
 });
 App.ContactRoute = Ember.Route.extend({
   model: function(params) {
     return this.get('store').find('contact', params.contact_id);
+  },
+  setupController: function(controller, model) {
+    controller.set('model', model);
   }
 });
 
-/*var people = App.Contact.find(1);
-App.Contact = DS.Model.extend({
-  firstName: DS.attr('string'),
-  lastName: DS.attr('string'),
-});*/
+/*Tags*/
 
-/*
-App.ContactsRoute = Ember.Route.extend({
-    model: function() {
-        return Ember.$.getJSON('https://ec2-54-204-113-9.compute-1.amazonaws.com/');
-    }
+App.TagsRoute = Ember.Route.extend({
+  model: function() {
+    return this.get('store').find('tag');
+  }
 });
-*/
+App.TagsIndexRoute = Ember.Route.extend({
+  model: function() {
+    return this.modelFor('tags');
+  }
+});
+App.TagRoute = Ember.Route.extend({
+  model: function(params) {
+    return this.get('store').find('tag', params.tag_id);
+  }
+});
 
 /* Google Analytics Path Watching... */
 /*
@@ -476,3 +928,17 @@ App.ApplicationController = Em.Controller.extend
                 });
     ).observes('currentPath')
 */
+
+/*function logout() {
+    document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://daywon.s3-website-us-west-2.amazonaws.com/login.html";
+}*/
+
+setTimeout(function() {
+    var logSelect = document.getElementById("eaddr");
+    logSelect.onchange = function() {
+        if (logSelect.value === "Logout") {
+            console.log("changed");
+            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://daywon.s3-website-us-west-2.amazonaws.com/login.html";
+        }
+    }
+}, 100);
