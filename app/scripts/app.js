@@ -96,8 +96,8 @@ App.ApplicationController = Ember.Controller.extend({
             });
             $(".listitem").accordion("refresh");
             $('.mainsort').click(function(event){
-                console.log(event.target);
-                var thisArrow = $(event.target).find(".accordionarrow");
+                console.log(this);
+                var thisArrow = $(this).find(".accordionarrow");
                 if ($(thisArrow).hasClass("arrowdown")) {
                     $(thisArrow).removeClass("arrowdown");
                 }
@@ -161,8 +161,8 @@ App.ApplicationController = Ember.Controller.extend({
 
         $('.listitem > .sortitem > select').click();
         $('.mainsort').click(function(event){
-            console.log(event.target);
-            var thisArrow = $(event.target).find(".accordionarrow");
+            console.log(this);
+            var thisArrow = $(this).find(".accordionarrow");
             if ($(thisArrow).hasClass("arrowdown")) {
                 $(thisArrow).removeClass("arrowdown");
             }
@@ -583,16 +583,16 @@ App.ApplicationController = Ember.Controller.extend({
             $(chosenForm).addClass('selected');
         });
 
-        $('.flipswitch').click(function(){
+        $('.flipswitch').unbind('click').click(function(){
             var slider = $('#detailPanel');
-            if ($(slider).hasClass('panelIn')) {
-                $(slider).attr("class", "panelOut");
+            if (slider.hasClass('panelIn')) {
+                slider.attr("class", "panelOut");
                 $('#fliparrow').addClass("flipagain");
                 setTimeout(function(){
 
                 }, 400)
             } else {
-                $(slider).attr("class", "panelIn");
+                slider.attr("class", "panelIn");
                 $('#fliparrow').attr("class", "flipimage");
                 setTimeout(function(){
                     $('#fliparrow').attr("class", "flipped");
