@@ -96,8 +96,8 @@ App.ApplicationController = Ember.Controller.extend({
             });
             $(".listitem").accordion("refresh");
             $('.mainsort').click(function(event){
-                console.log(event.target);
-                var thisArrow = $(event.target).find(".accordionarrow");
+                console.log(this);
+                var thisArrow = $(this).find(".accordionarrow");
                 if ($(thisArrow).hasClass("arrowdown")) {
                     $(thisArrow).removeClass("arrowdown");
                 }
@@ -149,8 +149,8 @@ App.ApplicationController = Ember.Controller.extend({
 
         $('.listitem > .sortitem > select').click();
         $('.mainsort').click(function(event){
-            console.log(event.target);
-            var thisArrow = $(event.target).find(".accordionarrow");
+            console.log(this);
+            var thisArrow = $(this).find(".accordionarrow");
             if ($(thisArrow).hasClass("arrowdown")) {
                 $(thisArrow).removeClass("arrowdown");
             }
