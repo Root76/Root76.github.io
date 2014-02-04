@@ -571,16 +571,16 @@ App.ApplicationController = Ember.Controller.extend({
             $(chosenForm).addClass('selected');
         });
 
-        $('.flipswitch').click(function(){
+        $('.flipswitch').unbind('click').click(function(){
             var slider = $('#detailPanel');
-            if ($(slider).hasClass('panelIn')) {
-                $(slider).attr("class", "panelOut");
+            if (slider.hasClass('panelIn')) {
+                slider.attr("class", "panelOut");
                 $('#fliparrow').addClass("flipagain");
                 setTimeout(function(){
 
                 }, 400)
             } else {
-                $(slider).attr("class", "panelIn");
+                slider.attr("class", "panelIn");
                 $('#fliparrow').attr("class", "flipimage");
                 setTimeout(function(){
                     $('#fliparrow').attr("class", "flipped");
