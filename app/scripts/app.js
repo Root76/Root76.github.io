@@ -147,6 +147,18 @@ App.ApplicationController = Ember.Controller.extend({
             $('.accordionarrow').addClass('arrowdown');
         });
 
+        $("#createicon").click(function(event){
+            if ($(event.target).hasClass("addContact")) {
+                alert("yea dude it's the contact page");
+            } else if ($(event.target).hasClass("addEvent")) {
+                alert("it's an event");
+            } else if ($(event.target).hasClass("addTask")) {
+                alert("it's a task");
+            } else if ($(event.target).hasClass("addTag")) {
+                alert("it's a tag you dolt");
+            }
+        });
+
         $('.listitem > .sortitem > select').click();
         $('.mainsort').click(function(event){
             console.log(event.target);
@@ -853,7 +865,7 @@ App.TaskRoute = Ember.Route.extend({
 });
 
 /*Events*/
-
+/*
 App.EventsRoute = Ember.Route.extend({
     model: function () {
         return this.store.find('event');
@@ -869,9 +881,9 @@ App.EventRoute = Ember.Route.extend({
         return this.store.find('event', params.event_id);
     }
 });
-
+*/
 /*Contacts*/
-
+/*
 App.ContactsRoute = Ember.Route.extend({
   model: function() {
     return this.get('store').find('contact');
@@ -896,7 +908,7 @@ App.ContactRoute = Ember.Route.extend({
     controller.set('model', model);
   }
 });
-
+*/
 /*Tags*/
 
 App.TagsRoute = Ember.Route.extend({
