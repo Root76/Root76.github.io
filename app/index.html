@@ -22,9 +22,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-                <form method="get" action="/search" class="search" id="mobilesearch">
-                    <input name="q" type="text" size="40" placeholder="Search..." />
-                </form>
+              <form method="get" action="/search" class="search" id="mobilesearch">
+                <input name="q" type="text" size="40" placeholder="Search..." />
+              </form>
               <h1 id="logo">DayWon</h1>
             </div>
 
@@ -578,7 +578,7 @@
                   </form>
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
-                    <div class="sortcont contsort">
+                    <div class="contsort">
                       <select>
                         <option>All</option>
                         <option>Tagged</option>
@@ -590,15 +590,17 @@
                   </div>
                   <div class="filtercolumn contactpadding">
                     <h4>Sorted by:</h4>
-                    <div class="sortcont contsort">
-                      <select>
+                    <div class="contsort">
+                      <select id="contactSort">
                         <option>Name</option>
                         <option>Company</option>
                       </select>
                     </div>
                   </div>
+                  <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
+                  <button class="sortingToggle" id="byCompany" {{action sortCompany}}>Sort</button>
                   <ul id="contactlist" class="sidelist">
-                    {{#each contact in model}}
+                    {{#each contact in controller}}
                       {{#if contact.name}}
                         {{#link-to 'contacts.contact' contact}}<li>{{contact.name}}</li>{{/link-to}}
                       {{/if}}
@@ -620,7 +622,7 @@
                     <div class="infopanel selected">
                       <div class="contactrow">
                         <img src="img/cellphone.png">
-                        {{#each contact in model}}
+                        {{#each contact in controller}}
                           {{#if contact.name}}
                             <h4 class="phonenumber">{{contact.phone}}</h4>
                           {{/if}}
@@ -628,7 +630,7 @@
                       </div>
                       <div class="contactrow">
                         <img src="img/openmail.png">
-                        {{#each contact in model}}
+                        {{#each contact in controller}}
                           {{#if contact.name}}                           
                             <h4 class="emailfield">{{contact.email}}</h4>
                           {{/if}}
@@ -640,7 +642,7 @@
                       </div>
                       <div class="contactrow">
                         <img src="img/location.png">
-                        {{#each contact in model}}
+                        {{#each contact in controller}}
                           {{#if contact.name}}                        
                             <h4 class="contactlocation">{{contact.place}}</h4>
                           {{/if}}
@@ -829,7 +831,7 @@
                   </form>
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
-                    <div class="sortcont contsort">
+                    <div class="contsort">
                       <select>
                         <option>All</option>
                         <option>Tagged</option>
@@ -840,7 +842,7 @@
                     </div>
                   </div>
                   <ul id="eventlist" class="sidelist">
-                    {{#each event in model}}
+                    {{#each event in controller}}
                       {{#if event.title}}
                         {{#link-to 'events.event' event}}<li>{{event.title}}</li>{{/link-to}}
                       {{/if}}
@@ -858,7 +860,7 @@
                     <img src="img/trash.png" id="trashicon"/>              
                   </div>
                   <div class="panelcontent" id="taskscontent">
-                  {{#each event in model}}
+                  {{#each event in controller}}
                   {{#if event.title}}                    
                     <div class="infopanel">
                       <div class="contactrow personrow">
@@ -1031,7 +1033,7 @@
                   </form>
                   <div class="filtercolumn contactpadding">
                     <h4>Sort by:</h4>
-                    <div class="sortcont contsort">
+                    <div class="contsort">
                       <select>
                         <option>Date</option>
                         <option>Priority</option>
@@ -1041,7 +1043,7 @@
                     </div>
                   </div>
                   <ul id="tasklist" class="sidelist">
-                    {{#each task in model}}
+                    {{#each task in controller}}
                       {{#if task.title}}
                         {{#link-to 'tasks.task' task}}<li>{{task.title}}</li>{{/link-to}}
                       {{/if}}
@@ -1078,7 +1080,7 @@
                       </div>
                     </div>
                     <div class="infopanel selected">
-                      {{#each task in model}}
+                      {{#each task in controller}}
                         {{#if task.title}}
                           <p class="textrow">{{task.notes}}</p>
                         {{/if}}
@@ -1233,7 +1235,7 @@
                   </form>
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
-                    <div class="sortcont contsort">
+                    <div class="contsort">
                       <select>
                         <option>Name</option>
                         <option>Count</option>
@@ -1241,7 +1243,7 @@
                     </div>
                   </div>
                   <ul id="taglist" class="sidelist">
-                    {{#each tag in model}}
+                    {{#each tag in controller}}
                       {{#if tag.name}}
                         {{#link-to 'tags.tag' tag}}<li>{{tag.name}}</li>{{/link-to}}
                       {{/if}}

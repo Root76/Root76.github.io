@@ -1078,6 +1078,10 @@ color: #ec8f38;
 	width:100%;
 }
 
+.sortingToggle {
+	display:none;
+}
+
 .filtercolumn {
 	position:relative;
 	margin-top:20px;
@@ -1085,8 +1089,9 @@ color: #ec8f38;
 
 .contsort {
 	right:30px;
-	top: -7px;
+	top: -5px;
 	width:55%;
+	position:absolute;
 	padding-left:0px;
 }
 

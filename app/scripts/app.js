@@ -148,14 +148,20 @@ App.ApplicationController = Ember.Controller.extend({
         });
 
         $("#createicon").click(function(event){
+            var createChoice = document.getElementById("createselect");
+            $('.createForm').removeClass('selected');
             if ($(event.target).hasClass("addContact")) {
-                alert("yea dude it's the contact page");
+                createChoice.selectedIndex = 1;
+                $('.createContact').addClass('selected');
             } else if ($(event.target).hasClass("addEvent")) {
-                alert("it's an event");
+                createChoice.selectedIndex = 2;
+                $('.createEvent').addClass('selected');
             } else if ($(event.target).hasClass("addTask")) {
-                alert("it's a task");
+                $('.createTask').addClass('selected');
+                createChoice.selectedIndex = 3;
             } else if ($(event.target).hasClass("addTag")) {
-                alert("it's a tag you dolt");
+                $('.createTag').addClass('selected');
+                createChoice.selectedIndex = 4;
             }
         });
 
@@ -583,6 +589,15 @@ App.ApplicationController = Ember.Controller.extend({
             $(chosenForm).addClass('selected');
         });
 
+        var sortContacts = document.getElementById("contactSort");
+            sortContacts.onchange = function() {
+            if (sortContacts.value === "Company") {
+                $("#byCompany").click();
+            } else {
+                $("#byName").click();
+            }
+        }
+
         $('.flipswitch').unbind('click').click(function(){
             var slider = $('#detailPanel');
             if (slider.hasClass('panelIn')) {
@@ -766,31 +781,78 @@ App.Store = DS.Store.extend({
     adapter:  App.ApplicationAdapter.create()
 });
 
-App.ApplicationView = Ember.View.extend({
+/*App.ApplicationView = Ember.View.extend({
   actions: {
     anActionName: function(){
         alert("hello world!");
     }
   }
-});
+});*/
 
 /*Sorting*/
-/*
-App.ContactsIndexController = Ember.ArrayController.extend({
-    sortProperties: ['name'],
-    sortAscending: true
-});
 
 App.ContactsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
-    sortAscending: true
+    sortAscending: true,
+    actions: {
+        sortName: function (){
+            this.set('sortProperties', ['name']);
+        },
+        sortCompany: function (){
+            this.set('sortProperties', ['organization']);
+        }
+    }
 });
 
-App.ContactController = Ember.ArrayController.extend({
+App.EventsIndexController = Ember.ArrayController.extend({
+    sortProperties: ['start_datetime'],
+    sortAscending: false
+});
+
+App.EventsController = Ember.ArrayController.extend({
+    sortProperties: ['start_datetime'],
+    sortAscending: false
+});
+
+App.EventController = Ember.ArrayController.extend({
+    sortProperties: ['start_datetime'],
+    sortAscending: false
+});
+
+App.TasksIndexController = Ember.ArrayController.extend({
+    sortProperties: ['due'],
+    sortAscending: false
+});
+
+App.TasksController = Ember.ArrayController.extend({
+    sortProperties: ['due'],
+    sortAscending: false
+});
+
+App.TaskController = Ember.ArrayController.extend({
+    sortProperties: ['due'],
+    sortAscending: false
+});
+
+App.TagsIndexController = Ember.ArrayController.extend({
     sortProperties: ['name'],
     sortAscending: true
 });
-*/
+
+App.TagsController = Ember.ArrayController.extend({
+    sortProperties: ['name'],
+    sortAscending: true
+});
+
+App.TagController = Ember.ArrayController.extend({
+    sortProperties: ['name'],
+    sortAscending: true
+});
+
+App.ReportsController = Ember.ArrayController.extend({
+    sortProperties: ['name', 'title'],
+    sortAscending: true
+});
 
 /***Models***/
 
@@ -865,7 +927,7 @@ App.TaskRoute = Ember.Route.extend({
 });
 
 /*Events*/
-/*
+
 App.EventsRoute = Ember.Route.extend({
     model: function () {
         return this.store.find('event');
@@ -881,34 +943,25 @@ App.EventRoute = Ember.Route.extend({
         return this.store.find('event', params.event_id);
     }
 });
-*/
+
 /*Contacts*/
-/*
+
 App.ContactsRoute = Ember.Route.extend({
   model: function() {
     return this.get('store').find('contact');
-  },
-  setupController: function(controller, model) {
-    controller.set('model', model);
   }
 });
 App.ContactsIndexRoute = Ember.Route.extend({
   model: function() {
     return this.modelFor('contacts');
-  },
-  setupController: function(controller, model) {
-    controller.set('model', model);
   }
 });
 App.ContactRoute = Ember.Route.extend({
   model: function(params) {
     return this.get('store').find('contact', params.contact_id);
-  },
-  setupController: function(controller, model) {
-    controller.set('model', model);
   }
 });
-*/
+
 /*Tags*/
 
 App.TagsRoute = Ember.Route.extend({
