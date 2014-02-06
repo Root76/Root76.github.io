@@ -204,6 +204,12 @@ App.ReportsRoute = Ember.Route.extend({
             tasks: this.get('store').find('task'),
             tags: this.get('store').find('tag')
         });
+    },
+    actions: {
+        loading: function(transition, originRoute) {
+          $("#loader").addClass("showLoader");
+          return true;
+        }
     }
 });
 
@@ -332,6 +338,10 @@ function rebindEvents() {
     $(".listitem").accordion({
         active: false,
         collapsible: true
+    });
+
+    $('nav a').click(function(){
+        $("#loader").addClass("showLoader");
     });
 
     $('.showitem').click(function(event){
@@ -1036,4 +1046,7 @@ function rebindEvents() {
             style: "righttip"
         });
     }
+    setTimeout(function(){
+        $("#loader").removeClass("showLoader");
+    }, 300);
 }
