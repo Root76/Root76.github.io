@@ -844,15 +844,12 @@ App.TasksController = Ember.ArrayController.extend({
     actions: {
         sortDate: function (){
             this.set('sortProperties', ['due']);
-            this.set('sortAscending', 'false');
         },
         sortPriority: function (){
             this.set('sortProperties', ['status']);
-            this.set('sortAscending', 'false');
         },
         sortName: function (){
             this.set('sortProperties', ['title']);
-            this.set('sortAscending', 'true');
         },
         sortContact: function (){
             console.log("sort by contact fired");
@@ -880,10 +877,14 @@ App.TagController = Ember.ArrayController.extend({
     sortAscending: true
 });
 
+/*
+
 App.ReportsController = Ember.ArrayController.extend({
     sortProperties: ['name', 'title'],
     sortAscending: true
 });
+
+*/
 
 /***Models***/
 

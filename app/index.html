@@ -1086,7 +1086,7 @@
                     <div class="infopanel selected">
                       {{#each task in controller}}
                         {{#if task.title}}
-                          <p class="textrow">{{task.notes}}</p>
+                          <p class="textrow">{{task.notes}}<br />Due: {{task.due}}</p>
                         {{/if}}
                       {{/each}}
                     </div>
