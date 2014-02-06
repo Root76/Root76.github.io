@@ -2,7 +2,12 @@ var App = window.App = Ember.Application.create();
 
 /***Router***/
 App.Router.map(function () {
-    this.resource("reports");
+    this.resource("reports", function() {
+        this.route("events");
+        this.route("tasks");
+        this.route("contacts");
+        this.route("tags");
+    });
     this.resource("contacts", function() {
         this.route("contact", { path: "/:contact_id" });    
     });
@@ -144,6 +149,16 @@ App.TagController = Ember.ArrayController.extend({
     sortAscending: true
 });
 
+App.ReportsEventsController = Ember.ArrayController.extend({
+    sortProperties: ['start_datetime'],
+    sortAscending: false
+});
+
+App.ReportsContactsController = Ember.ArrayController.extend({
+    sortProperties: ['name'],
+    sortAscending: true
+});
+
 /*
 
 App.ReportsController = Ember.ArrayController.extend({
@@ -195,7 +210,7 @@ App.IndexRoute = Ember.Route.extend({
         });
     }
 });
-
+/*
 App.ReportsRoute = Ember.Route.extend({
     model: function() {
         return Ember.Object.create({
@@ -204,13 +219,31 @@ App.ReportsRoute = Ember.Route.extend({
             tasks: this.get('store').find('task'),
             tags: this.get('store').find('tag')
         });
-    },
-    actions: {
-        loading: function(transition, originRoute) {
-          $("#loader").addClass("showLoader");
-          return true;
-        }
     }
+});
+*/
+App.ReportsEventsRoute = Ember.Route.extend({
+  model: function() {
+    return this.get('store').find('event');
+  }
+});
+
+App.ReportsTasksRoute = Ember.Route.extend({
+  model: function() {
+    return this.get('store').find('task');
+  }
+});
+
+App.ReportsContactsRoute = Ember.Route.extend({
+  model: function() {
+    return this.get('store').find('contact');
+  }
+});
+
+App.ReportsTagsRoute = Ember.Route.extend({
+  model: function() {
+    return this.get('store').find('tag');
+  }
 });
 
 /*Tasks*/
@@ -357,45 +390,37 @@ function rebindEvents() {
     });
 
     $('.sortitem').click(function(event){
-        var sortType = event.target.id;
-        var sortList = document.getElementsByClassName(sortType);
-        if ($(event.target).hasClass('selected')) {
-            console.log('already selected');
-            if ($(event.target).find('ul').hasClass('invis')) {
-                $(event.target).find('ul').removeClass('invis');
+        $("#loader").addClass("showLoader");
+        setTimeout(function(){
+            var sortType = event.target.id;
+            if ($(event.target).hasClass('selected')) {
+                if ($(event.target).find('ul').hasClass('invis')) {
+                    $(event.target).find('ul').removeClass('invis');
+                } else {
+                    $(event.target).find('ul').addClass('invis');
+                }
             } else {
-                $(event.target).find('ul').addClass('invis');
+                /*$('.listitem').css("display", "none");
+                $(sortList).css("display", "block");
+                console.log("new selection");*/
+                $('.selected').find('ul').removeClass("sortby");
+                $(event.target).parent().find('.sortitem.selected').removeClass('selected');
+                $('.invis').removeClass('invis');
+                $(event.target).addClass('selected');
+                $(event.target).find('ul').addClass("sortby");
             }
-        } else {
-            $('.listitem').css("display", "none");
-            $(sortList).css("display", "block");
-            console.log("new selection");
-            $('.selected').find('ul').removeClass("sortby");
-            $(event.target).parent().find('.sortitem.selected').removeClass('selected');
-            $('.invis').removeClass('invis');
-            $(event.target).addClass('selected');
-            $(event.target).find('ul').addClass("sortby");
-        }
-        $(".listitem").accordion({
-            active: false,
-            collapsible: true
-        });
-        $(".listitem").accordion("refresh");
-        $('.mainsort').click(function(event){
-            console.log(this);
-            var thisArrow = $(this).find(".accordionarrow");
-            if ($(thisArrow).hasClass("arrowdown")) {
-                $(thisArrow).removeClass("arrowdown");
-            }
-            else {
-                $(thisArrow).addClass("arrowdown");
-            }
-            /*if ($(event.target).attr("aria-selected") != "true") {
-                $(event.target).click(function(){
-                    return false;
-                });
-            }*/
-        });
+            $("#loader").removeClass("showLoader");
+            $('.mainsort').click(function(event){
+                console.log(this);
+                var thisArrow = $(this).find(".accordionarrow");
+                if ($(thisArrow).hasClass("arrowdown")) {
+                    $(thisArrow).removeClass("arrowdown");
+                }
+                else {
+                    $(thisArrow).addClass("arrowdown");
+                }
+            });
+        }, 100);
     });
 
     $('.sortcont').click(function(e) {
