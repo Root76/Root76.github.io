@@ -167,7 +167,6 @@ App.ApplicationController = Ember.Controller.extend({
 
         $('.listitem > .sortitem > select').click();
         $('.mainsort').click(function(event){
-            console.log(this);
             var thisArrow = $(this).find(".accordionarrow");
             if ($(thisArrow).hasClass("arrowdown")) {
                 $(thisArrow).removeClass("arrowdown");
@@ -194,7 +193,6 @@ App.ApplicationController = Ember.Controller.extend({
 
         $('.sidelist > a > li').click(function(event){
             var itemList = $('.sidelist > a > li').index(this);
-            console.log("itemlist: " + itemList);
             var detailsList = $('.textrow');
             var phoneNo = $('.phonenumber');
             var contLoc = $('.contactlocation');
@@ -264,7 +262,6 @@ App.ApplicationController = Ember.Controller.extend({
 
             for( var f=0; f < 5; f++ ) {
                 curPerson = Math.floor(Math.random() * 29) + 1;
-                console.log("item: " + personItem[curPerson]);
                 $(perRow[f]).find('h4').html(personItem[curPerson]);
             }
 
@@ -347,7 +344,6 @@ App.ApplicationController = Ember.Controller.extend({
 
             for( var j=0; j < 5; j++ ) {
                 curTask = Math.floor(Math.random() * 29) + 1;
-                console.log("item: " + taskItem[curTask]);
                 $(tRow[j]).find('h4').html(taskItem[curTask]);
             }
 
@@ -387,7 +383,6 @@ App.ApplicationController = Ember.Controller.extend({
 
             for( var k=0; k < 5; k++ ) {
                 curEvent = Math.floor(Math.random() * 29) + 1;
-                console.log("item: " + eventItem[curEvent]);
                 $(eRow[k]).find('h4').html(eventItem[curEvent]);
             }
 
