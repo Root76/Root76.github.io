@@ -860,6 +860,12 @@ function rebindEvents() {
         $(chosenForm).addClass('selected');
     });
 
+    $(".listSorter").change(function(){
+        setTimeout(function(){
+            rebindEvents();
+        }, 100);
+    });
+
     if ($("#contactSort").length) {
         var sortContacts = document.getElementById("contactSort");
             sortContacts.onchange = function() {
