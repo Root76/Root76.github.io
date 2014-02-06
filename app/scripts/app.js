@@ -52,7 +52,7 @@ App.ApplicationController = Ember.Controller.extend({
         userEmail = query_string.user_email;
         console.log ("AT: " + authToken);
         console.log ("UE: " + userEmail);
-
+        $("#eaddr option:first").html(userEmail);
         $(".listitem").accordion({
             active: false,
             collapsible: true
@@ -393,7 +393,7 @@ App.ApplicationController = Ember.Controller.extend({
 
         });
 
-        $("form").submit(function(event){
+        $("form").unbind('submit').bind('submit', function(event){
             //Is this this tag form?
             if ($(event.target).parent().hasClass("createTag")) {
                 var tagTitle = $("#tagName").val();
@@ -589,12 +589,29 @@ App.ApplicationController = Ember.Controller.extend({
             $(chosenForm).addClass('selected');
         });
 
-        var sortContacts = document.getElementById("contactSort");
-            sortContacts.onchange = function() {
-            if (sortContacts.value === "Company") {
-                $("#byCompany").click();
-            } else {
-                $("#byName").click();
+        if ($("#contactSort").length) {
+            var sortContacts = document.getElementById("contactSort");
+                sortContacts.onchange = function() {
+                if (sortContacts.value === "Company") {
+                    $("#byCompany").click();
+                } else {
+                    $("#byName").click();
+                }
+            }
+        }
+
+        if ($("#taskSort").length) {
+            var sortTasks = document.getElementById("taskSort");
+            sortTasks.onchange = function() {
+                if (sortTasks.value === "Priority") {
+                    $("#byPriority").click();
+                } else if (sortTasks.value === "Alphabetically") {
+                    $("#byName").click();
+                } else if (sortTasks.value === "Contact") {
+                    $("#byContact").click();
+                } else {
+                    $("#byDate").click();
+                }
             }
         }
 
@@ -634,18 +651,15 @@ App.ApplicationController = Ember.Controller.extend({
         if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} today = mm+'/'+dd+'/'+yyyy;
         $('#curDate').html(today);
 
-        console.log ("query string: " + authToken);
-        console.log ("email: " + userEmail);
-        $("#eaddr option:first").html(userEmail);
         setTimeout(function(){
             $('#collapseall').click();
-            var fullCount = $('.sidelist > a > li');
+            var fullCount = $('.sidelist > a');
             $("#itemCount").html(fullCount.length);
             setTimeout(function(){
                 $(".spaceimage").remove();
                 $(".dashitem").accordion("refresh");
             }, 1000);
-        }, 1);
+        }, 100);
 
         Opentip.styles.bottomtip = {
           tipJoint: "top",
@@ -826,7 +840,24 @@ App.TasksIndexController = Ember.ArrayController.extend({
 
 App.TasksController = Ember.ArrayController.extend({
     sortProperties: ['due'],
-    sortAscending: false
+    sortAscending: false,
+    actions: {
+        sortDate: function (){
+            this.set('sortProperties', ['due']);
+            this.set('sortAscending', 'false');
+        },
+        sortPriority: function (){
+            this.set('sortProperties', ['status']);
+            this.set('sortAscending', 'false');
+        },
+        sortName: function (){
+            this.set('sortProperties', ['title']);
+            this.set('sortAscending', 'true');
+        },
+        sortContact: function (){
+            console.log("sort by contact fired");
+        }
+    }
 });
 
 App.TaskController = Ember.ArrayController.extend({

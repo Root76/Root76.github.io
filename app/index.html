@@ -396,7 +396,7 @@
         <script type="text/x-handlebars" id="index">
           <div id="appcont" class="homeapp">
           <h1>Dashboard</h1>
-          <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+          <h4 style="margin-left:30px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
           <div class="section-container" id="homecont">
             <h3 id="collapseall">Collapse all</h3>
             <h3 id="expandall">Expand all</h3>
@@ -1034,7 +1034,7 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Sort by:</h4>
                     <div class="contsort">
-                      <select>
+                      <select id="taskSort">
                         <option>Date</option>
                         <option>Priority</option>
                         <option>Alphabetically</option>
@@ -1042,6 +1042,10 @@
                       </select>
                     </div>
                   </div>
+                  <button class="sortingToggle" id="byDate" {{action sortDate}}>Sort</button>
+                  <button class="sortingToggle" id="byPriority" {{action sortPriority}}>Sort</button>
+                  <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
+                  <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
                   <ul id="tasklist" class="sidelist">
                     {{#each task in controller}}
                       {{#if task.title}}
