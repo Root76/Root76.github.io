@@ -380,9 +380,6 @@ function rebindEvents() {
                     $(event.target).find('ul').addClass('invis');
                 }
             } else {
-                /*$('.listitem').css("display", "none");
-                $(sortList).css("display", "block");
-                console.log("new selection");*/
                 $('.selected').find('ul').removeClass("sortby");
                 $(event.target).parent().find('.sortitem.selected').removeClass('selected');
                 $('.invis').removeClass('invis');
