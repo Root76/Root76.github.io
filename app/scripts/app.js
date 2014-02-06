@@ -18,13 +18,6 @@ App.Router.map(function () {
     this.resource("orphans", function() {
         this.route("orphan", { path: "/:orphan_id" });    
     });
-    this.resource("create", function() {
-        this.route("object");
-        this.route("contacts");
-        this.route("events");
-        this.route("tasks");
-        this.route("tags");
-    });
     this.resource("calendar");
     this.resource("settings");
 });
