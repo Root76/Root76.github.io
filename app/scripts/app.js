@@ -90,23 +90,8 @@ App.ContactsController = Ember.ArrayController.extend({
     }
 });
 
-App.EventsIndexController = Ember.ArrayController.extend({
-    sortProperties: ['start_datetime'],
-    sortAscending: false
-});
-
 App.EventsController = Ember.ArrayController.extend({
     sortProperties: ['start_datetime'],
-    sortAscending: false
-});
-
-App.EventController = Ember.ArrayController.extend({
-    sortProperties: ['start_datetime'],
-    sortAscending: false
-});
-
-App.TasksIndexController = Ember.ArrayController.extend({
-    sortProperties: ['due'],
     sortAscending: false
 });
 
@@ -129,22 +114,7 @@ App.TasksController = Ember.ArrayController.extend({
     }
 });
 
-App.TaskController = Ember.ArrayController.extend({
-    sortProperties: ['due'],
-    sortAscending: false
-});
-
-App.TagsIndexController = Ember.ArrayController.extend({
-    sortProperties: ['name'],
-    sortAscending: true
-});
-
 App.TagsController = Ember.ArrayController.extend({
-    sortProperties: ['name'],
-    sortAscending: true
-});
-
-App.TagController = Ember.ArrayController.extend({
     sortProperties: ['name'],
     sortAscending: true
 });
@@ -154,7 +124,17 @@ App.ReportsEventsController = Ember.ArrayController.extend({
     sortAscending: false
 });
 
+App.ReportsTasksController = Ember.ArrayController.extend({
+    sortProperties: ['due'],
+    sortAscending: false
+});
+
 App.ReportsContactsController = Ember.ArrayController.extend({
+    sortProperties: ['name'],
+    sortAscending: true
+});
+
+App.ReportsTagsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
     sortAscending: true
 });
@@ -409,7 +389,7 @@ function rebindEvents() {
                 $(event.target).addClass('selected');
                 $(event.target).find('ul').addClass("sortby");
             }
-            $("#loader").removeClass("showLoader");
+            //$("#loader").removeClass("showLoader");
             $('.mainsort').click(function(event){
                 console.log(this);
                 var thisArrow = $(this).find(".accordionarrow");
