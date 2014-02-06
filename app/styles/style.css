@@ -2232,6 +2232,7 @@ html .fc,
 	line-height: 1.9em;
 	white-space: nowrap;
 	cursor: pointer;
+	z-index: 1000;
 	}
 	
 .fc-state-default { /* non-theme */
