@@ -119,6 +119,14 @@ App.TagsController = Ember.ArrayController.extend({
     sortAscending: true
 });
 
+App.IndexController = Ember.ObjectController.extend({
+    needs: ['contacts', 'events', 'tasks', 'tags'],
+    contactsController: Ember.computed.alias("controllers.contacts"),
+    eventsController: Ember.computed.alias("controllers.events"),
+    tasksController: Ember.computed.alias("controllers.tasks"),
+    tagsController: Ember.computed.alias("controllers.tags")
+});
+
 App.ReportsEventsController = Ember.ArrayController.extend({
     sortProperties: ['start_datetime'],
     sortAscending: false
@@ -179,20 +187,16 @@ App.IndexRoute = Ember.Route.extend({
             tasks: this.get('store').find('task'),
             tags: this.get('store').find('tag')
         });
-    }
+    },
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('contacts').set('model', model.contacts);
+        this.controllerFor('events').set('model', model.events);
+        this.controllerFor('tasks').set('model', model.tasks);
+        this.controllerFor('tags').set('model', model.tags);
+	}
 });
-/*
-App.ReportsRoute = Ember.Route.extend({
-    model: function() {
-        return Ember.Object.create({
-            contacts: this.get('store').find('contact'), 
-            events: this.get('store').find('event'),
-            tasks: this.get('store').find('task'),
-            tags: this.get('store').find('tag')
-        });
-    }
-});
-*/
+
 App.ReportsEventsRoute = Ember.Route.extend({
   model: function() {
     return this.get('store').find('event');

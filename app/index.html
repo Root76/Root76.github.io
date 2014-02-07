@@ -696,7 +696,7 @@
                 <h3 class="mainsort">Tasks<img src="img/arrow.png" class="accordionarrow"></h3>
                 <div class="subitems">
                   <img src="img/tags.png" class="spaceimage" />
-                  {{#each task in tasks}}
+                  {{#each task in tasksController}}
                   {{#if task.title}} 
                   <div class="subitem subdash">
                     <img class="subicon" src="img/tasks.png" />
@@ -778,7 +778,7 @@
                         <li>Pack for the trip</li>
                       </ul>
                     </li>
-                    {{#each event in events}}
+                    {{#each event in eventsController}}
                       {{#if event.title}}  
                         <li><span>{{event.title}}</span><span>{{event.start_datetime}}</span></li>
                       {{/if}}
@@ -790,7 +790,7 @@
                 <h3 class="mainsort">Tags<img src="img/arrow.png" class="accordionarrow"></h3>
                 <div class="subitems">
                   <img class="spaceimage" src="img/tags.png" />
-                  {{#each tag in tags}}
+                  {{#each tag in tagsController}}
                   {{#if tag.name}} 
                     <div class="subitem subdash">
                       <img class="subicon" src="img/tags.png" />
