@@ -835,7 +835,7 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
                     <div class="contsort">
-                      <select>
+                      <select class="listSorter" id="contactShow">
                         <option>All</option>
                         <option>Tagged</option>
                         <option>New this Week</option>
@@ -853,12 +853,14 @@
                       </select>
                     </div>
                   </div>
+                  <button class="sortingToggle" id="showAll" {{action showAll}}>Sort</button>
+                  <button class="sortingToggle" id="showRecent" {{action showRecent}}>Sort</button>
                   <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
                   <button class="sortingToggle" id="byCompany" {{action sortCompany}}>Sort</button>
                   <ul id="contactlist" class="sidelist">
                     {{#each contact in controller}}
                       {{#if contact.name}}
-                        {{#link-to 'contacts.contact' contact}}<li>{{contact.name}}</li>{{/link-to}}
+                        {{#link-to 'contacts.contact' contact}}<li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                       {{/if}}
                     {{/each}}
                   </ul>
