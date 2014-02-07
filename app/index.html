@@ -30,10 +30,20 @@
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav navbar-right">
-                <li>{{#link-to 'index'}}<img src="img/dashboard.png" class="navimg" />Dashboard{{/link-to}}</li>
-                <li>{{#link-to 'reports'}}<img src="img/report.png" class="navimg" />Show Me{{/link-to}}</li>
-                <li class="dropdown" id="viewmenu">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/view.png" class="navimg" />View</a>
+				{{#linkTo 'index' tagName='li' class='navbar-link'}}
+				  <a {{bindAttr href="view.href"}}><img src="img/dashboard.png" class="navimg" />Dashboard</a>
+			  	  <div class="dropdownarrow">
+				    <img class="dropdownimage" src="img/arrow_black.png" />
+				  </div>
+				{{/linkTo}}
+				{{#linkTo 'reports' tagName='li' class='navbar-link'}}
+				  <a {{bindAttr href="view.href"}}><img src="img/report.png" class="navimg" />Show Me</a>
+			  	  <div class="dropdownarrow">
+				    <img class="dropdownimage" src="img/arrow_black.png" />
+				  </div>
+				{{/linkTo}}
+                <li class="navbar-link dropdown" id="viewmenu">
+                  {{#link-to 'contacts' class="dropdown-toggle" data-toggle="dropdown"}}<img src="img/view.png" class="navimg" />View{{/link-to}}
                   <ul class="dropdown-menu">
                     <li>{{#link-to 'contacts'}}<img src="img/contact.png" class="subnavimg" id="viewcontacts" />Contacts{{/link-to}}</li>
                     <li>{{#link-to 'events'}}<img src="img/events.png" class="subnavimg" id="viewevents" />Events{{/link-to}}</li>
@@ -41,17 +51,20 @@
                     <li>{{#link-to 'tags'}}<img src="img/tags.png" class="subnavimg" id="viewtags" />Tags{{/link-to}}</li>
                     <li>{{#link-to 'orphans'}}<img src="img/orphans.png" class="subnavimg" />Orphans{{/link-to}}</li>
                     <li>{{#link-to 'calendar'}}<img src="img/calendar.png" class="subnavimg" />Calendar{{/link-to}}</li>
-                    <li>                  
-                      <div class="dropdownarrow">
-                        <img class="dropdownimage subarrow" src="img/arrow_black.png" />
-                      </div>
-                    </li>
-                  </ul>
-                  <div class="dropdownarrow">
-                    <img class="dropdownimage" src="img/arrow_black.png" />
-                  </div>
+				    <div class="dropdownarrow">
+				      <img class="dropdownimage" src="img/arrow_black.png" />
+				    </div>
+				  </ul>
+				  <div class="dropdownarrow">
+				    <img class="dropdownimage" src="img/arrow_black.png" />
+				  </div>
                 </li>
-                <li>{{#link-to 'settings'}}<img src="img/settings.png" class="navimg" />Settings{{/link-to}}</li>
+				{{#linkTo 'settings' tagName='li' class='navbar-link'}}
+				  <a {{bindAttr href="view.href"}}><img src="img/settings.png" class="navimg" />Settings</a>
+			  	  <div class="dropdownarrow">
+				    <img class="dropdownimage" src="img/arrow_black.png" />
+				  </div>
+				{{/linkTo}}
                 <li>
                   <form method="get" action="/search" class="search">
                     <input name="q" type="text" size="40" placeholder="Search..." />

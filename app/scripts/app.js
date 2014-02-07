@@ -1081,4 +1081,11 @@ function rebindEvents() {
     setTimeout(function(){
         $("#loader").removeClass("showLoader");
     }, 300);
+	
+	
+	var viewMenu = $('#viewmenu');
+	var links = $('a', viewMenu);
+	if (links.hasClass('active'))
+		viewMenu.addClass('active');
+	else viewMenu.removeClass('active');
 }
