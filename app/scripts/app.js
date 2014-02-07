@@ -111,7 +111,33 @@ App.TasksController = Ember.ArrayController.extend({
         sortContact: function (){
             console.log("sort by contact fired");
         }
-    }
+    },
+	
+	sortOptions: [
+		{label: "Tasks with no dates", primarySort: "noDate", secondarySort: "due", ascending: false},
+		{label: "Tasks with dates", primarySort: "hasDate", secondarySort: "due", ascending: false},
+		{label: "Priority", primarySort: "status", ascending: false},
+		{label: "Alphabetical", primarySort: "title", ascending: true}
+	],
+	selectedSortOption: null,
+	selectedSortOptionChanged: function() {
+		var sortProperties = [this.selectedSortOption.primarySort];
+		if (this.selectedSortOption.secondarySort)
+			sortProperties.push(this.selectedSortOption.secondarySort);
+		this.set('sortProperties', sortProperties);
+		this.set('sortAscending', this.selectedSortOption.ascending);
+	}.observes('selectedSortOption'),
+	
+	showOptions: [
+		{label: "All Open", id: "allOpen"},
+		{label: "Overdue", id: "overdue"},
+		{label: "Today & Overdue", id: "todayAndOverdue"},
+		{label: "Next 7 Days", id: "next7Days"}
+	],
+	selectedShowOption: null,
+	selectedShowOptionChanged: function() {
+		console.log("Show me: " + this.selectedShowOption.id);
+	}.observes('selectedShowOption'),
 });
 
 App.TagsController = Ember.ArrayController.extend({
@@ -170,7 +196,16 @@ App.Task = DS.Model.extend({
     title: DS.attr('string'),
     notes: DS.attr('string'),
     status: DS.attr('boolean'),
-    due: DS.attr('date')
+    due: DS.attr('date'),
+	
+	noDate: function() { 
+	return this.get('due') === undefined || this.get('due') === null;
+	}
+		.property('due'),
+	hasDate: function() { 
+	return this.get('due') !== undefined && this.get('due') !== null;
+	}
+		.property('due'),
 });
 
 App.Tag = DS.Model.extend({
