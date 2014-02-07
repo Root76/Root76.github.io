@@ -1714,7 +1714,7 @@ to {
 	pointer-events: none;
 }
 
-.modalDialog:target {
+.modalDialog.active {
 	opacity:1;
 	pointer-events: auto;
 }
@@ -2677,12 +2677,12 @@ table.fc-border-separate {
 	
 .fc-button-prev, .fc-button-next {
 	position: absolute;
-	bottom: 0px;
-	right: 15px;
+	top: 11px;
+	right: 16px;
 }
 
 .fc-button-prev {
-	right:65px;
+	right:66px;
 }
 
 .beforeDropdown {
@@ -3191,4 +3191,28 @@ input#toggle5:checked + label:after {
 #loader li:nth-child(4){
 		background:#e35d32;
 		-webkit-animation: loadbars 0.8s ease-in-out infinite -0.6s;
+}
+
+.navbar-link {
+	width: auto;
+}
+.navbar-link > a {
+	cursor: pointer;
+}
+.navbar-link .dropdownarrow {
+	display: none;
+}
+.navbar-link.active .dropdownarrow {
+	display: block;
+}
+
+.small-create-icon {
+	float: right;
+	position: relative;
+	top: -10px;
+	height: 0px;
+}
+.small-create-icon > img {
+	width: 50px;
+	height: 50px;
 }

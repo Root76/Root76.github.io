@@ -1109,4 +1109,22 @@ function rebindEvents() {
     setTimeout(function(){
         $("#loader").removeClass("showLoader");
     }, 300);
+	
+	// navbar active state for the dropdown View button
+	var viewMenu = $('#viewmenu');
+	var links = $('a', viewMenu);
+	if (links.hasClass('active'))
+		viewMenu.addClass('active');
+	else viewMenu.removeClass('active');
+	
+	// javascript-based calling of modals so as to not interfere with Ember URLS with #
+	var allModals = $('.modalDialog');
+	var closeButtons = $('.close');
+	closeButtons.click(function(){ allModals.removeClass('active'); });	
+	var modal1Links = $('.openModal');
+	modal1Links.click(function(){ $('#openModal').addClass('active'); });
+	var modal2Links = $('.openModal2');
+	modal2Links.click(function(){ $('#openModal2').addClass('active'); });
+	var modal3Links = $('.openModal3');
+	modal3Links.click(function(){ $('#openModal3').addClass('active'); });
 }
