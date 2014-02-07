@@ -696,7 +696,7 @@
                 <h3 class="mainsort">Tasks<img src="img/arrow.png" class="accordionarrow"></h3>
                 <div class="subitems">
                   <img src="img/tags.png" class="spaceimage" />
-                  {{#each task in tasks}}
+                  {{#each task in tasksController}}
                   {{#if task.title}} 
                   <div class="subitem subdash">
                     <img class="subicon" src="img/tasks.png" />
@@ -706,22 +706,20 @@
                   {{/each}}
                 </div>
                 <div class="sortcont sortcont2">
-                  <h4 class="beforeDropdown">Sorted by: </h4>
-                  <select>
-                    <option>All Open</option>
-                    <option>Overdue</option>
-                    <option>Today & Overdue</option>
-                    <option>Next 7 Days</option>
-                  </select>
+                  <h4 class="beforeDropdown">Show me: </h4>
+                  {{view Ember.Select
+					   content=tasksController.showOptions
+					   optionLabelPath="content.label"
+					   optionValuePath="content.id"
+					   selection=tasksController.selectedShowOption}}
                 </div>
                 <div class="sortcont sortcont3">
-                  <h4 class="beforeDropdown">Show me: </h4>
-                  <select>
-                    <option>Tasks with no dates</option>
-                    <option>Tasks with dates</option>
-                    <option>Priority</option>
-                    <option>Alphabetical</option>
-                  </select>
+                  <h4 class="beforeDropdown">Sorted by: </h4>
+                  {{view Ember.Select
+					   content=tasksController.sortOptions
+					   optionLabelPath="content.label"
+					   optionValuePath="content.primarySort"
+					   selection=tasksController.selectedSortOption}}
                 </div>
               </li>
               <li class="listitem dashitem" id="eventsdash">
@@ -778,7 +776,7 @@
                         <li>Pack for the trip</li>
                       </ul>
                     </li>
-                    {{#each event in events}}
+                    {{#each event in eventsController}}
                       {{#if event.title}}  
                         <li><span>{{event.title}}</span><span>{{event.start_datetime}}</span></li>
                       {{/if}}
@@ -790,7 +788,7 @@
                 <h3 class="mainsort">Tags<img src="img/arrow.png" class="accordionarrow"></h3>
                 <div class="subitems">
                   <img class="spaceimage" src="img/tags.png" />
-                  {{#each tag in tags}}
+                  {{#each tag in tagsController}}
                   {{#if tag.name}} 
                     <div class="subitem subdash">
                       <img class="subicon" src="img/tags.png" />

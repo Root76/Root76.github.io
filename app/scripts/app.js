@@ -128,12 +128,46 @@ App.TasksController = Ember.ArrayController.extend({
         sortContact: function (){
             console.log("sort by contact fired");
         }
-    }
+    },
+	
+	sortOptions: [
+		{label: "Tasks with no dates", primarySort: "noDate", secondarySort: "due", ascending: false},
+		{label: "Tasks with dates", primarySort: "hasDate", secondarySort: "due", ascending: false},
+		{label: "Priority", primarySort: "status", ascending: false},
+		{label: "Alphabetical", primarySort: "title", ascending: true}
+	],
+	selectedSortOption: null,
+	selectedSortOptionChanged: function() {
+		var sortProperties = [this.selectedSortOption.primarySort];
+		if (this.selectedSortOption.secondarySort)
+			sortProperties.push(this.selectedSortOption.secondarySort);
+		this.set('sortProperties', sortProperties);
+		this.set('sortAscending', this.selectedSortOption.ascending);
+	}.observes('selectedSortOption'),
+	
+	showOptions: [
+		{label: "All Open", id: "allOpen"},
+		{label: "Overdue", id: "overdue"},
+		{label: "Today & Overdue", id: "todayAndOverdue"},
+		{label: "Next 7 Days", id: "next7Days"}
+	],
+	selectedShowOption: null,
+	selectedShowOptionChanged: function() {
+		console.log("Show me: " + this.selectedShowOption.id);
+	}.observes('selectedShowOption'),
 });
 
 App.TagsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
     sortAscending: true
+});
+
+App.IndexController = Ember.ObjectController.extend({
+    needs: ['contacts', 'events', 'tasks', 'tags'],
+    contactsController: Ember.computed.alias("controllers.contacts"),
+    eventsController: Ember.computed.alias("controllers.events"),
+    tasksController: Ember.computed.alias("controllers.tasks"),
+    tagsController: Ember.computed.alias("controllers.tags")
 });
 
 App.ReportsEventsController = Ember.ArrayController.extend({
@@ -155,15 +189,6 @@ App.ReportsTagsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
     sortAscending: true
 });
-
-/*
-
-App.ReportsController = Ember.ArrayController.extend({
-    sortProperties: ['name', 'title'],
-    sortAscending: true
-});
-
-*/
 
 /***Models***/
 
@@ -190,7 +215,16 @@ App.Task = DS.Model.extend({
     title: DS.attr('string'),
     notes: DS.attr('string'),
     status: DS.attr('boolean'),
-    due: DS.attr('date')
+    due: DS.attr('date'),
+	
+	noDate: function() { 
+	return this.get('due') === undefined || this.get('due') === null;
+	}
+		.property('due'),
+	hasDate: function() { 
+	return this.get('due') !== undefined && this.get('due') !== null;
+	}
+		.property('due'),
 });
 
 App.Tag = DS.Model.extend({
@@ -207,20 +241,16 @@ App.IndexRoute = Ember.Route.extend({
             tasks: this.get('store').find('task'),
             tags: this.get('store').find('tag')
         });
-    }
+    },
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('contacts').set('model', model.contacts);
+        this.controllerFor('events').set('model', model.events);
+        this.controllerFor('tasks').set('model', model.tasks);
+        this.controllerFor('tags').set('model', model.tags);
+	}
 });
-/*
-App.ReportsRoute = Ember.Route.extend({
-    model: function() {
-        return Ember.Object.create({
-            contacts: this.get('store').find('contact'), 
-            events: this.get('store').find('event'),
-            tasks: this.get('store').find('task'),
-            tags: this.get('store').find('tag')
-        });
-    }
-});
-*/
+
 App.ReportsEventsRoute = Ember.Route.extend({
   model: function() {
     return this.get('store').find('event');
