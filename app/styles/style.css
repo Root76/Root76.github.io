@@ -1714,7 +1714,7 @@ to {
 	pointer-events: none;
 }
 
-.modalDialog:target {
+.modalDialog.active {
 	opacity:1;
 	pointer-events: auto;
 }
@@ -3204,4 +3204,15 @@ input#toggle5:checked + label:after {
 }
 .navbar-link.active .dropdownarrow {
 	display: block;
+}
+
+.small-create-icon {
+	float: right;
+	position: relative;
+	top: -10px;
+	height: 0px;
+}
+.small-create-icon > img {
+	width: 50px;
+	height: 50px;
 }
