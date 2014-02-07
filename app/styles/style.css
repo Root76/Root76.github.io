@@ -2677,12 +2677,12 @@ table.fc-border-separate {
 	
 .fc-button-prev, .fc-button-next {
 	position: absolute;
-	bottom: 0px;
-	right: 15px;
+	top: 11px;
+	right: 16px;
 }
 
 .fc-button-prev {
-	right:65px;
+	right:66px;
 }
 
 .beforeDropdown {
