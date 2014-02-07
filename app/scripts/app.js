@@ -81,6 +81,23 @@ App.ContactsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
     sortAscending: true,
     actions: {
+        showAll: function(){
+            this.set('sortProperties', ['name']);
+            setTimeout(function(){
+                $('.sidelist li').css("display", "block");
+            }, 100);
+        },
+        showRecent: function(){
+            this.set('sortProperties', ['updated_at']);
+            setTimeout(function(){
+                var recentItems = $('.sidelist li');
+                for (var b = 0; b < recentItems.length; b++) {
+                    if (b > 10) {
+                        $(recentItems[b]).css("display", "none");
+                    }
+                }
+            }, 100);
+        },
         sortName: function (){
             this.set('sortProperties', ['name']);
         },
@@ -156,7 +173,8 @@ App.Contact = DS.Model.extend({
     organization: DS.attr('string'),
     phone: DS.attr('string'),
     address: DS.attr('string'),
-    place: DS.attr('string')
+    place: DS.attr('string'),
+    updated_at: DS.attr('date')
 });
 
 App.Event = DS.Model.extend({
@@ -164,7 +182,8 @@ App.Event = DS.Model.extend({
     description: DS.attr('string'),
     location: DS.attr('string'),
     start_datetime: DS.attr('date'),
-    end_datetime: DS.attr('date')
+    end_datetime: DS.attr('date'),
+    updated_at: DS.attr('date')
 });
 
 App.Task = DS.Model.extend({
@@ -386,9 +405,7 @@ function rebindEvents() {
                 $(event.target).addClass('selected');
                 $(event.target).find('ul').addClass("sortby");
             }
-            //$("#loader").removeClass("showLoader");
             $('.mainsort').click(function(event){
-                console.log(this);
                 var thisArrow = $(this).find(".accordionarrow");
                 if ($(thisArrow).hasClass("arrowdown")) {
                     $(thisArrow).removeClass("arrowdown");
@@ -878,9 +895,20 @@ function rebindEvents() {
         }, 100);
     });
 
+    if ($("#contactShow").length) {
+        var showContacts = document.getElementById("contactShow");
+        $(showContacts).unbind('change').change(function() {
+            if (showContacts.value === "Recent") {
+                $("#showRecent").click();
+            } else if (showContacts.value === "All") {
+                $("#showAll").click();
+            }
+        });
+    }
+
     if ($("#contactSort").length) {
         var sortContacts = document.getElementById("contactSort");
-            sortContacts.onchange = function() {
+        sortContacts.onchange = function() {
             if (sortContacts.value === "Company") {
                 $("#byCompany").click();
             } else {
