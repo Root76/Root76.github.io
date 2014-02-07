@@ -139,15 +139,6 @@ App.ReportsTagsController = Ember.ArrayController.extend({
     sortAscending: true
 });
 
-/*
-
-App.ReportsController = Ember.ArrayController.extend({
-    sortProperties: ['name', 'title'],
-    sortAscending: true
-});
-
-*/
-
 /***Models***/
 
 App.Contact = DS.Model.extend({
