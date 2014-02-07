@@ -706,22 +706,20 @@
                   {{/each}}
                 </div>
                 <div class="sortcont sortcont2">
-                  <h4 class="beforeDropdown">Sorted by: </h4>
-                  <select>
-                    <option>All Open</option>
-                    <option>Overdue</option>
-                    <option>Today & Overdue</option>
-                    <option>Next 7 Days</option>
-                  </select>
+                  <h4 class="beforeDropdown">Show me: </h4>
+                  {{view Ember.Select
+					   content=tasksController.showOptions
+					   optionLabelPath="content.label"
+					   optionValuePath="content.id"
+					   selection=tasksController.selectedShowOption}}
                 </div>
                 <div class="sortcont sortcont3">
-                  <h4 class="beforeDropdown">Show me: </h4>
-                  <select>
-                    <option>Tasks with no dates</option>
-                    <option>Tasks with dates</option>
-                    <option>Priority</option>
-                    <option>Alphabetical</option>
-                  </select>
+                  <h4 class="beforeDropdown">Sorted by: </h4>
+                  {{view Ember.Select
+					   content=tasksController.sortOptions
+					   optionLabelPath="content.label"
+					   optionValuePath="content.primarySort"
+					   selection=tasksController.selectedSortOption}}
                 </div>
               </li>
               <li class="listitem dashitem" id="eventsdash">
