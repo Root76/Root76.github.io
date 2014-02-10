@@ -405,7 +405,13 @@ function rebindEvents() {
     });
 
     $('nav a').click(function(){
-        $("#loader").addClass("showLoader");
+		var link = $(this);
+		var samePage = link.hasClass('active');
+		if (!link.hasClass('dropdown-toggle'))
+			samePage |= link.parent().hasClass('active');
+		
+		if (!samePage)
+			$("#loader").addClass("showLoader");
     });
 
     $('.showitem').click(function(event){
