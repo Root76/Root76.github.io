@@ -735,6 +735,10 @@ function rebindEvents() {
             $(eRow[k]).find('h4').html(eventItem[curEvent]);
         }
 
+        if ($(window).width() < 768) {
+            $("#contactpanel2").addClass('mobileIn');
+        }
+
     });
 
     $("form").unbind('submit').bind('submit', function(event){

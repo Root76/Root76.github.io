@@ -449,4 +449,92 @@
 		margin-bottom:0px;
 	}
 
+	#contactpane1, #taskpane1, #eventpane1 {
+		width:100%;
+	}
+
+	.viewcont {
+		margin-top:0px !important;
+	}
+
+	#contactsearch {
+		display: block;
+		position: absolute;
+		top: 16px;
+		right: 0px;
+		width: 50%;
+	}
+
+	.contsort {
+		position: relative;
+		width: 100%;
+		right: 0px;
+	}
+
+	.filtercolumn h4 {
+		display:block !important;
+	}
+
+	#detailPanelHider {
+		display:none;
+	}
+
+	#contactpanel2 {
+		margin-left: 0px;
+		width: 100%;
+		left:100%;
+		top: 40px;
+		height: 100%;
+		padding:0px;
+	}
+
+	.mobileIn {
+		left:0% !important;
+		z-index:15;
+	}
+
+	#detailPanel {
+		margin-left:0px;
+	}
+
+	#profilepic {
+		display:none;
+	}
+
+	#contactscont h1, #taskscont h1 {
+		left: 0px;
+		width: 100%;
+		text-align: center;
+		margin: 0px;
+		padding: 10px;
+		color:#fff;
+	}
+
+	#detailmenubar {
+		left: 0px !important;
+		padding: 20px;
+		position: relative;
+		top: 0px;
+		padding-top: 10px;
+	}
+
+	.contacttext {
+		top: 0px;
+		margin: 0px;
+		border-top: 1px solid #CCC;
+		border-bottom: 1px solid #fff;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		left:0px;
+	}
+
+	#mobileContact {
+		display:block;
+	}
+
+	.contactmenu > a > #createicon {
+		top:10px;
+		right: 50px !important;
+	}
+
 }
