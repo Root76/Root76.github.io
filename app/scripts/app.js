@@ -1019,6 +1019,15 @@ function rebindEvents() {
       /*className: "myStyle",
       background: "#000"*/
     };
+    Opentip.styles.toptip = {
+      tipJoint: "bottom",
+      group: "tags",
+      target: true,
+      offset: [0, -130],
+      delay: 0
+      /*className: "myStyle",
+      background: "#000"*/
+    };
     Opentip.styles.righttip = {
       tipJoint: "left",
       group: "tags",
@@ -1106,6 +1115,11 @@ function rebindEvents() {
     if ($('.flipswitch').length) {
         new Opentip(".flipswitch", "Details View", {
             style: "righttip"
+        });
+    }
+    if ($('.small-create-icon').length) {
+        new Opentip(".small-create-icon", "Create", {
+            style: "toptip"
         });
     }
     setTimeout(function(){
