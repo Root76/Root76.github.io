@@ -785,16 +785,44 @@ h1, h2, h3, h4 {
 #sociallinks {
 	padding-top:17px;
 	float:right;
+	border: 
 }
 
-#sociallinks img {
-	float:right;
+#sociallinks div {
 	height:25px;
+	width:25px;
+	float:right;
 	padding-left:12px;
+	background-size: 100%;
 }
 
-#sociallinks img:hover {
-	opacity:.7;
+#sociallinks  div:hover {
+	background-size: 100%;
+}
+
+#linkedinIcon {
+	background: url(../img/linkedin.png);
+}
+#linkedinIcon:hover {
+	background: url(../img/linkedinHighlight2.png);
+}
+#googleIcon {
+	background: url(../img/google.png);
+}
+#googleIcon:hover  {
+	background: url(../img/googleHighlight2.png);
+}
+#twitterIcon {
+	background: url(../img/twitter.png);
+}
+#twitterIcon:hover  {
+	background: url(../img/twitterHighlight2.png);
+}
+#facebookIcon {
+	background: url(../img/facebook.png);
+}
+#facebookIcon:hover  {
+	background: url(../img/facebookHighlight2.png);
 }
 
 #helplinks {
@@ -1713,6 +1741,7 @@ to {
 }
 
 .modalDialog {
+	display: none;
 	position: fixed;
 	font-family: Arial, Helvetica, sans-serif;
 	top: 0;
