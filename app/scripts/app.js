@@ -741,33 +741,29 @@ function rebindEvents() {
 
     });
 
-    $("form").unbind('submit').bind('submit', function(event){
-        //Is this this tag form?
+    $("form").unbind('submit').bind('submit', function(event){		
+		var showPopupMessage = function(target, message, style) {
+			var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
+			statusPopup.show();
+			statusPopup.container.css('z-index', 100000);
+			setTimeout(function() {
+				statusPopup.hide();
+			}, 2000);
+		};
+		
+        var data = {};
+		var url = "";
+		var objectDescription = "none";
         if ($(event.target).parent().hasClass("createTag")) {
             var tagTitle = $("#tagName").val();
             tagTitle = String(tagTitle);
-            var tagData = JSON.stringify({
+            var data = {
                 tag: {
                     name: tagTitle
                 }
-            });
-            $.ajax({
-                type: 'POST',
-                url: "http://daywon-api-staging.herokuapp.com/tags",
-                contentType: "application/json",
-                dataType: "json",
-                data: tagData,
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
-                },
-                success: function (data) {
-                    console.log("success");
-                },
-                error: function (e) {
-                    console.log("error" + e);
-                }
-            });
+            };
+			url = "http://daywon-api-staging.herokuapp.com/tags";
+			objectDescription = "Tag: " + tagTitle;
         } else if ($(event.target).parent().hasClass("createTask")) {
             var taskTitle = $("#taskName").val();
             taskTitle = String(taskTitle);
@@ -775,35 +771,20 @@ function rebindEvents() {
             taskDesc = String(taskDesc);
             var taskDue = $("#taskDue").val();
             console.log("due: " + taskDue);
-            var taskData = JSON.stringify({
+            var data = {
                 task: {
                     title: taskTitle,
                     notes: taskDesc,
                     status: false,
                     due: taskDue
                 }
-            });
-            console.log(taskData);
-            $.ajax({
-                type: 'POST',
-                url: "http://daywon-api-staging.herokuapp.com/tasks",
-                contentType: "application/json",
-                dataType: "json",
-                data: taskData,
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
-                },
-                success: function (data) {
-                    console.log("success");
-                },
-                error: function (e) {
-                    console.log("error" + e);
-                }
-            });
+            };
+			url = "http://daywon-api-staging.herokuapp.com/tasks";
+			objectDescription = "Task: " + taskTitle;
         } else if ($(event.target).parent().hasClass("createContact")) {
-            var contactTitle = $("#contactName").val();
-            contactTitle = String(contactTitle);
+            var contactFirst = String($("#contactFirst").val());
+            var contactLast = String($("#contactLast").val());
+            var contactTitle = contactFirst + " " + contactLast;
             var contactOrg = $("#contactOrg").val();
             contactOrg = String(contactOrg);
             var contactNo = $("#contactNumber").val();
@@ -812,8 +793,7 @@ function rebindEvents() {
             contactAddress = String(contactAddress);
             var contactPl = $("#contactPlace").val();
             contactPl = String(contactPl);
-            console.log("Number: " + contactNumber);
-            var contactData = JSON.stringify({
+            var data = {
                 contact: {
                     name: contactTitle,
                     organization: contactOrg,
@@ -821,25 +801,9 @@ function rebindEvents() {
                     address: contactAddress,
                     place: contactPl
                 }
-            });
-            console.log(contactData);
-            $.ajax({
-                type: 'POST',
-                url: "http://daywon-api-staging.herokuapp.com/contacts",
-                contentType: "application/json",
-                dataType: "json",
-                data: contactData,
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
-                },
-                success: function (data) {
-                    console.log("success");
-                },
-                error: function (e) {
-                    console.log("error" + e);
-                }
-            });
+            };
+			url = "http://daywon-api-staging.herokuapp.com/contacts";
+			objectDescription = "Contact: " + contactTitle;
         } else if ($(event.target).parent().hasClass("createEvent")) {
             var eventTitle = $("#eventName").val();
             eventTitle = String(eventTitle);
@@ -849,7 +813,7 @@ function rebindEvents() {
             eventLoc = String(eventLoc);
             var eventSt = $("#eventStart").val();
             var eventEn = $("#eventEnd").val();
-            var eventData = JSON.stringify({
+            var data = {
                 event: {
                     title: eventTitle,
                     description: eventDesc,
@@ -857,26 +821,30 @@ function rebindEvents() {
                     start_datetime: eventSt,
                     end_datetime: eventEn
                 }
-            });
-            console.log(eventData);
-            $.ajax({
-                type: 'POST',
-                url: "http://daywon-api-staging.herokuapp.com/events",
-                contentType: "application/json",
-                dataType: "json",
-                data: eventData,
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
-                },
-                success: function (data) {
-                    console.log("success");
-                },
-                error: function (e) {
-                    console.log("error" + e);
-                }
-            });
+            };
+			url = "http://daywon-api-staging.herokuapp.com/events";
+			objectDescription = "Event: " + eventTitle;
         }
+		
+		$.ajax({
+			type: 'POST',
+			url: url,
+			contentType: "application/json",
+			dataType: "json",
+			data: data,
+			headers: {
+				"X-AUTHENTICATION-TOKEN": authToken,
+				"X-AUTHENTICATION-EMAIL": userEmail
+			},
+			success: function (data) {
+				console.log(data);
+				showPopupMessage(event.target, "Successfully created " + objectDescription, "success");
+			},
+			error: function (e) {
+				console.log(e.statusText);
+				showPopupMessage(event.target, "Error creating " + objectDescription, "error");
+			}
+		});
         return false;
     });
 
@@ -1052,6 +1020,22 @@ function rebindEvents() {
       offset: [10, -140]
       /*className: "myStyle",
       background: "#000"*/
+    };
+    Opentip.styles.success = {
+      tipJoint: "top",
+      target: true,
+      offset: [0, -140],
+      delay: 0,
+      background: "#72FF72",
+	  borderColor: "#3CFF3C",
+    };
+    Opentip.styles.error = {
+      tipJoint: "top",
+      target: true,
+      offset: [0, -140],
+      delay: 0,
+      background: "#FF7272",
+	  borderColor: "#FF3C3C",
     };
     if ($("#subEvent").length) {
         new Opentip("#subEvent", "Events", {
