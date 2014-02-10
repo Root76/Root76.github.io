@@ -405,9 +405,10 @@ function rebindEvents() {
     console.log ("UE: " + userEmail);
     $("#eaddr option:first").html(userEmail);
 
-    $('nav a').click(function(){
+    $('nav a').click(function(evt){
 		var link = $(this);
 		var samePage = link.hasClass('active');
+		samePage |= evt.ctrlKey || (evt.button != 0) // opening in new tab shouldn't show a loading bar on this tab
 		if (!link.hasClass('dropdown-toggle'))
 			samePage |= link.parent().hasClass('active');
 		
