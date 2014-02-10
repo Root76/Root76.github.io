@@ -399,13 +399,15 @@ function rebindEvents() {
     console.log ("AT: " + authToken);
     console.log ("UE: " + userEmail);
     $("#eaddr option:first").html(userEmail);
-    $(".listitem").accordion({
-        active: false,
-        collapsible: true
-    });
 
     $('nav a').click(function(){
-        $("#loader").addClass("showLoader");
+		var link = $(this);
+		var samePage = link.hasClass('active');
+		if (!link.hasClass('dropdown-toggle'))
+			samePage |= link.parent().hasClass('active');
+		
+		if (!samePage)
+			$("#loader").addClass("showLoader");
     });
 
     $('.showitem').click(function(event){
@@ -465,7 +467,12 @@ function rebindEvents() {
     $('#collapseall').click(function(){
         $('.listitem').accordion({
             active: false,
-            collapsible: true
+            collapsible: true,
+			beforeActivate: function(evt, obj) {
+				var collapsing = obj.newHeader.length === 0;
+				if (!collapsing)
+					$('body').scrollTo($(this).offset().top - $('body').offset().top);
+			}
         });
         $('.accordionarrow').removeClass('arrowdown');
     });
