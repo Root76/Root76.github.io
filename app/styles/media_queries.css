@@ -303,6 +303,8 @@
 	.settingspage h1 {
 		text-align:center;
 		color:#fff;
+		margin:0px !important;
+		padding:10px;
 	}
 
 	#helplinksMobile {
@@ -355,6 +357,7 @@
 		width:100%;
 		padding:0px;
 		height:100%;
+		top:0px;
 	}
 
 	#objectCount {
@@ -385,17 +388,20 @@
 
 	#settingsMobile h3 {
 		margin-left:118px;
+		margin-top:10px;
+		margin-bottom:17px;
 	}
 
 	#settingimageMobile {
 		width:75px;
 		float:left;
 		margin-left:20px;
+		margin-top:17px;
 	}
 
 	.settingspage {
 		background:#01a5af !important;
-		height:667px !important;
+		height:634px !important;
 	}
 
 	#helpimg {
