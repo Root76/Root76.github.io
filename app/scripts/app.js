@@ -474,9 +474,10 @@ function rebindEvents() {
             active: false,
             collapsible: true,
 			beforeActivate: function(evt, obj) {
+				var OFFSET = -30;
 				var collapsing = obj.newHeader.length === 0;
 				if (!collapsing)
-					$('body').scrollTo($(this).offset().top - $('body').offset().top);
+					$('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
 			}
         });
         $('.accordionarrow').removeClass('arrowdown');
