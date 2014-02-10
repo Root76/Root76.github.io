@@ -380,7 +380,7 @@ setTimeout(function() {
             document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://daywon.s3-website-us-west-2.amazonaws.com/login.html";
         }
     }
-}, 100);
+}, 1000);
 
 function rebindEvents() {
 
@@ -733,6 +733,10 @@ function rebindEvents() {
         for( var k=0; k < 5; k++ ) {
             curEvent = Math.floor(Math.random() * 29) + 1;
             $(eRow[k]).find('h4').html(eventItem[curEvent]);
+        }
+
+        if ($(window).width() < 768) {
+            $("#contactpanel2").addClass('mobileIn');
         }
 
     });

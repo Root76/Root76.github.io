@@ -3301,7 +3301,7 @@ input#toggle5:checked + label:after {
 }
 
 .createButton .circlebg {
-	margin:20px;
+	float:none !important;
 }
 
 #viewHeader {
@@ -3312,4 +3312,8 @@ input#toggle5:checked + label:after {
 	margin:0px;
 	margin-bottom:40px;
 	color:#fff;
+}
+
+#mobileContact {
+	display:none;
 }
