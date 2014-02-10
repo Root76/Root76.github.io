@@ -40,7 +40,7 @@ body {
 	font-weight:300;
 	text-align: left;
 	text-decoration: none;
-	top: 140px;
+	top: 80px;
 	position: relative;
 	color:#333;
 }
@@ -63,7 +63,7 @@ hr {
 	margin-top: 20px;
 	font-family: 'Bree Serif', serif;
 	font-weight: 300;
-	font-size: 18px;
+	font-size: 30px;
 	color: #fff;
 	text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
 	background: #afcf55;
@@ -85,12 +85,6 @@ hr {
 	font-weight: 400;
 	margin:0px;
 	padding-top:9px;
-}
-
-#wrapper p {
-	margin-top:5px;
-	color:#fff;
-	font-size:10px;
 }
 
 .loggedin {
@@ -484,23 +478,6 @@ h1, h2, h3, h4 {
 	font-family: 'Open Sans', sans-serif;
 }
 
-#wrapper {
-	width: 400px;
-	height: 400px;
-	position: relative;
-	margin: 0 auto;
-}
-
-#wrapper h1 {
-	font-family: 'Pacifico', cursive;
-	color:#2f3872;
-	text-align:center;
-	font-size: 72px;
-	top: -20px;
-	position: relative;
-	font-weight:400;
-}
-
 #collapseall, #expandall {
 	display:inline;
 	margin-left:15px;
@@ -513,18 +490,41 @@ h1, h2, h3, h4 {
 	margin-bottom:0px;
 }
 
+#wrapper {
+	width: 600px;
+	height: 600px;
+	position: relative;
+	margin: 0 auto;
+}
+
+#wrapper p {
+	margin-top: 25px;
+	color: #fff;
+	font-size: 16px;
+}
+
+#wrapper h1 {
+	font-family: 'Pacifico', cursive;
+	color:#2f3872;
+	text-align:center;
+	font-size: 72px;
+	top: -20px;
+	position: relative;
+	font-weight:400;
+}
+
 .login-form {
-	width:400px;
-	height:370px;
+	width:600px;
+	height:570px;
 	margin: 0 auto;
 	position: relative;
 	z-index:5;
 	background: #6f6667;
-	border: 1px solid #fff;
-	border-radius: 5px;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	border: 2px solid #fff;
+	border-radius: 8px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.5);
 }
 
 .login-form .header {
@@ -543,8 +543,8 @@ h1, h2, h3, h4 {
 }
 
 .login-form span {
-	font-size: 12px;
-	line-height: 20px;
+	font-size: 22px;
+	line-height: 32px;
 	color: #fff;
 }
 
@@ -680,12 +680,10 @@ h1, h2, h3, h4 {
 }
 
 #logbutton {
-	margin: 0 auto;
+	margin: 10px auto;
 	display: block;
 	width: 50%;
 	text-align: center;
-	margin-top: 20px;
-	margin-bottom: 20px;
 }
 
 .signuptext {
@@ -696,7 +694,7 @@ h1, h2, h3, h4 {
 
 #tos {
 	display:block;
-	margin-top:20px;
+	margin-top:50px;
 }
 
 .navimg {
