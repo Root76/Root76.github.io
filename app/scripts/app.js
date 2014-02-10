@@ -952,14 +952,14 @@ function rebindEvents() {
 
     $('.flipswitch').unbind('click').click(function(){
         var slider = $('#detailPanel');
-        if (slider.hasClass('panelIn')) {
-            slider.attr("class", "panelOut");
+        if (slider.hasClass('panelOut')) {
+            slider.attr("class", "panelIn");
             $('#fliparrow').addClass("flipagain");
             setTimeout(function(){
 
             }, 400)
         } else {
-            slider.attr("class", "panelIn");
+            slider.attr("class", "panelOut");
             $('#fliparrow').attr("class", "flipimage");
             setTimeout(function(){
                 $('#fliparrow').attr("class", "flipped");
