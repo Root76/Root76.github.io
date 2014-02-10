@@ -13,6 +13,14 @@
     <body>
       <div id="scrollblock"></div>
       <script type="text/x-handlebars">
+        <div id="mobileNav">
+          {{#link-to 'index'}}<div class="mobileNavItem" id="mDash"><p>Dashboard</p><div class="imgCont"><img src="img/dashboard.png" /></div></div>{{/link-to}}
+          {{#link-to 'reports'}}<div class="mobileNavItem" id="mReports"><p>Reports</p><div class="imgCont"><img src="img/report.png" /></div></div>{{/link-to}}
+          {{#link-to 'view'}}<div class="mobileNavItem" id="mView"><p>View</p><div class="imgCont"><img src="img/view.png" /></div></div>{{/link-to}}
+          {{#link-to 'create'}}<div class="mobileNavItem" id="mCreate"><p>Create</p><div class="imgCont"><img src="img/create.png" /></div></div>{{/link-to}}
+          {{#link-to 'settings'}}<div class="mobileNavItem" id="mSettings"><p>Settings</p><div class="imgCont"><img src="img/settings.png" /></div></div>{{/link-to}}
+          {{#link-to 'index'}}<div class="mobileNavItem" id="mSearch"><div class="imgCont"><img src="img/search_mobile.png" id="mobileSearchButton" /></div></div>{{/link-to}}
+        </div>
         <nav class="navbar navbar-fixed-top" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -72,20 +80,19 @@
                 </li>
               </ul>
             </div>
-            <div id="loggedin">
-              <select id="eaddr">
-                <option value="emailaddress">tyler@evenspring.com</option>
-                <option value="Logout">Logout</option>
-              </select>
-              {{#link-to 'orphans'}}<div id="orphancount">
-                <img src="img/orphans.png" id="orphanimage">
-                <span style="color:#ff0000">3</span>
-              </div>{{/link-to}}
-              <a href="javascript:window.print()" id="printparent"><img src="img/print.png" id="printimg" /></a>
-            </div>
           </div>
         </nav>
-
+        <div class="loggedin">
+          <select id="eaddr">
+            <option value="emailaddress">tyler@evenspring.com</option>
+            <option value="Logout">Logout</option>
+          </select>
+          {{#link-to 'orphans'}}<div id="orphancount">
+            <img src="img/orphans.png" id="orphanimage">
+            <span style="color:#ff0000">3</span>
+          </div>{{/link-to}}
+          <a href="javascript:window.print()" id="printparent"><img src="img/print.png" id="printimg" /></a>
+        </div>
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
@@ -221,8 +228,8 @@
           <img src="img/tyler.png">                  
         </div>
         <script type="text/x-handlebars" id="reports/index">
-        <h1>Show Me</h1>
-        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h1 class="reportsHeader">Show Me</h1>
+        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -277,8 +284,8 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="reports/events">
-        <h1>Show Me</h1>
-        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h1 class="reportsHeader">Show Me</h1>
+        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -331,10 +338,10 @@
               </div>
             </div>
           </div>
-          <div id="appcont" class="homeapp">
+          <div id="appcont" class="homeapp reportapp">
             <div class="section-container" id="homecont">
-              <h3 id="collapseall">Collapse all</h3>
-              <h3 id="expandall">Expand all</h3>  
+              <h3 id="collapseall" class="reportToggler">Collapse all</h3>
+              <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each event in controller}}
                 {{#if event.title}}                
@@ -371,8 +378,8 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="reports/tasks">
-        <h1>Show Me</h1>
-        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h1 class="reportsHeader">Show Me</h1>
+        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -425,10 +432,10 @@
               </div>
             </div>
           </div>
-          <div id="appcont" class="homeapp">
+          <div id="appcont" class="homeapp reportapp">
             <div class="section-container" id="homecont">
-              <h3 id="collapseall">Collapse all</h3>
-              <h3 id="expandall">Expand all</h3>  
+              <h3 id="collapseall" class="reportToggler">Collapse all</h3>
+              <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each task in controller}}
                 {{#if task.title}} 
@@ -465,8 +472,8 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="reports/contacts">
-        <h1>Show Me</h1>
-        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h1 class="reportsHeader">Show Me</h1>
+        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -519,10 +526,10 @@
               </div>
             </div>
           </div>
-          <div id="appcont" class="homeapp">
+          <div id="appcont" class="homeapp reportapp">
             <div class="section-container" id="homecont">
-              <h3 id="collapseall">Collapse all</h3>
-              <h3 id="expandall">Expand all</h3>  
+              <h3 id="collapseall" class="reportToggler">Collapse all</h3>
+              <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each contact in controller}}
                 {{#if contact.name}} 
@@ -558,8 +565,8 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="reports/tags">
-        <h1>Show Me</h1>
-        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h1 class="reportsHeader">Show Me</h1>
+        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -612,10 +619,10 @@
               </div>
             </div>
           </div>
-          <div id="appcont" class="homeapp">
+          <div id="appcont" class="homeapp reportapp">
             <div class="section-container" id="homecont">
-              <h3 id="collapseall">Collapse all</h3>
-              <h3 id="expandall">Expand all</h3>  
+              <h3 id="collapseall" class="reportToggler">Collapse all</h3>
+              <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each tag in controller}}
                 {{#if tag.name}} 
@@ -661,7 +668,7 @@
             <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="dashcreate" /></a>
             <ul class="list dashlist">
               <li class="listitem dashitem" id="recentdash">
-                <h3 class="mainsort">Recent Activities (last 10 objects added or edited)<img src="img/arrow.png" class="accordionarrow"></h3>
+                <h3 class="mainsort">Recent Activities (last 10 objects added or edited)<img src="img/arrow_black.png" class="accordionarrow"></h3>
                 <div class="subitems">
                   <div class="subitem subdash ss1">
                     <img class="subicon" src="img/calendar.png" />
@@ -706,7 +713,7 @@
                 </div>
               </li>
               <li class="listitem dashitem" id="tasksdash">
-                <h3 class="mainsort">Tasks<img src="img/arrow.png" class="accordionarrow"></h3>
+                <h3 class="mainsort">Tasks<img src="img/arrow_black.png" class="accordionarrow"></h3>
                 <div class="subitems">
                   <img src="img/tags.png" class="spaceimage" />
                   {{#each task in tasksController}}
@@ -726,7 +733,7 @@
 					   optionValuePath="content.id"
 					   selection=tasksController.selectedShowOption}}
                 </div>
-                <div class="sortcont sortcont3">
+                <div class="sortcont sortcont3 sortcontTasks">
                   <h4 class="beforeDropdown">Sorted by: </h4>
                   {{view Ember.Select
 					   content=tasksController.sortOptions
@@ -798,7 +805,7 @@
                 </div>
               </li>
               <li class="listitem dashitem" id="tagsdash">
-                <h3 class="mainsort">Tags<img src="img/arrow.png" class="accordionarrow"></h3>
+                <h3 class="mainsort">Tags<img src="img/arrow_black.png" class="accordionarrow"></h3>
                 <div class="subitems">
                   <img class="spaceimage" src="img/tags.png" />
                   {{#each tag in tagsController}}
@@ -810,7 +817,7 @@
                   {{/if}}
                   {{/each}}
                 </div>
-                <div class="sortcont sortcont3">
+                <div class="sortcont sortcont3 sortcontTags">
                   <h4 class="beforeDropdown">Sorted by: </h4>
                   <select>
                     <option>Name</option>
@@ -1738,6 +1745,30 @@
                   </div>
                 </div>
                 <div id="settingfooter">
+                  <div id="settingsMobile">
+                    <img src="img/tyler.png" id="settingimageMobile" />
+                    <h1>Tyler Carbone</h1>
+                    <h3>tyler@evenspring.com</h3>
+                    <div id="objectCount">
+                      <div class="itemcountMobile">
+                        <img src="img/contact.png" /><p>(31)</p>
+                      </div>
+                      <div class="itemcountMobile">
+                        <img src="img/events.png" /><p>(24)</p>
+                      </div>
+                      <div class="itemcountMobile">
+                        <img src="img/tasks.png" /><p>(16)</p>
+                      </div>
+                      <div class="itemcountMobile">
+                        <img src="img/tags.png" /><p>(43)</p>
+                      </div>
+                    </div>
+                    <div id="otheroptionsMobile">
+                      <a href="#">Delete Account</a>
+                      <a href="#">Terms of Agreement</a>
+                      <a href="#">Privacy Policy</a>
+                    </div>
+                  </div>
                   <div class="settingoption">
                     <h5>Sort by last name:</h5>
                     <input type="checkbox" name="toggle" id="toggle">
@@ -1775,6 +1806,11 @@
                     <a href="#" id="deleteaccount">Delete Account</a>
                     <a href="#">Terms of Agreement</a>
                     <a href="#">Privacy Policy</a>
+                  </div>
+                  <div id="helplinksMobile">
+                    <a href="javascript:void(0)" class="openModal2"><div><img src="img/help.png" id="helpimg" /><span>Help</span></div></a>
+                    <a href="javascript:void(0)" class="openModal"><div><img src="img/feedback.png" id="feedbackimg" /><span>Feedback</span></div></a>
+                    <a href="javascript:void(0)"><div><img src="img/share.png" id="socialimg" /><span>Tell Friends About Day Won</span></div></a>
                   </div>
                 </div>
               </div>

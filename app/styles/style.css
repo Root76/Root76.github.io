@@ -16,6 +16,10 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
+#mobileNav {
+	display:none;
+}
+
 textarea:focus, input:focus, select:focus{
     outline: 0;
 }
@@ -89,20 +93,22 @@ hr {
 	font-size:10px;
 }
 
-#loggedin {
-	position:absolute;
-	top:-32px;
-	width:calc(100% - 30px);
-	text-align:right;
-	color:#888;
+.loggedin {
+	position: fixed;
+	top: 9px;
+	right: 0px;
+	width: calc(100% - 30px);
+	text-align: right;
+	color: #888;
+	z-index:999;
 }
 
-#loggedin span {
+.loggedin span {
 	padding-left:25px;
 	float:right;
 }
 
-#loggedin a {
+.loggedin a {
 	color:#888;
 	text-decoration:underline;
 }
@@ -1475,7 +1481,7 @@ to {
 
 #settingmain {
 	float:right;
-	width:1000px;
+	width:83%;
 	background:#fff;
 	padding:25px;
 	border:1px solid #ccc;
@@ -1493,6 +1499,14 @@ to {
 	float: right;
 	top: -25px;
 	padding-left:25px;
+}
+
+#settingsMobile {
+	display:none;
+}
+
+#helplinksMobile {
+	display:none;
 }
 
 #settingname h1, #settingname h3 {
@@ -1514,7 +1528,7 @@ to {
 #settingfooter {
 	padding:50px;
 	float:right;
-	width:1000px;
+	width:83%;
 	height:330px;
 	background:#fff;
 	position:relative;

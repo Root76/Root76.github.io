@@ -54,7 +54,7 @@
 
 @media screen and (max-width:767px) {
 	body {
-		margin-top:120px;
+		top:40px;
 	}
 	#logo {
 		float:left;
@@ -82,4 +82,365 @@
 	#createmenu ul {
 		width:100%;
 	}
+
+/*Custom*/
+
+	.container {
+		padding:0px;
+	}
+
+	#footer {
+		display:none;
+	}
+
+	.navbar {
+		display:none;
+	}
+
+	#mobileNav {
+		display:block;
+		z-index:999;
+		position:fixed;
+		bottom:0px;
+		height:40px;
+		width:100%;
+		background:#fff;
+		-webkit-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		-moz-box-shadow:    0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		box-shadow:         0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+	}
+
+	.mobileNavItem {
+		width:16.66%;
+		height:40px;
+		float:left;
+		border-right:1px solid #CCC;
+		position:relative;
+	}
+
+	.mobileNavItem .imgCont {
+		position:absolute;
+		top:0px;
+		width:100%;
+	}
+
+	.mobileNavItem img {
+		margin:0 auto;
+		width:35px;
+		display:block;
+		position:relative;
+		top:-5px;
+	}
+
+	.mobileNavItem p {
+		width:100%;
+		text-align:center;
+		padding-top:20px;
+		font-family:'Open Sans', sans-serif;	
+		color:#333;	
+	}
+
+	#mobileSearchButton {
+		height:40px;
+		padding-top:5px;
+		top:-2px;
+	}
+
+	.loggedin {
+		position: fixed;
+		top: 0px;
+		right: 0px;
+		height: 40px;
+		-webkit-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		-moz-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		width: 100%;
+		padding-top:5px;
+	}
+
+	#printimg {
+		display:none;
+	}
+
+	.homeapp {
+		top:0px;
+		background:#1390d2 !important;
+		color:#fff;
+		margin-top:0px !important;
+	}
+
+	.sortcontTasks {
+		display:none !important;
+	}
+
+	.sortcontTags {
+		right:60px !important;
+	}
+
+	#appcont h4 {
+		display:none;
+	}
+
+	.section-container {
+		padding:0px;
+	}
+
+	#appcont h1 {
+		margin-left:12px;
+	}
+
+	#dashcreate {
+		display:none;
+	}
+
+	.list {
+		padding:0px;
+	}
+
+	#eventslist, .subitems {
+		background: #2f3776;
+	}
+
+	.dashitem {
+		background:#fff !important;
+	}
+
+	.dashitem h3 {
+		color:#000;
+	}
+
+	.ui-state-active {
+		background: #2f3776;
+		color:#fff !important;
+	}
+
+	.eventssublist {
+		list-style:none;
+	}
+
+	.reportsHeader {
+		display:none;
+	}
+
+	.small-create-icon > img {
+		display:none;
+	}
+
+	#showme, #sortby {
+		width:100%;
+	}
+
+	.menusubcont {
+		width: 65%;
+		float: right;
+	}
+
+	.menucont {
+		border:0px;
+		border-bottom:1px solid #000;
+	}
+
+	.menucont h2 {
+		float:left;
+		color:#fff;
+	}
+
+	.menucont h3 {
+		float: left;
+		margin: 0px;
+		margin-top: 7px;
+		font-size: 24px;
+		padding-left:10px;
+		color:#fff;
+	}
+
+	.subcontitem img {
+		height: 45px;
+	}
+
+	#schedule {
+		width:100%;
+	}
+
+	.selectcont {
+		width: 50%;
+		float: right;
+	}
+
+	#sortbycolumn {
+		background:#7ca664;
+	}
+
+	#homecont h3 {
+		color:#000;
+	}
+
+	.reportapp {
+		background:#7ca664 !important;
+	}
+
+	.listitem .ui-state-active {
+		background:#fff !important;
+		color:#000 !important;
+	}
+
+	.listitem .subitems {
+		background:#7ca664 !important;
+	}
+
+	.subitemtext {
+		color:#fff;
+	}
+
+	.reportToggler {
+		display:none !important;
+	}
+
+	#settingsMobile {
+		display:block;
+	}
+
+	.settingspage h1 {
+		text-align:center;
+		color:#fff;
+	}
+
+	#helplinksMobile {
+		display:block;
+		width:100%;
+	}
+
+	#helplinksMobile > a > div {
+		width:25%;
+		float:left;
+		background:#3e3e3e;
+		color:#fff;
+		height:50px;
+	}
+
+	#helplinksMobile > a:last-child > div {
+		width:50%;
+	}
+
+	#helplinksMobile > a > div > span {
+		line-height: 50px;
+		padding-left: 10px;
+	}
+
+	#settingsummary, #settingmain {
+		display:none;
+	}
+
+	#otheroptions {
+		display:none;
+	}
+
+	#otheroptionsMobile {
+		position:relative;
+		top:10px;
+		margin-bottom:20px;
+	}
+
+	#otheroptionsMobile a {
+		width: 100%;
+		display: block;
+		font-size: 18px;
+		line-height: 24px;
+		padding: 5px;
+		padding-left:20px;
+		color:#000;
+	}
+
+	#settingfooter {
+		width:100%;
+		padding:0px;
+		height:100%;
+	}
+
+	#objectCount {
+		width:100%;
+	}
+
+	.itemcountMobile {
+		width:25%;
+		float:left;
+		background:#3e3e3e;
+		color:#fff;
+		font-size:24px;
+	}
+
+	.itemcountMobile p {
+		padding-top:5px;
+	}
+
+	.itemcountMobile img {
+		width:50px;
+		float:left;
+	}
+
+	#settingsMobile h1 {
+		text-align:left;
+		color:#000;
+	}
+
+	#settingsMobile h3 {
+		margin-left:118px;
+	}
+
+	#settingimageMobile {
+		width:75px;
+		float:left;
+		margin-left:20px;
+	}
+
+	.settingspage {
+		background:#01a5af !important;
+		height:667px !important;
+	}
+
+	#helpimg {
+		max-width:35px;
+		max-height:35px;
+		margin-top:8px;
+		margin-left:10px;
+	}
+
+	#feedbackimg {
+		max-width:60px;
+		max-height:60px;
+		margin-top:11px;
+		margin-left:10px;
+	}
+
+	#socialimg {
+		max-width:60px;
+		max-height:60px;
+		margin-top:12px;
+		margin-left:10px;
+	}
+
+	.settingoption {
+		background:#01a5af;
+		height:50px;
+		padding-top:10px;
+	}
+
+	.settingoption h5 {
+		padding-left:20px;
+		color:#fff !important;
+	}
+
+	#orphancount img {
+		top:-5px;
+	}
+
+	#orphancount span {
+		top:-7px;
+	}
+
+	#appcont {
+		margin-top:0px;
+		margin-bottom:0px;
+	}
+
 }

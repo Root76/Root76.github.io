@@ -23,6 +23,8 @@ App.Router.map(function () {
     this.resource("orphans", function() {
         this.route("orphan", { path: "/:orphan_id" });    
     });
+    this.resource("view");
+    this.resource("create");
     this.resource("calendar");
     this.resource("settings");
 });
@@ -56,7 +58,7 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-prod.herokuapp.com/",
+  host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
     "X-AUTHENTICATION-TOKEN": authToken,
     "X-AUTHENTICATION-EMAIL": userEmail
@@ -735,7 +737,7 @@ function rebindEvents() {
             });
             $.ajax({
                 type: 'POST',
-                url: "http://daywon-api-prod.herokuapp.com/tags",
+                url: "http://daywon-api-staging.herokuapp.com/tags",
                 contentType: "application/json",
                 dataType: "json",
                 data: tagData,
@@ -768,7 +770,7 @@ function rebindEvents() {
             console.log(taskData);
             $.ajax({
                 type: 'POST',
-                url: "http://daywon-api-prod.herokuapp.com/tasks",
+                url: "http://daywon-api-staging.herokuapp.com/tasks",
                 contentType: "application/json",
                 dataType: "json",
                 data: taskData,
@@ -807,7 +809,7 @@ function rebindEvents() {
             console.log(contactData);
             $.ajax({
                 type: 'POST',
-                url: "http://daywon-api-prod.herokuapp.com/contacts",
+                url: "http://daywon-api-staging.herokuapp.com/contacts",
                 contentType: "application/json",
                 dataType: "json",
                 data: contactData,
@@ -843,7 +845,7 @@ function rebindEvents() {
             console.log(eventData);
             $.ajax({
                 type: 'POST',
-                url: "http://daywon-api-prod.herokuapp.com/events",
+                url: "http://daywon-api-staging.herokuapp.com/events",
                 contentType: "application/json",
                 dataType: "json",
                 data: eventData,
