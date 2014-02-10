@@ -24,7 +24,12 @@ App.Router.map(function () {
         this.route("orphan", { path: "/:orphan_id" });    
     });
     this.resource("view");
-    this.resource("create");
+    this.resource("create", function(){
+        this.route("contact");
+        this.route("event");
+        this.route("task");
+        this.route("tag");
+    });
     this.resource("calendar");
     this.resource("settings");
 });

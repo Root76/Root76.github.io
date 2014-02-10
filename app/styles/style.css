@@ -3261,6 +3261,10 @@ input#toggle5:checked + label:after {
 	position:relative;
 }
 
+.createButton {
+	width:50%;
+}
+
 .circlebg {
 	-webkit-border-radius: 75px;
 	-moz-border-radius: 75px;
@@ -3296,6 +3300,10 @@ input#toggle5:checked + label:after {
 
 .row .viewButton:last-child .circlebg {
 	float:left;
+}
+
+.createButton .circlebg {
+	margin:20px;
 }
 
 #viewHeader {
