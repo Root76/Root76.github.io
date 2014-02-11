@@ -40,7 +40,7 @@ body {
 	font-weight:300;
 	text-align: left;
 	text-decoration: none;
-	top: 80px;
+	top: 140px;
 	position: relative;
 	color:#333;
 }
@@ -495,6 +495,7 @@ h1, h2, h3, h4 {
 	height: 600px;
 	position: relative;
 	margin: 0 auto;
+	top: -60px;
 }
 
 #wrapper p {
