@@ -87,6 +87,10 @@ hr {
 	padding-top:9px;
 }
 
+.backArrow {
+	display:none;
+}
+
 .loggedin {
 	position: fixed;
 	top: 9px;

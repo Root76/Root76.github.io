@@ -529,6 +529,10 @@
 		padding-left: 20px;
 	}
 
+	.backArrow {
+		display:block;
+	}
+
 	#mobileContact {
 		display:block;
 	}
@@ -549,10 +553,6 @@
 
 	.panelfooter {
 		top:0px;
-	}
-
-	.contactrow h4 {
-		display:block !important;
 	}
 
 	/* section login.html */

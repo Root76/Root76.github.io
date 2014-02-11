@@ -532,6 +532,10 @@ function rebindEvents() {
         }*/
     });
 
+    $(".backArrow").click(function(){
+        $("#contactpanel2").removeClass("panelIn");
+    });
+
     $('.settingoption > a').click(function(event){
         if ($(event.target).hasClass('selected')) {
             $(event.target).removeClass('selected');
