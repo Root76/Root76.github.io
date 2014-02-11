@@ -1316,8 +1316,9 @@ to {
 .panelcontent {
 	top:85px;
 	position:relative;
-	height:400px;
+	height:475px;
 	padding:10px;
+	background:#fff;
 }
 
 .panelcontent p {
@@ -1330,12 +1331,6 @@ to {
 
 #contactcontent {
 	background:#2a799c;
-}
-
-#taskscontent {
-	background:#fff;
-	padding:10px;
-	height:475px;
 }
 
 #tasksfooter {

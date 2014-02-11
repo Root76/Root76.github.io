@@ -1275,7 +1275,9 @@
                   </ul>
                 </div>
                 <div class="col-md-7" id="eventpanel2">
-                  <h2 id="contactname" class="taskname">Mom's Birthday</h2>
+                  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+                  <img src="img/arrow.png" class="backArrow" />
+                  <h2 id="contactname" class="eventname">Mom's Birthday</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" class="selected" />
@@ -1284,7 +1286,7 @@
                     <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
                     <img src="img/trash.png" id="trashicon"/>              
                   </div>
-                  <div class="panelcontent" id="taskscontent">
+                  <div class="panelcontent" id="eventscontent">
                   {{#each event in controller}}
                   {{#if event.title}}                    
                     <div class="infopanel">
@@ -1452,7 +1454,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/tasks.png" / class="contactpadding">
-                  <h1 class="contactpadding">Tasks (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding" id="mobileTaskHead">Tasks (<span id="itemCount">0</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1693,7 +1695,7 @@
                     <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
                     <img src="img/trash.png" id="trashicon"/>              
                   </div>
-                  <div class="panelcontent" id="taskscontent">
+                  <div class="panelcontent" id="tagscontent">
                     <div class="infopanel">
                       <div class="contactrow personrow">
                         <img src="img/contact.png">

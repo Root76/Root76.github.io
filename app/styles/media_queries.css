@@ -712,7 +712,7 @@
 	}
 
 	#taskscont h1 {
-		background: #009b59;
+		background: #719a58;
 		padding: 9px;
 		text-align: left;
 		padding-left: 20px;
@@ -725,6 +725,10 @@
 		padding-left: 20px !important;
 	}
 
+	.taskDetailHeader {
+		background:#460002 !important;
+	}
+
 	.tagname {
 		padding: 10px;
 		ht: inherit;
@@ -732,6 +736,14 @@
 		margin: 0px;
 		background: #72696c;
 		border-bottom:1px solid #ccc;
+	}
+
+	.eventname {
+		padding: 10px;
+		ht: inherit;
+		padding-left: 30px;
+		margin: 0px;
+		border-bottom:1px solid #ccc;	
 	}
 
 	#tagpanel2 {
@@ -742,12 +754,67 @@
 		background:#bab1b2 !important;
 	}
 
+	#taskpanel2 {
+		background:#956364;
+	}
+
+	#eventpanel2 {
+		background:#85ae6a;
+	}
+
+	#contactlist li {
+		background:#2f3776 !important;
+	}
+
+	#contactlist li:hover {
+		background:#a5d0e1 !important;
+	}
+
+	#eventlist li {
+		background:#85ae6a !important;
+	}
+
+	#eventlist li:hover {
+		background:#006416 !important;
+	}
+
+	#tasklist li {
+		background:#b43967 !important;
+	}
+
+	#tasklist li:hover {
+		background:#ffa3ca !important;
+	}
+
 	#taglist li {
 		background:#72696c !important;
 	}
 
 	#taglist li:hover {
 		background:#40373a !important;
+	}
+
+	#eventscontent {
+		background:#006416 !important;
+		color:#fff;
+	}
+
+	#taskscontent {
+		background:#f37299;
+		color:#fff;
+	}
+
+	#tagscontent {
+		background:#40373a;
+		color:#fff;
+	}
+
+	#mobileTaskHead {
+		background: #460002 !important;
+	}
+
+	#collapseall, #expandall {
+		color:#fff !important;
 	}
 
 	.contactrow.eventrow h4,
