@@ -261,7 +261,7 @@
 	}
 
 	.subcontitem img {
-		height: 45px;
+		height: 45px !important;
 	}
 
 	#schedule {
@@ -883,6 +883,56 @@
 
 	.fc-state-highlight {
 		background:#b3d13d;
+	}
+
+	table.fc-border-separate {
+		padding-top:48px;
+		position:relative;
+	}
+
+	#curDate {
+		top: 109px;
+		padding-left: 20px;
+		font-size:18px;
+	}
+
+	.fc-header-title h2 {
+		font-size:18px;
+		position:relative;
+		top:106px;
+	}
+
+	.menucal {
+		top:-1px;
+		right:0px;
+		border-bottom:1px solid #333;
+	}
+
+	.fc-button-prev, .fc-button-next {
+		top:108px;
+	}
+
+	#calendarchoice {
+		position:relative;
+		top:22px;
+		background:none;
+	}
+
+	.calview {
+		border:0px;
+	}
+
+	.fc-content {
+		position: relative;
+		top: 23px;
+	}
+
+	.menucal h2 {
+		background: none !important;
+		font-size: 24px !important;
+		top: 6px;
+		position: relative;
+		left: 20px;
 	}
 
 	.opentip-container {
