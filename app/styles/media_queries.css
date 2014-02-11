@@ -83,7 +83,7 @@
 		width:100%;
 	}
 
-/*Custom*/
+/************************Custom*************************/
 
 	.container {
 		padding:0px;
@@ -277,6 +277,10 @@
 
 	.reportapp {
 		background:#7ca664 !important;
+	}
+
+	.listitem {
+		margin-bottom:0px;
 	}
 
 	.listitem .ui-state-active {
@@ -815,6 +819,38 @@
 
 	#collapseall, #expandall {
 		color:#fff !important;
+	}
+
+	.mainsort {
+		margin-top:0px !important;
+	}
+
+	.createMobile {
+		display:block !important;
+	}
+
+	.createContainer {
+		padding:20px;
+	}
+
+	.newContact {
+		background:#a5d0e1;
+		color:#fff;
+	}
+
+	.newEvent {
+		background:#719a58;
+		color:#fff;
+	}
+
+	.newTask {
+		background:#956364;
+		color:#fff;
+	}
+
+	.newTag {
+		background:#40373a;
+		color:#fff;
 	}
 
 	.contactrow.eventrow h4,

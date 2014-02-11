@@ -706,15 +706,9 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="create/contact">
-          <h2 id="createHeader">Create:</h2>
-            <select id="createselect">
-              <option selected>Contact</option>
-              <option>Event</option>
-              <option>Task</option>
-              <option>Tag</option>
-            </select>
-            <div class="createContact createForm">
-              <!--<img src="img/contact.png" class="createimg" />-->
+          <div class="createContainer newContact">
+            <h2 id="createHeader">Create Contact</h2>
+            <div class="createContact createForm createMobile">
               <form>
                 <div class="formrow">First name: <input type="text" id="contactFirst"></div>
                 <div class="formrow">Last name: <input type="text" id="contactLast"></div>
@@ -725,8 +719,12 @@
                 <div class="formrow"><input type="submit"></div>
               </form>
             </div>
-            <div class="createEvent createForm">
-              <!--<img src="img/events.png" class="createimg" />-->
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="create/event">
+          <div class="createContainer newEvent">
+            <h2 id="createHeader">Create Event</h2>
+            <div class="createEvent createForm createMobile">
               <form>
                 <div class="formrow">Event title: <input type="text" id="eventName"></div>
                 <div class="formrow">Event description: <input type="text" id="eventDetails"></div>
@@ -740,79 +738,29 @@
                 <div class="formrow"><input type="submit"></div>
               </form>
             </div>
-            <div class="createTask createForm">
-              <!--<img src="img/tasks.png" class="createimg" />-->
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="create/task">
+          <div class="createContainer newTask">
+            <h2 id="createHeader">Create Task</h2>
+            <div class="createTask createForm createMobile">
               <form>
                 <div class="formrow">Task title: <input type="text" id="taskName"></div>
                 <div class="formrow">Task notes: <input type="text" id="taskNotes"></div>
-                <!--<div class="formrow">Task status: <input type="text" id="taskStatus"></div>-->
                 <div class="formrow">Due date: <input type="datetime-local" id="taskDue"></div>
                 <div class="formrow"><input type="submit"></div>
               </form>
             </div>
-            <div class="createTag createForm">
-              <!--<img src="img/tags.png" class="createimg" />-->
-              <form>
-                <div class="formrow">Tag title: <input type="text" id="tagName"></div>
-                <div class="formrow"><input type="submit"></div>
-              </form>          
-            </div>
-          </div>
-        </script>
-        <script type="text/x-handlebars" id="create/event">
-          <h1 id="viewHeader">Create Event</h1>
-          <div class="row">
-            <div class="viewButton createButton">
-              {{#link-to 'create.contact'}}<div class="circlebg"><img src="img/contact.png" /><p>Contacts</p></div>
-            {{/link-to}}</div>
-            <div class="viewButton createButton">
-              {{#link-to 'create.event'}}<div class="circlebg"><img src="img/events.png" /><p>Events</p></div>{{/link-to}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="viewButton createButton">
-              {{#link-to 'create.task'}}<div class="circlebg"><img src="img/tasks.png" /><p>Tasks</p></div>{{/link-to}}
-            </div>
-            <div class="viewButton createButton">
-              {{#link-to 'create.tag'}}<div class="circlebg"><img src="img/tags.png" /><p>Tags</p></div>{{/link-to}}
-            </div>
-          </div>
-        </script>
-        <script type="text/x-handlebars" id="create/task">
-          <h1 id="viewHeader">Create Task</h1>
-          <div class="row">
-            <div class="viewButton createButton">
-              {{#link-to 'create.contact'}}<div class="circlebg"><img src="img/contact.png" /><p>Contacts</p></div>
-            {{/link-to}}</div>
-            <div class="viewButton createButton">
-              {{#link-to 'create.event'}}<div class="circlebg"><img src="img/events.png" /><p>Events</p></div>{{/link-to}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="viewButton createButton">
-              {{#link-to 'create.task'}}<div class="circlebg"><img src="img/tasks.png" /><p>Tasks</p></div>{{/link-to}}
-            </div>
-            <div class="viewButton createButton">
-              {{#link-to 'create.tag'}}<div class="circlebg"><img src="img/tags.png" /><p>Tags</p></div>{{/link-to}}
-            </div>
           </div>
         </script>
         <script type="text/x-handlebars" id="create/tag">
-          <h1 id="viewHeader">Create Tag</h1>
-          <div class="row">
-            <div class="viewButton createButton">
-              {{#link-to 'create.contact'}}<div class="circlebg"><img src="img/contact.png" /><p>Contacts</p></div>
-            {{/link-to}}</div>
-            <div class="viewButton createButton">
-              {{#link-to 'create.event'}}<div class="circlebg"><img src="img/events.png" /><p>Events</p></div>{{/link-to}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="viewButton createButton">
-              {{#link-to 'create.task'}}<div class="circlebg"><img src="img/tasks.png" /><p>Tasks</p></div>{{/link-to}}
-            </div>
-            <div class="viewButton createButton">
-              {{#link-to 'create.tag'}}<div class="circlebg"><img src="img/tags.png" /><p>Tags</p></div>{{/link-to}}
+          <div class="createContainer newTag">
+            <h2 id="createHeader">Create Tag</h2>
+            <div class="createTag createForm createMobile">
+              <form>
+                <div class="formrow">Tag title: <input type="text" id="tagName"></div>
+                <div class="formrow"><input type="submit"></div>
+              </form>
             </div>
           </div>
         </script>
