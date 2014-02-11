@@ -531,6 +531,10 @@ function rebindEvents() {
             });
         }*/
     });
+	
+	$("#contactsdash").click(function() {
+		$("#viewmenu > a")[0].click();
+	});
 
     $(".backArrow").click(function(){
         $("#contactpanel2").attr("class", "col-md-7 mobileOut");
@@ -1008,7 +1012,9 @@ function rebindEvents() {
         $("#itemCount").html(fullCount.length);
         setTimeout(function(){
             $(".spaceimage").remove();
-            $(".dashitem").accordion("refresh");
+			try { 
+				$(".dashitem").accordion("refresh"); 
+			} catch (e) { }
         }, 1000);
     }, 100);
 
