@@ -882,7 +882,7 @@ h1, h2, h3, h4 {
 	list-style:none;
 	margin-bottom:0px;
 	padding:15px;
-	padding-top:0px;
+	padding-top:15px;
 	padding-bottom:0px;
 	-webkit-overflow-scrolling:touch;
 }
@@ -893,14 +893,16 @@ h1, h2, h3, h4 {
 
 .listitem {
 	background:#fff;
-	margin-bottom:15px;
+	margin-bottom: 0px;
 	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
 	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.3);
 	box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.3);
 }
-
 .listitem:last-child {
 	margin-bottom:0px;
+}
+.listitem  h3 {
+	margin-top: 0px;
 }
 
 .dashitem {
@@ -968,19 +970,19 @@ color: #ec8f38;
 }
 
 #tasksdash {
-	background:#1390d2;
+	background:#88c44c;
 }
 
 #eventsdash {
-
-}
-
-#eventsdash h3 {
-	color:#333;
+	background:#e35d32;
 }
 
 #tagsdash {
-	background:#005e66;
+	background:#ec8f38;
+}
+
+#contactsdash {
+	background:#41bee1;
 }
 
 #eventslist {
@@ -1160,7 +1162,7 @@ color: #ec8f38;
 }
 
 #eventlist li:hover {
-	background:#b2d03a;
+	background:#e35d32;
 }
 
 #taglist li:hover {
