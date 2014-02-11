@@ -935,6 +935,14 @@
 		left: 20px;
 	}
 
+	.calchoice:hover {
+		background:#b3d13d;
+	}
+
+	.calchoice.selected {
+		background:#b3d13d;
+	}
+
 	.opentip-container {
 		display: none;
 	}
