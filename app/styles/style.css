@@ -2487,6 +2487,7 @@ a.fc-event,
 
 table.fc-border-separate {
 	border-collapse: separate;
+	height:553px;
 	}
 	
 .fc-border-separate th,
@@ -3034,6 +3035,10 @@ input#toggle5:checked + label:after {
 	margin:0px;
 	margin-bottom:40px;
 	color:#fff;
+}
+
+.calendarContainer {
+	height:650px !important
 }
 
 #mobileContact {

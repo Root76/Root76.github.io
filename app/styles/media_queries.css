@@ -9,7 +9,13 @@
 	}
 }
 
-@media screen and (max-width:1000px) {
+@media screen and (max-width:1023px) {
+	#orphansubhead, #orphanhelp {
+		font-size:24px;
+	}
+	#orphancontainer img {
+		width:150px;
+	}
 	.nav>li>a {
 		font-size:12px;
 		padding-left:8px;
@@ -386,8 +392,10 @@
 	}
 
 	#settingsMobile h1 {
-		text-align:left;
-		color:#000;
+		text-align:left !important;
+		color:#000 !important;
+		background:none !important;
+		padding-left:115px !important;
 	}
 
 	#settingsMobile h3 {
@@ -561,6 +569,7 @@
 
 	#detailPanel {
 		margin-left:0px;
+		display:none;
 	}
 
 	#profilepic {
@@ -858,6 +867,22 @@
 	.contactrow.tagrow h4 
 	 {
 		display:block !important;
+	}
+
+	.calendarContainer {
+		background:#72696c !important;
+	}
+
+	#calendarHeader {
+		background:#dbd9da;
+		padding:10px;
+		padding-left:20px;
+		width:100%;
+		margin:0px;
+	}
+
+	.fc-state-highlight {
+		background:#b3d13d;
 	}
 
 	.opentip-container {
