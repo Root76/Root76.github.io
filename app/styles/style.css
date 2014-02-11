@@ -2277,7 +2277,7 @@ html .fc,
 	line-height: 1.9em;
 	white-space: nowrap;
 	cursor: pointer;
-	z-index: 1000;
+	z-index: 10;
 	}
 	
 .fc-state-default { /* non-theme */
@@ -2972,6 +2972,12 @@ input#toggle5:checked + label:after {
 	position: relative;
 	top: -10px;
 	height: 0px;
+	z-index: 1200;
+}
+.small-create-icon.calendar-create-icon {
+	height: 30px;
+	margin-top: 20px;
+	padding: 0px;
 }
 .small-create-icon > img {
 	width: 50px;
