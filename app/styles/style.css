@@ -968,19 +968,19 @@ color: #ec8f38;
 }
 
 #tasksdash {
-	background:#1390d2;
+	background:#88c44c;
 }
 
 #eventsdash {
-
-}
-
-#eventsdash h3 {
-	color:#333;
+	background:#e35d32;
 }
 
 #tagsdash {
-	background:#005e66;
+	background:#ec8f38;
+}
+
+#contactsdash {
+	background:#41bee1;
 }
 
 #eventslist {

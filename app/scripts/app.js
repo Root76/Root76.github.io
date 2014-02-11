@@ -65,8 +65,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": 'iRHkAExpYJ4PZWRwxcrt',
+    "X-AUTHENTICATION-EMAIL": 'mkhan@srrngames.com'
   }
 });
 
@@ -531,6 +531,10 @@ function rebindEvents() {
             });
         }*/
     });
+	
+	$("#contactsdash").click(function() {
+		$("#viewmenu > a")[0].click();
+	});
 
     $(".backArrow").click(function(){
         $("#contactpanel2").attr("class", "col-md-7 mobileOut");
@@ -1008,7 +1012,9 @@ function rebindEvents() {
         $("#itemCount").html(fullCount.length);
         setTimeout(function(){
             $(".spaceimage").remove();
-            $(".dashitem").accordion("refresh");
+			try { 
+				$(".dashitem").accordion("refresh"); 
+			} catch (e) { }
         }, 1000);
     }, 100);
 
