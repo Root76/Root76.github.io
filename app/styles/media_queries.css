@@ -61,6 +61,7 @@
 @media screen and (max-width:767px) {
 	body {
 		top:40px;
+		bottom:0px;
 	}
 	#logo {
 		float:left;
@@ -327,7 +328,7 @@
 		float:left;
 		background:#3e3e3e;
 		color:#fff;
-		height:50px;
+		height:52px;
 	}
 
 	#helplinksMobile > a:last-child > div {
@@ -906,6 +907,7 @@
 		top:-1px;
 		right:0px;
 		border-bottom:1px solid #333;
+		z-index:1;
 	}
 
 	.fc-button-prev, .fc-button-next {
@@ -940,6 +942,44 @@
 
 	.calchoice.selected {
 		background:#b3d13d;
+	}
+
+	.mobileCover {
+		position:fixed;
+		display:block;
+		z-index:-1;
+		top:0px;
+		left:0px;
+		right:0px;
+		bottom:0px;
+	}
+
+	#indexCover {
+		background:#1390d2;
+	}
+
+	#reportsCover {
+		background:#7ca664;
+	}
+
+	#viewCover {
+		background:#eee;
+	}
+
+	#tagsCover {
+		background:#bab1b2;
+	}
+
+	#eventsCover {
+		background:#719a58;
+	}
+
+	#tasksCover {
+		background:#460002;
+	}
+
+	#calendarCover {
+		background:#72696c;
 	}
 
 	.opentip-container {

@@ -748,6 +748,11 @@ h1, h2, h3, h4 {
 	font-family: 'Open Sans', sans-serif;
 	margin-bottom:100px;
 	width:100%;
+	z-index:1;
+}
+
+.mobileCover {
+	display:none;
 }
 
 #appcont h1 {
