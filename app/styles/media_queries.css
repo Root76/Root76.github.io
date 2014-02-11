@@ -460,7 +460,7 @@
 	#contactsearch {
 		display: block;
 		position: absolute;
-		top: 16px;
+		top: 2px;
 		right: 0px;
 		width: 50%;
 	}
@@ -471,8 +471,15 @@
 		right: 0px;
 	}
 
+	.contsort select {
+		float: right;
+		position: relative;
+		top: -27px;
+	}
+
 	.filtercolumn h4 {
 		display:block !important;
+		top: -15px;
 	}
 
 	#detailPanelHider {
@@ -482,14 +489,70 @@
 	#contactpanel2 {
 		margin-left: 0px;
 		width: 100%;
-		left:100%;
+		right:100%;
 		top: 40px;
 		height: 100%;
 		padding:0px;
+   	}
+
+
+	#createicon {
+		display:none;
+	}
+
+   	@keyframes mIn {
+		from {
+		-ms-transform: right(100%);
+		}
+		to {
+		-ms-transform: right(0%);
+		}
+	}
+
+	@-webkit-keyframes mIn {
+		from {
+		-webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(0%);
+		}
+		to {
+		-webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(100%);
+		}
+	}
+
+	@keyframes mOut {
+		from {
+		-ms-transform: right(0%);
+		}
+		to {
+		-ms-transform: right(100%);
+		}
+	}
+
+	@-webkit-keyframes mOut {
+		from {
+		-webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(100%);
+		}
+		to {
+		-webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(0%);
+		}
 	}
 
 	.mobileIn {
-		left:0% !important;
+		animation-name: mIn;
+		-webkit-animation-name: mIn;
+		-webkit-animation-duration:.6s;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-timing-function: ease;
+		-webkit-animation-fill-mode: forwards;
+		z-index:15;
+	}
+
+	.mobileOut {
+		animation-name: mOut;
+		-webkit-animation-name: mOut;
+		-webkit-animation-duration:.6s;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-timing-function: ease;
+		-webkit-animation-fill-mode: forwards;
 		z-index:15;
 	}
 
@@ -516,6 +579,7 @@
 		position: relative;
 		top: 0px;
 		padding-top: 10px;
+		width:auto;
 	}
 
 	.contacttext {
@@ -530,11 +594,20 @@
 	}
 
 	.backArrow {
-		display:block;
+		display: block;
+		position: absolute;
+		top: 11px;
+		left: 20px;
+		height: 35px;
+		cursor: pointer;
+		transform: rotate(90deg);
+		-ms-transform: rotate(90deg);
+		-webkit-transform: rotate(90deg);
 	}
 
 	#mobileContact {
 		display:block;
+		padding-left:70px !important;
 	}
 
 	.contactmenu > a > #createicon {
@@ -542,9 +615,23 @@
 		right:20px !important;
 	}
 
+	img.contactpadding {
+		display:none;
+	}
+
 	.contactmenu > #trashicon {
 		top:5px !important;
-		right:60px !important;
+		right:20px !important;
+		height:70px;
+	}
+
+	.filtercolumn.contactpadding {
+		border-bottom: 1px solid #CCC;
+		padding-bottom: 10px;
+		margin: 0px;
+		padding: 0px;
+		padding-left: 20px;
+		padding-right: 20px;
 	}
 
 	.panelcontent {
@@ -611,4 +698,32 @@
 		font-size: 18px;
 	}
 	/* end login.html */
+
+	#contactlist, #tasklist, #eventlist, #taglist {
+		width:100%;
+	}
+
+	#contactlist {
+		top: -25px;
+		position: relative;
+	}
+
+	#contactscont h1 {
+		background: #3a3f7f;
+		padding: 9px;
+		text-align: left;
+		padding-left: 20px;
+	}
+
+	.contactrow.eventrow h4,
+	.contactrow.taskrow h4,
+	.contactrow.tagrow h4 
+	 {
+		display:block !important;
+	}
+
+	.opentip-container {
+		display: none;
+	}
+
 }

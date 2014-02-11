@@ -533,7 +533,10 @@ function rebindEvents() {
     });
 
     $(".backArrow").click(function(){
-        $("#contactpanel2").removeClass("panelIn");
+        $("#contactpanel2").attr("class", "col-md-7 mobileOut");
+        setTimeout(function(){
+            $("#contactpanel2").removeClass("mobileOut");
+        }, 600);
     });
 
     $('.settingoption > a').click(function(event){
