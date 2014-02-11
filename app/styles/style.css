@@ -882,7 +882,7 @@ h1, h2, h3, h4 {
 	list-style:none;
 	margin-bottom:0px;
 	padding:15px;
-	padding-top:0px;
+	padding-top:15px;
 	padding-bottom:0px;
 	-webkit-overflow-scrolling:touch;
 }
@@ -893,14 +893,16 @@ h1, h2, h3, h4 {
 
 .listitem {
 	background:#fff;
-	margin-bottom:15px;
+	margin-bottom: 0px;
 	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
 	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.3);
 	box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.3);
 }
-
 .listitem:last-child {
 	margin-bottom:0px;
+}
+.listitem  h3 {
+	margin-top: 0px;
 }
 
 .dashitem {
