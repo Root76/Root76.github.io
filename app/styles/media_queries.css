@@ -486,7 +486,7 @@
 		display:none;
 	}
 
-	#contactpanel2 {
+	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2 {
 		margin-left: 0px;
 		width: 100%;
 		right:100%;
@@ -494,7 +494,6 @@
 		height: 100%;
 		padding:0px;
    	}
-
 
 	#createicon {
 		display:none;
@@ -584,7 +583,7 @@
 
 	.contacttext {
 		top: 0px;
-		margin: 0px;
+		margin: 0px !important;
 		border-top: 1px solid #CCC;
 		border-bottom: 1px solid #fff;
 		padding-top: 10px;
@@ -619,7 +618,7 @@
 		display:none;
 	}
 
-	.contactmenu > #trashicon {
+	#detailmenubar > #trashicon {
 		top:5px !important;
 		right:20px !important;
 		height:70px;
@@ -701,9 +700,6 @@
 
 	#contactlist, #tasklist, #eventlist, #taglist {
 		width:100%;
-	}
-
-	#contactlist {
 		top: -25px;
 		position: relative;
 	}
@@ -713,6 +709,45 @@
 		padding: 9px;
 		text-align: left;
 		padding-left: 20px;
+	}
+
+	#taskscont h1 {
+		background: #009b59;
+		padding: 9px;
+		text-align: left;
+		padding-left: 20px;
+	}
+
+	.tagDetailHeader {
+		background: #bab1b2 !important;
+		padding: 9px !important;
+		text-align: left !important;
+		padding-left: 20px !important;
+	}
+
+	.tagname {
+		padding: 10px;
+		ht: inherit;
+		padding-left: 30px;
+		margin: 0px;
+		background: #72696c;
+		border-bottom:1px solid #ccc;
+	}
+
+	#tagpanel2 {
+		background:#72696c;
+	}
+
+	.tagHeader {
+		background:#bab1b2 !important;
+	}
+
+	#taglist li {
+		background:#72696c !important;
+	}
+
+	#taglist li:hover {
+		background:#40373a !important;
 	}
 
 	.contactrow.eventrow h4,
