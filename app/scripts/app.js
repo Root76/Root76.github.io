@@ -65,8 +65,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -1148,7 +1148,7 @@ function rebindEvents() {
     }
     setTimeout(function(){
         $("#loader").removeClass("showLoader");
-    }, 300);
+    }, 200);
 	
 	// navbar active state for the dropdown View button
 	var viewMenu = $('#viewmenu');
@@ -1156,6 +1156,8 @@ function rebindEvents() {
 	if (links.hasClass('active'))
 		viewMenu.addClass('active');
 	else viewMenu.removeClass('active');
+
+    document.body.ontouchmove = function(e) { e.preventDefault(); };
 	
 	// javascript-based calling of modals so as to not interfere with Ember URLS with #
 	var allModals = $('.modalDialog');
@@ -1168,3 +1170,4 @@ function rebindEvents() {
 	var modal3Links = $('.openModal3');
 	modal3Links.click(function(){ $('#openModal3').addClass('active'); });
 }
+

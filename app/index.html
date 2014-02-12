@@ -94,13 +94,15 @@
           </div>{{/link-to}}
           <a href="javascript:window.print()" id="printparent"><img src="img/print.png" id="printimg" /></a>
         </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-                {{outlet}}
+        <div id="mainScroller">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                  {{outlet}}
+              </div>
             </div>
           </div>
-        </div><!-- /.container -->
+        </div>
         </script>
         <div id="footer">
           <div class="container">
@@ -1917,7 +1919,7 @@
                     <a>N</a>-->
                   </div>
                   <div class="settingoption">
-                    <h5>Push contextual information into Web Mail activities:</h5>
+                    <h5>Push contextual information into Web Mail:</h5>
                     <input type="checkbox" name="toggle4" id="toggle4">
                     <label for="toggle4"></label>
                     <!--<a class="selected">Y</a>
