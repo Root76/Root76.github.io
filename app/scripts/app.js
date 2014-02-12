@@ -146,24 +146,29 @@ App.TasksController = Ember.ArrayController.extend({
 			var hasDate = item.get('hasDate');
 			var due = moment(item.get('due'));
 			
-			switch(option) {
-			case "allOpen":
+			if (option === "allOpen")
 				return true;
-			case "overdue":
-				if (hasDate) {
-					return due <= now; // all dues earlier than now
+			else {			
+				switch(option) {
+				case "overdue": // earlier than now
+					return due <= now; 
+				case "todayAndOverdue": // earlier than beginning of next day
+					return due < moment(now).add('days', 1).hour(0).minute(0).second(0); 
+				case "next7Days": // later than now and earlier than beginning of 8th day
+					return due > now && due < moment(now).add('days', 7).hour(0).minute(0).second(0); 
+				case "today": // later than now and earlier than beginning of next day
+					return due > now && due < moment(now).add('days', 1).hour(0).minute(0).second(0); 
+				case "tomorrow": // from beginning to end of next day
+					var nextDay = moment(now).add('days', 1).hour(0).minute(0).second(0);
+					return due >= nextDay && due < nextDay.add('days', 1); 
+				case "thisWeek": // from now until beginning of next Monday
+					var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
+					return due > now && due < nextMonday; 
+				case "nextWeek": // from beginning of next Monday to beginning of the next Monday
+					var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
+					var nextNextMonday = moment(now).day(15).hour(0).minute(0).second(0);
+					return due >= nextMonday && due < nextNextMonday; 
 				}
-				break;
-			case "todayAndOverdue":
-				if (hasDate) {
-					return due < moment(now).add('days', 1).hour(0).minute(0).second(0); // all dues earlier than beginning of next day
-				}
-				break;
-			case "next7Days":
-				if (hasDate) {
-					return due > now && due < moment(now).add('days', 7).hour(0).minute(0).second(0); // all dues later than now and earlier than beginning of 8th day
-				}
-				break;
 			}
 			return false;
         });
