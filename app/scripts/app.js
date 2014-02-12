@@ -474,6 +474,7 @@ function rebindEvents() {
         $('.listitem').accordion({
             active: false,
             collapsible: true,
+            header: "h3.mainsort", // force only 1 header in this accordion
 			beforeActivate: function(evt, obj) {
 				var OFFSET = -30;
 				var collapsing = obj.newHeader.length === 0;
