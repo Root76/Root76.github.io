@@ -853,7 +853,7 @@ function rebindEvents() {
 			url: url,
 			contentType: "application/json",
 			dataType: "json",
-			data: data,
+			data: JSON.stringify(data),
 			headers: {
 				"X-AUTHENTICATION-TOKEN": authToken,
 				"X-AUTHENTICATION-EMAIL": userEmail
