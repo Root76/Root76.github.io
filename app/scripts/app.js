@@ -483,6 +483,19 @@ function rebindEvents() {
         });
         $('.accordionarrow').removeClass('arrowdown');
     });
+	
+	$('.detailSection').accordion({
+		active: 0,
+		collapsible: true,
+		beforeActivate: function(evt, obj) {
+			var collapsing = obj.newHeader.length === 0;
+			if (collapsing)
+				$(evt.target).find('.detailArrow').removeClass('arrowdown');
+			else
+				$(evt.target).find('.detailArrow').addClass('arrowdown');
+		}
+	});
+	$('.detailSection').click();
 
     $('#expandall').click(function(){
         var accord;
