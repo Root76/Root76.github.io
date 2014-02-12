@@ -826,8 +826,8 @@
                 <h3 class="mainsort">Tasks<img src="img/arrow_black.png" class="accordionarrow"></h3>
                 <div class="subitems">
                   <img src="img/tags.png" class="spaceimage" />
-                  {{#each task in tasksController}}
-                  {{#if task.title}} 
+                  {{#each task in tasksController.tasksToShow}}
+                  {{#if task.title}}
                   <div class="subitem subdash">
                     <img class="subicon" src="img/tasks.png" />
                     <span class="subitemtext subdashtext">{{task.title}}</span>
@@ -838,18 +838,18 @@
                 <div class="sortcont sortcont2">
                   <h4 class="beforeDropdown">Show me: </h4>
                   {{view Ember.Select
-					   content=tasksController.showOptions
-					   optionLabelPath="content.label"
-					   optionValuePath="content.id"
-					   selection=tasksController.selectedShowOption}}
+                       content=tasksController.showOptions
+                       optionLabelPath="content.label"
+                       optionValuePath="content.id"
+                       selection=tasksController.selectedShowOption}}
                 </div>
                 <div class="sortcont sortcont3 sortcontTasks">
                   <h4 class="beforeDropdown">Sorted by: </h4>
                   {{view Ember.Select
-					   content=tasksController.sortOptions
-					   optionLabelPath="content.label"
-					   optionValuePath="content.primarySort"
-					   selection=tasksController.selectedSortOption}}
+                       content=tasksController.sortOptions
+                       optionLabelPath="content.label"
+                       optionValuePath="content.primarySort"
+                       selection=tasksController.selectedSortOption}}
                 </div>
               </li>
               <li class="listitem dashitem" id="eventsdash">
@@ -929,11 +929,12 @@
                 </div>
                 <div class="sortcont sortcont3 sortcontTags">
                   <h4 class="beforeDropdown">Sorted by: </h4>
-                  <select>
-                    <option>Name</option>
-                    <option>Tag Count</option>
-                  </select>
-                </div>              
+                  {{view Ember.Select
+                       content=tagsController.sortOptions
+                       optionLabelPath="content.label"
+                       optionValuePath="content.id"
+                       selection=tagsController.selectedSortOption}}
+                </div>            
               </li>
 			  <li class="dashitem" id="contactsdash">
                 <h3 class="mainsort">Contacts</h3>         
