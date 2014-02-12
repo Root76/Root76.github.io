@@ -474,6 +474,7 @@ function rebindEvents() {
         $('.listitem').accordion({
             active: false,
             collapsible: true,
+            header: "h3.mainsort", // force only 1 header in this accordion
 			beforeActivate: function(evt, obj) {
 				var OFFSET = -30;
 				var collapsing = obj.newHeader.length === 0;
@@ -483,6 +484,19 @@ function rebindEvents() {
         });
         $('.accordionarrow').removeClass('arrowdown');
     });
+	
+	$('.detailSection').accordion({
+		active: 0,
+		collapsible: true,
+		beforeActivate: function(evt, obj) {
+			var collapsing = obj.newHeader.length === 0;
+			if (collapsing)
+				$(evt.target).find('.detailArrow').removeClass('arrowdown');
+			else
+				$(evt.target).find('.detailArrow').addClass('arrowdown');
+		}
+	});
+	$('.detailSection').click();
 
     $('#expandall').click(function(){
         var accord;
@@ -853,7 +867,7 @@ function rebindEvents() {
 			url: url,
 			contentType: "application/json",
 			dataType: "json",
-			data: data,
+			data: JSON.stringify(data),
 			headers: {
 				"X-AUTHENTICATION-TOKEN": authToken,
 				"X-AUTHENTICATION-EMAIL": userEmail
