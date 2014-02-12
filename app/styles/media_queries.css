@@ -170,7 +170,7 @@
 	}
 
 	.homeapp {
-		top:0px;
+		top:-20px;
 		background:#1390d2 !important;
 		color:#fff;
 		margin-top:0px !important;
@@ -244,7 +244,7 @@
 
 	.menucont {
 		border:0px;
-		border-bottom:1px solid #000;
+		border-bottom:1px solid #777;
 	}
 
 	.menucont h2 {
@@ -460,6 +460,7 @@
 	#appcont {
 		margin-top:0px;
 		margin-bottom:0px;
+		overflow:initial;
 	}
 
 	#contactpane1, #taskpane1, #eventpane1 {
@@ -872,6 +873,7 @@
 
 	.calendarContainer {
 		background:#72696c !important;
+		height:100% !important;
 	}
 
 	#calendarHeader {
@@ -982,8 +984,122 @@
 		background:#72696c;
 	}
 
+	.fc {
+		height:100%;
+	}
+
+	#mainScroller {
+		overflow: auto;
+   		-webkit-overflow-scrolling: touch;
+	}
+
+	.calchoice {
+		float: right;
+		width: 12.5%;
+		font-size: 12px;
+	}
+
 	.opentip-container {
 		display: none;
 	}
 
+}
+
+@media screen and (max-width:639px) {
+	#homecont h3 {
+		font-size:16px;
+	}
+	.homeapp h1 {
+		padding-top: 12px !important;
+		font-size:24px;
+		padding-left:2px;
+	}
+	.sortcont {
+		width:150px;
+		top:5px;
+	}
+	.accordionarrow {
+		top:-7px;
+	}
+	.settingoption h5 {
+		font-size:16px;
+	}
+}
+
+@media screen and (max-width:419px) {
+	.dashitem h3 {
+		font-size:12px !important;
+	}
+	.mobileNavItem p {
+		font-size:10px;
+		padding-top:23px;
+	}
+	.mobileNavItem img {
+		top:-3px;
+	}
+	.menusubcont {
+		width:50%;
+	}
+	.menucont h2 {
+		font-size:18px;
+		margin-bottom:7px;
+		padding-left:5px;
+	}
+	.menucont h3 {
+		font-size:16px;
+		margin-top:11px;
+		padding-left:5px;
+	}
+	.subcontitem img {
+		height:35px !important;
+	}
+	.circlebg {
+		width:100px;
+		height:100px;
+		margin-bottom:10px;
+	}
+	.viewButton img {
+		width:70px;
+		left:15px;
+		top:0px;
+	}
+	.viewButton p {
+		padding-top: 60px;
+		font-size: 16px;
+	}
+	#viewHeader {
+		margin-bottom:10px;
+	}
+	.settingoption h5 {
+		font-size:12px;
+		padding-left:5px;
+	}
+	#otheroptionsMobile a {
+		font-size:12px;
+		padding-left:5px;
+	}
+	#settingsMobile h1, #settingsMobile h3 {
+		font-size:16px;
+		padding-left:90px !important;
+		margin:0px !important;
+	}
+	#settingsMobile h1 {
+		padding-top:17px;
+	}
+	#settingsMobile h3 {
+		padding-bottom:17px;
+	}
+	#settingimageMobile {
+		width:50px;
+		margin-top:13px;
+	}
+	.itemcountMobile img {
+		float: none;
+		margin: 0 auto;
+		display: block;
+	}
+	.itemcountMobile p {
+		padding:0px;
+		text-align:center;
+	}
 }

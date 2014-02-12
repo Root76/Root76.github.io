@@ -3195,7 +3195,7 @@ function AgendaView(element, calendar, viewName) {
 		
 		slotLayer.css('top', headHeight);
 		
-		slotScroller.height(bodyHeight - allDayHeight - 1);
+		//slotScroller.height(bodyHeight - allDayHeight - 1);
 		
 		// the stylesheet guarantees that the first row has no border.
 		// this allows .height() to work well cross-browser.

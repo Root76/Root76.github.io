@@ -200,6 +200,7 @@ hr {
 	position: relative;
 	float: right;
 	top: -2px;
+	opacity:.7;
 	transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
@@ -1756,6 +1757,7 @@ to {
 	-moz-transition: opacity 400ms ease-in;
 	transition: opacity 400ms ease-in;
 	pointer-events: none;
+	display:none;
 }
 
 .modalDialog.active {
@@ -3059,10 +3061,6 @@ input#toggle5:checked + label:after {
 	margin:0px;
 	margin-bottom:40px;
 	color:#fff;
-}
-
-.calendarContainer {
-	height:650px !important
 }
 
 #mobileContact {
