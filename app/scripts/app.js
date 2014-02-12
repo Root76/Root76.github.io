@@ -83,6 +83,39 @@ App.Store = DS.Store.extend({
 });*/
 
 /*Sorting*/
+Utility = {};
+Utility.sortByTimeOption = function(enumerable, timePropertyName, timeOption) {
+	return enumerable.filter(function(item) {		
+		var hasDate = item.get('hasDate');
+		var due = moment(item.get(timePropertyName));
+		
+		if (timeOption === "allOpen")
+			return true;
+		else {			
+			switch(timeOption) {
+			case "overdue": // earlier than now
+				return due <= now; 
+			case "todayAndOverdue": // earlier than beginning of next day
+				return due < moment(now).add('days', 1).hour(0).minute(0).second(0); 
+			case "next7Days": // later than now and earlier than beginning of 8th day
+				return due > now && due < moment(now).add('days', 7).hour(0).minute(0).second(0); 
+			case "today": // later than now and earlier than beginning of next day
+				return due > now && due < moment(now).add('days', 1).hour(0).minute(0).second(0); 
+			case "tomorrow": // from beginning to end of next day
+				var nextDay = moment(now).add('days', 1).hour(0).minute(0).second(0);
+				return due >= nextDay && due < nextDay.add('days', 1); 
+			case "thisWeek": // from now until beginning of next Monday
+				var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
+				return due > now && due < nextMonday; 
+			case "nextWeek": // from beginning of next Monday to beginning of the next Monday
+				var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
+				var nextNextMonday = moment(now).day(15).hour(0).minute(0).second(0);
+				return due >= nextMonday && due < nextNextMonday; 
+			}
+		}
+		return false;
+	});
+};
 
 App.ContactsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
@@ -142,38 +175,9 @@ App.TasksController = Ember.ArrayController.extend({
 		var option = this.get('showOption');
 		var now = moment();
 		
-		var ret = this.filter(function(item) {		
-			var hasDate = item.get('hasDate');
-			var due = moment(item.get('due'));
-			
-			if (option === "allOpen")
-				return true;
-			else {			
-				switch(option) {
-				case "overdue": // earlier than now
-					return due <= now; 
-				case "todayAndOverdue": // earlier than beginning of next day
-					return due < moment(now).add('days', 1).hour(0).minute(0).second(0); 
-				case "next7Days": // later than now and earlier than beginning of 8th day
-					return due > now && due < moment(now).add('days', 7).hour(0).minute(0).second(0); 
-				case "today": // later than now and earlier than beginning of next day
-					return due > now && due < moment(now).add('days', 1).hour(0).minute(0).second(0); 
-				case "tomorrow": // from beginning to end of next day
-					var nextDay = moment(now).add('days', 1).hour(0).minute(0).second(0);
-					return due >= nextDay && due < nextDay.add('days', 1); 
-				case "thisWeek": // from now until beginning of next Monday
-					var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
-					return due > now && due < nextMonday; 
-				case "nextWeek": // from beginning of next Monday to beginning of the next Monday
-					var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
-					var nextNextMonday = moment(now).day(15).hour(0).minute(0).second(0);
-					return due >= nextMonday && due < nextNextMonday; 
-				}
-			}
-			return false;
-        });
-		ret = ret.sortBy(this.get('sortProperties'));
-        return ret;
+		var sorted = Utility.sortByTimeOption(this, 'due', option);
+		sorted = sorted.sortBy(this.get('sortProperties'));
+        return sorted;
 	}.property('showOption', 'model.@each.due', 'sortProperties'),
 	
 	sortOptions: [
