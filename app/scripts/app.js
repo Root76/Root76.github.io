@@ -136,6 +136,40 @@ App.TasksController = Ember.ArrayController.extend({
             console.log("sort by contact fired");
         }
     },
+    
+    showOption: "allOpen",
+	tasksToShow: function(a) { 
+		var option = this.get('showOption');
+		var now = moment();
+		
+		var ret = this.filter(function(item) {		
+			var hasDate = item.get('hasDate');
+			var due = moment(item.get('due'));
+			
+			switch(option) {
+			case "allOpen":
+				return true;
+			case "overdue":
+				if (hasDate) {
+					return due <= now; // all dues earlier than now
+				}
+				break;
+			case "todayAndOverdue":
+				if (hasDate) {
+					return due < moment(now).add('days', 1).hour(0).minute(0).second(0); // all dues earlier than beginning of next day
+				}
+				break;
+			case "next7Days":
+				if (hasDate) {
+					return due > now && due < moment(now).add('days', 7).hour(0).minute(0).second(0); // all dues later than now and earlier than beginning of 8th day
+				}
+				break;
+			}
+			return false;
+        });
+		ret = ret.sortBy(this.get('sortProperties'));
+        return ret;
+	}.property('showOption', 'model.@each.due', 'sortProperties'),
 	
 	sortOptions: [
 		{label: "Tasks with no dates", primarySort: "noDate", secondarySort: "due", ascending: false},
@@ -160,13 +194,30 @@ App.TasksController = Ember.ArrayController.extend({
 	],
 	selectedShowOption: null,
 	selectedShowOptionChanged: function() {
-		console.log("Show me: " + this.selectedShowOption.id);
+		this.set('showOption', this.selectedShowOption.id);
+		
+        setTimeout(function(){
+            $(".ui-accordion").accordion("refresh");
+        }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
 	}.observes('selectedShowOption'),
 });
 
 App.TagsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
-    sortAscending: true
+    sortAscending: true,
+	
+	sortOptions: [
+		{label: "Tag Count", primarySort: "count", ascending: false},
+		{label: "Name", primarySort: "name", ascending: true}
+	],
+	selectedSortOption: null,
+	selectedSortOptionChanged: function() {
+		var sortProperties = [this.selectedSortOption.primarySort];
+		if (this.selectedSortOption.secondarySort)
+			sortProperties.push(this.selectedSortOption.secondarySort);
+		this.set('sortProperties', sortProperties);
+		this.set('sortAscending', this.selectedSortOption.ascending);
+	}.observes('selectedSortOption'),
 });
 
 App.IndexController = Ember.ObjectController.extend({
@@ -226,16 +277,18 @@ App.Task = DS.Model.extend({
 	
 	noDate: function() { 
 	   return this.get('due') === undefined || this.get('due') === null;
-	}
-		.property('due'),
+	}.property('due'),
 	hasDate: function() { 
 	   return this.get('due') !== undefined && this.get('due') !== null;
-	}
-		.property('due'),
+	}.property('due'),
 });
 
 App.Tag = DS.Model.extend({
-    name: DS.attr('string')
+    name: DS.attr('string'),
+	
+	count: function() { // eventually has to count up all the associations
+		return 0;
+	}.property(),
 });
 
 /*Routes*/
@@ -805,7 +858,7 @@ function rebindEvents() {
             taskTitle = String(taskTitle);
             var taskDesc = $("#taskNotes").val();
             taskDesc = String(taskDesc);
-            var taskDue = $("#taskDue").val();
+            var taskDue = moment($("#taskDue").val()).format();
             console.log("due: " + taskDue);
             var data = {
                 task: {
@@ -847,8 +900,8 @@ function rebindEvents() {
             eventDesc = String(eventDesc);
             var eventLoc = $("#eventLocation").val();
             eventLoc = String(eventLoc);
-            var eventSt = $("#eventStart").val();
-            var eventEn = $("#eventEnd").val();
+            var eventSt = moment($("#eventStart").val()).format();
+            var eventEn = moment($("#eventEnd").val()).format();
             var data = {
                 event: {
                     title: eventTitle,
