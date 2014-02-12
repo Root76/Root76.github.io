@@ -858,7 +858,7 @@ function rebindEvents() {
             taskTitle = String(taskTitle);
             var taskDesc = $("#taskNotes").val();
             taskDesc = String(taskDesc);
-            var taskDue = $("#taskDue").val();
+            var taskDue = moment($("#taskDue").val()).format();
             console.log("due: " + taskDue);
             var data = {
                 task: {
@@ -900,8 +900,8 @@ function rebindEvents() {
             eventDesc = String(eventDesc);
             var eventLoc = $("#eventLocation").val();
             eventLoc = String(eventLoc);
-            var eventSt = $("#eventStart").val();
-            var eventEn = $("#eventEnd").val();
+            var eventSt = moment($("#eventStart").val()).format();
+            var eventEn = moment($("#eventEnd").val()).format();
             var data = {
                 event: {
                     title: eventTitle,
