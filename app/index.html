@@ -328,13 +328,11 @@
               <div id="schedule" class="menucont">
                 <div><h3>Upcoming Schedule:</h3></div>
                 <div class="selectcont">
-                  <select>
-                    <option>Today</option>
-                    <option>Tomorrow</option>
-                    <option>This Week</option>
-                    <option>Next Week</option>
-                    <option>All Open Activites</option>
-                  </select>
+                  {{view Ember.Select
+                       content=eventsController.showOptions2
+                       optionLabelPath="content.label"
+                       optionValuePath="content.id"
+                       selection=eventsController.selectedShowOption}}
                   <img src="img/downarrow.jpg" />
                 </div>
               </div>
@@ -345,7 +343,7 @@
               <h3 id="collapseall" class="reportToggler">Collapse all</h3>
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
-                {{#each event in controller}}
+                {{#each event in eventsToShow}}
                 {{#if event.title}}                
                 <li class="listitem mainevent">
                   <h3 class="mainsort"><img src="img/calendar.png" class="listimg" />{{event.title}}<img src="img/arrow_black.png" class="accordionarrow reportarrow"></h3>
@@ -422,13 +420,11 @@
               <div id="schedule" class="menucont">
                 <div><h3>Upcoming Schedule:</h3></div>
                 <div class="selectcont">
-                  <select>
-                    <option>Today</option>
-                    <option>Tomorrow</option>
-                    <option>This Week</option>
-                    <option>Next Week</option>
-                    <option>All Open Activites</option>
-                  </select>
+                  {{view Ember.Select
+                       content=tasksController.showOptions2
+                       optionLabelPath="content.label"
+                       optionValuePath="content.id"
+                       selection=tasksController.selectedShowOption}}
                   <img src="img/downarrow.jpg" />
                 </div>
               </div>
@@ -439,7 +435,7 @@
               <h3 id="collapseall" class="reportToggler">Collapse all</h3>
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
-                {{#each task in controller}}
+                {{#each task in tasksToShow}}
                 {{#if task.title}} 
                 <li class="listitem maintask">
                   <h3 class="mainsort"><img src="img/tasks.png" class="listimg" />{{task.title}}<img src="img/arrow_black.png" class="accordionarrow reportarrow"></h3>
@@ -516,13 +512,11 @@
               <div id="schedule" class="menucont">
                 <div><h3>Upcoming Schedule:</h3></div>
                 <div class="selectcont">
-                  <select>
-                    <option>Today</option>
-                    <option>Tomorrow</option>
-                    <option>This Week</option>
-                    <option>Next Week</option>
-                    <option>All Open Activites</option>
-                  </select>
+                  {{view Ember.Select
+                       content=contactsController.showOptions2
+                       optionLabelPath="content.label"
+                       optionValuePath="content.id"
+                       selection=contactsController.selectedShowOption}}
                   <img src="img/downarrow.jpg" />
                 </div>
               </div>
@@ -533,7 +527,7 @@
               <h3 id="collapseall" class="reportToggler">Collapse all</h3>
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
-                {{#each contact in controller}}
+                {{#each contact in contactsToShow}}
                 {{#if contact.name}} 
                 <li class="listitem maincontact">
                   <h3 class="mainsort"><img src="img/contact.png" class="listimg" />{{contact.name}}<img src="img/arrow_black.png" class="accordionarrow reportarrow"></h3>
@@ -609,13 +603,11 @@
               <div id="schedule" class="menucont">
                 <div><h3>Upcoming Schedule:</h3></div>
                 <div class="selectcont">
-                  <select>
-                    <option>Today</option>
-                    <option>Tomorrow</option>
-                    <option>This Week</option>
-                    <option>Next Week</option>
-                    <option>All Open Activites</option>
-                  </select>
+                  {{view Ember.Select
+                       content=tagsController.showOptions
+                       optionLabelPath="content.label"
+                       optionValuePath="content.id"
+                       selection=tagsController.selectedShowOption}}
                   <img src="img/downarrow.jpg" />
                 </div>
               </div>
@@ -626,7 +618,7 @@
               <h3 id="collapseall" class="reportToggler">Collapse all</h3>
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
-                {{#each tag in controller}}
+                {{#each tag in tagsToShow}}
                 {{#if tag.name}} 
                 <li class="listitem maintag">
                   <h3 class="mainsort"><img src="img/tags.png" class="listimg" />{{tag.name}}<img src="img/arrow_black.png" class="accordionarrow reportarrow"></h3>

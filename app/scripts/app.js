@@ -167,7 +167,8 @@ App.ContactsController = Ember.ArrayController.extend({
 	}.observes('selectedSortOption'),
 	
     showOption: "allOpen",
-	contactsToShow: function(a) { 
+	sortProperty: "updated_at",
+	contactsToShow: function() { 
 		var option = this.get('showOption');
 		
 		var sorted;
@@ -191,12 +192,12 @@ App.ContactsController = Ember.ArrayController.extend({
 			});
 			break;
 		default:
-			sorted = Utility.sortByTimeOption(this, 'updated_at', option);
+			sorted = Utility.sortByTimeOption(this, this.get('sortProperty'), option);
 			break;
 		}
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
-	}.property('showOption', 'model.@each.due', 'sortProperties'),
+	}.property('showOption', 'sortProperty', 'model.@each.due', 'sortProperties'),
 	
 	showOptions: [
 		{label: "All", id: "all"},
@@ -205,9 +206,18 @@ App.ContactsController = Ember.ArrayController.extend({
 		{label: "New This Month", id: "newThisMonth"},
 		{label: "Recent", id: "recent"},
 	],
+	showOptions2: [
+		{label: "Today", id: "today"},
+		{label: "Tomorrow", id: "tomorrow"},
+		{label: "This Week", id: "thisWeek"},
+		{label: "Next Week", id: "nextWeek"},
+		{label: "All Open Activities", id: "allOpen"},
+	],
 	selectedShowOption: null,
 	selectedShowOptionChanged: function() {
 		this.set('showOption', this.selectedShowOption.id);
+		if (this.selectedShowOption.showProperty)
+			this.set('showProperty', this.selectedShowOption.showProperty);
 		
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
@@ -220,6 +230,7 @@ App.EventsController = Ember.ArrayController.extend({
     sortAscending: false,
 	
 	showOption: "allOpen",
+	showProperty: "updated_at",
 	eventsToShow: function(a) { 
 		var option = this.get('showOption');
 		
@@ -244,23 +255,32 @@ App.EventsController = Ember.ArrayController.extend({
 			});
 			break;
 		default:
-			sorted = Utility.sortByTimeOption(this, 'updated_at', option);
+			sorted = Utility.sortByTimeOption(this, this.get('showProperty'), option);
 			break;
 		}
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
-	}.property('showOption', 'model.@each.due', 'sortProperties'),
+	}.property('showOption', 'showProperty', 'model.@each.due', 'sortProperties'),
 	
 	showOptions: [
-		{label: "All", id: "all"},
-		{label: "Tagged", id: "tagged"},
-		{label: "New This Week", id: "newThisWeek"},
-		{label: "New This Month", id: "newThisMonth"},
-		{label: "Recent", id: "recent"},
+		{label: "All", id: "all", showProperty: "updated_at"},
+		{label: "Tagged", id: "tagged", showProperty: "updated_at"},
+		{label: "New This Week", id: "newThisWeek", showProperty: "updated_at"},
+		{label: "New This Month", id: "newThisMonth", showProperty: "updated_at"},
+		{label: "Recent", id: "recent", showProperty: "updated_at"},
+	],
+	showOptions2: [
+		{label: "Today", id: "today", showProperty: "start_datetime"},
+		{label: "Tomorrow", id: "tomorrow", showProperty: "start_datetime"},
+		{label: "This Week", id: "thisWeek", showProperty: "start_datetime"},
+		{label: "Next Week", id: "nextWeek", showProperty: "start_datetime"},
+		{label: "All Open Activities", id: "allOpen", showProperty: "start_datetime"},
 	],
 	selectedShowOption: null,
 	selectedShowOptionChanged: function() {
 		this.set('showOption', this.selectedShowOption.id);
+		if (this.selectedShowOption.showProperty)
+			this.set('showProperty', this.selectedShowOption.showProperty);
 		
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
@@ -317,6 +337,13 @@ App.TasksController = Ember.ArrayController.extend({
 		{label: "Today & Overdue", id: "todayAndOverdue"},
 		{label: "Next 7 Days", id: "next7Days"}
 	],
+	showOptions2: [
+		{label: "Today", id: "today"},
+		{label: "Tomorrow", id: "tomorrow"},
+		{label: "This Week", id: "thisWeek"},
+		{label: "Next Week", id: "nextWeek"},
+		{label: "All Open Activities", id: "allOpen"},
+	],
 	selectedShowOption: null,
 	selectedShowOptionChanged: function() {
 		this.set('showOption', this.selectedShowOption.id);
@@ -343,6 +370,33 @@ App.TagsController = Ember.ArrayController.extend({
 		this.set('sortProperties', sortProperties);
 		this.set('sortAscending', this.selectedSortOption.ascending);
 	}.observes('selectedSortOption'),
+	
+	showOption: "allOpen",
+	tagsToShow: function(a) { 
+		var option = this.get('showOption');
+		
+		var sorted = this;
+		sorted = sorted.sortBy(this.get('sortProperties'));
+        return sorted;
+	}.property('showOption', 'model.@each.due', 'sortProperties'),
+	
+	showOptions: [
+		{label: "Today", id: "today", showProperty: "start_datetime"},
+		{label: "Tomorrow", id: "tomorrow", showProperty: "start_datetime"},
+		{label: "This Week", id: "thisWeek", showProperty: "start_datetime"},
+		{label: "Next Week", id: "nextWeek", showProperty: "start_datetime"},
+		{label: "All Open Activities", id: "allOpen", showProperty: "start_datetime"},
+	],
+	selectedShowOption: null,
+	selectedShowOptionChanged: function() {
+		this.set('showOption', this.selectedShowOption.id);
+		if (this.selectedShowOption.showProperty)
+			this.set('showProperty', this.selectedShowOption.showProperty);
+		
+        setTimeout(function(){
+            $(".ui-accordion").accordion("refresh");
+        }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
+	}.observes('selectedShowOption'),
 });
 
 App.IndexController = Ember.ObjectController.extend({
@@ -354,23 +408,55 @@ App.IndexController = Ember.ObjectController.extend({
 });
 
 App.ReportsEventsController = Ember.ArrayController.extend({
+    needs: ['events'],
+    eventsController: Ember.computed.alias("controllers.events"),
     sortProperties: ['start_datetime'],
-    sortAscending: false
+    sortAscending: false,
+	
+	eventsToShow: function() { 
+		var sorted = this.get('eventsController').get('eventsToShow');
+		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
+        return sorted;
+	}.property('eventsController.eventsToShow'),	
 });
 
 App.ReportsTasksController = Ember.ArrayController.extend({
+    needs: ['tasks'],
+    tasksController: Ember.computed.alias("controllers.tasks"),
     sortProperties: ['due'],
-    sortAscending: false
+    sortAscending: false,
+	
+	tasksToShow: function() { 
+		var sorted = this.get('tasksController').get('tasksToShow');
+		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
+        return sorted;
+	}.property('tasksController.tasksToShow'),	
 });
 
 App.ReportsContactsController = Ember.ArrayController.extend({
+	needs: ['contacts'],
+    contactsController: Ember.computed.alias("controllers.contacts"),
     sortProperties: ['name'],
-    sortAscending: true
+    sortAscending: true,
+	
+	contactsToShow: function() { 
+		var sorted = this.get('contactsController').get('contactsToShow');
+		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
+        return sorted;
+	}.property('contactsController.contactsToShow'),	
 });
 
 App.ReportsTagsController = Ember.ArrayController.extend({
+	needs: ['tags'],
+    tagsController: Ember.computed.alias("controllers.tags"),
     sortProperties: ['name'],
-    sortAscending: true
+    sortAscending: true,
+	
+	tagsToShow: function() { 
+		var sorted = this.get('tagsController').get('tagsToShow');
+		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
+        return sorted;
+	}.property('tagsController.tagsToShow'),	
 });
 
 /***Models***/
@@ -437,27 +523,43 @@ App.IndexRoute = Ember.Route.extend({
 });
 
 App.ReportsEventsRoute = Ember.Route.extend({
-  model: function() {
-    return this.get('store').find('event');
-  }
+	model: function() {
+		return this.get('store').find('event');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('events').set('model', model);
+	}
 });
 
 App.ReportsTasksRoute = Ember.Route.extend({
-  model: function() {
-    return this.get('store').find('task');
-  }
+	model: function() {
+		return this.get('store').find('task');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('tasks').set('model', model);
+	}
 });
 
 App.ReportsContactsRoute = Ember.Route.extend({
-  model: function() {
-    return this.get('store').find('contact');
-  }
+	model: function() {
+		return this.get('store').find('contact');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('contacts').set('model', model);
+	}
 });
 
 App.ReportsTagsRoute = Ember.Route.extend({
-  model: function() {
-    return this.get('store').find('tag');
-  }
+	model: function() {
+		return this.get('store').find('tag');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('tags').set('model', model);
+	}
 });
 
 /*Tasks*/
