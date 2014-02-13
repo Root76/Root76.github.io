@@ -779,6 +779,9 @@ function rebindEvents() {
 	$('.detailSection').click();
 
     $('#expandall').click(function(){
+		var oldScrollTo = $.fn.scrollTo; // temp disable scrollTo
+		$.fn.scrollTo = function() {}; 
+	
         var accord;
         var accords = $('.mainsort');
         for (var a = 0; a < accords.length; a++) {
@@ -790,6 +793,8 @@ function rebindEvents() {
             }
         }
         $('.accordionarrow').addClass('arrowdown');
+		
+		$.fn.scrollTo = oldScrollTo; // restore scrollTo
     });
 
     $("#createicon").click(function(event){
