@@ -959,22 +959,25 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
                     <div class="contsort">
-                      <select class="listSorter" id="contactShow">
-                        <option>All</option>
-                        <option>Tagged</option>
-                        <option>New this Week</option>
-                        <option>New this Month</option>
-                        <option>Recent</option>
-                      </select>
+					  {{view Ember.Select 
+						   class="listSorter" 
+						   id="contactShow"
+						   content=showOptions
+						   optionLabelPath="content.label"
+						   optionValuePath="content.id"
+						   selection=selectedShowOption}}
                     </div>
                   </div>
                   <div class="filtercolumn contactpadding">
                     <h4>Sorted by:</h4>
                     <div class="contsort">
-                      <select class="listSorter" id="contactSort">
-                        <option>Name</option>
-                        <option>Company</option>
-                      </select>
+					  {{view Ember.Select 
+						   class="listSorter" 
+						   id="contactSort"
+						   content=sortOptions
+						   optionLabelPath="content.label"
+						   optionValuePath="content.primarySort"
+						   selection=selectedSortOption}}
                     </div>
                   </div>
                   <button class="sortingToggle" id="showAll" {{action showAll}}>Sort</button>
@@ -982,7 +985,7 @@
                   <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
                   <button class="sortingToggle" id="byCompany" {{action sortCompany}}>Sort</button>
                   <ul id="contactlist" class="sidelist">
-                    {{#each contact in controller}}
+                    {{#each contact in contactsToShow}}
                       {{#if contact.name}}
                         {{#link-to 'contacts.contact' contact}}<li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                       {{/if}}
@@ -1212,17 +1215,15 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
                     <div class="contsort">
-                      <select>
-                        <option>All</option>
-                        <option>Tagged</option>
-                        <option>New this Week</option>
-                        <option>New this Month</option>
-                        <option>Recent</option>
-                      </select>
+					  {{view Ember.Select 
+						   content=showOptions
+						   optionLabelPath="content.label"
+						   optionValuePath="content.id"
+						   selection=selectedShowOption}}
                     </div>
                   </div>
                   <ul id="eventlist" class="sidelist">
-                    {{#each event in controller}}
+                    {{#each event in eventsToShow}}
                       {{#if event.title}}
                         {{#link-to 'events.event' event}}<li>{{event.title}}</li>{{/link-to}}
                       {{/if}}
@@ -1412,12 +1413,13 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Sort by:</h4>
                     <div class="contsort">
-                      <select class="listSorter" id="taskSort">
-                        <option>Date</option>
-                        <option>Priority</option>
-                        <option>Alphabetically</option>
-                        <option>Contact</option>
-                      </select>
+					  {{view Ember.Select 
+						   class="listSorter" 
+						   id="taskSort"
+						   content=sortOptions
+						   optionLabelPath="content.label"
+						   optionValuePath="content.primarySort"
+						   selection=selectedSortOption}}
                     </div>
                   </div>
                   <button class="sortingToggle" id="byDate" {{action sortDate}}>Sort</button>
@@ -1615,10 +1617,11 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
                     <div class="contsort">
-                      <select>
-                        <option>Name</option>
-                        <option>Count</option>
-                      </select>
+					  {{view Ember.Select
+						   content=sortOptions
+						   optionLabelPath="content.label"
+						   optionValuePath="content.id"
+						   selection=selectedSortOption}}
                     </div>
                   </div>
                   <ul id="taglist" class="sidelist">

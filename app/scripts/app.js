@@ -85,32 +85,39 @@ App.Store = DS.Store.extend({
 /*Sorting*/
 Utility = {};
 Utility.sortByTimeOption = function(enumerable, timePropertyName, timeOption) {
+	var now = moment();
 	return enumerable.filter(function(item) {		
 		var hasDate = item.get('hasDate');
-		var due = moment(item.get(timePropertyName));
+		var time = moment(item.get(timePropertyName));
 		
 		if (timeOption === "allOpen")
 			return true;
 		else {			
 			switch(timeOption) {
-			case "overdue": // earlier than now
-				return due <= now; 
-			case "todayAndOverdue": // earlier than beginning of next day
-				return due < moment(now).add('days', 1).hour(0).minute(0).second(0); 
+			case "overtime": // earlier than now
+				return time <= now; 
+			case "todayAndOvertime": // earlier than beginning of next day
+				return time < moment(now).add('days', 1).hour(0).minute(0).second(0); 
 			case "next7Days": // later than now and earlier than beginning of 8th day
-				return due > now && due < moment(now).add('days', 7).hour(0).minute(0).second(0); 
+				return time > now && time < moment(now).add('days', 7).hour(0).minute(0).second(0); 
 			case "today": // later than now and earlier than beginning of next day
-				return due > now && due < moment(now).add('days', 1).hour(0).minute(0).second(0); 
+				return time > now && time < moment(now).add('days', 1).hour(0).minute(0).second(0); 
 			case "tomorrow": // from beginning to end of next day
 				var nextDay = moment(now).add('days', 1).hour(0).minute(0).second(0);
-				return due >= nextDay && due < nextDay.add('days', 1); 
+				return time >= nextDay && time < nextDay.add('days', 1); 
 			case "thisWeek": // from now until beginning of next Monday
 				var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
-				return due > now && due < nextMonday; 
+				return time > now && time < nextMonday; 
 			case "nextWeek": // from beginning of next Monday to beginning of the next Monday
 				var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
 				var nextNextMonday = moment(now).day(15).hour(0).minute(0).second(0);
-				return due >= nextMonday && due < nextNextMonday; 
+				return time >= nextMonday && time < nextNextMonday; 
+			case "newThisWeek": // from beginning of Monday until now
+				var monday = moment(now).day(1).hour(0).minute(0).second(0);
+				return time >= monday && time < now; 
+			case "newThisMonth": // from beginning of month until now
+				var beginningOfMonth = moment([now.year(), now.month()])
+				return time >= beginningOfMonth && time < now;
 			}
 		}
 		return false;
@@ -144,12 +151,121 @@ App.ContactsController = Ember.ArrayController.extend({
         sortCompany: function (){
             this.set('sortProperties', ['organization']);
         }
-    }
+    },
+	
+	sortOptions: [
+		{label: "Name", primarySort: "name", ascending: true},
+		{label: "Company", primarySort: "organization", ascending: true},
+	],
+	selectedSortOption: null,
+	selectedSortOptionChanged: function() {
+		var sortProperties = [this.selectedSortOption.primarySort];
+		if (this.selectedSortOption.secondarySort)
+			sortProperties.push(this.selectedSortOption.secondarySort);
+		this.set('sortProperties', sortProperties);
+		this.set('sortAscending', this.selectedSortOption.ascending);
+	}.observes('selectedSortOption'),
+	
+    showOption: "allOpen",
+	contactsToShow: function(a) { 
+		var option = this.get('showOption');
+		
+		var sorted;
+		switch (option) {
+		case "all":
+			sorted = this;
+			break;
+		case "tagged":
+			sorted = this.filter(function(item) {		
+				//filter out tagged items
+				return false;
+			});
+			break;
+		case "recent":
+			sorted = this.sortBy(['updated_at']);
+			var RECENT_COUNT = 10;
+			var currentCount = 0;
+			sorted = sorted.filter(function(item) {		
+				currentCount++;
+				return currentCount <= RECENT_COUNT;
+			});
+			break;
+		default:
+			sorted = Utility.sortByTimeOption(this, 'updated_at', option);
+			break;
+		}
+		sorted = sorted.sortBy(this.get('sortProperties'));
+        return sorted;
+	}.property('showOption', 'model.@each.due', 'sortProperties'),
+	
+	showOptions: [
+		{label: "All", id: "all"},
+		{label: "Tagged", id: "tagged"},
+		{label: "New This Week", id: "newThisWeek"},
+		{label: "New This Month", id: "newThisMonth"},
+		{label: "Recent", id: "recent"},
+	],
+	selectedShowOption: null,
+	selectedShowOptionChanged: function() {
+		this.set('showOption', this.selectedShowOption.id);
+		
+        setTimeout(function(){
+            $(".ui-accordion").accordion("refresh");
+        }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
+	}.observes('selectedShowOption'),
 });
 
 App.EventsController = Ember.ArrayController.extend({
-    sortProperties: ['start_datetime'],
-    sortAscending: false
+    sortProperties: ['start_datetime', 'end_datetime'],
+    sortAscending: false,
+	
+	showOption: "allOpen",
+	eventsToShow: function(a) { 
+		var option = this.get('showOption');
+		
+		var sorted;
+		switch (option) {
+		case "all":
+			sorted = this;
+			break;
+		case "tagged":
+			sorted = this.filter(function(item) {		
+				//filter out tagged items
+				return false;
+			});
+			break;
+		case "recent":
+			sorted = this.sortBy(['updated_at']);
+			var RECENT_COUNT = 10;
+			var currentCount = 0;
+			sorted = sorted.filter(function(item) {		
+				currentCount++;
+				return currentCount <= RECENT_COUNT;
+			});
+			break;
+		default:
+			sorted = Utility.sortByTimeOption(this, 'updated_at', option);
+			break;
+		}
+		sorted = sorted.sortBy(this.get('sortProperties'));
+        return sorted;
+	}.property('showOption', 'model.@each.due', 'sortProperties'),
+	
+	showOptions: [
+		{label: "All", id: "all"},
+		{label: "Tagged", id: "tagged"},
+		{label: "New This Week", id: "newThisWeek"},
+		{label: "New This Month", id: "newThisMonth"},
+		{label: "Recent", id: "recent"},
+	],
+	selectedShowOption: null,
+	selectedShowOptionChanged: function() {
+		this.set('showOption', this.selectedShowOption.id);
+		
+        setTimeout(function(){
+            $(".ui-accordion").accordion("refresh");
+        }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
+	}.observes('selectedShowOption'),
 });
 
 App.TasksController = Ember.ArrayController.extend({
