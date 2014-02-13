@@ -1289,7 +1289,7 @@ function rebindEvents() {
         });
     }
     if ($("#maintag").length) {
-        new Opentip("#maintag", "Tasks", {
+        new Opentip("#maintag", "Tags", {
             style: "bottomtip"
         });
     }
