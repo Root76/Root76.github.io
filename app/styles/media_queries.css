@@ -984,18 +984,27 @@
 	#calendarCover {
 		background:#72696c;
 	}
+	#settingsCover {
+		background:#01a5af;
+	}
 
 	.fc {
 		height:100%;
 	}
 
-	#mainScroller {
-		overflow: auto;
-   		-webkit-overflow-scrolling: touch;
-	}
-
 	.opentip-container {
 		display: none;
+	}
+
+	#shareMobile {
+		display:block;
+	}
+
+	#shareDesktop {
+		display:none;
+	}
+	#helplinksMobile > a > div {
+		width:33.33% !important;
 	}
 
 }
@@ -1018,6 +1027,27 @@
 	}
 	.settingoption h5 {
 		font-size:16px;
+	}
+	#helplinksMobile > a > div > span {
+		font-size:12px;
+	}
+	#feedbackimg {
+		max-width: 40px;
+		max-height: 40px;
+		margin-top: 20px;
+		margin-left: 0px;
+	}
+	#socialimg {
+		max-width: 40px;
+		max-height: 40px;
+		margin-top: 17px;
+		margin-left: 10px;
+	}
+	#helpimg {
+		max-width: 25px;
+		max-height: 25px;
+		margin-top: 14px;
+		margin-left: 10px;
 	}
 }
 
