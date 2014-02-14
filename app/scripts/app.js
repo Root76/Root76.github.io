@@ -65,8 +65,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -215,7 +215,8 @@ App.ContactsController = Ember.ArrayController.extend({
 	],
 	selectedShowOption: null,
 	selectedShowOptionChanged: function() {
-		this.set('showOption', this.selectedShowOption.id);
+		if (this.selectedShowOption.length)
+            this.set('showOption', this.selectedShowOption.id);
 		if (this.selectedShowOption.showProperty)
 			this.set('showProperty', this.selectedShowOption.showProperty);
 		
@@ -1455,8 +1456,6 @@ function rebindEvents() {
 	if (links.hasClass('active'))
 		viewMenu.addClass('active');
 	else viewMenu.removeClass('active');
-
-    document.body.ontouchmove = function(e) { e.preventDefault(); };
 	
 	// javascript-based calling of modals so as to not interfere with Ember URLS with #
 	var allModals = $('.modalDialog');
@@ -1469,4 +1468,17 @@ function rebindEvents() {
 	var modal3Links = $('.openModal3');
 	modal3Links.click(function(){ $('#openModal3').addClass('active'); });
 }
+
+setTimeout(function(){
+    if ($(".loggedin").length) {
+        $(".loggedin").bind("touchmove", function(e) {
+            e.preventDefault();
+        });
+    }
+    if ($("#mobileNav").length) {
+        $("#mobileNav").bind("touchmove", function(e) {
+            e.preventDefault();
+        });
+    }
+}, 1000);
 
