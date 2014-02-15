@@ -215,9 +215,11 @@ App.ContactsController = Ember.ArrayController.extend({
 	],
 	selectedShowOption: null,
 	selectedShowOptionChanged: function() {
-		this.set('showOption', this.selectedShowOption.id);
-		if (this.selectedShowOption.showProperty)
-			this.set('showProperty', this.selectedShowOption.showProperty);
+		if (this.selectedShowOption) {
+			this.set('showOption', this.selectedShowOption.id);
+			if (this.selectedShowOption.showProperty)
+				this.set('showProperty', this.selectedShowOption.showProperty);
+		}
 		
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
@@ -278,9 +280,11 @@ App.EventsController = Ember.ArrayController.extend({
 	],
 	selectedShowOption: null,
 	selectedShowOptionChanged: function() {
-		this.set('showOption', this.selectedShowOption.id);
-		if (this.selectedShowOption.showProperty)
-			this.set('showProperty', this.selectedShowOption.showProperty);
+		if (this.selectedShowOption) {
+			this.set('showOption', this.selectedShowOption.id);
+			if (this.selectedShowOption.showProperty)
+				this.set('showProperty', this.selectedShowOption.showProperty);
+		}
 		
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
@@ -346,7 +350,9 @@ App.TasksController = Ember.ArrayController.extend({
 	],
 	selectedShowOption: null,
 	selectedShowOptionChanged: function() {
-		this.set('showOption', this.selectedShowOption.id);
+		if (this.selectedShowOption) {
+			this.set('showOption', this.selectedShowOption.id);
+		}
 		
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
@@ -389,9 +395,11 @@ App.TagsController = Ember.ArrayController.extend({
 	],
 	selectedShowOption: null,
 	selectedShowOptionChanged: function() {
-		this.set('showOption', this.selectedShowOption.id);
-		if (this.selectedShowOption.showProperty)
-			this.set('showProperty', this.selectedShowOption.showProperty);
+		if (this.selectedShowOption) {
+			this.set('showOption', this.selectedShowOption.id);
+			if (this.selectedShowOption.showProperty)
+				this.set('showProperty', this.selectedShowOption.showProperty);
+		}
 		
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
