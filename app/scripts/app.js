@@ -1,4 +1,6 @@
-var App = window.App = Ember.Application.create();
+var App = window.App = Ember.Application.create({
+    LOG_TRANSITIONS: true
+});
 
 /***Router***/
 App.Router.map(function () {
@@ -65,8 +67,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -618,7 +620,7 @@ App.ContactsIndexRoute = Ember.Route.extend({
     return this.modelFor('contacts');
   }
 });
-App.ContactRoute = Ember.Route.extend({
+App.ContactsContactRoute = Ember.Route.extend({
   model: function(params) {
     return this.get('store').find('contact', params.contact_id);
   }

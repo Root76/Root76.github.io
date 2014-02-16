@@ -982,109 +982,7 @@
                     {{/each}}
                   </ul>
                 </div>
-                <div class="col-md-7" id="contactpanel2">
-                  <h1 id="mobileContact">Contacts</h1>
-                  <img id="profilepic" src="img/contact.png" />
-                  <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="contacttext">Select a contact</h2>
-                  <div id="detailmenubar" class="contactmenu">
-                    <img src="img/contact.png" class="selected" />
-                    <img src="img/events.png" />
-                    <img src="img/tasks.png" />
-                    <img src="img/tags.png" />
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addContact" /></a>
-                    <img src="img/trash.png" id="trashicon" />              
-                  </div>
-                  <div class="panelcontent" id="contactcontent">
-                    <div class="infopanel selected">
-                      <div class="contactrow">
-                        <img src="img/cellphone.png">
-                        {{#each contact in controller}}
-                          {{#if contact.name}}
-                            <h4 class="phonenumber">{{contact.phone}}</h4>
-                          {{/if}}
-                        {{/each}}                     
-                      </div>
-                      <div class="contactrow">
-                        <img src="img/openmail.png">
-                        {{#each contact in controller}}
-                          {{#if contact.name}}                           
-                            <h4 class="emailfield">{{contact.email}}</h4>
-                          {{/if}}
-                        {{/each}}
-                      </div>
-                      <div class="contactrow">
-                        <img src="img/birthday.png">
-                        <h4 id="bday"></h4>
-                      </div>
-                      <div class="contactrow">
-                        <img src="img/location.png">
-                        {{#each contact in controller}}
-                          {{#if contact.name}}                        
-                            <h4 class="contactlocation">{{contact.place}}</h4>
-                          {{/if}}
-                        {{/each}}                      
-                      </div>
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Meet about Day Won</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Go skydiving</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Play video games</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>QA BBTC</h4>
-                      </div>
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Benefinder Meeting</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Conference Call with MMC</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>BBTC Deliverable</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Lunch with Investors</h4>
-                      </div>
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Evenspring</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Awesome</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Partner</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>SRRNgames</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="panelfooter" id="contactfooter">
-                    <h5>Note: met at the Convention last year in Aprii</h5>
-                  </div>
-                </div>
+                {{outlet}}
                 <div id="detailPanel" class="panelIn">
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
@@ -1188,6 +1086,204 @@
                   <img src="img/fliparrow_blue.png" id="fliparrow"/>
                 </div>
               </div>  
+            </div>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="contacts/index">
+          <div class="col-md-7" id="contactpanel2">
+            <h1 id="mobileContact">Contacts</h1>
+            <img id="profilepic" src="img/contact.png" />
+            <img src="img/arrow.png" class="backArrow" />
+            <h2 id="contactname" class="contacttext">Select a contact</h2>
+            <div id="detailmenubar" class="contactmenu">
+              <img src="img/contact.png" class="selected" />
+              <img src="img/events.png" />
+              <img src="img/tasks.png" />
+              <img src="img/tags.png" />
+              <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addContact" /></a>
+              <img src="img/trash.png" id="trashicon" />              
+            </div>
+            <div class="panelcontent" id="contactcontent">
+              <div class="infopanel selected">
+                <div class="contactrow">
+                  <img src="img/cellphone.png">
+                  {{#each contact in controller}}
+                    {{#if contact.name}}
+                      <h4 class="phonenumber">{{contact.phone}}</h4>
+                    {{/if}}
+                  {{/each}}                     
+                </div>
+                <div class="contactrow">
+                  <img src="img/openmail.png">
+                  {{#each contact in controller}}
+                    {{#if contact.name}}                           
+                      <h4 class="emailfield">{{contact.email}}</h4>
+                    {{/if}}
+                  {{/each}}
+                </div>
+                <div class="contactrow">
+                  <img src="img/birthday.png">
+                  <h4 id="bday"></h4>
+                </div>
+                <div class="contactrow">
+                  <img src="img/location.png">
+                  {{#each contact in controller}}
+                    {{#if contact.name}}                        
+                      <h4 class="contactlocation">{{contact.place}}</h4>
+                    {{/if}}
+                  {{/each}}                      
+                </div>
+              </div>
+              <div class="infopanel">
+                <div class="contactrow taskrow">
+                  <img src="img/tasks.png">
+                  <h4>Meet about Day Won</h4>
+                </div>
+                <div class="contactrow taskrow">
+                  <img src="img/tasks.png">
+                  <h4>Go skydiving</h4>
+                </div>
+                <div class="contactrow taskrow">
+                  <img src="img/tasks.png">
+                  <h4>Play video games</h4>
+                </div>
+                <div class="contactrow taskrow">
+                  <img src="img/tasks.png">
+                  <h4>QA BBTC</h4>
+                </div>
+              </div>
+              <div class="infopanel">
+                <div class="contactrow eventrow">
+                  <img src="img/events.png">
+                  <h4>Benefinder Meeting</h4>
+                </div>
+                <div class="contactrow eventrow">
+                  <img src="img/events.png">
+                  <h4>Conference Call with MMC</h4>
+                </div>
+                <div class="contactrow eventrow">
+                  <img src="img/events.png">
+                  <h4>BBTC Deliverable</h4>
+                </div>
+                <div class="contactrow eventrow">
+                  <img src="img/events.png">
+                  <h4>Lunch with Investors</h4>
+                </div>
+              </div>
+              <div class="infopanel">
+                <div class="contactrow tagrow">
+                  <img src="img/tags.png">
+                  <h4>Evenspring</h4>
+                </div>
+                <div class="contactrow tagrow">
+                  <img src="img/tags.png">
+                  <h4>Awesome</h4>
+                </div>
+                <div class="contactrow tagrow">
+                  <img src="img/tags.png">
+                  <h4>Partner</h4>
+                </div>
+                <div class="contactrow tagrow">
+                  <img src="img/tags.png">
+                  <h4>SRRNgames</h4>
+                </div>
+              </div>
+            </div>
+            <div class="panelfooter" id="contactfooter">
+              <h5>Note: met at the Convention last year in Aprii</h5>
+            </div>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="contacts/contact">
+          <div class="col-md-7" id="contactpanel2">
+            <h1 id="mobileContact">Contacts</h1>
+            <img id="profilepic" src="img/contact.png" />
+            <img src="img/arrow.png" class="backArrow" />
+            <h2 id="contactname" class="contacttext">Select a contact</h2>
+            <div id="detailmenubar" class="contactmenu">
+              <img src="img/contact.png" class="selected" />
+              <img src="img/events.png" />
+              <img src="img/tasks.png" />
+              <img src="img/tags.png" />
+              <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addContact" /></a>
+              <img src="img/trash.png" id="trashicon" />              
+            </div>
+            <div class="panelcontent" id="contactcontent">
+              <div class="infopanel selected">
+                <div class="contactrow">
+                  <img src="img/cellphone.png">
+                  <h4 class="phonenumber">{{phone}}</h4>
+                </div>
+                <div class="contactrow">
+                  <img src="img/openmail.png">
+                  <h4 class="emailfield">{{email}}</h4>
+                </div>
+                <div class="contactrow">
+                  <img src="img/birthday.png">
+                  <h4 id="bday"></h4>
+                </div>
+                <div class="contactrow">
+                  <img src="img/location.png">
+                  <h4 class="contactlocation">{{place}}</h4>
+                </div>
+              </div>
+              <div class="infopanel">
+                <div class="contactrow taskrow">
+                  <img src="img/tasks.png">
+                  <h4>Meet about Day Won</h4>
+                </div>
+                <div class="contactrow taskrow">
+                  <img src="img/tasks.png">
+                  <h4>Go skydiving</h4>
+                </div>
+                <div class="contactrow taskrow">
+                  <img src="img/tasks.png">
+                  <h4>Play video games</h4>
+                </div>
+                <div class="contactrow taskrow">
+                  <img src="img/tasks.png">
+                  <h4>QA BBTC</h4>
+                </div>
+              </div>
+              <div class="infopanel">
+                <div class="contactrow eventrow">
+                  <img src="img/events.png">
+                  <h4>Benefinder Meeting</h4>
+                </div>
+                <div class="contactrow eventrow">
+                  <img src="img/events.png">
+                  <h4>Conference Call with MMC</h4>
+                </div>
+                <div class="contactrow eventrow">
+                  <img src="img/events.png">
+                  <h4>BBTC Deliverable</h4>
+                </div>
+                <div class="contactrow eventrow">
+                  <img src="img/events.png">
+                  <h4>Lunch with Investors</h4>
+                </div>
+              </div>
+              <div class="infopanel">
+                <div class="contactrow tagrow">
+                  <img src="img/tags.png">
+                  <h4>Evenspring</h4>
+                </div>
+                <div class="contactrow tagrow">
+                  <img src="img/tags.png">
+                  <h4>Awesome</h4>
+                </div>
+                <div class="contactrow tagrow">
+                  <img src="img/tags.png">
+                  <h4>Partner</h4>
+                </div>
+                <div class="contactrow tagrow">
+                  <img src="img/tags.png">
+                  <h4>SRRNgames</h4>
+                </div>
+              </div>
+            </div>
+            <div class="panelfooter" id="contactfooter">
+              <h5>Note: met at the Convention last year in Aprii</h5>
             </div>
           </div>
         </script>
