@@ -67,8 +67,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -501,15 +501,14 @@ App.Task = DS.Model.extend({
 	}.property('due'),
 	hasDate: function() { 
 	   return this.get('due') !== undefined && this.get('due') !== null;
-	}.property('due'),
+	}.property('due')
 });
 
 App.Tag = DS.Model.extend({
     name: DS.attr('string'),
-	
 	count: function() { // eventually has to count up all the associations
 		return 0;
-	}.property(),
+	}.property()
 });
 
 /*Routes*/
@@ -584,7 +583,7 @@ App.TasksIndexRoute = Ember.Route.extend({
     return this.modelFor('tasks');
   }
 });
-App.TaskRoute = Ember.Route.extend({
+App.TasksTaskRoute = Ember.Route.extend({
   model: function(params) {
     return this.get('store').find('task', params.task_id);
   }
@@ -602,7 +601,7 @@ App.EventsIndexRoute = App.EventsRoute.extend({
         return this.modelFor('events');
     }
 });
-App.EventRoute = Ember.Route.extend({
+App.EventsEventRoute = Ember.Route.extend({
     model: function (params) {
         return this.store.find('event', params.event_id);
     }
@@ -622,7 +621,11 @@ App.ContactsIndexRoute = Ember.Route.extend({
 });
 App.ContactsContactRoute = Ember.Route.extend({
   model: function(params) {
-    return this.get('store').find('contact', params.contact_id);
+    /*this.get('store').find('contact', params.contact_id).then(function(rec){
+        rec.deleteRecord();
+        rec.save();
+    });*/
+    return this.get('store').find('contact', params.tag_id);
   }
 });
 
@@ -638,7 +641,7 @@ App.TagsIndexRoute = Ember.Route.extend({
     return this.modelFor('tags');
   }
 });
-App.TagRoute = Ember.Route.extend({
+App.TagsTag = Ember.Route.extend({
   model: function(params) {
     return this.get('store').find('tag', params.tag_id);
   }

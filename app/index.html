@@ -1030,7 +1030,7 @@
                       <div class="columnhead">
                         <img src="img/tasks.png" />
                         <h3>Tasks</h3>
-                      </div>
+                    </div>
 					  <br />
 					  <div class="detailSection">
 					    <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
@@ -1052,8 +1052,8 @@
                           <li>Momin Khan</li>
                           <li>Aujang Abadi</li>
                         </ul>  
-					  </div>                  
-					</div>
+  					  </div>                  
+  					</div>
                     <div class="col-md-4 dCol" id="dCol3">
                       <div class="columnhead">
                         <img src="img/events.png" />
@@ -1316,82 +1316,7 @@
                     {{/each}}        
                   </ul>
                 </div>
-                <div class="col-md-7" id="eventpanel2">
-                  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
-                  <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="eventname">Mom's Birthday</h2>
-                  <div id="detailmenubar">
-                    <img src="img/contact.png" />
-                    <img src="img/events.png" class="selected" />
-                    <img src="img/tasks.png" />
-                    <img src="img/tags.png" /> 
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
-                  </div>
-                  <div class="panelcontent" id="eventscontent">
-                  {{#each event in controller}}
-                  {{#if event.title}}                    
-                    <div class="infopanel">
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Tyler Carbone</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Elizabeth Hatzi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Aujang Abadi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Lauren Morton</h4>
-                      </div>
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Meet about Day Won</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Go skydiving</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Play video games</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>QA BBTC</h4>
-                      </div>
-                    </div>
-                    <div class="infopanel selected">
-                      <p class="textrow" style="line-height:32px"><b>Description: </b>{{event.description}}<br /><b>Location: </b>{{event.location}}<br /><b>Event Start: </b>{{event.start_datetime}}<br /><b>Event End: </b>{{event.end_datetime}}</p>
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Evenspring</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Awesome</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Partner</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>SRRNgames</h4>
-                      </div>
-                    </div>
-                    {{/if}}
-                    {{/each}} 
-                  </div>
-                </div>
+                {{outlet}}
                 <div id="detailPanel" class="panelIn">
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
@@ -1485,6 +1410,158 @@
             </div>
           </div>
         </script>
+        <script type="text/x-handlebars" id="events/index">
+                <div class="col-md-7" id="eventpanel2">
+                  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+                  <img src="img/arrow.png" class="backArrow" />
+                  <h2 id="contactname" class="eventname">Mom's Birthday</h2>
+                  <div id="detailmenubar">
+                    <img src="img/contact.png" />
+                    <img src="img/events.png" class="selected" />
+                    <img src="img/tasks.png" />
+                    <img src="img/tags.png" /> 
+                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="eventscontent">
+                  {{#each event in controller}}
+                  {{#if event.title}}                    
+                    <div class="infopanel">
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Tyler Carbone</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Elizabeth Hatzi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Aujang Abadi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Lauren Morton</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Meet about Day Won</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Go skydiving</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Play video games</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>QA BBTC</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel selected">
+                      <p class="textrow" style="line-height:32px"><b>Description: </b>{{event.description}}<br /><b>Location: </b>{{event.location}}<br /><b>Event Start: </b>{{event.start_datetime}}<br /><b>Event End: </b>{{event.end_datetime}}</p>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Evenspring</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Awesome</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Partner</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>SRRNgames</h4>
+                      </div>
+                    </div>
+                    {{/if}}
+                    {{/each}} 
+                  </div>
+                </div>
+        </script>
+        <script type="text/x-handlebars" id="events/event">
+        <div class="col-md-7" id="eventpanel2">
+          <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+          <img src="img/arrow.png" class="backArrow" />
+          <h2 id="contactname" class="eventname">Mom's Birthday</h2>
+          <div id="detailmenubar">
+            <img src="img/contact.png" />
+            <img src="img/events.png" class="selected" />
+            <img src="img/tasks.png" />
+            <img src="img/tags.png" /> 
+            <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+            <img src="img/trash.png" id="trashicon"/>              
+          </div>
+          <div class="panelcontent" id="eventscontent">                
+            <div class="infopanel">
+              <div class="contactrow personrow">
+                <img src="img/contact.png">
+                <h4>Tyler Carbone</h4>
+              </div>
+              <div class="contactrow personrow">
+                <img src="img/contact.png">
+                <h4>Elizabeth Hatzi</h4>
+              </div>
+              <div class="contactrow personrow">
+                <img src="img/contact.png">
+                <h4>Aujang Abadi</h4>
+              </div>
+              <div class="contactrow personrow">
+                <img src="img/contact.png">
+                <h4>Lauren Morton</h4>
+              </div>
+            </div>
+            <div class="infopanel">
+              <div class="contactrow taskrow">
+                <img src="img/tasks.png">
+                <h4>Meet about Day Won</h4>
+              </div>
+              <div class="contactrow taskrow">
+                <img src="img/tasks.png">
+                <h4>Go skydiving</h4>
+              </div>
+              <div class="contactrow taskrow">
+                <img src="img/tasks.png">
+                <h4>Play video games</h4>
+              </div>
+              <div class="contactrow taskrow">
+                <img src="img/tasks.png">
+                <h4>QA BBTC</h4>
+              </div>
+            </div>
+            <div class="infopanel selected">
+              <p class="textrow" style="line-height:32px"><b>Description: </b>{{event.description}}<br /><b>Location: </b>{{event.location}}<br /><b>Event Start: </b>{{event.start_datetime}}<br /><b>Event End: </b>{{event.end_datetime}}</p>
+            </div>
+            <div class="infopanel">
+              <div class="contactrow tagrow">
+                <img src="img/tags.png">
+                <h4>Evenspring</h4>
+              </div>
+              <div class="contactrow tagrow">
+                <img src="img/tags.png">
+                <h4>Awesome</h4>
+              </div>
+              <div class="contactrow tagrow">
+                <img src="img/tags.png">
+                <h4>Partner</h4>
+              </div>
+              <div class="contactrow tagrow">
+                <img src="img/tags.png">
+                <h4>SRRNgames</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        </script>
         <script type="text/x-handlebars" id="tasks">
           <div class="mobileCover" id="tasksCover"></div>
           <div id="appcont" class="viewcont">
@@ -1520,82 +1597,7 @@
                     {{/each}}           
                   </ul>
                 </div>
-                <div class="col-md-7" id="taskpanel2">
-                  <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
-                  <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext">Day Won Meeting</h2>
-                  <div id="detailmenubar">
-                    <img src="img/contact.png" />
-                    <img src="img/events.png" />
-                    <img src="img/tasks.png" class="selected" />
-                    <img src="img/tags.png" />   
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTask" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
-                  </div>
-                  <div class="panelcontent" id="taskscontent">
-                    <div class="infopanel">
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Tyler Carbone</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Elizabeth Hatzi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Aujang Abadi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Lauren Morton</h4>
-                      </div>
-                    </div>
-                    <div class="infopanel selected">
-                      {{#each task in controller}}
-                        {{#if task.title}}
-                          <p class="textrow">{{task.notes}}<br />Due: {{task.due}}</p>
-                        {{/if}}
-                      {{/each}}
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Meet about Day Won</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Go skydiving</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Play video games</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>QA BBTC</h4>
-                      </div>
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Evenspring</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Awesome</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Partner</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>SRRNgames</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {{outlet}}
                 <div id="detailPanel" class="panelIn">
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
@@ -1689,7 +1691,159 @@
             </div>
           </div>
         </script>
-        <script type="text/x-handlebars" id="tags">
+        <script type="text/x-handlebars" id="tasks/index">
+                <div class="col-md-7" id="taskpanel2">
+                  <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
+                  <img src="img/arrow.png" class="backArrow" />
+                  <h2 id="contactname" class="taskname contacttext">Day Won Meeting</h2>
+                  <div id="detailmenubar">
+                    <img src="img/contact.png" />
+                    <img src="img/events.png" />
+                    <img src="img/tasks.png" class="selected" />
+                    <img src="img/tags.png" />   
+                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTask" /></a>
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="taskscontent">
+                    <div class="infopanel">
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Tyler Carbone</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Elizabeth Hatzi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Aujang Abadi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Lauren Morton</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel selected">
+                      {{#each task in controller}}
+                        {{#if task.title}}
+                          <p class="textrow">{{task.notes}}<br />Due: {{task.due}}</p>
+                        {{/if}}
+                      {{/each}}
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Meet about Day Won</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Go skydiving</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Play video games</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>QA BBTC</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Evenspring</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Awesome</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Partner</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>SRRNgames</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </script>
+              <script type="text/x-handlebars" id="tasks/task">
+                <div class="col-md-7" id="taskpanel2">
+                  <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
+                  <img src="img/arrow.png" class="backArrow" />
+                  <h2 id="contactname" class="taskname contacttext">Day Won Meeting</h2>
+                  <div id="detailmenubar">
+                    <img src="img/contact.png" />
+                    <img src="img/events.png" />
+                    <img src="img/tasks.png" class="selected" />
+                    <img src="img/tags.png" />   
+                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTask" /></a>
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="taskscontent">
+                    <div class="infopanel">
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Tyler Carbone</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Elizabeth Hatzi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Aujang Abadi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Lauren Morton</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel selected">
+                          <p class="textrow">{{task.notes}}<br />Due: {{task.due}}</p>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Meet about Day Won</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Go skydiving</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Play video games</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>QA BBTC</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Evenspring</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Awesome</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Partner</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>SRRNgames</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          </script>
+          <script type="text/x-handlebars" id="tags">
           <div class="mobileCover" id="tagsCover"></div>
           <div id="appcont" class="viewcont">
             <div class="section-container" id="taskscont">
@@ -1718,79 +1872,7 @@
                     {{/each}}                 
                   </ul>
                 </div>
-                <div class="col-md-7" id="tagpanel2">
-                  <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
-                  <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname tagname">Awesome</h2>
-                  <div id="detailmenubar">
-                    <img src="img/contact.png" />
-                    <img src="img/events.png" />
-                    <img src="img/tasks.png" />
-                    <img src="img/tags.png" class="selected" />   
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
-                  </div>
-                  <div class="panelcontent" id="tagscontent">
-                    <div class="infopanel">
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Tyler Carbone</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Elizabeth Hatzi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Aujang Abadi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Lauren Morton</h4>
-                      </div>
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Evenspring</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Awesome</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Partner</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>SRRNgames</h4>
-                      </div>
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Meet about Day Won</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Go skydiving</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Play video games</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>QA BBTC</h4>
-                      </div>
-                    </div>
-                    <div class="infopanel selected">
-                      <p class="textrow">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere arcu a iaculis malesuada. Aenean pretium varius fermentum. Nam dolor sem, convallis bibendum libero eu, faucibus venenatis velit. Proin sed nulla non dui porttitor scelerisque et placerat purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi arcu nibh, egestas non egestas vitae, placerat vel enim. Proin ultrices lacinia nulla, a cursus dolor faucibus vel."
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                {{outlet}}
                 <div id="detailPanel" class="panelIn">
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
@@ -1873,6 +1955,156 @@
               </div>
             </div>
           </div>
+        </script>
+        <script type="text/x-handlebars" id="tags/index">
+<div class="col-md-7" id="tagpanel2">
+                  <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
+                  <img src="img/arrow.png" class="backArrow" />
+                  <h2 id="contactname" class="taskname tagname">Awesome</h2>
+                  <div id="detailmenubar">
+                    <img src="img/contact.png" />
+                    <img src="img/events.png" />
+                    <img src="img/tasks.png" />
+                    <img src="img/tags.png" class="selected" />   
+                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="tagscontent">
+                    <div class="infopanel">
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Tyler Carbone</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Elizabeth Hatzi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Aujang Abadi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Lauren Morton</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Evenspring</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Awesome</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Partner</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>SRRNgames</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Meet about Day Won</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Go skydiving</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Play video games</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>QA BBTC</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel selected">
+                      <p class="textrow">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere arcu a iaculis malesuada. Aenean pretium varius fermentum. Nam dolor sem, convallis bibendum libero eu, faucibus venenatis velit. Proin sed nulla non dui porttitor scelerisque et placerat purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi arcu nibh, egestas non egestas vitae, placerat vel enim. Proin ultrices lacinia nulla, a cursus dolor faucibus vel."
+                      </p>
+                    </div>
+                  </div>
+                </div>
+        </script>
+        <script type="text/x-handlebars" id="tags/tag">
+        <div class="col-md-7" id="tagpanel2">
+                  <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
+                  <img src="img/arrow.png" class="backArrow" />
+                  <h2 id="contactname" class="taskname tagname">Awesome</h2>
+                  <div id="detailmenubar">
+                    <img src="img/contact.png" />
+                    <img src="img/events.png" />
+                    <img src="img/tasks.png" />
+                    <img src="img/tags.png" class="selected" />   
+                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="tagscontent">
+                    <div class="infopanel">
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Tyler Carbone</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Elizabeth Hatzi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Aujang Abadi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Lauren Morton</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Evenspring</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Awesome</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Partner</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>SRRNgames</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Meet about Day Won</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Go skydiving</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>Play video games</h4>
+                      </div>
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
+                        <h4>QA BBTC</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel selected">
+                      <p class="textrow">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere arcu a iaculis malesuada. Aenean pretium varius fermentum. Nam dolor sem, convallis bibendum libero eu, faucibus venenatis velit. Proin sed nulla non dui porttitor scelerisque et placerat purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi arcu nibh, egestas non egestas vitae, placerat vel enim. Proin ultrices lacinia nulla, a cursus dolor faucibus vel."
+                      </p>
+                    </div>
+                  </div>
+                </div>
         </script>
         <script type="text/x-handlebars" id="orphans">
         <div id="appcont" class="orphancont">
