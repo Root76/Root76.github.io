@@ -67,8 +67,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -621,11 +621,12 @@ App.ContactsIndexRoute = Ember.Route.extend({
 });
 App.ContactsContactRoute = Ember.Route.extend({
   model: function(params) {
-    /*this.get('store').find('contact', params.contact_id).then(function(rec){
-        rec.deleteRecord();
-        rec.save();
-    });*/
-    return this.get('store').find('contact', params.tag_id);
+    return this.get('store').find('contact', params.contact_id);
+  },
+  setupController: function(params){
+    this.get('store').find('contact', params.contact_id).then(function(rec){
+        this.get('store').unloadRecord(rec);
+    });
   }
 });
 
@@ -653,7 +654,7 @@ App.CalendarRoute = Ember.Route.extend({
     model: function() {
         return this.get('store').find('event');
     }
-})
+});
 
 /* Google Analytics Path Watching... */
 /*

@@ -1766,10 +1766,11 @@ to {
 	-moz-transition: opacity 400ms ease-in;
 	transition: opacity 400ms ease-in;
 	pointer-events: none;
-	display:none;
+	/*display:none;*/
 }
 
 .modalDialog.active {
+	/*display:block;*/
 	opacity:1;
 	pointer-events: auto;
 }
