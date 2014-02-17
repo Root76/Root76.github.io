@@ -67,8 +67,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
   }
 });
 
@@ -226,7 +226,7 @@ App.ContactsController = Ember.ArrayController.extend({
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
         }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
-	}.observes('selectedShowOption'),
+	}.observes('selectedShowOption')
 });
 
 App.EventsController = Ember.ArrayController.extend({
@@ -647,6 +647,14 @@ App.TagsTag = Ember.Route.extend({
   }
 });
 
+/*Calendar*/
+
+App.CalendarRoute = Ember.Route.extend({
+    model: function() {
+        return this.get('store').find('event');
+    }
+})
+
 /* Google Analytics Path Watching... */
 /*
 App.ApplicationController = Em.Controller.extend
@@ -669,7 +677,6 @@ setTimeout(function() {
     var logSelect = document.getElementById("eaddr");
     logSelect.onchange = function() {
         if (logSelect.value === "Logout") {
-            console.log("changed");
             document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://daywon.s3-website-us-west-2.amazonaws.com/login.html";
         }
     }
@@ -1306,7 +1313,10 @@ function rebindEvents() {
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            editable: true
+            editable: true,
+            events: {
+
+            }
         });
     }
 
