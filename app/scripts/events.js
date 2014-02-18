@@ -631,7 +631,7 @@ function rebindEvents() {
         }
     });
 
-    if ($('#calendarcont').length) {
+    /*if ($('#calendarcont').length) {
         $('#calendarcont').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -643,7 +643,7 @@ function rebindEvents() {
 
             }
         });
-    }
+    }*/
 
     var today = new Date();
     var dd = today.getDate();

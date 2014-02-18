@@ -655,3 +655,26 @@ App.CalendarRoute = Ember.Route.extend({
         return this.get('store').find('event');
     }
 });
+
+App.CalView = Ember.View.extend({
+	didInsertElement: function() {
+	    //var json = return this.get('store').find('contact');
+    	this.$().fullCalendar({
+	        header: {
+	            left: 'prev,next today',
+	            center: 'title',
+	            right: 'month,agendaWeek,agendaDay'
+	        },
+	        eventRender: function(event, element, view) {
+	        	element.bind('click', function() {
+		            var day = ($.fullCalendar.formatDate( event.start, 'dd' ));
+		            var month = ($.fullCalendar.formatDate( event.start, 'MM' ));
+		            var year = ($.fullCalendar.formatDate( event.start, 'yyyy' ));
+		            console.log(year+'-'+month+'-'+day);
+	            });
+	        },
+	        editable: true/*,
+	        events: json*/
+   		});
+    }
+});
