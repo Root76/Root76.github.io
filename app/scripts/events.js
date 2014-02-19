@@ -698,7 +698,7 @@ function rebindEvents() {
       offset: [0, -140],
       delay: 0,
       background: "#72FF72",
-	  borderColor: "#3CFF3C",
+	  borderColor: "#3CFF3C"
     };
     Opentip.styles.error = {
       tipJoint: "top",
@@ -706,7 +706,14 @@ function rebindEvents() {
       offset: [0, -140],
       delay: 0,
       background: "#FF7272",
-	  borderColor: "#FF3C3C",
+	  borderColor: "#FF3C3C"
+    };
+    Opentip.styles.calitem = {
+      tipJoint: "bottom",
+      group: "tags",
+      target: true,
+      offset: [0, -140],
+      delay: 0
     };
     if ($("#subEvent").length) {
         new Opentip("#subEvent", "Events", {

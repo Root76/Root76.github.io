@@ -683,7 +683,24 @@ App.CalendarView = Ember.View.extend({
 	            center: 'title',
 	            right: 'month,agendaWeek,agendaDay'
 	        },
-	        events: json
+	        events: json,
+	        eventClick: function(calEvent, jsEvent, view) {
+		        //console.log('Event: ' + calEvent.title);
+		        //console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+		        //console.log('View: ' + view.name);
+		        //$(this).css('border-color', 'red');
+		        /*$('#eventDetailPopup').addClass('active');
+		        $('#eventDetailPopup').css("left", jsEvent.pageX + "px");
+		        $('#eventDetailPopup').css("top", jsEvent.pageY + "px");*/
+		        var eventInfo = calEvent.title + "</br>" + calEvent.start;
+		        console.log(eventInfo);
+		        new Opentip(this, eventInfo, {
+            		style: "calitem",
+            		showOn: "creation",
+            		hideTrigger: "closeButton",
+            		className: "calevent"
+        		});
+		    }
    		});
     }
 });
