@@ -67,8 +67,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
   }
 });
 
@@ -660,7 +660,7 @@ App.CalendarRoute = Ember.Route.extend({
 	}
 });
 
-App.CalendarView = Ember.View.extend({
+App.CalView = Ember.View.extend({
 	didInsertElement: function() {
 	    var json = this.get('controller.model').map(function(record) {
             return record.toJSON();
@@ -692,13 +692,17 @@ App.CalendarView = Ember.View.extend({
 		        /*$('#eventDetailPopup').addClass('active');
 		        $('#eventDetailPopup').css("left", jsEvent.pageX + "px");
 		        $('#eventDetailPopup').css("top", jsEvent.pageY + "px");*/
-		        var eventInfo = calEvent.title + "</br>" + calEvent.start;
+		        var eventInfo = '<h2>' + calEvent.title + '</h2><h3>' + calEvent.start + '</h3><div class="calPopupCont">Event description: ' + calEvent.description + '</div>';
 		        console.log(eventInfo);
 		        new Opentip(this, eventInfo, {
             		style: "calitem",
             		showOn: "creation",
             		hideTrigger: "closeButton",
-            		className: "calevent"
+            		className: "calevent",
+            		background: "#88c44c",
+            		closeButtonRadius: 15,
+            		closeButtonCrossSize: 10,
+            		closeButtonCrossColor: "#ffffff"
         		});
 		    }
    		});

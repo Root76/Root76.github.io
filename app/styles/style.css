@@ -2148,6 +2148,25 @@ font-family:'Open Sans', sans-serif;
 	right:20px;
 }
 
+.style-calevent {
+	width:auto !important;
+	max-width:650px !important
+}
+
+.style-calevent .opentip {
+	background:#88c44c;
+
+}
+
+/*.style-calevent canvas {
+	display:none;
+}*/
+
+.calPopupCont {
+	background:#fff;
+	padding:10px;
+}
+
  /*!
  * FullCalendar v1.6.4 Stylesheet
  * Docs & License: http://arshaw.com/fullcalendar/
@@ -2428,7 +2447,7 @@ html .fc,
 	background-color: #88c44c; /* default BACKGROUND color */
 	color: #fff;               /* default TEXT color */
 	font-size: .85em;
-	cursor: default;
+	cursor: pointer;
 	}
 
 a.fc-event {
@@ -3088,6 +3107,17 @@ input#toggle5:checked + label:after {
 
 #mobileContact {
 	display:none;
+}
+
+.opentip h2 {
+	margin:0px;
+	color:#fff;
+	display:block;
+}
+.opentip h3 {
+	text-align:right;
+	color:#fff;
+	font-size:18px;
 }
 
 .opentip-container,
