@@ -67,8 +67,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -653,28 +653,37 @@ App.TagsTag = Ember.Route.extend({
 App.CalendarRoute = Ember.Route.extend({
     model: function() {
         return this.get('store').find('event');
-    }
+    },
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('events').set('model', model);
+	}
 });
 
-App.CalView = Ember.View.extend({
+App.CalendarView = Ember.View.extend({
 	didInsertElement: function() {
-	    //var json = return this.get('store').find('contact');
+	    var json = this.get('controller.model').map(function(record) {
+            return record.toJSON();
+        });
+        console.log(json.length + " events found");
+        for (var i = 0; i < json.length; i++) {
+        	if (json[i].hasOwnProperty("start_datetime")) {
+        		json[i]["start"] = json[i]["start_datetime"];
+        		delete json[i]["start_datetime"];
+        	}
+        	if (json[i].hasOwnProperty("end_datetime")) {
+        		json[i]["end"] = json[i]["end_datetime"];
+        		delete json[i]["end_datetime"];
+        	}
+        }
+	    console.log(json[0]);
     	this.$().fullCalendar({
 	        header: {
 	            left: 'prev,next today',
 	            center: 'title',
 	            right: 'month,agendaWeek,agendaDay'
 	        },
-	        eventRender: function(event, element, view) {
-	        	element.bind('click', function() {
-		            var day = ($.fullCalendar.formatDate( event.start, 'dd' ));
-		            var month = ($.fullCalendar.formatDate( event.start, 'MM' ));
-		            var year = ($.fullCalendar.formatDate( event.start, 'yyyy' ));
-		            console.log(year+'-'+month+'-'+day);
-	            });
-	        },
-	        editable: true/*,
-	        events: json*/
+	        events: json
    		});
     }
 });
