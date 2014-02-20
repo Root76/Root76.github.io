@@ -621,12 +621,10 @@ App.ContactsIndexRoute = Ember.Route.extend({
 });
 App.ContactsContactRoute = Ember.Route.extend({
   model: function(params) {
-    return this.get('store').find('contact', {id: params.contact_id});
+   	return this.get('store').find('contact', params.contact_id);
   },
-  setupController: function(params){
-    this.get('store').find('contact', params.contact_id).then(function(rec){
-        this.get('store').unloadRecord(rec);
-    });
+  setupController: function(controller, model){
+    model.reload();
   }
 });
 
