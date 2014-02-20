@@ -972,14 +972,6 @@ color: #ec8f38;
 	color:#fff;
 }
 
-.phonenumber, .contactlocation, .emailfield {
-	display:none;
-}
-
-.phonenumber.selected, .contactlocation.selected, .emailfield.selected {
-	display:block !important;
-}
-
 #recentdash {
 	background:#00a3ac;
 }
@@ -1357,14 +1349,6 @@ to {
 
 #taskscont {
 	padding:0px;
-}
-
-.textrow {
-	display:none;
-}
-
-.textrow.selected {
-	display:block !important;
 }
 
 .panelfooter {

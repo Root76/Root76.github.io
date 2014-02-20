@@ -574,19 +574,23 @@ App.ReportsTagsRoute = Ember.Route.extend({
 /*Tasks*/
 
 App.TasksRoute = Ember.Route.extend({
-  model: function() {
-    return this.get('store').find('task');
-  }
+  	model: function() {
+    	return this.get('store').find('task');
+  	}
 });
 App.TasksIndexRoute = Ember.Route.extend({
-  model: function() {
-    return this.modelFor('tasks');
-  }
+  	model: function() {
+    	return this.modelFor('tasks');
+  	}
 });
 App.TasksTaskRoute = Ember.Route.extend({
-  model: function(params) {
-    return this.get('store').find('task', params.task_id);
-  }
+  	model: function(params) {
+    	return this.get('store').find('task', params.task_id);
+  	},
+  	setupController: function(controller, model){
+  		controller.set('model', model);
+    	model.reload();
+  	}
 });
 
 /*Events*/
@@ -604,46 +608,55 @@ App.EventsIndexRoute = App.EventsRoute.extend({
 App.EventsEventRoute = Ember.Route.extend({
     model: function (params) {
         return this.store.find('event', params.event_id);
-    }
+    },
+  	setupController: function(controller, model){
+  		controller.set('model', model);
+    	model.reload();
+  	}
 });
 
 /*Contacts*/
 
 App.ContactsRoute = Ember.Route.extend({
-  model: function() {
-    return this.get('store').find('contact');
-  }
+  	model: function() {
+    	return this.get('store').find('contact');
+  	}
 });
 App.ContactsIndexRoute = Ember.Route.extend({
-  model: function() {
-    return this.modelFor('contacts');
-  }
+  	model: function() {
+    	return this.modelFor('contacts');
+  	}
 });
 App.ContactsContactRoute = Ember.Route.extend({
-  model: function(params) {
-   	return this.get('store').find('contact', params.contact_id);
-  },
-  setupController: function(controller, model){
-    model.reload();
-  }
+  	model: function(params) {
+   		return this.get('store').find('contact', params.contact_id);
+  	},
+  	setupController: function(controller, model){
+  		controller.set('model', model);
+    	model.reload();
+  	}
 });
 
 /*Tags*/
 
 App.TagsRoute = Ember.Route.extend({
-  model: function() {
-    return this.get('store').find('tag');
-  }
+  	model: function() {
+    	return this.get('store').find('tag');
+  	}
 });
 App.TagsIndexRoute = Ember.Route.extend({
-  model: function() {
-    return this.modelFor('tags');
-  }
+  	model: function() {
+    	return this.modelFor('tags');
+  	}
 });
-App.TagsTag = Ember.Route.extend({
-  model: function(params) {
-    return this.get('store').find('tag', params.tag_id);
-  }
+App.TagsTagRoute = Ember.Route.extend({
+  	model: function(params) {
+    	return this.get('store').find('tag', params.tag_id);
+  	},
+  	setupController: function(controller, model){
+  		controller.set('model', model);
+    	model.reload();
+  	}
 });
 
 /*Calendar*/

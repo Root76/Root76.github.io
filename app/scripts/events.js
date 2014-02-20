@@ -215,7 +215,7 @@ function rebindEvents() {
         $(detailsList[itemList]).addClass("selected");
         $('.emailfield.selected').removeClass('selected');
         $(eField[itemList]).addClass('selected');
-        $("#contactname").html($(event.target).html());
+        //$("#contactname").html($(event.target).html());
         $('.currentcontact').removeClass("currentcontact");
         $(event.target).addClass("currentcontact");
         var splitString = $(event.target).html().split(" ");
@@ -513,19 +513,19 @@ function rebindEvents() {
     });
 
     $('#tasklist > li').click(function(event){
-        $("#contactname").html($(event.target).html());
+        //$("#contactname").html($(event.target).html());
         $('.currentcontact').removeClass("currentcontact");
         $(event.target).addClass("currentcontact");
     });
 
     $('#eventlist > li').click(function(event){
-        $("#contactname").html($(event.target).html());
+        //$("#contactname").html($(event.target).html());
         $('.currentcontact').removeClass("currentcontact");
         $(event.target).addClass("currentcontact");
     });
 
     $('#taglist > li').click(function(event){
-        $("#contactname").html($(event.target).html());
+        //$("#contactname").html($(event.target).html());
         $('.currentcontact').removeClass("currentcontact");
         $(event.target).addClass("currentcontact");
     });

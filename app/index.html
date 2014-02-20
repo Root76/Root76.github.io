@@ -1107,31 +1107,19 @@
               <div class="infopanel selected">
                 <div class="contactrow">
                   <img src="img/cellphone.png">
-                  {{#each contact in controller}}
-                    {{#if contact.name}}
-                      <h4 class="phonenumber">{{contact.phone}}</h4>
-                    {{/if}}
-                  {{/each}}                     
+                  <h4 class="phonenumber"></h4>                  
                 </div>
                 <div class="contactrow">
-                  <img src="img/openmail.png">
-                  {{#each contact in controller}}
-                    {{#if contact.name}}                           
-                      <h4 class="emailfield">{{contact.email}}</h4>
-                    {{/if}}
-                  {{/each}}
+                  <img src="img/openmail.png">                          
+                  <h4 class="emailfield"></h4>
                 </div>
                 <div class="contactrow">
                   <img src="img/birthday.png">
                   <h4 id="bday"></h4>
                 </div>
                 <div class="contactrow">
-                  <img src="img/location.png">
-                  {{#each contact in controller}}
-                    {{#if contact.name}}                        
-                      <h4 class="contactlocation">{{contact.place}}</h4>
-                    {{/if}}
-                  {{/each}}                      
+                  <img src="img/location.png">          
+                  <h4 class="contactlocation"></h4>                   
                 </div>
               </div>
               <div class="infopanel">
@@ -1190,7 +1178,7 @@
               </div>
             </div>
             <div class="panelfooter" id="contactfooter">
-              <h5>Note: met at the Convention last year in Aprii</h5>
+              <h5>Note: met at the Convention last year in April</h5>
             </div>
           </div>
         </script>
@@ -1199,7 +1187,7 @@
             <h1 id="mobileContact">Contacts</h1>
             <img id="profilepic" src="img/contact.png" />
             <img src="img/arrow.png" class="backArrow" />
-            <h2 id="contactname" class="contacttext">Select a contact</h2>
+            <h2 id="contactname" class="contacttext">{{name}}</h2>
             <div id="detailmenubar" class="contactmenu">
               <img src="img/contact.png" class="selected" />
               <img src="img/events.png" />
@@ -1220,7 +1208,7 @@
                 </div>
                 <div class="contactrow">
                   <img src="img/birthday.png">
-                  <h4 id="bday"></h4>
+                  <h4 id="bday">{{birthday}}</h4>
                 </div>
                 <div class="contactrow">
                   <img src="img/location.png">
@@ -1423,9 +1411,7 @@
                     <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
                     <img src="img/trash.png" id="trashicon"/>              
                   </div>
-                  <div class="panelcontent" id="eventscontent">
-                  {{#each event in controller}}
-                  {{#if event.title}}                    
+                  <div class="panelcontent" id="eventscontent">              
                     <div class="infopanel">
                       <div class="contactrow personrow">
                         <img src="img/contact.png">
@@ -1463,7 +1449,7 @@
                       </div>
                     </div>
                     <div class="infopanel selected">
-                      <p class="textrow" style="line-height:32px"><b>Description: </b>{{event.description}}<br /><b>Location: </b>{{event.location}}<br /><b>Event Start: </b>{{event.start_datetime}}<br /><b>Event End: </b>{{event.end_datetime}}</p>
+                      <p class="textrow" style="line-height:32px"><b>Description: </b><br /><b>Location: </b><br /><b>Event Start: </b><br /><b>Event End: </b></p>
                     </div>
                     <div class="infopanel">
                       <div class="contactrow tagrow">
@@ -1483,8 +1469,6 @@
                         <h4>SRRNgames</h4>
                       </div>
                     </div>
-                    {{/if}}
-                    {{/each}} 
                   </div>
                 </div>
         </script>
@@ -1492,7 +1476,7 @@
         <div class="col-md-7" id="eventpanel2">
           <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
           <img src="img/arrow.png" class="backArrow" />
-          <h2 id="contactname" class="eventname">Mom's Birthday</h2>
+          <h2 id="contactname" class="eventname">{{title}}</h2>
           <div id="detailmenubar">
             <img src="img/contact.png" />
             <img src="img/events.png" class="selected" />
@@ -1539,7 +1523,7 @@
               </div>
             </div>
             <div class="infopanel selected">
-              <p class="textrow" style="line-height:32px"><b>Description: </b>{{event.description}}<br /><b>Location: </b>{{event.location}}<br /><b>Event Start: </b>{{event.start_datetime}}<br /><b>Event End: </b>{{event.end_datetime}}</p>
+              <p class="textrow" style="line-height:32px"><b>Description: </b>{{description}}<br /><b>Location: </b>{{location}}<br /><b>Event Start: </b>{{start_datetime}}<br /><b>Event End: </b>{{end_datetime}}</p>
             </div>
             <div class="infopanel">
               <div class="contactrow tagrow">
@@ -1695,7 +1679,7 @@
                 <div class="col-md-7" id="taskpanel2">
                   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext">Day Won Meeting</h2>
+                  <h2 id="contactname" class="taskname contacttext">Select a task</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
@@ -1724,11 +1708,7 @@
                       </div>
                     </div>
                     <div class="infopanel selected">
-                      {{#each task in controller}}
-                        {{#if task.title}}
-                          <p class="textrow">{{task.notes}}<br />Due: {{task.due}}</p>
-                        {{/if}}
-                      {{/each}}
+                      <p class="textrow"><br />Due:</p>
                     </div>
                     <div class="infopanel">
                       <div class="contactrow eventrow">
@@ -1773,7 +1753,7 @@
                 <div class="col-md-7" id="taskpanel2">
                   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext">Day Won Meeting</h2>
+                  <h2 id="contactname" class="taskname contacttext">{{title}}</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
@@ -1802,7 +1782,7 @@
                       </div>
                     </div>
                     <div class="infopanel selected">
-                          <p class="textrow">{{task.notes}}<br />Due: {{task.due}}</p>
+                          <p class="textrow">{{notes}}<br />Due: {{due}}</p>
                     </div>
                     <div class="infopanel">
                       <div class="contactrow eventrow">
@@ -2035,7 +2015,7 @@
         <div class="col-md-7" id="tagpanel2">
                   <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname tagname">Awesome</h2>
+                  <h2 id="contactname" class="taskname tagname">{{name}}</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
