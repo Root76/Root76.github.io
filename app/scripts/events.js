@@ -133,8 +133,6 @@ function rebindEvents() {
             accord = accords[a];
             if ($(accord).attr("aria-selected") == "false") {
                 accord.click();
-            } else {
-                console.log("nope");
             }
         }
         $('.accordionarrow').addClass('arrowdown');
