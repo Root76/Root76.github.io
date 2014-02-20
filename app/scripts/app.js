@@ -67,8 +67,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -665,18 +665,14 @@ App.CalView = Ember.View.extend({
 	    var json = this.get('controller.model').map(function(record) {
             return record.toJSON();
         });
-        console.log(json.length + " events found");
         for (var i = 0; i < json.length; i++) {
         	if (json[i].hasOwnProperty("start_datetime")) {
         		json[i]["start"] = json[i]["start_datetime"];
-        		delete json[i]["start_datetime"];
         	}
         	if (json[i].hasOwnProperty("end_datetime")) {
         		json[i]["end"] = json[i]["end_datetime"];
-        		delete json[i]["end_datetime"];
         	}
         }
-	    console.log(json[0]);
     	this.$().fullCalendar({
 	        header: {
 	            left: 'prev,next today',
@@ -688,12 +684,7 @@ App.CalView = Ember.View.extend({
 		        //console.log('Event: ' + calEvent.title);
 		        //console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 		        //console.log('View: ' + view.name);
-		        //$(this).css('border-color', 'red');
-		        /*$('#eventDetailPopup').addClass('active');
-		        $('#eventDetailPopup').css("left", jsEvent.pageX + "px");
-		        $('#eventDetailPopup').css("top", jsEvent.pageY + "px");*/
 		        var eventInfo = '<h2>' + calEvent.title + '</h2><h3>' + calEvent.start + '</h3><div class="calPopupCont">Event description: ' + calEvent.description + '</div>';
-		        console.log(eventInfo);
 		        new Opentip(this, eventInfo, {
             		style: "calitem",
             		showOn: "creation",
