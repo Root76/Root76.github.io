@@ -705,7 +705,6 @@ App.CalView = Ember.View.extend({
             		closeButtonCrossSize: 10,
             		closeButtonCrossColor: "#ffffff"
         		});
-
 		    }
    		});
     }

@@ -2162,6 +2162,7 @@ font-family:'Open Sans', sans-serif;
 	width:100%;
 	position:absolute;
 	top:50px;
+	left:7px;
 }
 .calPopupTags img {
 	max-width:30px;
