@@ -681,10 +681,22 @@ App.CalView = Ember.View.extend({
 	        },
 	        events: json,
 	        eventClick: function(calEvent, jsEvent, view) {
+
 		        //console.log('Event: ' + calEvent.title);
 		        //console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 		        //console.log('View: ' + view.name);
-		        var eventInfo = '<h2>' + calEvent.title + '</h2><h3>' + calEvent.start + '</h3><div class="calPopupCont">Event description: ' + calEvent.description + '</div>';
+
+		        var calDate = calEvent.start;
+		        calDate = moment(calDate).format('MM/DD/YYYY');
+
+		        var calStart = calEvent.start;
+		        calStart = moment(calStart).format('MMMM Do YYYY, h:mm:ss a');
+
+		        var calEnd = calEvent.end;
+		        calEnd = moment(calEnd).format('MMMM Do YYYY, h:mm:ss a');
+
+		        var eventInfo = '<h2>' + calEvent.title + '</h2><h3>' + calDate + '</h3><div class="calPopupTags"><ul><li><img src="img/tags.png"><span>Lunch</span></li><li><img src="img/tags.png"><span>Party</span></li></ul></div><div class="calPopupCont"><p><b>Event description:</b> ' + calEvent.description + '</p><p><b>Event start:</b> ' + calStart + '</p><p><b>Event end:</b> ' + calEnd + '</div>';
+
 		        new Opentip(this, eventInfo, {
             		style: "calitem",
             		showOn: "creation",
@@ -695,6 +707,7 @@ App.CalView = Ember.View.extend({
             		closeButtonCrossSize: 10,
             		closeButtonCrossColor: "#ffffff"
         		});
+
 		    }
    		});
     }

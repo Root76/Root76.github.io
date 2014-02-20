@@ -2150,21 +2150,41 @@ font-family:'Open Sans', sans-serif;
 
 .style-calevent {
 	width:auto !important;
-	max-width:650px !important
-}
-
-.style-calevent .opentip {
-	background:#88c44c;
-
+	max-width:500px !important
 }
 
 /*.style-calevent canvas {
 	display:none;
 }*/
 
+.calPopupTags {
+	float:left;
+	width:100%;
+	position:absolute;
+	top:50px;
+}
+.calPopupTags img {
+	max-width:30px;
+}
+.calPopupTags ul {
+	list-style:none;
+}
+.calPopupTags li {
+	float:left;
+}
+.calPopupTags span {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	color: #fff;
+}
+
 .calPopupCont {
 	background:#fff;
 	padding:10px;
+	font-size:16px;
+	font-family:'Open Sans', sans-serif;
+	line-height:24px;
+	padding-bottom:1px;
 }
 
  /*!
@@ -3113,6 +3133,7 @@ input#toggle5:checked + label:after {
 	margin:0px;
 	color:#fff;
 	display:block;
+	font-size: 24px;
 }
 .opentip h3 {
 	text-align:right;
