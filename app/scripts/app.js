@@ -495,7 +495,6 @@ App.Task = DS.Model.extend({
     notes: DS.attr('string'),
     status: DS.attr('boolean'),
     due: DS.attr('date'),
-	
 	noDate: function() { 
 	   return this.get('due') === undefined || this.get('due') === null;
 	}.property('due'),
