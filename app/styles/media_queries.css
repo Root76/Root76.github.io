@@ -169,6 +169,14 @@
 		display:none;
 	}
 
+	.desktopEmail {
+		display:none;
+	}
+
+	.mobileEmail {
+		display:block;
+	}
+
 	.modalDialog {
 		display:none !important;
 	}
@@ -197,6 +205,10 @@
 
 	#appcont h4 {
 		display:none;
+	}
+
+	.emailfield {
+		display:block !important;
 	}
 
 	.section-container {

@@ -16,7 +16,11 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
-#mobileNav {
+#mobileNav, #preloader {
+	display:none;
+}
+
+.mobileEmail {
 	display:none;
 }
 
@@ -2148,6 +2152,7 @@ font-family:'Open Sans', sans-serif;
 	top:50px;
 	left:7px;
 }
+
 .calPopupTags img {
 	max-width:30px;
 }

@@ -654,7 +654,9 @@ App.ContactsIndexRoute = Ember.Route.extend({
 });
 App.ContactsContactRoute = Ember.Route.extend({
   	model: function(params) {
-   		return this.get('store').find('contact', params.contact_id);
+   		return this.get('store').find('contact', params.contact_id).then(function(){
+   			rebindEvents();
+   		});
   	},
   	setupController: function(controller, model){
   		controller.set('model', model);
