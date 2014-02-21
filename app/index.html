@@ -1213,12 +1213,12 @@
                   {{/if}}
                 </div>
                 <div class="contactrow" {{action "editField" "email" on="doubleClick"}}>
-                  <img src="img/openmail.png">
+                  <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png"></a>
+               		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
                   {{#if editing.email}}
                   	{{input id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
                   {{else}}
-                  	<a href="" target="_blank" class="dynamicEmail desktopEmail"><h4 class="emailfield">{{email}}</h4></a>
-                 		<a href="" class="dynamicEmail mobileEmail"><h4 class="emailfield">{{email}}</h4></a>
+                  	<h4 class="emailfield">{{email}}</h4>
                   {{/if}}                
                 </div>
                 <div class="contactrow">
