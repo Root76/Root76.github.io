@@ -1550,7 +1550,44 @@
               </div>
             </div>
             <div class="infopanel selected">
-              <p class="textrow" style="line-height:32px"><b>Description: </b>{{description}}<br /><b>Location: </b>{{location}}<br /><b>Event Start: </b>{{start_datetime}}<br /><b>Event End: </b>{{end_datetime}}</p>
+              <p class="textrow" style="line-height:32px">
+                <div {{action "editField" "description" on="doubleClick"}}>
+                	<b>Description: </b>
+                  {{#if editing.description}}
+                  	{{input id="descriptionInput" type="text" value=description focus-out="save" insert-newline="save"}}
+                  {{else}}
+               			{{description}}
+                  {{/if}}
+                  <br />
+                </div>
+                <div {{action "editField" "location" on="doubleClick"}}>
+                	<b>Location: </b>
+                  {{#if editing.location}}
+                  	{{input id="locationInput" type="text" value=location focus-out="save" insert-newline="save"}}
+                  {{else}}
+               			{{location}}
+                  {{/if}}
+                  <br />
+                </div>
+                <div {{action "editField" "start_datetime" on="doubleClick"}}>
+                	<b>Event Start: </b>
+                  {{#if editing.start_datetime}}
+                  	{{input id="start_datetimeInput" type="text" value=start_datetime focus-out="save" insert-newline="save"}}
+                  {{else}}
+               			{{start_datetime}}
+                  {{/if}}
+                  <br />
+                </div>
+                <div {{action "editField" "end_datetime" on="doubleClick"}}>
+                	<b>Event End: </b>
+                  {{#if editing.end_datetime}}
+                  	{{input id="end_datetimeInput" type="text" value=end_datetime focus-out="save" insert-newline="save"}}
+                  {{else}}
+               			{{end_datetime}}
+                  {{/if}}
+                  <br />
+                </div>
+              </p>
             </div>
             <div class="infopanel">
               <div class="contactrow tagrow">
