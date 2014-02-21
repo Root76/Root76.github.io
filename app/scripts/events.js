@@ -200,6 +200,23 @@ function rebindEvents() {
             $(event.target).siblings('a').removeClass('selected');
         }
     });
+    $(".dynamicEmail").parent().click(function(){
+        /*Grabbing the innerHTML alone doesn't work because of the <script> tags Ember inserts around model data. As a workaround, we grab all of the innerHTML, load it into a hidden div, drop the <script> tags from the DOM, and grab the hidden div's innerHTML (just the email address)*/
+        $(".desktopEmail").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&to=");
+        $(".mobileEmail").attr("href", "mailto:");
+        var desktopLink = $(".desktopEmail").attr("href");
+        var mobileLink = $(".mobileEmail").attr("href");
+        var emailAddr = $(".emailfield");
+        emailAddr = $(emailAddr[0]).html();
+        $("#preloader").html(emailAddr);
+        $("#preloader > script").remove();
+        emailAddr = $("#preloader").html();
+        console.log("email Addr: " + emailAddr);
+        $(".desktopEmail").attr("href", desktopLink + emailAddr);
+        $(".mobileEmail").attr("href", mobileLink + emailAddr);
+        console.log("desktop link: " + $('.desktopEmail').attr('href'));
+        console.log("mobile link: " + $('.mobileEmail').attr('href'));
+    });
 
     $('.sidelist > a > li').click(function(event){
         var itemList = $('.sidelist > a > li').index(this);

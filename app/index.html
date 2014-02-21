@@ -13,6 +13,7 @@
     </head>
     <body>
       <div id="scrollblock"></div>
+      <div id="preloader"></div>
       <script type="text/x-handlebars">
         <div id="mobileNav">
           {{#link-to 'index'}}<div class="mobileNavItem" id="mDash"><p>Dashboard</p><div class="imgCont"><img src="img/dashboard.png" /></div></div>{{/link-to}}
@@ -1204,7 +1205,8 @@
                 </div>
                 <div class="contactrow">
                   <img src="img/openmail.png">
-                  <h4 class="emailfield">{{email}}</h4>
+                  <a href="" target="_blank" class="dynamicEmail desktopEmail"><h4 class="emailfield">{{email}}</h4></a>
+                  <a href="" class="dynamicEmail mobileEmail"><h4 class="emailfield">{{email}}</h4></a>
                 </div>
                 <div class="contactrow">
                   <img src="img/birthday.png">
