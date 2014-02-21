@@ -208,7 +208,7 @@
 	}
 
 	.emailfield {
-		display:block;
+		display:block !important;
 	}
 
 	.section-container {
