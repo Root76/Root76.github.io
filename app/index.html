@@ -1187,8 +1187,12 @@
           <div class="col-md-7" id="contactpanel2">
             <h1 id="mobileContact">Contacts</h1>
             <img id="profilepic" src="img/contact.png" />
-            <img src="img/arrow.png" class="backArrow" />
-            <h2 id="contactname" class="contacttext">{{name}}</h2>
+            <img src="img/arrow.png" class="backArrow" />            
+		        {{#if editing.name}}
+		          {{input id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
+		        {{else}}
+		          <h2 id="contactname" class="contacttext" {{action "editField" "name" on="doubleClick"}}>{{name}}</h2>
+		        {{/if}}
             <div id="detailmenubar" class="contactmenu">
               <img src="img/contact.png" class="selected" />
               <img src="img/events.png" />
@@ -1199,22 +1203,34 @@
             </div>
             <div class="panelcontent" id="contactcontent">
               <div class="infopanel selected">
-                <div class="contactrow">
+                <div class="contactrow" {{action "editField" "phone" on="doubleClick"}}>
                   <img src="img/cellphone.png">
-                  <h4 class="phonenumber">{{phone}}</h4>
+                  {{#if editing.phone}}
+                  	{{input id="phoneInput" type="text" value=phone focus-out="save" insert-newline="save"}}
+                  {{else}}
+                  	<h4 class="phonenumber">{{phone}}</h4>
+                  {{/if}}
                 </div>
-                <div class="contactrow">
-                  <img src="img/openmail.png">
-                  <a href="" target="_blank" class="dynamicEmail desktopEmail"><h4 class="emailfield">{{email}}</h4></a>
-                  <a href="" class="dynamicEmail mobileEmail"><h4 class="emailfield">{{email}}</h4></a>
+                <div class="contactrow" {{action "editField" "email" on="doubleClick"}}>
+                  <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png"></a>
+               		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
+                  {{#if editing.email}}
+                  	{{input id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
+                  {{else}}
+                  	<h4 class="emailfield">{{email}}</h4>
+                  {{/if}}                
                 </div>
                 <div class="contactrow">
                   <img src="img/birthday.png">
                   <h4 id="bday">{{birthday}}</h4>
                 </div>
-                <div class="contactrow">
+                <div class="contactrow" {{action "editField" "address" on="doubleClick"}}>
                   <img src="img/location.png">
-                  <h4 class="contactlocation">{{place}}</h4>
+                  {{#if editing.address}}
+                  	{{input id="addressInput" type="text" value=address focus-out="save" insert-newline="save"}}
+                  {{else}}
+                  	<h4 class="contactlocation">{{address}}</h4>
+                  {{/if}}
                 </div>
               </div>
               <div class="infopanel">
@@ -1272,8 +1288,12 @@
                 </div>
               </div>
             </div>
-            <div class="panelfooter" id="contactfooter">
-              <h5>Note: met at the Convention last year in Aprii</h5>
+            <div class="panelfooter" id="contactfooter" {{action "editField" "notes" on="doubleClick"}}>
+              {{#if editing.notes}}
+              	<h5>Note: </h5>{{input id="notesInput" type="text" value=notes focus-out="save" insert-newline="save"}}
+              {{else}}
+              	<h5>Note: {{notes}}</h5>
+              {{/if}}
             </div>
           </div>
         </script>
@@ -1478,7 +1498,11 @@
         <div class="col-md-7" id="eventpanel2">
           <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
           <img src="img/arrow.png" class="backArrow" />
-          <h2 id="contactname" class="eventname">{{title}}</h2>
+	        {{#if editing.title}}
+	          {{input id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
+	        {{else}}
+	          <h2 id="contactname" class="eventname" {{action "editField" "title" on="doubleClick"}}>{{title}}</h2>
+	        {{/if}}
           <div id="detailmenubar">
             <img src="img/contact.png" />
             <img src="img/events.png" class="selected" />
@@ -1525,7 +1549,44 @@
               </div>
             </div>
             <div class="infopanel selected">
-              <p class="textrow" style="line-height:32px"><b>Description: </b>{{description}}<br /><b>Location: </b>{{location}}<br /><b>Event Start: </b>{{start_datetime}}<br /><b>Event End: </b>{{end_datetime}}</p>
+              <p class="textrow" style="line-height:32px">
+                <div {{action "editField" "description" on="doubleClick"}}>
+                	<b>Description: </b>
+                  {{#if editing.description}}
+                  	{{input id="descriptionInput" type="text" value=description focus-out="save" insert-newline="save"}}
+                  {{else}}
+               			{{description}}
+                  {{/if}}
+                  <br />
+                </div>
+                <div {{action "editField" "location" on="doubleClick"}}>
+                	<b>Location: </b>
+                  {{#if editing.location}}
+                  	{{input id="locationInput" type="text" value=location focus-out="save" insert-newline="save"}}
+                  {{else}}
+               			{{location}}
+                  {{/if}}
+                  <br />
+                </div>
+                <div {{action "editField" "start_datetime" on="doubleClick"}}>
+                	<b>Event Start: </b>
+                  {{#if editing.start_datetime}}
+                  	{{input id="start_datetimeInput" type="text" value=start_datetime focus-out="save" insert-newline="save"}}
+                  {{else}}
+               			{{start_datetime}}
+                  {{/if}}
+                  <br />
+                </div>
+                <div {{action "editField" "end_datetime" on="doubleClick"}}>
+                	<b>Event End: </b>
+                  {{#if editing.end_datetime}}
+                  	{{input id="end_datetimeInput" type="text" value=end_datetime focus-out="save" insert-newline="save"}}
+                  {{else}}
+               			{{end_datetime}}
+                  {{/if}}
+                  <br />
+                </div>
+              </p>
             </div>
             <div class="infopanel">
               <div class="contactrow tagrow">
@@ -1755,7 +1816,11 @@
                 <div class="col-md-7" id="taskpanel2">
                   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext">{{title}}</h2>
+					        {{#if editing.title}}
+					          {{input id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
+					        {{else}}
+					          <h2 id="contactname" class="taskname contacttext" {{action "editField" "title" on="doubleClick"}}>{{title}}</h2>
+					        {{/if}}
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
@@ -2017,7 +2082,11 @@
         <div class="col-md-7" id="tagpanel2">
                   <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname tagname">{{name}}</h2>
+					        {{#if editing.name}}
+					          {{input id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
+					        {{else}}
+					          <h2 id="contactname" class="taskname tagname" {{action "editField" "name" on="doubleClick"}}>{{name}}</h2>
+					        {{/if}}
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
