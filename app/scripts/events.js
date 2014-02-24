@@ -646,83 +646,6 @@ function rebindEvents() {
         }
     });
 
-	$.ajax({
-		type: 'GET',
-		url: "http://daywon-api-staging.herokuapp.com/",
-		contentType: "application/json",
-		dataType: "json",
-		data: {
-			contacts: contacts,
-			events: events,
-			tasks: tasks,
-			tags: tags
-		},
-		headers: {
-			"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-			"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
-		},
-		success: function (data) {
-			console.log("data gotten: " + data);
-
-            // instantiate the bloodhound suggestion engine
-            var contacts = new Bloodhound({
-              datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email); },
-              queryTokenizer: Bloodhound.tokenizers.whitespace,
-              local: data.contacts
-            });/*
-            var events = new Bloodhound({
-              datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title); },
-              queryTokenizer: Bloodhound.tokenizers.whitespace,
-              local: data.events
-            });
-            var tasks = new Bloodhound({
-              datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title); },
-              queryTokenizer: Bloodhound.tokenizers.whitespace,
-              local: data.tasks
-            });
-            var tags = new Bloodhound({
-              datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name); },
-              queryTokenizer: Bloodhound.tokenizers.whitespace,
-              local: data.tags
-            });*/
-             
-            // initialize the bloodhound suggestion engine
-            contacts.initialize();
-            //events.initialize();
-            //tasks.initialize();
-            //tags.initialize();
-            var contactRow;
-
-			$("#typeAheadContact").typeahead({ minLength: 1, highlight: true }, {
-				name: 'AllContacts',
-				displayKey: 'name',
-                source: contacts.ttAdapter()
-			}/*,
-			{
-				name: 'AllEvents',
-				displayKey: 'title',
-                source: events.ttAdapter()
-   			}*/).on('typeahead:selected', function (obj, datum) {
-   				console.log(obj);
-			    contactRow = '<li objectid="c' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
-			    $(".relatedContacts > ul").append(contactRow);
-			    bindCloseButtons();
-			});
-		},
-		error: function (e) {
-			console.log(e.statusText);
-			//showPopupMessage(event.target, "Error creating " + objectDescription, "error");
-		}
-	});
-
-    function bindCloseButtons() {
-	    $('.relatedList img').click(function(event){
-	    	$(event.target).parent().remove();
-	    });
-	}
-
-	bindCloseButtons();
-
     /*if ($('#calendarcont').length) {
         $('#calendarcont').fullCalendar({
             header: {
@@ -926,4 +849,64 @@ setTimeout(function(){
             e.preventDefault();
         });
     }
+                // instantiate the bloodhound suggestion engine
+    var contacts = new Bloodhound({
+      datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email); },
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: {
+      	url: 'http://daywon-api-staging.herokuapp.com/contacts',
+      	filter: function(list) {
+      		return list.contacts;
+      	},
+      	ajax: {
+			headers: {
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+			}
+      	}
+      }
+    });
+    var events = new Bloodhound({
+      datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title); },
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: {
+      	url: 'http://daywon-api-staging.herokuapp.com/events',
+      	filter: function(list) {
+      		return list.events;
+      	},
+      	ajax: {
+			headers: {
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+			}
+      	}
+      }
+    });
+
+
+    contacts.initialize();
+    events.initialize();
+
+    var contactRow;
+
+	$("#typeAheadContact").typeahead({ minLength: 1, highlight: true }, {
+		name: 'AllContacts',
+		displayKey: 'name',
+        source: contacts.ttAdapter()
+	},{
+		name: 'AllEvents',
+		displayKey: 'title',
+        source: events.ttAdapter()		
+	}).on('typeahead:selected', function (obj, datum) {
+	    contactRow = '<li objectid="c' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
+	    $(".relatedContacts > ul").append(contactRow);
+	    bindCloseButtons();
+	});
+
+
+    function bindCloseButtons() {
+	    $('.relatedList img').click(function(event){
+	    	$(event.target).parent().remove();
+	    });
+	}
 }, 1000);
