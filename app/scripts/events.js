@@ -946,32 +946,32 @@ setTimeout(function(){
 
         var objectID;
         var displayText;
-        var listSelector;
+        var extraClasses;
         //check which object has been selected
         if (datum.hasOwnProperty('organization')) { // contact
             objectID = 'contact' + datum.id;
             displayText = datum.name;
-            listSelector = ".relatedContacts > ul";
+            extraClasses = "contactAssociation";
         } else if (datum.hasOwnProperty('start_datetime')) { // event
             objectID = 'event' + datum.id;
             displayText = datum.title;
-            listSelector = ".relatedEvents > ul";
+            extraClasses = "eventAssociation";
         } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
             objectID = 'task' + datum.id;
             displayText = datum.title;
-            listSelector = ".relatedTasks > ul";
+            extraClasses = "taskAssociation";
         } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
             objectID = 'tag' + datum.id;
             displayText = datum.name;
-            listSelector = ".relatedTags > ul";
+            extraClasses = "tagAssociation";
         } else { // invalid
             console.log("Unknown datum selected: " + datum);
         }
-        if (objectID && displayText && listSelector) {
-            var itemList = $(listSelector);
+        if (objectID && displayText) {
+            var itemList = $(".relatedList > ul", ".createForm.selected");
             var existingItems = $('[objectid=' + objectID + ']', itemList);
             if (existingItems.length === 0) {
-                var newRow = $('<li objectid="' + objectID + '"><span>' + displayText + '</span><img src="img/close.png"></li>');
+                var newRow = $('<li objectid="' + objectID + '" class="' + extraClasses + '"><span>' + displayText + '</span><img src="img/close.png"></li>');
                 $('img', newRow).click(function() { newRow.remove(); });
                 itemList.append(newRow);
             }
@@ -980,10 +980,10 @@ setTimeout(function(){
 
     $("#typeAheadContact").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
-    $("#typeAheadEvent").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
+    $("#typeAheadEvent").typeahead(typeaheadOptions, contactsDatasource, tasksDatasource, tagsDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
-    $("#typeAheadTask").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
+    $("#typeAheadTask").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tagsDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
-    $("#typeAheadContact").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
+    $("#typeAheadTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
 }, 1000);
