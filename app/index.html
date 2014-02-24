@@ -1949,7 +1949,24 @@
                       </div>
                     </div>
                     <div class="infopanel selected">
-                          <p class="textrow">{{notes}}<br />Due: {{due}}</p>
+                      <p class="textrow">
+                        <div {{action "editField" "notes" on="doubleClick"}}>
+                          {{#if editing.notes}}
+                            <h5>Note: </h5>{{input id="notesInput" type="text" value=notes focus-out="save" insert-newline="save"}}
+                          {{else}}
+                            <h5>Note: {{notes}}</h5>
+                          {{/if}}
+                        </div>
+                        <div {{action "editField" "due" on="doubleClick"}}>
+                          <b>Event End: </b>
+                          {{#if editing.due}}
+                            {{input id="dueInput" type="datetime-local" value=due_formatted focus-out="save" insert-newline="save"}}
+                          {{else}}
+                            {{due_formatted}}
+                          {{/if}}
+                          <br />
+                        </div>
+                      </p>
                     </div>
                     <div class="infopanel">
                       <div class="contactrow eventrow">

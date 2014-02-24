@@ -526,7 +526,17 @@ App.Task = DS.Model.extend({
 	}.property('due'),
 	hasDate: function() { 
 	   return this.get('due') !== undefined && this.get('due') !== null;
-	}.property('due')
+	}.property('due'),
+
+    due_formatted: function(key, value) {
+	    if (arguments.length > 1) {
+	    	var date = moment(value);
+	    	if (date.isValid())
+	    		this.set('due', date.toDate());
+	    }
+	    var dateString = Utility.convertToHTMLDateTimeLocalInput(this.get('due'));
+    	return dateString || "N/A";
+    }.property('due'),
 });
 
 App.Tag = DS.Model.extend({
