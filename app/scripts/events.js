@@ -658,11 +658,23 @@ function rebindEvents() {
 		},
 		success: function (data) {
 			console.log("data gotten: " + data);
-			$("#typeAheadContact").typeahead([{
-				name: 'contacts',
-				local: data,
-				displayKey: 'name'
-			}]);
+
+            // instantiate the bloodhound suggestion engine
+            var contacts = new Bloodhound({
+              datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email); },
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              local: data.contacts
+            });
+             
+            // initialize the bloodhound suggestion engine
+            contacts.initialize();
+             
+
+			$("#typeAheadContact").typeahead({ minLength: 1, highlight: true }, {
+				name: 'AllContacts',
+				displayKey: 'name',
+                source: contacts.ttAdapter()
+			});
 		},
 		error: function (e) {
 			console.log(e.statusText);
