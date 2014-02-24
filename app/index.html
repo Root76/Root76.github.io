@@ -1593,18 +1593,18 @@
                 <div {{action "editField" "start_datetime" on="doubleClick"}}>
                 	<b>Event Start: </b>
                   {{#if editing.start_datetime}}
-                  	{{input class="editField" id="start_datetimeInput" type="datetime-local" value=start_formatted focus-out="save" insert-newline="save"}}
+                  	{{input class="editField" id="start_datetimeInput" type="datetime-local" value=start_inputformatted focus-out="save" insert-newline="save"}}
                   {{else}}
-               			{{start_formatted}}
+               			{{start_displayformatted}}
                   {{/if}}
                   <br />
                 </div>
                 <div {{action "editField" "end_datetime" on="doubleClick"}}>
                 	<b>Event End: </b>
                   {{#if editing.end_datetime}}
-                  	{{input class="editField" id="end_datetimeInput" type="datetime-local" value=end_formatted focus-out="save" insert-newline="save"}}
+                  	{{input class="editField" id="end_datetimeInput" type="datetime-local" value=end_inputformatted focus-out="save" insert-newline="save"}}
                   {{else}}
-               			{{end_formatted}}
+               			{{end_displayformatted}}
                   {{/if}}
                   <br />
                 </div>
@@ -1888,9 +1888,9 @@
                       <div {{action "editField" "due" on="doubleClick"}}>
                         <b>Event End: </b>
                         {{#if editing.due}}
-                          {{input class="editField" id="dueInput" type="datetime-local" value=due_formatted focus-out="save" insert-newline="save"}}
+                          {{input class="editField" id="dueInput" type="datetime-local" value=due_inputformatted focus-out="save" insert-newline="save"}}
                         {{else}}
-                          {{due_formatted}}
+                          {{due_displayformatted}}
                         {{/if}}
                         <br />
                       </div>
