@@ -125,6 +125,12 @@ Utility.sortByTimeOption = function(enumerable, timePropertyName, timeOption) {
 		return false;
 	});
 };
+Utility.convertToHTMLDateTimeLocalInput = function(dateString) {
+	var date = moment(dateString);
+	if (date.isValid())
+		return date.format("YYYY-MM-DDTHH:mm"); // HTML type="datetime-local" inputs look for this exact date format
+	else return null;
+}
 
 App.ContactsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
@@ -487,7 +493,27 @@ App.Event = DS.Model.extend({
     location: DS.attr('string'),
     start_datetime: DS.attr('date'),
     end_datetime: DS.attr('date'),
-    updated_at: DS.attr('date')
+    updated_at: DS.attr('date'),
+
+    start_formatted: function(key, value) {
+	    if (arguments.length > 1) {
+	    	var date = moment(value);
+	    	if (date.isValid())
+	    		this.set('start_datetime', date.toDate());
+	    }
+	    var dateString = Utility.convertToHTMLDateTimeLocalInput(this.get('start_datetime'));
+    	return dateString || "N/A";
+    }.property('start_datetime'),
+
+    end_formatted: function(key, value) {
+	    if (arguments.length > 1) {
+	    	var date = moment(value);
+	    	if (date.isValid())
+	    		this.set('end_datetime', date.toDate());
+	    }
+	    var dateString = Utility.convertToHTMLDateTimeLocalInput(this.get('end_datetime'));
+    	return dateString || "N/A";
+    }.property('end_datetime'),
 });
 
 App.Task = DS.Model.extend({

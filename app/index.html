@@ -1671,18 +1671,18 @@
                 <div {{action "editField" "start_datetime" on="doubleClick"}}>
                 	<b>Event Start: </b>
                   {{#if editing.start_datetime}}
-                  	{{input id="start_datetimeInput" type="text" value=start_datetime focus-out="save" insert-newline="save"}}
+                  	{{input id="start_datetimeInput" type="datetime-local" value=start_formatted focus-out="save" insert-newline="save"}}
                   {{else}}
-               			{{start_datetime}}
+               			{{start_formatted}}
                   {{/if}}
                   <br />
                 </div>
                 <div {{action "editField" "end_datetime" on="doubleClick"}}>
                 	<b>Event End: </b>
                   {{#if editing.end_datetime}}
-                  	{{input id="end_datetimeInput" type="text" value=end_datetime focus-out="save" insert-newline="save"}}
+                  	{{input id="end_datetimeInput" type="datetime-local" value=end_formatted focus-out="save" insert-newline="save"}}
                   {{else}}
-               			{{end_datetime}}
+               			{{end_formatted}}
                   {{/if}}
                   <br />
                 </div>
