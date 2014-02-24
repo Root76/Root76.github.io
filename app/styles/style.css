@@ -2212,6 +2212,23 @@ font-family:'Open Sans', sans-serif;
 	width: 10%;
 }
 
+.association {
+	color: #fff;
+}
+
+.contactAssociation {
+	background:#41bee1;
+}
+.eventAssociation {
+	background:#e35d32;
+}
+.taskAssociation {
+	background:#88c44c;
+}
+.tagAssociation {
+	background:#ec8f38;
+}
+
  /*!
  * FullCalendar v1.6.4 Stylesheet
  * Docs & License: http://arshaw.com/fullcalendar/

@@ -951,19 +951,19 @@ setTimeout(function(){
         if (datum.hasOwnProperty('organization')) { // contact
             objectID = 'contact' + datum.id;
             displayText = datum.name;
-            extraClasses = "contactAssociation";
+            extraClasses = "association contactAssociation";
         } else if (datum.hasOwnProperty('start_datetime')) { // event
             objectID = 'event' + datum.id;
             displayText = datum.title;
-            extraClasses = "eventAssociation";
+            extraClasses = "association eventAssociation";
         } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
             objectID = 'task' + datum.id;
             displayText = datum.title;
-            extraClasses = "taskAssociation";
+            extraClasses = "association taskAssociation";
         } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
             objectID = 'tag' + datum.id;
             displayText = datum.name;
-            extraClasses = "tagAssociation";
+            extraClasses = "association tagAssociation";
         } else { // invalid
             console.log("Unknown datum selected: " + datum);
         }
