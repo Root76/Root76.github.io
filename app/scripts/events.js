@@ -648,10 +648,15 @@ function rebindEvents() {
 
 	$.ajax({
 		type: 'GET',
-		url: "http://daywon-api-staging.herokuapp.com//contacts",
+		url: "http://daywon-api-staging.herokuapp.com/",
 		contentType: "application/json",
 		dataType: "json",
-		//data: "contacts",
+		data: {
+			contacts: contacts,
+			events: events,
+			tasks: tasks,
+			tags: tags
+		},
 		headers: {
 			"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
 			"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
@@ -664,22 +669,45 @@ function rebindEvents() {
               datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               local: data.contacts
+            });/*
+            var events = new Bloodhound({
+              datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title); },
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              local: data.events
             });
+            var tasks = new Bloodhound({
+              datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title); },
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              local: data.tasks
+            });
+            var tags = new Bloodhound({
+              datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name); },
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              local: data.tags
+            });*/
              
             // initialize the bloodhound suggestion engine
             contacts.initialize();
+            //events.initialize();
+            //tasks.initialize();
+            //tags.initialize();
             var contactRow;
 
 			$("#typeAheadContact").typeahead({ minLength: 1, highlight: true }, {
 				name: 'AllContacts',
 				displayKey: 'name',
                 source: contacts.ttAdapter()
-			}).on('typeahead:selected', function (obj, datum) {
-			    console.log(datum.name);
-			    contactRow = '<li objectid="' +  + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
+			}/*,
+			{
+				name: 'AllEvents',
+				displayKey: 'title',
+                source: events.ttAdapter()
+   			}*/).on('typeahead:selected', function (obj, datum) {
+   				console.log(obj);
+			    contactRow = '<li objectid="c' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
 			    $(".relatedContacts > ul").append(contactRow);
 			    bindCloseButtons();
-			});;
+			});
 		},
 		error: function (e) {
 			console.log(e.statusText);
