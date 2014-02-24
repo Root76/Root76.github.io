@@ -930,7 +930,24 @@ setTimeout(function(){
         source: tags.ttAdapter()
     }).on('typeahead:selected', function (obj, datum) {
         $(obj.target).typeahead('val', '');
-        contactRow = '<li objectid="c' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
-        $(".relatedContacts > ul").append(contactRow);
+
+        var newRow;
+        //check which object has been selected
+        if (datum.hasOwnProperty('organization')) { // contact
+            newRow = '<li objectid="contact' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
+        } else if (datum.hasOwnProperty('start_datetime')) { // event
+            newRow = '<li objectid="event' + datum.id + '"><span>' + datum.title + '</span><img src="img/close.png"></li>';
+        } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
+            newRow = '<li objectid="task' + datum.id + '"><span>' + datum.title + '</span><img src="img/close.png"></li>';
+        } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
+            newRow = '<li objectid="tag' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
+        } else { // invalid
+            console.log("Unknown datum selected: " + datum);
+        }
+        if (newRow) {
+            newRow = $(newRow);
+            $('img', newRow).click(function() { newRow.remove(); });
+            $(".relatedContacts > ul").append(newRow);
+        }
     });
 }, 1000);
