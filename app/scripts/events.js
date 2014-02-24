@@ -912,42 +912,63 @@ setTimeout(function(){
     {
         name: 'Contacts',
         displayKey: 'name',
-        source: contacts.ttAdapter()
+        source: contacts.ttAdapter(),
+        templates: {
+            header: '<h2>Contacts</h2>'
+        }
     },
     {
         name: 'Events',
         displayKey: 'title',
-        source: events.ttAdapter()
+        source: events.ttAdapter(),
+        templates: {
+            header: '<h2>Events</h2>'
+        }
     },
     {
         name: 'Tasks',
         displayKey: 'title',
-        source: tasks.ttAdapter()
+        source: tasks.ttAdapter(),
+        templates: {
+            header: '<h2>Tasks</h2>'
+        }
     },
     {
         name: 'Tags',
         displayKey: 'name',
-        source: tags.ttAdapter()
+        source: tags.ttAdapter(),
+        templates: {
+            header: '<h2>Tags</h2>'
+        }
     }).on('typeahead:selected', function (obj, datum) {
         $(obj.target).typeahead('val', '');
 
-        var newRow;
+        var objectID;
+        var displayText;
         //check which object has been selected
         if (datum.hasOwnProperty('organization')) { // contact
-            newRow = '<li objectid="contact' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
+            objectID = 'contact' + datum.id;
+            displayText = datum.name;
         } else if (datum.hasOwnProperty('start_datetime')) { // event
-            newRow = '<li objectid="event' + datum.id + '"><span>' + datum.title + '</span><img src="img/close.png"></li>';
+            objectID = 'event' + datum.id;
+            displayText = datum.title;
         } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
-            newRow = '<li objectid="task' + datum.id + '"><span>' + datum.title + '</span><img src="img/close.png"></li>';
+            objectID = 'task' + datum.id;
+            displayText = datum.title;
         } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
-            newRow = '<li objectid="tag' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
+            objectID = 'tag' + datum.id;
+            displayText = datum.name;
         } else { // invalid
             console.log("Unknown datum selected: " + datum);
         }
-        if (newRow) {
-            newRow = $(newRow);
-            $('img', newRow).click(function() { newRow.remove(); });
-            $(".relatedContacts > ul").append(newRow);
+        if (objectID && displayText) {
+            var itemList = $(".relatedContacts > ul");
+            var existingItems = $('[objectid=' + objectID + ']', itemList);
+            if (existingItems.length === 0) {
+                var newRow = $('<li objectid="' + objectID + '"><span>' + displayText + '</span><img src="img/close.png"></li>');
+                $('img', newRow).click(function() { newRow.remove(); });
+                $(".relatedContacts > ul").append(newRow);
+            }
         }
     });
 }, 1000);
