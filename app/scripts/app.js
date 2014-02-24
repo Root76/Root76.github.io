@@ -131,6 +131,12 @@ Utility.convertToHTMLDateTimeLocalInput = function(dateString) {
 		return date.format("YYYY-MM-DDTHH:mm"); // HTML type="datetime-local" inputs look for this exact date format
 	else return null;
 }
+Utility.convertToReadableDate = function(dateString) {
+	var date = moment(dateString);
+	if (date.isValid())
+		return date.format("MMMM Do YYYY, h:mm:ss a");
+	else return "N/A";
+}
 
 App.ContactsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
@@ -496,7 +502,7 @@ App.Event = DS.Model.extend({
     end_datetime: DS.attr('date'),
     updated_at: DS.attr('date'),
 
-    start_formatted: function(key, value) {
+    start_inputformatted: function(key, value) {
 	    if (arguments.length > 1) {
 	    	var date = moment(value);
 	    	if (date.isValid())
@@ -505,8 +511,11 @@ App.Event = DS.Model.extend({
 	    var dateString = Utility.convertToHTMLDateTimeLocalInput(this.get('start_datetime'));
     	return dateString || "N/A";
     }.property('start_datetime'),
+    start_displayformatted: function() {
+    	return Utility.convertToReadableDate(this.get('start_datetime')) || "N/A";
+    }.property('start_datetime'),
 
-    end_formatted: function(key, value) {
+    end_inputformatted: function(key, value) {
 	    if (arguments.length > 1) {
 	    	var date = moment(value);
 	    	if (date.isValid())
@@ -514,6 +523,9 @@ App.Event = DS.Model.extend({
 	    }
 	    var dateString = Utility.convertToHTMLDateTimeLocalInput(this.get('end_datetime'));
     	return dateString || "N/A";
+    }.property('end_datetime'),
+    end_displayformatted: function() {
+    	return Utility.convertToReadableDate(this.get('end_datetime')) || "N/A";
     }.property('end_datetime'),
 });
 
@@ -529,7 +541,7 @@ App.Task = DS.Model.extend({
 	   return this.get('due') !== undefined && this.get('due') !== null;
 	}.property('due'),
 
-    due_formatted: function(key, value) {
+    due_inputformatted: function(key, value) {
 	    if (arguments.length > 1) {
 	    	var date = moment(value);
 	    	if (date.isValid())
@@ -537,6 +549,9 @@ App.Task = DS.Model.extend({
 	    }
 	    var dateString = Utility.convertToHTMLDateTimeLocalInput(this.get('due'));
     	return dateString || "N/A";
+    }.property('due'),
+    due_displayformatted: function() {
+    	return Utility.convertToReadableDate(this.get('due')) || "N/A";
     }.property('due'),
 });
 
