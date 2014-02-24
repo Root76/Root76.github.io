@@ -67,8 +67,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -570,8 +570,8 @@ IndividualObjectRoute = Ember.Mixin.create({
 		    Ember.run.schedule('afterRender', this, function() {
 				$('#' + field + 'Input').focus();
 		    });
-		},
-	},
+		}
+	}
 });
 
 App.IndexRoute = Ember.Route.extend({

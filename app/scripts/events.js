@@ -646,6 +646,30 @@ function rebindEvents() {
         }
     });
 
+	$.ajax({
+		type: 'GET',
+		url: "http://daywon-api-staging.herokuapp.com//contacts",
+		contentType: "application/json",
+		dataType: "json",
+		//data: "contacts",
+		headers: {
+			"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+			"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+		},
+		success: function (data) {
+			console.log("data gotten: " + data);
+			$("#typeAheadContact").typeahead([{
+				name: 'contacts',
+				local: data,
+				displayKey: 'name'
+			}]);
+		},
+		error: function (e) {
+			console.log(e.statusText);
+			//showPopupMessage(event.target, "Error creating " + objectDescription, "error");
+		}
+	});
+
     $('.relatedList img').click(function(event){
     	$(event.target).parent().remove();
     });
