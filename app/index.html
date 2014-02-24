@@ -1186,7 +1186,10 @@
               </div>
             </div>
             <div class="panelfooter" id="contactfooter">
-              <h5>Note: met at the Convention last year in April</h5>
+              <h5 class="notesLabel">Note:</h5>
+              <div class="notesField">
+                met at the Convention last year in April          
+              </div>
             </div>
           </div>
         </script>
@@ -1195,11 +1198,13 @@
             <h1 id="mobileContact">Contacts</h1>
             <img id="profilepic" src="img/contact.png" />
             <img src="img/arrow.png" class="backArrow" />            
-		        {{#if editing.name}}
-		          {{input id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
+		        <h2 id="contactname" class="contacttext" {{action "editField" "name" on="doubleClick"}}>
+            {{#if editing.name}}
+		          {{input class="editField" id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
 		        {{else}}
-		          <h2 id="contactname" class="contacttext" {{action "editField" "name" on="doubleClick"}}>{{name}}</h2>
+		          {{name}}
 		        {{/if}}
+            </h2>
             <div id="detailmenubar" class="contactmenu">
               <img src="img/contact.png" class="selected" />
               <img src="img/events.png" />
@@ -1212,20 +1217,24 @@
               <div class="infopanel selected">
                 <div class="contactrow" {{action "editField" "phone" on="doubleClick"}}>
                   <img src="img/cellphone.png">
+                  <h4 class="phonenumber">
                   {{#if editing.phone}}
-                  	{{input id="phoneInput" type="text" value=phone focus-out="save" insert-newline="save"}}
+                  	{{input class="editField" id="phoneInput" type="text" value=phone focus-out="save" insert-newline="save"}}
                   {{else}}
-                  	<h4 class="phonenumber">{{phone}}</h4>
+                  	{{phone}}
                   {{/if}}
+                  </h4>
                 </div>
                 <div class="contactrow" {{action "editField" "email" on="doubleClick"}}>
-                  <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png"></a>
-               		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
-                  {{#if editing.email}}
-                  	{{input id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
-                  {{else}}
-                  	<h4 class="emailfield">{{email}}</h4>
-                  {{/if}}                
+                  <a href="" target="_blank" class="dynamicEmail desktopEmail" style="z-index: 9999999;"><img src="img/openmail.png"></a>
+               		<a href="" class="dynamicEmail mobileEmail" style="z-index: 9999999;"><img src="img/openmail.png"></a>
+                  <h4 class="emailfield">
+                    {{#if editing.email}}
+                    	{{input class="editField" id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
+                    {{else}}
+                    	{{email}}
+                    {{/if}}  
+                  </h4>              
                 </div>
                 <div class="contactrow">
                   <img src="img/birthday.png">
@@ -1233,11 +1242,13 @@
                 </div>
                 <div class="contactrow" {{action "editField" "address" on="doubleClick"}}>
                   <img src="img/location.png">
+                  <h4 class="contactlocation">
                   {{#if editing.address}}
-                  	{{input id="addressInput" type="text" value=address focus-out="save" insert-newline="save"}}
+                  	{{input class="editField" id="addressInput" type="text" value=address focus-out="save" insert-newline="save"}}
                   {{else}}
-                  	<h4 class="contactlocation">{{address}}</h4>
+                  	{{address}}
                   {{/if}}
+                  </h4>
                 </div>
               </div>
               <div class="infopanel">
@@ -1296,11 +1307,14 @@
               </div>
             </div>
             <div class="panelfooter" id="contactfooter" {{action "editField" "notes" on="doubleClick"}}>
+              <h5 class="notesLabel">Note:</h5>
+              <div class="notesField">
               {{#if editing.notes}}
-              	<h5>Note: </h5>{{input id="notesInput" type="text" value=notes focus-out="save" insert-newline="save"}}
+              	 {{textarea class="editField" id="notesInput" type="text" value=notes focus-out="save" insert-newline="save"}}
               {{else}}
-              	<h5>Note: {{notes}}</h5>
-              {{/if}}
+              	{{notes}}
+              {{/if}}              
+              </div>
             </div>
           </div>
         </script>
@@ -1318,11 +1332,11 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
                     <div class="contsort">
-					  {{view Ember.Select 
-						   content=showOptions
-						   optionLabelPath="content.label"
-						   optionValuePath="content.id"
-						   selection=selectedShowOption}}
+        					  {{view Ember.Select 
+        						   content=showOptions
+        						   optionLabelPath="content.label"
+        						   optionValuePath="content.id"
+        						   selection=selectedShowOption}}
                     </div>
                   </div>
                   <ul id="eventlist" class="sidelist">
@@ -1369,53 +1383,53 @@
                         <img src="img/contact.png" />
                         <h3>Contacts</h3>
                       </div>
-					  <br />
-					  <div class="detailSection">
+          					  <br />
+          					  <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
                           <li>Ryan Barber</li>
                           <li>Caroline Beckert</li>
                           <li>Tyler Carbone</li>
                         </ul>
-					  </div>
-					  <div class="detailSection">
+          					  </div>
+          					  <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
-                            <li>Ryan Barber</li>
-                            <li>Caroline Beckert</li>
-                            <li>Tyler Carbone</li>
-                            <li>JP Bonner</li>
-                            <li>Elizabeth Hatzi</li>
-                            <li>Harris Weaver</li>
-                            <li>Momin Khan</li>
-                            <li>Aujang Abadi</li>
-                          </ul>
-					  </div>
+                          <li>Ryan Barber</li>
+                          <li>Caroline Beckert</li>
+                          <li>Tyler Carbone</li>
+                          <li>JP Bonner</li>
+                          <li>Elizabeth Hatzi</li>
+                          <li>Harris Weaver</li>
+                          <li>Momin Khan</li>
+                          <li>Aujang Abadi</li>
+                        </ul>
+          					  </div>
                     </div>
                     <div class="col-md-4 dCol" id="dCol3">
                       <div class="columnhead">
                         <img src="img/tasks.png" />
                         <h3>Tasks</h3>
                       </div>
-					  <br />
-					  <div class="detailSection">
+          					  <br />
+          					  <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
                           <li>Buy a present</li>
                           <li>Bake a cake</li>
                         </ul>
-					  </div>
-					  <div class="detailSection">
+          					  </div>
+          					  <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                          <ul class="columnlist">
-                            <li>Cut the grass</li>
-                            <li>Finish Day Won</li>
-                            <li>Write TPS Reports</li>
-                            <li>Attend the meeting</li>
-                            <li>Eat dinner</li>
-                            <li>Go to the gym</li>
-                          </ul>
-					  </div>
+                        <ul class="columnlist">
+                          <li>Cut the grass</li>
+                          <li>Finish Day Won</li>
+                          <li>Write TPS Reports</li>
+                          <li>Attend the meeting</li>
+                          <li>Eat dinner</li>
+                          <li>Go to the gym</li>
+                        </ul>
+          					  </div>
                     </div>
                   </div>
                 </div>
@@ -1505,11 +1519,13 @@
         <div class="col-md-7" id="eventpanel2">
           <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
           <img src="img/arrow.png" class="backArrow" />
-	        {{#if editing.title}}
-	          {{input id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
+	        <h2 id="contactname" class="eventname" {{action "editField" "title" on="doubleClick"}}>
+          {{#if editing.title}}
+	          {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
 	        {{else}}
-	          <h2 id="contactname" class="eventname" {{action "editField" "title" on="doubleClick"}}>{{title}}</h2>
+	          {{title}}
 	        {{/if}}
+          </h2>
           <div id="detailmenubar">
             <img src="img/contact.png" />
             <img src="img/events.png" class="selected" />
@@ -1556,11 +1572,10 @@
               </div>
             </div>
             <div class="infopanel selected">
-              <p class="textrow" style="line-height:32px">
                 <div {{action "editField" "description" on="doubleClick"}}>
                 	<b>Description: </b>
                   {{#if editing.description}}
-                  	{{input id="descriptionInput" type="text" value=description focus-out="save" insert-newline="save"}}
+                  	{{input class="editField" id="descriptionInput" type="text" value=description focus-out="save" insert-newline="save"}}
                   {{else}}
                			{{description}}
                   {{/if}}
@@ -1569,7 +1584,7 @@
                 <div {{action "editField" "location" on="doubleClick"}}>
                 	<b>Location: </b>
                   {{#if editing.location}}
-                  	{{input id="locationInput" type="text" value=location focus-out="save" insert-newline="save"}}
+                  	{{input class="editField" id="locationInput" type="text" value=location focus-out="save" insert-newline="save"}}
                   {{else}}
                			{{location}}
                   {{/if}}
@@ -1578,7 +1593,7 @@
                 <div {{action "editField" "start_datetime" on="doubleClick"}}>
                 	<b>Event Start: </b>
                   {{#if editing.start_datetime}}
-                  	{{input id="start_datetimeInput" type="datetime-local" value=start_formatted focus-out="save" insert-newline="save"}}
+                  	{{input class="editField" id="start_datetimeInput" type="datetime-local" value=start_formatted focus-out="save" insert-newline="save"}}
                   {{else}}
                			{{start_formatted}}
                   {{/if}}
@@ -1587,13 +1602,12 @@
                 <div {{action "editField" "end_datetime" on="doubleClick"}}>
                 	<b>Event End: </b>
                   {{#if editing.end_datetime}}
-                  	{{input id="end_datetimeInput" type="datetime-local" value=end_formatted focus-out="save" insert-newline="save"}}
+                  	{{input class="editField" id="end_datetimeInput" type="datetime-local" value=end_formatted focus-out="save" insert-newline="save"}}
                   {{else}}
                			{{end_formatted}}
                   {{/if}}
                   <br />
                 </div>
-              </p>
             </div>
             <div class="infopanel">
               <div class="contactrow tagrow">
@@ -1630,13 +1644,13 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Sort by:</h4>
                     <div class="contsort">
-					  {{view Ember.Select 
-						   class="listSorter" 
-						   id="taskSort"
-						   content=sortOptions
-						   optionLabelPath="content.label"
-						   optionValuePath="content.primarySort"
-						   selection=selectedSortOption}}
+        					  {{view Ember.Select 
+        						   class="listSorter" 
+        						   id="taskSort"
+        						   content=sortOptions
+        						   optionLabelPath="content.label"
+        						   optionValuePath="content.primarySort"
+        						   selection=selectedSortOption}}
                     </div>
                   </div>
                   <button class="sortingToggle" id="byDate" {{action sortDate}}>Sort</button>
@@ -1687,53 +1701,53 @@
                         <img src="img/events.png" />
                         <h3>Events</h3>
                       </div>
-					  <br />
-					  <div class="detailSection">
+          					  <br />
+          					  <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                          <ul class="columnlist">
-                            <li>Ryan Barber</li>
-                            <li>Caroline Beckert</li>
-                            <li>Tyler Carbone</li>
-                          </ul>
-					  </div>
-					  <div class="detailSection">
+                        <ul class="columnlist">
+                          <li>Ryan Barber</li>
+                          <li>Caroline Beckert</li>
+                          <li>Tyler Carbone</li>
+                        </ul>
+          					  </div>
+          					  <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                          <ul class="columnlist">
-                            <li>Ryan Barber</li>
-                            <li>Caroline Beckert</li>
-                            <li>Tyler Carbone</li>
-                            <li>JP Bonner</li>
-                            <li>Elizabeth Hatzi</li>
-                            <li>Harris Weaver</li>
-                            <li>Momin Khan</li>
-                            <li>Aujang Abadi</li>
-                          </ul>
-					  </div>      
+                        <ul class="columnlist">
+                          <li>Ryan Barber</li>
+                          <li>Caroline Beckert</li>
+                          <li>Tyler Carbone</li>
+                          <li>JP Bonner</li>
+                          <li>Elizabeth Hatzi</li>
+                          <li>Harris Weaver</li>
+                          <li>Momin Khan</li>
+                          <li>Aujang Abadi</li>
+                        </ul>
+          					  </div>      
                     </div>
                     <div class="col-md-4 dCol" id="dCol3">
                       <div class="columnhead">
                         <img src="img/contact.png" />
                         <h3>Contacts</h3>
                       </div>
-					  <br />
-					  <div class="detailSection">
+        					    <br />
+          					  <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
                           <li>Buy a present</li>
                           <li>Bake a cake</li>
                         </ul>
-					  </div>
-					  <div class="detailSection">
+          					  </div>
+          					  <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                          <ul class="columnlist">
-                            <li>Cut the grass</li>
-                            <li>Finish Day Won</li>
-                            <li>Write TPS Reports</li>
-                            <li>Attend the meeting</li>
-                            <li>Eat dinner</li>
-                            <li>Go to the gym</li>
-                          </ul>
-					  </div>
+                        <ul class="columnlist">
+                          <li>Cut the grass</li>
+                          <li>Finish Day Won</li>
+                          <li>Write TPS Reports</li>
+                          <li>Attend the meeting</li>
+                          <li>Eat dinner</li>
+                          <li>Go to the gym</li>
+                        </ul>
+          					  </div>
                     </div>
                   </div>
                 </div>
@@ -1823,11 +1837,13 @@
                 <div class="col-md-7" id="taskpanel2">
                   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
-					        {{#if editing.title}}
-					          {{input id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
+					        <h2 id="contactname" class="taskname contacttext" {{action "editField" "title" on="doubleClick"}}>
+                  {{#if editing.title}}
+					          {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
 					        {{else}}
-					          <h2 id="contactname" class="taskname contacttext" {{action "editField" "title" on="doubleClick"}}>{{title}}</h2>
+					          {{title}}
 					        {{/if}}
+                  </h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
@@ -1856,24 +1872,28 @@
                       </div>
                     </div>
                     <div class="infopanel selected">
-                      <p class="textrow">
-                        <div {{action "editField" "notes" on="doubleClick"}}>
-                          {{#if editing.notes}}
-                            <h5>Note: </h5>{{input id="notesInput" type="text" value=notes focus-out="save" insert-newline="save"}}
-                          {{else}}
-                            <h5>Note: {{notes}}</h5>
-                          {{/if}}
+                      <div {{action "editField" "notes" on="doubleClick"}}>
+                        <h5 class="notesLabel">Note:</h5>
+                        <div class="notesField" style="color: #000;">
+                        {{#if editing.notes}}
+                           {{textarea class="editField" id="notesInput" type="text" value=notes focus-out="save" insert-newline="save"}}
+                        {{else}}
+                          {{notes}}
+                        {{/if}}
                         </div>
-                        <div {{action "editField" "due" on="doubleClick"}}>
-                          <b>Event End: </b>
-                          {{#if editing.due}}
-                            {{input id="dueInput" type="datetime-local" value=due_formatted focus-out="save" insert-newline="save"}}
-                          {{else}}
-                            {{due_formatted}}
-                          {{/if}}
-                          <br />
-                        </div>
-                      </p>
+                      </div>
+                      <br />
+                      <br />
+                      <br />
+                      <div {{action "editField" "due" on="doubleClick"}}>
+                        <b>Event End: </b>
+                        {{#if editing.due}}
+                          {{input class="editField" id="dueInput" type="datetime-local" value=due_formatted focus-out="save" insert-newline="save"}}
+                        {{else}}
+                          {{due_formatted}}
+                        {{/if}}
+                        <br />
+                      </div>
                     </div>
                     <div class="infopanel">
                       <div class="contactrow eventrow">
@@ -1928,11 +1948,11 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
                     <div class="contsort">
-					  {{view Ember.Select
-						   content=sortOptions
-						   optionLabelPath="content.label"
-						   optionValuePath="content.id"
-						   selection=selectedSortOption}}
+        					  {{view Ember.Select
+        						   content=sortOptions
+        						   optionLabelPath="content.label"
+        						   optionValuePath="content.id"
+        						   selection=selectedSortOption}}
                     </div>
                   </div>
                   <ul id="taglist" class="sidelist">
@@ -1970,53 +1990,53 @@
                         <img src="img/events.png" />
                         <h3>Events</h3>
                       </div>
-					  <br />
-					  <div class="detailSection">
+          					  <br />
+          					  <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                          <ul class="columnlist">
-                            <li>Ryan Barber</li>
-                            <li>Caroline Beckert</li>
-                            <li>Tyler Carbone</li>
-                          </ul>
-					  </div>
-					  <div class="detailSection">
+                        <ul class="columnlist">
+                          <li>Ryan Barber</li>
+                          <li>Caroline Beckert</li>
+                          <li>Tyler Carbone</li>
+                        </ul>
+          					  </div>
+          					  <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                          <ul class="columnlist">
-                            <li>Ryan Barber</li>
-                            <li>Caroline Beckert</li>
-                            <li>Tyler Carbone</li>
-                            <li>JP Bonner</li>
-                            <li>Elizabeth Hatzi</li>
-                            <li>Harris Weaver</li>
-                            <li>Momin Khan</li>
-                            <li>Aujang Abadi</li>
-                          </ul>
-					  </div>                 
+                        <ul class="columnlist">
+                          <li>Ryan Barber</li>
+                          <li>Caroline Beckert</li>
+                          <li>Tyler Carbone</li>
+                          <li>JP Bonner</li>
+                          <li>Elizabeth Hatzi</li>
+                          <li>Harris Weaver</li>
+                          <li>Momin Khan</li>
+                          <li>Aujang Abadi</li>
+                        </ul>
+          					  </div>                 
                     </div>
                     <div class="col-md-4 dCol" id="dCol3">
                       <div class="columnhead">
                         <img src="img/contact.png" />
                         <h3>Contacts</h3>
                       </div>
-					  <br />
-					  <div class="detailSection">
+          					  <br />
+          					  <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
                           <li>Buy a present</li>
                           <li>Bake a cake</li>
                         </ul>
-					  </div>
-					  <div class="detailSection">
+          					  </div>
+          					  <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                          <ul class="columnlist">
-                            <li>Cut the grass</li>
-                            <li>Finish Day Won</li>
-                            <li>Write TPS Reports</li>
-                            <li>Attend the meeting</li>
-                            <li>Eat dinner</li>
-                            <li>Go to the gym</li>
-                          </ul>
-					  </div>
+                        <ul class="columnlist">
+                          <li>Cut the grass</li>
+                          <li>Finish Day Won</li>
+                          <li>Write TPS Reports</li>
+                          <li>Attend the meeting</li>
+                          <li>Eat dinner</li>
+                          <li>Go to the gym</li>
+                        </ul>
+          					  </div>
                     </div>
                   </div>
                 </div>
@@ -2028,7 +2048,7 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="tags/index">
-<div class="col-md-7" id="tagpanel2">
+                <div class="col-md-7" id="tagpanel2">
                   <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
                   <img src="img/arrow.png" class="backArrow" />
                   <h2 id="contactname" class="taskname tagname">Select a tag</h2>
@@ -2106,11 +2126,13 @@
         <div class="col-md-7" id="tagpanel2">
                   <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
                   <img src="img/arrow.png" class="backArrow" />
-					        {{#if editing.name}}
-					          {{input id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
+					        <h2 id="contactname" class="taskname tagname" {{action "editField" "name" on="doubleClick"}}>
+                  {{#if editing.name}}
+					          {{input class="editField" id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
 					        {{else}}
-					          <h2 id="contactname" class="taskname tagname" {{action "editField" "name" on="doubleClick"}}>{{name}}</h2>
+					          {{name}}
 					        {{/if}}
+                  </h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />

@@ -1392,7 +1392,6 @@ to {
 }
 
 .panelfooter h5 {
-	line-height: 65px;
 	color: #fff;
 	padding-left: 25px;
 }
@@ -2190,6 +2189,27 @@ font-family:'Open Sans', sans-serif;
 	font-family:'Open Sans', sans-serif;
 	line-height:24px;
 	padding-bottom:1px;
+}
+
+.editField {
+    background-color: #e9e9e9;
+    width:80%;
+}
+
+.emailfield {
+    height: 0px;
+}
+
+.notesField {
+	color: #fff;
+	float: right;
+	margin-top: 7px;
+	width: 90%;
+}
+
+.notesLabel {
+	float: left;
+	width: 10%;
 }
 
  /*!
