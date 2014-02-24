@@ -668,13 +668,18 @@ function rebindEvents() {
              
             // initialize the bloodhound suggestion engine
             contacts.initialize();
-             
+            var contactRow;
 
 			$("#typeAheadContact").typeahead({ minLength: 1, highlight: true }, {
 				name: 'AllContacts',
 				displayKey: 'name',
                 source: contacts.ttAdapter()
-			});
+			}).on('typeahead:selected', function (obj, datum) {
+			    console.log(datum.name);
+			    contactRow = '<li objectid="' +  + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
+			    $(".relatedContacts > ul").append(contactRow);
+			    bindCloseButtons();
+			});;
 		},
 		error: function (e) {
 			console.log(e.statusText);
@@ -682,9 +687,13 @@ function rebindEvents() {
 		}
 	});
 
-    $('.relatedList img').click(function(event){
-    	$(event.target).parent().remove();
-    });
+    function bindCloseButtons() {
+	    $('.relatedList img').click(function(event){
+	    	$(event.target).parent().remove();
+	    });
+	}
+
+	bindCloseButtons();
 
     /*if ($('#calendarcont').length) {
         $('#calendarcont').fullCalendar({

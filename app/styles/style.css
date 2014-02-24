@@ -3169,6 +3169,16 @@ input#toggle5:checked + label:after {
 	display:none;
 }
 
+.tt-dropdown-menu {
+	background:#fff;
+	opacity:.85;
+	width:100%;
+}
+
+.tt-suggestion {
+	cursor:pointer;
+}
+
 .opentip h2 {
 	margin:0px;
 	color:#fff;
