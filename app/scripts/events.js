@@ -646,14 +646,6 @@ function rebindEvents() {
         }
     });
 
-    function bindCloseButtons() {
-	    $('.relatedList img').click(function(event){
-	    	$(event.target).parent().remove();
-	    });
-	}
-
-	bindCloseButtons();
-
     /*if ($('#calendarcont').length) {
         $('#calendarcont').fullCalendar({
             header: {
