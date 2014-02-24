@@ -484,6 +484,7 @@ App.Contact = DS.Model.extend({
     phone: DS.attr('string'),
     address: DS.attr('string'),
     place: DS.attr('string'),
+    notes: DS.attr('string'),
     updated_at: DS.attr('date')
 });
 
