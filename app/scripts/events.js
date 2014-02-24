@@ -849,64 +849,105 @@ setTimeout(function(){
             e.preventDefault();
         });
     }
-                // instantiate the bloodhound suggestion engine
+
+    var ajaxObj = {
+        headers: {
+            "X-AUTHENTICATION-TOKEN": "iRHkAExpYJ4PZWRwxcrt",
+            "X-AUTHENTICATION-EMAIL": "mkhan@srrngames.com"
+        }
+    };
     var contacts = new Bloodhound({
       datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-      	url: 'http://daywon-api-staging.herokuapp.com/contacts',
-      	filter: function(list) {
-      		return list.contacts;
-      	},
-      	ajax: {
-			headers: {
-				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
-			}
-      	}
+        url: 'http://daywon-api-staging.herokuapp.com/contacts',
+        ajax: ajaxObj,
+        filter: function(obj) {
+          return obj.contacts;
+        }
       }
     });
     var events = new Bloodhound({
       datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-      	url: 'http://daywon-api-staging.herokuapp.com/events',
-      	filter: function(list) {
-      		return list.events;
-      	},
-      	ajax: {
-			headers: {
-				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
-			}
-      	}
+        url: 'http://daywon-api-staging.herokuapp.com/events',
+        ajax: ajaxObj,
+        filter: function(obj) {
+          return obj.events;
+        }
+      }
+    });
+    var tasks = new Bloodhound({
+      datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title); },
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: {
+        url: 'http://daywon-api-staging.herokuapp.com/tasks',
+        ajax: ajaxObj,
+        filter: function(obj) {
+          return obj.tasks;
+        }
+      }
+    });
+    var tags = new Bloodhound({
+      datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name); },
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: {
+        url: 'http://daywon-api-staging.herokuapp.com/tags',
+        ajax: ajaxObj,
+        filter: function(obj) {
+          return obj.tags;
+        }
       }
     });
 
-
     contacts.initialize();
     events.initialize();
+    tasks.initialize();
+    tags.initialize();
 
-    var contactRow;
-
-	$("#typeAheadContact").typeahead({ minLength: 1, highlight: true }, {
-		name: 'AllContacts',
-		displayKey: 'name',
+    $("#typeAheadContact").typeahead({
+        highlight: true
+    },
+    {
+        name: 'Contacts',
+        displayKey: 'name',
         source: contacts.ttAdapter()
-	},{
-		name: 'AllEvents',
-		displayKey: 'title',
-        source: events.ttAdapter()		
-	}).on('typeahead:selected', function (obj, datum) {
-	    contactRow = '<li objectid="c' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
-	    $(".relatedContacts > ul").append(contactRow);
-	    bindCloseButtons();
-	});
+    },
+    {
+        name: 'Events',
+        displayKey: 'title',
+        source: events.ttAdapter()
+    },
+    {
+        name: 'Tasks',
+        displayKey: 'title',
+        source: tasks.ttAdapter()
+    },
+    {
+        name: 'Tags',
+        displayKey: 'name',
+        source: tags.ttAdapter()
+    }).on('typeahead:selected', function (obj, datum) {
+        $(obj.target).typeahead('val', '');
 
-
-    function bindCloseButtons() {
-	    $('.relatedList img').click(function(event){
-	    	$(event.target).parent().remove();
-	    });
-	}
+        var newRow;
+        //check which object has been selected
+        if (datum.hasOwnProperty('organization')) { // contact
+            newRow = '<li objectid="contact' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
+        } else if (datum.hasOwnProperty('start_datetime')) { // event
+            newRow = '<li objectid="event' + datum.id + '"><span>' + datum.title + '</span><img src="img/close.png"></li>';
+        } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
+            newRow = '<li objectid="task' + datum.id + '"><span>' + datum.title + '</span><img src="img/close.png"></li>';
+        } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
+            newRow = '<li objectid="tag' + datum.id + '"><span>' + datum.name + '</span><img src="img/close.png"></li>';
+        } else { // invalid
+            console.log("Unknown datum selected: " + datum);
+        }
+        if (newRow) {
+            newRow = $(newRow);
+            $('img', newRow).click(function() { newRow.remove(); });
+            $(".relatedContacts > ul").append(newRow);
+        }
+    });
 }, 1000);
