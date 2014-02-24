@@ -906,69 +906,84 @@ setTimeout(function(){
     tasks.initialize();
     tags.initialize();
 
-    $("#typeAheadContact").typeahead({
-        highlight: true
-    },
-    {
+    var contactsDatasource = {
         name: 'Contacts',
         displayKey: 'name',
         source: contacts.ttAdapter(),
         templates: {
             header: '<h2>Contacts</h2>'
         }
-    },
-    {
+    };
+    var eventsDatasource = {
         name: 'Events',
         displayKey: 'title',
         source: events.ttAdapter(),
         templates: {
             header: '<h2>Events</h2>'
         }
-    },
-    {
+    };
+    var tasksDatasource = {
         name: 'Tasks',
         displayKey: 'title',
         source: tasks.ttAdapter(),
         templates: {
             header: '<h2>Tasks</h2>'
         }
-    },
-    {
+    };
+    var tagsDatasource = {
         name: 'Tags',
         displayKey: 'name',
         source: tags.ttAdapter(),
         templates: {
             header: '<h2>Tags</h2>'
         }
-    }).on('typeahead:selected', function (obj, datum) {
+    };
+    var typeaheadOptions = {
+        highlight: true
+    };
+    var onTypeaheadSelected = function (obj, datum) {
         $(obj.target).typeahead('val', '');
 
         var objectID;
         var displayText;
+        var listSelector;
         //check which object has been selected
         if (datum.hasOwnProperty('organization')) { // contact
             objectID = 'contact' + datum.id;
             displayText = datum.name;
+            listSelector = ".relatedContacts > ul";
         } else if (datum.hasOwnProperty('start_datetime')) { // event
             objectID = 'event' + datum.id;
             displayText = datum.title;
+            listSelector = ".relatedEvents > ul";
         } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
             objectID = 'task' + datum.id;
             displayText = datum.title;
+            listSelector = ".relatedTasks > ul";
         } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
             objectID = 'tag' + datum.id;
             displayText = datum.name;
+            listSelector = ".relatedTags > ul";
         } else { // invalid
             console.log("Unknown datum selected: " + datum);
         }
-        if (objectID && displayText) {
-            var itemList = $(".relatedContacts > ul");
+        if (objectID && displayText && listSelector) {
+            var itemList = $(listSelector);
             var existingItems = $('[objectid=' + objectID + ']', itemList);
             if (existingItems.length === 0) {
                 var newRow = $('<li objectid="' + objectID + '"><span>' + displayText + '</span><img src="img/close.png"></li>');
                 $('img', newRow).click(function() { newRow.remove(); });
-                $(".relatedContacts > ul").append(newRow);
+                itemList.append(newRow);
             }
         }
-    });
+    };
+
+    $("#typeAheadContact").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
+        .on('typeahead:selected', onTypeaheadSelected);
+    $("#typeAheadEvent").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
+        .on('typeahead:selected', onTypeaheadSelected);
+    $("#typeAheadTask").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
+        .on('typeahead:selected', onTypeaheadSelected);
+    $("#typeAheadContact").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
+        .on('typeahead:selected', onTypeaheadSelected);
 }, 1000);
