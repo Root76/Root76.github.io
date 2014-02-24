@@ -151,7 +151,7 @@
             </p>
           </div>
         </div>
-        <div id="openModal3" class="modalDialog">
+        <!--<div id="openModal3" class="modalDialog">
           <div>
             <a href="javascript:void(0)" title="Close" class="close">X</a>
             <h2 id="createHeader">Create:</h2>
@@ -163,7 +163,6 @@
               <option>Tag</option>
             </select>
             <div class="createContact createForm">
-              <!--<img src="img/contact.png" class="createimg" />-->
               <form>
                 <div class="formrow">First name: <input type="text" id="contactFirst"></div>
                 <div class="formrow">Last name: <input type="text" id="contactLast"></div>
@@ -175,7 +174,6 @@
               </form>
             </div>
             <div class="createEvent createForm">
-              <!--<img src="img/events.png" class="createimg" />-->
               <form>
                 <div class="formrow">Event title: <input type="text" id="eventName"></div>
                 <div class="formrow">Event description: <input type="text" id="eventDetails"></div>
@@ -190,24 +188,21 @@
               </form>
             </div>
             <div class="createTask createForm">
-              <!--<img src="img/tasks.png" class="createimg" />-->
               <form>
                 <div class="formrow">Task title: <input type="text" id="taskName"></div>
                 <div class="formrow">Task notes: <input type="text" id="taskNotes"></div>
-                <!--<div class="formrow">Task status: <input type="text" id="taskStatus"></div>-->
                 <div class="formrow">Due date: <input type="datetime-local" id="taskDue"></div>
                 <div class="formrow"><input type="submit"></div>
               </form>
             </div>
             <div class="createTag createForm">
-              <!--<img src="img/tags.png" class="createimg" />-->
               <form>
                 <div class="formrow">Tag title: <input type="text" id="tagName"></div>
                 <div class="formrow"><input type="submit"></div>
               </form>          
             </div>
           </div>
-        </div>
+        </div>-->
         <ul id="loader">
           <li></li>
           <li></li>
@@ -935,8 +930,113 @@
               </li>
             </ul>
           </div>
-        </div>    
-        </script>
+        </div>
+        <div id="openModal3" class="modalDialog">
+          <div>
+            <a href="javascript:void(0)" title="Close" class="close">X</a>
+            <h2 id="createHeader">Create:</h2>
+            <select id="createselect">
+              <option selected>Select an object</option>
+              <option>Contact</option>
+              <option>Event</option>
+              <option>Task</option>
+              <option>Tag</option>
+            </select>
+            <div class="createContact createForm">
+              <!--<img src="img/contact.png" class="createimg" />-->
+              <form>
+                <div class="formrow">First name: <input type="text" id="contactFirst"></div>
+                <div class="formrow">Last name: <input type="text" id="contactLast"></div>
+                <div class="formrow">Contact organization: <input type="text" id="contactOrg"></div>
+                <div class="formrow">Contact phone number: <input type="text" id="contactNumber"></div>
+                <div class="formrow">Contact address: <input type="text" id="contactAddr"></div>
+                <div class="formrow">Contact place: <input type="text" id="contactPlace"></div>
+                <div class="formrow">Search related items: <br />{{type-ahead data=events name="events" selection=myEvent}}
+                </div>
+                <div class="formrow">
+                  Selected Items:
+                  <div class="relatedList">
+                    <ul>
+                      <li objectID="e112"><span>Day-won standup meeting</span><img src="img/close.png" /></li>
+                      <li objectID="g53"><span>Evenspring</span><img src="img/close.png" /></li>
+                      <li objectID="t87"><span>Grab lunch</span><img src="img/close.png" /></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="formrow"><input type="submit"></div>
+              </form>
+            </div>
+            <div class="createEvent createForm">
+              <!--<img src="img/events.png" class="createimg" />-->
+              <form>
+                <div class="formrow">Event title: <input type="text" id="eventName"></div>
+                <div class="formrow">Event description: <input type="text" id="eventDetails"></div>
+                <div class="formrow">Event location: <input type="text" id="eventLocation"></div>
+                <div class="formrow">
+                  Start date: <input type="datetime-local" id="eventStart">
+                </div>
+                <div class="formrow">
+                  End date: <input type="datetime-local" id="eventEnd">
+                </div>
+                <div class="formrow">Search related items: <br />{{type-ahead data=events name="events" selection=myEvent}}
+                </div>
+                <div class="formrow">
+                  Selected Items:
+                  <div class="relatedList">
+                    <ul>
+                      <li objectID="t112"><span>Grab lunch</span><img src="img/close.png" /></li>
+                      <li objectID="g53"><span>Evenspring</span><img src="img/close.png" /></li>
+                      <li objectID="c87"><span>Tyler Carbone</span><img src="img/close.png" /></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="formrow"><input type="submit"></div>
+              </form>
+            </div>
+            <div class="createTask createForm">
+              <!--<img src="img/tasks.png" class="createimg" />-->
+              <form>
+                <div class="formrow">Task title: <input type="text" id="taskName"></div>
+                <div class="formrow">Task notes: <input type="text" id="taskNotes"></div>
+                <!--<div class="formrow">Task status: <input type="text" id="taskStatus"></div>-->
+                <div class="formrow">Due date: <input type="datetime-local" id="taskDue"></div>
+                <div class="formrow">Search related items: <br />{{type-ahead data=events name="events" selection=myEvent}}
+                </div>
+                <div class="formrow">
+                  Selected Items:
+                  <div class="relatedList">
+                    <ul>
+                      <li objectID="e112"><span>Day-won standup meeting</span><img src="img/close.png" /></li>
+                      <li objectID="g53"><span>Evenspring</span><img src="img/close.png" /></li>
+                      <li objectID="c87"><span>Tyler Carbone</span><img src="img/close.png" /></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="formrow"><input type="submit"></div>
+              </form>
+            </div>
+            <div class="createTag createForm">
+              <!--<img src="img/tags.png" class="createimg" />-->
+              <form>
+                <div class="formrow">Tag title: <input type="text" id="tagName"></div>
+                <div class="formrow">Search related items: <br />{{type-ahead data=events name="events" selection=myEvent}}
+                </div>
+                <div class="formrow">
+                  Selected Items:
+                  <div class="relatedList">
+                    <ul>
+                      <li objectID="e112"><span>Day-won standup meeting</span><img src="img/close.png" /></li>
+                      <li objectID="t53"><span>Grab lunch</span><img src="img/close.png" /></li>
+                      <li objectID="c87"><span>Tyler Carbone</span><img src="img/close.png" /></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="formrow"><input type="submit"></div>
+              </form>          
+            </div>
+          </div>
+        </div>
+      </script>
         <script type="text/x-handlebars" id="contacts">
           <div id="appcont" class="viewcont">
             <div class="section-container" id="contactscont">
@@ -1187,12 +1287,8 @@
           <div class="col-md-7" id="contactpanel2">
             <h1 id="mobileContact">Contacts</h1>
             <img id="profilepic" src="img/contact.png" />
-            <img src="img/arrow.png" class="backArrow" />            
-		        {{#if editing.name}}
-		          {{input id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
-		        {{else}}
-		          <h2 id="contactname" class="contacttext" {{action "editField" "name" on="doubleClick"}}>{{name}}</h2>
-		        {{/if}}
+            <img src="img/arrow.png" class="backArrow" />
+            <h2 id="contactname" class="contacttext">{{name}}</h2>
             <div id="detailmenubar" class="contactmenu">
               <img src="img/contact.png" class="selected" />
               <img src="img/events.png" />
@@ -1203,34 +1299,22 @@
             </div>
             <div class="panelcontent" id="contactcontent">
               <div class="infopanel selected">
-                <div class="contactrow" {{action "editField" "phone" on="doubleClick"}}>
+                <div class="contactrow">
                   <img src="img/cellphone.png">
-                  {{#if editing.phone}}
-                  	{{input id="phoneInput" type="text" value=phone focus-out="save" insert-newline="save"}}
-                  {{else}}
-                  	<h4 class="phonenumber">{{phone}}</h4>
-                  {{/if}}
+                  <h4 class="phonenumber">{{phone}}</h4>
                 </div>
-                <div class="contactrow" {{action "editField" "email" on="doubleClick"}}>
-                  <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png"></a>
-               		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
-                  {{#if editing.email}}
-                  	{{input id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
-                  {{else}}
-                  	<h4 class="emailfield">{{email}}</h4>
-                  {{/if}}                
+                <div class="contactrow">
+                  <img src="img/openmail.png">
+                  <a href="" target="_blank" class="dynamicEmail desktopEmail"><h4 class="emailfield">{{email}}</h4></a>
+                  <a href="" class="dynamicEmail mobileEmail"><h4 class="emailfield">{{email}}</h4></a>
                 </div>
                 <div class="contactrow">
                   <img src="img/birthday.png">
                   <h4 id="bday">{{birthday}}</h4>
                 </div>
-                <div class="contactrow" {{action "editField" "address" on="doubleClick"}}>
+                <div class="contactrow">
                   <img src="img/location.png">
-                  {{#if editing.address}}
-                  	{{input id="addressInput" type="text" value=address focus-out="save" insert-newline="save"}}
-                  {{else}}
-                  	<h4 class="contactlocation">{{address}}</h4>
-                  {{/if}}
+                  <h4 class="contactlocation">{{place}}</h4>
                 </div>
               </div>
               <div class="infopanel">
@@ -1288,12 +1372,8 @@
                 </div>
               </div>
             </div>
-            <div class="panelfooter" id="contactfooter" {{action "editField" "notes" on="doubleClick"}}>
-              {{#if editing.notes}}
-              	<h5>Note: </h5>{{input id="notesInput" type="text" value=notes focus-out="save" insert-newline="save"}}
-              {{else}}
-              	<h5>Note: {{notes}}</h5>
-              {{/if}}
+            <div class="panelfooter" id="contactfooter">
+              <h5>Note: met at the Convention last year in Aprii</h5>
             </div>
           </div>
         </script>
@@ -1498,11 +1578,7 @@
         <div class="col-md-7" id="eventpanel2">
           <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
           <img src="img/arrow.png" class="backArrow" />
-	        {{#if editing.title}}
-	          {{input id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
-	        {{else}}
-	          <h2 id="contactname" class="eventname" {{action "editField" "title" on="doubleClick"}}>{{title}}</h2>
-	        {{/if}}
+          <h2 id="contactname" class="eventname">{{title}}</h2>
           <div id="detailmenubar">
             <img src="img/contact.png" />
             <img src="img/events.png" class="selected" />
@@ -1549,44 +1625,7 @@
               </div>
             </div>
             <div class="infopanel selected">
-              <p class="textrow" style="line-height:32px">
-                <div {{action "editField" "description" on="doubleClick"}}>
-                	<b>Description: </b>
-                  {{#if editing.description}}
-                  	{{input id="descriptionInput" type="text" value=description focus-out="save" insert-newline="save"}}
-                  {{else}}
-               			{{description}}
-                  {{/if}}
-                  <br />
-                </div>
-                <div {{action "editField" "location" on="doubleClick"}}>
-                	<b>Location: </b>
-                  {{#if editing.location}}
-                  	{{input id="locationInput" type="text" value=location focus-out="save" insert-newline="save"}}
-                  {{else}}
-               			{{location}}
-                  {{/if}}
-                  <br />
-                </div>
-                <div {{action "editField" "start_datetime" on="doubleClick"}}>
-                	<b>Event Start: </b>
-                  {{#if editing.start_datetime}}
-                  	{{input id="start_datetimeInput" type="text" value=start_datetime focus-out="save" insert-newline="save"}}
-                  {{else}}
-               			{{start_datetime}}
-                  {{/if}}
-                  <br />
-                </div>
-                <div {{action "editField" "end_datetime" on="doubleClick"}}>
-                	<b>Event End: </b>
-                  {{#if editing.end_datetime}}
-                  	{{input id="end_datetimeInput" type="text" value=end_datetime focus-out="save" insert-newline="save"}}
-                  {{else}}
-               			{{end_datetime}}
-                  {{/if}}
-                  <br />
-                </div>
-              </p>
+              <p class="textrow" style="line-height:32px"><b>Description: </b>{{description}}<br /><b>Location: </b>{{location}}<br /><b>Event Start: </b>{{start_datetime}}<br /><b>Event End: </b>{{end_datetime}}</p>
             </div>
             <div class="infopanel">
               <div class="contactrow tagrow">
@@ -1816,11 +1855,7 @@
                 <div class="col-md-7" id="taskpanel2">
                   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
-					        {{#if editing.title}}
-					          {{input id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
-					        {{else}}
-					          <h2 id="contactname" class="taskname contacttext" {{action "editField" "title" on="doubleClick"}}>{{title}}</h2>
-					        {{/if}}
+                  <h2 id="contactname" class="taskname contacttext">{{title}}</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
@@ -2082,11 +2117,7 @@
         <div class="col-md-7" id="tagpanel2">
                   <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
                   <img src="img/arrow.png" class="backArrow" />
-					        {{#if editing.name}}
-					          {{input id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
-					        {{else}}
-					          <h2 id="contactname" class="taskname tagname" {{action "editField" "name" on="doubleClick"}}>{{name}}</h2>
-					        {{/if}}
+                  <h2 id="contactname" class="taskname tagname">{{name}}</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />

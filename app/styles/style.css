@@ -1763,23 +1763,36 @@ to {
 	pointer-events: auto;
 }
 
+.twitter-typeahead {
+	width:100%;
+}
+
 .modalDialog > div {
 	width: 600px;
-	position: relative;
-	margin: 10% auto;
 	padding: 20px 20px 13px 20px;
 	border-radius: 10px;
 	background: #fff;
 	background: -moz-linear-gradient(#fff, #999);
 	background: -webkit-linear-gradient(#fff, #999);
 	background: -o-linear-gradient(#fff, #999);
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin: 0 auto;
+	display: block;
+	left: 10%;
+	right: 10%;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
 
 .close {
 	background: #606061;
 	color: #FFFFFF;
 	line-height: 25px;
-	position: absolute;
+	position: relative;
 	right: -12px;
 	text-align: center;
 	top: -10px;
@@ -2959,6 +2972,41 @@ input#toggle5:checked + label:after {
 	    bottom: -20px;
 	    top: auto;
 	  }
+
+	  .relatedList {
+	  	background: #ddd;
+		padding: 10px;
+		border: 1px solid #fff;
+	  }
+
+	  .relatedList ul {
+	  	list-style:none;
+	  	width:100%;
+	  	margin-bottom:0px;
+	  }
+
+	  .relatedList li {
+	  	border-bottom:1px solid #fff;
+	  	padding:3px;
+	  }
+
+	  .relatedList ul > li:last-child {
+	  	border-bottom:0px;
+	  }
+
+	  .relatedList img {
+		height: 25px;
+		float: right;
+		position: relative;
+		top: 5px;
+		cursor: pointer;
+		opacity:.7;
+	  }
+
+	  .relatedList img:hover {
+	  	opacity:1;
+	  }
+
 
 #loader{
 	position: fixed;

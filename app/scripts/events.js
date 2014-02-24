@@ -646,6 +646,10 @@ function rebindEvents() {
         }
     });
 
+    $('.relatedList img').click(function(event){
+    	$(event.target).parent().remove();
+    });
+
     /*if ($('#calendarcont').length) {
         $('#calendarcont').fullCalendar({
             header: {
