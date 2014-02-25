@@ -852,12 +852,18 @@
                 <div class="subitems">
                   <img src="img/tags.png" class="spaceimage" />
                   {{#each task in tasksController.tasksToShow}}
-                  {{#if task.title}}
-                  <div class="subitem subdash">
-                    <img class="subicon" src="img/tasks.png" />
-                    <span class="subitemtext subdashtext">{{task.title}}</span>
-                  </div>
-                  {{/if}}
+                    {{#if task.title}}
+                      {{#link-to 'tasks.task' task}}
+                      <div class="subitem subdash">
+                        <img class="subicon" src="img/tasks.png" />
+                        <span class="subitemtext subdashtext">{{task.title}}</span>
+                      </div>
+                      {{/link-to}}
+                    {{/if}}
+                  {{else}}
+                    <div class="subitem subdash">
+                      <span class="subitemtext subdashtext">No Tasks</span>
+                    </div>                    
                   {{/each}}
                 </div>
                 <div class="sortcont sortcont2">
@@ -881,60 +887,12 @@
                 <h3 class="mainsort">Events (next 7 days)<img src="img/arrow_black.png" class="accordionarrow"></h3>
                 <div class="subitems subdashtext">
                   <ul id="eventslist">
-                    <li>
-                      <span>Monday 01/13/14</span>
-                      <ul class="eventssublist">
-                        <li>Lunch with Sam</li>
-                        <li>Dinner with Bob</li>
-                      </ul>
-                    </li>
-                    <li>
-                      <span>Tuesday 01/14/14</span>
-                      <ul class="eventssublist">
-                        <li>Pick Up Sarah from Airport</li>
-                        <li>Go Shopping</li>
-                        <li>Play Video Games</li>
-                      </ul>
-                    </li>
-                    <li>
-                      <span>Wednesday 01/15/14</span>
-                      <ul class="eventssublist">
-                        <li>Meet Mike at 7pm</li>
-                        <li>Get an Oil Change</li>
-                      </ul>
-                    </li>
-                    <li>
-                      <span>Thursday 01/16/14</span>
-                      <ul class="eventssublist">
-                        <li>Read a Book</li>
-                      </ul>
-                    </li>
-                    <li>
-                      <span>Friday 01/17/14</span>
-                      <ul class="eventssublist">
-                        <li>Work out</li>
-                        <li>Pick up dinner</li>
-                      </ul>
-                    </li>
-                    <li>
-                      <span>Saturday 01/18/14</span>
-                      <ul class="eventssublist">
-                        <li>Attend the awards show</li>
-                        <li>Finish Day Won</li>
-                        <li>Get some exercise</li>
-                      </ul>
-                    </li>
-                    <li>
-                      <span>Sunday 01/19/14</span>
-                      <ul class="eventssublist">
-                        <li>Study for the exam</li>
-                        <li>Pack for the trip</li>
-                      </ul>
-                    </li>
                     {{#each event in eventsController}}
                       {{#if event.title}}  
-                        <li><span>{{event.title}}</span><span>{{event.start_datetime}}</span></li>
+                        {{#link-to 'events.event' event}}<li><span>{{event.title}} -- {{event.start_displayformatted}}</span></li>{{/link-to}}
                       {{/if}}
+                    {{else}}
+                      <li><span>No Events</span></li>
                     {{/each}}   
                   </ul>
                 </div>
@@ -944,12 +902,18 @@
                 <div class="subitems">
                   <img class="spaceimage" src="img/tags.png" />
                   {{#each tag in tagsController}}
-                  {{#if tag.name}} 
+                    {{#if tag.name}} 
+                      {{#link-to 'tags.tag' tag}}
+                      <div class="subitem subdash">
+                        <img class="subicon" src="img/tags.png" />
+                        <span class="subitemtext subdashtext">{{tag.name}}</span>          
+                      </div>
+                      {{/link-to}}
+                    {{/if}}
+                  {{else}}
                     <div class="subitem subdash">
-                      <img class="subicon" src="img/tags.png" />
-                      <span class="subitemtext subdashtext">{{tag.name}}</span>          
+                      <span class="subitemtext subdashtext">No Tags</span>          
                     </div>
-                  {{/if}}
                   {{/each}}
                 </div>
                 <div class="sortcont sortcont3 sortcontTags">
@@ -981,25 +945,25 @@
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
                     <div class="contsort">
-					  {{view Ember.Select 
-						   class="listSorter" 
-						   id="contactShow"
-						   content=showOptions
-						   optionLabelPath="content.label"
-						   optionValuePath="content.id"
-						   selection=selectedShowOption}}
+        					  {{view Ember.Select 
+        						   class="listSorter" 
+        						   id="contactShow"
+        						   content=showOptions
+        						   optionLabelPath="content.label"
+        						   optionValuePath="content.id"
+        						   selection=selectedShowOption}}
                     </div>
                   </div>
                   <div class="filtercolumn contactpadding">
                     <h4>Sorted by:</h4>
                     <div class="contsort">
-					  {{view Ember.Select 
-						   class="listSorter" 
-						   id="contactSort"
-						   content=sortOptions
-						   optionLabelPath="content.label"
-						   optionValuePath="content.primarySort"
-						   selection=selectedSortOption}}
+        					  {{view Ember.Select 
+        						   class="listSorter" 
+        						   id="contactSort"
+        						   content=sortOptions
+        						   optionLabelPath="content.label"
+        						   optionValuePath="content.primarySort"
+        						   selection=selectedSortOption}}
                     </div>
                   </div>
                   <button class="sortingToggle" id="showAll" {{action showAll}}>Sort</button>
