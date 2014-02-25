@@ -402,6 +402,7 @@ function rebindEvents() {
     });
 
     $("form").unbind('submit').bind('submit', function(event){		
+
 		var showPopupMessage = function(target, message, style) {
 			var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
 			statusPopup.show();
@@ -419,10 +420,34 @@ function rebindEvents() {
 		var relatedEvents = $("li[objectid*='event']");
 		var relatedTasks = $("li[objectid*='task']");
 		var relatedTags = $("li[objectid*='tag']");
+		var contactIds = new Array();
+		var eventIds = new Array();
+		var taskIds = new Array();
+		var tagIds = new Array();
+		var thisObject;
+		var i;
 
-		for (var z = 0; z < relatedContacts.length; z++) {
-        	console.log('related contact: ' + $(relatedContacts[z]).html());
-        	console.log('id: ' + $(relatedContacts[z]).attr('objectid'));
+		for (i = 0; i < relatedContacts.length; i++) {
+			thisObject = $(relatedContacts[i]).attr('objectid');
+			thisObject = thisObject.replace(/\D/g,'');
+        	contactIds[i] = thisObject;
+        }
+        	contactIds = contactIds.join(",");
+        	console.log(contactIds);	
+		for (i = 0; i < relatedEvents.length; i++) {
+			thisObject = $(relatedEvents[i]).attr('objectid');
+			thisObject = thisObject.replace(/\D/g,'');
+        	eventIds[i] = thisObject;
+        }
+		for (i = 0; i < relatedTasks.length; i++) {
+			thisObject = $(relatedTasks[i]).attr('objectid');
+			thisObject = thisObject.replace(/\D/g,'');
+        	taskIds[i] = thisObject;
+        }
+		for (i = 0; i < relatedTags.length; i++) {
+			thisObject = $(relatedTags[i]).attr('objectid');
+			thisObject = thisObject.replace(/\D/g,'');
+        	tagIds[i] = thisObject;
         }
 
         if ($(event.target).parent().hasClass("createTag")) {
