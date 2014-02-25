@@ -3212,6 +3212,10 @@ input#toggle5:checked + label:after {
 	width:100%;
 }
 
+.tt-dropdown-menu h2 {
+	margin-top:0px;
+}
+
 .tt-suggestion {
 	cursor:pointer;
 }

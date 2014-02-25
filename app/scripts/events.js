@@ -9,27 +9,6 @@ setTimeout(function() {
 
 function rebindEvents() {
 
-    var authToken;
-    var userEmail;
-
-    function QueryStringToJSON() {            
-        var pairs = location.search.slice(1).split('&');
-        var result = {};
-        pairs.forEach(function(pair) {
-            pair = pair.split('=');
-            result[pair[0]] = decodeURIComponent(pair[1] || '');
-        });
-        return JSON.parse(JSON.stringify(result));
-    }
-
-    var query_string = QueryStringToJSON();
-
-    authToken = query_string.authentication_token;
-    userEmail = query_string.user_email;
-    console.log ("AT: " + authToken);
-    console.log ("UE: " + userEmail);
-    $("#eaddr option:first").html(userEmail);
-
     $('nav a').click(function(evt){
 		var link = $(this);
 		var samePage = link.hasClass('active');
@@ -839,6 +818,43 @@ function rebindEvents() {
 }
 
 setTimeout(function(){
+
+	var authToken;
+    var userEmail;
+
+    function QueryStringToJSON() {            
+        var pairs = location.search.slice(1).split('&');
+        var result = {};
+        pairs.forEach(function(pair) {
+            pair = pair.split('=');
+            result[pair[0]] = decodeURIComponent(pair[1] || '');
+        });
+        return JSON.parse(JSON.stringify(result));
+    }
+
+    var query_string = QueryStringToJSON();
+
+    authToken = query_string.authentication_token;
+    userEmail = query_string.user_email;
+    console.log ("AT: " + authToken);
+    console.log ("UE: " + userEmail);
+    $("#eaddr option:first").html(userEmail);
+
+    function QueryStringToJSON() {            
+        var pairs = location.search.slice(1).split('&');
+        var result = {};
+        pairs.forEach(function(pair) {
+            pair = pair.split('=');
+            result[pair[0]] = decodeURIComponent(pair[1] || '');
+        });
+        return JSON.parse(JSON.stringify(result));
+    }
+
+    var query_string = QueryStringToJSON();
+
+    authToken = query_string.authentication_token;
+    userEmail = query_string.user_email;
+
     if ($(".loggedin").length) {
         $(".loggedin").bind("touchmove", function(e) {
             e.preventDefault();
@@ -852,8 +868,8 @@ setTimeout(function(){
 
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": "iRHkAExpYJ4PZWRwxcrt",
-            "X-AUTHENTICATION-EMAIL": "mkhan@srrngames.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         }
     };
     var contacts = new Bloodhound({
@@ -986,4 +1002,4 @@ setTimeout(function(){
         .on('typeahead:selected', onTypeaheadSelected);
     $("#typeAheadTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
-}, 1000);
+}, 100);
