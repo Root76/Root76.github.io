@@ -376,32 +376,40 @@
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each event in eventsToShow}}
-                {{#if event.title}}                
-                <li class="listitem mainevent">
-                  <h3 class="mainsort"><img src="img/calendar.png" class="listimg" />{{event.title}}<img src="img/arrow_black.png" class="accordionarrow reportarrow"></h3>
-                  <div class="subitems">
-                    <div class="subitem ss1 subEvent">
-                      <img class="subicon" src="img/calendar.png" />
-                      <span class="subitemtext">Save the world</span>
+                  {{#if event.title}}                
+                  <li class="listitem mainevent">
+                    <h3 class="mainsort">
+                      {{#link-to 'events.event' event}}<img src="img/calendar.png" class="listimg" />{{/link-to}}
+                      {{event.title}}
+                      <img src="img/arrow_black.png" class="accordionarrow reportarrow">
+                    </h3>
+                    <div class="subitems">
+                      <div class="subitem ss1 subEvent">
+                        <img class="subicon" src="img/calendar.png" />
+                        <span class="subitemtext">Save the world</span>
+                      </div>
+                      <div class="subitem ss2 subTag">
+                        <img class="subicon" src="img/tags.png" />
+                        <span class="subitemtext">Incredible</span>          
+                        <span class="subitemtext">Fabulous</span>        
+                      </div>
+                      <div class="subitem ss3 subContact">
+                        <img class="subicon" src="img/contact.png" />
+                        <span class="subitemtext">Bruce Lee</span>
+                        <span class="subitemtext">Rick James</span>
+                      </div>
+                      <div class="subitem ss4 subTask">
+                        <img class="subicon" src="img/tasks.png" />
+                        <span class="subitemtext">Fight crime</span>
+                        <span class="subitemtext">Kill the bad guys</span>
+                      </div>
                     </div>
-                    <div class="subitem ss2 subTag">
-                      <img class="subicon" src="img/tags.png" />
-                      <span class="subitemtext">Incredible</span>          
-                      <span class="subitemtext">Fabulous</span>        
-                    </div>
-                    <div class="subitem ss3 subContact">
-                      <img class="subicon" src="img/contact.png" />
-                      <span class="subitemtext">Bruce Lee</span>
-                      <span class="subitemtext">Rick James</span>
-                    </div>
-                    <div class="subitem ss4 subTask">
-                      <img class="subicon" src="img/tasks.png" />
-                      <span class="subitemtext">Fight crime</span>
-                      <span class="subitemtext">Kill the bad guys</span>
-                    </div>
-                  </div>
-                </li>
-                {{/if}}
+                  </li>
+                  {{/if}}
+                {{else}} 
+                  <li>
+                    <h3><b>No Events in this time period</b></h3>
+                  </li>                  
                 {{/each}}
               </ul>
             </div>
@@ -466,34 +474,42 @@
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each task in tasksToShow}}
-                {{#if task.title}} 
-                <li class="listitem maintask">
-                  <h3 class="mainsort"><img src="img/tasks.png" class="listimg" />{{task.title}}<img src="img/arrow_black.png" class="accordionarrow reportarrow"></h3>
-                  <div class="subitems">
-                    <div class="subitem ss1 subEvent">
-                      <img class="subicon" src="img/calendar.png" />
-                      <span class="subitemtext">Save the world</span>
+                  {{#if task.title}} 
+                  <li class="listitem maintask">
+                    <h3 class="mainsort">
+                      {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="listimg" />{{/link-to}}
+                      {{task.title}}
+                      <img src="img/arrow_black.png" class="accordionarrow reportarrow">
+                    </h3>
+                    <div class="subitems">
+                      <div class="subitem ss1 subEvent">
+                        <img class="subicon" src="img/calendar.png" />
+                        <span class="subitemtext">Save the world</span>
+                      </div>
+                      <div class="subitem ss2 subTag">
+                        <img class="subicon" src="img/tags.png" />
+                        <span class="subitemtext">Incredible</span>          
+                        <span class="subitemtext">Deadly</span>        
+                        <span class="subitemtext">Fabulous</span>        
+                        <span class="subitemtext">Pink</span>
+                      </div>
+                      <div class="subitem ss3 subContact">
+                        <img class="subicon" src="img/contact.png" />
+                        <span class="subitemtext">Bruce Lee</span>
+                        <span class="subitemtext">Rick James</span>
+                      </div>
+                      <div class="subitem ss4 subTask">
+                        <img class="subicon" src="img/tasks.png" />
+                        <span class="subitemtext">Fight crime</span>
+                        <span class="subitemtext">Kill the bad guys</span>
+                      </div>
                     </div>
-                    <div class="subitem ss2 subTag">
-                      <img class="subicon" src="img/tags.png" />
-                      <span class="subitemtext">Incredible</span>          
-                      <span class="subitemtext">Deadly</span>        
-                      <span class="subitemtext">Fabulous</span>        
-                      <span class="subitemtext">Pink</span>
-                    </div>
-                    <div class="subitem ss3 subContact">
-                      <img class="subicon" src="img/contact.png" />
-                      <span class="subitemtext">Bruce Lee</span>
-                      <span class="subitemtext">Rick James</span>
-                    </div>
-                    <div class="subitem ss4 subTask">
-                      <img class="subicon" src="img/tasks.png" />
-                      <span class="subitemtext">Fight crime</span>
-                      <span class="subitemtext">Kill the bad guys</span>
-                    </div>
-                  </div>
-                </li>
-                {{/if}}
+                  </li>
+                  {{/if}}
+                {{else}} 
+                  <li>
+                    <h3><b>No Tasks in this time period</b></h3>
+                  </li>                  
                 {{/each}}
               </ul>
             </div>
@@ -558,31 +574,39 @@
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each contact in contactsToShow}}
-                {{#if contact.name}} 
-                <li class="listitem maincontact">
-                  <h3 class="mainsort"><img src="img/contact.png" class="listimg" />{{contact.name}}<img src="img/arrow_black.png" class="accordionarrow reportarrow"></h3>
-                  <div class="subitems">
-                    <div class="subitem ss1 subEvent">
-                      <img class="subicon" src="img/calendar.png" />
-                      <span class="subitemtext">Investor Meeting</span>
+                  {{#if contact.name}} 
+                  <li class="listitem maincontact">
+                    <h3 class="mainsort">
+                      {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="listimg" />{{/link-to}}
+                      {{contact.name}}
+                      <img src="img/arrow_black.png" class="accordionarrow reportarrow">
+                    </h3>
+                    <div class="subitems">
+                      <div class="subitem ss1 subEvent">
+                        <img class="subicon" src="img/calendar.png" />
+                        <span class="subitemtext">Investor Meeting</span>
+                      </div>
+                      <div class="subitem ss2 subTag">
+                        <img class="subicon" src="img/tags.png" />
+                        <span class="subitemtext">Spreadsheets</span>          
+                        <span class="subitemtext">3 Monkeys</span>        
+                      </div>
+                      <div class="subitem ss3 subContact">
+                        <img class="subicon" src="img/contact.png" />
+                        <span class="subitemtext">Lizz</span>
+                      </div>
+                      <div class="subitem ss4 subTask">
+                        <img class="subicon" src="img/tasks.png" />
+                        <span class="subitemtext">Run errands</span>
+                        <span class="subitemtext">Pick up dinner</span>
+                      </div>
                     </div>
-                    <div class="subitem ss2 subTag">
-                      <img class="subicon" src="img/tags.png" />
-                      <span class="subitemtext">Spreadsheets</span>          
-                      <span class="subitemtext">3 Monkeys</span>        
-                    </div>
-                    <div class="subitem ss3 subContact">
-                      <img class="subicon" src="img/contact.png" />
-                      <span class="subitemtext">Lizz</span>
-                    </div>
-                    <div class="subitem ss4 subTask">
-                      <img class="subicon" src="img/tasks.png" />
-                      <span class="subitemtext">Run errands</span>
-                      <span class="subitemtext">Pick up dinner</span>
-                    </div>
-                  </div>
-                </li>
-                {{/if}}
+                  </li>
+                  {{/if}}
+                {{else}} 
+                  <li>
+                    <h3><b>No Contacts in this time period</b></h3>
+                  </li>                  
                 {{/each}}
               </ul>
             </div>
@@ -647,34 +671,42 @@
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each tag in tagsToShow}}
-                {{#if tag.name}} 
-                <li class="listitem maintag">
-                  <h3 class="mainsort"><img src="img/tags.png" class="listimg" />{{tag.name}}<img src="img/arrow_black.png" class="accordionarrow reportarrow"></h3>
-                  <div class="subitems">
-                    <div class="subitem ss1 subEvent">
-                      <img class="subicon" src="img/calendar.png" />
-                      <span class="subitemtext">Save the world</span>
+                  {{#if tag.name}} 
+                  <li class="listitem maintag">
+                    <h3 class="mainsort">
+                      {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="listimg" />{{/link-to}}
+                      {{tag.name}}
+                      <img src="img/arrow_black.png" class="accordionarrow reportarrow">
+                    </h3>
+                    <div class="subitems">
+                      <div class="subitem ss1 subEvent">
+                        <img class="subicon" src="img/calendar.png" />
+                        <span class="subitemtext">Save the world</span>
+                      </div>
+                      <div class="subitem ss2 subTag">
+                        <img class="subicon" src="img/tags.png" />
+                        <span class="subitemtext">Incredible</span>          
+                        <span class="subitemtext">Deadly</span>        
+                        <span class="subitemtext">Fabulous</span>        
+                        <span class="subitemtext">Pink</span>
+                      </div>
+                      <div class="subitem ss3 subContact">
+                        <img class="subicon" src="img/contact.png" />
+                        <span class="subitemtext">Bruce Lee</span>
+                        <span class="subitemtext">Rick James</span>
+                      </div>
+                      <div class="subitem ss4 subTask">
+                        <img class="subicon" src="img/tasks.png" />
+                        <span class="subitemtext">Fight crime</span>
+                        <span class="subitemtext">Kill the bad guys</span>
+                      </div>
                     </div>
-                    <div class="subitem ss2 subTag">
-                      <img class="subicon" src="img/tags.png" />
-                      <span class="subitemtext">Incredible</span>          
-                      <span class="subitemtext">Deadly</span>        
-                      <span class="subitemtext">Fabulous</span>        
-                      <span class="subitemtext">Pink</span>
-                    </div>
-                    <div class="subitem ss3 subContact">
-                      <img class="subicon" src="img/contact.png" />
-                      <span class="subitemtext">Bruce Lee</span>
-                      <span class="subitemtext">Rick James</span>
-                    </div>
-                    <div class="subitem ss4 subTask">
-                      <img class="subicon" src="img/tasks.png" />
-                      <span class="subitemtext">Fight crime</span>
-                      <span class="subitemtext">Kill the bad guys</span>
-                    </div>
-                  </div>
-                </li>
-                {{/if}}
+                  </li>
+                  {{/if}}
+                {{else}} 
+                  <li>
+                    <h3><b>No Tags in this time period</b></h3>
+                  </li>                  
                 {{/each}}
               </ul>
             </div>
