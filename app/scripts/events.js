@@ -432,23 +432,30 @@ function rebindEvents() {
 			thisObject = thisObject.replace(/\D/g,'');
         	contactIds[i] = thisObject;
         }
-        	contactIds = contactIds.join(",");
-        	console.log(contactIds);	
+        contactIds = contactIds.join(",");
 		for (i = 0; i < relatedEvents.length; i++) {
 			thisObject = $(relatedEvents[i]).attr('objectid');
 			thisObject = thisObject.replace(/\D/g,'');
         	eventIds[i] = thisObject;
         }
+        eventIds = eventIds.join(",");
 		for (i = 0; i < relatedTasks.length; i++) {
 			thisObject = $(relatedTasks[i]).attr('objectid');
 			thisObject = thisObject.replace(/\D/g,'');
         	taskIds[i] = thisObject;
         }
+		taskIds = taskIds.join(",");
 		for (i = 0; i < relatedTags.length; i++) {
 			thisObject = $(relatedTags[i]).attr('objectid');
 			thisObject = thisObject.replace(/\D/g,'');
         	tagIds[i] = thisObject;
         }
+		tagIds = tagIds.join(",");
+
+		console.log("contacts: " + contactIds);
+		console.log("events: " + eventIds);
+		console.log("tasks: " + taskIds);
+		console.log("tags: " + tagIds);
 
         if ($(event.target).parent().hasClass("createTag")) {
             var tagTitle = $("#tagName").val();
@@ -495,7 +502,10 @@ function rebindEvents() {
                     organization: contactOrg,
                     phone: contactNo,
                     address: contactAddress,
-                    place: contactPl
+                    email: contactPl,
+                    events: eventIds,
+                    tasks: taskIds,
+                    tags: tagIds
                 }
             };
 			url = "http://daywon-api-staging.herokuapp.com/contacts";
@@ -529,8 +539,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -872,8 +882,6 @@ setTimeout(function(){
 
     authToken = query_string.authentication_token;
     userEmail = query_string.user_email;
-    console.log ("AT: " + authToken);
-    console.log ("UE: " + userEmail);
     $("#eaddr option:first").html(userEmail);
 
     function QueryStringToJSON() {            
@@ -891,6 +899,9 @@ setTimeout(function(){
     authToken = query_string.authentication_token;
     userEmail = query_string.user_email;
 
+    console.log ("AT: " + authToken);
+    console.log ("UE: " + userEmail);
+
     if ($(".loggedin").length) {
         $(".loggedin").bind("touchmove", function(e) {
             e.preventDefault();
@@ -904,8 +915,8 @@ setTimeout(function(){
 
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({
