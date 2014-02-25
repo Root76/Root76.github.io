@@ -818,6 +818,9 @@ function rebindEvents() {
         });     
         new Opentip("#detailmenubar > img:nth-child(4)", "Tags", {
             style: "bottomtip"
+        });   
+        new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
+            style: "bottomtip"
         }); 
         new Opentip("#detailmenubar > img:last-child", "Delete", {
             style: "bottomtip"
