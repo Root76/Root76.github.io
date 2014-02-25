@@ -566,6 +566,7 @@ App.Tag = DS.Model.extend({
 
 IndividualObjectRoute = Ember.Mixin.create({	
 	setupController: function(controller, model) {
+		this._super(controller, model);
 		controller.set('model', model);
 		controller.set('editing', {});
 		controller.set('editing.anything', false);
