@@ -23,7 +23,8 @@ App.Router.map(function () {
         this.route("tag", { path: "/:tag_id" });
     });
     this.resource("orphans", function() {
-        this.route("orphan", { path: "/:orphan_id" });    
+    	this.route("events");
+    	this.route("tasks");
     });
     this.resource("view");
     this.resource("create", function(){
@@ -562,6 +563,10 @@ App.Tag = DS.Model.extend({
 	}.property()
 });
 
+App.Orphan = DS.Model.extend({
+	title: DS.attr('string')
+});
+
 /*Routes*/
 
 IndividualObjectRoute = Ember.Mixin.create({	
@@ -738,6 +743,26 @@ App.TagsTagRoute = Ember.Route.extend({
     	model.reload();
   	}
 }, IndividualObjectRoute);
+
+App.OrphansEventsRoute = Ember.Route.extend({
+	model: function() {
+		return this.get('store').find('orphan').find('event');
+	}/*,
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('events').set('model', model);
+	}*/
+});
+
+App.OrphansTasksRoute = Ember.Route.extend({
+	model: function() {
+		return this.get('store').find('orphan').find('event');
+	}/*,
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('tasks').set('model', model);
+	}*/
+});
 
 /*Calendar*/
 

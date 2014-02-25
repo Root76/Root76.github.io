@@ -2223,14 +2223,40 @@
                 </div>
         </script>
         <script type="text/x-handlebars" id="orphans">
+          {{outlet}}
+        </script>
+        <script type="text/x-handlebars" id="orphans/index">
+          <div id="appcont" class="orphancont">
+            <img id="orphanlogo" src="img/orphans.png" />
+            <h1 id="orphanhead">Orphans (3)</h1>
+            <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag.</h2>
+            <div id="orphancontainer">
+              {{#link-to 'orphans.events'}}<img src="img/events.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+              {{#link-to 'orphans.tasks'}}<img src="img/tasks.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+            </div>
+            <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="orphans/events">
         <div id="appcont" class="orphancont">
           <img id="orphanlogo" src="img/orphans.png" />
-          <h1 id="orphanhead">Orphans (3)</h1>
+          <h1 id="orphanhead">Orphans -- Events</h1>
           <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag.</h2>
           <div id="orphancontainer">
-            <img src="img/events.png" /><h1 class="ocount">(1)</h1>
-            <img src="img/tasks.png" /><h1 class="ocount">(1)</h1>
-            <img src="img/tags.png" /><h1 class="ocount">(1)</h1>
+            {{#link-to 'orphans.events'}}<img src="img/events.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+            {{#link-to 'orphans.tasks'}}<img src="img/tasks.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+          </div>
+          <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
+        </div>
+        </script>
+        <script type="text/x-handlebars" id="orphans/tasks">
+        <div id="appcont" class="orphancont">
+          <img id="orphanlogo" src="img/orphans.png" />
+          <h1 id="orphanhead">Orphans -- Tasks</h1>
+          <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag.</h2>
+          <div id="orphancontainer">
+            {{#link-to 'orphans.events'}}<img src="img/events.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+            {{#link-to 'orphans.tasks'}}<img src="img/tasks.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
           </div>
           <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
         </div>

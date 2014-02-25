@@ -432,25 +432,25 @@ function rebindEvents() {
 			thisObject = thisObject.replace(/\D/g,'');
         	contactIds[i] = thisObject;
         }
-        contactIds = contactIds.join(",");
+        //contactIds = contactIds.join(",");
 		for (i = 0; i < relatedEvents.length; i++) {
 			thisObject = $(relatedEvents[i]).attr('objectid');
 			thisObject = thisObject.replace(/\D/g,'');
         	eventIds[i] = thisObject;
         }
-        eventIds = eventIds.join(",");
+        //eventIds = eventIds.join(",");
 		for (i = 0; i < relatedTasks.length; i++) {
 			thisObject = $(relatedTasks[i]).attr('objectid');
 			thisObject = thisObject.replace(/\D/g,'');
         	taskIds[i] = thisObject;
         }
-		taskIds = taskIds.join(",");
+		//taskIds = taskIds.join(",");
 		for (i = 0; i < relatedTags.length; i++) {
 			thisObject = $(relatedTags[i]).attr('objectid');
 			thisObject = thisObject.replace(/\D/g,'');
         	tagIds[i] = thisObject;
         }
-		tagIds = tagIds.join(",");
+		//tagIds = tagIds.join(",");
 
 		console.log("contacts: " + contactIds);
 		console.log("events: " + eventIds);
@@ -531,6 +531,7 @@ function rebindEvents() {
 			url = "http://daywon-api-staging.herokuapp.com/events";
 			objectDescription = "Event: " + eventTitle;
         }
+        console.log(data);
 		
 		$.ajax({
 			type: 'POST',
@@ -963,11 +964,23 @@ setTimeout(function(){
         }
       }
     });
+    /*var orphans = new Bloodhound({
+      datumTokenizer: function(orphan) { return Bloodhound.tokenizers.whitespace(orphan.events.title); },
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: {
+        url: 'http://daywon-api-staging.herokuapp.com/orphans',
+        ajax: ajaxObj,
+        filter: function(obj) {
+          return obj.orphans;
+        }
+      }
+    });*/
 
     contacts.initialize();
     events.initialize();
     tasks.initialize();
     tags.initialize();
+    //orphans.initialize();
 
     var contactsDatasource = {
         name: 'Contacts',
