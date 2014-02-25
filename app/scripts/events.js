@@ -414,6 +414,17 @@ function rebindEvents() {
         var data = {};
 		var url = "";
 		var objectDescription = "none";
+
+		var relatedContacts = $("li[objectid*='contact']");
+		var relatedEvents = $("li[objectid*='event']");
+		var relatedTasks = $("li[objectid*='task']");
+		var relatedTags = $("li[objectid*='tag']");
+
+		for (var z = 0; z < relatedContacts.length; z++) {
+        	console.log('related contact: ' + $(relatedContacts[z]).html());
+        	console.log('id: ' + $(relatedContacts[z]).attr('objectid'));
+        }
+
         if ($(event.target).parent().hasClass("createTag")) {
             var tagTitle = $("#tagName").val();
             tagTitle = String(tagTitle);
