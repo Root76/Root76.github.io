@@ -1460,6 +1460,13 @@ to {
 	margin-left:0px !important;
 }
 
+#taskcheck > img {
+	opacity: 0.5;
+}
+#taskcheck.completed > img {
+	opacity: 1;
+}
+
 #settingsummary {
 	width:125px;
 	height:550px;

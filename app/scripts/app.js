@@ -668,6 +668,12 @@ App.TasksTaskRoute = Ember.Route.extend({
   	setupController: function(controller, model){
   		controller.set('model', model);
     	model.reload();
+  	},
+  	actions: {
+        toggleCompleted: function(){
+        	this.currentModel.set('status', !this.currentModel.get('status'));
+        	this.currentModel.save();
+        }
   	}
 }, IndividualObjectRoute);
 
