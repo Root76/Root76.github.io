@@ -484,13 +484,23 @@ App.ReportsTagsController = Ember.ArrayController.extend({
 /***Models***/
 App.ArrayTransform = DS.Transform.extend({
   deserialize: function(serialized) {
-  	console.log(serialized);
-  	var array = $.parseJSON(serialized || "[]");
-    return array;
+  	return serialized || [];
   },
   serialize: function(deserialized) {
-  	var array = deserialized || [];
-    return array;
+  	return deserialized || [];
+  }
+});
+App.ApplicationSerializer = DS.RESTSerializer.extend({
+  normalizePayload: function(type, payload) {
+  	var typeKey = type.typeKey;
+  	if (!typeKey[typeKey.length - 1] !== 's')
+  		typeKey += 's';
+  	if (!payload[typeKey]) {
+  		newPayload = {};
+  		newPayload[typeKey] = payload;
+  		return newPayload;
+  	}
+    return payload;
   }
 });
 
