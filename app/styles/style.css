@@ -2237,6 +2237,38 @@ font-family:'Open Sans', sans-serif;
 	background:#ec8f38;
 }
 
+.contactpropertiesrow {
+	color: #fff;
+}
+.contactpropertiesrow > .propertiesHeader {
+	margin-top: 0px;
+	margin-bottom: 3px;
+}
+.contactpropertiesrow > .propertiesList {
+	overflow: auto;
+	height: 90px;
+	font-size: 18px;
+}
+.contactpropertiesrow .key {
+	display: inline-block;
+	width: 200px;
+	margin-right: 15px;
+}
+.contactpropertiesrow .value {
+	display: inline-block;
+	width: 325px;
+}
+.contactpropertiesrow .value >input {
+	width: 100%;
+}
+.contactpropertiesrow input {
+	width: auto;
+}
+.contactpropertiesrow img {
+	width: 32px;
+	margin-top: -5px;
+}
+
  /*!
  * FullCalendar v1.6.4 Stylesheet
  * Docs & License: http://arshaw.com/fullcalendar/

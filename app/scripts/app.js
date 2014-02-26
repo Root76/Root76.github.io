@@ -488,6 +488,27 @@ App.ReportsTagsController = Ember.ArrayController.extend({
 });
 
 /***Models***/
+App.ArrayTransform = DS.Transform.extend({
+  deserialize: function(serialized) {
+  	return serialized || [];
+  },
+  serialize: function(deserialized) {
+  	return deserialized || [];
+  }
+});
+App.ApplicationSerializer = DS.RESTSerializer.extend({
+  normalizePayload: function(type, payload) {
+  	var typeKey = type.typeKey;
+  	if (!typeKey[typeKey.length - 1] !== 's')
+  		typeKey += 's';
+  	if (!payload[typeKey]) {
+  		newPayload = {};
+  		newPayload[typeKey] = payload;
+  		return newPayload;
+  	}
+    return payload;
+  }
+});
 
 App.Contact = DS.Model.extend({
     name: DS.attr('string'),
@@ -497,6 +518,7 @@ App.Contact = DS.Model.extend({
     address: DS.attr('string'),
     place: DS.attr('string'),
     notes: DS.attr('string'),
+    extended_properties: DS.attr('array'),
     updated_at: DS.attr('date')
 });
 
@@ -759,6 +781,19 @@ App.ContactsContactRoute = Ember.Route.extend({
   	setupController: function(controller, model){
   		controller.set('model', model);
     	model.reload();
+  	},
+  	actions: {
+  		addProperty: function(){
+  			var properties = this.currentModel.get('extended_properties').slice(0) || [];
+  			properties.push({key:"", value:""});
+  			this.currentModel.set('extended_properties', properties); 
+  		},
+  		deleteProperty: function(index){
+  			var properties = this.currentModel.get('extended_properties').slice(0) || [];
+  			if (index < properties.length)
+  				properties.splice(index, 1);
+  			this.currentModel.set('extended_properties', properties);
+  		}
   	}
 }, IndividualObjectRoute);
 

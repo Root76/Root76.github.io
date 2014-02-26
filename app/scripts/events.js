@@ -924,7 +924,7 @@ setTimeout(function(){
         }
     };
     var contacts = new Bloodhound({
-      datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email); },
+      datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/contacts',
@@ -935,7 +935,7 @@ setTimeout(function(){
       }
     });
     var events = new Bloodhound({
-      datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title); },
+      datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/events',
@@ -946,7 +946,7 @@ setTimeout(function(){
       }
     });
     var tasks = new Bloodhound({
-      datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title); },
+      datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/tasks',
@@ -957,7 +957,7 @@ setTimeout(function(){
       }
     });
     var tags = new Bloodhound({
-      datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name); },
+      datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/tags',
