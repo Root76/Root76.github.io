@@ -840,16 +840,6 @@ App.TagsTagRoute = Ember.Route.extend({
 	}
 });*/
 
-App.OrphaneventsIndexRoute = Ember.Route.extend({
-	model: function() {
-		return this.get('store').find('orphan');
-	},
-	setupController: function(controller, model) {
-		controller.set('model', model);
-        this.controllerFor('events').set('model', model);
-	}
-});
-
 App.OrphaneventsRoute = Ember.Route.extend({
 	model: function() {
 		return this.get('store').find('orphan');
@@ -860,13 +850,23 @@ App.OrphaneventsRoute = Ember.Route.extend({
 	}
 });
 
-App.OrphansTasksRoute = Ember.Route.extend({
+App.OrphantasksRoute = Ember.Route.extend({
 	model: function() {
 		return this.get('store').find('orphan');
 	},
 	setupController: function(controller, model) {
 		controller.set('model', model);
         this.controllerFor('tasks').set('model', model);
+	}
+});
+
+App.OrphantagsRoute = Ember.Route.extend({
+	model: function() {
+		return this.get('store').find('orphan');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('tags').set('model', model);
 	}
 });
 

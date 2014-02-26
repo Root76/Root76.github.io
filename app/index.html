@@ -2129,8 +2129,8 @@
             <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag.</h2>
             <div id="orphancontainer">
               {{#link-to 'orphanevents'}}<img src="img/events.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
-              <img src="img/tasks.png" /><h1 class="ocount">(1)</h1>
-              <img src="img/tags.png" /><h1 class="ocount">(1)</h1>
+              {{#link-to 'orphantasks'}}<img src="img/tasks.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+              {{#link-to 'orphantags'}}<img src="img/tags.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
             </div>
             <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
           </div>
@@ -2447,16 +2447,316 @@
           </div>
         </div>
         </script>
-        <script type="text/x-handlebars" id="orphans/tasks">
-        <div id="appcont" class="orphancont">
-          <img id="orphanlogo" src="img/orphans.png" />
-          <h1 id="orphanhead">Orphans -- Tasks</h1>
-          <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag.</h2>
-          <div id="orphancontainer">
-            {{#link-to 'orphans.events'}}<img src="img/events.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
-            {{#link-to 'orphans.tasks'}}<img src="img/tasks.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+                <script type="text/x-handlebars" id="orphantasks">
+          <div class="mobileCover" id="eventsCover"></div>
+          <div id="appcont" class="viewcont">
+            <div class="section-container" id="taskscont">
+              <div class="row">
+                <div class="col-md-4" id="taskpane1">
+                  <img src="img/orphans.png" / class="contactpadding">
+                  <h1 class="contactpadding">Orphan Events (<span id="itemCount">0</span>)</h1>
+                  <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+                    <input name="q" type="text" size="40" placeholder="Search...">
+                  </form>
+                  <div class="filtercolumn contactpadding">
+                    <h4>Show:</h4>
+                    <div class="contsort">
+                    {{view Ember.Select 
+                       content=showOptions
+                       optionLabelPath="content.label"
+                       optionValuePath="content.id"
+                       selection=selectedShowOption}}
+                    </div>
+                  </div>
+                  <ul id="eventlist" class="sidelist">
+                    {{#each event in eventsToShow}}
+                      {{#if event.title}}
+                        {{#link-to 'orphans.events.event' event}}<li>{{event.title}}</li>{{/link-to}}
+                      {{/if}}
+                    {{/each}}        
+                  </ul>
+                </div>
+                {{outlet}}
+                <div id="detailPanel" class="panelIn">
+                  <div class="row">
+                    <div class="col-md-4 dCol" id="dCol1">
+                      <img class="columnDivider" src="img/divider_orange.png" />
+                      <h1>Day Won Standup Meeting</h1>
+                      <h4>Discuss our progress on the Day Won project and address potential needs</h4>
+                      <div id="relatedTags">
+                        <div class="relatedItem">
+                          <img src="img/tags.png" class="relatedImage"/>
+                          <span class="relatedName">Ember.js</span>
+                        </div>
+                        <div class="relatedItem">
+                          <img src="img/tags.png" class="relatedImage"/>
+                          <span class="relatedName">Rails</span>
+                        </div>
+                        <div class="relatedItem">
+                          <img src="img/tags.png" class="relatedImage"/>
+                          <span class="relatedName">Day Won</span>
+                        </div>
+                        <div class="relatedItem">
+                          <img src="img/tags.png" class="relatedImage"/>
+                          <span class="relatedName">Bootstrap</span>
+                        </div>
+                        <div class="relatedItem">
+                          <img src="img/tags.png" class="relatedImage"/>
+                          <span class="relatedName">Evenspring</span>
+                        </div>                      
+                      </div>
+                    </div>
+                    <div class="col-md-4 dCol" id="dCol2">
+                      <img class="columnDivider" src="img/divider_orange.png" />
+                      <div class="columnhead">
+                        <img src="img/contact.png" />
+                        <h3>Contacts</h3>
+                      </div>
+                      <br />
+                      <div class="detailSection">
+                        <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                        <ul class="columnlist">
+                          <li>Ryan Barber</li>
+                          <li>Caroline Beckert</li>
+                          <li>Tyler Carbone</li>
+                        </ul>
+                      </div>
+                      <div class="detailSection">
+                        <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                        <ul class="columnlist">
+                          <li>Ryan Barber</li>
+                          <li>Caroline Beckert</li>
+                          <li>Tyler Carbone</li>
+                          <li>JP Bonner</li>
+                          <li>Elizabeth Hatzi</li>
+                          <li>Harris Weaver</li>
+                          <li>Momin Khan</li>
+                          <li>Aujang Abadi</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-4 dCol" id="dCol3">
+                      <div class="columnhead">
+                        <img src="img/tasks.png" />
+                        <h3>Tasks</h3>
+                      </div>
+                      <br />
+                      <div class="detailSection">
+                        <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                        <ul class="columnlist">
+                          <li>Buy a present</li>
+                          <li>Bake a cake</li>
+                        </ul>
+                      </div>
+                      <div class="detailSection">
+                        <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                        <ul class="columnlist">
+                          <li>Cut the grass</li>
+                          <li>Finish Day Won</li>
+                          <li>Write TPS Reports</li>
+                          <li>Attend the meeting</li>
+                          <li>Eat dinner</li>
+                          <li>Go to the gym</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="detailPanelHider"></div>
+                <div class="col-md-1 flipswitch fsorange">
+                  <img src="img/fliparrow_orange.png" id="fliparrow"/>
+                </div>
+              </div>
+            </div>
           </div>
-          <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
+        </script>
+        <script type="text/x-handlebars" id="orphantasks/index">
+                <div class="col-md-7" id="eventpanel2">
+                  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+                  <img src="img/arrow.png" class="backArrow" />
+                  <h2 id="contactname" class="eventname">Mom's Birthday</h2>
+                  <div id="detailmenubar">
+                    <img src="img/contact.png" />
+                    <img src="img/events.png" class="selected" />
+                    <img src="img/tasks.png" />
+                    <img src="img/tags.png" /> 
+                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="eventscontent">              
+                    <div class="infopanel">
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Tyler Carbone</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Elizabeth Hatzi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Aujang Abadi</h4>
+                      </div>
+                      <div class="contactrow personrow">
+                        <img src="img/contact.png">
+                        <h4>Lauren Morton</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Meet about Day Won</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Go skydiving</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Play video games</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>QA BBTC</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel selected">
+                      <p class="textrow" style="line-height:32px"><b>Description: </b><br /><b>Location: </b><br /><b>Event Start: </b><br /><b>Event End: </b></p>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Evenspring</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Awesome</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>Partner</h4>
+                      </div>
+                      <div class="contactrow tagrow">
+                        <img src="img/tags.png">
+                        <h4>SRRNgames</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        </script>
+        <script type="text/x-handlebars" id="orphantasks/task">
+        <div class="col-md-7" id="eventpanel2">
+          <h1 id="mobileContact" class="eventDetailHeader">Orphan Events</h1>
+          <img src="img/arrow.png" class="backArrow" />
+          <h2 id="contactname" class="eventname" {{action "editField" "title" on="doubleClick"}}>
+          {{#if editing.title}}
+            {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
+          {{else}}
+            {{title}}
+          {{/if}}
+          </h2>
+          <div id="detailmenubar">
+            <img src="img/contact.png" />
+            <img src="img/events.png" class="selected" />
+            <img src="img/tasks.png" />
+            <img src="img/tags.png" /> 
+            <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+            <img src="img/trash.png" id="trashicon"/>              
+          </div>
+          <div class="panelcontent" id="eventscontent">                
+            <div class="infopanel">
+              <div class="contactrow personrow">
+                <img src="img/contact.png">
+                <h4>Tyler Carbone</h4>
+              </div>
+              <div class="contactrow personrow">
+                <img src="img/contact.png">
+                <h4>Elizabeth Hatzi</h4>
+              </div>
+              <div class="contactrow personrow">
+                <img src="img/contact.png">
+                <h4>Aujang Abadi</h4>
+              </div>
+              <div class="contactrow personrow">
+                <img src="img/contact.png">
+                <h4>Lauren Morton</h4>
+              </div>
+            </div>
+            <div class="infopanel">
+              <div class="contactrow taskrow">
+                <img src="img/tasks.png">
+                <h4>Meet about Day Won</h4>
+              </div>
+              <div class="contactrow taskrow">
+                <img src="img/tasks.png">
+                <h4>Go skydiving</h4>
+              </div>
+              <div class="contactrow taskrow">
+                <img src="img/tasks.png">
+                <h4>Play video games</h4>
+              </div>
+              <div class="contactrow taskrow">
+                <img src="img/tasks.png">
+                <h4>QA BBTC</h4>
+              </div>
+            </div>
+            <div class="infopanel selected">
+                <div {{action "editField" "description" on="doubleClick"}}>
+                  <b>Description: </b>
+                  {{#if editing.description}}
+                    {{input class="editField" id="descriptionInput" type="text" value=description focus-out="save" insert-newline="save"}}
+                  {{else}}
+                    {{description}}
+                  {{/if}}
+                  <br />
+                </div>
+                <div {{action "editField" "location" on="doubleClick"}}>
+                  <b>Location: </b>
+                  {{#if editing.location}}
+                    {{input class="editField" id="locationInput" type="text" value=location focus-out="save" insert-newline="save"}}
+                  {{else}}
+                    {{location}}
+                  {{/if}}
+                  <br />
+                </div>
+                <div {{action "editField" "start_datetime" on="doubleClick"}}>
+                  <b>Event Start: </b>
+                  {{#if editing.start_datetime}}
+                    {{input class="editField" id="start_datetimeInput" type="datetime-local" value=start_inputformatted focus-out="save" insert-newline="save"}}
+                  {{else}}
+                    {{start_displayformatted}}
+                  {{/if}}
+                  <br />
+                </div>
+                <div {{action "editField" "end_datetime" on="doubleClick"}}>
+                  <b>Event End: </b>
+                  {{#if editing.end_datetime}}
+                    {{input class="editField" id="end_datetimeInput" type="datetime-local" value=end_inputformatted focus-out="save" insert-newline="save"}}
+                  {{else}}
+                    {{end_displayformatted}}
+                  {{/if}}
+                  <br />
+                </div>
+            </div>
+            <div class="infopanel">
+              <div class="contactrow tagrow">
+                <img src="img/tags.png">
+                <h4>Evenspring</h4>
+              </div>
+              <div class="contactrow tagrow">
+                <img src="img/tags.png">
+                <h4>Awesome</h4>
+              </div>
+              <div class="contactrow tagrow">
+                <img src="img/tags.png">
+                <h4>Partner</h4>
+              </div>
+              <div class="contactrow tagrow">
+                <img src="img/tags.png">
+                <h4>SRRNgames</h4>
+              </div>
+            </div>
+          </div>
         </div>
         </script>
         <script type="text/x-handlebars" id="calendar">
