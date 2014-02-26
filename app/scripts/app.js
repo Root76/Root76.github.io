@@ -593,12 +593,17 @@ App.Task = DS.Model.extend({
 
 App.Tag = DS.Model.extend({
     name: DS.attr('string'),
-	count: function() { // eventually has to count up all the associations
-		return 0;
-	}.property(),
     contacts: DS.attr('array'),
     events: DS.attr('array'),
-    tasks: DS.attr('array')
+    tasks: DS.attr('array'),
+
+	count: function() { // eventually has to count up all the associations
+		var count = 0;
+		count += this.get('contacts').length;
+		count += this.get('events').length
+		count += this.get('tasks').length;
+		return count;
+	}.property('contacts', 'events', 'tasks')
 });
 
 /*App.RelatedContact = DS.Model.extend({
