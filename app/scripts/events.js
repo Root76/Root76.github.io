@@ -503,9 +503,9 @@ function rebindEvents() {
                     phone: contactNo,
                     address: contactAddress,
                     email: contactPl,
-                    events: eventIds,
-                    tasks: taskIds,
-                    tags: tagIds
+                    event_ids: eventIds,
+                    task_ids: taskIds,
+                    tag_ids: tagIds
                 }
             };
 			url = "http://daywon-api-staging.herokuapp.com/contacts";
@@ -540,8 +540,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -919,8 +919,8 @@ setTimeout(function(){
 
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({

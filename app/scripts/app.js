@@ -23,8 +23,15 @@ App.Router.map(function () {
         this.route("tag", { path: "/:tag_id" });
     });
     this.resource("orphans", function() {
-    	this.route("events");
-    	this.route("tasks");
+    	this.resource("orphanevents", function() {
+    		this.route("event", { path: "/:event_id"});
+    	});
+    	this.resource("orphantasks", function() {
+    		this.route("task", { path: "/:task_id"});
+    	});
+    	this.resource("orphantags", function() {
+    		this.route("tag", { path: "/:tag_id"});
+    	});
     });
     this.resource("view");
     this.resource("create", function(){
@@ -68,8 +75,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -561,8 +568,37 @@ App.Tag = DS.Model.extend({
 	}.property()
 });
 
+/*App.RelatedContact = DS.Model.extend({
+	name: DS.attr('string')
+});
+
+App.RelatedEvent = DS.Model.extend({
+	title: DS.attr('string'),
+	contact: DS.belongsTo('contact'),
+	task: DS.belongsTo('task'),
+	tag: DS.belongsTo('tag')
+});
+
+App.RelatedTask = DS.Model.extend({
+	title: DS.attr('string'),
+	contact: DS.belongsTo('contact')
+});
+
+App.RelatedTag = DS.Model.extend({
+	name: DS.attr('string'),
+	contact: DS.belongsTo('contact')
+});*/
+
 App.Orphan = DS.Model.extend({
 	title: DS.attr('string')
+});
+
+App.Table = DS.Model.extend({
+	title: DS.attr('string')
+});
+
+App.Modifiable = DS.Model.extend({
+	title: DS.attr('boolean')
 });
 
 /*Routes*/
@@ -748,24 +784,44 @@ App.TagsTagRoute = Ember.Route.extend({
   	}
 }, IndividualObjectRoute);
 
-App.OrphansEventsRoute = Ember.Route.extend({
+/*App.OrphansIndexRoute = Ember.Route.extend({
 	model: function() {
-		return this.get('store').find('orphan').find('event');
-	}/*,
+		return this.get('store').find('orphan');
+	},
 	setupController: function(controller, model) {
 		controller.set('model', model);
         this.controllerFor('events').set('model', model);
-	}*/
+	}
+});*/
+
+App.OrphaneventsIndexRoute = Ember.Route.extend({
+	model: function() {
+		return this.get('store').find('orphan');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('events').set('model', model);
+	}
+});
+
+App.OrphaneventsRoute = Ember.Route.extend({
+	model: function() {
+		return this.get('store').find('orphan');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('events').set('model', model);
+	}
 });
 
 App.OrphansTasksRoute = Ember.Route.extend({
 	model: function() {
-		return this.get('store').find('orphan').find('event');
-	}/*,
+		return this.get('store').find('orphan');
+	},
 	setupController: function(controller, model) {
 		controller.set('model', model);
         this.controllerFor('tasks').set('model', model);
-	}*/
+	}
 });
 
 /*Calendar*/
