@@ -519,7 +519,10 @@ App.Contact = DS.Model.extend({
     place: DS.attr('string'),
     notes: DS.attr('string'),
     extended_properties: DS.attr('array'),
-    updated_at: DS.attr('date')
+    updated_at: DS.attr('date'),
+    events: DS.attr('array'),
+    tasks: DS.attr('array'),
+    tags: DS.attr('array')
 });
 
 App.Event = DS.Model.extend({
@@ -529,7 +532,6 @@ App.Event = DS.Model.extend({
     start_datetime: DS.attr('date'),
     end_datetime: DS.attr('date'),
     updated_at: DS.attr('date'),
-
     start_inputformatted: function(key, value) {
 	    if (arguments.length > 1) {
 	    	var date = moment(value);
@@ -555,6 +557,9 @@ App.Event = DS.Model.extend({
     end_displayformatted: function() {
     	return Utility.convertToReadableDate(this.get('end_datetime')) || "N/A";
     }.property('end_datetime'),
+    contacts: DS.attr('array'),
+    tasks: DS.attr('array'),
+    tags: DS.attr('array')
 });
 
 App.Task = DS.Model.extend({
@@ -581,13 +586,19 @@ App.Task = DS.Model.extend({
     due_displayformatted: function() {
     	return Utility.convertToReadableDate(this.get('due')) || "N/A";
     }.property('due'),
+    contacts: DS.attr('array'),
+    events: DS.attr('array'),
+    tags: DS.attr('array')
 });
 
 App.Tag = DS.Model.extend({
     name: DS.attr('string'),
 	count: function() { // eventually has to count up all the associations
 		return 0;
-	}.property()
+	}.property(),
+    contacts: DS.attr('array'),
+    events: DS.attr('array'),
+    tasks: DS.attr('array')
 });
 
 /*App.RelatedContact = DS.Model.extend({

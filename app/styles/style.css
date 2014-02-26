@@ -1306,9 +1306,10 @@ to {
 }
 
 #profilepic {
-	margin-top:50px;
+	top:50px;
 	width:70px;
 	float:left;
+	position:relative;
 }
 
 #detailmenubar img {
@@ -1329,10 +1330,13 @@ to {
 
 .panelcontent {
 	top:85px;
+	width:100%;
 	position:relative;
 	height:475px;
 	padding:10px;
 	background:#fff;
+	overflow:auto;
+	overflow-x:hidden;
 }
 
 .panelcontent p {

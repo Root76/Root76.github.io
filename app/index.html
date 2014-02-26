@@ -1291,19 +1291,7 @@
                 </div>
               </div>
               <div class="infopanel">
-                <div class="contactrow taskrow">
-                  <img src="img/tasks.png">
-                  <h4>Meet about Day Won</h4>
-                </div>
-                <div class="contactrow taskrow">
-                  <img src="img/tasks.png">
-                  <h4>Go skydiving</h4>
-                </div>
-                <div class="contactrow taskrow">
-                  <img src="img/tasks.png">
-                  <h4>Play video games</h4>
-                </div>
-                {{#each tasks}}
+                {{#each task in tasks}}
                 <div class="contactrow taskrow">
                   <img src="img/tasks.png">
                   <h4>{{task.title}}</h4>
@@ -1311,23 +1299,7 @@
                 {{/each}}
               </div>
               <div class="infopanel">
-                <div class="contactrow eventrow">
-                  <img src="img/events.png">
-                  <h4>Benefinder Meeting</h4>
-                </div>
-                <div class="contactrow eventrow">
-                  <img src="img/events.png">
-                  <h4>Conference Call with MMC</h4>
-                </div>
-                <div class="contactrow eventrow">
-                  <img src="img/events.png">
-                  <h4>BBTC Deliverable</h4>
-                </div>
-                <div class="contactrow eventrow">
-                  <img src="img/events.png">
-                  <h4>Lunch with Investors</h4>
-                </div>
-                {{#each events}}
+                {{#each event in events}}
                   <div class="contactrow eventrow">
                     <img src="img/events.png">
                     <h4>{{event.title}}
@@ -1335,19 +1307,7 @@
                 {{/each}}
               </div>
               <div class="infopanel">
-                <div class="contactrow tagrow">
-                  <img src="img/tags.png">
-                  <h4>Evenspring</h4>
-                </div>
-                <div class="contactrow tagrow">
-                  <img src="img/tags.png">
-                  <h4>Awesome</h4>
-                </div>
-                <div class="contactrow tagrow">
-                  <img src="img/tags.png">
-                  <h4>Partner</h4>
-                </div>
-                {{#each tags}}
+                {{#each tag in tags}}
                 <div class="contactrow tagrow">
                   <img src="img/tags.png">
                   <h4>{{tag.name}}</h4>
@@ -1585,40 +1545,20 @@
           </div>
           <div class="panelcontent" id="eventscontent">                
             <div class="infopanel">
+            {{#each contact in contacts}}
               <div class="contactrow personrow">
                 <img src="img/contact.png">
-                <h4>Tyler Carbone</h4>
+                <h4>{{contact.name}}</h4>
               </div>
-              <div class="contactrow personrow">
-                <img src="img/contact.png">
-                <h4>Elizabeth Hatzi</h4>
-              </div>
-              <div class="contactrow personrow">
-                <img src="img/contact.png">
-                <h4>Aujang Abadi</h4>
-              </div>
-              <div class="contactrow personrow">
-                <img src="img/contact.png">
-                <h4>Lauren Morton</h4>
-              </div>
+            {{/each}}
             </div>
             <div class="infopanel">
+            {{#each task in tasks}}
               <div class="contactrow taskrow">
                 <img src="img/tasks.png">
-                <h4>Meet about Day Won</h4>
+                <h4>task.title</h4>
               </div>
-              <div class="contactrow taskrow">
-                <img src="img/tasks.png">
-                <h4>Go skydiving</h4>
-              </div>
-              <div class="contactrow taskrow">
-                <img src="img/tasks.png">
-                <h4>Play video games</h4>
-              </div>
-              <div class="contactrow taskrow">
-                <img src="img/tasks.png">
-                <h4>QA BBTC</h4>
-              </div>
+            {{/each}}
             </div>
             <div class="infopanel selected">
                 <div {{action "editField" "description" on="doubleClick"}}>
@@ -1659,22 +1599,12 @@
                 </div>
             </div>
             <div class="infopanel">
+            {{#each tag in tags}}
               <div class="contactrow tagrow">
                 <img src="img/tags.png">
-                <h4>Evenspring</h4>
+                <h4>{{tag.name}}</h4>
               </div>
-              <div class="contactrow tagrow">
-                <img src="img/tags.png">
-                <h4>Awesome</h4>
-              </div>
-              <div class="contactrow tagrow">
-                <img src="img/tags.png">
-                <h4>Partner</h4>
-              </div>
-              <div class="contactrow tagrow">
-                <img src="img/tags.png">
-                <h4>SRRNgames</h4>
-              </div>
+            {{/each}}
             </div>
           </div>
         </div>
@@ -1904,22 +1834,12 @@
                   </div>
                   <div class="panelcontent" id="taskscontent">
                     <div class="infopanel">
+                      {{#each contact in contacts}}
                       <div class="contactrow personrow">
                         <img src="img/contact.png">
-                        <h4>Tyler Carbone</h4>
+                        <h4>{{contact.name}}</h4>
                       </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Elizabeth Hatzi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Aujang Abadi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Lauren Morton</h4>
-                      </div>
+                      {{/each}}
                     </div>
                     <div class="infopanel selected">
                       <div {{action "editField" "notes" on="doubleClick"}}>
@@ -1946,40 +1866,20 @@
                       </div>
                     </div>
                     <div class="infopanel">
+                    {{#each event in events}}
                       <div class="contactrow eventrow">
                         <img src="img/events.png">
-                        <h4>Meet about Day Won</h4>
+                        <h4>{{event.title}}</h4>
                       </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Go skydiving</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Play video games</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>QA BBTC</h4>
-                      </div>
+                    {{/each}}
                     </div>
                     <div class="infopanel">
+                    {{#each tag in tags}}
                       <div class="contactrow tagrow">
                         <img src="img/tags.png">
                         <h4>Evenspring</h4>
                       </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Awesome</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Partner</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>SRRNgames</h4>
-                      </div>
+                    {{/each}}
                     </div>
                   </div>
                 </div>
@@ -2193,58 +2093,28 @@
                   </div>
                   <div class="panelcontent" id="tagscontent">
                     <div class="infopanel">
+                    {{#each contact in contacts}}
                       <div class="contactrow personrow">
                         <img src="img/contact.png">
-                        <h4>Tyler Carbone</h4>
+                        <h4>{{contact.name}}</h4>
                       </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Elizabeth Hatzi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Aujang Abadi</h4>
-                      </div>
-                      <div class="contactrow personrow">
-                        <img src="img/contact.png">
-                        <h4>Lauren Morton</h4>
-                      </div>
+                    {{/each}}
                     </div>
                     <div class="infopanel">
+                    {{#each task in tasks}}
                       <div class="contactrow taskrow">
                         <img src="img/tasks.png">
-                        <h4>Evenspring</h4>
+                        <h4>{{task.title}}</h4>
                       </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Awesome</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>Partner</h4>
-                      </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
-                        <h4>SRRNgames</h4>
-                      </div>
+                    {{/each}}
                     </div>
                     <div class="infopanel">
+                    {{#each event in events}}
                       <div class="contactrow eventrow">
                         <img src="img/events.png">
-                        <h4>Meet about Day Won</h4>
+                        <h4>{{event.title}}</h4>
                       </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Go skydiving</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>Play video games</h4>
-                      </div>
-                      <div class="contactrow eventrow">
-                        <img src="img/events.png">
-                        <h4>QA BBTC</h4>
-                      </div>
+                    {{/each}}
                     </div>
                     <div class="infopanel selected">                      
                       <h5>Count: {{count}}</h5>

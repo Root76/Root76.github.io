@@ -462,7 +462,10 @@ function rebindEvents() {
             tagTitle = String(tagTitle);
             var data = {
                 tag: {
-                    name: tagTitle
+                    name: tagTitle,
+                    contact_ids: contactIds,
+                    event_ids: eventIds,
+                    task_ids: tagIds
                 }
             };
 			url = "http://daywon-api-staging.herokuapp.com/tags";
@@ -479,7 +482,10 @@ function rebindEvents() {
                     title: taskTitle,
                     notes: taskDesc,
                     status: false,
-                    due: taskDue
+                    due: taskDue,
+                    contact_ids: contactIds,
+                    event_ids: eventIds,
+                    tag_ids: tagIds
                 }
             };
 			url = "http://daywon-api-staging.herokuapp.com/tasks";
@@ -525,7 +531,10 @@ function rebindEvents() {
                     description: eventDesc,
                     location: eventLoc,
                     start_datetime: eventSt,
-                    end_datetime: eventEn
+                    end_datetime: eventEn,
+                    contact_ids: contactIds,
+                    task_ids: taskIds,
+                    tag_ids: tagIds
                 }
             };
 			url = "http://daywon-api-staging.herokuapp.com/events";
