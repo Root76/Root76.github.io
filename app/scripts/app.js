@@ -68,8 +68,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
   }
 });
 
@@ -180,12 +180,10 @@ App.ContactsController = Ember.ArrayController.extend({
 		this.set('sortProperties', sortProperties);
 		this.set('sortAscending', this.selectedSortOption.ascending);
 	}.observes('selectedSortOption'),
-	
     showOption: "allOpen",
 	sortProperty: "updated_at",
 	contactsToShow: function() { 
 		var option = this.get('showOption');
-		
 		var sorted;
 		switch (option) {
 		case "all":

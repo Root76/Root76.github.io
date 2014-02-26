@@ -1,0 +1,60 @@
+body {
+	top:0px;
+}
+
+nav {
+	display:none;
+}
+
+#mobileNav {
+	display:none;
+}
+
+#scrollblock {
+	display:none;
+}
+
+#preloader {
+	display:none;
+}
+
+.loggedin {
+	display:none;
+}
+
+#footer {
+	display:none;
+}
+
+#collapseall, #expandall {
+	display:none;
+}
+
+#dashcreate {
+	display:none;
+}
+
+#homecont {
+	padding-top:0px;
+}
+
+.dashlist {
+	margin:0px;
+	padding:0px;
+}
+
+.sortcont {
+	display:none !important;
+}
+
+#appcont h1 {
+	margin-top:0px;
+}
+
+#contactsdash {
+	display:none;
+}
+
+#showme, #sortby, #schedule {
+	display:none;
+}
