@@ -1270,6 +1270,24 @@
                   {{/if}}
                   </h4>
                 </div>
+                <div class="contactpropertiesrow" {{action "editField" "properties" on="doubleClick"}}>
+                  <h3 class="propertiesHeader">
+                    Custom Fields
+                    {{#if editing.properties}}<img src="img/create.png" {{action "addProperty"}}><img src="img/check.png" {{action "save"}}>{{/if}}
+                  </h3>
+                  <div class="propertiesList">
+                    {{#if editing.properties}}
+                      {{#each property in extended_properties}}
+                        <div class="key">{{input class="editField" type="text" value=property.key insert-newline="save"}}:</div><div class="value">{{input class="editField" type="text" value=property.value insert-newline="save"}}</div>
+                        <img src="img/trash.png" {{action "deleteProperty" _view.contentIndex}}><br/>
+                      {{/each}}
+                    {{else}}
+                      {{#each property in extended_properties}}
+                        <div class="key">{{property.key}}:</div><div class="value">{{property.value}}</div><br/>
+                      {{/each}}
+                    {{/if}}
+                  </div>
+                </div>
               </div>
               <div class="infopanel">
                 <div class="contactrow taskrow">
