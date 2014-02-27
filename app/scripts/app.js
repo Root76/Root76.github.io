@@ -553,14 +553,29 @@ App.Contact = DS.Model.extend({
     tasks: DS.attr('array'),
     tags: DS.attr('array'),
 
-    birthday: function() {
-    	var str = "N/A";
+    birthdayProperty: function() {
     	var properties = this.get('extended_properties') || [];
     	for (var i = 0; i < properties.length; i++) {
     		if (properties[i].key === "Birthday" || properties[i].key === "birthday")
-    			str = properties[i].value;
+    			return properties[i];
     	}
-    	return str;
+    	return null;
+    }.property('extended_properties', 'extended_properties.@each.key'),
+    birthday: function(key, value) {
+    	var birthdayProperty = this.get('birthdayProperty');
+	    if (arguments.length > 1) {
+			if (!birthdayProperty) { // add new properties row for Birthday
+	  			var newProperties = this.get('extended_properties').slice(0) || [];
+	  			newProperties.push({key:"Birthday", value:""});
+	  			this.set('extended_properties', newProperties); 				
+			}
+			this.set('birthdayProperty.value', value);
+	    }
+
+    	if (birthdayProperty) {
+    		return birthdayProperty.value;
+    	}
+    	return "N/A";
     }.property('extended_properties', 'extended_properties.@each.key', 'extended_properties.@each.value'),
     eventsCount: function() {
     	return this.get('events').length;

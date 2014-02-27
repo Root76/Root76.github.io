@@ -1153,9 +1153,15 @@
                     {{/if}}  
                   </h4>              
                 </div>
-                <div class="contactrow">
+                <div class="contactrow" {{action "editField" "birthday" on="doubleClick"}}>
                   <img src="img/birthday.png">
-                  <h4 id="bday">{{birthday}}</h4>
+                  <h4 id="bday">
+                  {{#if editing.birthday}}
+                    {{input class="editField" id="birthdayInput" type="text" value=birthday focus-out="save" insert-newline="save"}}
+                  {{else}}
+                    {{birthday}}
+                  {{/if}}
+                  </h4>
                 </div>
                 <div class="contactrow" {{action "editField" "address" on="doubleClick"}}>
                   <img src="img/location.png">
