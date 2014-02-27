@@ -872,10 +872,15 @@ App.CalendarRoute = Ember.Route.extend({
 	}
 });
 
+var calPopupTemplate = Handlebars.compile($('#calPopupTemplate').html());
 App.CalView = Ember.View.extend({
 	didInsertElement: function() {
-	    var json = this.get('controller.model').map(function(record) {
-            return record.toJSON();
+		var self = this;
+		var model = this.get('controller.model');
+	    var json = model.map(function(record) {
+	    	var json = record.toJSON();
+	    	json.id = record.id;
+            return json;
         });
         for (var i = 0; i < json.length; i++) {
         	if (json[i].hasOwnProperty("start_datetime")) {
@@ -893,32 +898,27 @@ App.CalView = Ember.View.extend({
 	        },
 	        events: json,
 	        eventClick: function(calEvent, jsEvent, view) {
+		        var calElement = this;
 
-		        //console.log('Event: ' + calEvent.title);
-		        //console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-		        //console.log('View: ' + view.name);
+				model.store.find('event', calEvent.id).then(function(event) { 
+					event.reload().then(function(reloadedEvent) { // wait for related tags to be pulled
+				        calEvent.start_formatted = moment(calEvent.start).format('MMMM Do YYYY, h:mm:ss a');
+				        calEvent.end_formatted = moment(calEvent.end).format('MMMM Do YYYY, h:mm:ss a');
+				        calEvent.tags = reloadedEvent.get('tags');
+				        var eventInfo = calPopupTemplate(calEvent);
 
-		        var calDate = calEvent.start;
-		        calDate = moment(calDate).format('MM/DD/YYYY');
-
-		        var calStart = calEvent.start;
-		        calStart = moment(calStart).format('MMMM Do YYYY, h:mm:ss a');
-
-		        var calEnd = calEvent.end;
-		        calEnd = moment(calEnd).format('MMMM Do YYYY, h:mm:ss a');
-
-		        var eventInfo = '<h2>' + calEvent.title + '</h2><h3>' + calDate + '</h3><div class="calPopupTags"><ul><li><img src="img/tags.png"><span>Lunch</span></li><li><img src="img/tags.png"><span>Party</span></li></ul></div><div class="calPopupCont"><p><b>Event description:</b> ' + calEvent.description + '</p><p><b>Event start:</b> ' + calStart + '</p><p><b>Event end:</b> ' + calEnd + '</div>';
-
-		        new Opentip(this, eventInfo, {
-            		style: "calitem",
-            		showOn: "creation",
-            		hideTrigger: "closeButton",
-            		className: "calevent",
-            		background: "#88c44c",
-            		closeButtonRadius: 15,
-            		closeButtonCrossSize: 10,
-            		closeButtonCrossColor: "#ffffff"
-        		});
+				        new Opentip(calElement, eventInfo, {
+		            		style: "calitem",
+		            		showOn: "creation",
+		            		hideTrigger: "closeButton",
+		            		className: "calevent",
+		            		background: "#88c44c",
+		            		closeButtonRadius: 15,
+		            		closeButtonCrossSize: 10,
+		            		closeButtonCrossColor: "#ffffff"
+		        		});
+					});
+				});
 		    }
    		});
     }
