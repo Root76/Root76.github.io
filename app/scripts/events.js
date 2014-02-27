@@ -749,7 +749,15 @@ function rebindEvents() {
       /*className: "myStyle",
       background: "#000"*/
     };
-    Opentip.styles.success = {
+    Opentip.styles.lefttip = {
+      tipJoint: "right",
+      group: "tags",
+      target: true,
+      delay: 0,
+      offset: [10, -140]
+      /*className: "myStyle",
+      background: "#000"*/
+    };    Opentip.styles.success = {
       tipJoint: "top",
       target: true,
       offset: [0, -140],
@@ -858,6 +866,75 @@ function rebindEvents() {
     if ($('.small-create-icon').length) {
         new Opentip(".small-create-icon", "Create", {
             style: "toptip"
+        });
+    }
+    if ($('#contactcontent').length) {
+    	var contactImages = $('#contactcontent .infopanel:first-child img');
+    	new Opentip(contactImages[0], "Phone Number", {
+            style: "lefttip"
+        });
+    	new Opentip(contactImages[1], "Send Email", {
+            style: "lefttip"
+        });
+        new Opentip(contactImages[3], "Birthday", {
+            style: "lefttip"
+        });
+        new Opentip("#locationImage", "Location", {
+            style: "lefttip"
+        });
+    }
+    if ($('.contactDetails').length) {
+        var slideImages = $('.contactgroup img');
+        new Opentip(slideImages[0], "Email Address", {
+            style: "lefttip"
+        });
+        new Opentip(slideImages[1], "View Emails", {
+            style: "lefttip"
+        });
+        new Opentip(slideImages[2], "Phone Number", {
+            style: "lefttip"
+        });
+        new Opentip(slideImages[3], "Birthday", {
+            style: "lefttip"
+        });
+        new Opentip(slideImages[4], "Location", {
+            style: "lefttip"
+        });
+        new Opentip(slideImages[5], "Related Events", {
+            style: "lefttip"
+        });
+        new Opentip(slideImages[6], "Related Tasks", {
+            style: "lefttip"
+        });
+        new Opentip(slideImages[7], "Related Tags", {
+            style: "lefttip"
+        });
+    }
+    if ($('.itemcounts').length) {
+    	var settingIcons = $('.itemcount');
+    	new Opentip(settingIcons[0], "Contacts", {
+            style: "lefttip"
+        });
+    	new Opentip(settingIcons[1], "Events", {
+            style: "lefttip"
+        });
+    	new Opentip(settingIcons[2], "Tasks", {
+            style: "lefttip"
+        });
+    	new Opentip(settingIcons[3], "Tags", {
+            style: "lefttip"
+        });
+    }
+    if ($('.taggedObjects').length) {
+    	var taggedItems = $('.taggedObjects img');
+        new Opentip(taggedItems[0], "Related Events", {
+            style: "lefttip"
+        });
+        new Opentip(taggedItems[1], "Related Tasks", {
+            style: "lefttip"
+        });
+        new Opentip(taggedItems[2], "Related Tags", {
+            style: "lefttip"
         });
     }
     setTimeout(function(){

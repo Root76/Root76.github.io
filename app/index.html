@@ -1043,7 +1043,7 @@
                   <h4 id="bday"></h4>
                 </div>
                 <div class="contactrow">
-                  <img src="img/location.png">          
+                  <img id="locationImage" src="img/location.png">          
                   <h4 class="contactlocation"></h4>                   
                 </div>
               </div>
@@ -1158,7 +1158,7 @@
                   <h4 id="bday">{{birthday}}</h4>
                 </div>
                 <div class="contactrow" {{action "editField" "address" on="doubleClick"}}>
-                  <img src="img/location.png">
+                  <img id="locationImage" src="img/location.png">
                   <h4 class="contactlocation">
                   {{#if editing.address}}
                   	{{input class="editField" id="addressInput" type="text" value=address focus-out="save" insert-newline="save"}}
@@ -1229,7 +1229,7 @@
               <div class="col-md-4 dCol" id="dCol1">
                 <img class="columnDivider" src="img/divider_blue.png" />
                 <h1>{{name}}</h1>
-                <div class="contactgroup">
+                <div class="contactgroup contactDetails">
                   <div class="contactitem">
                     <img src="img/email.png" />
                     <span>{{email}}</span>
@@ -2033,15 +2033,15 @@
                       <img class="columnDivider" src="img/divider_yellow.png" />
                       <h1>{{name}}</h1>
                       <div class="contactgroup relatedObjects">
-                        <div class="contactitem">
+                        <div class="contactitem taggedObjects">
                           <img src="img/events.png" />
                           <span>(7)</span>
                         </div>
-                        <div class="contactitem">
+                        <div class="contactitem taggedObjects">
                           <img src="img/tasks.png" />
                           <span>(9)</span>
                         </div>
-                        <div class="contactitem">
+                        <div class="contactitem taggedObjects">
                           <img src="img/tags.png" />
                           <span>(14)</span>
                         </div>
