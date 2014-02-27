@@ -2123,6 +2123,9 @@
                 </div>
         </script>
         <script type="text/x-handlebars" id="orphans">
+          {{outlet}}
+        </script>
+        <script type="text/x-handlebars" id="orphans/index">
           <div id="appcont" class="orphancont">
             <img id="orphanlogo" src="img/orphans.png" />
             <h1 id="orphanhead">Orphans (3)</h1>
@@ -2157,11 +2160,11 @@
                     </div>
                   </div>
                   <ul id="eventlist" class="sidelist">
-                    {{#each event in eventsToShow}}
+                    {{#each event in events}}
                       {{#if event.title}}
-                        {{#link-to 'orphans.events.event' event}}<li>{{event.title}}</li>{{/link-to}}
+                        <li>{{event.title}}</li>
                       {{/if}}
-                    {{/each}}        
+                    {{/each}}
                   </ul>
                 </div>
                 {{outlet}}

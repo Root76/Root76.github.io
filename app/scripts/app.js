@@ -498,6 +498,20 @@ App.ArrayTransform = DS.Transform.extend({
 });
 App.ApplicationSerializer = DS.RESTSerializer.extend({
   normalizePayload: function(type, payload) {
+  	if (payload.modifiable) {
+  		delete payload.modifiable;
+  		console.log("modifiable deleted");
+  	} else {
+  		console.log("modifiable not deleted");
+  	}
+  	if (payload.table) {
+  		payload.orphans = payload.table;
+  		delete payload.table;
+  		console.log("deleted table");
+  		console.log(payload.orphans);
+  	} else {
+  		console.log("table not deleted");
+  	}
   	var typeKey = type.typeKey;
   	if (!typeKey[typeKey.length - 1] !== 's')
   		typeKey += 's';
@@ -606,38 +620,27 @@ App.Tag = DS.Model.extend({
 	}.property('contacts', 'events', 'tasks')
 });
 
-/*App.RelatedContact = DS.Model.extend({
-	name: DS.attr('string')
-});
-
-App.RelatedEvent = DS.Model.extend({
-	title: DS.attr('string'),
-	contact: DS.belongsTo('contact'),
-	task: DS.belongsTo('task'),
-	tag: DS.belongsTo('tag')
-});
-
-App.RelatedTask = DS.Model.extend({
-	title: DS.attr('string'),
-	contact: DS.belongsTo('contact')
-});
-
-App.RelatedTag = DS.Model.extend({
-	name: DS.attr('string'),
-	contact: DS.belongsTo('contact')
-});*/
-
 App.Orphan = DS.Model.extend({
-	title: DS.attr('string')
+	events: DS.attr('array'),
+	tasks: DS.attr('array'),
+	tags: DS.attr('array')
 });
 
-App.Table = DS.Model.extend({
-	title: DS.attr('string')
+App.Orphans = DS.Model.extend({
+	events: DS.attr('array'),
+	tasks: DS.attr('array'),
+	tags: DS.attr('array')
+});
+
+/*App.Table = DS.Model.extend({
+	events: DS.attr('array'),
+	tasks: DS.attr('array'),
+	tags: DS.attr('array')
 });
 
 App.Modifiable = DS.Model.extend({
 	title: DS.attr('boolean')
-});
+});*/
 
 /*Routes*/
 
@@ -848,30 +851,18 @@ App.TagsTagRoute = Ember.Route.extend({
 App.OrphaneventsRoute = Ember.Route.extend({
 	model: function() {
 		return this.get('store').find('orphan');
-	},
-	setupController: function(controller, model) {
-		controller.set('model', model);
-        this.controllerFor('events').set('model', model);
 	}
 });
 
 App.OrphantasksRoute = Ember.Route.extend({
 	model: function() {
 		return this.get('store').find('orphan');
-	},
-	setupController: function(controller, model) {
-		controller.set('model', model);
-        this.controllerFor('tasks').set('model', model);
 	}
 });
 
 App.OrphantagsRoute = Ember.Route.extend({
 	model: function() {
 		return this.get('store').find('orphan');
-	},
-	setupController: function(controller, model) {
-		controller.set('model', model);
-        this.controllerFor('tags').set('model', model);
 	}
 });
 
