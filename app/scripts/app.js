@@ -734,7 +734,8 @@ App.TasksTaskRoute = Ember.Route.extend({
   	},
   	setupController: function(controller, model){
   		controller.set('model', model);
-    	model.reload();
+  		if (model.reload)
+    		model.reload();
   	},
   	actions: {
         toggleCompleted: function(){
@@ -762,7 +763,8 @@ App.EventsEventRoute = Ember.Route.extend({
     },
   	setupController: function(controller, model){
   		controller.set('model', model);
-    	model.reload();
+  		if (model.reload)
+    		model.reload();
   	}
 }, IndividualObjectRoute);
 
@@ -786,7 +788,8 @@ App.ContactsContactRoute = Ember.Route.extend({
   	},
   	setupController: function(controller, model){
   		controller.set('model', model);
-    	model.reload();
+  		if (model.reload)
+    		model.reload();
   	},
   	actions: {
   		addProperty: function(){
@@ -821,7 +824,8 @@ App.TagsTagRoute = Ember.Route.extend({
   	},
   	setupController: function(controller, model){
   		controller.set('model', model);
-    	model.reload();
+  		if (model.reload)
+    		model.reload();
   	}
 }, IndividualObjectRoute);
 
