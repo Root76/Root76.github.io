@@ -1247,8 +1247,8 @@
                   </h4>
                 </div>
                 <div class="contactrow" {{action "editField" "email" on="doubleClick"}}>
-                  <a href="" target="_blank" class="dynamicEmail desktopEmail" style="z-index: 9999999;"><img src="img/openmail.png"></a>
-               		<a href="" class="dynamicEmail mobileEmail" style="z-index: 9999999;"><img src="img/openmail.png"></a>
+                  <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png"></a>
+               		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
                   <h4 class="emailfield">
                     {{#if editing.email}}
                     	{{input class="editField" id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
@@ -1293,7 +1293,7 @@
               <div class="infopanel">
                 {{#each task in tasks}}
                 <div class="contactrow taskrow">
-                  <img src="img/tasks.png">
+                  {{#link-to 'tasks.task' task}}<img src="img/tasks.png">{{/link-to}}
                   <h4>{{task.title}}</h4>
                 </div>
                 {{/each}}
@@ -1547,7 +1547,7 @@
             <div class="infopanel">
             {{#each contact in contacts}}
               <div class="contactrow personrow">
-                <img src="img/contact.png">
+                {{#link-to 'contacts.contact' contact}}<img src="img/contact.png">{{/link-to}}
                 <h4>{{contact.name}}</h4>
               </div>
             {{/each}}
@@ -1555,7 +1555,7 @@
             <div class="infopanel">
             {{#each task in tasks}}
               <div class="contactrow taskrow">
-                <img src="img/tasks.png">
+                {{#link-to 'tasks.task' task}}<img src="img/tasks.png">{{/link-to}}
                 <h4>task.title</h4>
               </div>
             {{/each}}
@@ -1601,7 +1601,7 @@
             <div class="infopanel">
             {{#each tag in tags}}
               <div class="contactrow tagrow">
-                <img src="img/tags.png">
+                {{#link-to 'tags.tag' tag}}<img src="img/tags.png">{{/link-to}}
                 <h4>{{tag.name}}</h4>
               </div>
             {{/each}}
@@ -1836,7 +1836,7 @@
                     <div class="infopanel">
                       {{#each contact in contacts}}
                       <div class="contactrow personrow">
-                        <img src="img/contact.png">
+                        {{#link-to 'contacts.contact' contact}}<img src="img/contact.png">{{/link-to}}
                         <h4>{{contact.name}}</h4>
                       </div>
                       {{/each}}
@@ -1868,7 +1868,7 @@
                     <div class="infopanel">
                     {{#each event in events}}
                       <div class="contactrow eventrow">
-                        <img src="img/events.png">
+                        {{#link-to 'events.event' event}}<img src="img/events.png">{{/link-to}}
                         <h4>{{event.title}}</h4>
                       </div>
                     {{/each}}
@@ -1876,7 +1876,7 @@
                     <div class="infopanel">
                     {{#each tag in tags}}
                       <div class="contactrow tagrow">
-                        <img src="img/tags.png">
+                        {{#link-to 'tags.tag' tag}}<img src="img/tags.png">{{/link-to}}
                         <h4>Evenspring</h4>
                       </div>
                     {{/each}}
@@ -2095,7 +2095,7 @@
                     <div class="infopanel">
                     {{#each contact in contacts}}
                       <div class="contactrow personrow">
-                        <img src="img/contact.png">
+                        {{#link-to 'contacts.contact' contact}}<img src="img/contact.png">{{/link-to}}
                         <h4>{{contact.name}}</h4>
                       </div>
                     {{/each}}
@@ -2103,7 +2103,7 @@
                     <div class="infopanel">
                     {{#each task in tasks}}
                       <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
+                        {{#link-to 'tasks.task' task}}<img src="img/tasks.png">{{/link-to}}
                         <h4>{{task.title}}</h4>
                       </div>
                     {{/each}}
@@ -2111,7 +2111,7 @@
                     <div class="infopanel">
                     {{#each event in events}}
                       <div class="contactrow eventrow">
-                        <img src="img/events.png">
+                        {{#link-to 'events.event' event}}<img src="img/events.png">{{/link-to}}
                         <h4>{{event.title}}</h4>
                       </div>
                     {{/each}}

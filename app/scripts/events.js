@@ -465,7 +465,7 @@ function rebindEvents() {
                     name: tagTitle,
                     contact_ids: contactIds,
                     event_ids: eventIds,
-                    task_ids: tagIds
+                    task_ids: taskIds
                 }
             };
 			url = "http://daywon-api-staging.herokuapp.com/tags";
