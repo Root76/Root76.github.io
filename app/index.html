@@ -2129,6 +2129,27 @@
               {{#link-to 'orphantags'}}<img src="img/tags.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
             </div>
             <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
+            <ul>
+            {{#each event in events}}
+              {{#if event.title}}
+                <li class="eventCounter">{{event.title}}</li>
+              {{/if}}
+            {{/each}}
+            </ul>
+            <ul>
+            {{#each task in tasks}}
+              {{#if task.title}}
+                <li class="taskCounter">{{task.title}}</li>
+              {{/if}}
+            {{/each}}
+            </ul>
+            <ul>
+            {{#each tag in tags}}
+              {{#if tag.name}}
+                <li class="tagCounter">{{tag.name}}</li>
+              {{/if}}
+            {{/each}}
+            </ul>
           </div>
         </script>
         <script type="text/x-handlebars" id="orphanevents">

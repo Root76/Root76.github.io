@@ -1867,6 +1867,10 @@ border: 1px solid #999;
 margin-bottom: 10px;
 }
 
+.eventCounter, .taskCounter, .tagCounter {
+	display:none;
+}
+
 .formrow {
 	width:100%;
 }
