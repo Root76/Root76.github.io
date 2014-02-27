@@ -1362,6 +1362,10 @@ to {
 	overflow-x:hidden;
 }
 
+#contactpanel2 .panelcontent {
+	height:410px;
+}
+
 .panelcontent p {
 	position:absolute;
 	top:10px;
@@ -2289,6 +2293,8 @@ font-family:'Open Sans', sans-serif;
 	display: inline-block;
 	width: 200px;
 	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 10px;
 }
 .contactpropertiesrow .value {
 	display: inline-block;
