@@ -478,6 +478,7 @@
                     <h3 class="mainsort">
                       {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="listimg" />{{/link-to}}
                       {{task.title}}
+                      <img src="img/check.png" class="checkmark" {{bind-attr completed="task.status"}}/>
                       <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     </h3>
                     <div class="subitems">

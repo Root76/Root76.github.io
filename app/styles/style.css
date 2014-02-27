@@ -208,6 +208,14 @@ hr {
   opacity:.4;
 }
 
+.checkmark {
+	opacity: 0;
+	width: 50px;
+}
+.checkmark[completed] {
+	opacity: 1;
+}
+
 .accordionarrow {
 	width: 25px;
 	position: relative;
@@ -1485,7 +1493,7 @@ to {
 }
 
 #eventlist .currentcontact {
-	background:#b2d03a;
+    background:#e35d32;
 }
 
 #taglist .currentcontact {
