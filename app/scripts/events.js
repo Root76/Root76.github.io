@@ -203,6 +203,7 @@ function rebindEvents() {
         var phoneNo = $('.phonenumber');
         var contLoc = $('.contactlocation');
         var eField = $('.emailfield');
+        var clickedRow = $(event.target).closest('li');
         $('.phonenumber.selected').removeClass('selected');
         $(phoneNo[itemList]).addClass('selected');
         $('.contactlocation.selected').removeClass('selected');
@@ -211,10 +212,9 @@ function rebindEvents() {
         $(detailsList[itemList]).addClass("selected");
         $('.emailfield.selected').removeClass('selected');
         $(eField[itemList]).addClass('selected');
-        //$("#contactname").html($(event.target).html());
         $('.currentcontact').removeClass("currentcontact");
-        $(event.target).addClass("currentcontact");
-        var splitString = $(event.target).html().split(" ");
+        clickedRow.addClass("currentcontact");
+        var splitString = clickedRow.html().split(" ");
         var splitString1 = splitString[0].toLowerCase();
         if (splitString.length > 1) {
             var splitString2 = splitString[1].toLowerCase();

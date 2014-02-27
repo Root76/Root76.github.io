@@ -1196,6 +1196,18 @@ color: #ec8f38;
 	background:#88c44c;
 }
 
+#tasklist img {
+	opacity: 0;
+	width: 40px;
+	position: relative;
+	left: 0px;
+	top: -10px;
+	margin-left: -30px;
+}
+#tasklist img.completed {
+	opacity: 1;
+}
+
 #eventlist li:hover {
 	background:#e35d32;
 }

@@ -1516,7 +1516,7 @@
                   <ul id="tasklist" class="sidelist">
                     {{#each task in controller}}
                       {{#if task.title}}
-                        {{#link-to 'tasks.task' task}}<li>{{task.title}}</li>{{/link-to}}
+                        {{#link-to 'tasks.task' task}}<li><img src="img/check.png" {{bind-attr class="task.status:completed"}} />{{task.title}}</li>{{/link-to}}
                       {{/if}}
                     {{/each}}           
                   </ul>
