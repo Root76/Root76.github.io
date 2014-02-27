@@ -1798,29 +1798,17 @@
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
                       <img class="columnDivider" src="img/divider_green.png" />
-                      <h1>Make a doctor's appointment</h1>
+                      <h1>{{title}}</h1>
                       <h4>Ryan needs to have his physical completed before school starts.</h4>
                       <div id="relatedTags">
+                        {{#each tag in tags}}
+                        {{#if tag.name}}
                         <div class="relatedItem">
                           <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Ember.js</span>
+                          <span class="relatedName">{{tag.name}}</span>
                         </div>
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Rails</span>
-                        </div>
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Day Won</span>
-                        </div>
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Bootstrap</span>
-                        </div>
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Evenspring</span>
-                        </div>                      
+                        {{/if}}
+                        {{/each}}
                       </div>
                     </div>
                     <div class="col-md-4 dCol" id="dCol2">
@@ -1833,22 +1821,21 @@
                       <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
-                          <li>Ryan Barber</li>
-                          <li>Caroline Beckert</li>
-                          <li>Tyler Carbone</li>
+                        {{#each event in events}}
+                          {{#if event.title}}
+                          <li>{{event.title}}</li>
+                          {{/if}}
+                        {{/each}}
                         </ul>
                       </div>
                       <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
-                          <li>Ryan Barber</li>
-                          <li>Caroline Beckert</li>
-                          <li>Tyler Carbone</li>
-                          <li>JP Bonner</li>
-                          <li>Elizabeth Hatzi</li>
-                          <li>Harris Weaver</li>
-                          <li>Momin Khan</li>
-                          <li>Aujang Abadi</li>
+                        {{#each event in events}}
+                          {{#if event.title}}
+                          <li>{{event.title}}</li>
+                          {{/if}}
+                        {{/each}}
                         </ul>
                       </div>      
                     </div>
@@ -1861,19 +1848,21 @@
                       <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
-                          <li>Buy a present</li>
-                          <li>Bake a cake</li>
+                        {{#each contact in contacts}}
+                          {{#if contact.name}}
+                          <li>{{contact.name}}</li>
+                          {{/if}}
+                        {{/each}}
                         </ul>
                       </div>
                       <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
-                          <li>Cut the grass</li>
-                          <li>Finish Day Won</li>
-                          <li>Write TPS Reports</li>
-                          <li>Attend the meeting</li>
-                          <li>Eat dinner</li>
-                          <li>Go to the gym</li>
+                        {{#each contact in contacts}}
+                          {{#if contact.name}}
+                          <li>{{contact.name}}</li>
+                          {{/if}}
+                        {{/each}}
                         </ul>
                       </div>
                     </div>
@@ -2046,7 +2035,7 @@
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
                       <img class="columnDivider" src="img/divider_yellow.png" />
-                      <h1>Day Won</h1>
+                      <h1>{{name}}</h1>
                       <div class="contactgroup relatedObjects">
                         <div class="contactitem">
                           <img src="img/events.png" />
@@ -2072,22 +2061,21 @@
                       <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
-                          <li>Ryan Barber</li>
-                          <li>Caroline Beckert</li>
-                          <li>Tyler Carbone</li>
+                          {{#each event in events}}
+                          {{#if event.title}}
+                            <li>{{event.title}}</li>
+                          {{/if}}
+                          {{/each}}
                         </ul>
                       </div>
                       <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
-                          <li>Ryan Barber</li>
-                          <li>Caroline Beckert</li>
-                          <li>Tyler Carbone</li>
-                          <li>JP Bonner</li>
-                          <li>Elizabeth Hatzi</li>
-                          <li>Harris Weaver</li>
-                          <li>Momin Khan</li>
-                          <li>Aujang Abadi</li>
+                          {{#each event in events}}
+                          {{#if event.title}}
+                            <li>{{event.title}}</li>
+                          {{/if}}
+                          {{/each}}
                         </ul>
                       </div>                 
                     </div>
@@ -2100,19 +2088,19 @@
                       <div class="detailSection">
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
-                          <li>Buy a present</li>
-                          <li>Bake a cake</li>
+                          {{#each contact in contacts}}
+                          {{#if contact.name}}
+                            <li>{{contact.name}}</li>
+                          {{/if}}
+                          {{/each}}
                         </ul>
                       </div>
                       <div class="detailSection">
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
-                          <li>Cut the grass</li>
-                          <li>Finish Day Won</li>
-                          <li>Write TPS Reports</li>
-                          <li>Attend the meeting</li>
-                          <li>Eat dinner</li>
-                          <li>Go to the gym</li>
+                          {{#each contact in contacts}}
+                            <li>{{contact.name}}</li>
+                          {{/each}}
                         </ul>
                       </div>
                     </div>
