@@ -1094,13 +1094,13 @@ setTimeout(function(){
 
                 var id = datum.id;
                 if (datum.hasOwnProperty('organization')) { // contact
-                    document.location.href = './#/contacts/' + id;
+                    document.location.href = document.location.href.split('#')[0] + '#/contacts/' + id;
                 } else if (datum.hasOwnProperty('start_datetime')) { // event
-                    document.location.href = './#/events/' + id;
+                    document.location.href = document.location.href.split('#')[0] + '#/events/' + id;
                 } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
-                    document.location.href = './#/tasks/' + id;
+                    document.location.href = document.location.href.split('#')[0] + '#/tasks/' + id;
                 } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
-                    document.location.href = './#/tags/' + id;
+                    document.location.href = document.location.href.split('#')[0] + '#/tags/' + id;
                 } else { // invalid
                 }
             });

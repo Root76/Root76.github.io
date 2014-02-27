@@ -2858,7 +2858,7 @@
           <div class="calPopupTags">
             <ul>
               {{#each tags}}
-                <a href="./#/tags/{{id}}"><li><img src="img/tags.png"><span>{{name}}</span></li></a>
+                <a href="javascript:void(0)" onclick="transitionToTag({{id}});"><li><img src="img/tags.png"><span>{{name}}</span></li></a>
               {{/each}}
             </ul>
           </div>
