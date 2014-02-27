@@ -3257,6 +3257,11 @@ function _findAll(adapter, store, type, sinceToken) {
       serializer = serializerForAdapter(adapter, type);
 
   return resolve(promise, "DS: Handle Adapter#findAll of " + type).then(function(payload) {
+    if (payload.table) {
+      payload = serializer.extract(store, type, payload, null, 'find');
+      payload.id = 1;
+      return store.push(type, payload);
+    }
     payload = serializer.extract(store, type, payload, null, 'findAll');
 
     Ember.assert("The response from a findAll must be an Array, not " + Ember.inspect(payload), Ember.typeOf(payload) === 'array');
