@@ -932,13 +932,11 @@ setTimeout(function(){
             "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
-    var cacheTime = 5000;
     var contacts = new Bloodhound({
       datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/contacts',
-        ttl: cacheTime,
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.contacts;
@@ -950,7 +948,6 @@ setTimeout(function(){
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/events',
-        ttl: cacheTime,
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.events;
@@ -962,7 +959,6 @@ setTimeout(function(){
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/tasks',
-        ttl: cacheTime,
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.tasks;
@@ -974,7 +970,6 @@ setTimeout(function(){
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/tags',
-        ttl: cacheTime,
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.tags;
@@ -997,7 +992,18 @@ setTimeout(function(){
     events.initialize();
     tasks.initialize();
     tags.initialize();
-    //orphans.initialize();
+    var localStorageClearInterval = 5000;
+    setInterval(function() {
+        localStorage.clear();
+        contacts.index.datums = [];
+        contacts._loadPrefetch(contacts.prefetch);
+        events.index.datums = [];
+        events._loadPrefetch(events.prefetch);
+        tasks.index.datums = [];
+        tasks._loadPrefetch(tasks.prefetch);
+        tags.index.datums = [];
+        tags._loadPrefetch(tags.prefetch);
+    }, localStorageClearInterval);
 
     var contactsDatasource = {
         name: 'Contacts',
@@ -1079,7 +1085,6 @@ setTimeout(function(){
         .on('typeahead:selected', onTypeaheadSelected);
     $("#typeAheadTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
-
 
     window.bindSearchField = function(a, b, c) {
         var searchAll = $("#searchAll");
