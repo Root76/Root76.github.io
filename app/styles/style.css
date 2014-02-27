@@ -1758,6 +1758,20 @@ to {
 	height:25px !important;
 }
 
+#calToday {
+	float: right;
+	position: absolute;
+	top: 49px;
+	right: 670px;
+	cursor: pointer;
+}
+#calToday:hover {
+	background: #70676a;
+}
+#calToday img {
+	width: 50px;
+}
+
 #printimg {
 	float:right;
 	width: 30px;

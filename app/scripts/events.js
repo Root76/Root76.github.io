@@ -597,6 +597,10 @@ function rebindEvents() {
         }
     });
 
+    $('#calToday').click(function() {
+        $('.fc').fullCalendar('today');
+    });
+
     $('#detailmenubar > img').click(function(event){
         var viewChoice = $('.infopanel');
         $('.infopanel.selected').removeClass('selected');
