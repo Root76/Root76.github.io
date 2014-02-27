@@ -529,7 +529,26 @@ App.Contact = DS.Model.extend({
     updated_at: DS.attr('date'),
     events: DS.attr('array'),
     tasks: DS.attr('array'),
-    tags: DS.attr('array')
+    tags: DS.attr('array'),
+
+    birthday: function() {
+    	var str = "N/A";
+    	var properties = this.get('extended_properties') || [];
+    	for (var i = 0; i < properties.length; i++) {
+    		if (properties[i].key === "Birthday" || properties[i].key === "birthday")
+    			str = properties[i].value;
+    	}
+    	return str;
+    }.property('extended_properties'),
+    eventsCount: function() {
+    	return this.get('events').length;
+    }.property('events'),
+    tasksCount: function() {
+    	return this.get('tasks').length;
+    }.property('tasks'),
+    tagsCount: function() {
+    	return this.get('tags').length;
+    }.property('tags'),
 });
 
 App.Event = DS.Model.extend({
