@@ -1298,10 +1298,12 @@
               </div>
               <div class="infopanel">
                 {{#each event in events}}
+                  {{#if event.title}}
                   <div class="contactrow eventrow">
                     <img src="img/events.png">
                     <h4>{{event.title}}
                   </div>
+                  {{/if}}
                 {{/each}}
               </div>
               <div class="infopanel">
@@ -2332,39 +2334,47 @@
                 </div>
         </script>
         <script type="text/x-handlebars" id="orphantasks">
-          <div class="mobileCover" id="eventsCover"></div>
+          <div class="mobileCover" id="tasksCover"></div>
           <div id="appcont" class="viewcont">
             <div class="section-container" id="taskscont">
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding">Orphan Tasks (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount">0</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
                   <div class="filtercolumn contactpadding">
-                    <h4>Show:</h4>
+                    <h4>Sort by:</h4>
                     <div class="contsort">
                     {{view Ember.Select 
-                       content=showOptions
+                       class="listSorter" 
+                       id="taskSort"
+                       content=sortOptions
                        optionLabelPath="content.label"
-                       optionValuePath="content.id"
-                       selection=selectedShowOption}}
+                       optionValuePath="content.primarySort"
+                       selection=selectedSortOption}}
                     </div>
                   </div>
-                  <ul id="eventlist" class="sidelist">
+                  <button class="sortingToggle" id="byDate" {{action sortDate}}>Sort</button>
+                  <button class="sortingToggle" id="byPriority" {{action sortPriority}}>Sort</button>
+                  <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
+                  <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
+                  <ul id="tasklist" class="sidelist">
                     {{#each task in tasks}}
+                      {{#if task.title}}
                         <li>{{task.title}}</li>
-                    {{/each}}
+                      {{/if}}
+                    {{/each}}           
                   </ul>
                 </div>
                 {{outlet}}
                 <div id="detailPanel" class="panelIn">
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
-                      <img class="columnDivider" src="img/divider_orange.png" />
-                      <h1>Day Won Standup Meeting</h1>
-                      <h4>Discuss our progress on the Day Won project and address potential needs</h4>
+                      <img class="columnDivider" src="img/divider_green.png" />
+                      <h1>Make a doctor's appointment</h1>
+                      <h4>Ryan needs to have his physical completed before school starts.</h4>
                       <div id="relatedTags">
                         <div class="relatedItem">
                           <img src="img/tags.png" class="relatedImage"/>
@@ -2389,10 +2399,10 @@
                       </div>
                     </div>
                     <div class="col-md-4 dCol" id="dCol2">
-                      <img class="columnDivider" src="img/divider_orange.png" />
+                      <img class="columnDivider" src="img/divider_green.png" />
                       <div class="columnhead">
-                        <img src="img/contact.png" />
-                        <h3>Contacts</h3>
+                        <img src="img/events.png" />
+                        <h3>Events</h3>
                       </div>
                       <br />
                       <div class="detailSection">
@@ -2415,12 +2425,12 @@
                           <li>Momin Khan</li>
                           <li>Aujang Abadi</li>
                         </ul>
-                      </div>
+                      </div>      
                     </div>
                     <div class="col-md-4 dCol" id="dCol3">
                       <div class="columnhead">
-                        <img src="img/tasks.png" />
-                        <h3>Tasks</h3>
+                        <img src="img/contact.png" />
+                        <h3>Contacts</h3>
                       </div>
                       <br />
                       <div class="detailSection">
@@ -2445,27 +2455,27 @@
                   </div>
                 </div>
                 <div id="detailPanelHider"></div>
-                <div class="col-md-1 flipswitch fsorange">
-                  <img src="img/fliparrow_orange.png" id="fliparrow"/>
+                <div class="col-md-1 flipswitch fsgreen">
+                  <img src="img/fliparrow_green.png" id="fliparrow"/>
                 </div>
               </div>
             </div>
           </div>
         </script>
         <script type="text/x-handlebars" id="orphantasks/index">
-                <div class="col-md-7" id="eventpanel2">
-                  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+                <div class="col-md-7" id="taskpanel2">
+                  <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="eventname">Mom's Birthday</h2>
+                  <h2 id="contactname" class="taskname contacttext">Select a task</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
-                    <img src="img/events.png" class="selected" />
-                    <img src="img/tasks.png" />
-                    <img src="img/tags.png" /> 
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+                    <img src="img/events.png" />
+                    <img src="img/tasks.png" class="selected" />
+                    <img src="img/tags.png" />   
+                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTask" /></a>
                     <img src="img/trash.png" id="trashicon"/>              
                   </div>
-                  <div class="panelcontent" id="eventscontent">              
+                  <div class="panelcontent" id="taskscontent">
                     <div class="infopanel">
                       <div class="contactrow personrow">
                         <img src="img/contact.png">
@@ -2484,26 +2494,26 @@
                         <h4>Lauren Morton</h4>
                       </div>
                     </div>
+                    <div class="infopanel selected">
+                      <p class="textrow"><br />Due:</p>
+                    </div>
                     <div class="infopanel">
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
                         <h4>Meet about Day Won</h4>
                       </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
                         <h4>Go skydiving</h4>
                       </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
                         <h4>Play video games</h4>
                       </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
                         <h4>QA BBTC</h4>
                       </div>
-                    </div>
-                    <div class="infopanel selected">
-                      <p class="textrow" style="line-height:32px"><b>Description: </b><br /><b>Location: </b><br /><b>Event Start: </b><br /><b>Event End: </b></p>
                     </div>
                     <div class="infopanel">
                       <div class="contactrow tagrow">
@@ -2527,67 +2537,60 @@
                 </div>
         </script>
         <script type="text/x-handlebars" id="orphantags">
-          <div class="mobileCover" id="eventsCover"></div>
+          <div class="mobileCover" id="tagsCover"></div>
           <div id="appcont" class="viewcont">
             <div class="section-container" id="taskscont">
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding">Orphan Tags (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount">0</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
                     <div class="contsort">
-                    {{view Ember.Select 
-                       content=showOptions
+                    {{view Ember.Select
+                       content=sortOptions
                        optionLabelPath="content.label"
                        optionValuePath="content.id"
-                       selection=selectedShowOption}}
+                       selection=selectedSortOption}}
                     </div>
                   </div>
-                  <ul id="eventlist" class="sidelist">
+                  <ul id="taglist" class="sidelist">
                     {{#each tag in tags}}
-                        <li>{{tag.name}}</li>
-                    {{/each}}
+                      {{#if tag.name}}
+                        {{#link-to 'tags.tag' tag}}<li>{{tag.name}}</li>{{/link-to}}
+                      {{/if}}
+                    {{/each}}                 
                   </ul>
                 </div>
                 {{outlet}}
                 <div id="detailPanel" class="panelIn">
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
-                      <img class="columnDivider" src="img/divider_orange.png" />
-                      <h1>Day Won Standup Meeting</h1>
-                      <h4>Discuss our progress on the Day Won project and address potential needs</h4>
-                      <div id="relatedTags">
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Ember.js</span>
+                      <img class="columnDivider" src="img/divider_yellow.png" />
+                      <h1>Day Won</h1>
+                      <div class="contactgroup relatedObjects">
+                        <div class="contactitem">
+                          <img src="img/events.png" />
+                          <span>(7)</span>
                         </div>
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Rails</span>
+                        <div class="contactitem">
+                          <img src="img/tasks.png" />
+                          <span>(9)</span>
                         </div>
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Day Won</span>
+                        <div class="contactitem">
+                          <img src="img/tags.png" />
+                          <span>(14)</span>
                         </div>
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Bootstrap</span>
-                        </div>
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">Evenspring</span>
-                        </div>                      
                       </div>
                     </div>
                     <div class="col-md-4 dCol" id="dCol2">
-                      <img class="columnDivider" src="img/divider_orange.png" />
+                      <img class="columnDivider" src="img/divider_yellow.png" />
                       <div class="columnhead">
-                        <img src="img/contact.png" />
-                        <h3>Contacts</h3>
+                        <img src="img/events.png" />
+                        <h3>Events</h3>
                       </div>
                       <br />
                       <div class="detailSection">
@@ -2610,12 +2613,12 @@
                           <li>Momin Khan</li>
                           <li>Aujang Abadi</li>
                         </ul>
-                      </div>
+                      </div>                 
                     </div>
                     <div class="col-md-4 dCol" id="dCol3">
                       <div class="columnhead">
-                        <img src="img/tasks.png" />
-                        <h3>Tasks</h3>
+                        <img src="img/contact.png" />
+                        <h3>Contacts</h3>
                       </div>
                       <br />
                       <div class="detailSection">
@@ -2639,28 +2642,27 @@
                     </div>
                   </div>
                 </div>
-                <div id="detailPanelHider"></div>
-                <div class="col-md-1 flipswitch fsorange">
-                  <img src="img/fliparrow_orange.png" id="fliparrow"/>
+                <div id="detailPanelHider"></div>                <div class="col-md-1 flipswitch fsyellow">
+                  <img src="img/fliparrow_yellow.png" id="fliparrow"/>
                 </div>
               </div>
             </div>
           </div>
         </script>
         <script type="text/x-handlebars" id="orphantags/index">
-                <div class="col-md-7" id="eventpanel2">
-                  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+                <div class="col-md-7" id="tagpanel2">
+                  <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="eventname">Mom's Birthday</h2>
+                  <h2 id="contactname" class="taskname tagname">Select a tag</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
-                    <img src="img/events.png" class="selected" />
+                    <img src="img/events.png" />
                     <img src="img/tasks.png" />
-                    <img src="img/tags.png" /> 
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+                    <img src="img/tags.png" class="selected" />   
+                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
                     <img src="img/trash.png" id="trashicon"/>              
                   </div>
-                  <div class="panelcontent" id="eventscontent">              
+                  <div class="panelcontent" id="tagscontent">
                     <div class="infopanel">
                       <div class="contactrow personrow">
                         <img src="img/contact.png">
@@ -2682,41 +2684,42 @@
                     <div class="infopanel">
                       <div class="contactrow taskrow">
                         <img src="img/tasks.png">
+                        <h4>Evenspring</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Awesome</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>Partner</h4>
+                      </div>
+                      <div class="contactrow taskrow">
+                        <img src="img/tasks.png">
+                        <h4>SRRNgames</h4>
+                      </div>
+                    </div>
+                    <div class="infopanel">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
                         <h4>Meet about Day Won</h4>
                       </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
                         <h4>Go skydiving</h4>
                       </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
                         <h4>Play video games</h4>
                       </div>
-                      <div class="contactrow taskrow">
-                        <img src="img/tasks.png">
+                      <div class="contactrow eventrow">
+                        <img src="img/events.png">
                         <h4>QA BBTC</h4>
                       </div>
                     </div>
                     <div class="infopanel selected">
-                      <p class="textrow" style="line-height:32px"><b>Description: </b><br /><b>Location: </b><br /><b>Event Start: </b><br /><b>Event End: </b></p>
-                    </div>
-                    <div class="infopanel">
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Evenspring</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Awesome</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>Partner</h4>
-                      </div>
-                      <div class="contactrow tagrow">
-                        <img src="img/tags.png">
-                        <h4>SRRNgames</h4>
-                      </div>
+                      <p class="textrow">
+                      </p>
                     </div>
                   </div>
                 </div>
