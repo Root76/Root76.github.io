@@ -500,17 +500,10 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
   normalizePayload: function(type, payload) {
   	if (payload.modifiable) {
   		delete payload.modifiable;
-  		console.log("modifiable deleted");
-  	} else {
-  		console.log("modifiable not deleted");
   	}
   	if (payload.table) {
   		payload.orphans = payload.table;
   		delete payload.table;
-  		console.log("deleted table");
-  		console.log(payload);
-  	} else {
-  		console.log("table not deleted");
   	}
   	var typeKey = type.typeKey;
   	if (!typeKey[typeKey.length - 1] !== 's')
