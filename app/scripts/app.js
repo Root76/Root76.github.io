@@ -497,24 +497,46 @@ App.ArrayTransform = DS.Transform.extend({
   }
 });
 App.ApplicationSerializer = DS.RESTSerializer.extend({
-  normalizePayload: function(type, payload) {
-  	if (payload.modifiable) {
-  		delete payload.modifiable;
-  	}
-  	if (payload.table) {
-  		payload.orphans = payload.table;
-  		delete payload.table;
-  	}
-  	var typeKey = type.typeKey;
-  	if (!typeKey[typeKey.length - 1] !== 's')
-  		typeKey += 's';
-  	if (!payload[typeKey]) {
-  		newPayload = {};
-  		newPayload[typeKey] = payload;
-  		return newPayload;
-  	}
-    return payload;
-  }
+	normalizePayload: function(type, payload) {
+		if (payload.modifiable) {
+			delete payload.modifiable;
+		}
+		if (payload.table) {
+			payload.orphans = payload.table;
+			delete payload.table;
+		}
+		var typeKey = type.typeKey;
+		if (!typeKey[typeKey.length - 1] !== 's')
+			typeKey += 's';
+		if (!payload[typeKey]) {
+			newPayload = {};
+			newPayload[typeKey] = payload;
+			return newPayload;
+		}
+		return payload;
+	},
+	serialize: function(record, options) {
+		var idOnly = function(item) { return item.id; };
+
+		var json = this._super(record, options);
+		if (json.contacts) {
+			json.contact_ids = json.contacts.map(idOnly);
+			delete json.contacts;
+		}
+		if (json.events) {
+			json.event_ids = json.events.map(idOnly);
+			delete json.events;
+		}
+		if (json.tasks) {
+			json.task_ids = json.tasks.map(idOnly);
+			delete json.tasks;
+		}
+		if (json.tags) {
+			json.tag_ids = json.tags.map(idOnly);
+			delete json.tags;
+		}
+		return json;
+	}
 });
 
 App.Contact = DS.Model.extend({
