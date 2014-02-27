@@ -1079,4 +1079,29 @@ setTimeout(function(){
         .on('typeahead:selected', onTypeaheadSelected);
     $("#typeAheadTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
+
+
+    window.bindSearchField = function(a, b, c) {
+        var searchAll = $("#searchAll");
+        if (searchAll.hasClass('tt-input'))
+            return;
+
+        searchAll.typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource, tagsDatasource)
+            .on('typeahead:selected',  function(obj, datum) {
+                $(obj.target).typeahead('val', '');
+
+                var id = datum.id;
+                if (datum.hasOwnProperty('organization')) { // contact
+                    document.location.href = './#/contacts/' + id;
+                } else if (datum.hasOwnProperty('start_datetime')) { // event
+                    document.location.href = './#/events/' + id;
+                } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
+                    document.location.href = './#/tasks/' + id;
+                } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
+                    document.location.href = './#/tags/' + id;
+                } else { // invalid
+                }
+            });
+        searchAll.focus();
+    };
 }, 100);
