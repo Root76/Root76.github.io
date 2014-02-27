@@ -561,7 +561,7 @@ App.Contact = DS.Model.extend({
     			str = properties[i].value;
     	}
     	return str;
-    }.property('extended_properties'),
+    }.property('extended_properties', 'extended_properties.@each.key', 'extended_properties.@each.value'),
     eventsCount: function() {
     	return this.get('events').length;
     }.property('events'),
