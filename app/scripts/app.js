@@ -916,5 +916,8 @@ App.CalView = Ember.View.extend({
 				});
 		    }
    		});
-    }
+		window.transitionToTag = function(id) {
+			document.location.href = document.location.href.split('#')[0] + '#/tags/' + id;
+		}
+    },
 });
