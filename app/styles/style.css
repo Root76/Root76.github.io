@@ -2171,11 +2171,11 @@ font-family:'Open Sans', sans-serif;
 }*/
 
 .calPopupTags {
-	float:left;
-	width:100%;
-	position:absolute;
-	top:50px;
-	left:7px;
+	float: left;
+	width: 100%;
+	top: 50px;
+	left: 7px;
+	max-width: 350px;
 }
 
 .calPopupTags img {
@@ -2191,7 +2191,6 @@ font-family:'Open Sans', sans-serif;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
 	color: #fff;
-	position:relative;
 	top:1px;
 }
 
@@ -2202,6 +2201,9 @@ font-family:'Open Sans', sans-serif;
 	font-family:'Open Sans', sans-serif;
 	line-height:24px;
 	padding-bottom:1px;
+	display: inline-block;
+	width: 100%;
+	max-width: 350px;
 }
 
 .editField {

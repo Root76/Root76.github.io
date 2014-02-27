@@ -2888,6 +2888,21 @@
             </div>
           </div>
         </script>
+        <script type="text/x-handlebars" id="calPopupTemplate">
+          <h2>{{title}}</h2>
+          <div class="calPopupTags">
+            <ul>
+              {{#each tags}}
+                <a href="./#/tags/{{id}}"><li><img src="img/tags.png"><span>{{name}}</span></li></a>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="calPopupCont">
+            <p><b>Event description:</b>  {{description}}</p>
+            <p><b>Event start:</b>  {{start_formatted}}</p>
+            <p><b>Event end:</b>  {{end_formatted}}
+          </div>
+        </script>
         <script src="scripts/libs/jquery-1.10.2.js"></script>
         <script src="scripts/libs/jquery-ui.js"></script>
         <script src="scripts/libs/plugins.js"></script>
