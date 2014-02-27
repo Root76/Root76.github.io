@@ -2276,8 +2276,9 @@ font-family:'Open Sans', sans-serif;
 	color: #fff;
 }
 .contactpropertiesrow > .propertiesHeader {
-	margin-top: 0px;
+	margin-top: 17px;
 	margin-bottom: 3px;
+	margin-left: 12px;
 }
 .contactpropertiesrow > .propertiesList {
 	overflow: auto;

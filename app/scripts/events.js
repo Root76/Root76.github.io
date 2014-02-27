@@ -876,7 +876,7 @@ function rebindEvents() {
     	new Opentip(contactImages[1], "Send Email", {
             style: "lefttip"
         });
-        new Opentip(contactImages[3], "Birthday", {
+        new Opentip("#bdayImage", "Birthday", {
             style: "lefttip"
         });
         new Opentip("#locationImage", "Location", {

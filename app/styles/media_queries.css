@@ -1,3 +1,61 @@
+@media screen and (max-height:810px) {
+	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2, #detailPanel, .dCol, .columnDivider {
+		height:500px;
+	}
+	.panelcontent {
+		height:300px !important;
+		top:75px !important;
+	}
+	.panelfooter {
+		height: 35px !important;
+		top: 86px !important;
+	}
+	.flipswitch {
+		height:500px;
+	}
+	#fliparrow {
+		top:215px;
+	}
+	.dCol {
+		overflow:auto;
+		overflow-x:hidden;
+	}
+}
+
+@media screen and (max-height:650px) {
+	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2, #detailPanel, .dCol, .columnDivider {
+		height:378px;
+	}
+	.flipswitch {
+		height:378px;
+	}
+	#fliparrow {
+		top:150px;
+	}
+	.panelcontent {
+		height:200px !important;
+		top:50px !important;
+	}
+	#profilepic {
+		top:25px !important;
+	}
+	.contacttext {
+		top:0px !important;
+	}
+	#detailmenubar {
+		top:60px;
+	}
+	.contactrow {
+		height: 40px;
+		width: 100%;
+		position: relative;
+		top: -15px;
+	}
+	.panelfooter {
+		top:61px !important;
+	}
+}
+
 @media screen and (min-width:768px) {
 	ul.nav li.dropdown:hover > ul.dropdown-menu {
     	display: block;    
