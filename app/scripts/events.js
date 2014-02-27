@@ -1086,7 +1086,9 @@ setTimeout(function(){
         if (searchAll.hasClass('tt-input'))
             return;
 
-        searchAll.typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource, tagsDatasource)
+        var searchTypeaheadOptions = $.extend({}, typeaheadOptions);
+        searchTypeaheadOptions.hint = false;
+        searchAll.typeahead(searchTypeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource, tagsDatasource)
             .on('typeahead:selected',  function(obj, datum) {
                 $(obj.target).typeahead('val', '');
 
