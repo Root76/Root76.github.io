@@ -1813,6 +1813,8 @@
                           {{#if event.title}}
                           <li>{{event.title}}</li>
                           {{/if}}
+                        {{else}}
+                          <li>N/A</li>
                         {{/each}}
                         </ul>
                       </div>
@@ -1823,6 +1825,8 @@
                           {{#if event.title}}
                           <li>{{event.title}}</li>
                           {{/if}}
+                        {{else}}
+                          <li>N/A</li>
                         {{/each}}
                         </ul>
                       </div>      
@@ -1840,6 +1844,8 @@
                           {{#if contact.name}}
                           <li>{{contact.name}}</li>
                           {{/if}}
+                        {{else}}
+                          <li>N/A</li>
                         {{/each}}
                         </ul>
                       </div>
@@ -1850,6 +1856,8 @@
                           {{#if contact.name}}
                           <li>{{contact.name}}</li>
                           {{/if}}
+                        {{else}}
+                          <li>N/A</li>
                         {{/each}}
                         </ul>
                       </div>
@@ -2053,6 +2061,8 @@
                           {{#if event.title}}
                             <li>{{event.title}}</li>
                           {{/if}}
+                          {{else}}
+                            <li>N/A</li>
                           {{/each}}
                         </ul>
                       </div>
@@ -2063,6 +2073,8 @@
                           {{#if event.title}}
                             <li>{{event.title}}</li>
                           {{/if}}
+                          {{else}}
+                            <li>N/A</li>
                           {{/each}}
                         </ul>
                       </div>                 
@@ -2077,9 +2089,11 @@
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
                           {{#each contact in contacts}}
-                          {{#if contact.name}}
-                            <li>{{contact.name}}</li>
-                          {{/if}}
+                            {{#if contact.name}}
+                              <li>{{contact.name}}</li>
+                            {{/if}}
+                          {{else}}
+                            <li>N/A</li>
                           {{/each}}
                         </ul>
                       </div>
@@ -2088,6 +2102,8 @@
                         <ul class="columnlist">
                           {{#each contact in contacts}}
                             <li>{{contact.name}}</li>
+                          {{else}}
+                            <li>N/A</li>
                           {{/each}}
                         </ul>
                       </div>
