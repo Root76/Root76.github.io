@@ -555,6 +555,7 @@ function rebindEvents() {
 			success: function (data) {
 				console.log(data);
 				showPopupMessage(event.target, "Successfully created " + objectDescription, "success");
+                setTimeout(refetchTypeaheadData, 1000);
 			},
 			error: function (e) {
 				console.log(e.statusText);
@@ -999,8 +1000,8 @@ setTimeout(function(){
     events.initialize();
     tasks.initialize();
     tags.initialize();
-    var localStorageClearInterval = 5000;
-    setInterval(function() {
+
+    window.refetchTypeaheadData = function() {
         localStorage.clear();
         contacts.index.datums = [];
         contacts._loadPrefetch(contacts.prefetch);
@@ -1010,7 +1011,7 @@ setTimeout(function(){
         tasks._loadPrefetch(tasks.prefetch);
         tags.index.datums = [];
         tags._loadPrefetch(tags.prefetch);
-    }, localStorageClearInterval);
+    };
 
     var contactsDatasource = {
         name: 'Contacts',
