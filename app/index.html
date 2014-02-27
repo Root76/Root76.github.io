@@ -1228,11 +1228,11 @@
             <div class="row">
               <div class="col-md-4 dCol" id="dCol1">
                 <img class="columnDivider" src="img/divider_blue.png" />
-                <h1>Dan Berenson</h1>
+                <h1>{{name}}</h1>
                 <div class="contactgroup">
                   <div class="contactitem">
                     <img src="img/email.png" />
-                    <span>danberenson@gmail.com</span>
+                    <span>{{email}}</span>
                   </div>
                   <div class="contactitem">
                     <img src="img/openmail.png" />
@@ -1240,29 +1240,29 @@
                   </div>
                   <div class="contactitem">
                     <img src="img/cellphone.png" />
-                    <span>123-456-7890</span>
+                    <span>{{phone}}</span>
                   </div>
                   <div class="contactitem">
                     <img src="img/birthday.png" />
-                    <span>12/05/90</span>
+                    <span>{{birthday}}</span>
                   </div>
                   <div class="contactitem">
                     <img src="img/location.png" />
-                    <span>New York, NY</span>
+                    <span>{{address}}</span>
                   </div>
                 </div>
                 <div class="contactgroup relatedObjects">
                   <div class="contactitem">
                     <img src="img/events.png" />
-                    <span>(7)</span>
+                    <span>({{eventsCount}})</span>
                   </div>
                   <div class="contactitem">
                     <img src="img/tasks.png" />
-                    <span>(9)</span>
+                    <span>({{tasksCount}})</span>
                   </div>
                   <div class="contactitem">
                     <img src="img/tags.png" />
-                    <span>(14)</span>
+                    <span>({{tagsCount}})</span>
                   </div>
                 </div>
               </div>
@@ -1276,22 +1276,21 @@
                 <div class="detailSection">
                   <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                 <ul class="columnlist">
-                  <li>Ryan Barber</li>
-                    <li>Caroline Beckert</li>
-                  <li>Tyler Carbone</li>
+                  {{#each task in tasks}}
+                    <li>{{task.title}}</li>
+                  {{else}}
+                    <li>N/A</li>
+                  {{/each}}
                 </ul>
                 </div>
                 <div class="detailSection">
                   <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                             <ul class="columnlist">
-                              <li>Ryan Barber</li>
-                              <li>Caroline Beckert</li>
-                              <li>Tyler Carbone</li>
-                              <li>JP Bonner</li>
-                              <li>Elizabeth Hatzi</li>
-                              <li>Harris Weaver</li>
-                              <li>Momin Khan</li>
-                              <li>Aujang Abadi</li>
+                              {{#each task in tasks}}
+                                <li>{{task.title}}</li>
+                              {{else}}
+                                <li>N/A</li>
+                              {{/each}}
                             </ul>  
                   </div>                  
                 </div>
@@ -1304,19 +1303,21 @@
                 <div class="detailSection">
                             <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                             <ul class="columnlist">
-                              <li>Buy a present</li>
-                              <li>Bake a cake</li>
+                              {{#each event in events}}
+                                <li>{{event.title}}</li>
+                              {{else}}
+                                <li>N/A</li>
+                              {{/each}}
                             </ul>
                 </div>
                 <div class="detailSection">
                             <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                             <ul class="columnlist">
-                              <li>Cut the grass</li>
-                              <li>Finish Day Won</li>
-                              <li>Write TPS Reports</li>
-                              <li>Attend the meeting</li>
-                              <li>Eat dinner</li>
-                              <li>Go to the gym</li>
+                              {{#each event in events}}
+                                <li>{{event.title}}</li>
+                              {{else}}
+                                <li>N/A</li>
+                              {{/each}}
                             </ul>
                 </div>
               </div>
