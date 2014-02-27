@@ -8232,6 +8232,8 @@ jQuery.extend({
 
 			// Success/Error
 			if ( isSuccess ) {
+				if (jqXHR.responseJSON.modifiable)
+					delete jqXHR.responseJSON.modifiable;
 				deferred.resolveWith( callbackContext, [ success, statusText, jqXHR ] );
 			} else {
 				deferred.rejectWith( callbackContext, [ jqXHR, statusText, error ] );
