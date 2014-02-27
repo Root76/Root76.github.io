@@ -651,7 +651,16 @@ App.Tag = DS.Model.extend({
 		count += this.get('events').length;
 		count += this.get('tasks').length;
 		return count;
-	}.property('contacts', 'events', 'tasks')
+	}.property('contacts', 'events', 'tasks'),
+    contactsCount: function() {
+    	return this.get('contacts').length;
+    }.property('tags'),
+    eventsCount: function() {
+    	return this.get('events').length;
+    }.property('events'),
+    tasksCount: function() {
+    	return this.get('tasks').length;
+    }.property('tasks'),
 });
 
 App.Orphan = DS.Model.extend({
