@@ -385,8 +385,8 @@ App.TagsController = Ember.ArrayController.extend({
     sortAscending: true,
 	
 	sortOptions: [
-		{label: "Tag Count", primarySort: "count", ascending: false},
-		{label: "Name", primarySort: "name", ascending: true}
+		{label: "Tag Count", primarySort: "count", secondarySort: "name", ascending: false},
+		{label: "Name", primarySort: "name", secondarySort: "count", ascending: true}
 	],
 	selectedSortOption: null,
 	selectedSortOptionChanged: function() {
@@ -497,24 +497,46 @@ App.ArrayTransform = DS.Transform.extend({
   }
 });
 App.ApplicationSerializer = DS.RESTSerializer.extend({
-  normalizePayload: function(type, payload) {
-  	if (payload.modifiable) {
-  		delete payload.modifiable;
-  	}
-  	if (payload.table) {
-  		payload.orphans = payload.table;
-  		delete payload.table;
-  	}
-  	var typeKey = type.typeKey;
-  	if (!typeKey[typeKey.length - 1] !== 's')
-  		typeKey += 's';
-  	if (!payload[typeKey]) {
-  		newPayload = {};
-  		newPayload[typeKey] = payload;
-  		return newPayload;
-  	}
-    return payload;
-  }
+	normalizePayload: function(type, payload) {
+		if (payload.modifiable) {
+			delete payload.modifiable;
+		}
+		if (payload.table) {
+			payload.orphans = payload.table;
+			delete payload.table;
+		}
+		var typeKey = type.typeKey;
+		if (!typeKey[typeKey.length - 1] !== 's')
+			typeKey += 's';
+		if (!payload[typeKey]) {
+			newPayload = {};
+			newPayload[typeKey] = payload;
+			return newPayload;
+		}
+		return payload;
+	},
+	serialize: function(record, options) {
+		var idOnly = function(item) { return item.id; };
+
+		var json = this._super(record, options);
+		if (json.contacts) {
+			json.contact_ids = json.contacts.map(idOnly);
+			delete json.contacts;
+		}
+		if (json.events) {
+			json.event_ids = json.events.map(idOnly);
+			delete json.events;
+		}
+		if (json.tasks) {
+			json.task_ids = json.tasks.map(idOnly);
+			delete json.tasks;
+		}
+		if (json.tags) {
+			json.tag_ids = json.tags.map(idOnly);
+			delete json.tags;
+		}
+		return json;
+	}
 });
 
 App.Contact = DS.Model.extend({
@@ -531,15 +553,30 @@ App.Contact = DS.Model.extend({
     tasks: DS.attr('array'),
     tags: DS.attr('array'),
 
-    birthday: function() {
-    	var str = "N/A";
+    birthdayProperty: function() {
     	var properties = this.get('extended_properties') || [];
     	for (var i = 0; i < properties.length; i++) {
     		if (properties[i].key === "Birthday" || properties[i].key === "birthday")
-    			str = properties[i].value;
+    			return properties[i];
     	}
-    	return str;
-    }.property('extended_properties'),
+    	return null;
+    }.property('extended_properties', 'extended_properties.@each.key'),
+    birthday: function(key, value) {
+    	var birthdayProperty = this.get('birthdayProperty');
+	    if (arguments.length > 1) {
+			if (!birthdayProperty) { // add new properties row for Birthday
+	  			var newProperties = this.get('extended_properties').slice(0) || [];
+	  			newProperties.push({key:"Birthday", value:""});
+	  			this.set('extended_properties', newProperties); 				
+			}
+			this.set('birthdayProperty.value', value);
+	    }
+
+    	if (birthdayProperty) {
+    		return birthdayProperty.value;
+    	}
+    	return "N/A";
+    }.property('extended_properties', 'extended_properties.@each.key', 'extended_properties.@each.value'),
     eventsCount: function() {
     	return this.get('events').length;
     }.property('events'),
@@ -629,7 +666,16 @@ App.Tag = DS.Model.extend({
 		count += this.get('events').length;
 		count += this.get('tasks').length;
 		return count;
-	}.property('contacts', 'events', 'tasks')
+	}.property('contacts', 'events', 'tasks'),
+    contactsCount: function() {
+    	return this.get('contacts').length;
+    }.property('tags'),
+    eventsCount: function() {
+    	return this.get('events').length;
+    }.property('events'),
+    tasksCount: function() {
+    	return this.get('tasks').length;
+    }.property('tasks'),
 });
 
 App.Orphan = DS.Model.extend({
