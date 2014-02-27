@@ -508,7 +508,7 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
   		payload.orphans = payload.table;
   		delete payload.table;
   		console.log("deleted table");
-  		console.log(payload.orphans);
+  		console.log(payload);
   	} else {
   		console.log("table not deleted");
   	}
@@ -621,12 +621,6 @@ App.Tag = DS.Model.extend({
 });
 
 App.Orphan = DS.Model.extend({
-	events: DS.attr('array'),
-	tasks: DS.attr('array'),
-	tags: DS.attr('array')
-});
-
-App.Orphans = DS.Model.extend({
 	events: DS.attr('array'),
 	tasks: DS.attr('array'),
 	tags: DS.attr('array')
@@ -747,8 +741,7 @@ App.TasksTaskRoute = Ember.Route.extend({
   	},
   	setupController: function(controller, model){
   		controller.set('model', model);
-  		if (model.reload)
-  			model.reload();
+    	model.reload();
   	},
   	actions: {
         toggleCompleted: function(){
@@ -776,8 +769,7 @@ App.EventsEventRoute = Ember.Route.extend({
     },
   	setupController: function(controller, model){
   		controller.set('model', model);
-  		if (model.reload)
-  			model.reload();
+    	model.reload();
   	}
 }, IndividualObjectRoute);
 
@@ -801,8 +793,7 @@ App.ContactsContactRoute = Ember.Route.extend({
   	},
   	setupController: function(controller, model){
   		controller.set('model', model);
-  		if (model.reload)
-  			model.reload();
+    	model.reload();
   	},
   	actions: {
   		addProperty: function(){
@@ -837,8 +828,7 @@ App.TagsTagRoute = Ember.Route.extend({
   	},
   	setupController: function(controller, model){
   		controller.set('model', model);
-  		if (model.reload)
-  			model.reload();
+    	model.reload();
   	}
 }, IndividualObjectRoute);
 
