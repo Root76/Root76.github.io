@@ -2053,6 +2053,7 @@ font-family:'Open Sans', sans-serif;
 	margin-bottom: 0px;
 	padding-left:10px;
 	padding-right:10px;
+	height: auto !important;
 }
 
 .columnlist li {
