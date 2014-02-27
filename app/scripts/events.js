@@ -681,6 +681,13 @@ function rebindEvents() {
         }
     });
 
+    if ($('.ocount').length) {
+	    var totalOrphans = $('.ocount');
+	    totalOrphans[0].innerHTML = $('.eventCounter').length;
+	    totalOrphans[1].innerHTML = $('.taskCounter').length;
+	    totalOrphans[2].innerHTML = $('.tagCounter').length;
+	}
+
     /*if ($('#calendarcont').length) {
         $('#calendarcont').fullCalendar({
             header: {

@@ -846,15 +846,11 @@ App.TagsTagRoute = Ember.Route.extend({
   	}
 }, IndividualObjectRoute);
 
-/*App.OrphansIndexRoute = Ember.Route.extend({
+App.OrphansIndexRoute = Ember.Route.extend({
 	model: function() {
 		return this.get('store').find('orphan');
-	},
-	setupController: function(controller, model) {
-		controller.set('model', model);
-        this.controllerFor('events').set('model', model);
 	}
-});*/
+});
 
 App.OrphaneventsRoute = Ember.Route.extend({
 	model: function() {
