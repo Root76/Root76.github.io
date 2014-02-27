@@ -385,8 +385,8 @@ App.TagsController = Ember.ArrayController.extend({
     sortAscending: true,
 	
 	sortOptions: [
-		{label: "Tag Count", primarySort: "count", ascending: false},
-		{label: "Name", primarySort: "name", ascending: true}
+		{label: "Tag Count", primarySort: "count", secondarySort: "name", ascending: false},
+		{label: "Name", primarySort: "name", secondarySort: "count", ascending: true}
 	],
 	selectedSortOption: null,
 	selectedSortOptionChanged: function() {
