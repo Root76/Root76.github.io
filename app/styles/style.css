@@ -1781,13 +1781,19 @@ to {
 #calToday {
 	float: right;
 	position: absolute;
-	top: 49px;
-	right: 675px;
+	top: 0px;
+	right: 125px;
+	width: 80px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 20px;
+	z-index: 10000;
 	cursor: pointer;
 }
 #calToday:hover {
 	background: #70676a;
-	border: 1px solid #fff;
+	color: #fff;
 }
 #calToday img {
 	width: 50px;
