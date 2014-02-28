@@ -837,46 +837,38 @@
               <li class="listitem dashitem" id="recentdash">
                 <h3 class="mainsort">Recent Activities (last 10 objects added or edited)<img src="img/arrow_black.png" class="accordionarrow"></h3>
                 <div class="subitems">
-                  <div class="subitem subdash ss1">
-                    <img class="subicon" src="img/calendar.png" />
-                    <span class="subitemtext subdashtext">Partner Meeting</span>
-                  </div>
-                  <div class="subitem subdash ss2">
-                    <img class="subicon" src="img/tags.png" />
-                    <span class="subitemtext subdashtext">Work</span>          
-                  </div>
-                  <div class="subitem subdash ss3">
-                    <img class="subicon" src="img/contact.png" />
-                    <span class="subitemtext subdashtext">Liz</span>
-                  </div>
-                  <div class="subitem subdash ss4">
-                    <img class="subicon" src="img/tasks.png" />
-                    <span class="subitemtext subdashtext">Day Won meeting</span>
-                  </div>
-                  <div class="subitem subdash ss5">
-                    <img class="subicon" src="img/calendar.png" />
-                    <span class="subitemtext subdashtext">Award Ceremony</span>
-                  </div>
-                  <div class="subitem subdash ss6">
-                    <img class="subicon" src="img/tags.png" />
-                    <span class="subitemtext subdashtext">DayWon</span>          
-                  </div>
-                  <div class="subitem subdash ss7">
-                    <img class="subicon" src="img/contact.png" />
-                    <span class="subitemtext subdashtext">Michael</span>
-                  </div>
-                  <div class="subitem subdash ss8">
-                    <img class="subicon" src="img/tasks.png" />
-                    <span class="subitemtext subdashtext">Pick up dinner</span>
-                  </div>     
-                  <div class="subitem subdash ss1">
-                    <img class="subicon" src="img/calendar.png" />
-                    <span class="subitemtext subdashtext">Investor Meeting</span>
-                  </div>
-                  <div class="subitem subdash ss2">
-                    <img class="subicon" src="img/tags.png" />
-                    <span class="subitemtext subdashtext">Awesome</span>          
-                  </div>
+                  {{#each item in recent10Items}}
+                    <div class="subitem subdash ss2">
+                      {{#if item.isContact}}
+                        {{#link-to 'contacts.contact' item}}
+                          <img class="subicon" src="img/contact.png" />
+                          <span class="subitemtext subdashtext">{{item.name}}</span>
+                        {{/link-to}}
+                      {{/if}}
+                      {{#if item.isEvent}}
+                        {{#link-to 'events.event' item}}
+                          <img class="subicon" src="img/events.png" />
+                          <span class="subitemtext subdashtext">{{item.title}}</span>
+                        {{/link-to}}
+                      {{/if}}
+                      {{#if item.isTask}}
+                        {{#link-to 'tasks.task' item}}
+                          <img class="subicon" src="img/tasks.png" />
+                          <span class="subitemtext subdashtext">{{item.title}}</span>
+                        {{/link-to}}
+                      {{/if}}
+                      {{#if item.isTag}}
+                        {{#link-to 'tags.tag' item}}
+                          <img class="subicon" src="img/tags.png" />
+                          <span class="subitemtext subdashtext">{{item.name}}</span>
+                        {{/link-to}}
+                      {{/if}}
+                    </div>                    
+                  {{else}}
+                    <div class="subitem subdash ss2">
+                      <span class="subitemtext subdashtext">N/A</span>          
+                    </div>
+                  {{/each}}
                 </div>
               </li>
               <li class="listitem dashitem" id="tasksdash">

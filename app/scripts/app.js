@@ -432,7 +432,29 @@ App.IndexController = Ember.ObjectController.extend({
     contactsController: Ember.computed.alias("controllers.contacts"),
     eventsController: Ember.computed.alias("controllers.events"),
     tasksController: Ember.computed.alias("controllers.tasks"),
-    tagsController: Ember.computed.alias("controllers.tags")
+    tagsController: Ember.computed.alias("controllers.tags"),
+
+    recent10Items: function() {
+    	var contacts = this.get('gatheredContacts') || [];
+    	var events = this.get('gatheredEvents') || [];
+    	var tasks = this.get('gatheredTasks') || [];
+    	var tags = this.get('gatheredTags') || [];
+    	contacts.map(function(item) { item.set('isContact', true); });
+    	events.map(function(item) { item.set('isEvent', true); });
+    	tasks.map(function(item) { item.set('isTask', true); });
+    	tags.map(function(item) { item.set('isTag', true); });
+
+    	var allItems = [].concat(contacts, events, tasks, tags);
+    	var getTime = function(item) {
+    		var time = moment(item.get('updated_at') || item.get('created_at'));
+    		return (time.isValid()) ? time.unix() : 0;
+    	};
+    	allItems.sort(function(a, b) {
+    		return getTime(a) - getTime(b);
+    	});
+
+    	return allItems.slice(0, 10);
+    }.property('gatheredContacts', 'gatheredEvents', 'gatheredTasks', 'gatheredTags')
 });
 
 App.ReportsEventsController = Ember.ArrayController.extend({
@@ -738,6 +760,20 @@ App.IndexRoute = Ember.Route.extend({
         this.controllerFor('events').set('model', model.events);
         this.controllerFor('tasks').set('model', model.tasks);
         this.controllerFor('tags').set('model', model.tags);
+
+    	var contacts = this.get('store').find('contact').then(function(data) {
+    		controller.set('gatheredContacts', data.get('content'));
+    	});
+    	var events = this.get('store').find('event').then(function(data) {
+    		controller.set('gatheredEvents', data.get('content'));
+    	});
+    	var tasks = this.get('store').find('task').then(function(data) {
+    		controller.set('gatheredTasks', data.get('content'));
+    	});
+    	var tags = this.get('store').find('tag').then(function(data) {
+    		controller.set('gatheredTasks', data.get('content'));
+    	});
+
 	}
 });
 
