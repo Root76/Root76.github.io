@@ -260,25 +260,21 @@ function rebindEvents() {
 			thisObject = thisObject.replace(/\D/g,'');
         	contactIds[i] = thisObject;
         }
-        //contactIds = contactIds.join(",");
 		for (i = 0; i < relatedEvents.length; i++) {
 			thisObject = $(relatedEvents[i]).attr('objectid');
 			thisObject = thisObject.replace(/\D/g,'');
         	eventIds[i] = thisObject;
         }
-        //eventIds = eventIds.join(",");
 		for (i = 0; i < relatedTasks.length; i++) {
 			thisObject = $(relatedTasks[i]).attr('objectid');
 			thisObject = thisObject.replace(/\D/g,'');
         	taskIds[i] = thisObject;
         }
-		//taskIds = taskIds.join(",");
 		for (i = 0; i < relatedTags.length; i++) {
 			thisObject = $(relatedTags[i]).attr('objectid');
 			thisObject = thisObject.replace(/\D/g,'');
         	tagIds[i] = thisObject;
         }
-		//tagIds = tagIds.join(",");
 
 		console.log("contacts: " + contactIds);
 		console.log("events: " + eventIds);
@@ -519,6 +515,7 @@ function rebindEvents() {
 	    totalOrphans[0].innerHTML = $('.eventCounter').length;
 	    totalOrphans[1].innerHTML = $('.taskCounter').length;
 	    totalOrphans[2].innerHTML = $('.tagCounter').length;
+	    $("#totalOrphans").html($('.eventCounter').length + $('.taskCounter').length + $('.tagCounter').length)
 	}
 
     /*if ($('#calendarcont').length) {
