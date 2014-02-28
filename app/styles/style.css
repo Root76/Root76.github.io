@@ -1782,11 +1782,12 @@ to {
 	float: right;
 	position: absolute;
 	top: 49px;
-	right: 670px;
+	right: 675px;
 	cursor: pointer;
 }
 #calToday:hover {
 	background: #70676a;
+	border: 1px solid #fff;
 }
 #calToday img {
 	width: 50px;
