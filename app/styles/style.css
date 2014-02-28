@@ -2310,13 +2310,13 @@ font-family:'Open Sans', sans-serif;
 	color: #fff;
 }
 .contactpropertiesrow > .propertiesHeader {
-	margin-top: 17px;
+	margin-top: 5px;
 	margin-bottom: 3px;
 	margin-left: 12px;
 }
 .contactpropertiesrow > .propertiesList {
-	overflow: auto;
-	height: 90px;
+	height: auto;
+	margin-bottom: 6px;
 	font-size: 18px;
 }
 .contactpropertiesrow .key {
