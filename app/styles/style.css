@@ -984,7 +984,8 @@ h1, h2, h3, h4 {
 .subdash {
 	margin-left:15px;
 	color:#fff;
-	height:45px;
+	height:auto;
+	position:relative;
 }
 
 .subdash img {
