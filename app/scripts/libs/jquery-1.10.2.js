@@ -8232,8 +8232,19 @@ jQuery.extend({
 
 			// Success/Error
 			if ( isSuccess ) {
-				if (jqXHR.responseJSON.modifiable)
+				if (jqXHR.responseJSON && jqXHR.responseJSON.modifiable) {
 					delete jqXHR.responseJSON.modifiable;
+				}
+				if (jqXHR.responseJSON && jqXHR.responseJSON.events && jqXHR.responseJSON.tasks && jqXHR.responseJSON.tags) {
+					jqXHR.responseJSON = {
+						table: {
+							events: jqXHR.responseJSON.events,
+							tasks: jqXHR.responseJSON.tasks,
+							tags: jqXHR.responseJSON.tags,
+						}
+					};
+					success = jqXHR.responseJSON;
+				}
 				deferred.resolveWith( callbackContext, [ success, statusText, jqXHR ] );
 			} else {
 				deferred.rejectWith( callbackContext, [ jqXHR, statusText, error ] );
