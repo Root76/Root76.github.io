@@ -15,6 +15,12 @@
     <body>
       <div id="scrollblock"></div>
       <div id="preloader"></div>
+      <div id="preloadImages">
+        <img src="img/linkedinHighlight2.png" />
+        <img src="img/googleHighlight2.png" />
+        <img src="img/twitterHighlight2.png" />
+        <img src="img/facebookHighlight2.png" />
+      </div>
       <script type="text/x-handlebars">
         <div id="mobileNav">
           {{#link-to 'index'}}<div class="mobileNavItem" id="mDash"><p>Dashboard</p><div class="imgCont"><img src="img/dashboard.png" /></div></div>{{/link-to}}
@@ -1724,7 +1730,7 @@
                   <ul id="taglist" class="sidelist">
                     {{#each tag in controller}}
                       {{#if tag.name}}
-                        {{#link-to 'tags.tag' tag}}<li>{{tag.name}}</li>{{/link-to}}
+                        {{#link-to 'tags.tag' tag}}<li>{{tag.name}} ({{tag.count}})</li>{{/link-to}}
                       {{/if}}
                     {{/each}}                 
                   </ul>
@@ -1981,13 +1987,19 @@
                     <img src="img/trash.png" id="trashicon"/>              
                   </div>
                   <div class="panelcontent" id="eventscontent">              
-                    <div class="infopanel">
-                    </div>
-                    <div class="infopanel">
-                    </div>
                     <div class="infopanel selected">
-                    </div>
-                    <div class="infopanel">
+                      <form>
+                        <div class="formrow">Search related items: <br /><input id="typeAheadEvent" />
+                        </div>
+                        <div class="formrow">
+                          Selected Items:
+                          <div class="relatedList relatedEvents">
+                            <ul>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="formrow"><input type="submit"></div>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -2046,13 +2058,19 @@
                     <img src="img/trash.png" id="trashicon"/>              
                   </div>
                   <div class="panelcontent" id="taskscontent">
-                    <div class="infopanel">
-                    </div>
                     <div class="infopanel selected">
-                    </div>
-                    <div class="infopanel">
-                    </div>
-                    <div class="infopanel">
+                      <form>
+                        <div class="formrow">Search related items: <br /><input id="typeAheadTask" />
+                        </div>
+                        <div class="formrow">
+                          Selected Items:
+                          <div class="relatedList relatedEvents">
+                            <ul>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="formrow"><input type="submit"></div>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -2105,13 +2123,19 @@
                     <img src="img/trash.png" id="trashicon"/>              
                   </div>
                   <div class="panelcontent" id="tagscontent">
-                    <div class="infopanel">
-                    </div>
-                    <div class="infopanel">
-                    </div>
-                    <div class="infopanel">
-                    </div>
                     <div class="infopanel selected">
+                      <form>
+                        <div class="formrow">Search related items: <br /><input id="typeAheadTag" />
+                        </div>
+                        <div class="formrow">
+                          Selected Items:
+                          <div class="relatedList relatedEvents">
+                            <ul>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="formrow"><input type="submit"></div>
+                      </form>
                     </div>
                   </div>
                 </div>

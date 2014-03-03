@@ -16,7 +16,7 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
-#mobileNav, #preloader {
+#mobileNav, #preloader, #preloadImages {
 	display:none;
 }
 
@@ -963,6 +963,7 @@ h1, h2, h3, h4 {
 .dashitem {
 	margin-bottom:0px;
 	position:relative;
+	min-height:0px;
 }
 
 .dashitem h3 {
@@ -970,6 +971,7 @@ h1, h2, h3, h4 {
 	margin-bottom:0px;
 	color:#fff;
 	padding:15px;
+	line-height:initial;
 }
 
 .listimg {
