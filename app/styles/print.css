@@ -99,3 +99,7 @@ input#toggle, input#toggle2, input#toggle3, input#toggle4, input#toggle5 {
 input#toggle + label, input#toggle2 + label, input#toggle3 + label, input#toggle4 + label, input#toggle5 + label {
 	display:none;
 }
+
+.opentip-container {
+	display:none;
+}
