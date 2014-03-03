@@ -1956,7 +1956,9 @@
                   </div>
                   <ul id="eventlist" class="sidelist">
                     {{#each event in events}}
+                      {{#if event.title}}
                         <li>{{event.title}}</li>
+                      {{/if}}
                     {{/each}}
                   </ul>
                 </div>
@@ -1969,7 +1971,7 @@
                 <div class="col-md-7" id="eventpanel2">
                   <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname">Select an orphan event</h2>
+                  <h2 id="contactname" class="taskname orphantitle">Select an orphan event</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" class="selected" />
@@ -2034,7 +2036,7 @@
                 <div class="col-md-7" id="taskpanel2">
                   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext">Select an orphan task</h2>
+                  <h2 id="contactname" class="taskname contacttext orphantitle">Select an orphan task</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
@@ -2079,7 +2081,7 @@
                   <ul id="taglist" class="sidelist">
                     {{#each tag in tags}}
                       {{#if tag.name}}
-                        {{#link-to 'tags.tag' tag}}<li>{{tag.name}}</li>{{/link-to}}
+                        <li>{{tag.name}}</li>
                       {{/if}}
                     {{/each}}                 
                   </ul>
@@ -2093,7 +2095,7 @@
                 <div class="col-md-7" id="tagpanel2">
                   <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext">Select an orphan tag</h2>
+                  <h2 id="contactname" class="taskname contacttext orphantitle">Select an orphan tag</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />

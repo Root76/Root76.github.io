@@ -179,6 +179,11 @@ function rebindEvents() {
             $(event.target).siblings('a').removeClass('selected');
         }
     });
+
+	function hasWhiteSpace(s) {
+	  return s.indexOf(' ') >= 0;
+	}
+
     $(".dynamicEmail").parent().click(function(){
         /*Grabbing the innerHTML alone doesn't work because of the <script> tags Ember inserts around model data. As a workaround, we grab all of the innerHTML, load it into a hidden div, drop the <script> tags from the DOM, and grab the hidden div's innerHTML (just the email address)*/
         $(".desktopEmail").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&to=");
@@ -197,7 +202,7 @@ function rebindEvents() {
         console.log("mobile link: " + $('.mobileEmail').attr('href'));
     });
 
-    $('.sidelist > a > li').click(function(event){
+    $('.sidelist li').click(function(event){
         var itemList = $('.sidelist > a > li').index(this);
         var detailsList = $('.textrow');
         var phoneNo = $('.phonenumber');
@@ -214,11 +219,19 @@ function rebindEvents() {
         $(eField[itemList]).addClass('selected');
         $('.currentcontact').removeClass("currentcontact");
         clickedRow.addClass("currentcontact");
-        var splitString = clickedRow.html().split(" ");
-        var splitString1 = splitString[0].toLowerCase();
-        if (splitString.length > 1) {
-            var splitString2 = splitString[1].toLowerCase();
-        }
+        var selectedObject = $(clickedRow).html();
+        console.log(selectedObject);
+        $("#preloader").html(selectedObject);
+        $("#preloader script").remove();
+        selectedObject = $("#preloader").html();
+        $(".orphantitle").html(selectedObject);
+        if (hasWhiteSpace(selectedObject)) {
+	        var splitString = $(selectedObject).html().split(" ");
+	        var splitString1 = splitString[0].toLowerCase();
+	        if (splitString.length > 1) {
+	            var splitString2 = splitString[1].toLowerCase();
+	        }
+    	}
 
         if ($(window).width() < 768) {
             $("#contactpanel2").addClass('mobileIn');
