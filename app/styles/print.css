@@ -101,5 +101,5 @@ input#toggle + label, input#toggle2 + label, input#toggle3 + label, input#toggle
 }
 
 .opentip-container {
-	display: none;
+	display:none;
 }
