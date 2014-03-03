@@ -232,6 +232,7 @@ hr {
 	opacity:.5;
 	top: 14px;
 	right: 12px;
+	position:absolute;
 }
 
 .arrowdown {
@@ -943,6 +944,7 @@ h1, h2, h3, h4 {
 
 .listitem {
 	background:#fff;
+	min-height:68px;
 	margin-bottom: 0px;
 	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
 	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.3);
@@ -951,8 +953,11 @@ h1, h2, h3, h4 {
 .listitem:last-child {
 	margin-bottom:0px;
 }
-.listitem  h3 {
+.listitem h3 {
 	margin-top: 0px;
+	padding-right:65px;
+	padding-left:65px;
+	line-height:65px;
 }
 
 .dashitem {
@@ -970,6 +975,8 @@ h1, h2, h3, h4 {
 .listimg {
 	margin:10px;
 	width:45px;
+	position:absolute;
+	left:0px;
 }
 
 .subicon {
@@ -1353,7 +1360,7 @@ to {
 	top:50px;
 	width:70px;
 	float:left;
-	position:relative;
+	position:absolute;
 }
 
 #detailmenubar img {
@@ -1367,16 +1374,16 @@ to {
 }
 
 #detailmenubar {
-	top:85px;
-	position:absolute;
-	width:720px;
+	top:25px;
+	position:relative;
+	width:100%;
 }
 
 .panelcontent {
-	top:85px;
+	top:35px;
 	width:100%;
 	position:relative;
-	height:475px;
+	height:445px;
 	padding:10px;
 	background:#fff;
 	overflow:auto;
@@ -1384,7 +1391,7 @@ to {
 }
 
 #contactpanel2 .panelcontent {
-	height:410px;
+	height:380px;
 }
 
 .panelcontent p {
@@ -1409,7 +1416,7 @@ to {
 }
 
 .panelfooter {
-	top:95px;
+	top:45px;
 	position:relative;
 	height:65px;
 }
@@ -1511,6 +1518,9 @@ to {
 
 .taskname {
 	margin-left:0px !important;
+	left:0px !important;
+	position:relative;
+	top:25px;
 }
 
 #taskcheck > img {
@@ -2972,13 +2982,13 @@ color: #fff;
 }
 
 .contactmenu {
-	left:95px !important;
+	left:70px !important;
 }
 
 .contacttext {
 	position: relative;
 	top: 25px;
-	left: 5px;
+	left: 80px;
 }
 
 #contactname {

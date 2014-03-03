@@ -3,12 +3,11 @@
 		height:500px;
 	}
 	.panelcontent {
-		height:300px !important;
-		top:75px !important;
+		height:270px !important;
 	}
 	.panelfooter {
 		height: 35px !important;
-		top: 86px !important;
+		top: 43px !important;
 	}
 	.flipswitch {
 		height:500px;
@@ -33,8 +32,8 @@
 		top:150px;
 	}
 	.panelcontent {
-		height:200px !important;
-		top:50px !important;
+		height:165px !important;
+		top:10px;
 	}
 	#profilepic {
 		top:25px !important;
@@ -43,7 +42,7 @@
 		top:0px !important;
 	}
 	#detailmenubar {
-		top:60px;
+		top:0px;
 	}
 	.contactrow {
 		height: 40px;
@@ -52,7 +51,7 @@
 		top: -15px;
 	}
 	.panelfooter {
-		top:61px !important;
+		top:21px !important;
 	}
 }
 
