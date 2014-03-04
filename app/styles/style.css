@@ -220,7 +220,8 @@ hr {
 	width: 25px;
 	position: relative;
 	float: right;
-	top: -2px;
+	top: 17px;
+	right: 15px;
 	opacity:.7;
 	transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
@@ -232,7 +233,10 @@ hr {
 	opacity:.5;
 	top: 14px;
 	right: 12px;
-	position:absolute;
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	-webkit-user-select: none; 
+	-o-user-select: none; 
 }
 
 .arrowdown {

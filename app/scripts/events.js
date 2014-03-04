@@ -33,33 +33,34 @@ function rebindEvents() {
     });
 
     $('.sortitem').click(function(event){
-        $("#loader").addClass("showLoader");
-        setTimeout(function(){
-            var sortType = event.target.id;
-            if ($(event.target).hasClass('selected')) {
-                if ($(event.target).find('ul').hasClass('invis')) {
-                    $(event.target).find('ul').removeClass('invis');
-                } else {
-                    $(event.target).find('ul').addClass('invis');
-                }
+        var sortType = event.target.id;
+        if ($(event.target).hasClass('selected')) {
+            if ($(event.target).find('ul').hasClass('invis')) {
+                $(event.target).find('ul').removeClass('invis');
             } else {
-                $('.selected').find('ul').removeClass("sortby");
-                $(event.target).parent().find('.sortitem.selected').removeClass('selected');
-                $('.invis').removeClass('invis');
-                $(event.target).addClass('selected');
-                $(event.target).find('ul').addClass("sortby");
+                $(event.target).find('ul').addClass('invis');
             }
-            $('.mainsort').click(function(event){
-                var thisArrow = $(this).find(".accordionarrow");
-                if ($(thisArrow).hasClass("arrowdown")) {
-                    $(thisArrow).removeClass("arrowdown");
-                }
-                else {
-                    $(thisArrow).addClass("arrowdown");
-                }
-            });
-        }, 100);
+        } else {
+            $('.selected').find('ul').removeClass("sortby");
+            $(event.target).parent().find('.sortitem.selected').removeClass('selected');
+            $('.invis').removeClass('invis');
+            $(event.target).addClass('selected');
+            $(event.target).find('ul').addClass("sortby");
+        }
     });
+
+    setTimeout(function(){
+		$('.listitem > h3').click(function(event){
+	        var thisArrow = $(this).parent().find(".accordionarrow");
+	        console.log("arrow: " + $(thisArrow).attr("src"));
+	        if ($(thisArrow).hasClass("arrowdown")) {
+	            $(thisArrow).removeClass("arrowdown");
+	        }
+	        else {
+	            $(thisArrow).addClass("arrowdown");
+	        }
+	    });
+	}, 100);
 
     $('.sortcont').click(function(e) {
     }).on('click', 'h3', function(e) {
@@ -138,20 +139,6 @@ function rebindEvents() {
     });
 
     $('.listitem > .sortitem > select').click();
-    $('.mainsort').click(function(event){
-        var thisArrow = $(this).find(".accordionarrow");
-        if ($(thisArrow).hasClass("arrowdown")) {
-            $(thisArrow).removeClass("arrowdown");
-        }
-        else {
-            $(thisArrow).addClass("arrowdown");
-        }
-        /*if ($(event.target).attr("aria-selected") != "true") {
-            $(event.target).click(function(){
-                return false;
-            });
-        }*/
-    });
 	
 	$("#contactsdash").click(function() {
 		$("#viewmenu > a")[0].click();
@@ -386,8 +373,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -842,8 +829,8 @@ setTimeout(function(){
 
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({

@@ -383,10 +383,10 @@
                 {{#each event in eventsToShow}}
                   {{#if event.title}}                
                   <li class="listitem mainevent">
+                    <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     <h3 class="mainsort">
                       {{#link-to 'events.event' event}}<img src="img/calendar.png" class="listimg" />{{/link-to}}
                       {{event.title}}
-                      <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     </h3>
                     <div class="subitems">
                       <div class="subitem ss1 subEvent">
@@ -481,11 +481,11 @@
                 {{#each task in tasksToShow}}
                   {{#if task.title}} 
                   <li class="listitem maintask">
+                    <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     <h3 class="mainsort">
                       {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="listimg" />{{/link-to}}
                       {{task.title}}
                       <img src="img/check.png" class="checkmark" {{bind-attr completed="task.status"}}/>
-                      <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     </h3>
                     <div class="subitems">
                       <div class="subitem ss1 subEvent">
@@ -582,10 +582,10 @@
                 {{#each contact in contactsToShow}}
                   {{#if contact.name}} 
                   <li class="listitem maincontact">
+                    <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     <h3 class="mainsort">
                       {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="listimg" />{{/link-to}}
                       {{contact.name}}
-                      <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     </h3>
                     <div class="subitems">
                       <div class="subitem ss1 subEvent">
@@ -679,10 +679,10 @@
                 {{#each tag in tagsToShow}}
                   {{#if tag.name}} 
                   <li class="listitem maintag">
+                    <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     <h3 class="mainsort">
                       {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="listimg" />{{/link-to}}
                       {{tag.name}}
-                      <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     </h3>
                     <div class="subitems">
                       <div class="subitem ss1 subEvent">
@@ -841,7 +841,8 @@
             <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="dashcreate" /></a>
             <ul class="list dashlist">
               <li class="listitem dashitem" id="recentdash">
-                <h3 class="mainsort">Recent Activities (last 10 objects added or edited)<img src="img/arrow_black.png" class="accordionarrow"></h3>
+                <img src="img/arrow_black.png" class="accordionarrow">
+                <h3 class="mainsort">Recent Activities (last 10 objects added or edited)</h3>
                 <div class="subitems">
                   {{#each item in recent10Items}}
                     <div class="subitem subdash ss2">
@@ -878,7 +879,8 @@
                 </div>
               </li>
               <li class="listitem dashitem" id="tasksdash">
-                <h3 class="mainsort">Tasks<img src="img/arrow_black.png" class="accordionarrow"></h3>
+                <img src="img/arrow_black.png" class="accordionarrow">
+                <h3 class="mainsort">Tasks</h3>
                 <div class="subitems">
                   <img src="img/tags.png" class="spaceimage" />
                   {{#each task in tasksController.tasksToShow}}
@@ -914,7 +916,8 @@
                 </div>
               </li>
               <li class="listitem dashitem" id="eventsdash">
-                <h3 class="mainsort">Events (next 7 days)<img src="img/arrow_black.png" class="accordionarrow"></h3>
+                <img src="img/arrow_black.png" class="accordionarrow">
+                <h3 class="mainsort">Events (next 7 days)</h3>
                 <div class="subitems subdashtext">
                   <ul id="eventslist">
                     {{#each event in eventsController}}
@@ -928,7 +931,8 @@
                 </div>
               </li>
               <li class="listitem dashitem" id="tagsdash">
-                <h3 class="mainsort">Tags<img src="img/arrow_black.png" class="accordionarrow"></h3>
+                <img src="img/arrow_black.png" class="accordionarrow">
+                <h3 class="mainsort">Tags</h3>
                 <div class="subitems">
                   <img class="spaceimage" src="img/tags.png" />
                   {{#each tag in tagsController}}
