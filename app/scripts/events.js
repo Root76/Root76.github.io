@@ -76,18 +76,24 @@ function rebindEvents() {
     });
 
     $('#collapseall').click(function(){
-        $('.listitem').accordion({
-            active: false,
-            collapsible: true,
-            header: "h3.mainsort", // force only 1 header in this accordion
-			beforeActivate: function(evt, obj) {
-				var OFFSET = -30;
-				var collapsing = obj.newHeader.length === 0;
-				if (!collapsing)
-					$('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
-			}
-        });
-        $('.accordionarrow').removeClass('arrowdown');
+    	$("#loader").addClass("showLoader");
+    	setTimeout(function(){
+	        $('.listitem').accordion({
+	            active: false,
+	            collapsible: true,
+	            header: "h3.mainsort", // force only 1 header in this accordion
+				beforeActivate: function(evt, obj) {
+					var OFFSET = -30;
+					var collapsing = obj.newHeader.length === 0;
+					if (!collapsing)
+						$('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
+				}
+	        });
+	        $('.accordionarrow').removeClass('arrowdown');
+	        setTimeout(function(){
+	    		$("#loader").removeClass("showLoader");
+	    	}, 100);
+	    }, 100);
     });
 	
 	$('.detailSection').accordion({
@@ -104,20 +110,26 @@ function rebindEvents() {
 	$('.detailSection').click();
 
     $('#expandall').click(function(){
-		var oldScrollTo = $.fn.scrollTo; // temp disable scrollTo
-		$.fn.scrollTo = function() {}; 
-	
-        var accord;
-        var accords = $('.mainsort');
-        for (var a = 0; a < accords.length; a++) {
-            accord = accords[a];
-            if ($(accord).attr("aria-selected") == "false") {
-                accord.click();
-            }
-        }
-        $('.accordionarrow').addClass('arrowdown');
+    	$("#loader").addClass("showLoader");
+    	setTimeout(function(){
+			var oldScrollTo = $.fn.scrollTo; // temp disable scrollTo
+			$.fn.scrollTo = function() {}; 
 		
-		$.fn.scrollTo = oldScrollTo; // restore scrollTo
+	        var accord;
+	        var accords = $('.mainsort');
+	        for (var a = 0; a < accords.length; a++) {
+	            accord = accords[a];
+	            if ($(accord).attr("aria-selected") == "false") {
+	                accord.click();
+	            }
+	        }
+	        $('.accordionarrow').addClass('arrowdown');
+			
+			$.fn.scrollTo = oldScrollTo; // restore scrollTo
+	        setTimeout(function(){
+	    		$("#loader").removeClass("showLoader");
+	    	}, 100);
+		}, 100);
     });
 
     $("#createicon").click(function(event){
@@ -237,6 +249,9 @@ function rebindEvents() {
 			statusPopup.container.css('z-index', 100000);
 			setTimeout(function() {
 				statusPopup.hide();
+				setTimeout(function(){
+					$('.close').click();
+				}, 300);
 			}, 2000);
 		};
 		

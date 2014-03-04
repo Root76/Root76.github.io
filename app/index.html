@@ -2181,16 +2181,16 @@
                   <img src="img/tyler.png" id="settingimage" />
                   <div class="itemcounts">
                     <div class="itemcount">
-                      <img src="img/contact.png" /><p>(31)</p>
+                      {{#link-to 'contacts'}}<img src="img/contact.png" /><p>{{contacts.count}}</p>{{/link-to}}
                     </div>
                     <div class="itemcount">
-                      <img src="img/events.png" /><p>(24)</p>
+                      {{#link-to 'events'}}<img src="img/events.png" /><p>{{events.count}}</p>{{/link-to}}
                     </div>
                     <div class="itemcount">
-                      <img src="img/tasks.png" /><p>(16)</p>
+                      {{#link-to 'tasks'}}<img src="img/tasks.png" /><p>{{tasks.count}}</p>{{/link-to}}
                     </div>
                     <div class="itemcount">
-                      <img src="img/tags.png" /><p>(43)</p>
+                      {{#link-to 'tags'}}<img src="img/tags.png" /><p>{{tags.count}}</p>{{/link-to}}
                     </div>
                   </div>
                 </div>

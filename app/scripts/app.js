@@ -457,6 +457,14 @@ App.IndexController = Ember.ObjectController.extend({
     }.property('gatheredContacts', 'gatheredEvents', 'gatheredTasks', 'gatheredTags')
 });
 
+App.SettingsController = Ember.ObjectController.extend({
+    needs: ['contacts', 'events', 'tasks', 'tags'],
+    contactsController: Ember.computed.alias("controllers.contacts"),
+    eventsController: Ember.computed.alias("controllers.events"),
+    tasksController: Ember.computed.alias("controllers.tasks"),
+    tagsController: Ember.computed.alias("controllers.tags")
+});
+
 App.ReportsEventsController = Ember.ArrayController.extend({
     needs: ['events'],
     eventsController: Ember.computed.alias("controllers.events"),
@@ -607,7 +615,7 @@ App.Contact = DS.Model.extend({
     }.property('tasks'),
     tagsCount: function() {
     	return this.get('tags').length;
-    }.property('tags'),
+    }.property('tags')
 });
 
 App.Event = DS.Model.extend({
@@ -691,13 +699,13 @@ App.Tag = DS.Model.extend({
 	}.property('contacts', 'events', 'tasks'),
     contactsCount: function() {
     	return this.get('contacts').length;
-    }.property('tags'),
+    }.property('contacts'),
     eventsCount: function() {
     	return this.get('events').length;
     }.property('events'),
     tasksCount: function() {
     	return this.get('tasks').length;
-    }.property('tasks'),
+    }.property('tasks')
 });
 
 App.Orphan = DS.Model.extend({
@@ -762,6 +770,38 @@ App.IndexRoute = Ember.Route.extend({
         this.controllerFor('tags').set('model', model.tags);
 
     	var contacts = this.get('store').find('contact').then(function(data) {
+    		controller.set('gatheredContacts', data.get('content'));
+    	});
+    	var events = this.get('store').find('event').then(function(data) {
+    		controller.set('gatheredEvents', data.get('content'));
+    	});
+    	var tasks = this.get('store').find('task').then(function(data) {
+    		controller.set('gatheredTasks', data.get('content'));
+    	});
+    	var tags = this.get('store').find('tag').then(function(data) {
+    		controller.set('gatheredTasks', data.get('content'));
+    	});
+
+	}
+});
+
+App.SettingsRoute = Ember.Route.extend({
+    model: function() {
+        return Ember.Object.create({
+            contacts: this.get('store').find('contact'), 
+            events: this.get('store').find('event'),
+            tasks: this.get('store').find('task'),
+            tags: this.get('store').find('tag')
+        });
+    },
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('contacts').set('model', model.contacts);
+        this.controllerFor('events').set('model', model.events);
+        this.controllerFor('tasks').set('model', model.tasks);
+        this.controllerFor('tags').set('model', model.tags);
+
+        var contacts = this.get('store').find('contact').then(function(data) {
     		controller.set('gatheredContacts', data.get('content'));
     	});
     	var events = this.get('store').find('event').then(function(data) {
