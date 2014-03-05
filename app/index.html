@@ -831,141 +831,111 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="index">
-          <div class="mobileCover" id="indexCover"></div>
-          <div id="appcont" class="homeapp">
-          <h1>Dashboard</h1>
-          <h4 style="margin-left:30px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
-          <div class="section-container" id="homecont">
-            <h3 id="collapseall">Collapse all</h3>
-            <h3 id="expandall">Expand all</h3>
-            <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="dashcreate" /></a>
-            <ul class="list dashlist">
-              <li class="listitem dashitem" id="recentdash">
-                <img src="img/arrow_black.png" class="accordionarrow">
-                <h3 class="mainsort">Recent Activities (last 10 objects added or edited)</h3>
-                <div class="subitems">
-                  {{#each item in recent10Items}}
-                    <div class="subitem subdash ss2">
-                      {{#if item.isContact}}
-                        {{#link-to 'contacts.contact' item}}
-                          <img class="subicon" src="img/contact.png" />
-                          <span class="subitemtext subdashtext">{{item.name}}</span>
-                        {{/link-to}}
-                      {{/if}}
-                      {{#if item.isEvent}}
-                        {{#link-to 'events.event' item}}
-                          <img class="subicon" src="img/events.png" />
-                          <span class="subitemtext subdashtext">{{item.title}}</span>
-                        {{/link-to}}
-                      {{/if}}
-                      {{#if item.isTask}}
-                        {{#link-to 'tasks.task' item}}
-                          <img class="subicon" src="img/tasks.png" />
-                          <span class="subitemtext subdashtext">{{item.title}}</span>
-                        {{/link-to}}
-                      {{/if}}
-                      {{#if item.isTag}}
-                        {{#link-to 'tags.tag' item}}
-                          <img class="subicon" src="img/tags.png" />
-                          <span class="subitemtext subdashtext">{{item.name}}</span>
-                        {{/link-to}}
-                      {{/if}}
-                    </div>                    
-                  {{else}}
-                    <div class="subitem subdash ss2">
-                      <span class="subitemtext subdashtext">N/A</span>          
-                    </div>
-                  {{/each}}
-                </div>
-              </li>
-              <li class="listitem dashitem" id="tasksdash">
-                <img src="img/arrow_black.png" class="accordionarrow">
-                <h3 class="mainsort">Tasks</h3>
-                <div class="subitems">
-                  <img src="img/tags.png" class="spaceimage" />
-                  {{#each task in tasksController.tasksToShow}}
-                    {{#if task.title}}
-                      {{#link-to 'tasks.task' task}}
-                      <div class="subitem subdash">
-                        <img class="subicon" src="img/tasks.png" />
-                        <span class="subitemtext subdashtext">{{task.title}}</span>
-                      </div>
-                      {{/link-to}}
-                    {{/if}}
-                  {{else}}
-                    <div class="subitem subdash">
-                      <span class="subitemtext subdashtext">No Tasks</span>
-                    </div>                    
-                  {{/each}}
-                </div>
-                <div class="sortcont sortcont2">
-                  <h4 class="beforeDropdown">Show me: </h4>
-                  {{view Ember.Select
-                       content=tasksController.showOptions
-                       optionLabelPath="content.label"
-                       optionValuePath="content.id"
-                       selection=tasksController.selectedShowOption}}
-                </div>
-                <div class="sortcont sortcont3 sortcontTasks">
-                  <h4 class="beforeDropdown">Sorted by: </h4>
-                  {{view Ember.Select
-                       content=tasksController.sortOptions
-                       optionLabelPath="content.label"
-                       optionValuePath="content.primarySort"
-                       selection=tasksController.selectedSortOption}}
-                </div>
-              </li>
-              <li class="listitem dashitem" id="eventsdash">
-                <img src="img/arrow_black.png" class="accordionarrow">
-                <h3 class="mainsort">Events (next 7 days)</h3>
-                <div class="subitems subdashtext">
-                  <ul id="eventslist">
-                    {{#each event in eventsController}}
-                      {{#if event.title}}  
-                        {{#link-to 'events.event' event}}<li><span>{{event.title}} -- {{event.start_displayformatted}}</span></li>{{/link-to}}
-                      {{/if}}
-                    {{else}}
-                      <li><span>No Events</span></li>
-                    {{/each}}   
+          <div class="mobileCover" id="eventsCover"></div>
+          <div id="appcont" class="viewcont">
+            <div class="section-container" id="taskscont">
+              <div class="row">
+                <div class="col-md-4" id="taskpane1">
+                  <img src="img/dashboard.png" / class="contactpadding">
+                  <h1 class="contactpadding dashHeading">Dashboard</h1>
+                  <ul id="eventlist" class="sidelist dashList">
+                    <li class="currentcontact">Recent Activities</li>
+                    <li>Tasks</li>
+                    <li>Events</li>
+                    <li>Tags</li>
+                    <li>Contacts</li>
                   </ul>
                 </div>
-              </li>
-              <li class="listitem dashitem" id="tagsdash">
-                <img src="img/arrow_black.png" class="accordionarrow">
-                <h3 class="mainsort">Tags</h3>
-                <div class="subitems">
-                  <img class="spaceimage" src="img/tags.png" />
-                  {{#each tag in tagsController}}
-                    {{#if tag.name}} 
-                      {{#link-to 'tags.tag' tag}}
-                      <div class="subitem subdash">
-                        <img class="subicon" src="img/tags.png" />
-                        <span class="subitemtext subdashtext">{{tag.name}}</span>          
-                      </div>
-                      {{/link-to}}
-                    {{/if}}
-                  {{else}}
-                    <div class="subitem subdash">
-                      <span class="subitemtext subdashtext">No Tags</span>          
+                <div class="col-md-7 dashRecent" id="eventpanel2">
+                  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+                  <img src="img/arrow.png" class="backArrow" />
+                  <h2 id="contactname" class="taskname orphantitle">Recent Activities</h2>
+                  <div id="detailmenubar">
+                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+                    <img src="img/trash.png" id="trashicon"/>              
+                  </div>
+                  <div class="panelcontent" id="eventscontent">              
+                    <div class="infopanel selected">
+                      {{#each item in recent10Items}}
+                        <div class="subitem subdash ss2">
+                          {{#if item.isContact}}
+                            {{#link-to 'contacts.contact' item}}
+                              <img class="subicon" src="img/contact.png" />
+                              <span class="subitemtext subdashtext">{{item.name}}</span>
+                            {{/link-to}}
+                          {{/if}}
+                          {{#if item.isEvent}}
+                            {{#link-to 'events.event' item}}
+                              <img class="subicon" src="img/events.png" />
+                              <span class="subitemtext subdashtext">{{item.title}}</span>
+                            {{/link-to}}
+                          {{/if}}
+                          {{#if item.isTask}}
+                            {{#link-to 'tasks.task' item}}
+                              <img class="subicon" src="img/tasks.png" />
+                              <span class="subitemtext subdashtext">{{item.title}}</span>
+                            {{/link-to}}
+                          {{/if}}
+                          {{#if item.isTag}}
+                            {{#link-to 'tags.tag' item}}
+                              <img class="subicon" src="img/tags.png" />
+                              <span class="subitemtext subdashtext">{{item.name}}</span>
+                            {{/link-to}}
+                          {{/if}}
+                        </div>                    
+                      {{else}}
+                        <div class="subitem subdash ss2">
+                          <span class="subitemtext subdashtext">N/A</span>          
+                        </div>
+                      {{/each}}
                     </div>
-                  {{/each}}
+                    <div class="infopanel">
+                      {{#each task in tasksController.tasksToShow}}
+                        {{#if task.title}}
+                          {{#link-to 'tasks.task' task}}
+                          <div class="subitem subdash">
+                            <img class="subicon" src="img/tasks.png" />
+                            <span class="subitemtext subdashtext">{{task.title}}</span>
+                          </div>
+                          {{/link-to}}
+                        {{/if}}
+                      {{else}}
+                        <div class="subitem subdash">
+                          <span class="subitemtext subdashtext">No Tasks</span>
+                        </div>                    
+                      {{/each}}
+                    </div>
+                    <div class="infopanel">
+                      {{#each event in eventsController}}
+                        {{#if event.title}}  
+                          {{#link-to 'events.event' event}}<li><span>{{event.title}} -- {{event.start_displayformatted}}</span></li>{{/link-to}}
+                        {{/if}}
+                      {{else}}
+                        <li><span>No Events</span></li>
+                      {{/each}} 
+                    </div>
+                    <div class="infopanel">
+                      {{#each tag in tagsController}}
+                        {{#if tag.name}} 
+                          {{#link-to 'tags.tag' tag}}
+                          <div class="subitem subdash">
+                            <img class="subicon" src="img/tags.png" />
+                            <span class="subitemtext subdashtext">{{tag.name}}</span>          
+                          </div>
+                          {{/link-to}}
+                        {{/if}}
+                      {{else}}
+                        <div class="subitem subdash">
+                          <span class="subitemtext subdashtext">No Tags</span>          
+                        </div>
+                      {{/each}}
+                    </div>
+                  </div>
                 </div>
-                <div class="sortcont sortcont3 sortcontTags">
-                  <h4 class="beforeDropdown">Sorted by: </h4>
-                  {{view Ember.Select
-                       content=tagsController.sortOptions
-                       optionLabelPath="content.label"
-                       optionValuePath="content.id"
-                       selection=tagsController.selectedSortOption}}
-                </div>            
-              </li>
-			        <li class="dashitem" id="contactsdash">
-                <h3 class="mainsort">Contacts</h3>         
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </script>
+        </script>
         <script type="text/x-handlebars" id="contacts">
           <div id="appcont" class="viewcont">
             <div class="section-container" id="contactscont">
@@ -1964,7 +1934,7 @@
                        selection=selectedShowOption}}
                     </div>
                   </div>
-                  <ul id="eventlist" class="sidelist">
+                  <ul id="eventlist" class="sidelist dashList">
                     {{#each event in events}}
                       {{#if event.title}}
                         <li>{{event.title}}</li>
@@ -2035,7 +2005,7 @@
                   <button class="sortingToggle" id="byPriority" {{action sortPriority}}>Sort</button>
                   <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
                   <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
-                  <ul id="tasklist" class="sidelist">
+                  <ul id="tasklist" class="sidelist dashList">
                     {{#each task in tasks}}
                       {{#if task.title}}
                         <li>{{task.title}}</li>
@@ -2100,7 +2070,7 @@
                        selection=selectedSortOption}}
                     </div>
                   </div>
-                  <ul id="taglist" class="sidelist">
+                  <ul id="taglist" class="sidelist dashList">
                     {{#each tag in tags}}
                       {{#if tag.name}}
                         <li>{{tag.name}}</li>

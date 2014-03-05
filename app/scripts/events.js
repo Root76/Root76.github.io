@@ -201,25 +201,27 @@ function rebindEvents() {
         console.log("mobile link: " + $('.mobileEmail').attr('href'));
     });
 
-    $('.sidelist li').click(function(event){
-        var itemList = $('.sidelist > a > li').index(this);
+    $('.dashList li').click(function(event){
+        var itemList = $('.dashList li').index(this);
+        var infoPanels = $('.infopanel');
         var detailsList = $('.textrow');
         var phoneNo = $('.phonenumber');
         var contLoc = $('.contactlocation');
         var eField = $('.emailfield');
         var clickedRow = $(event.target).closest('li');
-        $('.phonenumber.selected').removeClass('selected');
-        $(phoneNo[itemList]).addClass('selected');
-        $('.contactlocation.selected').removeClass('selected');
-        $(contLoc[itemList]).addClass('selected');            
-        $('.textrow.selected').removeClass("selected");
-        $(detailsList[itemList]).addClass("selected");
-        $('.emailfield.selected').removeClass('selected');
-        $(eField[itemList]).addClass('selected');
         $('.currentcontact').removeClass("currentcontact");
         clickedRow.addClass("currentcontact");
+        $('.infopanel.selected').removeClass('selected');
+        $(infoPanels[itemList]).addClass("selected");
+        $("#eventpanel2").attr("class", "col-md-7");
+        if (itemList == 0) {
+            $("#eventpanel2").addClass("dashRecent");
+        } else if (itemList == 1) {
+            $("#eventpanel2").addClass("dashEvents");
+        } else if (itemList == 3) {
+            $("#eventpanel2").addClass("dashTags");
+        }
         var selectedObject = $(clickedRow).html();
-        console.log(selectedObject);
         $("#preloader").html(selectedObject);
         $("#preloader script").remove();
         selectedObject = $("#preloader").html();

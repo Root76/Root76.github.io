@@ -974,6 +974,33 @@ h1, h2, h3, h4 {
 	min-height:60px;
 }
 
+.dashList li:first-child:hover,
+.dashList li.currentcontact:first-child,
+.dashRecent {
+	background:#00a3ac !important
+}
+
+.dashList li:nth-child(2):hover,
+.dashList li.currentcontact:nth-child(2),
+.dashEvents {
+	background:#88c44c !important;
+}
+
+.dashList li:nth-child(4):hover,
+.dashList li.currentcontact:nth-child(4),
+.dashTags {
+	background:#ec8f38 !important;
+}
+
+.dashList li:last-child:hover,
+.dashList li.currentcontact:last-child {
+	background:#41bee1 !important;
+}
+
+.dashHeading {
+	margin-bottom:21px !important;
+}
+
 .dashitem h3 {
 	margin-top:0px;
 	margin-bottom:0px;
@@ -1023,7 +1050,7 @@ color: #ec8f38;
 }
 
 .subdashtext {
-	color:#fff;
+	color:#000;
 }
 
 #recentdash {
