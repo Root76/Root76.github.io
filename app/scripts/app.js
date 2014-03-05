@@ -596,6 +596,10 @@ App.Contact = DS.Model.extend({
     tasks: DS.attr('array'),
     tags: DS.attr('array'),
 
+    relatedEmailsLink: function() {
+		return 'https://mail.google.com/mail/u/?authuser=' + userEmail + // pick the right user account in case of multiple login
+			'#search/from:' + this.get('email') + '+OR+to:' + this.get('email'); // filter emails from/to this person
+    }.property('email'),
     birthdayProperty: function() {
     	var properties = this.get('extended_properties') || [];
     	for (var i = 0; i < properties.length; i++) {
