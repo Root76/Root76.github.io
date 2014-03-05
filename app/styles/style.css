@@ -982,7 +982,7 @@ h1, h2, h3, h4 {
 
 .dashList li:nth-child(2):hover,
 .dashList li.currentcontact:nth-child(2),
-.dashEvents {
+.dashTasks {
 	background:#88c44c !important;
 }
 
@@ -1104,6 +1104,56 @@ color: #ec8f38;
 	border-bottom:0px !important;
 	width:auto !important;
 	margin-right:35px !important;
+}
+
+.infopanel li {
+	color: #000;
+	list-style: none;
+	font-size: 16px;
+	padding: 10px;
+	border-bottom: 1px solid #AAA;
+}
+
+.infopanel > a:first-child > li {
+	border-top: 1px solid #AAA;
+}
+
+.infopanel li:hover {
+	color:#fff;
+	background:#e35d32;
+}
+
+.infopanel a:hover {
+	text-decoration:none;
+}
+
+.dashboardSorter {
+	display:none;
+}
+
+.dashboardSorter.selected {
+	display:block;
+}
+
+#taskSorting .sortcont2,
+#tagSorting .sortcont3 {
+	top:53px;
+	right:30px !important;
+	width:150px !important;
+}
+
+#taskSorting .sortcont3 {
+	top: 52px !important;
+	right: 280px !important;
+	width: 170px !important;
+}
+
+#taskSorting select {
+	padding-left:5px !important;
+}
+
+#taskSorting .beforeDropdown {
+	left:-85px !important;
 }
 
 #orphanhead {
@@ -1426,6 +1476,11 @@ to {
 	background:#fff;
 	overflow:auto;
 	overflow-x:hidden;
+}
+
+.dashContent {
+	padding:0px;
+	height:525px;
 }
 
 #contactpanel2 .panelcontent {

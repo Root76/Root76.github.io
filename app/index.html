@@ -839,22 +839,48 @@
                   <img src="img/dashboard.png" / class="contactpadding">
                   <h1 class="contactpadding dashHeading">Dashboard</h1>
                   <ul id="eventlist" class="sidelist dashList">
-                    <li class="currentcontact">Recent Activities</li>
+                    <li class="currentcontact">Recent Activities (last 10 items edited)</li>
                     <li>Tasks</li>
-                    <li>Events</li>
+                    <li>Events (next 7 days)</li>
                     <li>Tags</li>
-                    <li>Contacts</li>
+                    {{#link-to 'contacts'}}<li>Contacts</li>{{/link-to}}
                   </ul>
                 </div>
                 <div class="col-md-7 dashRecent" id="eventpanel2">
                   <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname orphantitle">Recent Activities</h2>
-                  <div id="detailmenubar">
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
+                  <h2 id="contactname" class="taskname orphantitle">Recent Activities (last 10 items edited)</h2>
+                  <div id="dashboardSorting">
+                    <div id="taskSorting" class="dashboardSorter">
+                      <div class="sortcont sortcont2">
+                        <h4 class="beforeDropdown">Show me: </h4>
+                        {{view Ember.Select
+                             content=tasksController.showOptions
+                             optionLabelPath="content.label"
+                             optionValuePath="content.id"
+                             selection=tasksController.selectedShowOption}}
+                      </div>
+                      <div class="sortcont sortcont3 sortcontTasks">
+                        <h4 class="beforeDropdown">Sorted by: </h4>
+                        {{view Ember.Select
+                             content=tasksController.sortOptions
+                             optionLabelPath="content.label"
+                             optionValuePath="content.primarySort"
+                             selection=tasksController.selectedSortOption}}
+                      </div>
+                    </div>
+                    <div id="tagSorting" class="dashboardSorter">
+                    <div class="sortcont sortcont3 sortcontTags">
+                      <h4 class="beforeDropdown">Sorted by: </h4>
+                      {{view Ember.Select
+                           content=tagsController.sortOptions
+                           optionLabelPath="content.label"
+                           optionValuePath="content.id"
+                           selection=tagsController.selectedSortOption}}
+                    </div>
+                    </div>
                   </div>
-                  <div class="panelcontent" id="eventscontent">              
+                  <div class="panelcontent dashContent" id="eventscontent">              
                     <div class="infopanel selected">
                       {{#each item in recent10Items}}
                         <div class="subitem subdash ss2">

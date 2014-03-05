@@ -203,12 +203,16 @@ function rebindEvents() {
 
     $('.dashList li').click(function(event){
         var itemList = $('.dashList li').index(this);
+        if (itemList == 4) {
+            return;
+        }
         var infoPanels = $('.infopanel');
         var detailsList = $('.textrow');
         var phoneNo = $('.phonenumber');
         var contLoc = $('.contactlocation');
         var eField = $('.emailfield');
         var clickedRow = $(event.target).closest('li');
+        $(".dashboardSorter").removeClass("selected");
         $('.currentcontact').removeClass("currentcontact");
         clickedRow.addClass("currentcontact");
         $('.infopanel.selected').removeClass('selected');
@@ -217,9 +221,11 @@ function rebindEvents() {
         if (itemList == 0) {
             $("#eventpanel2").addClass("dashRecent");
         } else if (itemList == 1) {
-            $("#eventpanel2").addClass("dashEvents");
+            $("#eventpanel2").addClass("dashTasks");
+            $("#taskSorting").addClass("selected");
         } else if (itemList == 3) {
             $("#eventpanel2").addClass("dashTags");
+            $("#tagSorting").addClass("selected");
         }
         var selectedObject = $(clickedRow).html();
         $("#preloader").html(selectedObject);
