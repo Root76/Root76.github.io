@@ -706,8 +706,8 @@ function rebindEvents() {
             style: "bottomtip"
         }); 
     }
-    if ($("#dashcreate").length) {
-        new Opentip("#dashcreate", "Create", {
+    if ($("#createicon").length) {
+        new Opentip("#createicon", "Create", {
             style: "bottomtip"
         });
     }

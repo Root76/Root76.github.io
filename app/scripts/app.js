@@ -75,8 +75,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
   }
 });
 
@@ -105,7 +105,7 @@ Utility.sortByTimeOption = function(enumerable, timePropertyName, timeOption) {
 		else {			
 			switch(timeOption) {
 			case "overtime": // earlier than now
-				return time <= now; 
+				return time <= now;
 			case "todayAndOvertime": // earlier than beginning of next day
 				return time < moment(now).add('days', 1).hour(0).minute(0).second(0); 
 			case "next7Days": // later than now and earlier than beginning of 8th day

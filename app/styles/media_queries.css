@@ -5,6 +5,9 @@
 	.panelcontent {
 		height:270px !important;
 	}
+	.dashContent {
+		height:395px !important;
+	}
 	.panelfooter {
 		height: 35px !important;
 		top: 43px !important;
@@ -34,6 +37,10 @@
 	.panelcontent {
 		height:165px !important;
 		top:10px;
+	}
+	.dashContent {
+		height:275px !important;
+		top:14px;
 	}
 	#profilepic {
 		top:25px !important;

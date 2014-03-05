@@ -1137,13 +1137,13 @@ color: #ec8f38;
 
 #taskSorting .sortcont2,
 #tagSorting .sortcont3 {
-	top:53px;
+	top:24px;
 	right:30px !important;
 	width:150px !important;
 }
 
 #taskSorting .sortcont3 {
-	top: 52px !important;
+	top:24px !important;
 	right: 280px !important;
 	width: 170px !important;
 }
@@ -1480,7 +1480,22 @@ to {
 
 .dashContent {
 	padding:0px;
-	height:525px;
+	height:545px;
+	top:14px;
+}
+
+.dashboardHeading #createicon {
+	position:absolute;
+	top: 17px;
+	left: 320px;
+}
+
+.dashboardContainer #contactname {
+	top:0px;
+}
+
+.dashContent .infopanel:nth-child(3) {
+	top:0px;
 }
 
 #contactpanel2 .panelcontent {
