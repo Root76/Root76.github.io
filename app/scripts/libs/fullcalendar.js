@@ -6309,27 +6309,29 @@ function agendaListView(element, calendar) {
                     if (allDay) {
                         eventdisplay = $("<li class='fc-agendaList-item fc-today fc-thu'>"+
                                             "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
-                                            "<div class='fc-event-time'>"+
+                                            "<div class='row'>" +
+                                            "<div class='fc-event-time col-md-4'>"+
                                                 "<span class='fc-event-all-day'>All Day</span>"+
                                             "</div>"+
-                                            "<div class='fc-agendaList-eventDetails'>"+
+                                            "<div class='fc-agendaList-eventDetails col-md-8'>"+
                                               "<div class='fc-eventlist-title'>"+ltitle+"</div>"+
                                               "<div class='fc-eventlist-desc'>"+ldesc+"</div>"+
-                                            "</div>"+
+                                            "</div></div>"+
                                           "</" + (lurl ? "a" : "div") + ">"+ 
                                         "</li>").appendTo(html);
                         console.log("all day: " + eventdisplay);                                    
                     } else {
                         eventdisplay = $("<li class='fc-agendaList-item fc-today fc-thu'>"+
                                         "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
-                                            "<div class='fc-event-time'>"+
+                                            "<div class='row'>" +
+                                            "<div class='fc-event-time col-md-4'>"+
                                                 "<span class='fc-event-start-time'>"+st+"</span> "+
                                                 "<span class='fc-event-end-time'>"+et+"</span>"+
                                             "</div>"+
-                                            "<div class='fc-agendaList-eventDetails'>"+
+                                            "<div class='fc-agendaList-eventDetails col-md-8'>"+
                                               "<div class='fc-eventlist-title'>"+ltitle+"</div>"+
                                               "<div class='fc-eventlist-desc'>"+ltitle+"</div>"+
-                                            "</div>"+
+                                            "</div></div>"+
                                           "</" + (lurl ? "a" : "div") + ">"+                                        
                                         "</li>").appendTo(html);   
 						 console.log("not all day: " + eventdisplay);                                    

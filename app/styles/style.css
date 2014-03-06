@@ -3103,6 +3103,36 @@ table.fc-border-separate {
 	right:66px;
 }
 
+.fc-agendaList-dayHeader {
+	font-weight:700;
+	padding:10px;
+	background:#88c44c;
+	color:#fff;
+}
+
+.fc-agendaList-date {
+	float:right;
+}
+
+.fc-agendaList-event {
+	position:relative;
+	top:-10px;
+}
+
+.fc-agendaList-event .col-md-4 {
+	width:33.33% !important;
+	float:left !important;
+}
+
+.fc-agendaList-event .col-md-8 {
+	width:66.66% !important;
+	float:left !important;
+}
+
+.fc-event-time span {
+	padding-left:10px;
+}
+
 .beforeDropdown {
 position: absolute;
 top: -9px;
