@@ -134,19 +134,21 @@ function rebindEvents() {
 
     $("#createicon").click(function(event){
         var createChoice = document.getElementById("createselect");
-        $('.createForm').removeClass('selected');
-        if ($(event.target).hasClass("addContact")) {
-            createChoice.selectedIndex = 1;
-            $('.createContact').addClass('selected');
-        } else if ($(event.target).hasClass("addEvent")) {
-            createChoice.selectedIndex = 2;
-            $('.createEvent').addClass('selected');
-        } else if ($(event.target).hasClass("addTask")) {
-            $('.createTask').addClass('selected');
-            createChoice.selectedIndex = 3;
-        } else if ($(event.target).hasClass("addTag")) {
-            $('.createTag').addClass('selected');
-            createChoice.selectedIndex = 4;
+        if (createChoice.length) {
+            $('.createForm').removeClass('selected');
+            if ($(event.target).hasClass("addContact")) {
+                createChoice.selectedIndex = 1;
+                $('.createContact').addClass('selected');
+            } else if ($(event.target).hasClass("addEvent")) {
+                createChoice.selectedIndex = 2;
+                $('.createEvent').addClass('selected');
+            } else if ($(event.target).hasClass("addTask")) {
+                $('.createTask').addClass('selected');
+                createChoice.selectedIndex = 3;
+            } else if ($(event.target).hasClass("addTag")) {
+                $('.createTag').addClass('selected');
+                createChoice.selectedIndex = 4;
+            }
         }
     });
 
@@ -827,42 +829,7 @@ function rebindEvents() {
 	
 	// set current email
     $("#eaddr option:first").html(userEmail);
-}
-
-setTimeout(function(){
-
-	var authToken;
-    var userEmail;
-
-    function QueryStringToJSON() {            
-        var pairs = location.search.slice(1).split('&');
-        var result = {};
-        pairs.forEach(function(pair) {
-            pair = pair.split('=');
-            result[pair[0]] = decodeURIComponent(pair[1] || '');
-        });
-        return JSON.parse(JSON.stringify(result));
-    }
-
-    var query_string = QueryStringToJSON();
-
-    authToken = query_string.authentication_token;
-    userEmail = query_string.user_email;
-
-    console.log ("AT: " + authToken);
-    console.log ("UE: " + userEmail);
-
-    if ($(".loggedin").length) {
-        $(".loggedin").bind("touchmove", function(e) {
-            e.preventDefault();
-        });
-    }
-    if ($("#mobileNav").length) {
-        $("#mobileNav").bind("touchmove", function(e) {
-            e.preventDefault();
-        });
-    }
-
+    
     var ajaxObj = {
         headers: {
             "X-AUTHENTICATION-TOKEN": authToken,
@@ -913,17 +880,6 @@ setTimeout(function(){
         }
       }
     });
-    /*var orphans = new Bloodhound({
-      datumTokenizer: function(orphan) { return Bloodhound.tokenizers.whitespace(orphan.events.title); },
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/orphans',
-        ajax: ajaxObj,
-        filter: function(obj) {
-          return obj.orphans;
-        }
-      }
-    });*/
 
     contacts.initialize();
     events.initialize();
@@ -1004,7 +960,11 @@ setTimeout(function(){
             console.log("Unknown datum selected: " + datum);
         }
         if (objectID && displayText) {
-            var itemList = $(".relatedList > ul", ".createForm.selected");
+            if ($(".relatedOrphans").length) {
+                var itemList = $(".relatedOrphans > ul");
+            } else {
+                var itemList = $(".relatedList > ul", ".createForm.selected");
+            }
             var existingItems = $('[objectid=' + objectID + ']', itemList);
             if (existingItems.length === 0) {
                 var newRow = $('<li objectid="' + objectID + '" class="' + extraClasses + '"><span>' + displayText + '</span><img src="img/close.png"></li>');
@@ -1021,6 +981,12 @@ setTimeout(function(){
     $("#typeAheadTask").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tagsDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
     $("#typeAheadTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
+        .on('typeahead:selected', onTypeaheadSelected);
+    $("#typeAheadOrphanEvent").typeahead(typeaheadOptions, contactsDatasource, tasksDatasource, tagsDatasource)
+        .on('typeahead:selected', onTypeaheadSelected);
+    $("#typeAheadOrphanTask").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tagsDatasource)
+        .on('typeahead:selected', onTypeaheadSelected);     
+    $("#typeAheadOrphanTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
 
     window.bindSearchField = function(a, b, c) {
@@ -1048,4 +1014,41 @@ setTimeout(function(){
             });
         searchAll.focus();
     };
+
+}
+
+setTimeout(function(){
+
+	var authToken;
+    var userEmail;
+
+    function QueryStringToJSON() {            
+        var pairs = location.search.slice(1).split('&');
+        var result = {};
+        pairs.forEach(function(pair) {
+            pair = pair.split('=');
+            result[pair[0]] = decodeURIComponent(pair[1] || '');
+        });
+        return JSON.parse(JSON.stringify(result));
+    }
+
+    var query_string = QueryStringToJSON();
+
+    authToken = query_string.authentication_token;
+    userEmail = query_string.user_email;
+
+    console.log ("AT: " + authToken);
+    console.log ("UE: " + userEmail);
+
+    if ($(".loggedin").length) {
+        $(".loggedin").bind("touchmove", function(e) {
+            e.preventDefault();
+        });
+    }
+    if ($("#mobileNav").length) {
+        $("#mobileNav").bind("touchmove", function(e) {
+            e.preventDefault();
+        });
+    }
+
 }, 100);

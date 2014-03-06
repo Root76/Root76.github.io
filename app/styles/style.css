@@ -312,7 +312,7 @@ hr {
     width: 200px;
 }
 
-#searchAll {
+#searchAll, .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
 	margin-top:21px;
 	margin-left:20px;
     background: url(../img/search.png) no-repeat #fcfcfc;
@@ -330,6 +330,12 @@ hr {
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
 }
+
+.tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
+	margin:0px;
+	width:100%;
+}
+
 #searchAll:focus {
     background: none;
     width: 200px;
@@ -1488,9 +1494,17 @@ to {
 }
 
 .dashContent {
-	padding:0px;
+	padding:15px;
 	height:545px;
 	top:14px;
+}
+
+.dashContent .formrow {
+	font-size:24px;
+}
+
+.dashContent .subdash {
+	margin-left:0px;
 }
 
 .dashboardHeading #createicon {
@@ -1499,8 +1513,8 @@ to {
 	left: 320px;
 }
 
-.dashboardContainer #contactname {
-	top:0px;
+.orphantitle {
+	top:0px !important;
 }
 
 .dashContent .infopanel:nth-child(3) {
@@ -1517,6 +1531,13 @@ to {
 	padding:20px;
 	padding-right:30px;
 	font-size:16px;
+}
+
+.tt-suggestion p {
+	position:initial;
+	top:initial;
+	padding:initial;
+	font-size:initial;
 }
 
 #contactcontent {

@@ -1975,35 +1975,26 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="orphanevents/index">
-                <div class="col-md-7" id="eventpanel2">
-                  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
-                  <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname orphantitle">Select an orphan event</h2>
-                  <div id="detailmenubar">
-                    <img src="img/contact.png" />
-                    <img src="img/events.png" class="selected" />
-                    <img src="img/tasks.png" />
-                    <img src="img/tags.png" /> 
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
-                  </div>
-                  <div class="panelcontent" id="eventscontent">              
-                    <div class="infopanel selected">
-                      <form>
-                        <div class="formrow">Search related items: <br /><input id="typeAheadEvent" />
-                        </div>
-                        <div class="formrow">
-                          Selected Items:
-                          <div class="relatedList relatedEvents">
-                            <ul>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="formrow"><input type="submit"></div>
-                      </form>
-                    </div>
+          <div class="col-md-7 dashRecent" id="eventpanel2">
+            <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+            <img src="img/arrow.png" class="backArrow" />
+            <h2 id="contactname" class="taskname orphantitle">Select an Orphan Event</h2>
+            <div class="panelcontent dashContent" id="eventscontent">              
+              <form>
+                <div class="formrow">Search related items: <br />
+                  <input id="typeAheadOrphanEvent" />
+                </div>
+                <div class="formrow">
+                  Selected Items:
+                  <div class="relatedList relatedEvents relatedOrphans">
+                    <ul>
+                    </ul>
                   </div>
                 </div>
+                <div class="formrow"><input type="submit"></div>
+              </form>
+            </div>
+          </div>
         </script>
         <script type="text/x-handlebars" id="orphantasks">
           <div class="mobileCover" id="tasksCover"></div>
@@ -2046,35 +2037,26 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="orphantasks/index">
-                <div class="col-md-7" id="taskpanel2">
-                  <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
-                  <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext orphantitle">Select an orphan task</h2>
-                  <div id="detailmenubar">
-                    <img src="img/contact.png" />
-                    <img src="img/events.png" />
-                    <img src="img/tasks.png" class="selected" />
-                    <img src="img/tags.png" />   
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTask" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
-                  </div>
-                  <div class="panelcontent" id="taskscontent">
-                    <div class="infopanel selected">
-                      <form>
-                        <div class="formrow">Search related items: <br /><input id="typeAheadTask" />
-                        </div>
-                        <div class="formrow">
-                          Selected Items:
-                          <div class="relatedList relatedEvents">
-                            <ul>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="formrow"><input type="submit"></div>
-                      </form>
-                    </div>
+          <div class="col-md-7 dashRecent" id="eventpanel2">
+            <h1 id="mobileContact" class="eventDetailHeader">Tasks</h1>
+            <img src="img/arrow.png" class="backArrow" />
+            <h2 id="contactname" class="taskname orphantitle">Select an Orphan Task</h2>
+            <div class="panelcontent dashContent" id="eventscontent">              
+              <form>
+                <div class="formrow">Search related items: <br />
+                  <input id="typeAheadOrphanTask" />
+                </div>
+                <div class="formrow">
+                  Selected Items:
+                  <div class="relatedList relatedEvents relatedOrphans">
+                    <ul>
+                    </ul>
                   </div>
                 </div>
+                <div class="formrow"><input type="submit"></div>
+              </form>
+            </div>
+          </div>
         </script>
         <script type="text/x-handlebars" id="orphantags">
           <div class="mobileCover" id="tagsCover"></div>
@@ -2111,35 +2093,26 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="orphantags/index">
-                <div class="col-md-7" id="tagpanel2">
-                  <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
-                  <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext orphantitle">Select an orphan tag</h2>
-                  <div id="detailmenubar">
-                    <img src="img/contact.png" />
-                    <img src="img/events.png" />
-                    <img src="img/tasks.png" />
-                    <img src="img/tags.png" class="selected" />   
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
-                  </div>
-                  <div class="panelcontent" id="tagscontent">
-                    <div class="infopanel selected">
-                      <form>
-                        <div class="formrow">Search related items: <br /><input id="typeAheadTag" />
-                        </div>
-                        <div class="formrow">
-                          Selected Items:
-                          <div class="relatedList relatedEvents">
-                            <ul>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="formrow"><input type="submit"></div>
-                      </form>
-                    </div>
+          <div class="col-md-7 dashRecent" id="eventpanel2">
+            <h1 id="mobileContact" class="eventDetailHeader">Tags</h1>
+            <img src="img/arrow.png" class="backArrow" />
+            <h2 id="contactname" class="taskname orphantitle">Select an Orphan Tag</h2>
+            <div class="panelcontent dashContent" id="eventscontent">              
+              <form>
+                <div class="formrow">Search related items: <br />
+                  <input id="typeAheadOrphanTag" />
+                </div>
+                <div class="formrow">
+                  Selected Items:
+                  <div class="relatedList relatedEvents relatedOrphans">
+                    <ul>
+                    </ul>
                   </div>
                 </div>
+                <div class="formrow"><input type="submit"></div>
+              </form>
+            </div>
+          </div>
         </script>
         <script type="text/x-handlebars" id="calendar">
           <div class="mobileCover" id="calendarCover"></div>
