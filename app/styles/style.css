@@ -1034,7 +1034,7 @@ h1, h2, h3, h4 {
 }
 
 .subdash img {
-	width:45px;
+	width:35px;
 }
 
 .mainsort {
@@ -1135,6 +1135,14 @@ color: #ec8f38;
 	display:block;
 }
 
+#listViewContainer {
+	display:none;
+}
+
+#listViewContainer.selected {
+	display:block;
+}
+
 #taskSorting .sortcont2,
 #tagSorting .sortcont3 {
 	top:24px;
@@ -1153,7 +1161,8 @@ color: #ec8f38;
 }
 
 #taskSorting .beforeDropdown {
-	left:-85px !important;
+	left:-87px !important;
+	display:block;
 }
 
 #orphanhead {

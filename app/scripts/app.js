@@ -75,8 +75,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -1043,7 +1043,7 @@ App.CalView = Ember.View.extend({
 	        header: {
 	            left: 'prev,next today',
 	            center: 'title',
-	            right: 'month,agendaWeek,agendaDay'
+	            right: 'month,agendaWeek,agendaDay,agendaList'
 	        },
 	        events: json,
 	        eventClick: function(calEvent, jsEvent, view) {

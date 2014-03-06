@@ -409,6 +409,10 @@
 		margin-left: 15px;
 	}
 
+	.dashboardContainer .subdashtext {
+		color:#000;
+	}
+
 	.reportToggler {
 		display:none !important;
 	}
@@ -851,6 +855,10 @@
 		padding-left: 20px;
 	}
 
+	.dashHeading {
+		background:none !important;
+	}
+
 	.tagDetailHeader {
 		background: #bab1b2 !important;
 		padding: 9px !important;
@@ -895,6 +903,15 @@
 		background:#85ae6a;
 	}
 
+	.dashboardHeading {
+		background:none !important;
+		border:none !important;
+	}
+
+	.dashboardContainer #eventpanel2 {
+		background:#e35d32;
+	}
+
 	#contactlist li {
 		background:#2f3776 !important;
 	}
@@ -904,11 +921,11 @@
 	}
 
 	#eventlist li {
-		background:#85ae6a !important;
+		background:#85ae6a;
 	}
 
 	#eventlist li:hover {
-		background:#006416 !important;
+		background:#006416;
 	}
 
 	#tasklist li {
@@ -928,8 +945,32 @@
 	}
 
 	#eventscontent {
-		background:#006416 !important;
+		background:#006416;
 		color:#fff;
+	}
+
+	#taskSorting .sortcont2, #tagSorting .sortcont3 {
+		top:66px;
+		right:10px !important;
+	}
+
+	.dashContent {
+		background:#fff !important;
+		position: fixed;
+		bottom: 80px;
+		top: 110px;
+		height: auto !important;
+		display:none;
+	}
+
+	.mobileIn .dashContent {
+		display:block;
+	}
+
+	.orphantitle {
+		margin-top: 10px;
+		margin-bottom: 20px;
+		margin-left: 10px !important;
 	}
 
 	#taskscontent {
@@ -1159,6 +1200,36 @@
 		-moz-box-shadow: none;
 		-webkit-box-shadow: none;
 	}
+	.dashList li:first-child,
+	.dashList li:first-child:hover,
+	.dashList li.currentcontact:first-child,
+	.dashRecent {
+		background:#00a3ac !important
+	}
+	.dashList li:nth-child(2),
+	.dashList li:nth-child(2):hover,
+	.dashList li.currentcontact:nth-child(2),
+	.dashTasks {
+		background:#88c44c !important;
+	}
+	.dashList li:nth-child(3),
+	.dashList li:nth-child(3):hover,
+	.dashList li.currentcontact:nth-child(3),
+	.dashTasks {
+		background:#e35d32 !important
+	}
+	.dashList li:nth-child(4),
+	.dashList li:nth-child(4):hover,
+	.dashList li.currentcontact:nth-child(4),
+	.dashTags {
+		background:#ec8f38 !important;
+	}
+	.dashList li:last-child,
+	.dashList li:last-child:hover,
+	.dashList li.currentcontact:last-child {
+		background:#41bee1 !important;
+	}
+
 }
 
 @media screen and (max-width:639px) {
@@ -1212,6 +1283,13 @@
 }
 
 @media screen and (max-width:419px) {
+	.orphantitle {
+		font-size:20px;
+		margin-top:14px;
+	}
+	#taskSorting .sortcont2, #tagSorting .sortcont3 {
+		top:69px;
+	}
 	.dashitem h3 {
 		font-size:12px !important;
 	}

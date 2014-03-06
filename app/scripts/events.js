@@ -157,10 +157,14 @@ function rebindEvents() {
 	});
 
     $(".backArrow").click(function(){
-        $("#contactpanel2").attr("class", "col-md-7 mobileOut");
-        $("#eventpanel2").attr("class", "col-md-7 mobileOut");
-        $("#taskpanel2").attr("class", "col-md-7 mobileOut");
-        $("#tagpanel2").attr("class", "col-md-7 mobileOut");
+        $("#contactpanel2").removeClass("mobileIn");
+        $("#eventpanel2").removeClass("mobileIn");
+        $("#taskpanel2").removeClass("mobileIn");
+        $("#tagpanel2").removeClass("mobileIn");
+        $("#contactpanel2").addClass("mobileOut");
+        $("#eventpanel2").addClass("mobileOut");
+        $("#taskpanel2").addClass("mobileOut");
+        $("#tagpanel2").addClass("mobileOut");
         setTimeout(function(){
             $("#contactpanel2").removeClass("mobileOut");
             $("#eventpanel2").removeClass("mobileOut");
@@ -217,7 +221,9 @@ function rebindEvents() {
         clickedRow.addClass("currentcontact");
         $('.infopanel.selected').removeClass('selected');
         $(infoPanels[itemList]).addClass("selected");
-        $("#eventpanel2").attr("class", "col-md-7");
+        $("#eventpanel2").removeClass("dashRecent");
+        $("#eventpanel2").removeClass("dashTasks");
+        $("#eventpanel2").removeClass("dashTags");
         if (itemList == 0) {
             $("#eventpanel2").addClass("dashRecent");
         } else if (itemList == 1) {
@@ -232,19 +238,23 @@ function rebindEvents() {
         $("#preloader script").remove();
         selectedObject = $("#preloader").html();
         $(".orphantitle").html(selectedObject);
-        if (hasWhiteSpace(selectedObject)) {
+        /*if (hasWhiteSpace(selectedObject)) {
 	        var splitString = $(selectedObject).html().split(" ");
 	        var splitString1 = splitString[0].toLowerCase();
 	        if (splitString.length > 1) {
 	            var splitString2 = splitString[1].toLowerCase();
 	        }
-    	}
+    	}*/
 
         if ($(window).width() < 768) {
-            $("#contactpanel2").addClass('mobileIn');
             $("#eventpanel2").addClass('mobileIn');
-            $("#taskpanel2").addClass('mobileIn');
-            $("#tagpanel2").addClass('mobileIn');
+            if ($(".dashContent").length) {
+                var mobileContent = $(".dashContent");
+                $(mobileContent).removeClass("dashContent");
+                setTimeout(function(){
+                    $(mobileContent).addClass("dashContent");
+                }, 1);
+            }
         }
 
     });
@@ -440,6 +450,9 @@ function rebindEvents() {
             timeView = timeView.toLowerCase();
             if (timeView == "today") {
                 timeView = "day";
+            }
+            if (timeView == "list") {
+                timeView = "Agenda";
             }
             $( "span:contains('" + timeView + "')" ).click();
         }
