@@ -236,10 +236,13 @@ function rebindEvents() {
             $("#tagSorting").addClass("selected");
         }
         var selectedObject = $(clickedRow).html();
+        var selectedObjectId;
         $("#preloader").html(selectedObject);
         $("#preloader script").remove();
-        selectedObject = $("#preloader").html();
+        selectedObject = $("#preloader > span:first-child").html();
+        selectedObjectId = $("#preloader > span:last-child").html();
         $(".orphantitle").html(selectedObject);
+        $("#selectedID").html(selectedObjectId);
         /*if (hasWhiteSpace(selectedObject)) {
 	        var splitString = $(selectedObject).html().split(" ");
 	        var splitString1 = splitString[0].toLowerCase();
@@ -261,7 +264,7 @@ function rebindEvents() {
 
     });
 
-    $("form").unbind('submit').bind('submit', function(event){		
+    $(".createForm").unbind('submit').bind('submit', function(event){		
 
 		var showPopupMessage = function(target, message, style) {
 			var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
@@ -310,11 +313,6 @@ function rebindEvents() {
 			thisObject = thisObject.replace(/\D/g,'');
         	tagIds[i] = thisObject;
         }
-
-		console.log("contacts: " + contactIds);
-		console.log("events: " + eventIds);
-		console.log("tasks: " + taskIds);
-		console.log("tags: " + tagIds);
 
         if ($(event.target).parent().hasClass("createTag")) {
             var tagTitle = $("#tagName").val();
@@ -408,8 +406,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -421,6 +419,96 @@ function rebindEvents() {
 				showPopupMessage(event.target, "Error creating " + objectDescription, "error");
 			}
 		});
+        return false;
+    });
+
+    $("#associationForm").submit(function(){
+
+        var url = "http://daywon-api-staging.herokuapp.com/";
+        var data;
+        var orphanName = $("#contactname").html();
+        var orphanID = $("#selectedID").html();
+
+        var relatedContacts = $("li[objectid*='contact']");
+        var relatedEvents = $("li[objectid*='event']");
+        var relatedTasks = $("li[objectid*='task']");
+        var relatedTags = $("li[objectid*='tag']");
+        var contactIds = new Array();
+        var eventIds = new Array();
+        var taskIds = new Array();
+        var tagIds = new Array();
+        var thisObject;
+        var i;
+
+        for (i = 0; i < relatedContacts.length; i++) {
+            thisObject = $(relatedContacts[i]).attr('objectid');
+            thisObject = thisObject.replace(/\D/g,'');
+            contactIds[i] = thisObject;
+        }
+        for (i = 0; i < relatedEvents.length; i++) {
+            thisObject = $(relatedEvents[i]).attr('objectid');
+            thisObject = thisObject.replace(/\D/g,'');
+            eventIds[i] = thisObject;
+        }
+        for (i = 0; i < relatedTasks.length; i++) {
+            thisObject = $(relatedTasks[i]).attr('objectid');
+            thisObject = thisObject.replace(/\D/g,'');
+            taskIds[i] = thisObject;
+        }
+        for (i = 0; i < relatedTags.length; i++) {
+            thisObject = $(relatedTags[i]).attr('objectid');
+            thisObject = thisObject.replace(/\D/g,'');
+            tagIds[i] = thisObject;
+        }
+
+        console.log("contacts: " + contactIds);
+        console.log("events: " + eventIds);
+        console.log("tasks: " + taskIds);
+        console.log("tags: " + tagIds);
+
+        if ($("#typeAheadOrphanEvent").length) {
+            url += "events/" + orphanID;
+            data = {
+                contact_ids: contactIds,
+                task_ids: taskIds,
+                tag_ids: tagIds
+            };
+        } else if ($("#typeAheadOrphanTask").length) {
+            url += "tasks/" + orphanID;
+            data = {
+                contact_ids: contactIds,
+                event_ids: eventIds,
+                tag_ids: tagIds
+            };
+        } else if ($("#typeAheadOrphanTag").length) {
+            url += "tags/" + orphanID;
+            data = {
+                contact_ids: contactIds,
+                event_ids: eventIds,
+                task_ids: taskIds
+            };
+        }
+
+        $.ajax({
+            type: 'PUT',
+            url: url,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            },
+            success: function (data) {
+                console.log(data);
+                showPopupMessage(event.target, "Successfully edited " + orphanName, "success");
+                setTimeout(refetchTypeaheadData, 1000);
+            },
+            error: function (e) {
+                console.log(e.statusText);
+                showPopupMessage(event.target, "Error editting " + orphanName, "error");
+            }
+        });
         return false;
     });
 
@@ -832,8 +920,8 @@ function rebindEvents() {
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({

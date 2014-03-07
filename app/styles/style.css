@@ -312,6 +312,14 @@ hr {
     width: 200px;
 }
 
+#selectedID {
+	display:none;
+}
+
+#selectedObject {
+
+}
+
 #searchAll, .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
 	margin-top:21px;
 	margin-left:20px;
@@ -2465,6 +2473,16 @@ font-family:'Open Sans', sans-serif;
 	color: #fff;
 }
 
+#associationForm {
+	height: 100%;
+	position: relative;
+}
+
+#associationForm .formrow:last-child {
+	position:absolute;
+	bottom:0px;
+}
+
 .contactAssociation {
 	background:#41bee1;
 }
@@ -3356,6 +3374,10 @@ input#toggle5:checked + label:after {
 
 	  .relatedList img:hover {
 	  	opacity:1;
+	  }
+
+	  .relatedOrphans {
+	  	border:0px;
 	  }
 
 

@@ -1964,10 +1964,11 @@
                   <ul id="eventlist" class="sidelist dashList">
                     {{#each event in events}}
                       {{#if event.title}}
-                        <li>{{event.title}}</li>
+                        <li><span>{{event.title}}</span><span style="display:none">{{event.id}}</span></li>
                       {{/if}}
                     {{/each}}
                   </ul>
+                  <span id="selectedID"></span>
                 </div>
                 {{outlet}}
               </div>
@@ -1980,7 +1981,7 @@
             <img src="img/arrow.png" class="backArrow" />
             <h2 id="contactname" class="taskname orphantitle">Select an Orphan Event</h2>
             <div class="panelcontent dashContent" id="eventscontent">              
-              <form>
+              <form id="associationForm">
                 <div class="formrow">Search related items: <br />
                   <input id="typeAheadOrphanEvent" />
                 </div>
