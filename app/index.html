@@ -2027,10 +2027,11 @@
                   <ul id="tasklist" class="sidelist dashList">
                     {{#each task in tasks}}
                       {{#if task.title}}
-                        <li>{{task.title}}</li>
+                        <li><span>{{task.title}}</span><span style="display:none">{{task.id}}</span></li>
                       {{/if}}
                     {{/each}}           
                   </ul>
+                  <span id="selectedID"></span>
                 </div>
                 {{outlet}}
               </div>
@@ -2043,7 +2044,7 @@
             <img src="img/arrow.png" class="backArrow" />
             <h2 id="contactname" class="taskname orphantitle">Select an Orphan Task</h2>
             <div class="panelcontent dashContent" id="eventscontent">              
-              <form>
+              <form id="associationForm">
                 <div class="formrow">Search related items: <br />
                   <input id="typeAheadOrphanTask" />
                 </div>
@@ -2083,10 +2084,11 @@
                   <ul id="taglist" class="sidelist dashList">
                     {{#each tag in tags}}
                       {{#if tag.name}}
-                        <li>{{tag.name}}</li>
+                        <li><span>{{tag.name}}</span><span style="display:none">{{tag.id}}</span></li>
                       {{/if}}
                     {{/each}}                 
                   </ul>
+                  <span id="selectedID"></span>
                 </div>
                 {{outlet}}
               </div>
@@ -2099,7 +2101,7 @@
             <img src="img/arrow.png" class="backArrow" />
             <h2 id="contactname" class="taskname orphantitle">Select an Orphan Tag</h2>
             <div class="panelcontent dashContent" id="eventscontent">              
-              <form>
+              <form id="associationForm">
                 <div class="formrow">Search related items: <br />
                   <input id="typeAheadOrphanTag" />
                 </div>

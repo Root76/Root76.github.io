@@ -3153,6 +3153,15 @@ table.fc-border-separate {
 	float:right;
 }
 
+.fc-agendaList-item {
+	border-left:1px solid #88c44c;
+	border-right:1px solid #88c44c;
+}
+
+.fc-agendaList-item:last-child {
+	border-bottom:1px solid #88c44c;
+}
+
 .fc-agendaList-event {
 	position:relative;
 	top:-10px;
@@ -3167,6 +3176,8 @@ table.fc-border-separate {
 	width:66.66% !important;
 	float:left !important;
 }
+
+
 
 .fc-event-time span {
 	padding-left:10px;
