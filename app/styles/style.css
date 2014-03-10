@@ -89,15 +89,19 @@ hr {
 }
 
 #logo {
-	font-family: 'Pacifico', cursive;
-	color: #2f3872;
-	text-align: center;
-	font-size: 28px;
-	top:10px;
-	position: relative;
-	font-weight: 400;
-	margin:0px;
-	padding-top:9px;
+	height:60px;
+}
+
+#logolink {
+	color:#2a6496;
+}
+
+#logolink p {
+	font-size: 10px;
+	line-height: 10px;
+	margin-bottom: 0px;
+	position:absolute;
+	bottom:4px;
 }
 
 .backArrow {
@@ -235,7 +239,7 @@ hr {
 .reportarrow {
 	width:35px;
 	opacity:.5;
-	top: 14px;
+	top: 9px;
 	right: 12px;
 	-moz-user-select: none; 
 	-khtml-user-select: none; 
@@ -966,7 +970,6 @@ h1, h2, h3, h4 {
 
 .listitem {
 	background:#fff;
-	min-height:68px;
 	margin-bottom: 0px;
 	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
 	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.3);
@@ -979,7 +982,8 @@ h1, h2, h3, h4 {
 	margin-top: 0px;
 	padding-right:65px;
 	padding-left:65px;
-	line-height:65px;
+	line-height:55px;
+	padding-bottom:3px;
 }
 
 .dashitem {
@@ -1025,19 +1029,19 @@ h1, h2, h3, h4 {
 }
 
 .listimg {
-	margin:10px;
-	width:45px;
+	height:45px;
 	position:absolute;
 	left:0px;
+	margin:6px;
 }
 
 .subicon {
-	width:60px;
+	width:45px;
 }
 
 .subitem {
-	margin-left:80px;
-	height:60px;
+	margin-left:40px;
+	height:45px;
 }
 
 .subdash {
@@ -1193,6 +1197,14 @@ color: #ec8f38;
 	display:block;
 }
 
+.dashboardContainer {
+	margin-top:5px;
+}
+
+.dashboardContainer .col-md-7 {
+	top:185px !important;
+}
+
 #orphanhead {
 	margin-left:-20px !important;
 	display:inline;
@@ -1218,7 +1230,7 @@ color: #ec8f38;
 
 #orphancontainer {
 	position: absolute;
-	top: 190px;
+	top: 215px;
 	left: 125px;
 }
 

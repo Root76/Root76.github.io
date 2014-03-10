@@ -42,7 +42,7 @@
               <form method="get" action="/search" class="search" id="mobilesearch">
                 <input name="q" type="text" size="40" placeholder="Search..." />
               </form>
-              <h1 id="logo">DayWon</h1>
+              <a id="logolink" href="http://www.daywon.com/faq" target="_blank"><img src="img/logo.jpg" / id="logo"><br /><p>Connecting your Gmail Contacts, Calendar Events & Tasks</p></a>
             </div>
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -116,10 +116,10 @@
                 <a href="javascript:void(0)"><div><img src="img/share.png" id="socialimg" /><span>Tell Friends About Day Won</span></div></a>
             </div>
             <div id="sociallinks">
-                <a href="javascript:void(0)"><div id="linkedinIcon"></div></a>
-                <a href="javascript:void(0)"><div id="googleIcon"></div></a>
-                <a href="javascript:void(0)"><div id="twitterIcon"></div></a>
-                <a href="javascript:void(0)"><div id="facebookIcon"></div></a>
+                <a target="_blank" href="http://www.linkedin.com/company/Day-Won-LLC"><div id="linkedinIcon"></div></a>
+                <a target="_blank" href="http://www.google.com/+DayWon"><div id="googleIcon"></div></a>
+                <a target="_blank" href="http://www.twitter.com/DayWonApp"><div id="twitterIcon"></div></a>
+                <a target="_blank" href="http://www.facebook.com/daywonapp"><div id="facebookIcon"></div></a>
                 <span id="cwrite" >&copy; 2014 Day Won, LLC - All rights reserved</span>
             </div>
           </div>
@@ -268,7 +268,7 @@
         <script type="text/x-handlebars" id="reports/index">
         <div class="mobileCover" id="reportsCover"></div>
         <h1 class="reportsHeader">Show Me</h1>
-        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h4 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show me Sorted by Contacts for Today).</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -324,7 +324,7 @@
         </script>
         <script type="text/x-handlebars" id="reports/events">
         <h1 class="reportsHeader">Show Me</h1>
-        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h4 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show me Sorted by Contacts for Today).</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -422,7 +422,7 @@
         </script>
         <script type="text/x-handlebars" id="reports/tasks">
         <h1 class="reportsHeader">Show Me</h1>
-        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h4 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show me Sorted by Contacts for Today).</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -523,7 +523,7 @@
         </script>
         <script type="text/x-handlebars" id="reports/contacts">
         <h1 class="reportsHeader">Show Me</h1>
-        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h4 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show me Sorted by Contacts for Today).</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -620,7 +620,7 @@
         </script>
         <script type="text/x-handlebars" id="reports/tags">
         <h1 class="reportsHeader">Show Me</h1>
-        <h4 class="reportsHeader">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida sit amet mauris at lacinia. Sed semper quis felis a porttitor. Maecenas quis aliquet magna, eu bibendum felis.</h4>
+        <h4 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show me Sorted by Contacts for Today).</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -835,6 +835,7 @@
           <div id="appcont" class="viewcont">
             <div class="section-container dashboardContainer" id="taskscont">
               <div class="row">
+                <p>This page provides you a quick overview & access to your relavent Contacts, Calendar Events & Tasks from Gmail.</p>
                 <div class="col-md-4 dashboardHeading" id="taskpane1">
                   <img src="img/dashboard.png" / class="contactpadding">
                   <h1 class="contactpadding dashHeading">Dashboard</h1>
@@ -1910,7 +1911,7 @@
           <div id="appcont" class="orphancont">
             <img id="orphanlogo" src="img/orphans.png" />
             <h1 id="orphanhead">Orphans (<span id="totalOrphans">3</span>)</h1>
-            <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag.</h2>
+            <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag. To maximize the usefulness of Day Won, eliminate all Orphans.</h2>
             <div id="orphancontainer">
               {{#link-to 'orphanevents'}}<img src="img/events.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
               {{#link-to 'orphantasks'}}<img src="img/tasks.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
