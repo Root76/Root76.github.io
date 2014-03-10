@@ -30,9 +30,10 @@ function rebindEvents() {
             $(event.target).addClass('selected');
             $(subSortList).css("display", "block");
         }
+        $(".listitem").accordion("refresh");
     });
 
-    $('.sortitem').click(function(event){
+    $('.sortitem').unbind("click").bind("click", function(event){
         var sortType = event.target.id;
         if ($(event.target).hasClass('selected')) {
             if ($(event.target).find('ul').hasClass('invis')) {
@@ -47,6 +48,29 @@ function rebindEvents() {
             $(event.target).addClass('selected');
             $(event.target).find('ul').addClass("sortby");
         }
+        setTimeout(function(){
+            if ($("#subEvent.selected").length) {
+                $(".subEvent").css("display", "block");
+            } else {
+                $(".subEvent").css("display", "none");
+            }
+            if ($("#subTask.selected").length) {
+                $(".subTask").css("display", "block");
+            } else {
+                $(".subTask").css("display", "none");
+            }
+            if ($("#subContact.selected").length) {
+                $(".subContact").css("display", "block");
+            } else {
+                $(".subContact").css("display", "none");
+            }
+            if ($("#subTag.selected").length) {
+                $(".subTag").css("display", "block");
+            } else {
+                $(".subTag").css("display", "none");
+            }
+            $(".listitem").accordion("refresh"); 
+        }, 1000);
     });
 
     setTimeout(function(){
@@ -409,8 +433,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -499,8 +523,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 console.log(data);
@@ -923,8 +947,8 @@ function rebindEvents() {
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({
