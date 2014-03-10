@@ -6106,28 +6106,26 @@ function HorizontalPositionCache(getElement) {
 }
 
 /***************** List View *********************/
-// PMANIRAHO : adding a list view
 
 //add new view and its button
 fcViews.agendaList = agendaListView;
 defaults.buttonText.agendaList='Agenda';
 defaults.titleFormat.agendaList='W';
 
-
 defaults.agendaDisType   = true;
 
 function agendaListView(element, calendar) {
-        var t = this;
 
+    var t = this;
 
-        // exports
-        t.render = render;
+    // exports
+    t.render = render;
 
-        // imports
-        ListView.call(t, element, calendar );
-        var opt = t.opt;
-        //var renderAgendaList = t.renderAgendaList;
-        var formatDate = calendar.formatDate;
+    // imports
+    ListView.call(t, element, calendar );
+    var opt = t.opt;
+    //var renderAgendaList = t.renderAgendaList;
+    var formatDate = calendar.formatDate;
 		
 		
 	function render(date, delta) {
@@ -6202,8 +6200,6 @@ function agendaListView(element, calendar) {
         
         
         var eventElementHandlers = t.eventElementHandlers;
-
-
 
         // We are switching to List display, hence no need of this function anymore
         // But if you would prefer the consistency, we can swicth and have table based listview 
@@ -6286,6 +6282,7 @@ function agendaListView(element, calendar) {
                 try {
                 	em = formatDate(displayeventlist[i].start, 'W');
             	} catch (err) {
+            		console.log("error parsing date: " + err);
             	}
                 // retrieve only current view week events
                 if ( em.length ) {
@@ -6298,6 +6295,10 @@ function agendaListView(element, calendar) {
                     et      = formatDate(displayeventlist[i].end, 'H:mm');
                     lurl    = displayeventlist[i].url;
                     classes = displayeventlist[i].className;
+
+                    if (!ldesc) {
+                    	ldesc = "No description";
+                    }
                     
                     if (lday != temp) { //on change de jour
                         $("<li class='fc-agendaList-dayHeader ui-widget-header'>" +

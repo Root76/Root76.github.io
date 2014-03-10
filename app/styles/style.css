@@ -320,7 +320,7 @@ hr {
 
 }
 
-#searchAll, .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
+#searchAll, .dashContent .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
 	margin-top:21px;
 	margin-left:20px;
     background: url(../img/search.png) no-repeat #fcfcfc;
@@ -339,7 +339,7 @@ hr {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
 }
 
-.tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
+.dashContent .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
 	margin:0px;
 	width:100%;
 }
@@ -1137,8 +1137,22 @@ color: #ec8f38;
 	background:#e35d32;
 }
 
+.infopanel span {
+	text-decoration:underline;
+}
+
+.infopanel span:hover {
+	font-weight:700;
+	color:#444;
+}
+
 .infopanel a:hover {
 	text-decoration:none;
+}
+
+.dashContent .infopanel:nth-child(3) span:hover {
+	font-weight:400;
+	color:#fff;
 }
 
 .dashboardSorter {
