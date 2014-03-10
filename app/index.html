@@ -889,7 +889,11 @@
                           {{#if item.isContact}}
                             {{#link-to 'contacts.contact' item}}
                               <img class="subicon" src="img/contact.png" />
+                              {{#if item.name}}
                               <span class="subitemtext subdashtext">{{item.name}}</span>
+                              {{else}}
+                              <span class="subitemtext subdashtext">{{item.email}}</span>
+                              {{/if}}
                             {{/link-to}}
                           {{/if}}
                           {{#if item.isEvent}}
