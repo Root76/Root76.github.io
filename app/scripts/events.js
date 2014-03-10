@@ -595,6 +595,13 @@ function rebindEvents() {
         }
     });
 
+    $('.notesLabel2').unbind("click").bind("click", function(){
+        $('.flipswitch').click();
+        setTimeout(function(){
+            $('.notesField').dblclick()
+        }, 300);
+    });
+
     $("#createselect").change(function(){
         var chosen = "create" + $("#createselect option:selected").html();
         var chosenForm = document.getElementsByClassName(chosen);

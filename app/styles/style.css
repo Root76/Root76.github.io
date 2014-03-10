@@ -2322,7 +2322,7 @@ font-family:'Open Sans', sans-serif;
 }
 
 .relatedObjects {
-	padding-top:50px;
+	padding-top:0px;
 }
 
 .contactitem {
@@ -2490,9 +2490,21 @@ font-family:'Open Sans', sans-serif;
 	width: 90%;
 }
 
+.notesLabel2 {
+	float:none;
+	cursor:pointer;
+}
+
 .notesLabel {
 	float: left;
 	width: 10%;
+}
+
+#detailTrash {
+	width: 50px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
 }
 
 .association {
