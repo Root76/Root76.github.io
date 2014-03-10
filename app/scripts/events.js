@@ -137,8 +137,7 @@ function rebindEvents() {
     	$("#loader").addClass("showLoader");
     	setTimeout(function(){
 			var oldScrollTo = $.fn.scrollTo; // temp disable scrollTo
-			$.fn.scrollTo = function() {}; 
-		
+			$.fn.scrollTo = function() {};		
 	        var accord;
 	        var accords = $('.mainsort');
 	        for (var a = 0; a < accords.length; a++) {
@@ -233,6 +232,10 @@ function rebindEvents() {
         $(".mobileEmail").attr("href", mobileLink + emailAddr);
         console.log("desktop link: " + $('.desktopEmail').attr('href'));
         console.log("mobile link: " + $('.mobileEmail').attr('href'));
+    });
+
+    $("#slideOutEmail").click(function(){
+        $(".dynamicEmail").parent().click();
     });
 
     $('.dashList li').click(function(event){
@@ -879,7 +882,7 @@ function rebindEvents() {
     }
     if ($('.contactDetails').length) {
         var slideImages = $('.contactgroup img');
-        new Opentip(slideImages[0], "Email Address", {
+        new Opentip(slideImages[0], "Send Email", {
             style: "lefttip"
         });
         new Opentip(slideImages[1], "View Emails", {

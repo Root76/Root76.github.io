@@ -2340,6 +2340,13 @@ font-family:'Open Sans', sans-serif;
 	top: 15px;
 }
 
+.dynamicEmail {
+	left: 0px !important;
+	float: left !important;
+	top: 0px !important;
+	width: 100% !important;
+}
+
 .contactgroup img {
 	width:50px;
 	position:relative;
