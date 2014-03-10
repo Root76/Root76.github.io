@@ -2500,11 +2500,17 @@ font-family:'Open Sans', sans-serif;
 	width: 10%;
 }
 
-#detailTrash {
-	width: 50px;
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
+#detailTrash, .detailCreate {
+	height:50px;
+	position:absolute;
+	bottom:0px;
+	left:40px;
+}
+
+.detailCreate {
+	left:5px;
+	height:45px;
+	bottom:3px;
 }
 
 .association {

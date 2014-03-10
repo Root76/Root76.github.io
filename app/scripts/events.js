@@ -176,6 +176,10 @@ function rebindEvents() {
         }
     });
 
+    $('.detailCreate').click(function(){
+        $("#createicon").click();
+    });
+
     $('.listitem > .sortitem > select').click();
 	
 	$("#contactsdash").click(function() {
