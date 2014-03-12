@@ -193,10 +193,40 @@
                 <div class="formrow">Event description: <input type="text" id="eventDetails"></div>
                 <div class="formrow">Event location: <input type="text" id="eventLocation"></div>
                 <div class="formrow">
+                <div class="formrow">
+                  <span>All Day: </span>
+                  <div class="squaredTwo">
+                    <input type="checkbox" value="None" id="allDay" name="check" />
+                    <label for="allDay"></label>
+                  </div>
+                  <span>Recurring: </span>
+                  <div class="squaredTwo">
+                    <input type="checkbox" value="None" id="recurring" name="check" />
+                    <label for="recurring"></label>
+                  </div>
+                </div>
                   Start date: <input type="datetime-local" id="eventStart">
                 </div>
                 <div class="formrow">
                   End date: <input type="datetime-local" id="eventEnd">
+                </div>
+                <div id="recurringContainer">
+                  <div class="formrow">
+                    Repeats: <br /><select>
+                      <option>Daily</option>
+                      <option>Weekly</option>
+                      <option>Monthly</option>
+                      <option>Yearly</option>
+                      <option>All weekdays</option>
+                      <option>Monday / Wednesday / Friday</option>
+                      <option>Tuesday / Thursday</option>
+                    </select><div id="recurringInterval"> every <input type="number" name="quantity" min="1" max="30"> days</div>
+                  </div>
+                  <div class="formrow">
+                    Ends: <div class="endSelect"><input type="radio" name="ending" value="never">Never</div>
+                          <div class="endSelect"><input type="radio" name="ending" value="after">After <input type="number" name="occurences" > occurences</div>
+                          <div class="endSelect"><input type="radio" name="ending" value="on">On <input type="datetime-local" id="endEventRepeat"></div>
+                  </div>
                 </div>
                 <div class="formrow">Search related items: <br /><input id="typeAheadEvent" />
                 </div>
@@ -215,6 +245,14 @@
                 <div class="formrow">Task title: <input type="text" id="taskName"></div>
                 <div class="formrow">Task notes: <input type="text" id="taskNotes"></div>
                 <div class="formrow">Due date: <input type="datetime-local" id="taskDue"></div>
+                <div class="formrow">Priority:<br /> 
+                  <select id="taskPriority">
+                    <option>Select a priority</option>
+                    <option>High</option>
+                    <option>Normal</option>
+                    <option>Low</option>
+                  </select>
+                </div>
                 <div class="formrow">Search related items: <br /><input id="typeAheadTask" />
                 </div>
                 <div class="formrow">
@@ -965,7 +1003,7 @@
                 <h1>{{name}}</h1>
                 <div class="contactgroup contactDetails">
                   <div class="contactitem">
-                    <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png">
+                    <a href="" target="_blank" class="dynamicEmail"><img src="img/openmail.png">
                     <span>{{email}}</span></a>
                   </div>
                   <div class="contactitem">

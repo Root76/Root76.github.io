@@ -20,7 +20,7 @@ function rebindEvents() {
 			$("#loader").addClass("showLoader");
     });
 
-    $('.showitem').click(function(event){
+    $('.showitem').unbind("click").bind("click", function(event){
         var subSortType = event.target.id;
         var subSortList = document.getElementsByClassName(subSortType);
         if ($(event.target).hasClass('selected')) {
@@ -218,7 +218,7 @@ function rebindEvents() {
 
     $(".dynamicEmail").parent().click(function(){
         /*Grabbing the innerHTML alone doesn't work because of the <script> tags Ember inserts around model data. As a workaround, we grab all of the innerHTML, load it into a hidden div, drop the <script> tags from the DOM, and grab the hidden div's innerHTML (just the email address)*/
-        $(".desktopEmail").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&to=");
+        $(".dynamicEmail").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&to=");
         $(".mobileEmail").attr("href", "mailto:");
         var desktopLink = $(".desktopEmail").attr("href");
         var mobileLink = $(".mobileEmail").attr("href");
@@ -228,14 +228,10 @@ function rebindEvents() {
         $("#preloader > script").remove();
         emailAddr = $("#preloader").html();
         console.log("email Addr: " + emailAddr);
-        $(".desktopEmail").attr("href", desktopLink + emailAddr);
+        $(".dynamicEmail").attr("href", desktopLink + emailAddr);
         $(".mobileEmail").attr("href", mobileLink + emailAddr);
         console.log("desktop link: " + $('.desktopEmail').attr('href'));
         console.log("mobile link: " + $('.mobileEmail').attr('href'));
-    });
-
-    $("#slideOutEmail").click(function(){
-        $(".dynamicEmail").parent().click();
     });
 
     $('.dashList li').click(function(event){
@@ -293,6 +289,27 @@ function rebindEvents() {
             }
         }
 
+    });
+
+    $("#allDay").unbind("click").bind("click", function(){
+        var allDay = $("#allDay");
+        if (allDay.is(":checked")) {
+            $("#eventEnd").val("");
+            $("#eventEnd").attr("disabled", "disabled");
+        } else {
+            $("#eventStart").removeAttr("disabled");
+            $("#eventEnd").removeAttr("disabled");
+        }
+    });
+
+    $("#recurring").unbind("click").bind("click", function(){
+        var recurring = $("#recurring");
+        if (recurring.is(":checked")) {
+            $("#recurringContainer").addClass("active");
+        } else {
+            $("#recurringContainer").removeClass("active");
+            $("#recurringContainer input").val("");
+        }
     });
 
     $(".createForm").unbind('submit').bind('submit', function(event){		
@@ -677,6 +694,11 @@ function rebindEvents() {
         }
     });
 
+    $("#deleteContainer > div-child").click(function(){
+        alert("clicked");
+        deleteTip.hide();
+    });
+
     if ($('.ocount').length) {
 	    var totalOrphans = $('.ocount');
 	    totalOrphans[0].innerHTML = $('.eventCounter').length;
@@ -754,7 +776,8 @@ function rebindEvents() {
       offset: [10, -140]
       /*className: "myStyle",
       background: "#000"*/
-    };    Opentip.styles.success = {
+    };    
+    Opentip.styles.success = {
       tipJoint: "top",
       target: true,
       offset: [0, -140],
@@ -776,6 +799,16 @@ function rebindEvents() {
       target: true,
       offset: [0, -140],
       delay: 0
+    };
+    Opentip.styles.deleteconfirm = {
+      tipJoint: "top",
+      group: "deletion",
+      target: true,
+      offset: [0, -140],
+      delay: 0,
+      showOn: "click",
+      hideTrigger: "closeButton",
+      background: "#ffea55"
     };
     if ($("#subEvent").length) {
         new Opentip("#subEvent", "Events", {
@@ -829,22 +862,25 @@ function rebindEvents() {
     }
     if ($("#detailmenubar").length) {
         new Opentip("#detailmenubar > img:first-child", "Contacts", {
-            style: "bottomtip"
+            style: "toptip"
         });     
         new Opentip("#detailmenubar > img:nth-child(2)", "Events", {
-            style: "bottomtip"
+            style: "toptip"
         });    
         new Opentip("#detailmenubar > img:nth-child(3)", "Tasks", {
-            style: "bottomtip"
+            style: "toptip"
         });     
         new Opentip("#detailmenubar > img:nth-child(4)", "Tags", {
-            style: "bottomtip"
+            style: "toptip"
         });   
         new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
             style: "bottomtip"
         }); 
         new Opentip("#detailmenubar > img:last-child", "Delete", {
-            style: "bottomtip"
+            style: "toptip"
+        }); 
+        var deleteTip = new Opentip("#detailmenubar > img:last-child", '<p>Are you sure you want to delete this item?</p><br /><div id="deleteContainer"><div>Yes</div><div>No</div></div>', {
+            style: "deleteconfirm"
         }); 
         new Opentip("#detailmenubar > a > img", "Create", {
             style: "bottomtip"
@@ -852,7 +888,7 @@ function rebindEvents() {
     }
     if ($("#createicon").length) {
         new Opentip("#createicon", "Create", {
-            style: "bottomtip"
+            style: "toptip"
         });
     }
     if ($('.flipswitch').length) {
