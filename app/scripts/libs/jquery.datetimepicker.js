@@ -300,6 +300,7 @@
 			ctrlDown	=	false,
 			options = ($.isPlainObject(opt)||!opt)?$.extend(true,{},default_options,opt):$.extend({},default_options),
 			createDateTimePicker = function( input ) {
+				var pickerID = options.id;
 				var datetimepicker = $('<div '+(options.id?'id="'+options.id+'"':'')+' '+(options.style?'style="'+options.style+'"':'')+' class="xdsoft_datetimepicker xdsoft_noselect '+options.className+'"></div>'),
 					xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
 					datepicker = $('<div class="xdsoft_datepicker active"></div>'),
@@ -568,7 +569,9 @@
 					.append(mounth_picker)
 					.append(calendar);
 
-				$('body').append(datetimepicker);
+				var appendage = document.getElementsByClassName(pickerID);
+				appendage = appendage[0];
+				$(appendage).append(datetimepicker);
 
 				var _xdsoft_datetime = new function() {
 					var _this = this;

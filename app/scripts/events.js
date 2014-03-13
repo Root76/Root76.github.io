@@ -457,8 +457,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -547,8 +547,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 console.log(data);
@@ -1001,8 +1001,8 @@ function rebindEvents() {
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({
@@ -1219,5 +1219,30 @@ setTimeout(function(){
             e.preventDefault();
         });
     }
+
+    $('#eventStart').datetimepicker({
+        id:"eventDateStart",
+        formatTime: 'g:i A',
+        format: 'm/d/Y g:i A'
+    });
+    $('#eventEnd').datetimepicker({
+        id:"eventDateEnd",
+        formatTime: 'g:i A',
+        format: 'm/d/Y g:i A'
+    });
+    $('#taskDue').datetimepicker({
+        id:"taskDate",
+        formatTime: 'g:i A',
+        format: 'm/d/Y g:i A'
+    });
+    $('#endEventRepeat').datetimepicker({
+        id:"endEvent",
+        formatTime: 'g:i A',
+        format: 'm/d/Y g:i A'
+    });
+
+    $('.formrow img').click(function(event){
+        $(event.target).parent().find('input').focus();
+    });
 
 }, 100);

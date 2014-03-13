@@ -320,8 +320,9 @@ hr {
 	display:none;
 }
 
-#selectedObject {
-
+.xdsoft_datetimepicker {
+	top:100% !important;
+	left:0px !important;
 }
 
 #searchAll, .dashContent .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
@@ -2039,7 +2040,7 @@ to {
 	bottom: 0;
 	left: 0;
 	background: rgba(0,0,0,0.8);
-	z-index: 99999;
+	z-index: 9999;
 	opacity:0;
 	-webkit-transition: opacity 400ms ease-in;
 	-moz-transition: opacity 400ms ease-in;
@@ -2129,10 +2130,23 @@ margin-bottom: 10px;
 
 .formrow {
 	width:100%;
+	position:relative;
 }
 
 .formrow input {
 	width:100%;
+}
+
+.formrow img {
+	position: absolute;
+	right: -17px;
+	bottom: -16px;
+	height: 69px;
+	cursor:pointer;
+}
+
+#endEvent {
+	left:83px !important;
 }
 
 #recurringContainer select, #recurringContainer input {
