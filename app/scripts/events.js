@@ -35,7 +35,7 @@ function rebindEvents() {
 
     $('.sortitem').unbind("click").bind("click", function(event){
         var sortType = event.target.id;
-        if ($(event.target).hasClass('selected')) {
+        if ($(event.target).parent().hasClass('selected')) {
             if ($(event.target).find('ul').hasClass('invis')) {
                 $(event.target).find('ul').removeClass('invis');
             } else {
@@ -43,9 +43,9 @@ function rebindEvents() {
             }
         } else {
             $('.selected').find('ul').removeClass("sortby");
-            $(event.target).parent().find('.sortitem.selected').removeClass('selected');
+            $('.sortitem.selected').removeClass('selected');
             $('.invis').removeClass('invis');
-            $(event.target).addClass('selected');
+            $(event.target).parent().addClass('selected');
             $(event.target).find('ul').addClass("sortby");
         }
         setTimeout(function(){
@@ -376,7 +376,7 @@ function rebindEvents() {
                     task_ids: taskIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tags";
+			url = "http://daywon-api-prod.herokuapp.com/tags";
 			objectDescription = "Tag: " + tagTitle;
         } else if ($(event.target).parent().hasClass("createTask")) {
             var taskTitle = $("#taskName").val();
@@ -396,7 +396,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tasks";
+			url = "http://daywon-api-prod.herokuapp.com/tasks";
 			objectDescription = "Task: " + taskTitle;
         } else if ($(event.target).parent().hasClass("createContact")) {
             var contactFirst = String($("#contactFirst").val());
@@ -422,7 +422,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/contacts";
+			url = "http://daywon-api-prod.herokuapp.com/contacts";
 			objectDescription = "Contact: " + contactTitle;
         } else if ($(event.target).parent().hasClass("createEvent")) {
             var eventTitle = $("#eventName").val();
@@ -445,7 +445,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/events";
+			url = "http://daywon-api-prod.herokuapp.com/events";
 			objectDescription = "Event: " + eventTitle;
         }
         console.log(data);
@@ -457,8 +457,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+				"X-AUTHENTICATION-TOKEN": authToken,
+				"X-AUTHENTICATION-EMAIL": userEmail
 			},
 			success: function (data) {
 				console.log(data);
@@ -475,7 +475,7 @@ function rebindEvents() {
 
     $("#associationForm").submit(function(){
 
-        var url = "http://daywon-api-staging.herokuapp.com/";
+        var url = "http://daywon-api-prod.herokuapp.com/";
         var data;
         var orphanName = $("#contactname").html();
         var orphanID = $("#selectedID").html();
@@ -547,8 +547,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 console.log(data);
@@ -706,6 +706,11 @@ function rebindEvents() {
 	    totalOrphans[2].innerHTML = $('.tagCounter').length;
 	    $("#totalOrphans").html($('.eventCounter').length + $('.taskCounter').length + $('.tagCounter').length)
 	}
+
+    if ($('.settingspage').length) {
+        var totalUsers = $(".userRow").length;
+        $("#reportCount > span").html(totalUsers);
+    }
 
     /*if ($('#calendarcont').length) {
         $('#calendarcont').fullCalendar({
@@ -1001,15 +1006,15 @@ function rebindEvents() {
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         }
     };
     var contacts = new Bloodhound({
       datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/contacts',
+        url: 'http://daywon-api-prod.herokuapp.com/contacts',
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.contacts;
@@ -1020,7 +1025,7 @@ function rebindEvents() {
       datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/events',
+        url: 'http://daywon-api-prod.herokuapp.com/events',
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.events;
@@ -1031,7 +1036,7 @@ function rebindEvents() {
       datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/tasks',
+        url: 'http://daywon-api-prod.herokuapp.com/tasks',
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.tasks;
@@ -1042,7 +1047,7 @@ function rebindEvents() {
       datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/tags',
+        url: 'http://daywon-api-prod.herokuapp.com/tags',
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.tags;

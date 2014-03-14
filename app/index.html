@@ -2111,6 +2111,48 @@
             </div>
           </div>
         </script>
+        <script type="text/x-handlebars" id="admin">
+          <div class="mobileCover" id="settingsCover"></div>
+          <div id="appcont" class="settingspage">
+            <h1>Admin Report</h1>
+            <h2 id="reportCount"><span></span> total users</h2>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Active</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="userRow">
+                    <td>Allen Hatzimanolis</td>
+                    <td>allen@evenspring.com</td>
+                    <td>Active</td>
+                  </tr>
+                  <tr class="userRow">
+                    <td>Allen Hatzimanolis</td>
+                    <td>allen@evenspring.com</td>
+                    <td>Active</td>
+                  </tr>
+                  <tr class="userRow">
+                    <td>Allen Hatzimanolis</td>
+                    <td>allen@evenspring.com</td>
+                    <td>Active</td>
+                  </tr>
+                  {{#each ReportsAdmin}}
+                    <tr class="userRow">
+                      <td>{{name}}</td>
+                      <td>{{email}}</td>
+                      <td>Active</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </script>
         <script type="text/x-handlebars" id="calPopupTemplate">
           <a href="./#/events/{{id}}"><h2>{{title}}</h2></a>
           <div class="calPopupTags">

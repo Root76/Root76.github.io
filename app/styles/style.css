@@ -1887,6 +1887,29 @@ to {
 	margin-left:0px !important;
 }
 
+.settingspage table {
+	width:100%;
+}
+
+.settingspage td {
+	padding:5px;
+}
+
+.settingspage tr:nth-child(odd) {
+	background:#ddd;
+}
+
+.settingspage thead tr {
+	background:#fff !important;
+	font-weight:700;
+}
+
+#reportCount {
+	position:absolute;
+	top:0px;
+	right:0px;
+}
+
 .view-container-border {
 	background-color:#fff !important;
 }

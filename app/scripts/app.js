@@ -42,6 +42,7 @@ App.Router.map(function () {
     });
     this.resource("calendar");
     this.resource("settings");
+    this.resource("admin");
 });
 
 App.ApplicationController = Ember.Controller.extend({
@@ -73,16 +74,18 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-staging.herokuapp.com/",
+  host: "http://daywon-api-prod.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
   }
 });
 
 App.Store = DS.Store.extend({
     adapter:  App.ApplicationAdapter.create()
 });
+
+Ember.Inflector.inflector.uncountable('reports_admin');
 
 /*App.ApplicationView = Ember.View.extend({
   actions: {
@@ -731,6 +734,12 @@ App.Orphan = DS.Model.extend({
 	tags: DS.attr('array')
 });
 
+App.ReportsAdmin = DS.Model.extend({
+	name: DS.attr('string'),
+	email: DS.attr('email'),
+	status: DS.attr('boolean')
+});
+
 /*App.Table = DS.Model.extend({
 	events: DS.attr('array'),
 	tasks: DS.attr('array'),
@@ -871,6 +880,12 @@ App.ReportsTagsRoute = Ember.Route.extend({
 	setupController: function(controller, model) {
 		controller.set('model', model);
         this.controllerFor('tags').set('model', model);
+	}
+});
+
+App.AdminRoute = Ember.Route.extend({
+	model: function() {
+		return this.get('store').find('reports_admin');
 	}
 });
 
