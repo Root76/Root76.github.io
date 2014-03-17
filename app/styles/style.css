@@ -2623,6 +2623,10 @@ font-family:'Open Sans', sans-serif;
 	bottom:0px;
 }
 
+#mobileLogo {
+	display:none;
+}
+
 .contactAssociation {
 	background:#41bee1;
 }

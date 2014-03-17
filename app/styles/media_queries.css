@@ -127,6 +127,26 @@
 		top:40px;
 		bottom:0px;
 	}
+
+	#orphansubhead, #orphanhelp {
+		left:15px;
+	}
+
+	#orphansubhead {
+		float: left;
+		top: -60px;
+	}
+
+	#orphanhelp {
+		padding-right: 15px;
+		bottom: 0px;
+	}
+
+	#orphancontainer {
+		left: 15px;
+		top: 265px;
+	}
+
 	#logo {
 		float:left;
 		text-align:left;
@@ -173,6 +193,7 @@
 		z-index:999;
 		position:fixed;
 		bottom:0px;
+		left:0px;
 		height:40px;
 		width:100%;
 		background:#fff;
@@ -1230,12 +1251,41 @@
 		background:#41bee1 !important;
 	}
 
+	#mobileLogo {
+		display:block;
+		position: absolute;
+		top: 0px;
+		width: 80px;
+		left: 6px;
+	}
+
+	.descriptionText {
+		display:none;
+	}
+
 }
 
 @media screen and (max-width:639px) {
 	#homecont h3 {
 		font-size:16px;
 	}
+
+	#orphansubhead, #orphanhelp {
+		font-size:20px;
+	}
+
+	#orphancontainer {
+		top:275px;
+	}
+
+	#orphancontainer img {
+		width:100px;
+	}
+
+	.ocount {
+		margin-left:0px !important;
+	}
+
 	.homeapp h1 {
 		padding-top: 12px !important;
 		font-size:24px;
@@ -1280,6 +1330,31 @@
 		font-size:18px;
 		margin-top:12px;
 	}
+}
+
+@media screen and (max-width:479px) {
+
+	#orphanlogo {
+		width:150px;
+	}
+
+	#orphanhead {
+		font-size:36px;
+	}
+
+	#orphancontainer {
+		top:245px;
+		left:0px;
+	}
+
+	#orphancontainer img {
+		width:75px;
+	}
+
+	.ocount {
+		margin-left:10px !important;
+	}
+
 }
 
 @media screen and (max-width:419px) {
@@ -1433,18 +1508,33 @@
 	.dashitem h3 {
 		font-size:10px !important;
 	}
-}
 
-/*@media screen and (max-height:900px) {
-	.modalDialog > div {
-		position: fixed;
-		top: 0px;
-		bottom: 0px;
-		overflow-x: hidden;
-		overflow-y: auto;
-		margin: 0 auto;
-		display: block;
-		left: 10%;
-		right: 10%;
+	#orphanlogo {
+		width:100px;
 	}
-}*/
+
+	#orphanhead {
+		font-size:24px;
+		margin-left: 0px !important;
+		top: 20px;
+	}
+
+	#orphansubhead {
+		top:-50px;
+	}
+
+	#orphancontainer {
+		top:190px;
+		left:-20px;
+	}
+
+	.ocount {
+		margin-left:10px !important;
+		font-size:24px !important;
+	}
+
+	#orphanhelp {
+		bottom:100px;
+	}
+
+}
