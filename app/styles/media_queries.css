@@ -241,7 +241,8 @@
 	.loggedin {
 		position: fixed;
 		top: 0px;
-		right: 0px;
+		right: initial;
+		left:0px;
 		height: 40px;
 		-webkit-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
 		-moz-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
@@ -274,6 +275,8 @@
 		background:#1390d2 !important;
 		color:#fff;
 		margin-top:0px !important;
+		left:0px;
+		right:0px;
 	}
 
 	.reportapp {
@@ -310,7 +313,8 @@
 	}
 
 	.list {
-		padding:0px;
+		padding:0px !important;
+		margin:0px !important;
 	}
 
 	#eventslist, .subitems {
@@ -545,7 +549,6 @@
 
 	.settingspage {
 		background:#01a5af !important;
-		height:634px !important;
 	}
 
 	#helpimg {
@@ -1022,6 +1025,7 @@
 
 	.createContainer {
 		padding:20px;
+		padding-bottom:60px;
 	}
 
 	.newContact {
@@ -1052,7 +1056,8 @@
 	}
 
 	.calendarContainer {
-		background:#72696c !important;
+		background:#fff !important;
+		color:#000;
 		height:100% !important;
 	}
 
@@ -1063,10 +1068,6 @@
 		width:100%;
 		margin:0px;
 		margin-bottom:20px;
-	}
-
-	.fc-state-highlight {
-		background:#b3d13d;
 	}
 
 	table.fc-border-separate {
@@ -1106,6 +1107,14 @@
 		border:0px;
 	}
 
+	#calToday {
+		right:0px;
+	}
+	
+	.dashboardContainer .col-md-7 {
+		top:40px !important;
+	}
+
 	.fc-content {
 		position: relative;
 		top: 23px;
@@ -1117,6 +1126,7 @@
 		top: 6px;
 		position: relative;
 		left: 20px;
+		color: #000;
 	}
 
 	.calchoice:hover {
@@ -1221,6 +1231,10 @@
 		-moz-box-shadow: none;
 		-webkit-box-shadow: none;
 	}
+	.dashList li {
+		font-size:18px;
+		font-weight:700 !important;
+	}
 	.dashList li:first-child,
 	.dashList li:first-child:hover,
 	.dashList li.currentcontact:first-child,
@@ -1300,7 +1314,7 @@
 		top:-7px;
 	}
 	.reportarrow {
-		top:14px;
+		top:9px;
 	}
 	.settingoption h5 {
 		font-size:16px;
@@ -1353,6 +1367,28 @@
 
 	.ocount {
 		margin-left:10px !important;
+	}
+
+	#taskSort {
+		width:65%;
+	}
+
+	#calendarchoice {
+		top:20px;
+		height:35px;
+	}
+	.calchoice {
+		height:35px;
+		line-height:35px;
+		float: right;
+		width: 12.5%;
+		font-size: 12px;
+	}
+	#calToday {
+		right: initial;
+		height: 35px;
+		line-height: 35px;
+		font-size: 12px;
 	}
 
 }
@@ -1441,70 +1477,73 @@
 		padding:0px;
 		text-align:center;
 	}
-	#calendarchoice {
-		top:20px;
-		height:35px;
-	}
-	.calchoice {
-		height:35px;
-		line-height:35px;
-		float: right;
-		width: 12.5%;
-		font-size: 12px;
-	}
+
 	.fc-header-title h2 {
 		top:79px;
 		font-size:12px;
 		font-weight:700;
 	}
+
 	#curDate {
 		top: 82px;
 		font-size: 12px;
 		padding-left: 5px;
 		font-weight:700;
 	}
+
 	.fc-button-prev, .fc-button-next {
 		top:78px;
 	}
+
 	.fc-button-prev {
 		right:50px;
 	}
+
 	.fc-button-next {
 		right:5px;
 	}
+
 	table.fc-border-separate {
 		padding-top:35px;
 	}
+
 	.reportapp { 
 		top:156px;
 	}
+
 	#contactscont h1, #taskscont h1 {
-		padding:5px;
-		padding-bottom:12px;
-		font-size:24px;
+		padding: 10px;
+		padding-bottom: 20px;
+		font-size: 36px;
 	}
+
 	#mobileContact {
 		font-size: 36px !important;
 		padding-top: 8px !important;
 	}
+
 	#contactsearch {
 		top: 0px;
 		margin-top: 7px;
 		padding: 0px;
 		padding-right: 5px;
 	}
+
 	.contsort select {
 		top:-29px;
 	}
+
 	.filtercolumn.contactpadding {
 		padding-left: 5px;
 		padding-right: 5px;
 	}
+
 	#contactlist li, #tasklist li, #eventlist li, #taglist li {
 		padding:5px;
 		padding-top:10px;
 		padding-bottom:10px;
 	}
+
 	.dashitem h3 {
 		font-size:10px !important;
 	}
@@ -1535,6 +1574,18 @@
 
 	#orphanhelp {
 		bottom:100px;
+	}
+
+	#mobileLogo {
+		display:none;
+	}
+
+	#mobileLogo2 {
+		display:block;
+		position: absolute;
+		top: 2px;
+		width: 36px;
+		left: 5px;
 	}
 
 }

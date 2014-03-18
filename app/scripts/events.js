@@ -234,8 +234,12 @@ function rebindEvents() {
         console.log("mobile link: " + $('.mobileEmail').attr('href'));
     });
 
-    $('.dashList li').click(function(event){
-        var itemList = $('.dashList li').index(this);
+    $("#mobileContact").click(function(){
+        $(".backArrow").click();
+    });
+
+    $('.sidelist li').unbind("click").bind("click", function(event){
+        var itemList = $('.sidelist li').index(this);
         if (itemList == 4) {
             return;
         }
@@ -249,7 +253,22 @@ function rebindEvents() {
         $('.currentcontact').removeClass("currentcontact");
         clickedRow.addClass("currentcontact");
         $('.infopanel.selected').removeClass('selected');
-        $(infoPanels[itemList]).addClass("selected");
+        if ($(".dashList").length) {
+            $(infoPanels[itemList]).addClass("selected");
+        } else {
+            if ($("#contactpanel2").length) {
+                $(infoPanels[0]).addClass("selected");
+            }
+            if ($("#eventpanel2").length) {
+                $(infoPanels[1]).addClass("selected");
+            }
+            if ($("#taskpanel2").length) {
+                $(infoPanels[2]).addClass("selected");
+            }
+            if ($("#tagpanel2").length) {
+                $(infoPanels[3]).addClass("selected");
+            }
+        }
         $("#eventpanel2").removeClass("dashRecent");
         $("#eventpanel2").removeClass("dashTasks");
         $("#eventpanel2").removeClass("dashTags");
@@ -279,7 +298,10 @@ function rebindEvents() {
     	}*/
 
         if ($(window).width() < 768) {
+            $("#contactpanel2").addClass('mobileIn');
             $("#eventpanel2").addClass('mobileIn');
+            $("#taskpanel2").addClass('mobileIn');
+            $("#tagpanel2").addClass('mobileIn');
             if ($(".dashContent").length) {
                 var mobileContent = $(".dashContent");
                 $(mobileContent).removeClass("dashContent");
@@ -610,9 +632,9 @@ function rebindEvents() {
         $(event.target).addClass('selected');
         if (this.src.indexOf("contact") != -1) {
             $(viewChoice[0]).addClass('selected');
-        } else if (this.src.indexOf("task") != -1) {
-            $(viewChoice[1]).addClass('selected');
         } else if (this.src.indexOf("event") != -1) {
+            $(viewChoice[1]).addClass('selected');
+        } else if (this.src.indexOf("task") != -1) {
             $(viewChoice[2]).addClass('selected');
         } else if (this.src.indexOf("tag") != -1) {
             $(viewChoice[3]).addClass('selected');

@@ -996,7 +996,8 @@ h1, h2, h3, h4 {
 .dashList li:first-child:hover,
 .dashList li.currentcontact:first-child,
 .dashRecent {
-	background:#00a3ac !important
+	background:#00a3ac !important;
+	top:185px !important;
 }
 
 .dashList li:nth-child(2):hover,
@@ -1526,6 +1527,7 @@ to {
 	background:#fff;
 	overflow:auto;
 	overflow-x:hidden;
+	z-index:1000;
 }
 
 .dashContent {
@@ -1627,6 +1629,8 @@ to {
 	top:15px;
 	width:100%;
 	display:none;
+	z-index:1000;
+	left:0px;
 }
 
 .infopanel.selected {
@@ -2623,7 +2627,7 @@ font-family:'Open Sans', sans-serif;
 	bottom:0px;
 }
 
-#mobileLogo {
+#mobileLogo, #mobileLogo2 {
 	display:none;
 }
 
