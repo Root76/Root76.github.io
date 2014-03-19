@@ -240,9 +240,6 @@ function rebindEvents() {
 
     $('.sidelist li').unbind("click").bind("click", function(event){
         var itemList = $('.sidelist li').index(this);
-        if (itemList == 4) {
-            return;
-        }
         var infoPanels = $('.infopanel');
         var detailsList = $('.textrow');
         var phoneNo = $('.phonenumber');
@@ -271,12 +268,16 @@ function rebindEvents() {
         }
         $("#eventpanel2").removeClass("dashRecent");
         $("#eventpanel2").removeClass("dashTasks");
+        $("#eventpanel2").removeClass("dashEvents");
         $("#eventpanel2").removeClass("dashTags");
         if (itemList == 0) {
             $("#eventpanel2").addClass("dashRecent");
         } else if (itemList == 1) {
             $("#eventpanel2").addClass("dashTasks");
             $("#taskSorting").addClass("selected");
+        } else if (itemList == 2) {
+            $("#eventpanel2").addClass("dashEvents");
+            $("#eventSorting").addClass("selected");
         } else if (itemList == 3) {
             $("#eventpanel2").addClass("dashTags");
             $("#tagSorting").addClass("selected");
@@ -297,7 +298,7 @@ function rebindEvents() {
 	        }
     	}*/
 
-        if ($(window).width() < 768) {
+        if ($(window).width() < 1025) {
             $("#contactpanel2").addClass('mobileIn');
             $("#eventpanel2").addClass('mobileIn');
             $("#taskpanel2").addClass('mobileIn');
@@ -479,8 +480,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+				"X-AUTHENTICATION-TOKEN": authToken,
+				"X-AUTHENTICATION-EMAIL": userEmail
 			},
 			success: function (data) {
 				console.log(data);
@@ -569,8 +570,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 console.log(data);
@@ -1028,8 +1029,8 @@ function rebindEvents() {
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         }
     };
     var contacts = new Bloodhound({

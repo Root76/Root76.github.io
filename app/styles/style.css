@@ -1281,6 +1281,11 @@ h1, h2, h3, h4 {
 	z-index:12;
 }
 
+.mobileText {
+	display:none;
+	font-size:16px;
+}
+
 #contactpane1 img, #taskpane1 img {
 	width:75px;
 	float:left;
@@ -1381,10 +1386,10 @@ h1, h2, h3, h4 {
 	height:650px;
 	padding-left:30px;
 	padding-right:30px;
-position: fixed;
-width: 680px;
-margin-left: 380px;
-top: 150px;
+	position: fixed;
+	width: 680px;
+	margin-left: 380px;
+	top: 150px;
 }
 
 #taskpanel2 {
@@ -1647,7 +1652,6 @@ to {
 }
 
 .contactrow h4 {
-	color:#fff;
 	position:relative;
 	top:15px;
 	height:0px;

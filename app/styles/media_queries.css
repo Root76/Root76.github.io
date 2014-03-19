@@ -62,7 +62,7 @@
 	}
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width:1025px) {
 	ul.nav li.dropdown:hover > ul.dropdown-menu {
     	display: block;    
 	}
@@ -73,56 +73,7 @@
 	}
 }
 
-@media screen and (max-width:1023px) {
-	#orphansubhead, #orphanhelp {
-		font-size:24px;
-	}
-	#orphancontainer img {
-		width:150px;
-	}
-	.nav>li>a {
-		font-size:12px;
-		padding-left:8px;
-		padding-right:12px;
-	}
-	.navimg {
-		height:35px;
-		top:-8px;
-	}
-}
-
-@media screen and (max-width:868px) {
-	.nav>li>a {
-		font-size:12px;
-		padding-left:0px;
-		padding-right:4px;
-	}
-	.navimg {
-		height:35px;
-		top:-8px;
-	}
-	.search {
-		margin-left:15px;
-	}
-}
-
-/*@media screen and (min-width:768px) and (max-width:880px) {
-	.navbar-nav {
-		padding-right:117px;
-	}
-	.navbar-nav>li {
-		width:100px;
-	}
-	.dropdown-menu {
-		min-width:100px;
-		width:100px;
-	}
-	.dropdown-menu>li>a {
-		padding-left:0px;
-	}
-}*/
-
-@media screen and (max-width:767px) {
+@media screen and (max-width:1024px) {
 	body {
 		top:40px;
 		bottom:0px;
@@ -317,10 +268,6 @@
 		margin:0px !important;
 	}
 
-	#eventslist, .subitems {
-		background: #2f3776;
-	}
-
 	.dashitem {
 		background:#fff !important;
 	}
@@ -330,7 +277,6 @@
 	}
 
 	.ui-state-active {
-		background: #2f3776;
 		color:#fff !important;
 	}
 
@@ -409,6 +355,10 @@
 
 	#homecont h3 {
 		color:#000;
+	}
+
+	.dashRecent > h1, .dashEvents > h1, .dashTasks > h1, .dashTags > h1 {
+		color:#fff !important;
 	}
 
 	.reportapp {
@@ -731,7 +681,6 @@
 		text-align: center;
 		margin: 0px;
 		padding: 10px;
-		color:#fff;
 	}
 
 	#detailmenubar {
@@ -866,14 +815,15 @@
 	}
 
 	#contactscont h1 {
-		background: #3a3f7f;
+		background: #41bee1;
 		padding: 9px;
 		text-align: left;
 		padding-left: 20px;
+		color:#fff;
 	}
 
 	#taskscont h1 {
-		background: #719a58;
+		border-bottom:1px solid #fff;
 		padding: 9px;
 		text-align: left;
 		padding-left: 20px;
@@ -881,17 +831,18 @@
 
 	.dashHeading {
 		background:none !important;
+		color:#fff;
 	}
 
 	.tagDetailHeader {
-		background: #bab1b2 !important;
+		background: #ec8f38 !important;
 		padding: 9px !important;
 		text-align: left !important;
 		padding-left: 20px !important;
 	}
 
 	.taskDetailHeader {
-		background:#460002 !important;
+		background:#88c44c !important;
 	}
 
 	.tagname {
@@ -911,20 +862,8 @@
 		border-bottom:1px solid #ccc;	
 	}
 
-	#tagpanel2 {
-		background:#72696c;
-	}
-
 	.tagHeader {
-		background:#bab1b2 !important;
-	}
-
-	#taskpanel2 {
-		background:#956364;
-	}
-
-	#eventpanel2 {
-		background:#85ae6a;
+		background:#ec8f38 !important;
 	}
 
 	.dashboardHeading {
@@ -936,43 +875,6 @@
 		background:#e35d32;
 	}
 
-	#contactlist li {
-		background:#2f3776 !important;
-	}
-
-	#contactlist li:hover {
-		background:#a5d0e1 !important;
-	}
-
-	#eventlist li {
-		background:#85ae6a;
-	}
-
-	#eventlist li:hover {
-		background:#006416;
-	}
-
-	#tasklist li {
-		background:#b43967 !important;
-	}
-
-	#tasklist li:hover {
-		background:#ffa3ca !important;
-	}
-
-	#taglist li {
-		background:#72696c !important;
-	}
-
-	#taglist li:hover {
-		background:#40373a !important;
-	}
-
-	#eventscontent {
-		background:#006416;
-		color:#fff;
-	}
-
 	#taskSorting .sortcont2, #tagSorting .sortcont3 {
 		top:66px;
 		right:10px !important;
@@ -980,10 +882,6 @@
 
 	.dashContent {
 		background:#fff !important;
-		position: fixed;
-		bottom: 80px;
-		top: 110px;
-		height: auto !important;
 		display:none;
 	}
 
@@ -995,20 +893,6 @@
 		margin-top: 10px;
 		margin-bottom: 20px;
 		margin-left: 10px !important;
-	}
-
-	#taskscontent {
-		background:#f37299;
-		color:#fff;
-	}
-
-	#tagscontent {
-		background:#40373a;
-		color:#fff;
-	}
-
-	#mobileTaskHead {
-		background: #460002 !important;
 	}
 
 	#collapseall, #expandall {
@@ -1034,7 +918,7 @@
 	}
 
 	.newEvent {
-		background:#719a58;
+		background:#e35d32;
 		color:#fff;
 	}
 
@@ -1160,15 +1044,15 @@
 	}
 
 	#tagsCover {
-		background:#bab1b2;
+		background:#ec8f38;
 	}
 
 	#eventsCover {
-		background:#719a58;
+		background:#e35d32;
 	}
 
 	#tasksCover {
-		background:#460002;
+		background:#88c44c;
 	}
 
 	#calendarCover {
@@ -1181,7 +1065,7 @@
 		background:#a5d0e1;
 	}
 	#createEventCover {
-		background:#719a58;
+		background:#e35d32;
 	}
 	#createTaskCover{
 		background:#956364;
@@ -1237,26 +1121,22 @@
 	}
 	.dashList li:first-child,
 	.dashList li:first-child:hover,
-	.dashList li.currentcontact:first-child,
-	.dashRecent {
+	.dashList li.currentcontact:first-child {
 		background:#00a3ac !important
 	}
 	.dashList li:nth-child(2),
 	.dashList li:nth-child(2):hover,
-	.dashList li.currentcontact:nth-child(2),
-	.dashTasks {
+	.dashList li.currentcontact:nth-child(2) {
 		background:#88c44c !important;
 	}
 	.dashList li:nth-child(3),
 	.dashList li:nth-child(3):hover,
-	.dashList li.currentcontact:nth-child(3),
-	.dashTasks {
+	.dashList li.currentcontact:nth-child(3) {
 		background:#e35d32 !important
 	}
 	.dashList li:nth-child(4),
 	.dashList li:nth-child(4):hover,
-	.dashList li.currentcontact:nth-child(4),
-	.dashTags {
+	.dashList li.currentcontact:nth-child(4) {
 		background:#ec8f38 !important;
 	}
 	.dashList li:last-child,
@@ -1404,12 +1284,11 @@
 	.dashitem h3 {
 		font-size:12px !important;
 	}
-	.mobileNavItem p {
-		font-size:10px;
-		padding-top:23px;
+	.mobileText {
+		display:block;
 	}
-	.mobileNavItem img {
-		top:-3px;
+	.desktopText {
+		display:none;
 	}
 	.menusubcont {
 		width:50%;
