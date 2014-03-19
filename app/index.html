@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
-        <title>DayWon API tester</title>
+        <title>Day Won</title>
 
         <!-- build:css styles/main.css -->
         <link rel="stylesheet" href="styles/bootstrap.css">
@@ -118,11 +118,11 @@
                 <a href="javascript:void(0)" class="openModal"><div><img src="img/feedback.png" id="feedbackimg" /><span>Feedback</span></div></a>
                 <a href="javascript:void(0)"><div><img src="img/share.png" id="socialimg" /><span>Tell Friends About Day Won</span></div></a>
             </div>
-            <div id="sociallinks">
-                <a target="_blank" href="http://www.linkedin.com/company/Day-Won-LLC"><div id="linkedinIcon"></div></a>
-                <a target="_blank" href="http://www.google.com/+DayWon"><div id="googleIcon"></div></a>
-                <a target="_blank" href="http://www.twitter.com/DayWonApp"><div id="twitterIcon"></div></a>
-                <a target="_blank" href="http://www.facebook.com/daywonapp"><div id="facebookIcon"></div></a>
+            <div class="sociallinks">
+                <a target="_blank" href="http://www.linkedin.com/company/Day-Won-LLC"><div class="linkedinIcon"></div></a>
+                <a target="_blank" href="http://www.google.com/+DayWon"><div class="googleIcon"></div></a>
+                <a target="_blank" href="http://www.twitter.com/DayWonApp"><div class="twitterIcon"></div></a>
+                <a target="_blank" href="http://www.facebook.com/daywonapp"><div class="facebookIcon"></div></a>
                 <span id="cwrite" >&copy; 2014 Day Won, LLC - All rights reserved</span>
             </div>
           </div>
@@ -938,11 +938,13 @@
                   <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png"></a>
                		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
                   <h4 class="emailfield">
-                    {{#if editing.email}}
-                    	{{input class="editField" id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
-                    {{else}}
-                    	{{email}}
-                    {{/if}}  
+                    {{#each email}}
+                      {{#if editing.email}}
+                      	{{input class="editField" id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
+                      {{else}}
+                      	{{email.email}}
+                      {{/if}}
+                    {{/each}}
                   </h4>              
                 </div>
                 <div class="contactrow" {{action "editField" "birthday" on="doubleClick"}}>
@@ -989,7 +991,7 @@
                   {{#if event.title}}
                   <div class="contactrow eventrow">
                     <img src="img/events.png">
-                    <h4>{{event.title}}
+                    <h4>{{event.title}}</h4>
                   </div>
                   {{/if}}
                 {{/each}}
@@ -1793,21 +1795,21 @@
             </div>
             <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
             <ul>
-            {{#each event in events}}
+            {{#each event in model}}
               {{#if event.title}}
                 <li class="eventCounter">{{event.title}}</li>
               {{/if}}
             {{/each}}
             </ul>
             <ul>
-            {{#each task in tasks}}
+            {{#each task in orphans}}
               {{#if task.title}}
                 <li class="taskCounter">{{task.title}}</li>
               {{/if}}
             {{/each}}
             </ul>
             <ul>
-            {{#each tag in tags}}
+            {{#each tag in controller}}
               {{#if tag.name}}
                 <li class="tagCounter">{{tag.name}}</li>
               {{/if}}
@@ -2117,6 +2119,12 @@
                     <a href="javascript:void(0)" class="openModal"><div><img src="img/feedback.png" id="feedbackimg" /><span>Feedback</span></div></a>
                     <a href="javascript:void(0)"><div><img src="img/share.png" id="socialimg" /><span id="shareDesktop">Tell Friends About Day Won</span><span id="shareMobile">Share</span></div></a>
                   </div>
+                  <div class="sociallinks" id="socialLinksMobile">
+                    <a target="_blank" href="http://www.linkedin.com/company/Day-Won-LLC"><div class="linkedinIcon"></div></a>
+                    <a target="_blank" href="http://www.google.com/+DayWon"><div class="googleIcon"></div></a>
+                    <a target="_blank" href="http://www.twitter.com/DayWonApp"><div class="twitterIcon"></div></a>
+                    <a target="_blank" href="http://www.facebook.com/daywonapp"><div class="facebookIcon"></div></a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2191,6 +2199,7 @@
         <script src="scripts/libs/ember-data.js"></script>
         <script src="scripts/bootstrap/bootstrap.min.js"></script>
         <script src="scripts/libs/fullcalendar.js"></script>
+        <script src="scripts/libs/fastclick.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/events.js"></script>
         <script src="scripts/daywon.js"></script>

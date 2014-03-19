@@ -76,8 +76,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -512,12 +512,11 @@ App.ReportsContactsController = Ember.ArrayController.extend({
     contactsController: Ember.computed.alias("controllers.contacts"),
     sortProperties: ['name'],
     sortAscending: true,
-	
 	contactsToShow: function() { 
 		var sorted = this.get('contactsController').get('contactsToShow');
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
-	}.property('contactsController.contactsToShow'),	
+	}.property('contactsController.contactsToShow')
 });
 
 App.ReportsTagsController = Ember.ArrayController.extend({
@@ -587,9 +586,9 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
 
 App.Contact = DS.Model.extend({
     name: DS.attr('string'),
-    email: DS.attr('string'),
+    email: DS.attr('array'),
     organization: DS.attr('string'),
-    phone: DS.attr('string'),
+    phone: DS.attr('array'),
     address: DS.attr('string'),
     place: DS.attr('string'),
     notes: DS.attr('string'),
@@ -680,6 +679,7 @@ App.Task = DS.Model.extend({
     notes: DS.attr('string'),
     status: DS.attr('boolean'),
     due: DS.attr('date'),
+    priority: DS.attr('string'),
 	noDate: function() { 
 	   return this.get('due') === undefined || this.get('due') === null;
 	}.property('due'),
@@ -709,14 +709,7 @@ App.Tag = DS.Model.extend({
     contacts: DS.attr('array'),
     events: DS.attr('array'),
     tasks: DS.attr('array'),
-
-	count: function() { // eventually has to count up all the associations
-		var count = 0;
-		count += this.get('contacts').length;
-		count += this.get('events').length;
-		count += this.get('tasks').length;
-		return count;
-	}.property('contacts', 'events', 'tasks'),
+	count: DS.attr('string'),
     contactsCount: function() {
     	return this.get('contacts').length;
     }.property('contacts'),

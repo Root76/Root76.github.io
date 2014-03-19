@@ -863,13 +863,16 @@ h1, h2, h3, h4 {
 	cursor:pointer;
 }
 
-#sociallinks {
+.sociallinks {
 	padding-top:17px;
 	float:right;
-	border: 
 }
 
-#sociallinks div {
+#socialLinksMobile {
+	display:none;
+}
+
+.sociallinks div {
 	height:25px;
 	width:25px;
 	float:right;
@@ -877,32 +880,32 @@ h1, h2, h3, h4 {
 	background-size: 100%;
 }
 
-#sociallinks  div:hover {
+.sociallinks  div:hover {
 	background-size: 100%;
 }
 
-#linkedinIcon {
+.linkedinIcon {
 	background: url(../img/linkedin.png);
 }
-#linkedinIcon:hover {
+.linkedinIcon:hover {
 	background: url(../img/linkedinHighlight2.png);
 }
-#googleIcon {
+.googleIcon {
 	background: url(../img/google.png);
 }
-#googleIcon:hover  {
+.googleIcon:hover  {
 	background: url(../img/googleHighlight2.png);
 }
-#twitterIcon {
+.twitterIcon {
 	background: url(../img/twitter.png);
 }
-#twitterIcon:hover  {
+.twitterIcon:hover  {
 	background: url(../img/twitterHighlight2.png);
 }
-#facebookIcon {
+.facebookIcon {
 	background: url(../img/facebook.png);
 }
-#facebookIcon:hover  {
+.facebookIcon:hover  {
 	background: url(../img/facebookHighlight2.png);
 }
 
@@ -991,6 +994,10 @@ h1, h2, h3, h4 {
 	margin-bottom:0px;
 	position:relative;
 	min-height:60px;
+}
+
+.dashList li {
+	padding:25px !important;
 }
 
 .dashList li:first-child:hover,
@@ -1630,8 +1637,7 @@ to {
 }
 
 .infopanel {
-	position:absolute;
-	top:15px;
+	position:relative;
 	width:100%;
 	display:none;
 	z-index:1000;

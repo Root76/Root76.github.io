@@ -186,14 +186,10 @@ function rebindEvents() {
 	});
 
     $(".backArrow").click(function(){
-        $("#contactpanel2").removeClass("mobileIn");
-        $("#eventpanel2").removeClass("mobileIn");
-        $("#taskpanel2").removeClass("mobileIn");
-        $("#tagpanel2").removeClass("mobileIn");
-        $("#contactpanel2").addClass("mobileOut");
-        $("#eventpanel2").addClass("mobileOut");
-        $("#taskpanel2").addClass("mobileOut");
-        $("#tagpanel2").addClass("mobileOut");
+        $("#contactpanel2").addClass("mobileOut").removeClass("mobileIn");
+        $("#eventpanel2").addClass("mobileOut").removeClass("mobileIn");
+        $("#taskpanel2").addClass("mobileOut").removeClass("mobileIn");
+        $("#tagpanel2").addClass("mobileOut").removeClass("mobileIn");
         setTimeout(function(){
             $("#contactpanel2").removeClass("mobileOut");
             $("#eventpanel2").removeClass("mobileOut");
@@ -407,13 +403,15 @@ function rebindEvents() {
             var taskDesc = $("#taskNotes").val();
             taskDesc = String(taskDesc);
             var taskDue = moment($("#taskDue").val()).format();
-            console.log("due: " + taskDue);
+            var taskPriority = $("#taskPriority").prop("selectedIndex");
+            alert(taskPriority);
             var data = {
                 task: {
                     title: taskTitle,
                     notes: taskDesc,
                     status: false,
                     due: taskDue,
+                    priority: taskPriority,
                     contact_ids: contactIds,
                     event_ids: eventIds,
                     tag_ids: tagIds
@@ -480,8 +478,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -570,8 +568,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 console.log(data);
@@ -1029,8 +1027,8 @@ function rebindEvents() {
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({
@@ -1272,5 +1270,9 @@ setTimeout(function(){
     $('.formrow img').click(function(event){
         $(event.target).parent().find('input').focus();
     });
+
+    window.addEventListener('load', function() {
+        new FastClick(document.body);
+    }, false);
 
 }, 100);

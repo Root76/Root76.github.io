@@ -60,6 +60,9 @@
 	.panelfooter {
 		top:21px !important;
 	}
+	.dashList li {
+		padding:15px !important;
+	}
 }
 
 @media screen and (min-width:1025px) {
@@ -77,6 +80,10 @@
 	body {
 		top:40px;
 		bottom:0px;
+	}
+
+	#loginBody {
+		top:10px;
 	}
 
 	#orphansubhead, #orphanhelp {
@@ -208,6 +215,10 @@
 
 	.desktopEmail {
 		display:none;
+	}
+
+	.dashHeading {
+		padding:25px !important;
 	}
 
 	.mobileEmail {
@@ -401,6 +412,23 @@
 		color:#fff;
 		margin:0px !important;
 		padding:10px;
+	}
+
+	#socialLinksMobile {
+		display: block;
+		width: 100%;
+		padding: 0px;
+		height: 30px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	#socialLinksMobile div {
+		width:25%;
+		height:100%;
+		background-repeat:no-repeat;
+		background-size:15%;
+		background-position:center;
 	}
 
 	#helplinksMobile {
@@ -718,6 +746,7 @@
 	#mobileContact {
 		display:block;
 		padding-left:70px !important;
+		color:#fff;
 	}
 
 	.contactmenu > a > #createicon {
@@ -760,8 +789,13 @@
 	}
 
 	#wrapper p {
-		margin-top:5px;
-		font-size:10px;
+		margin-top: 15px;
+		font-size: 16px;
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	.signuptext {
+		margin-top:25px;
 	}
 
 	#wrapper h1 {
@@ -785,8 +819,9 @@
 	}
 
 	.login-form span {
-		font-size: 12px;
-		line-height: 20px;
+		font-size:24px;
+		text-align:center;
+		font-family: 'Open Sans', sans-serif;
 	}
 
 	.login-form .content {
@@ -801,6 +836,7 @@
 	
 	#tos {
 		margin-top: 0px;
+		margin-bottom:25px;
 	}
 
 	.toAuth {
@@ -810,9 +846,11 @@
 
 	#contactlist, #tasklist, #eventlist, #taglist {
 		width:100%;
-		top: -25px;
-		position: relative;
+		position: absolute;
+		top:100px;
 	}
+
+
 
 	#contactscont h1 {
 		background: #41bee1;
@@ -824,7 +862,6 @@
 
 	#taskscont h1 {
 		border-bottom:1px solid #fff;
-		padding: 9px;
 		text-align: left;
 		padding-left: 20px;
 	}
@@ -862,10 +899,6 @@
 		border-bottom:1px solid #ccc;	
 	}
 
-	.tagHeader {
-		background:#ec8f38 !important;
-	}
-
 	.dashboardHeading {
 		background:none !important;
 		border:none !important;
@@ -881,12 +914,12 @@
 	}
 
 	.dashContent {
-		background:#fff !important;
-		display:none;
-	}
-
-	.mobileIn .dashContent {
-		display:block;
+		background: #fff !important;
+		position: absolute;
+		top: 112px;
+		bottom: 80px;
+		height: initial;
+		padding: 0px;
 	}
 
 	.orphantitle {
@@ -1115,9 +1148,13 @@
 		-moz-box-shadow: none;
 		-webkit-box-shadow: none;
 	}
+
+	.dashList {
+		top:86px !important;
+	}
+
 	.dashList li {
 		font-size:18px;
-		font-weight:700 !important;
 	}
 	.dashList li:first-child,
 	.dashList li:first-child:hover,
@@ -1257,6 +1294,7 @@
 		top:20px;
 		height:35px;
 	}
+
 	.calchoice {
 		height:35px;
 		line-height:35px;
@@ -1264,11 +1302,42 @@
 		width: 12.5%;
 		font-size: 12px;
 	}
+
 	#calToday {
 		right: initial;
 		height: 35px;
 		line-height: 35px;
 		font-size: 12px;
+	}
+
+	#wrapper h1 {
+		font-size:36px;
+		top:0px;
+		margin-top:0px;
+		margin-bottom:20px;
+	}
+
+	.login-form span {
+		font-size:12px;
+		line-height:20px;
+	}
+
+	.login-form .header {
+		padding-bottom:0px;
+		padding-top:0px;
+	}
+
+	.signuptext {
+		margin-top:10px;
+	}
+
+	#wrapper p {
+		margin-top:10px;
+		font-size:12px;
+	}
+
+	#tos {
+		margin-bottom:0px;
 	}
 
 }
@@ -1392,8 +1461,8 @@
 
 	#contactscont h1, #taskscont h1 {
 		padding: 10px;
-		padding-bottom: 20px;
 		font-size: 36px;
+		padding:10px !important;
 	}
 
 	#mobileContact {
@@ -1465,6 +1534,17 @@
 		top: 2px;
 		width: 36px;
 		left: 5px;
+	}
+
+	#helplinksMobile > a > div > span {
+		padding-left:0px;
+	}
+
+	.dashList {
+		top: 60px !important;
+	}
+	.dashList li {
+		padding: 10px !important;
 	}
 
 }
