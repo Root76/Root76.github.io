@@ -24,6 +24,11 @@
 	display:none;
 }
 
+#logoImg {
+	display:block;
+	margin:0 auto;
+}
+
 textarea:focus, input:focus, select:focus{
     outline: 0;
 }
@@ -589,6 +594,7 @@ h1, h2, h3, h4 {
 	top: -20px;
 	position: relative;
 	font-weight:400;
+	display:none;
 }
 
 .login-form {
@@ -1004,7 +1010,6 @@ h1, h2, h3, h4 {
 .dashList li.currentcontact:first-child,
 .dashRecent {
 	background:#00a3ac !important;
-	top:185px !important;
 }
 
 .dashList li:nth-child(2):hover,
@@ -1901,7 +1906,7 @@ to {
 	margin-left:0px !important;
 }
 
-.settingspage table {
+#adminTable {
 	width:100%;
 }
 
@@ -1922,6 +1927,13 @@ to {
 	position:absolute;
 	top:0px;
 	right:0px;
+}
+
+#analyticsLogo {
+	position:absolute;
+	top:-15px;
+	right:0px;
+	width:30px;
 }
 
 .view-container-border {

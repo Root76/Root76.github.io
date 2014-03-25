@@ -97,7 +97,7 @@
           </select>
           {{#link-to 'orphans'}}<div id="orphancount">
             <img src="img/orphans.png" id="orphanimage">
-            <span style="color:#ff0000">3</span>
+            <span style="color:#ff0000"></span>
           </div>{{/link-to}}
           <a href="javascript:window.print()" id="printparent"><img src="img/print.png" id="printimg" /></a>
           <img src="img/logo.jpg" id="mobileLogo">
@@ -223,11 +223,11 @@
                       <option>All weekdays</option>
                       <option>Monday / Wednesday / Friday</option>
                       <option>Tuesday / Thursday</option>
-                    </select><div id="recurringInterval"> every <input type="number" name="quantity" min="1" max="30"> days</div>
+                    </select><div id="recurringInterval"> every <input type="number" name="quantity" min="1" max="30" id="intervalSelect"> days</div>
                   </div>
                   <div class="formrow">
                     Ends: <div class="endSelect formrow"><input type="radio" name="ending" value="never">Never</div>
-                          <div class="endSelect formrow"><input type="radio" name="ending" value="after">After <input type="number" name="occurences" > occurences</div>
+                          <div class="endSelect formrow"><input type="radio" name="ending" value="after">After <input type="number" name="occurences" id="recurrNumber"> occurences</div>
                           <div class="endSelect formrow endEvent"><input type="radio" name="ending" value="on">On <input type="text" id="endEventRepeat"><img src="img/calendar.png" /></div>
                   </div>
                 </div>
@@ -791,10 +791,8 @@
                       {{/each}}
                     </div>
                     <div class="infopanel">
-                      {{#each event in eventsController}}
-                        {{#if event.title}}  
-                          {{#link-to 'events.event' event}}<li><span>{{event.title}} -- {{event.start_displayformatted}}</span></li>{{/link-to}}
-                        {{/if}}
+                      {{#each item in upcomingToday}}
+                          {{#link-to 'events.event' event}}<li><span>{{item.title}}</span></li>{{/link-to}}
                       {{else}}
                         <li><span>No Events</span></li>
                       {{/each}} 
@@ -927,18 +925,16 @@
                 <div class="contactrow" {{action "editField" "phone" on="doubleClick"}}>
                   <img src="img/cellphone.png">
                   <h4 class="phonenumber">
-                  {{#if editing.phone}}
-                  	{{input class="editField" id="phoneInput" type="text" value=phone focus-out="save" insert-newline="save"}}
-                  {{else}}
-                  	{{phone}}
-                  {{/if}}
+                    {{#each phone in phones}}
+                    	<span>{{phone.number}}</span>
+                    {{/each}}
                   </h4>
                 </div>
                 <div class="contactrow" {{action "editField" "email" on="doubleClick"}}>
                   <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png"></a>
                		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
                   <h4 class="emailfield">
-                    {{#each email}}
+                    {{#each email in emails}}
                       {{#if editing.email}}
                       	{{input class="editField" id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
                       {{else}}
@@ -2135,8 +2131,9 @@
           <div id="appcont" class="settingspage">
             <h1>Admin Report</h1>
             <h2 id="reportCount"><span></span> total users</h2>
+            <a href="https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a46373758w77381203p79990338/" target="_blank"><img src="img/analytics.png" id="analyticsLogo"></a>
             <div>
-              <table>
+              <table id="adminTable">
                 <thead>
                   <tr>
                     <td>Name</td>
@@ -2145,28 +2142,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="userRow">
-                    <td>Allen Hatzimanolis</td>
-                    <td>allen@evenspring.com</td>
-                    <td>Active</td>
-                  </tr>
-                  <tr class="userRow">
-                    <td>Allen Hatzimanolis</td>
-                    <td>allen@evenspring.com</td>
-                    <td>Active</td>
-                  </tr>
-                  <tr class="userRow">
-                    <td>Allen Hatzimanolis</td>
-                    <td>allen@evenspring.com</td>
-                    <td>Active</td>
-                  </tr>
-                  {{#each ReportsAdmin}}
-                    <tr class="userRow">
-                      <td>{{name}}</td>
-                      <td>{{email}}</td>
-                      <td>Active</td>
-                    </tr>
-                  {{/each}}
                 </tbody>
               </table>
             </div>

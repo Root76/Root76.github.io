@@ -76,7 +76,6 @@ function rebindEvents() {
     setTimeout(function(){
 		$('.listitem > h3').click(function(event){
 	        var thisArrow = $(this).parent().find(".accordionarrow");
-	        console.log("arrow: " + $(thisArrow).attr("src"));
 	        if ($(thisArrow).hasClass("arrowdown")) {
 	            $(thisArrow).removeClass("arrowdown");
 	        }
@@ -223,11 +222,8 @@ function rebindEvents() {
         $("#preloader").html(emailAddr);
         $("#preloader > script").remove();
         emailAddr = $("#preloader").html();
-        console.log("email Addr: " + emailAddr);
         $(".dynamicEmail").attr("href", desktopLink + emailAddr);
         $(".mobileEmail").attr("href", mobileLink + emailAddr);
-        console.log("desktop link: " + $('.desktopEmail').attr('href'));
-        console.log("mobile link: " + $('.mobileEmail').attr('href'));
     });
 
     $("#mobileContact").click(function(){
@@ -463,32 +459,25 @@ function rebindEvents() {
             var friday = new Boolean(false);
             var saturday = new Boolean(false);
             var sunday = new Boolean(false);
-            var repeatWeek = new Boolean(false);
-            var repeatMonth = new Boolean(false);
-            var repeatYear = new Boolean(false);
             var interval = document.getElementById("recurrChoice").selectedIndex;
+            var repeatInterval;
+            var endingCount;
+            var endingDate;
 
             if (isRecurring == true) {
                 if (interval == 0) {
-                    monday = true;
-                    tuesday = true;
-                    wednesday = true;
-                    thursday = true;
-                    friday = true;
-                    saturday = true;
-                    sunday = true;
+                    repeatInterval = $("#intervalSelect").val();
+                    if (!repeatInterval.length || repeatInterval < 2) {
+                        repeatInterval = "day";
+                    }
                 } else if (interval == 1) {
-                    repeatWeek = true;
+                    repeatInterval = "week";
                 } else if (interval == 2) {
-                    repeatMonth = true;
+                    repeatInterval = "month";
                 } else if (interval == 3) {
-                    repeatYear = true;
+                    repeatInterval = "year";
                 } else if (interval == 4) {
-                    monday = true;
-                    tuesday = true;
-                    wednesday = true;
-                    thursday = true;
-                    friday = true;
+                    repeatInterval = "weekday";
                 } else if (interval == 5) {
                     monday = true;
                     wednesday = true;
@@ -497,28 +486,35 @@ function rebindEvents() {
                     tuesday = true;
                     thursday = true;
                 }
+                endingCount = $("#recurrNumber").val();
+                endingDate = $("#endEventRepeat").val();
             } else if (isRecurring == false){
-                console.log("selected index (false): " + interval);
+                console.log("not recurring");
             }
 
             var eventEn = moment($("#eventEnd").val()).format();
-
+            repeatInterval = parseInt(repeatInterval, 10);
+            endingCount = parseInt(endingCount, 10);
             var data = {
                 event: {
                     title: eventTitle,
                     description: eventDesc,
                     location: eventLoc,
                     recurring: isRecurring,
-                    on_monday: monday,
-                    on_tuesday: tuesday,
-                    on_wednesday: wednesday,
-                    on_thursday: thursday,
-                    on_friday: friday,
-                    on_saturday: saturday,
-                    on_sunday: sunday,
-                    weekly: repeatWeek,
-                    monthly: repeatMonth,
-                    annually: repeatYear,
+                    recurrence: {
+                        frequency: repeatInterval,
+                        on_monday: monday,
+                        on_tuesday: tuesday,
+                        on_wednesday: wednesday,
+                        on_thursday: thursday,
+                        on_friday: friday,
+                        on_saturday: saturday,
+                        on_sunday: sunday,
+                        ends_after: {
+                            occurences: endingCount,
+                            date: endingDate
+                        }
+                    },
                     start_datetime: eventSt,
                     end_datetime: eventEn,
                     contact_ids: contactIds,
@@ -538,8 +534,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -631,8 +627,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 console.log(data);
@@ -673,8 +669,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
+                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                 },
                 success: function (data) {
                     console.log(data);
@@ -824,12 +820,41 @@ function rebindEvents() {
     });
 
     if ($('.ocount').length) {
-	    var totalOrphans = $('.ocount');
-	    totalOrphans[0].innerHTML = $('.eventCounter').length;
-	    totalOrphans[1].innerHTML = $('.taskCounter').length;
-	    totalOrphans[2].innerHTML = $('.tagCounter').length;
-	    $("#totalOrphans").html($('.eventCounter').length + $('.taskCounter').length + $('.tagCounter').length)
-	}
+        $.ajax({
+            type: 'GET',
+            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            contentType: "application/json",
+            dataType: "json",
+            headers: {
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            },
+            success: function (data) {
+                var orphanObj = JSON.stringify(data);
+                orphanObj = JSON.parse(orphanObj);
+                var orphanObjRoot = orphanObj.orphans;
+                orphanObjRoot = JSON.stringify(orphanObjRoot);
+                orphanObjRoot = orphanObjRoot.substring(1, orphanObjRoot.length-1);
+                var orphanEvents = JSON.parse(orphanObjRoot);
+                orphanEvents = orphanEvents.tasks;
+                orphanEvents = orphanEvents.length;
+                var orphanTasks = JSON.parse(orphanObjRoot);
+                orphanTasks = orphanTasks.tasks;
+                orphanTasks = orphanTasks.length;
+                var orphanTags = JSON.parse(orphanObjRoot);
+                orphanTags = orphanTags.tags;
+                orphanTags = orphanTags.length;
+                $("#totalOrphans").html(orphanEvents + orphanTasks + orphanTags);
+                var orphanCounters = $(".ocount");
+                $(orphanCounters[0]).html(orphanEvents);
+                $(orphanCounters[1]).html(orphanTasks);
+                $(orphanCounters[2]).html(orphanTags);
+            },
+            error: function (e) {
+                //alert("There was an error loading orphans: " + e);
+            }
+        });
+    }
 
     if ($('#settingmain').length) {
         var totalUsers = $(".userRow").length;
@@ -840,8 +865,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
@@ -882,48 +907,34 @@ function rebindEvents() {
         });
     }
 
-    if ($("#reportCount").length) {
+    if ($("#adminTable").length) {
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/users/reports_admin',
+            url: 'http://daywon-api-staging.herokuapp.com/reports_admin',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
+                var userList = "";
                     for (var key in data) {
                     if (data.hasOwnProperty(key)) {
                         arr.push(data[key]);  
                     }
                 }
-                if (arr[0] === true) {
-                    $("#toggle").attr("checked", "checked");
-                } else {
-                    $("#toggle").removeAttr("checked");
+                arr = arr[0];
+                arr = arr.sort(function(a, b) {
+                    var x = a.name; var y = b.name;
+                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                });
+                $("#reportCount > span").html(arr.length);
+                for (var i = 0; i < arr.length; i++) {
+                    userList += '<tr class="userRow"><td>' + arr[i].name + '</td><td>' + arr[i].email + '</td><td>' + arr[i].active + '</td></tr>';
                 }
-                if (arr[1] === true) {
-                    $("#toggle2").attr("checked", "checked");
-                } else {
-                    $("#toggle2").removeAttr("checked");
-                }
-                if (arr[2] === true) {
-                    $("#toggle3").attr("checked", "checked");
-                } else {
-                    $("#toggle3").removeAttr("checked");
-                }
-                if (arr[3] === true) {
-                    $("#toggle4").attr("checked", "checked");
-                } else {
-                    $("#toggle4").removeAttr("checked");
-                }
-                if (arr[4] === true) {
-                    $("#toggl5").removeAttr("checked");
-                } else {
-                    $("#toggle5").attr("checked", "checked");
-                }
+                $("#adminTable > tbody").html(userList);
             },
             error: function (e) {
                 //alert("There was an error loading settings: " + e);
@@ -1105,7 +1116,7 @@ function rebindEvents() {
         }); 
         var deleteTip = new Opentip("#detailmenubar > img:last-child", '<p>Are you sure you want to delete this item?</p><br /><div id="deleteContainer"><div>Yes</div><div>No</div></div>', {
             style: "deleteconfirm"
-        }); 
+        });
         new Opentip("#detailmenubar > a > img", "Create", {
             style: "bottomtip"
         }); 
@@ -1194,6 +1205,11 @@ function rebindEvents() {
             style: "lefttip"
         });
     }
+    if ($("#adminTable").length) {
+        new Opentip("#analyticsLogo", "Google Analytics", {
+            style: "toptip"
+        });
+    }
     setTimeout(function(){
         $("#loader").removeClass("showLoader");
     }, 200);
@@ -1221,12 +1237,12 @@ function rebindEvents() {
     modal5Links.click(function(){ $('#openModal5').addClass('active'); });
 
 	// set current email
-    $("#eaddr option:first").html(userEmail);
+    $("#eaddr option:first").html("hweaver@evenspring.com");
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({
@@ -1433,6 +1449,14 @@ setTimeout(function(){
     console.log ("AT: " + authToken);
     console.log ("UE: " + userEmail);
 
+    $("#recurrChoice").change(function(){
+        if (this.selectedIndex > 0) {
+            $("#recurringInterval").hide();
+        } else {
+            $("#recurringInterval").show();
+        }
+    });
+
     if ($(".loggedin").length) {
         $(".loggedin").bind("touchmove", function(e) {
             e.preventDefault();
@@ -1469,30 +1493,48 @@ setTimeout(function(){
         $(event.target).parent().find('input').focus();
     });
 
-    $.ajax({
-        type: 'GET',
-        url: 'http://daywon-api-staging.herokuapp.com/orphans',
-        contentType: "application/json",
-        dataType: "json",
-        headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
-        },
-        success: function (data) {
-            var orphanObj = JSON.stringify(data);
-            orphanObj = JSON.parse(orphanObj);
-            var orphanObjRoot = orphanObj.orphans;
-            orphanObjRoot = JSON.stringify(orphanObjRoot);
-            console.log("orphan data: " + orphanObjRoot);
-            var orphanTasks = orphanObjRoot.tasks;
-            orphanTasks = JSON.stringify(orphanTasks);
-            console.log("orphan events: " + orphanTasks);
+    function ajaxOrphans() {
 
-        },
-        error: function (e) {
-            //alert("There was an error loading orphans: " + e);
-        }
-    });
+        $.ajax({
+            type: 'GET',
+            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            contentType: "application/json",
+            dataType: "json",
+            headers: {
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            },
+            success: function (data) {
+                var orphanObj = JSON.stringify(data);
+                orphanObj = JSON.parse(orphanObj);
+                var orphanObjRoot = orphanObj.orphans;
+                orphanObjRoot = JSON.stringify(orphanObjRoot);
+                orphanObjRoot = orphanObjRoot.substring(1, orphanObjRoot.length-1);
+                var orphanEvents = JSON.parse(orphanObjRoot);
+                orphanEvents = orphanEvents.tasks;
+                orphanEvents = orphanEvents.length;
+                console.log("orphan events: " + orphanEvents);
+                var orphanTasks = JSON.parse(orphanObjRoot);
+                orphanTasks = orphanTasks.tasks;
+                orphanTasks = orphanTasks.length;
+                console.log("orphan tasks: " + orphanTasks);
+                var orphanTags = JSON.parse(orphanObjRoot);
+                orphanTags = orphanTags.tags;
+                orphanTags = orphanTags.length;
+                console.log("orphan tags: " + orphanTags);
+                var totalOrphans = orphanEvents + orphanTags + orphanTasks;
+                console.log(totalOrphans);
+                $("#orphancount > span").html(totalOrphans);
+                $("#totalOrphans").html(totalOrphans);
+            },
+            error: function (e) {
+                //alert("There was an error loading orphans: " + e);
+            }
+        });
+
+    }
+
+    ajaxOrphans();
 
     window.addEventListener('load', function() {
         new FastClick(document.body);

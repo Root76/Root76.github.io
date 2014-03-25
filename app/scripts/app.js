@@ -76,8 +76,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -436,7 +436,6 @@ App.IndexController = Ember.ObjectController.extend({
     eventsController: Ember.computed.alias("controllers.events"),
     tasksController: Ember.computed.alias("controllers.tasks"),
     tagsController: Ember.computed.alias("controllers.tags"),
-
     recent10Items: function() {
     	var contacts = this.get('gatheredContacts') || [];
     	var events = this.get('gatheredEvents') || [];
@@ -455,9 +454,20 @@ App.IndexController = Ember.ObjectController.extend({
     	allItems.sort(function(a, b) {
     		return getTime(a) - getTime(b);
     	});
-
     	return allItems.slice(0, 10);
-    }.property('gatheredContacts', 'gatheredEvents', 'gatheredTasks', 'gatheredTags')
+    }.property('gatheredContacts', 'gatheredEvents', 'gatheredTasks', 'gatheredTags'),
+    upcomingToday: function() {
+    	var todayEvents = this.get('store').find('event');
+        console.log(todayEvents);
+    	var getTime = function(item) {
+    		var time = moment(item.get('start_datetime'));
+    		return (time.isValid()) ? time.unix() : 0;
+    	};
+    	/*arr.sort(function(a, b) {
+    		return getTime(a) - getTime(b);
+    	});*/
+       	return todayEvents;
+    }.property('events')
 });
 
 App.SettingsController = Ember.ObjectController.extend({
@@ -586,9 +596,9 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
 
 App.Contact = DS.Model.extend({
     name: DS.attr('string'),
-    email: DS.attr('array'),
+    emails: DS.attr('array'),
     organization: DS.attr('string'),
-    phone: DS.attr('array'),
+    phones: DS.attr('array'),
     address: DS.attr('string'),
     place: DS.attr('string'),
     notes: DS.attr('string'),
@@ -597,11 +607,10 @@ App.Contact = DS.Model.extend({
     events: DS.attr('array'),
     tasks: DS.attr('array'),
     tags: DS.attr('array'),
-
     relatedEmailsLink: function() {
 		return 'https://mail.google.com/mail/u/?authuser=' + userEmail + // pick the right user account in case of multiple login
 			'#search/from:' + this.get('email') + '+OR+to:' + this.get('email'); // filter emails from/to this person
-    }.property('email'),
+    }.property('emails'),
     birthdayProperty: function() {
     	var properties = this.get('extended_properties') || [];
     	for (var i = 0; i < properties.length; i++) {
