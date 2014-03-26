@@ -918,7 +918,8 @@
               <img src="img/tasks.png" />
               <img src="img/tags.png" />
               <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addContact" /></a>
-              <img src="img/trash.png" id="trashicon" />              
+              <img src="img/trash.png" id="trashicon" /> 
+              <button {{action "deleteRecord"}} id="destroy">{{id}}</button>           
             </div>
             <div class="panelcontent" id="contactcontent">
               <div class="infopanel selected">
@@ -1203,7 +1204,8 @@
             <img src="img/tasks.png" />
             <img src="img/tags.png" /> 
             <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
-            <img src="img/trash.png" id="trashicon"/>              
+            <img src="img/trash.png" id="trashicon"/>
+            <button {{action "deleteRecord"}} id="destroy">{{id}}</button>
           </div>
           <div class="panelcontent" id="eventscontent">                
             <div class="infopanel">
@@ -1433,10 +1435,11 @@
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
                     <img src="img/tasks.png" class="selected" />
-                    <img src="img/tags.png" />   
+                    <img src="img/tags.png" />
                     <span id="taskcheck" {{bind-attr class="status:completed"}} {{action "toggleCompleted"}}><img src="img/check.png" /></span>
                     <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTask" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
+                    <img src="img/trash.png" id="trashicon"/>
+                    <button {{action "deleteRecord"}} id="destroy">{{id}}</button>           
                   </div>
                   <div class="panelcontent" id="taskscontent">
                     <div class="infopanel">
@@ -1654,7 +1657,8 @@
                     <img src="img/tasks.png" />
                     <img src="img/tags.png" class="selected" />   
                     <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
+                    <img src="img/trash.png" id="trashicon"/>    
+                    <button {{action "deleteRecord"}} id="destroy">{{id}}</button>
                   </div>
                   <div class="panelcontent" id="tagscontent">
                     <div class="infopanel">

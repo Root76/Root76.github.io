@@ -30,7 +30,7 @@ App.Router.map(function () {
     		this.route("task", { path: "/:task_id"});
     	});
     	this.resource("orphantags", function() {
-    		this.route("tag", { path: "/:tag_id"});
+    		this.route("tag", { path: "/:tag_id" });
     	});
     });
     this.resource("view");
@@ -76,8 +76,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
   }
 });
 
@@ -904,7 +904,16 @@ App.TasksTaskRoute = Ember.Route.extend({
         toggleCompleted: function(){
         	this.currentModel.set('status', !this.currentModel.get('status'));
         	this.currentModel.save();
-        }
+        },
+        deleteRecord: function() {
+        	$("#destroy > script").remove();
+        	recID = $("#destroy").html();
+			this.get('store').find('task', recID).then(function(rec) {
+				rec.deleteRecord();
+				rec.save();
+			});
+        	this.transitionTo('/tasks');
+		}
   	}
 }, IndividualObjectRoute);
 
@@ -928,6 +937,17 @@ App.EventsEventRoute = Ember.Route.extend({
   		controller.set('model', model);
   		if (model.reload)
     		model.reload();
+  	},
+  	actions: {
+  		deleteRecord: function() {
+        	$("#destroy > script").remove();
+        	recID = $("#destroy").html();
+			this.get('store').find('event', recID).then(function(rec) {
+				rec.deleteRecord();
+				rec.save();
+			});
+        	this.transitionTo('/events');
+		}
   	}
 }, IndividualObjectRoute);
 
@@ -963,7 +983,16 @@ App.ContactsContactRoute = Ember.Route.extend({
   			if (index < properties.length)
   				properties.splice(index, 1);
   			this.currentModel.set('extended_properties', properties);
-  		}
+  		},
+  		deleteRecord: function() {
+        	$("#destroy > script").remove();
+        	recID = $("#destroy").html();
+			this.get('store').find('contact', recID).then(function(rec) {
+				rec.deleteRecord();
+				rec.save();
+			});
+		    this.transitionTo('/contacts');
+		}
   	}
 }, IndividualObjectRoute);
 
@@ -987,6 +1016,17 @@ App.TagsTagRoute = Ember.Route.extend({
   		controller.set('model', model);
   		if (model.reload)
     		model.reload();
+  	},
+  	actions: {
+  		deleteRecord: function() {
+        	$("#destroy > script").remove();
+        	recID = $("#destroy").html();
+			this.get('store').find('tag', recID).then(function(rec) {
+				rec.deleteRecord();
+				rec.save();
+			});
+        	this.transitionTo('/tags');
+		}
   	}
 }, IndividualObjectRoute);
 

@@ -327,6 +327,25 @@ function rebindEvents() {
         }
     });
 
+    $("#trashicon").unbind("click").bind("click", function(){
+        setTimeout(function(){
+            $("#deleteContainer > div:first-child").click(function(){
+                $("#destroy").click();
+                deleteTip.hide();
+                var deleteTip2 = new Opentip("#trashicon", '<span>Item deleted.</span>', {
+                    style: "deleteconfirm2"
+                });
+                deleteTip2.show();
+                setTimeout(function(){
+                    deleteTip2.hide();
+                }, 1500);
+            });
+            $("#deleteContainer > div:last-child").click(function(){
+                deleteTip.hide();
+            });
+        }, 100);
+    });
+
     $(".createForm").unbind('submit').bind('submit', function(event){		
 
 		var showPopupMessage = function(target, message, style) {
@@ -534,8 +553,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+				"X-AUTHENTICATION-TOKEN": authToken,
+				"X-AUTHENTICATION-EMAIL": userEmail
 			},
 			success: function (data) {
 				console.log(data);
@@ -627,8 +646,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 console.log(data);
@@ -669,8 +688,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -723,19 +742,21 @@ function rebindEvents() {
         $('.fc').fullCalendar('today');
     });
 
-    $('#detailmenubar > img').click(function(event){
-        var viewChoice = $('.infopanel');
-        $('.infopanel.selected').removeClass('selected');
-        $('img.selected').removeClass('selected');
-        $(event.target).addClass('selected');
-        if (this.src.indexOf("contact") != -1) {
-            $(viewChoice[0]).addClass('selected');
-        } else if (this.src.indexOf("event") != -1) {
-            $(viewChoice[1]).addClass('selected');
-        } else if (this.src.indexOf("task") != -1) {
-            $(viewChoice[2]).addClass('selected');
-        } else if (this.src.indexOf("tag") != -1) {
-            $(viewChoice[3]).addClass('selected');
+    $('#detailmenubar > img').click(function(){
+        if (this.src.indexOf("trash") == -1) {
+            var viewChoice = $('.infopanel');
+            $('.infopanel.selected').removeClass('selected');
+            $('img.selected').removeClass('selected');
+            $(event.target).addClass('selected');
+            if (this.src.indexOf("contact") != -1) {
+                $(viewChoice[0]).addClass('selected');
+            } else if (this.src.indexOf("event") != -1) {
+                $(viewChoice[1]).addClass('selected');
+            } else if (this.src.indexOf("task") != -1) {
+                $(viewChoice[2]).addClass('selected');
+            } else if (this.src.indexOf("tag") != -1) {
+                $(viewChoice[3]).addClass('selected');
+            }
         }
     });
 
@@ -826,8 +847,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -865,8 +886,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -914,8 +935,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1042,8 +1063,17 @@ function rebindEvents() {
       offset: [0, -140],
       delay: 0,
       showOn: "click",
-      hideTrigger: "closeButton",
-      background: "#ffea55"
+      hideTrigger: "closeButton"
+    };
+    Opentip.styles.deleteconfirm2 = {
+      tipJoint: "top",
+      group: "deletion",
+      target: true,
+      offset: [0, -140],
+      delay: 0,
+      showOn: null,
+      background: "#72FF72",
+      borderColor: "#3CFF3C"
     };
     if ($("#subEvent").length) {
         new Opentip("#subEvent", "Events", {
@@ -1111,10 +1141,10 @@ function rebindEvents() {
         new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
             style: "bottomtip"
         }); 
-        new Opentip("#detailmenubar > img:last-child", "Delete", {
+        new Opentip("#trashicon", "Delete", {
             style: "toptip"
         }); 
-        var deleteTip = new Opentip("#detailmenubar > img:last-child", '<p>Are you sure you want to delete this item?</p><br /><div id="deleteContainer"><div>Yes</div><div>No</div></div>', {
+        var deleteTip = new Opentip("#trashicon", '<p>Are you sure you want to delete this item?</p><br /><div id="deleteContainer"><div>Yes</div><div>No</div></div>', {
             style: "deleteconfirm"
         });
         new Opentip("#detailmenubar > a > img", "Create", {
@@ -1237,12 +1267,12 @@ function rebindEvents() {
     modal5Links.click(function(){ $('#openModal5').addClass('active'); });
 
 	// set current email
-    $("#eaddr option:first").html("hweaver@evenspring.com");
+    $("#eaddr option:first").html(userEmail);
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         }
     };
     var contacts = new Bloodhound({
@@ -1501,8 +1531,8 @@ setTimeout(function(){
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);

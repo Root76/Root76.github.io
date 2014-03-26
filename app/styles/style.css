@@ -24,6 +24,10 @@
 	display:none;
 }
 
+#destroy {
+	display:none;
+}
+
 #logoImg {
 	display:block;
 	margin:0 auto;
