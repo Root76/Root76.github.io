@@ -825,7 +825,7 @@
               <div class="row">
                 <div class="col-md-4" id="contactpane1">
                   <img src="img/contact.png" class="contactpadding" />
-                  <h1 class="contactpadding">Contacts (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding">Contacts (<span id="itemCount">{{contactsCount}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -862,8 +862,8 @@
                       {{#if contact.name}}
                         {{#link-to 'contacts.contact' contact}}<li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                       {{else}}
-                        {{#if contact.email}}
-                          {{#link-to 'contacts.contact' contact}}<li>{{contact.email}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
+                        {{#if contact.emails}}
+                          {{#link-to 'contacts.contact' contact}}<li>{{contact.emails}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                         {{/if}}
                       {{/if}}
                     {{/each}}
@@ -936,13 +936,9 @@
                		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
                   <h4 class="emailfield">
                     {{#each email in emails}}
-                      {{#if editing.email}}
-                      	{{input class="editField" id="emailInput" type="text" value=email focus-out="save" insert-newline="save"}}
-                      {{else}}
-                      	{{email.email}}
-                      {{/if}}
+                      {{email.email}}
                     {{/each}}
-                  </h4>              
+                  </h4>
                 </div>
                 <div class="contactrow" {{action "editField" "birthday" on="doubleClick"}}>
                   <img id="bdayImage" src="img/birthday.png">
@@ -1073,8 +1069,6 @@
                   <h3>Tasks</h3>
                 </div>
                 <br />
-                <div class="detailSection">
-                  <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                 <ul class="columnlist">
                   {{#each task in tasks}}
                     <li>{{task.title}}</li>
@@ -1082,44 +1076,21 @@
                     <li>N/A</li>
                   {{/each}}
                 </ul>
+              </div>
+              <div class="col-md-4 dCol" id="dCol3">
+                <div class="columnhead">
+                  <img src="img/events.png" />
+                  <h3>Events</h3>
                 </div>
-                <div class="detailSection">
-                  <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                            <ul class="columnlist">
-                              {{#each task in tasks}}
-                                <li>{{task.title}}</li>
-                              {{else}}
-                                <li>N/A</li>
-                              {{/each}}
-                            </ul>  
-                  </div>                  
-                </div>
-                        <div class="col-md-4 dCol" id="dCol3">
-                          <div class="columnhead">
-                            <img src="img/events.png" />
-                            <h3>Events</h3>
-                          </div>
                 <br />
-                <div class="detailSection">
-                            <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                            <ul class="columnlist">
-                              {{#each event in events}}
-                                <li>{{event.title}}</li>
-                              {{else}}
-                                <li>N/A</li>
-                              {{/each}}
-                            </ul>
-                </div>
-                <div class="detailSection">
-                            <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                            <ul class="columnlist">
-                              {{#each event in events}}
-                                <li>{{event.title}}</li>
-                              {{else}}
-                                <li>N/A</li>
-                              {{/each}}
-                            </ul>
-                </div>
+                <ul class="columnlist">
+                  {{#each event in events}}
+                    <li>{{event.title}}</li>
+                  {{else}}
+                    <li>N/A</li>
+                  {{/each}}
+                </ul>
+              </div>
               </div>
             </div>
           </div>
@@ -1135,7 +1106,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/events.png" / class="contactpadding">
-                  <h1 class="contactpadding">Events (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding">Events ({{eventsCount}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1358,7 +1329,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/tasks.png" / class="contactpadding">
-                  <h1 class="contactpadding" id="mobileTaskHead">Tasks (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding" id="mobileTaskHead">Tasks ({{tasksCount}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1588,7 +1559,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/tags.png" / class="contactpadding">
-                  <h1 class="contactpadding tagHeader">Tags (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding tagHeader">Tags ({{tagsCount}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>

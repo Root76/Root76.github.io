@@ -987,8 +987,6 @@ function rebindEvents() {
 
     setTimeout(function(){
         $('#collapseall').click();
-        var fullCount = $('.sidelist li');
-        $("#itemCount").html(fullCount.length);
         setTimeout(function(){
             $(".spaceimage").remove();
 			try { 

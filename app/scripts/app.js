@@ -177,7 +177,9 @@ App.ContactsController = Ember.ArrayController.extend({
             this.set('sortProperties', ['organization']);
         }
     },
-	
+	contactsCount: function() {
+    	return this.get('length');
+    }.property('contacts'),
 	sortOptions: [
 		{label: "Name", primarySort: "name", ascending: true},
 		{label: "Company", primarySort: "organization", ascending: true},
@@ -243,7 +245,6 @@ App.ContactsController = Ember.ArrayController.extend({
 			if (this.selectedShowOption.showProperty)
 				this.set('showProperty', this.selectedShowOption.showProperty);
 		}
-		
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
         }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
@@ -253,7 +254,9 @@ App.ContactsController = Ember.ArrayController.extend({
 App.EventsController = Ember.ArrayController.extend({
     sortProperties: ['start_datetime', 'end_datetime'],
     sortAscending: false,
-	
+	eventsCount: function() {
+    	return this.get('length');
+    }.property('events'),
 	showOption: "allOpen",
 	showProperty: "updated_at",
 	eventsToShow: function(a) { 
@@ -332,7 +335,9 @@ App.TasksController = Ember.ArrayController.extend({
             console.log("sort by contact fired");
         }
     },
-    
+	tasksCount: function() {
+    	return this.get('length');
+    }.property('tasks'),
     showOption: "allOpen",
 	tasksToShow: function(a) { 
 		var option = this.get('showOption');
@@ -386,7 +391,9 @@ App.TasksController = Ember.ArrayController.extend({
 App.TagsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
     sortAscending: true,
-	
+	tagsCount: function() {
+    	return this.get('length');
+    }.property('tags'),
 	sortOptions: [
 		{label: "Tag Count", primarySort: "count", secondarySort: "name", ascending: false},
 		{label: "Name", primarySort: "name", secondarySort: "count", ascending: true}
@@ -961,6 +968,11 @@ App.ContactsRoute = Ember.Route.extend({
 App.ContactsIndexRoute = Ember.Route.extend({
   	model: function() {
     	return this.modelFor('contacts');
+  	},
+  	afterModel: function(){
+  		this.get("store").find("contact").then(function(rec){
+  			console.log(rec);
+  		});
   	}
 });
 App.ContactsContactRoute = Ember.Route.extend({
