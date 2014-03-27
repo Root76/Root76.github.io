@@ -1497,7 +1497,7 @@
                     <div class="col-md-4 dCol" id="dCol1">
                       <img class="columnDivider" src="img/divider_green.png" />
                       <h1>{{title}}</h1>
-                      <h4>Ryan needs to have his physical completed before school starts.</h4>
+                      <h4>{{notes}}</h4>
                       <div id="relatedTags">
                         {{#each tag in tags}}
                         {{#if tag.name}}
@@ -1789,9 +1789,15 @@
             <h1 id="orphanhead">Orphans (<span id="totalOrphans">3</span>)</h1>
             <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag. To maximize the usefulness of Day Won, eliminate all Orphans.</h2>
             <div id="orphancontainer">
-              {{#link-to 'orphanevents'}}<img src="img/events.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
-              {{#link-to 'orphantasks'}}<img src="img/tasks.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
-              {{#link-to 'orphantags'}}<img src="img/tags.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+              <div class="orphansubcontainer">
+                {{#link-to 'orphanevents'}}<img src="img/events.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+              </div>
+              <div class="orphansubcontainer">
+                {{#link-to 'orphantasks'}}<img src="img/tasks.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+              </div>
+              <div class="orphansubcontainer">
+                {{#link-to 'orphantags'}}<img src="img/tags.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+              </div>
             </div>
             <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
             <ul>

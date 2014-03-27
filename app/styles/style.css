@@ -56,6 +56,12 @@ body {
 	top: 140px;
 	position: relative;
 	color:#333;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 iframe {
@@ -98,7 +104,7 @@ hr {
 }
 
 #logo {
-	height:60px;
+	height:70px;
 }
 
 #logolink {
@@ -106,11 +112,13 @@ hr {
 }
 
 #logolink p {
-	font-size: 10px;
+	font-size: 11px;
 	line-height: 10px;
 	margin-bottom: 0px;
 	position:absolute;
-	bottom:4px;
+	bottom:5px;
+	left:94px;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .backArrow {
@@ -847,7 +855,7 @@ h1, h2, h3, h4 {
 }
 
 .orphancont {
-	height:530px !important;
+	height:auto !important;
 }
 
 #footer {
@@ -1224,32 +1232,31 @@ h1, h2, h3, h4 {
 }
 
 #orphanhead {
-	margin-left:-20px !important;
-	display:inline;
+	margin-left:0px !important;
 	position:relative;
 	font-weight:700;
 	font-size:48px;
-	top:55px;
+	display:inline;
 }
 
 #orphansubhead {
 	position:relative;
-	top:60px;
-	left:-15px;
-	padding-right:20px;
+	margin: 0px;
+	padding-left: 25px;
+	padding-right: 25px;
 }
 
 #orphanlogo {
 	width:200px;
-	position:relative;
-	top:-20px;
-	float:left;
 }
 
 #orphancontainer {
-	position: absolute;
-	top: 215px;
-	left: 125px;
+	width:100%;
+}
+
+.orphansubcontainer {
+	width:33.33%;
+	float:left;
 }
 
 #orphancontainer h1 {
@@ -1259,19 +1266,19 @@ h1, h2, h3, h4 {
 #orphancontainer img {
 	width:200px;
 	position:relative;
-	left:20px;
+	left:0px;
 }
 
 .ocount {
 	display:inline;
-	margin-left:-7px !important;
+	margin-left:-37px !important;
 }
 
 #orphanhelp {
-	position: absolute;
-	bottom: 40px;
-	left: 185px;
-	padding-right: 80px;
+	padding-left:25px;
+	padding-right:25px;
+	padding-bottom:25px;
+	margin-top:0px;
 }
 
 #contactscont {

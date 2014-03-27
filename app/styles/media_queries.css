@@ -86,23 +86,19 @@
 		top:10px;
 	}
 
-	#orphansubhead, #orphanhelp {
-		left:15px;
+	#orphanhead {
+		font-size:32px;
+		left: -15px;
+		top: 10px;
 	}
 
-	#orphansubhead {
-		float: left;
-		top: -60px;
+	#orphanlogo {
+		width:150px;
 	}
 
 	#orphanhelp {
 		padding-right: 15px;
 		bottom: 0px;
-	}
-
-	#orphancontainer {
-		left: 15px;
-		top: 265px;
 	}
 
 	#logo {
@@ -1216,10 +1212,6 @@
 		font-size:20px;
 	}
 
-	#orphancontainer {
-		top:275px;
-	}
-
 	#orphancontainer img {
 		width:100px;
 	}
@@ -1280,21 +1272,9 @@
 		width:150px;
 	}
 
-	#orphanhead {
-		font-size:36px;
-	}
-
-	#orphancontainer {
-		top:245px;
-		left:0px;
-	}
-
 	#orphancontainer img {
 		width:75px;
-	}
-
-	.ocount {
-		margin-left:10px !important;
+		left:10px;
 	}
 
 	#taskSort {
@@ -1511,23 +1491,7 @@
 		width:100px;
 	}
 
-	#orphanhead {
-		font-size:24px;
-		margin-left: 0px !important;
-		top: 20px;
-	}
-
-	#orphansubhead {
-		top:-50px;
-	}
-
-	#orphancontainer {
-		top:190px;
-		left:-20px;
-	}
-
 	.ocount {
-		margin-left:10px !important;
 		font-size:24px !important;
 	}
 

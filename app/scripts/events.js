@@ -553,8 +553,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -646,8 +646,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 console.log(data);
@@ -688,8 +688,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
+                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                 },
                 success: function (data) {
                     console.log(data);
@@ -847,8 +847,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -886,8 +886,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
@@ -935,8 +935,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
@@ -1271,8 +1271,8 @@ function rebindEvents() {
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({
@@ -1531,8 +1531,8 @@ setTimeout(function(){
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
