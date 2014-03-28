@@ -76,8 +76,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
   }
 });
 
@@ -118,9 +118,24 @@ Utility.sortByTimeOption = function(enumerable, timePropertyName, timeOption) {
 			case "tomorrow": // from beginning to end of next day
 				var nextDay = moment(now).add('days', 1).hour(0).minute(0).second(0);
 				return time >= nextDay && time < nextDay.add('days', 1); 
+			case "day2": // from beginning to end of next day
+				var nextDay2 = moment(now).add('days', 2).hour(0).minute(0).second(0);
+				return time >= nextDay2 && time < nextDay2.add('days', 1); 
+			case "day3": // from beginning to end of next day
+				var nextDay3 = moment(now).add('days', 3).hour(0).minute(0).second(0);
+				return time >= nextDay3 && time < nextDay3.add('days', 1); 
+			case "day4": // from beginning to end of next day
+				var nextDay4 = moment(now).add('days', 4).hour(0).minute(0).second(0);
+				return time >= nextDay4 && time < nextDay4.add('days', 1);
+			case "day5": // from beginning to end of next day
+				var nextDay5 = moment(now).add('days', 5).hour(0).minute(0).second(0);
+				return time >= nextDay5 && time < nextDay5.add('days', 1);
+			case "day6": // from beginning to end of next day
+				var nextDay6 = moment(now).add('days', 6).hour(0).minute(0).second(0);
+				return time >= nextDay6 && time < nextDay6.add('days', 1);
 			case "thisWeek": // from now until beginning of next Monday
 				var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
-				return time > now && time < nextMonday; 
+				return time > now && time < nextMonday;
 			case "nextWeek": // from beginning of next Monday to beginning of the next Monday
 				var nextMonday = moment(now).day(8).hour(0).minute(0).second(0);
 				var nextNextMonday = moment(now).day(15).hour(0).minute(0).second(0);
@@ -316,6 +331,46 @@ App.EventsController = Ember.ArrayController.extend({
             $(".ui-accordion").accordion("refresh");
         }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
 	}.observes('selectedShowOption'),
+    upcomingTomorrow: function(){
+		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'tomorrow');
+		sorted = sorted.sortBy('start_datetime');
+		return sorted;
+	}.property('events', 'model.@each.start_datetime'),
+    upcomingDay2: function(){
+		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'day2');
+		sorted = sorted.sortBy('start_datetime');
+		return sorted;
+	}.property('events', 'model.@each.start_datetime'),
+    upcomingDay3: function(){
+		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'day3');
+		sorted = sorted.sortBy('start_datetime');
+		return sorted;
+	}.property('events', 'model.@each.start_datetime'),
+	upcomingDay4: function(){
+		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'day4');
+		sorted = sorted.sortBy('start_datetime');
+		return sorted;
+	}.property('events', 'model.@each.start_datetime'),
+	upcomingDay5: function(){
+		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'day5');
+		sorted = sorted.sortBy('start_datetime');
+		return sorted;
+	}.property('events', 'model.@each.start_datetime'),
+	upcomingDay6: function(){
+		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'day5');
+		sorted = sorted.sortBy('start_datetime');
+		return sorted;
+	}.property('events', 'model.@each.start_datetime'),
+	upcomingDay7: function(){
+		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'day6');
+		sorted = sorted.sortBy('start_datetime');
+		return sorted;
+	}.property('events', 'model.@each.start_datetime'),
+    upcomingWeek: function(){
+		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'next7Days');
+		sorted = sorted.sortBy('start_datetime');
+		return sorted;
+	}.property('events', 'model.@each.start_datetime')
 });
 
 App.TasksController = Ember.ArrayController.extend({
@@ -475,7 +530,47 @@ App.IndexController = Ember.ObjectController.extend({
     	});*/
        	return todayEvents;
     }.property('events')
-});
+});	
+
+		/*sortOptions: [
+			{label: "Tasks with no dates", primarySort: "noDate", secondarySort: "due", ascending: false},
+			{label: "Tasks with dates", primarySort: "hasDate", secondarySort: "due", ascending: false},
+			{label: "Priority", primarySort: "status", ascending: false},
+			{label: "Alphabetical", primarySort: "title", ascending: true}
+		],
+		selectedSortOption: null,
+		selectedSortOptionChanged: function() {
+			var sortProperties = [this.selectedSortOption.primarySort];
+			if (this.selectedSortOption.secondarySort)
+				sortProperties.push(this.selectedSortOption.secondarySort);
+			this.set('sortProperties', sortProperties);
+			this.set('sortAscending', this.selectedSortOption.ascending);
+		}.observes('selectedSortOption'),
+		
+		showOptions: [
+			{label: "All Open", id: "allOpen"},
+			{label: "Overdue", id: "overdue"},
+			{label: "Today & Overdue", id: "todayAndOverdue"},
+			{label: "Next 7 Days", id: "next7Days"}
+		],
+		showOptions2: [
+			{label: "Today", id: "today"},
+			{label: "Tomorrow", id: "tomorrow"},
+			{label: "This Week", id: "thisWeek"},
+			{label: "Next Week", id: "nextWeek"},
+			{label: "All Open Activities", id: "allOpen"},
+		],
+		selectedShowOption: null,
+		selectedShowOptionChanged: function() {
+			if (this.selectedShowOption) {
+				this.set('showOption', this.selectedShowOption.id);
+			}
+			
+	        setTimeout(function(){
+	            $(".ui-accordion").accordion("refresh");
+	        }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
+		}.observes('selectedShowOption'),*/
+
 
 App.SettingsController = Ember.ObjectController.extend({
     needs: ['contacts', 'events', 'tasks', 'tags'],
@@ -508,7 +603,7 @@ App.ReportsEventsController = Ember.ArrayController.extend({
 		var sorted = this.get('eventsController').get('eventsToShow');
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
-	}.property('eventsController.eventsToShow'),	
+	}.property('eventsController.eventsToShow')
 });
 
 App.ReportsTasksController = Ember.ArrayController.extend({

@@ -1155,7 +1155,7 @@ h1, h2, h3, h4 {
 	list-style: none;
 	font-size: 16px;
 	padding: 10px;
-	border-bottom: 1px solid #AAA;
+	cursor:pointer;
 }
 
 .infopanel > a:first-child > li {
@@ -1165,10 +1165,6 @@ h1, h2, h3, h4 {
 .infopanel li:hover {
 	color:#fff;
 	background:#e35d32;
-}
-
-.infopanel span {
-	text-decoration:underline;
 }
 
 .infopanel span:hover {
@@ -1380,7 +1376,6 @@ h1, h2, h3, h4 {
 }
 
 #tasklist img {
-	opacity: 0;
 	width: 40px;
 	position: relative;
 	left: 0px;
@@ -1559,10 +1554,9 @@ to {
 }
 
 .dashContent {
-	padding:15px;
+	padding:0px;
 	height:545px;
 	top:14px;
-	padding-left:0px;
 }
 
 .dashContent .formrow {
@@ -1585,6 +1579,39 @@ to {
 
 .dashContent .infopanel:nth-child(3) {
 	top:0px;
+	padding:0px;
+}
+
+.daySeparator {
+	margin-bottom:10px;
+	border-bottom:1px solid #999;
+}
+
+.daySeparator:first-child {
+	margin-top:10px;
+}
+
+.daySeparator:last-child {
+	border-bottom:0px;
+}
+
+.daySeparator h3 {
+	margin-top:0px;
+	padding-left:10px;
+	font-size:22px;
+}
+
+.eventless span {
+	color:#AAA;
+}
+
+.eventless:hover {
+	background:initial !important;
+	color:#AAA !important;
+}
+
+.eventless span:hover {
+	color:#AAA !important;
 }
 
 #taskPriority {
@@ -1658,6 +1685,7 @@ to {
 	display:none;
 	z-index:1000;
 	left:0px;
+	padding:10px;
 }
 
 .infopanel.selected {

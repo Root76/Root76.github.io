@@ -791,11 +791,62 @@
                       {{/each}}
                     </div>
                     <div class="infopanel">
-                      {{#each item in upcomingToday}}
-                          {{#link-to 'events.event' event}}<li><span>{{item.title}}</span></li>{{/link-to}}
-                      {{else}}
-                        <li><span>No Events</span></li>
-                      {{/each}} 
+                      <div class="daySeparator">
+                        <h3>Tomorrow</h3>
+                        {{#each event in eventsController.upcomingTomorrow}}
+                          <li><span>{{event.title}}</span></li>
+                        {{else}}
+                          <li class="eventless"><span>No Events</span></li>
+                        {{/each}} 
+                      </div>
+                      <div class="daySeparator">
+                        <h3>Day 2</h3>
+                        {{#each event in eventsController.upcomingDay2}}
+                          {{#link-to 'events.event' event}}<li><span>{{event.title}}</span></li>{{/link-to}}
+                        {{else}}
+                          <li class="eventless"><span>No Events</span></li>
+                        {{/each}} 
+                      </div>
+                      <div class="daySeparator">
+                        <h3>Day 3</h3>
+                        {{#each event in eventsController.upcomingDay3}}
+                          <li><span>{{event.title}}</span></li>
+                        {{else}}
+                          <li class="eventless"><span>No Events</span></li>
+                        {{/each}} 
+                      </div>
+                      <div class="daySeparator">
+                        <h3>Day 4</h3>
+                        {{#each event in eventsController.upcomingDay4}}
+                          <li><span>{{event.title}}</span></li>
+                        {{else}}
+                          <li class="eventless"><span>No Events</span></li>
+                        {{/each}}
+                      </div>
+                      <div class="daySeparator">
+                        <h3>Day 5</h3>
+                        {{#each event in eventsController.upcomingDay5}}
+                          <li><span>{{event.title}}</span></li>
+                        {{else}}
+                          <li class="eventless"><span>No Events</span></li>
+                        {{/each}} 
+                      </div>
+                      <div class="daySeparator">
+                        <h3>Day 6</h3>
+                        {{#each event in eventsController.upcomingDay6}}
+                          <li><span>{{event.title}}</span></li>
+                        {{else}}
+                          <li class="eventless"><span>No Events</span></li>
+                        {{/each}}
+                      </div>
+                      <div class="daySeparator">
+                        <h3>Day 7</h3>
+                        {{#each event in eventsController.upcomingDay7}}
+                          <li><span>{{event.title}}</span></li>
+                        {{else}}
+                          <li class="eventless"><span>No Events</span></li>
+                        {{/each}}
+                      </div>
                     </div>
                     <div class="infopanel">
                       {{#each tag in tagsController}}
@@ -1122,10 +1173,8 @@
                   </div>
                   <ul id="eventlist" class="sidelist">
                     {{#each event in eventsToShow}}
-                      {{#if event.title}}
-                        {{#link-to 'events.event' event}}<li>{{event.title}}</li>{{/link-to}}
-                      {{/if}}
-                    {{/each}}        
+                      {{#link-to 'events.event' event}}<li>{{event.title}}</li>{{/link-to}}
+                    {{/each}}
                   </ul>
                 </div>
                 {{outlet}}
