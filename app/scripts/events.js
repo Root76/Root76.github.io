@@ -329,7 +329,7 @@ function rebindEvents() {
 
     $("#trashicon").unbind("click").bind("click", function(){
         setTimeout(function(){
-            $("#deleteContainer > div:first-child").click(function(){
+            $(".deleteContainer > div:first-child").click(function(){
                 $("#destroy").click();
                 deleteTip.hide();
                 var deleteTip2 = new Opentip("#trashicon", '<span>Item deleted.</span>', {
@@ -340,8 +340,27 @@ function rebindEvents() {
                     deleteTip2.hide();
                 }, 1500);
             });
-            $("#deleteContainer > div:last-child").click(function(){
+            $(".deleteContainer > div:last-child").click(function(){
                 deleteTip.hide();
+            });
+        }, 100);
+    });
+
+    $("#detailTrash").unbind("click").bind("click", function(){
+        setTimeout(function(){
+            $(".deleteContainer > div:first-child").click(function(){
+                $("#destroy").click();
+                deleteTip3.hide();
+                var deleteTip4 = new Opentip("#trashicon", '<span>Item deleted.</span>', {
+                    style: "deleteconfirm2"
+                });
+                deleteTip4.show();
+                setTimeout(function(){
+                    deleteTip4.hide();
+                }, 1500);
+            });
+            $(".deleteContainer > div:last-child").click(function(){
+                deleteTip3.hide();
             });
         }, 100);
     });
@@ -410,7 +429,7 @@ function rebindEvents() {
                     task_ids: taskIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tags";
+			url = "http://daywon-api-prod.herokuapp.com/tags";
 			objectDescription = "Tag: " + tagTitle;
         } else if ($(event.target).parent().hasClass("createTask")) {
             var taskTitle = $("#taskName").val();
@@ -431,7 +450,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tasks";
+			url = "http://daywon-api-prod.herokuapp.com/tasks";
 			objectDescription = "Task: " + taskTitle;
         } else if ($(event.target).parent().hasClass("createContact")) {
             var contactFirst = String($("#contactFirst").val());
@@ -457,7 +476,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/contacts";
+			url = "http://daywon-api-prod.herokuapp.com/contacts";
 			objectDescription = "Contact: " + contactTitle;
         } else if ($(event.target).parent().hasClass("createEvent")) {
 
@@ -541,7 +560,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/events";
+			url = "http://daywon-api-prod.herokuapp.com/events";
 			objectDescription = "Event: " + eventTitle;
         }
         console.log(data);
@@ -571,7 +590,7 @@ function rebindEvents() {
 
     $("#associationForm").submit(function(){
 
-        var url = "http://daywon-api-staging.herokuapp.com/";
+        var url = "http://daywon-api-prod.herokuapp.com/";
         var data;
         var orphanName = $("#contactname").html();
         var orphanID = $("#selectedID").html();
@@ -664,7 +683,7 @@ function rebindEvents() {
 
     $(".settingToggler").change(function(){
             
-            var url = "http://daywon-api-staging.herokuapp.com/users/";
+            var url = "http://daywon-api-prod.herokuapp.com/users/";
             var setting1 = new Boolean($("#toggle:checked").length);
             var setting2 = new Boolean($("#toggle2:checked").length);
             var setting3 = new Boolean($("#toggle3:checked").length);
@@ -854,7 +873,7 @@ function rebindEvents() {
         }
     });
 
-    $("#deleteContainer > div-child").click(function(){
+    $(".deleteContainer > div-child").click(function(){
         //alert("clicked");
         deleteTip.hide();
     });
@@ -862,7 +881,7 @@ function rebindEvents() {
     if ($('.ocount').length) {
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            url: 'http://daywon-api-prod.herokuapp.com/orphans',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -901,7 +920,7 @@ function rebindEvents() {
         $("#reportCount > span").html(totalUsers);
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/users/settings/',
+            url: 'http://daywon-api-prod.herokuapp.com/users/settings/',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -945,12 +964,39 @@ function rebindEvents() {
                 //alert("There was an error loading settings: " + e);
             }
         });
+        $.ajax({
+            type: 'GET',
+            url: 'http://daywon-api-prod.herokuapp.com/users/info/',
+            contentType: "application/json",
+            dataType: "json",
+            headers: {
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
+            },
+            success: function (data) {
+                var arr = [];
+                    for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        arr.push(data[key]);  
+                    }
+                }
+                for (var i = 0; i < arr.length; i++) {
+                    console.log(arr[i]);
+                }
+                $("#settingname > h1").html(arr[0]);
+                $("#settingname > h3").html(arr[1]);
+                $("#settingimage").attr("src", arr[2]);
+            },
+            error: function (e) {
+                //alert("There was an error loading settings: " + e);
+            }
+        });
     }
 
     if ($("#adminTable").length) {
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/reports_admin',
+            url: 'http://daywon-api-prod.herokuapp.com/reports_admin',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -1161,15 +1207,28 @@ function rebindEvents() {
         new Opentip("#trashicon", "Delete", {
             style: "toptip"
         }); 
-        var deleteTip = new Opentip("#trashicon", '<p>Are you sure you want to delete this item?</p><br /><div id="deleteContainer"><div>Yes</div><div>No</div></div>', {
+        var deleteTip = new Opentip("#trashicon", '<p>Are you sure you want to delete this item?</p><br /><div class="deleteContainer"><div>Yes</div><div>No</div></div>', {
             style: "deleteconfirm"
         });
         new Opentip("#detailmenubar > a > img", "Create", {
             style: "bottomtip"
         }); 
     }
+    if ($("#detailTrash").length) {
+        new Opentip("#detailTrash", "Delete", {
+            style: "toptip"
+        }); 
+        var deleteTip3 = new Opentip("#detailTrash", '<p>Are you sure you want to delete this item?</p><br /><div class="deleteContainer"><div>Yes</div><div>No</div></div>', {
+            style: "deleteconfirm"
+        });
+    }
     if ($("#createicon").length) {
         new Opentip("#createicon", "Create", {
+            style: "toptip"
+        });
+    }
+    if ($(".detailCreate").length) {
+        new Opentip(".detailCreate", "Create", {
             style: "toptip"
         });
     }
@@ -1256,6 +1315,9 @@ function rebindEvents() {
         new Opentip("#analyticsLogo", "Google Analytics", {
             style: "toptip"
         });
+        new Opentip("#chimpLogo", "Mailchimp", {
+            style: "toptip"
+        });
     }
     setTimeout(function(){
         $("#loader").removeClass("showLoader");
@@ -1296,7 +1358,7 @@ function rebindEvents() {
       datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/contacts',
+        url: 'http://daywon-api-prod.herokuapp.com/contacts',
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.contacts;
@@ -1307,7 +1369,7 @@ function rebindEvents() {
       datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/events',
+        url: 'http://daywon-api-prod.herokuapp.com/events',
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.events;
@@ -1318,7 +1380,7 @@ function rebindEvents() {
       datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/tasks',
+        url: 'http://daywon-api-prod.herokuapp.com/tasks',
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.tasks;
@@ -1329,7 +1391,7 @@ function rebindEvents() {
       datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/tags',
+        url: 'http://daywon-api-prod.herokuapp.com/tags',
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.tags;
@@ -1544,7 +1606,7 @@ setTimeout(function(){
 
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            url: 'http://daywon-api-prod.herokuapp.com/orphans',
             contentType: "application/json",
             dataType: "json",
             headers: {

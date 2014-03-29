@@ -64,6 +64,18 @@ body {
 	user-select: none;
 }
 
+span {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+::selection { background: transparent; }
+::-moz-selection { background: transparent; }
+
 iframe {
 	width:100%;
 }
@@ -1573,6 +1585,10 @@ to {
 	left: 320px;
 }
 
+#detailTrash {
+	cursor:pointer;
+}
+
 .orphantitle {
 	top:0px !important;
 }
@@ -1618,7 +1634,7 @@ to {
 	width:100%;
 }
 
-#deleteContainer > div {
+.deleteContainer > div {
 	width: 48%;
 	display: inline-block;
 	text-align: center;
@@ -1628,11 +1644,11 @@ to {
 	font-weight:700;
 }
 
-#deleteContainer > div:last-child {
+.deleteContainer > div:last-child {
 	float:right;
 }
 
-#deleteContainer > div:hover {
+.deleteContainer > div:hover {
 	background: #fff;
 	color: #000;
 }
@@ -1968,11 +1984,15 @@ to {
 	right:0px;
 }
 
-#analyticsLogo {
+#analyticsLogo, #chimpLogo {
 	position:absolute;
 	top:-15px;
 	right:0px;
 	width:30px;
+}
+
+#chimpLogo {
+	right:50px;
 }
 
 .view-container-border {
@@ -2662,16 +2682,16 @@ font-family:'Open Sans', sans-serif;
 }
 
 #detailTrash, .detailCreate {
-	height: 50px;
-	position: relative;
-	bottom: -9px;
-	left: -20px;
+	height: 55px;
+	position: absolute;
+	top: 6px;
+	right: 8px;
 }
 
 .detailCreate {
-	left: -10px;
+	right: 52px;
 	height: 45px;
-	bottom: -8px;
+	top: 10px;
 }
 
 .association {
