@@ -1008,8 +1008,12 @@ h1, h2, h3, h4 {
 	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
 	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.3);
 	box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.3);
+	display: none;
 }
-.listitem:last-child {
+.listitem.active {
+	display: block;
+}
+.listitem.active:last-child {
 	margin-bottom:0px;
 }
 .listitem h3 {
@@ -1915,6 +1919,18 @@ to {
 	right: 20px;
 }
 
+.phonenumber {
+	color:#fff;
+}
+
+.emailfield {
+	color:#fff;
+}
+
+#bday {
+	color:#fff;
+}
+
 .settingoption {
 	height: 35px;
 	font-size:20px;
@@ -2758,6 +2774,33 @@ font-family:'Open Sans', sans-serif;
 .contactpropertiesrow img {
 	width: 32px;
 	margin-top: -5px;
+}
+
+#openModal6 h1 {
+	text-align:center;
+}
+
+#openModal6 h5 {
+	text-align:center;
+	font-weight:400;
+	margin-top:30px;
+}
+
+#openModal6 > div {
+	background:#fff;
+	height:375px;
+	top:10%;
+}
+
+.loadImage {
+	display:block;
+	margin:0 auto;
+	width:300px;
+}
+
+#loadGif {
+	width:75px;
+	margin-top:30px;
 }
 
  /*!

@@ -47,8 +47,12 @@ App.Router.map(function () {
 
 App.ApplicationController = Ember.Controller.extend({
   currentPathDidChange: function() {
+  	$("#loader").addClass("showLoader");
     Ember.run.schedule('afterRender', this, function() {
-        rebindEvents();        
+        rebindEvents();
+        setTimeout(function(){
+	        $("#loader").removeClass("showLoader");
+	    }, 400);
     });
   }.observes('currentPath')
 });
@@ -74,10 +78,10 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-prod.herokuapp.com/",
+  host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
   }
 });
 
@@ -489,7 +493,7 @@ App.TagsController = Ember.ArrayController.extend({
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
         }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
-	}.observes('selectedShowOption'),
+	}.observes('selectedShowOption')
 });
 
 App.IndexController = Ember.ObjectController.extend({
@@ -880,7 +884,7 @@ IndividualObjectRoute = Ember.Mixin.create({
 App.IndexRoute = Ember.Route.extend({
     model: function() {
         return Ember.Object.create({
-            contacts: this.get('store').find('contact'), 
+            contacts: this.get('store').find('contact'),
             events: this.get('store').find('event'),
             tasks: this.get('store').find('task'),
             tags: this.get('store').find('tag')
@@ -905,7 +909,6 @@ App.IndexRoute = Ember.Route.extend({
     	var tags = this.get('store').find('tag').then(function(data) {
     		controller.set('gatheredTags', data.get('content'));
     	});
-
 	}
 });
 

@@ -45,7 +45,6 @@
               </form>
               <a id="logolink" href="http://www.daywon.com/faq" target="_blank"><img src="img/logo.jpg" / id="logo"><br /><p>Connecting your Gmail Contacts, Calendar Events & Tasks</p></a>
             </div>
-
             <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav navbar-right">
 				{{#linkTo 'index' tagName='li' class='navbar-link'}}
@@ -106,7 +105,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-                {{outlet}}
+              {{outlet}}
             </div>
           </div>
         </div>
@@ -310,6 +309,14 @@
             </p>
           </div>
         </div>
+        <div id="openModal6" class="modalDialog active">
+          <div>
+            <img src="img/logo.jpg" class="loadImage" />
+            <h1>Loading, please wait.</h1>
+            <img src="img/loading.gif" class="loadImage" id="loadGif" />
+            <h5>We're preparing your Contacts, Events, Tasks and Tags. Just a moment, please!</h5>
+          </div>
+        </div>
         <ul id="loader">
           <li></li>
           <li></li>
@@ -319,7 +326,7 @@
         <script type="text/x-handlebars" id="reports">
         <div class="mobileCover" id="reportsCover"></div>
         <h1 class="reportsHeader">Show Me</h1>
-        <h4 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show me Sorted by Contacts for Today).</h4>
+        <h5 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show me Sorted by Contacts for Today).</h4>
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
@@ -389,24 +396,17 @@
                       {{event.title}}
                     </h3>
                     <div class="subitems">
-                      <div class="subitem ss1 subEvent">
-                        <img class="subicon" src="img/calendar.png" />
-                        <span class="subitemtext">Save the world</span>
-                      </div>
-                      <div class="subitem ss2 subTag">
-                        <img class="subicon" src="img/tags.png" />
-                        <span class="subitemtext">Incredible</span>          
-                        <span class="subitemtext">Fabulous</span>        
-                      </div>
                       <div class="subitem ss3 subContact">
                         <img class="subicon" src="img/contact.png" />
-                        <span class="subitemtext">Bruce Lee</span>
-                        <span class="subitemtext">Rick James</span>
+                        <span class="subitemtext">Loading...</span>
                       </div>
                       <div class="subitem ss4 subTask">
                         <img class="subicon" src="img/tasks.png" />
-                        <span class="subitemtext">Fight crime</span>
-                        <span class="subitemtext">Kill the bad guys</span>
+                        <span class="subitemtext">Loading...</span>
+                      </div>
+                      <div class="subitem ss2 subTag">
+                        <img class="subicon" src="img/tags.png" />
+                        <span class="subitemtext">Loading...</span>               
                       </div>
                     </div>
                   </li>
@@ -436,26 +436,17 @@
                       <img src="img/check.png" class="checkmark" {{bind-attr completed="task.status"}}/>
                     </h3>
                     <div class="subitems">
+                      <div class="subitem ss3 subContact">
+                        <img class="subicon" src="img/contact.png" />
+                        <span class="subitemtext">Loading...</span>
+                      </div>
                       <div class="subitem ss1 subEvent">
                         <img class="subicon" src="img/calendar.png" />
-                        <span class="subitemtext">Save the world</span>
+                        <span class="subitemtext">Loading...</span>
                       </div>
                       <div class="subitem ss2 subTag">
                         <img class="subicon" src="img/tags.png" />
-                        <span class="subitemtext">Incredible</span>          
-                        <span class="subitemtext">Deadly</span>        
-                        <span class="subitemtext">Fabulous</span>        
-                        <span class="subitemtext">Pink</span>
-                      </div>
-                      <div class="subitem ss3 subContact">
-                        <img class="subicon" src="img/contact.png" />
-                        <span class="subitemtext">Bruce Lee</span>
-                        <span class="subitemtext">Rick James</span>
-                      </div>
-                      <div class="subitem ss4 subTask">
-                        <img class="subicon" src="img/tasks.png" />
-                        <span class="subitemtext">Fight crime</span>
-                        <span class="subitemtext">Kill the bad guys</span>
+                        <span class="subitemtext">Loading...</span>
                       </div>
                     </div>
                   </li>
@@ -481,26 +472,24 @@
                     <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     <h3 class="mainsort">
                       {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="listimg" />{{/link-to}}
-                      {{contact.name}}
+                      {{#if contact.name}}
+                        {{contact.name}}
+                      {{else}}
+                        No name or email
+                      {{/if}}
                     </h3>
                     <div class="subitems">
                       <div class="subitem ss1 subEvent">
                         <img class="subicon" src="img/calendar.png" />
-                        <span class="subitemtext">Investor Meeting</span>
-                      </div>
-                      <div class="subitem ss2 subTag">
-                        <img class="subicon" src="img/tags.png" />
-                        <span class="subitemtext">Spreadsheets</span>          
-                        <span class="subitemtext">3 Monkeys</span>        
-                      </div>
-                      <div class="subitem ss3 subContact">
-                        <img class="subicon" src="img/contact.png" />
-                        <span class="subitemtext">Lizz</span>
+                        <span class="subitemtext">Loading...</span>
                       </div>
                       <div class="subitem ss4 subTask">
                         <img class="subicon" src="img/tasks.png" />
-                        <span class="subitemtext">Run errands</span>
-                        <span class="subitemtext">Pick up dinner</span>
+                        <span class="subitemtext">Loading...</span>
+                      </div>
+                      <div class="subitem ss2 subTag">
+                        <img class="subicon" src="img/tags.png" />
+                        <span class="subitemtext">Loading...</span>
                       </div>
                     </div>
                   </li>
@@ -529,31 +518,22 @@
                       {{tag.name}}
                     </h3>
                     <div class="subitems">
-                      <div class="subitem ss1 subEvent">
-                        <img class="subicon" src="img/calendar.png" />
-                        <span class="subitemtext">Save the world</span>
-                      </div>
-                      <div class="subitem ss2 subTag">
-                        <img class="subicon" src="img/tags.png" />
-                        <span class="subitemtext">Incredible</span>          
-                        <span class="subitemtext">Deadly</span>        
-                        <span class="subitemtext">Fabulous</span>        
-                        <span class="subitemtext">Pink</span>
-                      </div>
                       <div class="subitem ss3 subContact">
                         <img class="subicon" src="img/contact.png" />
-                        <span class="subitemtext">Bruce Lee</span>
-                        <span class="subitemtext">Rick James</span>
+                        <span class="subitemtext">Loading...</span>
+                      </div>
+                      <div class="subitem ss1 subEvent">
+                        <img class="subicon" src="img/calendar.png" />
+                        <span class="subitemtext">Loading...</span>
                       </div>
                       <div class="subitem ss4 subTask">
                         <img class="subicon" src="img/tasks.png" />
-                        <span class="subitemtext">Fight crime</span>
-                        <span class="subitemtext">Kill the bad guys</span>
+                        <span class="subitemtext">Loading...</span>
                       </div>
                     </div>
                   </li>
                   {{/if}}
-                {{else}} 
+                {{else}}
                   <li>
                     <h3><b>No Tags in this time period</b></h3>
                   </li>                  
@@ -1076,7 +1056,10 @@
                 <div class="contactgroup contactDetails">
                   <div class="contactitem">
                     <a href="" target="_blank" class="dynamicEmail"><img src="img/openmail.png">
-                    <span>{{email}}</span></a>
+                      {{#each email in emails}}
+                        <span>{{email.email}}</span>
+                      {{/each}}
+                    </a>
                   </div>
                   <div class="contactitem">
                     <img src="img/openmail.png" />
@@ -1084,7 +1067,9 @@
                   </div>
                   <div class="contactitem">
                     <img src="img/cellphone.png" />
-                    <span>{{phone}}</span>
+                      {{#each phone in phones}}
+                        <span>{{phone.number}}</span>
+                      {{/each}}
                   </div>
                   <div class="contactitem">
                     <img src="img/birthday.png" />
