@@ -723,9 +723,15 @@
                             {{#link-to 'contacts.contact' item}}
                               <img class="subicon" src="img/contact.png" />
                               {{#if item.name}}
-                              <span class="subitemtext subdashtext">{{item.name}}</span>
+                                <span class="subitemtext subdashtext">{{item.name}}</span>
                               {{else}}
-                              <span class="subitemtext subdashtext">{{item.email}}</span>
+                                {{#if item.emails.length}}
+                                  {{#each email in emails}}
+                                    <span class="subitemtext subdashtext">{{email.email}}</span>
+                                  {{/each}}
+                                {{else}}
+                                    <span class="subitemtext subdashtext">N/A</span>
+                                {{/if}}
                               {{/if}}
                             {{/link-to}}
                           {{/if}}
@@ -893,9 +899,7 @@
                       {{#if contact.name}}
                         {{#link-to 'contacts.contact' contact}}<li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                       {{else}}
-                        {{#if contact.emails}}
-                          {{#link-to 'contacts.contact' contact}}<li>{{contact.emails}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
-                        {{/if}}
+                        {{#link-to 'contacts.contact' contact}}<li>N/A<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                       {{/if}}
                     {{/each}}
                   </ul>
@@ -1184,7 +1188,11 @@
                   </div>
                   <ul id="eventlist" class="sidelist">
                     {{#each event in eventsToShow}}
-                      {{#link-to 'events.event' event}}<li>{{event.title}}</li>{{/link-to}}
+                      {{#if event.title}}
+                        {{#link-to 'events.event' event}}<li>{{event.title}}</li>{{/link-to}}
+                      {{else}}
+                        {{#link-to 'events.event' event}}<li>N/A</li>{{/link-to}}
+                      {{/if}}
                     {{/each}}
                   </ul>
                 </div>
@@ -1403,6 +1411,8 @@
                       {{else}}
                         {{#if task.notes}}
                           {{#link-to 'tasks.task' task}}<li><img src="img/check.png" {{bind-attr class="task.status:completed"}} />{{task.notes}}</li>{{/link-to}}
+                        {{else}}
+                          {{#link-to 'tasks.task' task}}<li><img src="img/check.png" {{bind-attr class="task.status:completed"}} />N/A</li>{{/link-to}}
                         {{/if}}
                       {{/if}}
                     {{/each}}           
@@ -2076,29 +2086,21 @@
                     <h5>Sort by last name:</h5>
                     <input type="checkbox" name="toggle" id="toggle" class="settingToggler">
                     <label for="toggle"></label>
-                    <!--<a class="selected">First name</a>
-                    <a>Last name</a>-->
                   </div>
                   <div class="settingoption">
                     <h5>Turn new user popups back on:</h5>
                     <input type="checkbox" name="toggle2" id="toggle2" class="settingToggler">
                     <label for="toggle2"></label>
-                    <!--<a class="selected">Y</a>
-                    <a>N</a>-->
                   </div>
                   <div class="settingoption">
                     <h5>Always display note field for Contact:</h5>
                     <input type="checkbox" name="toggle3" id="toggle3" class="settingToggler">
                     <label for="toggle3"></label>
-                    <!--<a class="selected">Y</a>
-                    <a>N</a>-->
                   </div>
                   <div class="settingoption">
                     <h5>Push contextual information into Web Mail:</h5>
                     <input type="checkbox" name="toggle4" id="toggle4" class="settingToggler">
                     <label for="toggle4"></label>
-                    <!--<a class="selected">Y</a>
-                    <a>N</a>-->
                   </div>
                   <div class="settingoption">
                     <h5>Opt-out of emails from Day Won</h5>

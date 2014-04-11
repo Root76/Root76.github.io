@@ -78,10 +78,10 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-staging.herokuapp.com/",
+  host: "http://daywon-api-prod.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
   }
 });
 
@@ -440,11 +440,10 @@ App.TasksController = Ember.ArrayController.extend({
 		if (this.selectedShowOption) {
 			this.set('showOption', this.selectedShowOption.id);
 		}
-		
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
         }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
-	}.observes('selectedShowOption'),
+	}.observes('selectedShowOption')
 });
 
 App.TagsController = Ember.ArrayController.extend({
@@ -873,7 +872,6 @@ IndividualObjectRoute = Ember.Mixin.create({
 		editField: function(field) {
 			this.controller.set('editing.anything', true);
 			this.controller.set('editing.' + field, true);
-
 		    Ember.run.schedule('afterRender', this, function() {
 				$('#' + field + 'Input').focus();
 		    });
