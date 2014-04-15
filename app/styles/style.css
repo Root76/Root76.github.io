@@ -1931,6 +1931,10 @@ to {
 	color:#fff;
 }
 
+.orphanList li {
+	padding:10px !important;
+}
+
 .settingoption {
 	height: 35px;
 	font-size:20px;

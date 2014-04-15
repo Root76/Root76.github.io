@@ -1844,8 +1844,8 @@
                        selection=selectedShowOption}}
                     </div>
                   </div>
-                  <ul id="eventlist" class="sidelist dashList">
-                    {{#each event in events}}
+                  <ul id="eventlist" class="sidelist dashList orphanList">
+                    {{#each event in eventsToShow}}
                       {{#if event.title}}
                         <li><span>{{event.title}}</span><span style="display:none">{{event.id}}</span></li>
                       {{/if}}
@@ -1907,10 +1907,12 @@
                   <button class="sortingToggle" id="byPriority" {{action sortPriority}}>Sort</button>
                   <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
                   <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
-                  <ul id="tasklist" class="sidelist dashList">
-                    {{#each task in tasks}}
+                  <ul id="tasklist" class="sidelist dashList orphanList">
+                    {{#each task in tasksToShow}}
                       {{#if task.title}}
                         <li><span>{{task.title}}</span><span style="display:none">{{task.id}}</span></li>
+                      {{else}}
+                        <li><span>N/A</span><span style="display:none">{{task.id}}</span></li>
                       {{/if}}
                     {{/each}}           
                   </ul>
@@ -1964,8 +1966,8 @@
                        selection=selectedSortOption}}
                     </div>
                   </div>
-                  <ul id="taglist" class="sidelist dashList">
-                    {{#each tag in tags}}
+                  <ul id="taglist" class="sidelist dashList orphanList">
+                    {{#each tag in tagsToShow}}
                       {{#if tag.name}}
                         <li><span>{{tag.name}}</span><span style="display:none">{{tag.id}}</span></li>
                       {{/if}}
