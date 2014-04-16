@@ -86,7 +86,6 @@ function rebindEvents() {
 	            $(thisArrow).removeClass("arrowdown");
 	        } else {
                 $(thisArrow).addClass("arrowdown");
-
                 if ($(this).hasClass("dataRetrieved")) {
                     console.log("already have data, not requesting again");
                 } else {
@@ -225,7 +224,7 @@ function rebindEvents() {
                             }
                         },
                         error: function (e) {
-                            //alert("There was an error loading settings: " + e);
+                            alert("There was an error loading settings: " + e);
                         }
 
                     });
@@ -1530,6 +1529,12 @@ function rebindEvents() {
         headers: {
             "X-AUTHENTICATION-TOKEN": authToken,
             "X-AUTHENTICATION-EMAIL": userEmail
+        },
+        success: function (data) {
+            console.log("success: " + data[0]['name']);
+        },
+        error: function (e) {
+            console.log("There was an error with contacts: " + e);
         }
     };
     var contacts = new Bloodhound({
@@ -1544,7 +1549,7 @@ function rebindEvents() {
       }
     });
     var events = new Bloodhound({
-      datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
+      datumTokenizer: function(event) { console.log("event: " + event); return Bloodhound.tokenizers.whitespace(event.title || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/events',
@@ -1730,8 +1735,8 @@ setTimeout(function(){
 
     var query_string = QueryStringToJSON();
 
-    authToken = authToken;
-    userEmail = userEmail;
+    authToken = query_string.authentication_token;
+    userEmail = query_string.user_email;
 
     console.log ("AT: " + authToken);
     console.log ("UE: " + userEmail);

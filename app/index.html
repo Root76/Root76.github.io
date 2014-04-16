@@ -467,7 +467,6 @@
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each contact in contactsToShow}}
-                  {{#if contact.name}} 
                   <li class="listitem maincontact">
                     <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     <h3 class="mainsort">
@@ -475,7 +474,13 @@
                       {{#if contact.name}}
                         {{contact.name}}
                       {{else}}
+                        {{#if contact.contact_emails}}
+                          {{#each email in contact.contact_emails}}
+                            {{email.email}}
+                          {{/each}}
+                        {{else}}
                         No name or email
+                        {{/if}}
                       {{/if}}
                     </h3>
                     <div class="subitems">
@@ -493,7 +498,6 @@
                       </div>
                     </div>
                   </li>
-                  {{/if}}
                 {{else}} 
                   <li>
                     <h3><b>No Contacts in this time period</b></h3>
@@ -725,8 +729,8 @@
                               {{#if item.name}}
                                 <span class="subitemtext subdashtext">{{item.name}}</span>
                               {{else}}
-                                {{#if item.emails.length}}
-                                  {{#each email in emails}}
+                                {{#if item.contact_emails.length}}
+                                  {{#each email in item.contact_emails}}
                                     <span class="subitemtext subdashtext">{{email.email}}</span>
                                   {{/each}}
                                 {{else}}
@@ -899,13 +903,19 @@
                       {{#if contact.name}}
                         {{#link-to 'contacts.contact' contact}}<li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                       {{else}}
-                        {{#link-to 'contacts.contact' contact}}<li>N/A<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
+                        {{#if contact.contact_emails}}
+                          {{#each email in contact.contact_emails}}
+                            {{#link-to 'contacts.contact' contact}}<li>{{email.email}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
+                          {{/each}}
+                        {{else}}
+                          {{#link-to 'contacts.contact' contact}}<li>N/A<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
+                        {{/if}}
                       {{/if}}
                     {{/each}}
                   </ul>
                 </div>
                 {{outlet}}
-              </div>  
+              </div>
             </div>
           </div>
         </script>
@@ -1844,7 +1854,7 @@
                        selection=selectedShowOption}}
                     </div>
                   </div>
-                  <ul id="eventlist" class="sidelist dashList orphanList">
+                  <ul id="eventlist" class="sidelist orphanList">
                     {{#each event in eventsToShow}}
                       {{#if event.title}}
                         <li><span>{{event.title}}</span><span style="display:none">{{event.id}}</span></li>

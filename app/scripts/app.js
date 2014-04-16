@@ -740,6 +740,7 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
 App.Contact = DS.Model.extend({
     name: DS.attr('string'),
     emails: DS.attr('array'),
+    contact_emails: DS.attr('array'),
     organization: DS.attr('string'),
     phones: DS.attr('array'),
     address: DS.attr('string'),
