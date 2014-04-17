@@ -80,8 +80,10 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    // "4N9-_NWfYvYxpesMVpne",
+
   }
 });
 
@@ -605,7 +607,7 @@ App.ReportsEventsController = Ember.ArrayController.extend({
     sortAscending: false,
 	
 	eventsToShow: function() { 
-		var sorted = this.get('eventsController').get('eventOrphans');
+		var sorted = this.get('eventsController').get('eventsToShow');
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
 	}.property('eventsController.eventsToShow')

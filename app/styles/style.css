@@ -1321,6 +1321,27 @@ h1, h2, h3, h4 {
 	font-size:16px;
 }
 
+#emailsContainer, #phonesContainer {
+	position:relative;
+}
+
+#emailsContainer img, #phonesContainer img {
+	position: absolute;
+	top: -45px;
+	right: -12px;
+	width: 50px;
+	height: 50px;
+}
+
+#emailsContainer input, #phonesContainer input {
+	margin-bottom:5px;
+}
+
+#emailsContainer input:last-child,
+#phonesContainer input:last-child {
+	margin-bottom:0px;
+}
+
 #contactpane1 img, #taskpane1 img {
 	width:75px;
 	float:left;
@@ -1431,10 +1452,10 @@ h1, h2, h3, h4 {
 	height:650px;
 	padding-left:30px;
 	padding-right:30px;
-position: fixed;
-width: 680px;
-margin-left: 380px;
-top: 150px;
+	position: fixed;
+	width: 680px;
+	margin-left: 380px;
+	top: 150px;
 }
 
 #eventpanel2 {
@@ -1442,10 +1463,10 @@ top: 150px;
 	height: 650px;
 	padding-left: 30px;
 	padding-right: 30px;
-position: fixed;
-width: 680px;
-margin-left: 380px;
-top: 150px;
+	position: fixed;
+	width: 680px;
+	margin-left: 380px;
+	top: 150px;
 }
 
 #tagpanel2 {

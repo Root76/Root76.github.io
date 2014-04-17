@@ -115,8 +115,8 @@ function rebindEvents() {
                         contentType: "application/json",
                         dataType: "json",
                         headers: {
-                            "X-AUTHENTICATION-TOKEN": authToken,
-                            "X-AUTHENTICATION-EMAIL": userEmail
+                            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                         },
                         success: function (data) {
                             console.log("original data: " + data['events']);
@@ -513,6 +513,14 @@ function rebindEvents() {
         }, 100);
     });
 
+    $("#emailsContainer img").click(function(){
+        $("#emailsContainer").append('<input type="text" class="contactEmail" />');
+    });
+    $("#phonesContainer img").click(function(){
+        $("#phonesContainer").append('<input type="text" class="contactPhone" />');
+    });
+
+
     $(".createForm").unbind('submit').bind('submit', function(event){		
 
 		var showPopupMessage = function(target, message, style) {
@@ -538,12 +546,27 @@ function rebindEvents() {
 		var relatedEvents = $("li[objectid*='event']");
 		var relatedTasks = $("li[objectid*='task']");
 		var relatedTags = $("li[objectid*='tag']");
+        var totalEmails = $(".contactEmail");
+        var totalPhones = $(".contactPhone");
 		var contactIds = new Array();
 		var eventIds = new Array();
 		var taskIds = new Array();
 		var tagIds = new Array();
+        var emailList = new Array();
+        var phoneList = new Array();
 		var thisObject;
 		var i;
+
+        for (i = 0; i < totalEmails.length; i++) {
+            thisObject = $(totalEmails[i]).val();
+            emailList[i] = thisObject;
+            console.log(emailList[i]);
+        }
+        for (i = 0; i < totalPhones.length; i++) {
+            thisObject = $(totalPhones[i]).val();
+            phoneList[i] = thisObject;
+            console.log(phoneList[i]);
+        }
 
 		for (i = 0; i < relatedContacts.length; i++) {
 			thisObject = $(relatedContacts[i]).attr('objectid');
@@ -616,9 +639,9 @@ function rebindEvents() {
                 contact: {
                     name: contactTitle,
                     organization: contactOrg,
-                    phone: contactNo,
+                    phones: phoneList,
                     address: contactAddress,
-                    email: contactPl,
+                    emails: emailList,
                     event_ids: eventIds,
                     task_ids: taskIds,
                     tag_ids: tagIds
@@ -664,13 +687,6 @@ function rebindEvents() {
                     repeatInterval = "year";
                 } else if (interval == 4) {
                     repeatInterval = "weekday";
-                } else if (interval == 5) {
-                    monday = true;
-                    wednesday = true;
-                    friday = true;
-                } else if (interval == 6) {
-                    tuesday = true;
-                    thursday = true;
                 }
                 endingCount = $("#recurrNumber").val();
                 endingDate = $("#endEventRepeat").val();
@@ -684,25 +700,22 @@ function rebindEvents() {
             var data = {
                 event: {
                     title: eventTitle,
+                    calendar_title: eventTitle,
                     description: eventDesc,
                     location: eventLoc,
-                    recurring: isRecurring,
                     recurrence: {
                         frequency: repeatInterval,
-                        on_monday: monday,
-                        on_tuesday: tuesday,
-                        on_wednesday: wednesday,
-                        on_thursday: thursday,
-                        on_friday: friday,
-                        on_saturday: saturday,
-                        on_sunday: sunday,
                         ends_after: {
                             occurences: endingCount,
                             date: endingDate
                         }
                     },
+                    is_all_day: isAllDay,
+                    recurring: isRecurring,
                     start_datetime: eventSt,
                     end_datetime: eventEn,
+                    start_date: eventSt,
+                    end_date: eventEn,
                     contact_ids: contactIds,
                     task_ids: taskIds,
                     tag_ids: tagIds
@@ -720,8 +733,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -813,8 +826,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 console.log(data);
@@ -855,8 +868,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
+                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                 },
                 success: function (data) {
                     console.log(data);
@@ -1062,8 +1075,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -1102,8 +1115,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
@@ -1148,8 +1161,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
@@ -1178,8 +1191,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
@@ -1523,18 +1536,12 @@ function rebindEvents() {
     modal6Links.click(function(){ $('#openModal6').addClass('active'); });
 
 	// set current email
-    $("#eaddr option:first").html(userEmail);
+    $("#eaddr option:first").html("hweaver@evenspring.com");
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
-        },
-        success: function (data) {
-            console.log("success: " + data[0]['name']);
-        },
-        error: function (e) {
-            console.log("There was an error with contacts: " + e);
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
     var contacts = new Bloodhound({
@@ -1793,8 +1800,8 @@ setTimeout(function(){
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
