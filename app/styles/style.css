@@ -354,7 +354,7 @@ hr {
 	left:0px !important;
 }
 
-#searchAll, .dashContent .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
+#searchAll, .dashContent .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag, #addForm input {
 	margin-top:21px;
 	margin-left:20px;
     background: url(../img/search.png) no-repeat #fcfcfc;
@@ -373,7 +373,7 @@ hr {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
 }
 
-.dashContent .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag {
+.dashContent .tt-hint, #typeAheadOrphanEvent, #typeAheadOrphanTask, #typeAheadOrphanTag, #addForm input {
 	margin:0px;
 	width:100%;
 }
@@ -1321,6 +1321,34 @@ h1, h2, h3, h4 {
 	font-size:16px;
 }
 
+#emailsContainer, #phonesContainer {
+	position:relative;
+}
+
+#emailsContainer img, #phonesContainer img {
+	position: absolute;
+	top: -45px;
+	right: 30px;
+	width: 50px;
+	height: 50px;
+}
+
+#emailsContainer img:last-of-type, #phonesContainer img:last-of-type {
+	width: 26px;
+	height: 26px;
+	right: 0px;
+	top: -33px;
+}
+
+#emailsContainer input, #phonesContainer input {
+	margin-bottom:5px;
+}
+
+#emailsContainer input:last-child,
+#phonesContainer input:last-child {
+	margin-bottom:0px;
+}
+
 #contactpane1 img, #taskpane1 img {
 	width:75px;
 	float:left;
@@ -1361,6 +1389,10 @@ h1, h2, h3, h4 {
 	width:55%;
 	position:absolute;
 	padding-left:0px;
+}
+
+.contactlocation {
+	color:#fff;
 }
 
 .contsort select {
@@ -1431,10 +1463,10 @@ h1, h2, h3, h4 {
 	height:650px;
 	padding-left:30px;
 	padding-right:30px;
-position: fixed;
-width: 680px;
-margin-left: 380px;
-top: 150px;
+	position: fixed;
+	width: 680px;
+	margin-left: 380px;
+	top: 150px;
 }
 
 #eventpanel2 {
@@ -1442,10 +1474,10 @@ top: 150px;
 	height: 650px;
 	padding-left: 30px;
 	padding-right: 30px;
-position: fixed;
-width: 680px;
-margin-left: 380px;
-top: 150px;
+	position: fixed;
+	width: 680px;
+	margin-left: 380px;
+	top: 150px;
 }
 
 #tagpanel2 {
@@ -1713,12 +1745,21 @@ to {
 }
 
 .contactrow {
+	position:relative;
 	height:50px;
 }
 
 .contactrow img {
 	height:50px;
 	float:left;
+}
+
+.removeAssoc {
+	position: absolute;
+	right: 10px;
+	top: 11px;
+	height: 25px !important;
+	width: 25px;
 }
 
 .contactrow h4 {
@@ -1796,8 +1837,6 @@ to {
 }
 
 .taskname {
-	margin-left:0px !important;
-	left:0px !important;
 	position:relative;
 	top:25px;
 }
@@ -1929,6 +1968,10 @@ to {
 
 #bday {
 	color:#fff;
+}
+
+.orphanList li {
+	padding:10px !important;
 }
 
 .settingoption {
@@ -2154,6 +2197,7 @@ to {
 
 #taskscontent h4 {
 	color: #000;
+	margin-top:0px;
 }
 
 .modalDialog {
@@ -3466,14 +3510,18 @@ color: #fff;
 	left:70px !important;
 }
 
-.contacttext {
+#contactname.contacttext {
 	position: relative;
 	top: 25px;
-	left: 80px;
+	left: 80px !important;
 }
 
 #contactname {
 	color:#fff;
+	margin-left: 0px !important;
+	left: 0px !important;
+	top: 25px;
+	position:relative;
 }
 
 #eventDetailPopup {
@@ -3484,6 +3532,8 @@ color: #fff;
 	z-index:100;
 	max-width:500px;
 }
+
+
 
 #eventDetailPopup.active {
 	display:block;

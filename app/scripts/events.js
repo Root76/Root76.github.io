@@ -86,7 +86,6 @@ function rebindEvents() {
 	            $(thisArrow).removeClass("arrowdown");
 	        } else {
                 $(thisArrow).addClass("arrowdown");
-
                 if ($(this).hasClass("dataRetrieved")) {
                     console.log("already have data, not requesting again");
                 } else {
@@ -116,8 +115,8 @@ function rebindEvents() {
                         contentType: "application/json",
                         dataType: "json",
                         headers: {
-                            "X-AUTHENTICATION-TOKEN": authToken,
-                            "X-AUTHENTICATION-EMAIL": userEmail
+                            "X-AUTHENTICATION-TOKEN": userEmail,
+                            "X-AUTHENTICATION-EMAIL": authToken
                         },
                         success: function (data) {
                             console.log("original data: " + data['events']);
@@ -225,7 +224,7 @@ function rebindEvents() {
                             }
                         },
                         error: function (e) {
-                            //alert("There was an error loading settings: " + e);
+                            alert("There was an error loading settings: " + e);
                         }
 
                     });
@@ -380,7 +379,7 @@ function rebindEvents() {
     });
 
     $('.sidelist li').unbind("click").bind("click", function(event){
-        var itemList = $('.sidelist li').index(this);
+        var itemList = $('.dashList li').index(this);
         var infoPanels = $('.infopanel');
         var detailsList = $('.textrow');
         var phoneNo = $('.phonenumber');
@@ -514,6 +513,25 @@ function rebindEvents() {
         }, 100);
     });
 
+    $("#emailsContainer img:first-of-type").unbind("click").bind("click", function(){
+        $("#emailsContainer").append('<input type="text" class="contactEmail" />');
+    });
+    $("#phonesContainer img:first-of-type").unbind("click").bind("click", function(){
+        $("#phonesContainer").append('<input type="text" class="contactPhone" />');
+    });
+    $("#emailsContainer img:last-of-type").unbind("click").bind("click", function(){
+        var totalFields = $(this).siblings('input');
+        if (totalFields.length > 1) {
+            $(totalFields[(totalFields.length - 1)]).remove();
+        }
+    });
+    $("#phonesContainer img:last-of-type").unbind("click").bind("click", function(){
+        var totalFields = $(this).siblings('input');
+        if (totalFields.length > 1) {
+            $(totalFields[(totalFields.length - 1)]).remove();
+        }
+    });
+
     $(".createForm").unbind('submit').bind('submit', function(event){		
 
 		var showPopupMessage = function(target, message, style) {
@@ -539,12 +557,27 @@ function rebindEvents() {
 		var relatedEvents = $("li[objectid*='event']");
 		var relatedTasks = $("li[objectid*='task']");
 		var relatedTags = $("li[objectid*='tag']");
+        var totalEmails = $(".contactEmail");
+        var totalPhones = $(".contactPhone");
 		var contactIds = new Array();
 		var eventIds = new Array();
 		var taskIds = new Array();
 		var tagIds = new Array();
+        var emailList = new Array();
+        var phoneList = new Array();
 		var thisObject;
 		var i;
+
+        for (i = 0; i < totalEmails.length; i++) {
+            thisObject = $(totalEmails[i]).val();
+            emailList[i] = thisObject;
+            console.log(emailList[i]);
+        }
+        for (i = 0; i < totalPhones.length; i++) {
+            thisObject = $(totalPhones[i]).val();
+            phoneList[i] = thisObject;
+            console.log(phoneList[i]);
+        }
 
 		for (i = 0; i < relatedContacts.length; i++) {
 			thisObject = $(relatedContacts[i]).attr('objectid');
@@ -617,9 +650,9 @@ function rebindEvents() {
                 contact: {
                     name: contactTitle,
                     organization: contactOrg,
-                    phone: contactNo,
+                    phones: phoneList,
                     address: contactAddress,
-                    email: contactPl,
+                    emails: emailList,
                     event_ids: eventIds,
                     task_ids: taskIds,
                     tag_ids: tagIds
@@ -665,13 +698,6 @@ function rebindEvents() {
                     repeatInterval = "year";
                 } else if (interval == 4) {
                     repeatInterval = "weekday";
-                } else if (interval == 5) {
-                    monday = true;
-                    wednesday = true;
-                    friday = true;
-                } else if (interval == 6) {
-                    tuesday = true;
-                    thursday = true;
                 }
                 endingCount = $("#recurrNumber").val();
                 endingDate = $("#endEventRepeat").val();
@@ -685,25 +711,22 @@ function rebindEvents() {
             var data = {
                 event: {
                     title: eventTitle,
+                    calendar_title: eventTitle,
                     description: eventDesc,
                     location: eventLoc,
-                    recurring: isRecurring,
                     recurrence: {
                         frequency: repeatInterval,
-                        on_monday: monday,
-                        on_tuesday: tuesday,
-                        on_wednesday: wednesday,
-                        on_thursday: thursday,
-                        on_friday: friday,
-                        on_saturday: saturday,
-                        on_sunday: sunday,
                         ends_after: {
                             occurences: endingCount,
                             date: endingDate
                         }
                     },
+                    is_all_day: isAllDay,
+                    recurring: isRecurring,
                     start_datetime: eventSt,
                     end_datetime: eventEn,
+                    start_date: eventSt,
+                    end_date: eventEn,
                     contact_ids: contactIds,
                     task_ids: taskIds,
                     tag_ids: tagIds
@@ -721,8 +744,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": authToken,
-				"X-AUTHENTICATION-EMAIL": userEmail
+				"X-AUTHENTICATION-TOKEN": userEmail,
+				"X-AUTHENTICATION-EMAIL": authToken
 			},
 			success: function (data) {
 				console.log(data);
@@ -787,25 +810,41 @@ function rebindEvents() {
         if ($("#typeAheadOrphanEvent").length) {
             url += "events/" + orphanID;
             data = {
-                contact_ids: contactIds,
-                task_ids: taskIds,
-                tag_ids: tagIds
+                event: {
+                    contact_ids: contactIds,
+                    task_ids: taskIds,
+                    tag_ids: tagIds
+                }
             };
         } else if ($("#typeAheadOrphanTask").length) {
             url += "tasks/" + orphanID;
             data = {
-                contact_ids: contactIds,
-                event_ids: eventIds,
-                tag_ids: tagIds
+                task: {
+                    contact_ids: contactIds,
+                    event_ids: eventIds,
+                    tag_ids: tagIds
+                }
             };
         } else if ($("#typeAheadOrphanTag").length) {
             url += "tags/" + orphanID;
             data = {
-                contact_ids: contactIds,
-                event_ids: eventIds,
-                task_ids: taskIds
+                tag: {
+                    contact_ids: contactIds,
+                    event_ids: eventIds,
+                    task_ids: taskIds
+                }
             };
         }
+
+        var showPopupMessage = function(target, message, style) {
+            var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
+            statusPopup.show();
+            statusPopup.container.css('z-index', 100000);
+            setTimeout(function() {
+                statusPopup.hide();
+                setTimeout($('.close').click(), 300);
+            }, 2000);
+        };
 
         $.ajax({
             type: 'PUT',
@@ -814,8 +853,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": userEmail,
+                "X-AUTHENTICATION-EMAIL": authToken
             },
             success: function (data) {
                 console.log(data);
@@ -856,8 +895,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
+                    "X-AUTHENTICATION-TOKEN": userEmail,
+                    "X-AUTHENTICATION-EMAIL": authToken
                 },
                 success: function (data) {
                     console.log(data);
@@ -966,10 +1005,6 @@ function rebindEvents() {
         $(dayList[4]).find('h3').html(day5);
         $(dayList[5]).find('h3').html(day6);
         $(dayList[6]).find('h3').html(day7);
-        setTimeout(function(){
-            $("#loader").removeClass("showLoader");
-            $("#openModal6").removeClass("active");
-        }, 4000);
     } else {
         $("#openModal6").removeClass("active");
     }
@@ -1067,8 +1102,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": userEmail,
+                "X-AUTHENTICATION-EMAIL": authToken
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -1077,7 +1112,7 @@ function rebindEvents() {
                 orphanObjRoot = JSON.stringify(orphanObjRoot);
                 orphanObjRoot = orphanObjRoot.substring(1, orphanObjRoot.length-1);
                 var orphanEvents = JSON.parse(orphanObjRoot);
-                orphanEvents = orphanEvents.tasks;
+                orphanEvents = orphanEvents.events;
                 orphanEvents = orphanEvents.length;
                 var orphanTasks = JSON.parse(orphanObjRoot);
                 orphanTasks = orphanTasks.tasks;
@@ -1090,6 +1125,7 @@ function rebindEvents() {
                 $(orphanCounters[0]).html(orphanEvents);
                 $(orphanCounters[1]).html(orphanTasks);
                 $(orphanCounters[2]).html(orphanTags);
+
             },
             error: function (e) {
                 //alert("There was an error loading orphans: " + e);
@@ -1106,8 +1142,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": userEmail,
+                "X-AUTHENTICATION-EMAIL": authToken
             },
             success: function (data) {
                 var arr = [];
@@ -1137,13 +1173,13 @@ function rebindEvents() {
                     $("#toggle4").removeAttr("checked");
                 }
                 if (arr[4] === true) {
-                    $("#toggl5").removeAttr("checked");
-                } else {
                     $("#toggle5").attr("checked", "checked");
+                } else {
+                    $("#toggle5").removeAttr("checked");
                 }
             },
             error: function (e) {
-                //alert("There was an error loading settings: " + e);
+                alert("There was an error loading settings: " + e);
             }
         });
         $.ajax({
@@ -1152,8 +1188,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": userEmail,
+                "X-AUTHENTICATION-EMAIL": authToken
             },
             success: function (data) {
                 var arr = [];
@@ -1182,8 +1218,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": userEmail,
+                "X-AUTHENTICATION-EMAIL": authToken
             },
             success: function (data) {
                 var arr = [];
@@ -1527,12 +1563,12 @@ function rebindEvents() {
     modal6Links.click(function(){ $('#openModal6').addClass('active'); });
 
 	// set current email
-    $("#eaddr option:first").html(userEmail);
+    $("#eaddr option:first").html(authToken);
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-TOKEN": userEmail,
+            "X-AUTHENTICATION-EMAIL": authToken
         }
     };
     var contacts = new Bloodhound({
@@ -1673,6 +1709,359 @@ function rebindEvents() {
         }
     };
 
+    var addSelectedObject = function (obj, datum) {
+        $(obj.target).typeahead('val', '');
+        var mainObjectId = $('#contactname span').html();
+        $("#scriptRemover").html(mainObjectId);
+        $("#scriptRemover").find('script').remove();
+        mainObjectId = $("#scriptRemover").html();
+        $("#scriptRemover").html("");
+        console.log("main object:" + mainObjectId);
+        var mainObjectType;
+        if ($("#contactname").hasClass('contactname')) {
+            mainObjectType = "contact";
+        } else if ($("#contactname").hasClass('eventname')) {
+            mainObjectType = "event";
+        } else if ($("#contactname").hasClass('taskname')) {
+            mainObjectType = "task";
+        } else if ($("#contactname").hasClass('tagname')) {
+            mainObjectType = "tag";
+        }
+        console.log("object type:" + mainObjectType);
+        var objectID;
+        var displayText;
+        var objImage;
+        var payload;
+        var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
+        //check which object has been selected
+        if (datum.hasOwnProperty('organization')) { // contact
+            objectID = 'contact' + datum.id;
+            displayText = datum.name;
+            objImage = "contact";
+        } else if (datum.hasOwnProperty('start_datetime')) { // event
+            objectID = 'event' + datum.id;
+            displayText = datum.title;
+            objImage = "events";
+        } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
+            objectID = 'task' + datum.id;
+            displayText = datum.title;
+            objImage = "tasks";
+        } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
+            objectID = 'tag' + datum.id;
+            displayText = datum.name;
+            objImage = "tags";
+        } else { // invalid
+            console.log("Unknown datum selected: " + datum);
+        }
+        if (objectID && displayText) {
+            var itemList = $(".infopanel.selected");
+            var existingItems = $('[objectid=' + objectID + ']', itemList);
+            if (existingItems.length === 0) {
+                var newRow = $('<div objectid="' + objectID + '" class="contactrow tagrow"><img src="img/' + objImage + '.png"><h4>' + displayText + '</h4><span class="hidden">' + datum.id + '</span><img src="img/close.png" class="removeAssoc" /></div>');
+                $('img', newRow).click(function() { newRow.remove(); });
+                itemList.append(newRow);
+            }
+            var allObjects = $('.infopanel.selected .contactrow');
+            var objectArray = new Array();
+            var thisObjId;
+            for (var i = 0; i < allObjects.length; i++) {
+                thisObjId = $(allObjects[i]).find('span').html();
+                $("#scriptRemover").html(thisObjId);
+                $("#scriptRemover").find("script").remove();
+                thisObjId = $("#scriptRemover").html();
+                $("#scriptRemover").html("");
+                objectArray[i] = thisObjId;
+            }
+            if (objImage === "contact") {
+                if (mainObjectType === "event") {
+                    payload = {
+                        event: {
+                            contact_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "task") {
+                    payload = {
+                        task: {
+                            contact_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "tag") {
+                    payload = {
+                        tag: {
+                            contact_ids: objectArray
+                        }
+                    }
+                }
+                console.log(payload);
+            }
+            else if (objImage === "events") {
+                if (mainObjectType === "contact") {
+                    payload = {
+                        contact: {
+                            event_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "task") {
+                    payload = {
+                        task: {
+                            event_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "tag") {
+                    payload = {
+                        tag: {
+                            event_ids: objectArray
+                        }
+                    }
+                }
+                console.log(payload);
+            }
+            else if (objImage === "tasks") {
+                if (mainObjectType === "contact") {
+                    payload = {
+                        contact: {
+                            task_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "event") {
+                    payload = {
+                        event: {
+                            task_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "tag") {
+                    payload = {
+                        tag: {
+                            task_ids: objectArray
+                        }
+                    }
+                }
+                console.log(payload);
+            }
+            else if (objImage === "tags") {
+                if (mainObjectType === "contact") {
+                    payload = {
+                        contact: {
+                            tag_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "event") {
+                    payload = {
+                        event: {
+                            tag_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "task") {
+                    payload = {
+                        task: {
+                            tag_ids: objectArray
+                        }
+                    }
+                }
+                console.log(payload);
+            }
+
+            var showPopupMessage = function(target, message, style) {
+                var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
+                statusPopup.show();
+                statusPopup.container.css('z-index', 100000);
+                setTimeout(function() {
+                    statusPopup.hide();
+                    setTimeout($('.close').click(), 300);
+                }, 2000);
+            };
+
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(payload),
+                headers: {
+                    "X-AUTHENTICATION-TOKEN": userEmail,
+                    "X-AUTHENTICATION-EMAIL": authToken
+                },
+                success: function (data) {
+                    console.log(data);
+                    showPopupMessage("#contactname", "Successfully associated object");
+                    setTimeout(refetchTypeaheadData, 1000);
+                },
+                error: function (e) {
+                    console.log(e.statusText);
+                    showPopupMessage("#contactname", "Error associating object");
+                }
+            });
+        }
+    };
+
+    setTimeout(function(){
+        $('.removeAssoc').click(function(){
+            var objImage;
+            if ($(".contactIcon").length) {
+                objImage = "contact";
+            } else if ($(".eventIcon").length) {
+                objImage = "event";
+            } else if ($(".taskIcon").length) {
+                objImage = "task";
+            } else if ($(".tagIcon").length) {
+                objImage = "tag";
+            } else {
+                console.log("something's wrong");
+            }
+            console.log(objImage);
+            $(this).parent().remove();
+            var mainObjectId = $('#contactname span').html();
+            $("#scriptRemover").html(mainObjectId);
+            $("#scriptRemover").find('script').remove();
+            mainObjectId = $("#scriptRemover").html();
+            $("#scriptRemover").html("");
+            console.log("main object:" + mainObjectId);
+            var mainObjectType;
+            if ($("#contactname").hasClass('contactname')) {
+                mainObjectType = "contacts";
+            } else if ($("#contactname").hasClass('eventname')) {
+                mainObjectType = "events";
+            } else if ($("#contactname").hasClass('taskname')) {
+                mainObjectType = "tasks";
+            } else if ($("#contactname").hasClass('tagname')) {
+                mainObjectType = "tags";
+            }
+            console.log("object type:" + mainObjectType);
+            var payload;
+            var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + '/' + mainObjectId;
+            var allObjects = $('.infopanel.selected .contactrow');
+            var objectArray = new Array();
+            var thisObjId;
+            for (var i = 0; i < allObjects.length; i++) {
+                thisObjId = $(allObjects[i]).find('span').html();
+                $("#scriptRemover").html(thisObjId);
+                $("#scriptRemover").find("script").remove();
+                thisObjId = $("#scriptRemover").html();
+                $("#scriptRemover").html("");
+                objectArray[i] = thisObjId;
+            }
+            if (objImage === "contact") {
+                if (mainObjectType === "events") {
+                    payload = {
+                        event: {
+                            contact_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "tasks") {
+                    payload = {
+                        task: {
+                            contact_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "tags") {
+                    payload = {
+                        tag: {
+                            contact_ids: objectArray
+                        }
+                    }
+                }
+                console.log(payload);
+            }
+            else if (objImage === "event") {
+                if (mainObjectType === "contacts") {
+                    payload = {
+                        contact: {
+                            event_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "tasks") {
+                    payload = {
+                        task: {
+                            event_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "tags") {
+                    payload = {
+                        tag: {
+                            event_ids: objectArray
+                        }
+                    }
+                }
+                console.log(payload);
+            }
+            else if (objImage === "task") {
+                if (mainObjectType === "contacts") {
+                    payload = {
+                        contact: {
+                            task_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "events") {
+                    payload = {
+                        event: {
+                            task_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "tags") {
+                    payload = {
+                        tag: {
+                            task_ids: objectArray
+                        }
+                    }
+                }
+                console.log(payload);
+            }
+            else if (objImage === "tag") {
+                if (mainObjectType === "contacts") {
+                    payload = {
+                        contact: {
+                            tag_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "events") {
+                    payload = {
+                        event: {
+                            tag_ids: objectArray
+                        }
+                    }
+                } else if (mainObjectType === "tasks") {
+                    payload = {
+                        task: {
+                            tag_ids: objectArray
+                        }
+                    }
+                }
+                console.log(payload);
+            }
+
+            var showPopupMessage = function(target, message, style) {
+                var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
+                statusPopup.show();
+                statusPopup.container.css('z-index', 100000);
+                setTimeout(function() {
+                    statusPopup.hide();
+                    setTimeout($('.close').click(), 300);
+                }, 2000);
+            };
+
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(payload),
+                headers: {
+                    "X-AUTHENTICATION-TOKEN": userEmail,
+                    "X-AUTHENTICATION-EMAIL": authToken
+                },
+                success: function (data) {
+                    console.log(data);
+                    showPopupMessage("#contactname", "Successfully removed association");
+                    setTimeout(refetchTypeaheadData, 1000);
+                },
+                error: function (e) {
+                    console.log(e.statusText);
+                    showPopupMessage("#contactname", "Error removing association");
+                }
+            });
+        });
+    }, 2000);
+
     $("#typeAheadContact").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
     $("#typeAheadEvent").typeahead(typeaheadOptions, contactsDatasource, tasksDatasource, tagsDatasource)
@@ -1687,6 +2076,14 @@ function rebindEvents() {
         .on('typeahead:selected', onTypeaheadSelected);     
     $("#typeAheadOrphanTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
         .on('typeahead:selected', onTypeaheadSelected);
+    $("#typeAheadAddContact").typeahead(typeaheadOptions, contactsDatasource)
+        .on('typeahead:selected', addSelectedObject);
+    $("#typeAheadAddEvent").typeahead(typeaheadOptions, eventsDatasource)
+        .on('typeahead:selected', addSelectedObject);
+    $("#typeAheadAddTask").typeahead(typeaheadOptions, tasksDatasource)
+        .on('typeahead:selected', addSelectedObject);
+    $("#typeAheadAddTag").typeahead(typeaheadOptions, tagsDatasource)
+        .on('typeahead:selected', addSelectedObject);
 
     window.bindSearchField = function(a, b, c) {
         var searchAll = $("#searchAll");
@@ -1791,8 +2188,8 @@ setTimeout(function(){
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-TOKEN": userEmail,
+                "X-AUTHENTICATION-EMAIL": authToken
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -1801,7 +2198,7 @@ setTimeout(function(){
                 orphanObjRoot = JSON.stringify(orphanObjRoot);
                 orphanObjRoot = orphanObjRoot.substring(1, orphanObjRoot.length-1);
                 var orphanEvents = JSON.parse(orphanObjRoot);
-                orphanEvents = orphanEvents.tasks;
+                orphanEvents = orphanEvents.events;
                 orphanEvents = orphanEvents.length;
                 console.log("orphan events: " + orphanEvents);
                 var orphanTasks = JSON.parse(orphanObjRoot);
@@ -1816,6 +2213,10 @@ setTimeout(function(){
                 console.log(totalOrphans);
                 $("#orphancount > span").html(totalOrphans);
                 $("#totalOrphans").html(totalOrphans);
+                setTimeout(function(){
+                    $("#loader").removeClass("showLoader");
+                    $("#openModal6").removeClass("active");
+                }, 1000);
             },
             error: function (e) {
                 //alert("There was an error loading orphans: " + e);
@@ -1830,4 +2231,4 @@ setTimeout(function(){
         new FastClick(document.body);
     }, false);
 
-}, 100);
+}, 1);

@@ -22,6 +22,7 @@
         <img src="img/twitterHighlight2.png" />
         <img src="img/facebookHighlight2.png" />
       </div>
+      <div id="scriptRemover"></div>
       <script type="text/x-handlebars">
         <div id="mobileNav">
           {{#link-to 'index'}}<div class="mobileNavItem" id="mDash"><p class="desktopText">Dashboard</p><p class="mobileText">Dash</p><div class="imgCont"><img src="img/dashboard.png" /></div></div>{{/link-to}}
@@ -173,9 +174,19 @@
               <form>
                 <div class="formrow">First name: <input type="text" id="contactFirst"></div>
                 <div class="formrow">Last name: <input type="text" id="contactLast"></div>
-                <div class="formrow">Contact email: <input type="text" id="contactPlace"></div>
+                <div class="formrow">Contact email: 
+                  <div id="emailsContainer">
+                    <img src="img/create.png" /><img src="img/close.png" />
+                    <input type="text" class="contactEmail" />
+                  </div>
+                </div>
                 <div class="formrow">Contact company: <input type="text" id="contactOrg"></div>
-                <div class="formrow">Contact phone number: <input type="text" id="contactNumber"></div>
+                <div class="formrow">Contact phone number:                   
+                  <div id="phonesContainer">
+                    <img src="img/create.png" /><img src="img/close.png" />
+                    <input type="text" class="contactPhone" />
+                  </div>
+                </div>
                 <div class="formrow">Contact address: <input type="text" id="contactAddr"></div>
                 <div class="formrow">Search related items: <br /><input id="typeAheadContact" />
                 </div>
@@ -330,7 +341,7 @@
         <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
-                <div><h2>Show me:<a href="javascript:void(0)" class="small-create-icon openModal3"><img src="img/create.png"/></a></h2></div>
+                <div><h2>Show:<a href="javascript:void(0)" class="small-create-icon openModal3"><img src="img/create.png"/></a></h2></div>
                 <div class="menusubcont">
                   <div class="subcontitem showitem selected" id="subEvent" ><img src="img/calendar.png" /></div>
                   <div class="subcontitem showitem selected" id="subTask" ><img src="img/tasks.png" /></div>
@@ -467,7 +478,6 @@
               <h3 id="expandall" class="reportToggler">Expand all</h3>  
               <ul class="list">
                 {{#each contact in contactsToShow}}
-                  {{#if contact.name}} 
                   <li class="listitem maincontact">
                     <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     <h3 class="mainsort">
@@ -475,7 +485,13 @@
                       {{#if contact.name}}
                         {{contact.name}}
                       {{else}}
+                        {{#if contact.emails}}
+                          {{#each email in contact.emails}}
+                            {{email.email}}
+                          {{/each}}
+                        {{else}}
                         No name or email
+                        {{/if}}
                       {{/if}}
                     </h3>
                     <div class="subitems">
@@ -493,7 +509,6 @@
                       </div>
                     </div>
                   </li>
-                  {{/if}}
                 {{else}} 
                   <li>
                     <h3><b>No Contacts in this time period</b></h3>
@@ -723,9 +738,15 @@
                             {{#link-to 'contacts.contact' item}}
                               <img class="subicon" src="img/contact.png" />
                               {{#if item.name}}
-                              <span class="subitemtext subdashtext">{{item.name}}</span>
+                                <span class="subitemtext subdashtext">{{item.name}}</span>
                               {{else}}
-                              <span class="subitemtext subdashtext">{{item.email}}</span>
+                                {{#if item.emails.length}}
+                                  {{#each email in item.emails}}
+                                    <span class="subitemtext subdashtext">{{email.email}}</span>
+                                  {{/each}}
+                                {{else}}
+                                    <span class="subitemtext subdashtext">N/A</span>
+                                {{/if}}
                               {{/if}}
                             {{/link-to}}
                           {{/if}}
@@ -894,14 +915,18 @@
                         {{#link-to 'contacts.contact' contact}}<li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                       {{else}}
                         {{#if contact.emails}}
-                          {{#link-to 'contacts.contact' contact}}<li>{{contact.emails}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
+                          {{#each email in contact.emails}}
+                            {{#link-to 'contacts.contact' contact}}<li>{{email.email}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
+                          {{/each}}
+                        {{else}}
+                          {{#link-to 'contacts.contact' contact}}<li>N/A<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                         {{/if}}
                       {{/if}}
                     {{/each}}
                   </ul>
                 </div>
                 {{outlet}}
-              </div>  
+              </div>
             </div>
           </div>
         </script>
@@ -910,7 +935,7 @@
             <h1 id="mobileContact">Contacts</h1>
             <img id="profilepic" src="img/contact.png" />
             <img src="img/arrow.png" class="backArrow" />
-            <h2 id="contactname" class="contacttext"><b>Select a contact</b></h2>
+            <h2 id="contactname" class="contactname contacttext"><b>Select a contact</b></h2>
             <div id="detailmenubar" class="contactmenu">
               <img src="img/contact.png" class="selected" />
               <img src="img/events.png" />
@@ -936,12 +961,23 @@
             <h1 id="mobileContact">Contacts</h1>
             <img id="profilepic" src="img/contact.png" />
             <img src="img/arrow.png" class="backArrow" />            
-		        <h2 id="contactname" class="contacttext" {{action "editField" "name" on="doubleClick"}}>
-            {{#if editing.name}}
-		          {{input class="editField" id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
-		        {{else}}
-		          {{name}}
-		        {{/if}}
+		        <h2 id="contactname" class="contactname contacttext" {{action "editField" "name" on="doubleClick"}}>
+              {{#if editing.name}}
+  		          {{input class="editField" id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
+  		        {{else}}
+                {{#if name}}
+  		            {{name}}
+                {{else}}
+                  {{#if emails}}
+                    {{#each emails}}
+                      {{email}}
+                    {{/each}}
+                  {{else}}
+                    N/A
+                  {{/if}}
+                {{/if}}
+                <span class="hidden">{{id}}</span>
+  		        {{/if}}
             </h2>
             <div id="detailmenubar" class="contactmenu">
               <img src="img/contact.png" class="selected" />
@@ -949,8 +985,8 @@
               <img src="img/tasks.png" />
               <img src="img/tags.png" />
               <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addContact" /></a>
-              <img src="img/trash.png" id="trashicon" /> 
-              <button {{action "deleteRecord"}} id="destroy">{{id}}</button>           
+              <img src="img/trash.png" id="trashicon" />
+              <button {{action "deleteRecord"}} id="destroy">{{id}}</button>
             </div>
             <div class="panelcontent" id="contactcontent">
               <div class="infopanel selected">
@@ -1011,29 +1047,42 @@
                 </div>
               </div>
               <div class="infopanel">
-                {{#each event in events}}
-                  {{#if event.title}}
-                  <div class="contactrow eventrow">
-                    <img src="img/events.png">
-                    <h4>{{event.title}}</h4>
+                <form id="addForm">
+                  <div class="formrow">Add events: <br />
+                    <input id="typeAheadAddEvent" />
                   </div>
-                  {{/if}}
+                </form>
+                {{#each event in events}}
+                  <div class="contactrow eventrow">
+                    {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon">{{/link-to}}
+                    <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span><img src="img/close.png" class="removeAssoc" />
+                  </div>
                 {{/each}}
               </div>
               <div class="infopanel">
+                <form id="addForm">
+                  <div class="formrow">Add tasks: <br />
+                    <input id="typeAheadAddTask" />
+                  </div>
+                </form>
                 {{#each task in tasks}}
-                <div class="contactrow taskrow">
-                  {{#link-to 'tasks.task' task}}<img src="img/tasks.png">{{/link-to}}
-                  <h4>{{task.title}}</h4>
-                </div>
+                  <div class="contactrow taskrow">
+                    {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">{{/link-to}}
+                    <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span><img src="img/close.png" class="removeAssoc" />
+                  </div>
                 {{/each}}
               </div>
               <div class="infopanel">
+                <form id="addForm">
+                  <div class="formrow">Add tags: <br />
+                    <input id="typeAheadAddTag" />
+                  </div>
+                </form>
                 {{#each tag in tags}}
-                <div class="contactrow tagrow">
-                  <img src="img/tags.png">
-                  <h4>{{tag.name}}</h4>
-                </div>
+                  <div class="contactrow tagrow">
+                    {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="tagIcon">{{/link-to}}
+                    <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span><img src="img/close.png" class="removeAssoc" />
+                  </div>
                 {{/each}}
               </div>
             </div>
@@ -1099,7 +1148,7 @@
                 <img id="detailTrash" src="img/trash.png" />
               </div>
               <div class="col-md-4 dCol" id="dCol2">
-                <img class="columnDivider" src="img/divider_orange.png" />
+                <img class="columnDivider" src="img/divider_blue.png" />
                 <div class="columnhead">
                   <img src="img/contact.png" />
                   <h3>Events</h3>
@@ -1184,7 +1233,11 @@
                   </div>
                   <ul id="eventlist" class="sidelist">
                     {{#each event in eventsToShow}}
-                      {{#link-to 'events.event' event}}<li>{{event.title}}</li>{{/link-to}}
+                      {{#if event.title}}
+                        {{#link-to 'events.event' event}}<li>{{event.title}}</li>{{/link-to}}
+                      {{else}}
+                        {{#link-to 'events.event' event}}<li>N/A</li>{{/link-to}}
+                      {{/if}}
                     {{/each}}
                   </ul>
                 </div>
@@ -1197,7 +1250,7 @@
                 <div class="col-md-7" id="eventpanel2">
                   <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext"><b>Select an event</b></h2>
+                  <h2 id="contactname" class="eventname"><b>Select an event</b></h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" class="selected" />
@@ -1222,11 +1275,12 @@
         <div class="col-md-7 mobileIn" id="eventpanel2">
           <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
           <img src="img/arrow.png" class="backArrow" />
-	        <h2 id="contactname" class="taskname contacttext" {{action "editField" "title" on="doubleClick"}}>
+	        <h2 id="contactname" class="eventname" {{action "editField" "title" on="doubleClick"}}>
           {{#if editing.title}}
 	          {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
 	        {{else}}
 	          {{title}}
+            <span class="hidden">{{id}}</span>
 	        {{/if}}
           </h2>
           <div id="detailmenubar">
@@ -1240,12 +1294,17 @@
           </div>
           <div class="panelcontent" id="eventscontent">                
             <div class="infopanel">
-            {{#each contact in contacts}}
-              <div class="contactrow personrow">
-                {{#link-to 'contacts.contact' contact}}<img src="img/contact.png">{{/link-to}}
-                <h4>{{contact.name}}</h4>
-              </div>
-            {{/each}}
+              <form id="addForm">
+                <div class="formrow">Add contacts: <br />
+                  <input id="typeAheadAddContact" />
+                </div>
+              </form>
+              {{#each contact in contacts}}
+                <div class="contactrow personrow">
+                  {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">{{/link-to}}
+                  <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span><img src="img/close.png" class="removeAssoc" />
+                </div>
+              {{/each}}
             </div>
             <div class="infopanel selected">
                 <div {{action "editField" "description" on="doubleClick"}}>
@@ -1286,18 +1345,28 @@
                 </div>
             </div>
             <div class="infopanel">
+              <form id="addForm">
+                <div class="formrow">Add tasks: <br />
+                  <input id="typeAheadAddTask" />
+                </div>
+              </form>
               {{#each task in tasks}}
                 <div class="contactrow taskrow">
-                  {{#link-to 'tasks.task' task}}<img src="img/tasks.png">{{/link-to}}
-                  <h4>{{task.title}}</h4>
+                  {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">{{/link-to}}
+                  <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span><img src="img/close.png" class="removeAssoc" />
                 </div>
               {{/each}}
             </div>
             <div class="infopanel">
+                <form id="addForm">
+                  <div class="formrow">Add tags: <br />
+                    <input id="typeAheadAddTag" />
+                  </div>
+                </form>
               {{#each tag in tags}}
                 <div class="contactrow tagrow">
-                  {{#link-to 'tags.tag' tag}}<img src="img/tags.png">{{/link-to}}
-                  <h4>{{tag.name}}</h4>
+                  {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="tagIcon">{{/link-to}}
+                  <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span><img src="img/close.png" class="removeAssoc" />
                 </div>
               {{/each}}
             </div>
@@ -1403,6 +1472,8 @@
                       {{else}}
                         {{#if task.notes}}
                           {{#link-to 'tasks.task' task}}<li><img src="img/check.png" {{bind-attr class="task.status:completed"}} />{{task.notes}}</li>{{/link-to}}
+                        {{else}}
+                          {{#link-to 'tasks.task' task}}<li><img src="img/check.png" {{bind-attr class="task.status:completed"}} />N/A</li>{{/link-to}}
                         {{/if}}
                       {{/if}}
                     {{/each}}           
@@ -1417,7 +1488,7 @@
                 <div class="col-md-7" id="taskpanel2">
                   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext">Select a task</h2>
+                  <h2 id="contactname" class="taskname">Select a task</h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
                     <img src="img/events.png" />
@@ -1442,11 +1513,12 @@
                 <div class="col-md-7 mobileIn" id="taskpanel2">
                   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
-					        <h2 id="contactname" class="taskname contacttext" {{action "editField" "title" on="doubleClick"}}>
+					        <h2 id="contactname" class="taskname" {{action "editField" "title" on="doubleClick"}}>
                   {{#if editing.title}}
 					          {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
 					        {{else}}
 					          {{title}}
+                    <span class="hidden">{{id}}</span>
 					        {{/if}}
                   </h2>
                   <div id="detailmenubar">
@@ -1461,20 +1533,30 @@
                   </div>
                   <div class="panelcontent" id="taskscontent">
                     <div class="infopanel">
+                      <form id="addForm">
+                        <div class="formrow">Add contacts: <br />
+                          <input id="typeAheadAddContact" />
+                        </div>
+                      </form>
                       {{#each contact in contacts}}
                       <div class="contactrow personrow">
-                        {{#link-to 'contacts.contact' contact}}<img src="img/contact.png">{{/link-to}}
-                        <h4>{{contact.name}}</h4>
+                        {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">{{/link-to}}
+                        <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span><img src="img/close.png" class="removeAssoc" />
                       </div>
                       {{/each}}
                     </div>
                     <div class="infopanel">
-                    {{#each event in events}}
-                      <div class="contactrow eventrow">
-                        {{#link-to 'events.event' event}}<img src="img/events.png">{{/link-to}}
-                        <h4>{{event.title}}</h4>
-                      </div>
-                    {{/each}}
+                      <form id="addForm">
+                        <div class="formrow">Add events: <br />
+                          <input id="typeAheadAddEvent" />
+                        </div>
+                      </form>
+                      {{#each event in events}}
+                        <div class="contactrow eventrow">
+                          {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon">{{/link-to}}
+                          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span><img src="img/close.png" class="removeAssoc" />
+                        </div>
+                      {{/each}}
                     </div>
                     <div class="infopanel selected">
                       <div {{action "editField" "notes" on="doubleClick"}}>
@@ -1501,12 +1583,17 @@
                       </div>
                     </div>
                     <div class="infopanel">
-                    {{#each tag in tags}}
-                      <div class="contactrow tagrow">
-                        {{#link-to 'tags.tag' tag}}<img src="img/tags.png">{{/link-to}}
-                        <h4>Evenspring</h4>
-                      </div>
-                    {{/each}}
+                      <form id="addForm">
+                        <div class="formrow">Add tags: <br />
+                          <input id="typeAheadAddTag" />
+                        </div>
+                      </form>
+                      {{#each tag in tags}}
+                        <div class="contactrow tagrow">
+                          {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="tagIcon">{{/link-to}}
+                          <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span><img src="img/close.png" class="removeAssoc" />
+                        </div>
+                      {{/each}}
                     </div>
                   </div>
                 </div>
@@ -1518,12 +1605,12 @@
                       <h4>{{notes}}</h4>
                       <div id="relatedTags">
                         {{#each tag in tags}}
-                        {{#if tag.name}}
-                        <div class="relatedItem">
-                          <img src="img/tags.png" class="relatedImage"/>
-                          <span class="relatedName">{{tag.name}}</span>
-                        </div>
-                        {{/if}}
+                          {{#if tag.name}}
+                            <div class="relatedItem">
+                              <img src="img/tags.png" class="relatedImage"/>
+                              <span class="relatedName">{{tag.name}}</span>
+                            </div>
+                          {{/if}}
                         {{/each}}
                       </div>
                       <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
@@ -1619,39 +1706,40 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="tags/index">
-                <div class="col-md-7" id="tagpanel2">
-                  <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
-                  <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="taskname contacttext">Select a tag</h2>
-                  <div id="detailmenubar">
-                    <img src="img/contact.png" />
-                    <img src="img/events.png" />
-                    <img src="img/tasks.png" />
-                    <img src="img/tags.png" class="selected" />   
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
-                  </div>
-                  <div class="panelcontent" id="tagscontent">
-                    <div class="infopanel">
-                    </div>
-                    <div class="infopanel">
-                    </div>
-                    <div class="infopanel">
-                    </div>
-                    <div class="infopanel selected">
-                    </div>
-                  </div>
-                </div>
+          <div class="col-md-7" id="tagpanel2">
+            <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
+            <img src="img/arrow.png" class="backArrow" />
+            <h2 id="contactname" class="tagname">Select a tag</h2>
+            <div id="detailmenubar">
+              <img src="img/contact.png" />
+              <img src="img/events.png" />
+              <img src="img/tasks.png" />
+              <img src="img/tags.png" class="selected" />   
+              <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
+              <img src="img/trash.png" id="trashicon"/>              
+            </div>
+            <div class="panelcontent" id="tagscontent">
+              <div class="infopanel">
+              </div>
+              <div class="infopanel">
+              </div>
+              <div class="infopanel">
+              </div>
+              <div class="infopanel selected">
+              </div>
+            </div>
+          </div>
         </script>
         <script type="text/x-handlebars" id="tags/tag">
         <div class="col-md-7 mobileIn" id="tagpanel2">
                   <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
                   <img src="img/arrow.png" class="backArrow" />
-					        <h2 id="contactname" class="taskname contacttext" {{action "editField" "name" on="doubleClick"}}>
+					        <h2 id="contactname" class="tagname" {{action "editField" "name" on="doubleClick"}}>
                   {{#if editing.name}}
 					          {{input class="editField" id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
 					        {{else}}
 					          {{name}}
+                    <span class="hidden">{{id}}</span>
 					        {{/if}}
                   </h2>
                   <div id="detailmenubar">
@@ -1665,28 +1753,43 @@
                   </div>
                   <div class="panelcontent" id="tagscontent">
                     <div class="infopanel">
-                    {{#each contact in contacts}}
-                      <div class="contactrow personrow">
-                        {{#link-to 'contacts.contact' contact}}<img src="img/contact.png">{{/link-to}}
-                        <h4>{{contact.name}}</h4>
-                      </div>
-                    {{/each}}
+                      <form id="addForm">
+                        <div class="formrow">Add contacts: <br />
+                          <input id="typeAheadAddContact" />
+                        </div>
+                      </form>
+                      {{#each contact in contacts}}
+                        <div class="contactrow personrow">
+                          {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">{{/link-to}}
+                          <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span><img src="img/close.png" class="removeAssoc" />
+                        </div>
+                      {{/each}}
                     </div>
                     <div class="infopanel">
-                    {{#each event in events}}
-                      <div class="contactrow eventrow">
-                        {{#link-to 'events.event' event}}<img src="img/events.png">{{/link-to}}
-                        <h4>{{event.title}}</h4>
-                      </div>
-                    {{/each}}
+                      <form id="addForm">
+                        <div class="formrow">Add events: <br />
+                          <input id="typeAheadAddEvent" />
+                        </div>
+                      </form>
+                      {{#each event in events}}
+                        <div class="contactrow eventrow">
+                          {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon">{{/link-to}}
+                          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span><img src="img/close.png" class="removeAssoc" />
+                        </div>
+                      {{/each}}
                     </div>
                     <div class="infopanel">
-                    {{#each task in tasks}}
-                      <div class="contactrow taskrow">
-                        {{#link-to 'tasks.task' task}}<img src="img/tasks.png">{{/link-to}}
-                        <h4>{{task.title}}</h4>
-                      </div>
-                    {{/each}}
+                      <form id="addForm">
+                        <div class="formrow">Add tasks: <br />
+                          <input id="typeAheadAddTask" />
+                        </div>
+                      </form>
+                      {{#each task in tasks}}
+                        <div class="contactrow taskrow">
+                          {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">{{/link-to}}
+                          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span><img src="img/close.png" class="removeAssoc" />
+                        </div>
+                      {{/each}}
                     </div>
                     <div class="infopanel selected">                      
                       <h5>Count: {{count}}</h5>
@@ -1780,13 +1883,13 @@
             <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag. To maximize the usefulness of Day Won, eliminate all Orphans.</h2>
             <div id="orphancontainer">
               <div class="orphansubcontainer">
-                {{#link-to 'orphanevents'}}<img src="img/events.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+                {{#link-to 'orphanevents'}}<img src="img/events.png" /><h1 class="ocount"></h1>{{/link-to}}
               </div>
               <div class="orphansubcontainer">
-                {{#link-to 'orphantasks'}}<img src="img/tasks.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+                {{#link-to 'orphantasks'}}<img src="img/tasks.png" /><h1 class="ocount"></h1>{{/link-to}}
               </div>
               <div class="orphansubcontainer">
-                {{#link-to 'orphantags'}}<img src="img/tags.png" /><h1 class="ocount">(1)</h1>{{/link-to}}
+                {{#link-to 'orphantags'}}<img src="img/tags.png" /><h1 class="ocount"></h1>{{/link-to}}
               </div>
             </div>
             <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
@@ -1820,7 +1923,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding">Orphan Events (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding">Orphan Events (<span id="itemCount">{{eventsToShow.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1834,8 +1937,8 @@
                        selection=selectedShowOption}}
                     </div>
                   </div>
-                  <ul id="eventlist" class="sidelist dashList">
-                    {{#each event in events}}
+                  <ul id="eventlist" class="sidelist orphanList">
+                    {{#each event in eventsToShow}}
                       {{#if event.title}}
                         <li><span>{{event.title}}</span><span style="display:none">{{event.id}}</span></li>
                       {{/if}}
@@ -1849,7 +1952,7 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="orphanevents/index">
-          <div class="col-md-7 dashRecent" id="eventpanel2">
+          <div class="col-md-7" id="eventpanel2">
             <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
             <img src="img/arrow.png" class="backArrow" />
             <h2 id="contactname" class="taskname orphantitle">Select an Orphan Event</h2>
@@ -1877,7 +1980,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount">{{tasksToShow.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1897,10 +2000,12 @@
                   <button class="sortingToggle" id="byPriority" {{action sortPriority}}>Sort</button>
                   <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
                   <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
-                  <ul id="tasklist" class="sidelist dashList">
-                    {{#each task in tasks}}
+                  <ul id="tasklist" class="sidelist orphanList">
+                    {{#each task in tasksToShow}}
                       {{#if task.title}}
                         <li><span>{{task.title}}</span><span style="display:none">{{task.id}}</span></li>
+                      {{else}}
+                        <li><span>N/A</span><span style="display:none">{{task.id}}</span></li>
                       {{/if}}
                     {{/each}}           
                   </ul>
@@ -1912,7 +2017,7 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="orphantasks/index">
-          <div class="col-md-7 dashRecent" id="eventpanel2">
+          <div class="col-md-7" id="taskpanel2">
             <h1 id="mobileContact" class="eventDetailHeader">Tasks</h1>
             <img src="img/arrow.png" class="backArrow" />
             <h2 id="contactname" class="taskname orphantitle">Select an Orphan Task</h2>
@@ -1940,7 +2045,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount">0</span>)</h1>
+                  <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount">{{tagsToShow.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1954,8 +2059,8 @@
                        selection=selectedSortOption}}
                     </div>
                   </div>
-                  <ul id="taglist" class="sidelist dashList">
-                    {{#each tag in tags}}
+                  <ul id="taglist" class="sidelist orphanList">
+                    {{#each tag in tagsToShow}}
                       {{#if tag.name}}
                         <li><span>{{tag.name}}</span><span style="display:none">{{tag.id}}</span></li>
                       {{/if}}
@@ -1969,7 +2074,7 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="orphantags/index">
-          <div class="col-md-7 dashRecent" id="eventpanel2">
+          <div class="col-md-7" id="tagpanel2">
             <h1 id="mobileContact" class="eventDetailHeader">Tags</h1>
             <img src="img/arrow.png" class="backArrow" />
             <h2 id="contactname" class="taskname orphantitle">Select an Orphan Tag</h2>
@@ -2076,29 +2181,21 @@
                     <h5>Sort by last name:</h5>
                     <input type="checkbox" name="toggle" id="toggle" class="settingToggler">
                     <label for="toggle"></label>
-                    <!--<a class="selected">First name</a>
-                    <a>Last name</a>-->
                   </div>
                   <div class="settingoption">
                     <h5>Turn new user popups back on:</h5>
                     <input type="checkbox" name="toggle2" id="toggle2" class="settingToggler">
                     <label for="toggle2"></label>
-                    <!--<a class="selected">Y</a>
-                    <a>N</a>-->
                   </div>
                   <div class="settingoption">
                     <h5>Always display note field for Contact:</h5>
                     <input type="checkbox" name="toggle3" id="toggle3" class="settingToggler">
                     <label for="toggle3"></label>
-                    <!--<a class="selected">Y</a>
-                    <a>N</a>-->
                   </div>
                   <div class="settingoption">
                     <h5>Push contextual information into Web Mail:</h5>
                     <input type="checkbox" name="toggle4" id="toggle4" class="settingToggler">
                     <label for="toggle4"></label>
-                    <!--<a class="selected">Y</a>
-                    <a>N</a>-->
                   </div>
                   <div class="settingoption">
                     <h5>Opt-out of emails from Day Won</h5>

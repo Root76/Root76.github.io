@@ -80,8 +80,10 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
+    // "4N9-_NWfYvYxpesMVpne",
+
   }
 });
 
@@ -308,7 +310,9 @@ App.EventsController = Ember.ArrayController.extend({
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
 	}.property('showOption', 'showProperty', 'model.@each.due', 'sortProperties'),
-	
+	eventOrphans: function() {
+		return this.get('store').find('event', {is_orphan: "true"});
+	},
 	showOptions: [
 		{label: "All", id: "all", showProperty: "updated_at"},
 		{label: "Tagged", id: "tagged", showProperty: "updated_at"},
@@ -440,11 +444,10 @@ App.TasksController = Ember.ArrayController.extend({
 		if (this.selectedShowOption) {
 			this.set('showOption', this.selectedShowOption.id);
 		}
-		
         setTimeout(function(){
             $(".ui-accordion").accordion("refresh");
         }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
-	}.observes('selectedShowOption'),
+	}.observes('selectedShowOption')
 });
 
 App.TagsController = Ember.ArrayController.extend({
@@ -648,6 +651,42 @@ App.ReportsTagsController = Ember.ArrayController.extend({
 	}.property('tagsController.tagsToShow'),	
 });
 
+App.OrphaneventsController = Ember.ArrayController.extend({
+    needs: ['events'],
+    eventsController: Ember.computed.alias("controllers.events"),
+    sortProperties: ['start_datetime'],
+    sortAscending: false,
+	eventsToShow: function() { 
+		var sorted = this.get('eventsController').get('eventsToShow');
+		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
+        return sorted;
+	}.property('eventsController.eventsToShow')
+});
+
+App.OrphantasksController = Ember.ArrayController.extend({
+    needs: ['tasks'],
+    tasksController: Ember.computed.alias("controllers.tasks"),
+    sortProperties: ['due'],
+    sortAscending: false,
+	tasksToShow: function() { 
+		var sorted = this.get('tasksController').get('tasksToShow');
+		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
+        return sorted;
+	}.property('tasksController.tasksToShow'),	
+});
+
+App.OrphantagsController = Ember.ArrayController.extend({
+	needs: ['tags'],
+    tagsController: Ember.computed.alias("controllers.tags"),
+    sortProperties: ['name'],
+    sortAscending: true,
+	tagsToShow: function() { 
+		var sorted = this.get('tagsController').get('tagsToShow');
+		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
+        return sorted;
+	}.property('tagsController.tagsToShow'),	
+});
+
 /***Models***/
 App.ArrayTransform = DS.Transform.extend({
   deserialize: function(serialized) {
@@ -703,6 +742,7 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
 App.Contact = DS.Model.extend({
     name: DS.attr('string'),
     emails: DS.attr('array'),
+    contact_emails: DS.attr('array'),
     organization: DS.attr('string'),
     phones: DS.attr('array'),
     address: DS.attr('string'),
@@ -759,6 +799,7 @@ App.Event = DS.Model.extend({
     start_datetime: DS.attr('date'),
     end_datetime: DS.attr('date'),
     updated_at: DS.attr('date'),
+    is_orphan: DS.attr('boolean'),
     start_inputformatted: function(key, value) {
 	    if (arguments.length > 1) {
 	    	var date = moment(value);
@@ -795,6 +836,7 @@ App.Task = DS.Model.extend({
     status: DS.attr('boolean'),
     due: DS.attr('date'),
     priority: DS.attr('string'),
+    is_orphan: DS.attr('boolean'),
 	noDate: function() { 
 	   return this.get('due') === undefined || this.get('due') === null;
 	}.property('due'),
@@ -825,6 +867,7 @@ App.Tag = DS.Model.extend({
     events: DS.attr('array'),
     tasks: DS.attr('array'),
 	count: DS.attr('string'),
+    is_orphan: DS.attr('boolean'),
     contactsCount: function() {
     	return this.get('contacts').length;
     }.property('contacts'),
@@ -837,9 +880,15 @@ App.Tag = DS.Model.extend({
 });
 
 App.Orphan = DS.Model.extend({
-	events: DS.attr('array'),
-	tasks: DS.attr('array'),
-	tags: DS.attr('array')
+	eventOrphans: function() {
+		return this.get('events');
+	},
+	taskOrphans: function() {
+		return this.get('task');
+	},
+	tagOrphans: function() {
+		return this.get('tag');
+	}
 });
 
 /*App.Table = DS.Model.extend({
@@ -865,7 +914,6 @@ IndividualObjectRoute = Ember.Mixin.create({
 		save: function() {
 			if (!this.controller.get('editing.anything'))
 				return;
-
 			this.currentModel.save();
 			this.controller.set('editing', {});
 			this.controller.set('editing.anything', false);
@@ -873,7 +921,6 @@ IndividualObjectRoute = Ember.Mixin.create({
 		editField: function(field) {
 			this.controller.set('editing.anything', true);
 			this.controller.set('editing.' + field, true);
-
 		    Ember.run.schedule('afterRender', this, function() {
 				$('#' + field + 'Input').focus();
 		    });
@@ -1067,10 +1114,8 @@ App.ContactsIndexRoute = Ember.Route.extend({
   	model: function() {
     	return this.modelFor('contacts');
   	},
-  	afterModel: function(){
-  		this.get("store").find("contact").then(function(rec){
-  			console.log(rec);
-  		});
+  	afterModel: function(rec){
+  		console.log(rec);
   	}
 });
 App.ContactsContactRoute = Ember.Route.extend({
@@ -1148,19 +1193,31 @@ App.OrphansIndexRoute = Ember.Route.extend({
 
 App.OrphaneventsRoute = Ember.Route.extend({
 	model: function() {
-		return this.get('store').find('orphan');
+		return this.get('store').find('event');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('events').set('model', model);
 	}
 });
 
 App.OrphantasksRoute = Ember.Route.extend({
 	model: function() {
-		return this.get('store').find('orphan');
+		return this.get('store').find('task');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('tasks').set('model', model);
 	}
 });
 
 App.OrphantagsRoute = Ember.Route.extend({
 	model: function() {
-		return this.get('store').find('orphan');
+		return this.get('store').find('tag');
+	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+        this.controllerFor('tags').set('model', model);
 	}
 });
 
