@@ -80,10 +80,9 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
     // "4N9-_NWfYvYxpesMVpne",
-
   }
 });
 
@@ -310,9 +309,10 @@ App.EventsController = Ember.ArrayController.extend({
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
 	}.property('showOption', 'showProperty', 'model.@each.due', 'sortProperties'),
-	eventOrphans: function() {
-		return this.get('store').find('event', {is_orphan: "true"});
-	},
+	eventOrphans: function(a) {
+		var oList = this.store.find('event', {is_orphan: 'true'});
+		return oList;
+	}.property('events'),
 	showOptions: [
 		{label: "All", id: "all", showProperty: "updated_at"},
 		{label: "Tagged", id: "tagged", showProperty: "updated_at"},
@@ -657,10 +657,10 @@ App.OrphaneventsController = Ember.ArrayController.extend({
     sortProperties: ['start_datetime'],
     sortAscending: false,
 	eventsToShow: function() { 
-		var sorted = this.get('eventsController').get('eventsToShow');
+		var sorted = this.get('eventsController').get('eventOrphans');
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
-	}.property('eventsController.eventsToShow')
+	}.property('eventsController.eventOrphans')
 });
 
 App.OrphantasksController = Ember.ArrayController.extend({

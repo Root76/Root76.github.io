@@ -115,8 +115,8 @@ function rebindEvents() {
                         contentType: "application/json",
                         dataType: "json",
                         headers: {
-                            "X-AUTHENTICATION-TOKEN": userEmail,
-                            "X-AUTHENTICATION-EMAIL": authToken
+                            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                         },
                         success: function (data) {
                             console.log("original data: " + data['events']);
@@ -454,17 +454,6 @@ function rebindEvents() {
 
     });
 
-    $("#allDay").unbind("click").bind("click", function(){
-        var allDay = $("#allDay");
-        if (allDay.is(":checked")) {
-            $("#eventEnd").val("");
-            $("#eventEnd").attr("disabled", "disabled");
-        } else {
-            $("#eventStart").removeAttr("disabled");
-            $("#eventEnd").removeAttr("disabled");
-        }
-    });
-
     $("#recurring").unbind("click").bind("click", function(){
         var recurring = $("#recurring");
         if (recurring.is(":checked")) {
@@ -567,17 +556,28 @@ function rebindEvents() {
         var phoneList = new Array();
 		var thisObject;
 		var i;
+        var j = 0;
 
         for (i = 0; i < totalEmails.length; i++) {
             thisObject = $(totalEmails[i]).val();
-            emailList[i] = thisObject;
-            console.log(emailList[i]);
+            if (thisObject.length > 0) {
+                emailList[j] = thisObject;
+                j++;
+            }
         }
+
+        j = 0;
+
         for (i = 0; i < totalPhones.length; i++) {
             thisObject = $(totalPhones[i]).val();
-            phoneList[i] = thisObject;
-            console.log(phoneList[i]);
+            if (thisObject.length > 0) {
+                phoneList[j] = thisObject;
+                j++;
+            }
         }
+
+        console.log(emailList);
+        console.log(phoneList);
 
 		for (i = 0; i < relatedContacts.length; i++) {
 			thisObject = $(relatedContacts[i]).attr('objectid');
@@ -669,6 +669,7 @@ function rebindEvents() {
             var eventLoc = $("#eventLocation").val();
             eventLoc = String(eventLoc);
             var eventSt = moment($("#eventStart").val()).format();
+            var eventEn = moment($("#eventEnd").val()).format();
             var isAllDay = new Boolean($("#allDay:checked").length);
             var isRecurring = new Boolean($("#recurring:checked").length);
 
@@ -683,11 +684,15 @@ function rebindEvents() {
             var repeatInterval;
             var endingCount;
             var endingDate;
+            var recurr;
 
             if (isRecurring == true) {
                 if (interval == 0) {
                     repeatInterval = $("#intervalSelect").val();
-                    if (!repeatInterval.length || repeatInterval < 2) {
+                    if (repeatInterval > 1) {
+                        repeatInterval = parseInt(repeatInterval, 10);
+                    }
+                    else {
                         repeatInterval = "day";
                     }
                 } else if (interval == 1) {
@@ -700,27 +705,31 @@ function rebindEvents() {
                     repeatInterval = "weekday";
                 }
                 endingCount = $("#recurrNumber").val();
-                endingDate = $("#endEventRepeat").val();
+                if (endingCount.length) {
+                    endingCount = parseInt(endingCount, 10);
+                } else {
+                    endingCount = null;
+                }
+                endingDate = moment($("#endEventRepeat").val()).format();
+                recurr = {
+                    frequency: repeatInterval,
+                    ends_after: {
+                        occurences: endingCount,
+                        date: endingDate
+                    }
+                };
             } else if (isRecurring == false){
                 console.log("not recurring");
+                recurr = null;
             }
 
-            var eventEn = moment($("#eventEnd").val()).format();
-            repeatInterval = parseInt(repeatInterval, 10);
-            endingCount = parseInt(endingCount, 10);
             var data = {
                 event: {
                     title: eventTitle,
                     calendar_title: eventTitle,
                     description: eventDesc,
                     location: eventLoc,
-                    recurrence: {
-                        frequency: repeatInterval,
-                        ends_after: {
-                            occurences: endingCount,
-                            date: endingDate
-                        }
-                    },
+                    recurrence: recurr,
                     is_all_day: isAllDay,
                     recurring: isRecurring,
                     start_datetime: eventSt,
@@ -744,8 +753,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": userEmail,
-				"X-AUTHENTICATION-EMAIL": authToken
+				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
 			},
 			success: function (data) {
 				console.log(data);
@@ -853,8 +862,8 @@ function rebindEvents() {
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
-                "X-AUTHENTICATION-TOKEN": userEmail,
-                "X-AUTHENTICATION-EMAIL": authToken
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 console.log(data);
@@ -895,8 +904,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": userEmail,
-                    "X-AUTHENTICATION-EMAIL": authToken
+                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                 },
                 success: function (data) {
                     console.log(data);
@@ -1102,8 +1111,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": userEmail,
-                "X-AUTHENTICATION-EMAIL": authToken
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -1142,8 +1151,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": userEmail,
-                "X-AUTHENTICATION-EMAIL": authToken
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
@@ -1188,8 +1197,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": userEmail,
-                "X-AUTHENTICATION-EMAIL": authToken
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
@@ -1218,8 +1227,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": userEmail,
-                "X-AUTHENTICATION-EMAIL": authToken
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var arr = [];
@@ -1563,25 +1572,46 @@ function rebindEvents() {
     modal6Links.click(function(){ $('#openModal6').addClass('active'); });
 
 	// set current email
-    $("#eaddr option:first").html(authToken);
+    $("#eaddr option:first").html("hweaver@evenspring.com");
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": userEmail,
-            "X-AUTHENTICATION-EMAIL": authToken
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
         }
     };
+
     var contacts = new Bloodhound({
-      datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.email || ""); },
+      datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.emails[0] || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: {
+      /*prefetch: {
         url: 'http://daywon-api-staging.herokuapp.com/contacts',
         ajax: ajaxObj,
         filter: function(obj) {
           return obj.contacts;
         }
+      }*/
+      local: function(){
+        $.ajax({
+            type: 'GET',
+            url: 'http://daywon-api-staging.herokuapp.com/contacts',
+            contentType: "application/json",
+            dataType: "json",
+            headers: {
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            },
+            success: function (data) {
+                console.log("prefetched contact data: " + data);
+                return data;
+            },
+            error: function (e) {
+                alert("There was an error prefetching contacts: " + e);
+            }
+        });
       }
     });
+
     var events = new Bloodhound({
       datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
       queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -1878,8 +1908,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(payload),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": userEmail,
-                    "X-AUTHENTICATION-EMAIL": authToken
+                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                 },
                 success: function (data) {
                     console.log(data);
@@ -2046,8 +2076,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(payload),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": userEmail,
-                    "X-AUTHENTICATION-EMAIL": authToken
+                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                 },
                 success: function (data) {
                     console.log(data);
@@ -2188,8 +2218,8 @@ setTimeout(function(){
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": userEmail,
-                "X-AUTHENTICATION-EMAIL": authToken
+                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
