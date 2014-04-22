@@ -378,81 +378,82 @@ function rebindEvents() {
         $(".backArrow").click();
     });
 
-    $('.sidelist li').unbind("click").bind("click", function(event){
-        var itemList = $('.dashList li').index(this);
-        var infoPanels = $('.infopanel');
-        var detailsList = $('.textrow');
-        var phoneNo = $('.phonenumber');
-        var contLoc = $('.contactlocation');
-        var eField = $('.emailfield');
-        var clickedRow = $(event.target).closest('li');
-        $(".dashboardSorter").removeClass("selected");
-        $('.currentcontact').removeClass("currentcontact");
-        clickedRow.addClass("currentcontact");
-        $('.infopanel.selected').removeClass('selected');
-        if ($(".dashList").length) {
-            $(infoPanels[itemList]).addClass("selected");
-        } else {
-            if ($("#contactpanel2").length) {
-                $(infoPanels[0]).addClass("selected");
+    setTimeout(function(){
+        $('.sidelist li').unbind("click").bind("click", function(event){
+            var itemList = $('.dashList li').index(this);
+            var infoPanels = $('.infopanel');
+            var detailsList = $('.textrow');
+            var phoneNo = $('.phonenumber');
+            var contLoc = $('.contactlocation');
+            var eField = $('.emailfield');
+            var clickedRow = $(event.target).closest('li');
+            $(".dashboardSorter").removeClass("selected");
+            $('.currentcontact').removeClass("currentcontact");
+            clickedRow.addClass("currentcontact");
+            $('.infopanel.selected').removeClass('selected');
+            if ($(".dashList").length) {
+                $(infoPanels[itemList]).addClass("selected");
+            } else {
+                if ($("#contactpanel2").length) {
+                    $(infoPanels[0]).addClass("selected");
+                }
+                if ($("#eventpanel2").length) {
+                    $(infoPanels[1]).addClass("selected");
+                }
+                if ($("#taskpanel2").length) {
+                    $(infoPanels[2]).addClass("selected");
+                }
+                if ($("#tagpanel2").length) {
+                    $(infoPanels[3]).addClass("selected");
+                }
             }
-            if ($("#eventpanel2").length) {
-                $(infoPanels[1]).addClass("selected");
+            $("#eventpanel2").removeClass("dashRecent");
+            $("#eventpanel2").removeClass("dashTasks");
+            $("#eventpanel2").removeClass("dashEvents");
+            $("#eventpanel2").removeClass("dashTags");
+            if (itemList == 0) {
+                $("#eventpanel2").addClass("dashRecent");
+            } else if (itemList == 1) {
+                $("#eventpanel2").addClass("dashTasks");
+                $("#taskSorting").addClass("selected");
+            } else if (itemList == 2) {
+                $("#eventpanel2").addClass("dashEvents");
+                $("#eventSorting").addClass("selected");
+            } else if (itemList == 3) {
+                $("#eventpanel2").addClass("dashTags");
+                $("#tagSorting").addClass("selected");
             }
-            if ($("#taskpanel2").length) {
-                $(infoPanels[2]).addClass("selected");
-            }
-            if ($("#tagpanel2").length) {
-                $(infoPanels[3]).addClass("selected");
-            }
-        }
-        $("#eventpanel2").removeClass("dashRecent");
-        $("#eventpanel2").removeClass("dashTasks");
-        $("#eventpanel2").removeClass("dashEvents");
-        $("#eventpanel2").removeClass("dashTags");
-        if (itemList == 0) {
-            $("#eventpanel2").addClass("dashRecent");
-        } else if (itemList == 1) {
-            $("#eventpanel2").addClass("dashTasks");
-            $("#taskSorting").addClass("selected");
-        } else if (itemList == 2) {
-            $("#eventpanel2").addClass("dashEvents");
-            $("#eventSorting").addClass("selected");
-        } else if (itemList == 3) {
-            $("#eventpanel2").addClass("dashTags");
-            $("#tagSorting").addClass("selected");
-        }
-        var selectedObject = $(clickedRow).html();
-        var selectedObjectId;
-        $("#preloader").html(selectedObject);
-        $("#preloader script").remove();
-        selectedObject = $("#preloader > span:first-child").html();
-        selectedObjectId = $("#preloader > span:last-child").html();
-        $(".orphantitle").html(selectedObject);
-        $("#selectedID").html(selectedObjectId);
-        /*if (hasWhiteSpace(selectedObject)) {
-	        var splitString = $(selectedObject).html().split(" ");
-	        var splitString1 = splitString[0].toLowerCase();
-	        if (splitString.length > 1) {
-	            var splitString2 = splitString[1].toLowerCase();
-	        }
-    	}*/
+            var selectedObject = $(clickedRow).html();
+            var selectedObjectId;
+            $("#preloader").html(selectedObject);
+            $("#preloader script").remove();
+            selectedObject = $("#preloader > span:first-child").html();
+            selectedObjectId = $("#preloader > span:last-child").html();
+            $(".orphantitle").html(selectedObject);
+            $("#selectedID").html(selectedObjectId);
+            /*if (hasWhiteSpace(selectedObject)) {
+    	        var splitString = $(selectedObject).html().split(" ");
+    	        var splitString1 = splitString[0].toLowerCase();
+    	        if (splitString.length > 1) {
+    	            var splitString2 = splitString[1].toLowerCase();
+    	        }
+        	}*/
 
-        if ($(window).width() < 1025) {
-            $("#contactpanel2").addClass('mobileIn');
-            $("#eventpanel2").addClass('mobileIn');
-            $("#taskpanel2").addClass('mobileIn');
-            $("#tagpanel2").addClass('mobileIn');
-            if ($(".dashContent").length) {
-                var mobileContent = $(".dashContent");
-                $(mobileContent).removeClass("dashContent");
-                setTimeout(function(){
-                    $(mobileContent).addClass("dashContent");
-                }, 1);
+            if ($(window).width() < 1025) {
+                $("#contactpanel2").addClass('mobileIn');
+                $("#eventpanel2").addClass('mobileIn');
+                $("#taskpanel2").addClass('mobileIn');
+                $("#tagpanel2").addClass('mobileIn');
+                if ($(".dashContent").length) {
+                    var mobileContent = $(".dashContent");
+                    $(mobileContent).removeClass("dashContent");
+                    setTimeout(function(){
+                        $(mobileContent).addClass("dashContent");
+                    }, 1);
+                }
             }
-        }
-
-    });
+        });
+    }, 500);
 
     $("#recurring").unbind("click").bind("click", function(){
         var recurring = $("#recurring");
@@ -845,7 +846,7 @@ function rebindEvents() {
         }
 
         var showPopupMessage = function(target, message, style) {
-            var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
+            var statusPopup = new Opentip($('#associationForm'), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
             statusPopup.show();
             statusPopup.container.css('z-index', 100000);
             setTimeout(function() {
@@ -854,26 +855,34 @@ function rebindEvents() {
             }, 2000);
         };
 
-        $.ajax({
-            type: 'PUT',
-            url: url,
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(data),
-            headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
-            },
-            success: function (data) {
-                console.log(data);
-                showPopupMessage(event.target, "Successfully edited " + orphanName, "success");
-                setTimeout(refetchTypeaheadData, 1000);
-            },
-            error: function (e) {
-                console.log(e.statusText);
-                showPopupMessage(event.target, "Error editting " + orphanName, "error");
-            }
-        });
+        if (orphanName === "Select an orphan") {
+            showPopupMessage(event.target, "Please select an orphan", "error");
+        } else {
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(data),
+                headers: {
+                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                },
+                success: function (data) {
+                    console.log(data);
+                    showPopupMessage(event.target, "Successfully edited " + orphanName, "success");
+                    $('.currentcontact').remove();
+                    $('#contactname').html("Select an orphan");
+                    var orphanLength = $('.orphanList li').length;
+                    $("#itemCount").html(orphanLength);
+                    setTimeout(refetchTypeaheadData, 1000);
+                },
+                error: function (e) {
+                    console.log(e.statusText);
+                    showPopupMessage(event.target, "Error editting " + orphanName, "error");
+                }
+            });
+        }
         return false;
     });
 
@@ -1253,6 +1262,13 @@ function rebindEvents() {
             }
         });
     }
+
+    setTimeout(function(){
+        if ($("#associationForm").length) {
+            var orphanLength = $('.orphanList li').length;
+            $("#itemCount").html(orphanLength);
+        }
+    }, 300);
 
     /*if ($('#calendarcont').length) {
         $('#calendarcont').fullCalendar({

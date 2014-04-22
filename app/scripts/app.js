@@ -310,8 +310,10 @@ App.EventsController = Ember.ArrayController.extend({
         return sorted;
 	}.property('showOption', 'showProperty', 'model.@each.due', 'sortProperties'),
 	eventOrphans: function(a) {
-		var oList = this.store.find('event', {is_orphan: true});
-		return oList;
+		var oList = this.store;
+		return oList.filter('event', {is_orphan: true}, function(event) {
+			return event.get('is_orphan');
+		});
 	}.property('events'),
 	showOptions: [
 		{label: "All", id: "all", showProperty: "updated_at"},
@@ -411,8 +413,10 @@ App.TasksController = Ember.ArrayController.extend({
         return sorted;
 	}.property('showOption', 'model.@each.due', 'sortProperties'),
 	taskOrphans: function(a) {
-		var oList = this.store.find('task', {is_orphan: true});
-		return oList;
+		var oList = this.store;
+		return oList.filter('task', {is_orphan: true}, function(task) {
+			return task.get('is_orphan');
+		});
 	}.property('tasks'),
 	sortOptions: [
 		{label: "Tasks with no dates", primarySort: "noDate", secondarySort: "due", ascending: false},
@@ -481,8 +485,10 @@ App.TagsController = Ember.ArrayController.extend({
         return sorted;
 	}.property('showOption', 'model.@each.due', 'sortProperties'),
 	tagOrphans: function(a) {
-		var oList = this.store.find('tag', {is_orphan: 'true'});
-		return oList;
+		var oList = this.store;
+		return oList.filter('tag', {is_orphan: true}, function(tag) {
+			return tag.get('is_orphan');
+		});
 	}.property('tags'),
 	showOptions: [
 		{label: "Today", id: "today", showProperty: "start_datetime"},

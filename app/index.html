@@ -1923,7 +1923,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding">Orphan Events (<span id="itemCount">{{oEvents.length}}</span>)</h1>
+                  <h1 class="contactpadding">Orphan Events (<span id="itemCount"></span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1955,7 +1955,7 @@
           <div class="col-md-7" id="eventpanel2">
             <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
             <img src="img/arrow.png" class="backArrow" />
-            <h2 id="contactname" class="taskname orphantitle">Select an Orphan Event</h2>
+            <h2 id="contactname" class="taskname orphantitle">Select an orphan</h2>
             <div class="panelcontent dashContent" id="eventscontent">              
               <form id="associationForm">
                 <div class="formrow">Search related items: <br />
@@ -1980,7 +1980,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount">{{tasksToShow.length}}</span>)</h1>
+                  <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount"></span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -2020,7 +2020,7 @@
           <div class="col-md-7" id="taskpanel2">
             <h1 id="mobileContact" class="eventDetailHeader">Tasks</h1>
             <img src="img/arrow.png" class="backArrow" />
-            <h2 id="contactname" class="taskname orphantitle">Select an Orphan Task</h2>
+            <h2 id="contactname" class="taskname orphantitle">Select an orphan</h2>
             <div class="panelcontent dashContent" id="eventscontent">              
               <form id="associationForm">
                 <div class="formrow">Search related items: <br />
@@ -2045,7 +2045,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount">{{tagsToShow.length}}</span>)</h1>
+                  <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount"></span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -2063,10 +2063,8 @@
                     {{#each tag in oTags}}
                       {{#if tag.is_orphan}}
                         <li><span>{{tag.name}}</span><span style="display:none">{{tag.id}}</span></li>
-                      {{else}}
-                        <li><span>{{tag.is_orphan}}</span><span style="display:none">{{tag.id}}</span></li>
                       {{/if}}
-                    {{/each}}                 
+                    {{/each}}               
                   </ul>
                   <span id="selectedID"></span>
                 </div>
@@ -2079,7 +2077,7 @@
           <div class="col-md-7" id="tagpanel2">
             <h1 id="mobileContact" class="eventDetailHeader">Tags</h1>
             <img src="img/arrow.png" class="backArrow" />
-            <h2 id="contactname" class="taskname orphantitle">Select an Orphan Tag</h2>
+            <h2 id="contactname" class="taskname orphantitle">Select an orphan</h2>
             <div class="panelcontent dashContent" id="eventscontent">              
               <form id="associationForm">
                 <div class="formrow">Search related items: <br />
