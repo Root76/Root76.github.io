@@ -714,7 +714,6 @@ function rebindEvents() {
                 recurr = {
                     frequency: repeatInterval,
                     ends_after: {
-                        occurences: endingCount,
                         date: endingDate
                     }
                 };
@@ -1581,348 +1580,393 @@ function rebindEvents() {
         }
     };
 
-    var contacts = new Bloodhound({
-      datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.emails[0] || ""); },
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      /*prefetch: {
+    $.ajax({
+        type: 'GET',
         url: 'http://daywon-api-staging.herokuapp.com/contacts',
-        ajax: ajaxObj,
-        filter: function(obj) {
-          return obj.contacts;
-        }
-      }*/
-      local: function(){
-        $.ajax({
-            type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/contacts',
-            contentType: "application/json",
-            dataType: "json",
-            headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
-            },
-            success: function (data) {
-                console.log("prefetched contact data: " + data);
-                return data;
-            },
-            error: function (e) {
-                alert("There was an error prefetching contacts: " + e);
-            }
-        });
-      }
-    });
-
-    var events = new Bloodhound({
-      datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/events',
-        ajax: ajaxObj,
-        filter: function(obj) {
-          return obj.events;
-        }
-      }
-    });
-    var tasks = new Bloodhound({
-      datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/tasks',
-        ajax: ajaxObj,
-        filter: function(obj) {
-          return obj.tasks;
-        }
-      }
-    });
-    var tags = new Bloodhound({
-      datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: {
-        url: 'http://daywon-api-staging.herokuapp.com/tags',
-        ajax: ajaxObj,
-        filter: function(obj) {
-          return obj.tags;
-        }
-      }
-    });
-
-    contacts.initialize();
-    events.initialize();
-    tasks.initialize();
-    tags.initialize();
-
-    window.refetchTypeaheadData = function() {
-        localStorage.clear();
-        contacts.index.datums = [];
-        contacts._loadPrefetch(contacts.prefetch);
-        events.index.datums = [];
-        events._loadPrefetch(events.prefetch);
-        tasks.index.datums = [];
-        tasks._loadPrefetch(tasks.prefetch);
-        tags.index.datums = [];
-        tags._loadPrefetch(tags.prefetch);
-    };
-
-    var contactsDatasource = {
-        name: 'Contacts',
-        displayKey: 'name',
-        source: contacts.ttAdapter(),
-        templates: {
-            header: '<h2>Contacts</h2>'
-        }
-    };
-    var eventsDatasource = {
-        name: 'Events',
-        displayKey: 'title',
-        source: events.ttAdapter(),
-        templates: {
-            header: '<h2>Events</h2>'
-        }
-    };
-    var tasksDatasource = {
-        name: 'Tasks',
-        displayKey: 'title',
-        source: tasks.ttAdapter(),
-        templates: {
-            header: '<h2>Tasks</h2>'
-        }
-    };
-    var tagsDatasource = {
-        name: 'Tags',
-        displayKey: 'name',
-        source: tags.ttAdapter(),
-        templates: {
-            header: '<h2>Tags</h2>'
-        }
-    };
-    var typeaheadOptions = {
-        highlight: true
-    };
-    var onTypeaheadSelected = function (obj, datum) {
-        $(obj.target).typeahead('val', '');
-
-        var objectID;
-        var displayText;
-        var extraClasses;
-        //check which object has been selected
-        if (datum.hasOwnProperty('organization')) { // contact
-            objectID = 'contact' + datum.id;
-            displayText = datum.name;
-            extraClasses = "association contactAssociation";
-        } else if (datum.hasOwnProperty('start_datetime')) { // event
-            objectID = 'event' + datum.id;
-            displayText = datum.title;
-            extraClasses = "association eventAssociation";
-        } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
-            objectID = 'task' + datum.id;
-            displayText = datum.title;
-            extraClasses = "association taskAssociation";
-        } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
-            objectID = 'tag' + datum.id;
-            displayText = datum.name;
-            extraClasses = "association tagAssociation";
-        } else { // invalid
-            console.log("Unknown datum selected: " + datum);
-        }
-        if (objectID && displayText) {
-            if ($(".relatedOrphans").length) {
-                var itemList = $(".relatedOrphans > ul");
-            } else {
-                var itemList = $(".relatedList > ul", ".createForm.selected");
-            }
-            var existingItems = $('[objectid=' + objectID + ']', itemList);
-            if (existingItems.length === 0) {
-                var newRow = $('<li objectid="' + objectID + '" class="' + extraClasses + '"><span>' + displayText + '</span><img src="img/close.png"></li>');
-                $('img', newRow).click(function() { newRow.remove(); });
-                itemList.append(newRow);
-            }
-        }
-    };
-
-    var addSelectedObject = function (obj, datum) {
-        $(obj.target).typeahead('val', '');
-        var mainObjectId = $('#contactname span').html();
-        $("#scriptRemover").html(mainObjectId);
-        $("#scriptRemover").find('script').remove();
-        mainObjectId = $("#scriptRemover").html();
-        $("#scriptRemover").html("");
-        console.log("main object:" + mainObjectId);
-        var mainObjectType;
-        if ($("#contactname").hasClass('contactname')) {
-            mainObjectType = "contact";
-        } else if ($("#contactname").hasClass('eventname')) {
-            mainObjectType = "event";
-        } else if ($("#contactname").hasClass('taskname')) {
-            mainObjectType = "task";
-        } else if ($("#contactname").hasClass('tagname')) {
-            mainObjectType = "tag";
-        }
-        console.log("object type:" + mainObjectType);
-        var objectID;
-        var displayText;
-        var objImage;
-        var payload;
-        var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
-        //check which object has been selected
-        if (datum.hasOwnProperty('organization')) { // contact
-            objectID = 'contact' + datum.id;
-            displayText = datum.name;
-            objImage = "contact";
-        } else if (datum.hasOwnProperty('start_datetime')) { // event
-            objectID = 'event' + datum.id;
-            displayText = datum.title;
-            objImage = "events";
-        } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
-            objectID = 'task' + datum.id;
-            displayText = datum.title;
-            objImage = "tasks";
-        } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
-            objectID = 'tag' + datum.id;
-            displayText = datum.name;
-            objImage = "tags";
-        } else { // invalid
-            console.log("Unknown datum selected: " + datum);
-        }
-        if (objectID && displayText) {
-            var itemList = $(".infopanel.selected");
-            var existingItems = $('[objectid=' + objectID + ']', itemList);
-            if (existingItems.length === 0) {
-                var newRow = $('<div objectid="' + objectID + '" class="contactrow tagrow"><img src="img/' + objImage + '.png"><h4>' + displayText + '</h4><span class="hidden">' + datum.id + '</span><img src="img/close.png" class="removeAssoc" /></div>');
-                $('img', newRow).click(function() { newRow.remove(); });
-                itemList.append(newRow);
-            }
-            var allObjects = $('.infopanel.selected .contactrow');
-            var objectArray = new Array();
-            var thisObjId;
-            for (var i = 0; i < allObjects.length; i++) {
-                thisObjId = $(allObjects[i]).find('span').html();
-                $("#scriptRemover").html(thisObjId);
-                $("#scriptRemover").find("script").remove();
-                thisObjId = $("#scriptRemover").html();
-                $("#scriptRemover").html("");
-                objectArray[i] = thisObjId;
-            }
-            if (objImage === "contact") {
-                if (mainObjectType === "event") {
-                    payload = {
-                        event: {
-                            contact_ids: objectArray
-                        }
-                    }
-                } else if (mainObjectType === "task") {
-                    payload = {
-                        task: {
-                            contact_ids: objectArray
-                        }
-                    }
-                } else if (mainObjectType === "tag") {
-                    payload = {
-                        tag: {
-                            contact_ids: objectArray
-                        }
-                    }
+        contentType: "application/json",
+        dataType: "json",
+        headers: {
+            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+        },
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].emails.length > 0) {
+                    data[i].firstEmail = data[i].emails[0].email;
                 }
-                console.log(payload);
             }
-            else if (objImage === "events") {
-                if (mainObjectType === "contact") {
-                    payload = {
-                        contact: {
-                            event_ids: objectArray
-                        }
-                    }
-                } else if (mainObjectType === "task") {
-                    payload = {
-                        task: {
-                            event_ids: objectArray
-                        }
-                    }
-                } else if (mainObjectType === "tag") {
-                    payload = {
-                        tag: {
-                            event_ids: objectArray
-                        }
-                    }
-                }
-                console.log(payload);
-            }
-            else if (objImage === "tasks") {
-                if (mainObjectType === "contact") {
-                    payload = {
-                        contact: {
-                            task_ids: objectArray
-                        }
-                    }
-                } else if (mainObjectType === "event") {
-                    payload = {
-                        event: {
-                            task_ids: objectArray
-                        }
-                    }
-                } else if (mainObjectType === "tag") {
-                    payload = {
-                        tag: {
-                            task_ids: objectArray
-                        }
-                    }
-                }
-                console.log(payload);
-            }
-            else if (objImage === "tags") {
-                if (mainObjectType === "contact") {
-                    payload = {
-                        contact: {
-                            tag_ids: objectArray
-                        }
-                    }
-                } else if (mainObjectType === "event") {
-                    payload = {
-                        event: {
-                            tag_ids: objectArray
-                        }
-                    }
-                } else if (mainObjectType === "task") {
-                    payload = {
-                        task: {
-                            tag_ids: objectArray
-                        }
-                    }
-                }
-                console.log(payload);
-            }
+            var contacts = new Bloodhound({
+              datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.firstEmail || ""); },
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              local: data
+            });
 
-            var showPopupMessage = function(target, message, style) {
-                var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
-                statusPopup.show();
-                statusPopup.container.css('z-index', 100000);
-                setTimeout(function() {
-                    statusPopup.hide();
-                    setTimeout($('.close').click(), 300);
-                }, 2000);
+            var events = new Bloodhound({
+              datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              prefetch: {
+                url: 'http://daywon-api-staging.herokuapp.com/events',
+                ajax: ajaxObj,
+                filter: function(obj) {
+                  return obj.events;
+                }
+              }
+            });
+            var tasks = new Bloodhound({
+              datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              prefetch: {
+                url: 'http://daywon-api-staging.herokuapp.com/tasks',
+                ajax: ajaxObj,
+                filter: function(obj) {
+                  return obj.tasks;
+                }
+              }
+            });
+            var tags = new Bloodhound({
+              datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              prefetch: {
+                url: 'http://daywon-api-staging.herokuapp.com/tags',
+                ajax: ajaxObj,
+                filter: function(obj) {
+                  return obj.tags;
+                }
+              }
+            });
+
+            contacts.initialize();
+            events.initialize();
+            tasks.initialize();
+            tags.initialize();
+
+            window.refetchTypeaheadData = function() {
+                localStorage.clear();
+                events.index.datums = [];
+                events._loadPrefetch(events.prefetch);
+                tasks.index.datums = [];
+                tasks._loadPrefetch(tasks.prefetch);
+                tags.index.datums = [];
+                tags._loadPrefetch(tags.prefetch);
             };
 
-            $.ajax({
-                type: 'PUT',
-                url: url,
-                contentType: "application/json",
-                dataType: "json",
-                data: JSON.stringify(payload),
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
-                },
-                success: function (data) {
-                    console.log(data);
-                    showPopupMessage("#contactname", "Successfully associated object");
-                    setTimeout(refetchTypeaheadData, 1000);
-                },
-                error: function (e) {
-                    console.log(e.statusText);
-                    showPopupMessage("#contactname", "Error associating object");
+            var contactsDatasource = {
+                name: 'Contacts',
+                displayKey: 'name',
+                source: contacts.ttAdapter(),
+                templates: {
+                    header: '<h2>Contacts</h2>'
                 }
-            });
+            };
+            var eventsDatasource = {
+                name: 'Events',
+                displayKey: 'title',
+                source: events.ttAdapter(),
+                templates: {
+                    header: '<h2>Events</h2>'
+                }
+            };
+            var tasksDatasource = {
+                name: 'Tasks',
+                displayKey: 'title',
+                source: tasks.ttAdapter(),
+                templates: {
+                    header: '<h2>Tasks</h2>'
+                }
+            };
+            var tagsDatasource = {
+                name: 'Tags',
+                displayKey: 'name',
+                source: tags.ttAdapter(),
+                templates: {
+                    header: '<h2>Tags</h2>'
+                }
+            };
+            var typeaheadOptions = {
+                highlight: true
+            };
+            var onTypeaheadSelected = function (obj, datum) {
+                $(obj.target).typeahead('val', '');
+
+                var objectID;
+                var displayText;
+                var extraClasses;
+                //check which object has been selected
+                if (datum.hasOwnProperty('organization')) { // contact
+                    objectID = 'contact' + datum.id;
+                    displayText = datum.name;
+                    extraClasses = "association contactAssociation";
+                } else if (datum.hasOwnProperty('start_datetime')) { // event
+                    objectID = 'event' + datum.id;
+                    displayText = datum.title;
+                    extraClasses = "association eventAssociation";
+                } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
+                    objectID = 'task' + datum.id;
+                    displayText = datum.title;
+                    extraClasses = "association taskAssociation";
+                } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
+                    objectID = 'tag' + datum.id;
+                    displayText = datum.name;
+                    extraClasses = "association tagAssociation";
+                } else { // invalid
+                    console.log("Unknown datum selected: " + datum);
+                }
+                if (objectID && displayText) {
+                    if ($(".relatedOrphans").length) {
+                        var itemList = $(".relatedOrphans > ul");
+                    } else {
+                        var itemList = $(".relatedList > ul", ".createForm.selected");
+                    }
+                    var existingItems = $('[objectid=' + objectID + ']', itemList);
+                    if (existingItems.length === 0) {
+                        var newRow = $('<li objectid="' + objectID + '" class="' + extraClasses + '"><span>' + displayText + '</span><img src="img/close.png"></li>');
+                        $('img', newRow).click(function() { newRow.remove(); });
+                        itemList.append(newRow);
+                    }
+                }
+            };
+
+            var addSelectedObject = function (obj, datum) {
+                $(obj.target).typeahead('val', '');
+                var mainObjectId = $('#contactname span').html();
+                $("#scriptRemover").html(mainObjectId);
+                $("#scriptRemover").find('script').remove();
+                mainObjectId = $("#scriptRemover").html();
+                $("#scriptRemover").html("");
+                console.log("main object:" + mainObjectId);
+                var mainObjectType;
+                if ($("#contactname").hasClass('contactname')) {
+                    mainObjectType = "contact";
+                } else if ($("#contactname").hasClass('eventname')) {
+                    mainObjectType = "event";
+                } else if ($("#contactname").hasClass('taskname')) {
+                    mainObjectType = "task";
+                } else if ($("#contactname").hasClass('tagname')) {
+                    mainObjectType = "tag";
+                }
+                console.log("object type:" + mainObjectType);
+                var objectID;
+                var displayText;
+                var objImage;
+                var payload;
+                var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
+                //check which object has been selected
+                if (datum.hasOwnProperty('organization')) { // contact
+                    objectID = 'contact' + datum.id;
+                    displayText = datum.name;
+                    objImage = "contact";
+                } else if (datum.hasOwnProperty('start_datetime')) { // event
+                    objectID = 'event' + datum.id;
+                    displayText = datum.title;
+                    objImage = "events";
+                } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
+                    objectID = 'task' + datum.id;
+                    displayText = datum.title;
+                    objImage = "tasks";
+                } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
+                    objectID = 'tag' + datum.id;
+                    displayText = datum.name;
+                    objImage = "tags";
+                } else { // invalid
+                    console.log("Unknown datum selected: " + datum);
+                }
+                if (objectID && displayText) {
+                    var itemList = $(".infopanel.selected");
+                    var existingItems = $('[objectid=' + objectID + ']', itemList);
+                    if (existingItems.length === 0) {
+                        var newRow = $('<div objectid="' + objectID + '" class="contactrow tagrow"><img src="img/' + objImage + '.png"><h4>' + displayText + '</h4><span class="hidden">' + datum.id + '</span><img src="img/close.png" class="removeAssoc" /></div>');
+                        $('img', newRow).click(function() { newRow.remove(); });
+                        itemList.append(newRow);
+                    }
+                    var allObjects = $('.infopanel.selected .contactrow');
+                    var objectArray = new Array();
+                    var thisObjId;
+                    for (var i = 0; i < allObjects.length; i++) {
+                        thisObjId = $(allObjects[i]).find('span').html();
+                        $("#scriptRemover").html(thisObjId);
+                        $("#scriptRemover").find("script").remove();
+                        thisObjId = $("#scriptRemover").html();
+                        $("#scriptRemover").html("");
+                        objectArray[i] = thisObjId;
+                    }
+                    if (objImage === "contact") {
+                        if (mainObjectType === "event") {
+                            payload = {
+                                event: {
+                                    contact_ids: objectArray
+                                }
+                            }
+                        } else if (mainObjectType === "task") {
+                            payload = {
+                                task: {
+                                    contact_ids: objectArray
+                                }
+                            }
+                        } else if (mainObjectType === "tag") {
+                            payload = {
+                                tag: {
+                                    contact_ids: objectArray
+                                }
+                            }
+                        }
+                        console.log(payload);
+                    }
+                    else if (objImage === "events") {
+                        if (mainObjectType === "contact") {
+                            payload = {
+                                contact: {
+                                    event_ids: objectArray
+                                }
+                            }
+                        } else if (mainObjectType === "task") {
+                            payload = {
+                                task: {
+                                    event_ids: objectArray
+                                }
+                            }
+                        } else if (mainObjectType === "tag") {
+                            payload = {
+                                tag: {
+                                    event_ids: objectArray
+                                }
+                            }
+                        }
+                        console.log(payload);
+                    }
+                    else if (objImage === "tasks") {
+                        if (mainObjectType === "contact") {
+                            payload = {
+                                contact: {
+                                    task_ids: objectArray
+                                }
+                            }
+                        } else if (mainObjectType === "event") {
+                            payload = {
+                                event: {
+                                    task_ids: objectArray
+                                }
+                            }
+                        } else if (mainObjectType === "tag") {
+                            payload = {
+                                tag: {
+                                    task_ids: objectArray
+                                }
+                            }
+                        }
+                        console.log(payload);
+                    }
+                    else if (objImage === "tags") {
+                        if (mainObjectType === "contact") {
+                            payload = {
+                                contact: {
+                                    tag_ids: objectArray
+                                }
+                            }
+                        } else if (mainObjectType === "event") {
+                            payload = {
+                                event: {
+                                    tag_ids: objectArray
+                                }
+                            }
+                        } else if (mainObjectType === "task") {
+                            payload = {
+                                task: {
+                                    tag_ids: objectArray
+                                }
+                            }
+                        }
+                        console.log(payload);
+                    }
+
+                    var showPopupMessage = function(target, message, style) {
+                        var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
+                        statusPopup.show();
+                        statusPopup.container.css('z-index', 100000);
+                        setTimeout(function() {
+                            statusPopup.hide();
+                            setTimeout($('.close').click(), 300);
+                        }, 2000);
+                    };
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: url,
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: JSON.stringify(payload),
+                        headers: {
+                            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            showPopupMessage("#contactname", "Successfully associated object");
+                            setTimeout(refetchTypeaheadData, 1000);
+                        },
+                        error: function (e) {
+                            console.log(e.statusText);
+                            showPopupMessage("#contactname", "Error associating object");
+                        }
+                    });
+                }
+            };
+
+            $("#typeAheadContact").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
+                .on('typeahead:selected', onTypeaheadSelected);
+            $("#typeAheadEvent").typeahead(typeaheadOptions, contactsDatasource, tasksDatasource, tagsDatasource)
+                .on('typeahead:selected', onTypeaheadSelected);
+            $("#typeAheadTask").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tagsDatasource)
+                .on('typeahead:selected', onTypeaheadSelected);
+            $("#typeAheadTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
+                .on('typeahead:selected', onTypeaheadSelected);
+            $("#typeAheadOrphanEvent").typeahead(typeaheadOptions, contactsDatasource, tasksDatasource, tagsDatasource)
+                .on('typeahead:selected', onTypeaheadSelected);
+            $("#typeAheadOrphanTask").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tagsDatasource)
+                .on('typeahead:selected', onTypeaheadSelected);     
+            $("#typeAheadOrphanTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
+                .on('typeahead:selected', onTypeaheadSelected);
+            $("#typeAheadAddContact").typeahead(typeaheadOptions, contactsDatasource)
+                .on('typeahead:selected', addSelectedObject);
+            $("#typeAheadAddEvent").typeahead(typeaheadOptions, eventsDatasource)
+                .on('typeahead:selected', addSelectedObject);
+            $("#typeAheadAddTask").typeahead(typeaheadOptions, tasksDatasource)
+                .on('typeahead:selected', addSelectedObject);
+            $("#typeAheadAddTag").typeahead(typeaheadOptions, tagsDatasource)
+                .on('typeahead:selected', addSelectedObject);
+
+            window.bindSearchField = function(a, b, c) {
+                var searchAll = $("#searchAll");
+                if (searchAll.hasClass('tt-input'))
+                    return;
+
+                var searchTypeaheadOptions = $.extend({}, typeaheadOptions);
+                searchTypeaheadOptions.hint = false;
+                searchAll.typeahead(searchTypeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource, tagsDatasource)
+                    .on('typeahead:selected',  function(obj, datum) {
+                        $(obj.target).typeahead('val', '');
+
+                        var id = datum.id;
+                        if (datum.hasOwnProperty('organization')) { // contact
+                            document.location.href = document.location.href.split('#')[0] + '#/contacts/' + id;
+                        } else if (datum.hasOwnProperty('start_datetime')) { // event
+                            document.location.href = document.location.href.split('#')[0] + '#/events/' + id;
+                        } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
+                            document.location.href = document.location.href.split('#')[0] + '#/tasks/' + id;
+                        } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
+                            document.location.href = document.location.href.split('#')[0] + '#/tags/' + id;
+                        } else { // invalid
+                        }
+                    });
+                searchAll.focus();
+            };
+
+        },
+        error: function (e) {
+            alert("There was an error prefetching contacts: " + e);
         }
-    };
+    });
+
+    
 
     setTimeout(function(){
         $('.removeAssoc').click(function(){
@@ -2091,56 +2135,6 @@ function rebindEvents() {
             });
         });
     }, 2000);
-
-    $("#typeAheadContact").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
-        .on('typeahead:selected', onTypeaheadSelected);
-    $("#typeAheadEvent").typeahead(typeaheadOptions, contactsDatasource, tasksDatasource, tagsDatasource)
-        .on('typeahead:selected', onTypeaheadSelected);
-    $("#typeAheadTask").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tagsDatasource)
-        .on('typeahead:selected', onTypeaheadSelected);
-    $("#typeAheadTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
-        .on('typeahead:selected', onTypeaheadSelected);
-    $("#typeAheadOrphanEvent").typeahead(typeaheadOptions, contactsDatasource, tasksDatasource, tagsDatasource)
-        .on('typeahead:selected', onTypeaheadSelected);
-    $("#typeAheadOrphanTask").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tagsDatasource)
-        .on('typeahead:selected', onTypeaheadSelected);     
-    $("#typeAheadOrphanTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
-        .on('typeahead:selected', onTypeaheadSelected);
-    $("#typeAheadAddContact").typeahead(typeaheadOptions, contactsDatasource)
-        .on('typeahead:selected', addSelectedObject);
-    $("#typeAheadAddEvent").typeahead(typeaheadOptions, eventsDatasource)
-        .on('typeahead:selected', addSelectedObject);
-    $("#typeAheadAddTask").typeahead(typeaheadOptions, tasksDatasource)
-        .on('typeahead:selected', addSelectedObject);
-    $("#typeAheadAddTag").typeahead(typeaheadOptions, tagsDatasource)
-        .on('typeahead:selected', addSelectedObject);
-
-    window.bindSearchField = function(a, b, c) {
-        var searchAll = $("#searchAll");
-        if (searchAll.hasClass('tt-input'))
-            return;
-
-        var searchTypeaheadOptions = $.extend({}, typeaheadOptions);
-        searchTypeaheadOptions.hint = false;
-        searchAll.typeahead(searchTypeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource, tagsDatasource)
-            .on('typeahead:selected',  function(obj, datum) {
-                $(obj.target).typeahead('val', '');
-
-                var id = datum.id;
-                if (datum.hasOwnProperty('organization')) { // contact
-                    document.location.href = document.location.href.split('#')[0] + '#/contacts/' + id;
-                } else if (datum.hasOwnProperty('start_datetime')) { // event
-                    document.location.href = document.location.href.split('#')[0] + '#/events/' + id;
-                } else if (datum.hasOwnProperty('notes') && datum.hasOwnProperty('due')) { // task
-                    document.location.href = document.location.href.split('#')[0] + '#/tasks/' + id;
-                } else if (datum.hasOwnProperty('name') && datum.hasOwnProperty('id')) { // tag
-                    document.location.href = document.location.href.split('#')[0] + '#/tags/' + id;
-                } else { // invalid
-                }
-            });
-        searchAll.focus();
-    };
-
 }
 
 setTimeout(function(){

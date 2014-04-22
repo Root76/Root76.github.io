@@ -310,7 +310,7 @@ App.EventsController = Ember.ArrayController.extend({
         return sorted;
 	}.property('showOption', 'showProperty', 'model.@each.due', 'sortProperties'),
 	eventOrphans: function(a) {
-		var oList = this.store.find('event', {is_orphan: 'true'});
+		var oList = this.store.find('event', {is_orphan: true});
 		return oList;
 	}.property('events'),
 	showOptions: [
@@ -410,7 +410,10 @@ App.TasksController = Ember.ArrayController.extend({
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
 	}.property('showOption', 'model.@each.due', 'sortProperties'),
-	
+	taskOrphans: function(a) {
+		var oList = this.store.find('task', {is_orphan: true});
+		return oList;
+	}.property('tasks'),
 	sortOptions: [
 		{label: "Tasks with no dates", primarySort: "noDate", secondarySort: "due", ascending: false},
 		{label: "Tasks with dates", primarySort: "hasDate", secondarySort: "due", ascending: false},
@@ -477,7 +480,10 @@ App.TagsController = Ember.ArrayController.extend({
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
 	}.property('showOption', 'model.@each.due', 'sortProperties'),
-	
+	tagOrphans: function(a) {
+		var oList = this.store.find('tag', {is_orphan: 'true'});
+		return oList;
+	}.property('tags'),
 	showOptions: [
 		{label: "Today", id: "today", showProperty: "start_datetime"},
 		{label: "Tomorrow", id: "tomorrow", showProperty: "start_datetime"},
@@ -656,7 +662,7 @@ App.OrphaneventsController = Ember.ArrayController.extend({
     eventsController: Ember.computed.alias("controllers.events"),
     sortProperties: ['start_datetime'],
     sortAscending: false,
-	eventsToShow: function() { 
+	oEvents: function() { 
 		var sorted = this.get('eventsController').get('eventOrphans');
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
@@ -668,11 +674,11 @@ App.OrphantasksController = Ember.ArrayController.extend({
     tasksController: Ember.computed.alias("controllers.tasks"),
     sortProperties: ['due'],
     sortAscending: false,
-	tasksToShow: function() { 
-		var sorted = this.get('tasksController').get('tasksToShow');
+	oTasks: function() { 
+		var sorted = this.get('tasksController').get('taskOrphans');
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
-	}.property('tasksController.tasksToShow'),	
+	}.property('tasksController.taskOrphans')
 });
 
 App.OrphantagsController = Ember.ArrayController.extend({
@@ -680,11 +686,11 @@ App.OrphantagsController = Ember.ArrayController.extend({
     tagsController: Ember.computed.alias("controllers.tags"),
     sortProperties: ['name'],
     sortAscending: true,
-	tagsToShow: function() { 
-		var sorted = this.get('tagsController').get('tagsToShow');
+	oTags: function() { 
+		var sorted = this.get('tagsController').get('tagOrphans');
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
-	}.property('tagsController.tagsToShow'),	
+	}.property('tagsController.tagOrphans')
 });
 
 /***Models***/
@@ -812,7 +818,6 @@ App.Event = DS.Model.extend({
     start_displayformatted: function() {
     	return Utility.convertToReadableDate(this.get('start_datetime')) || "N/A";
     }.property('start_datetime'),
-
     end_inputformatted: function(key, value) {
 	    if (arguments.length > 1) {
 	    	var date = moment(value);

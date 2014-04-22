@@ -1923,7 +1923,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding">Orphan Events (<span id="itemCount">{{eventsToShow.length}}</span>)</h1>
+                  <h1 class="contactpadding">Orphan Events (<span id="itemCount">{{oEvents.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1938,7 +1938,7 @@
                     </div>
                   </div>
                   <ul id="eventlist" class="sidelist orphanList">
-                    {{#each event in eventsToShow}}
+                    {{#each event in oEvents}}
                       {{#if event.title}}
                         <li><span>{{event.title}}</span><span style="display:none">{{event.id}}</span></li>
                       {{/if}}
@@ -2001,7 +2001,7 @@
                   <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
                   <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
                   <ul id="tasklist" class="sidelist orphanList">
-                    {{#each task in tasksToShow}}
+                    {{#each task in oTasks}}
                       {{#if task.title}}
                         <li><span>{{task.title}}</span><span style="display:none">{{task.id}}</span></li>
                       {{else}}
@@ -2060,9 +2060,11 @@
                     </div>
                   </div>
                   <ul id="taglist" class="sidelist orphanList">
-                    {{#each tag in tagsToShow}}
-                      {{#if tag.name}}
+                    {{#each tag in oTags}}
+                      {{#if tag.is_orphan}}
                         <li><span>{{tag.name}}</span><span style="display:none">{{tag.id}}</span></li>
+                      {{else}}
+                        <li><span>{{tag.is_orphan}}</span><span style="display:none">{{tag.id}}</span></li>
                       {{/if}}
                     {{/each}}                 
                   </ul>
