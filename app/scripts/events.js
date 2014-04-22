@@ -111,12 +111,12 @@ function rebindEvents() {
 
                     $.ajax({
                         type: 'GET',
-                        url: 'http://daywon-api-staging.herokuapp.com/' + objectType + "/" + thisId,
+                        url: 'http://daywon-api-prod.herokuapp.com/' + objectType + "/" + thisId,
                         contentType: "application/json",
                         dataType: "json",
                         headers: {
-                            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                            "X-AUTHENTICATION-TOKEN": authToken,
+                            "X-AUTHENTICATION-EMAIL": userEmail
                         },
                         success: function (data) {
                             console.log("original data: " + data['events']);
@@ -612,7 +612,7 @@ function rebindEvents() {
                     task_ids: taskIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tags";
+			url = "http://daywon-api-prod.herokuapp.com/tags";
 			objectDescription = "Tag: " + tagTitle;
         } else if ($(event.target).parent().hasClass("createTask")) {
             var taskTitle = $("#taskName").val();
@@ -633,7 +633,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tasks";
+			url = "http://daywon-api-prod.herokuapp.com/tasks";
 			objectDescription = "Task: " + taskTitle;
         } else if ($(event.target).parent().hasClass("createContact")) {
             var contactFirst = String($("#contactFirst").val());
@@ -659,7 +659,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/contacts";
+			url = "http://daywon-api-prod.herokuapp.com/contacts";
 			objectDescription = "Contact: " + contactTitle;
         } else if ($(event.target).parent().hasClass("createEvent")) {
 
@@ -741,7 +741,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/events";
+			url = "http://daywon-api-prod.herokuapp.com/events";
 			objectDescription = "Event: " + eventTitle;
         }
         console.log(data);
@@ -753,8 +753,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+				"X-AUTHENTICATION-TOKEN": authToken,
+				"X-AUTHENTICATION-EMAIL": userEmail
 			},
 			success: function (data) {
 				console.log(data);
@@ -771,7 +771,7 @@ function rebindEvents() {
 
     $("#associationForm").submit(function(){
 
-        var url = "http://daywon-api-staging.herokuapp.com/";
+        var url = "http://daywon-api-prod.herokuapp.com/";
         var data;
         var orphanName = $("#contactname").html();
         var orphanID = $("#selectedID").html();
@@ -865,14 +865,15 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
                     showPopupMessage(event.target, "Successfully edited " + orphanName, "success");
                     $('.currentcontact').remove();
                     $('#contactname').html("Select an orphan");
+                    $('.relatedOrphans li').remove();
                     var orphanLength = $('.orphanList li').length;
                     $("#itemCount").html(orphanLength);
                     setTimeout(refetchTypeaheadData, 1000);
@@ -888,7 +889,7 @@ function rebindEvents() {
 
     $(".settingToggler").change(function(){
             
-            var url = "http://daywon-api-staging.herokuapp.com/users/settings";
+            var url = "http://daywon-api-prod.herokuapp.com/users/settings";
             var setting1 = new Boolean($("#toggle:checked").length);
             var setting2 = new Boolean($("#toggle2:checked").length);
             var setting3 = new Boolean($("#toggle3:checked").length);
@@ -912,8 +913,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -1107,6 +1108,21 @@ function rebindEvents() {
         }
     });
 
+    if ($('.flipswitch').length) {
+        var scroller = new IScroll('#dCol1', {
+            mouseWheel: true,
+            scrollbars: true
+        });
+        var scroller = new IScroll('#dCol2', {
+            mouseWheel: true,
+            scrollbars: true
+        });
+        var scroller = new IScroll('#dCol3', {
+            mouseWheel: true,
+            scrollbars: true
+        });
+    }
+
     $(".deleteContainer > div-child").click(function(){
         //alert("clicked");
         deleteTip.hide();
@@ -1115,12 +1131,12 @@ function rebindEvents() {
     if ($('.ocount').length) {
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            url: 'http://daywon-api-prod.herokuapp.com/orphans',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -1155,12 +1171,12 @@ function rebindEvents() {
         $("#reportCount > span").html(totalUsers);
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/users/settings/',
+            url: 'http://daywon-api-prod.herokuapp.com/users/settings/',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1201,12 +1217,12 @@ function rebindEvents() {
         });
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/users/info/',
+            url: 'http://daywon-api-prod.herokuapp.com/users/info/',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1231,12 +1247,12 @@ function rebindEvents() {
     if ($("#adminTable").length) {
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/reports_admin',
+            url: 'http://daywon-api-prod.herokuapp.com/reports_admin',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1568,6 +1584,12 @@ function rebindEvents() {
 	if (links.hasClass('active'))
 		viewMenu.addClass('active');
 	else viewMenu.removeClass('active');
+
+    $("#viewmenu").hover(function(){
+        $('#viewmenu .dropdownarrow').hide();
+    }, function(){
+        $('#viewmenu .dropdownarrow').show();
+    });
 	
 	// javascript-based calling of modals so as to not interfere with Ember URLS with #
 	var allModals = $('.modalDialog');
@@ -1587,63 +1609,72 @@ function rebindEvents() {
     modal6Links.click(function(){ $('#openModal6').addClass('active'); });
 
 	// set current email
-    $("#eaddr option:first").html("hweaver@evenspring.com");
+    $("#eaddr option:first").html(userEmail);
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         }
     };
 
     $.ajax({
         type: 'GET',
-        url: 'http://daywon-api-staging.herokuapp.com/contacts',
+        url: 'http://daywon-api-prod.herokuapp.com/contacts',
         contentType: "application/json",
         dataType: "json",
         headers: {
-            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         },
         success: function (data) {
+            var emailData = data;
             for (var i = 0; i < data.length; i++) {
-                if (data[i].emails.length > 0) {
-                    data[i].firstEmail = data[i].emails[0].email;
+                if (data[i].emails.length > 0 && !data[i].name) {
+                    emailData[i].firstEmail = data[i].emails[0].email;
                 }
             }
             var contacts = new Bloodhound({
-              datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || contact.firstEmail || ""); },
+              datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.name || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               local: data
+            });
+
+            var contactEmails = new Bloodhound({
+              datumTokenizer: function(contact) { return Bloodhound.tokenizers.whitespace(contact.firstEmail || ""); },
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              local: emailData
             });
 
             var events = new Bloodhound({
               datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               prefetch: {
-                url: 'http://daywon-api-staging.herokuapp.com/events',
+                url: 'http://daywon-api-prod.herokuapp.com/events',
                 ajax: ajaxObj,
                 filter: function(obj) {
                   return obj.events;
                 }
               }
             });
+
             var tasks = new Bloodhound({
               datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               prefetch: {
-                url: 'http://daywon-api-staging.herokuapp.com/tasks',
+                url: 'http://daywon-api-prod.herokuapp.com/tasks',
                 ajax: ajaxObj,
                 filter: function(obj) {
                   return obj.tasks;
                 }
               }
             });
+
             var tags = new Bloodhound({
               datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               prefetch: {
-                url: 'http://daywon-api-staging.herokuapp.com/tags',
+                url: 'http://daywon-api-prod.herokuapp.com/tags',
                 ajax: ajaxObj,
                 filter: function(obj) {
                   return obj.tags;
@@ -1652,6 +1683,7 @@ function rebindEvents() {
             });
 
             contacts.initialize();
+            contactEmails.initialize();
             events.initialize();
             tasks.initialize();
             tags.initialize();
@@ -1672,6 +1704,14 @@ function rebindEvents() {
                 source: contacts.ttAdapter(),
                 templates: {
                     header: '<h2>Contacts</h2>'
+                }
+            };
+            var emailsDatasource = {
+                name: 'Emails',
+                displayKey: 'firstEmail',
+                source: contactEmails.ttAdapter(),
+                templates: {
+                    header: '<h2>Emails</h2>'
                 }
             };
             var eventsDatasource = {
@@ -1765,7 +1805,7 @@ function rebindEvents() {
                 var displayText;
                 var objImage;
                 var payload;
-                var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
+                var url = 'http://daywon-api-prod.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
                 //check which object has been selected
                 if (datum.hasOwnProperty('organization')) { // contact
                     objectID = 'contact' + datum.id;
@@ -1895,7 +1935,7 @@ function rebindEvents() {
                     }
 
                     var showPopupMessage = function(target, message, style) {
-                        var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
+                        var statusPopup = new Opentip($(".panelcontent"), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
                         statusPopup.show();
                         statusPopup.container.css('z-index', 100000);
                         setTimeout(function() {
@@ -1911,8 +1951,8 @@ function rebindEvents() {
                         dataType: "json",
                         data: JSON.stringify(payload),
                         headers: {
-                            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                            "X-AUTHENTICATION-TOKEN": authToken,
+                            "X-AUTHENTICATION-EMAIL": userEmail
                         },
                         success: function (data) {
                             console.log(data);
@@ -1929,19 +1969,19 @@ function rebindEvents() {
 
             $("#typeAheadContact").typeahead(typeaheadOptions, eventsDatasource, tasksDatasource, tagsDatasource)
                 .on('typeahead:selected', onTypeaheadSelected);
-            $("#typeAheadEvent").typeahead(typeaheadOptions, contactsDatasource, tasksDatasource, tagsDatasource)
+            $("#typeAheadEvent").typeahead(typeaheadOptions, contactsDatasource, emailsDatasource, tasksDatasource, tagsDatasource)
                 .on('typeahead:selected', onTypeaheadSelected);
-            $("#typeAheadTask").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tagsDatasource)
+            $("#typeAheadTask").typeahead(typeaheadOptions, contactsDatasource, emailsDatasource, eventsDatasource, tagsDatasource)
                 .on('typeahead:selected', onTypeaheadSelected);
-            $("#typeAheadTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
+            $("#typeAheadTag").typeahead(typeaheadOptions, contactsDatasource, emailsDatasource, eventsDatasource, tasksDatasource)
                 .on('typeahead:selected', onTypeaheadSelected);
-            $("#typeAheadOrphanEvent").typeahead(typeaheadOptions, contactsDatasource, tasksDatasource, tagsDatasource)
+            $("#typeAheadOrphanEvent").typeahead(typeaheadOptions, contactsDatasource, emailsDatasource, tasksDatasource, tagsDatasource)
                 .on('typeahead:selected', onTypeaheadSelected);
-            $("#typeAheadOrphanTask").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tagsDatasource)
+            $("#typeAheadOrphanTask").typeahead(typeaheadOptions, contactsDatasource, emailsDatasource, eventsDatasource, tagsDatasource)
                 .on('typeahead:selected', onTypeaheadSelected);     
-            $("#typeAheadOrphanTag").typeahead(typeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource)
+            $("#typeAheadOrphanTag").typeahead(typeaheadOptions, contactsDatasource, emailsDatasource, eventsDatasource, tasksDatasource)
                 .on('typeahead:selected', onTypeaheadSelected);
-            $("#typeAheadAddContact").typeahead(typeaheadOptions, contactsDatasource)
+            $("#typeAheadAddContact").typeahead(typeaheadOptions, contactsDatasource, emailsDatasource)
                 .on('typeahead:selected', addSelectedObject);
             $("#typeAheadAddEvent").typeahead(typeaheadOptions, eventsDatasource)
                 .on('typeahead:selected', addSelectedObject);
@@ -1957,7 +1997,7 @@ function rebindEvents() {
 
                 var searchTypeaheadOptions = $.extend({}, typeaheadOptions);
                 searchTypeaheadOptions.hint = false;
-                searchAll.typeahead(searchTypeaheadOptions, contactsDatasource, eventsDatasource, tasksDatasource, tagsDatasource)
+                searchAll.typeahead(searchTypeaheadOptions, contactsDatasource, emailsDatasource, eventsDatasource, tasksDatasource, tagsDatasource)
                     .on('typeahead:selected',  function(obj, datum) {
                         $(obj.target).typeahead('val', '');
 
@@ -2018,7 +2058,7 @@ function rebindEvents() {
             }
             console.log("object type:" + mainObjectType);
             var payload;
-            var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + '/' + mainObjectId;
+            var url = 'http://daywon-api-prod.herokuapp.com/' + mainObjectType + '/' + mainObjectId;
             var allObjects = $('.infopanel.selected .contactrow');
             var objectArray = new Array();
             var thisObjId;
@@ -2136,8 +2176,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(payload),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -2224,12 +2264,12 @@ setTimeout(function(){
 
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            url: 'http://daywon-api-prod.herokuapp.com/orphans',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
