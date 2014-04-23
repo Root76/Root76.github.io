@@ -44,7 +44,7 @@
               <form method="get" action="/search" class="search" id="mobilesearch">
                 <input name="q" type="text" size="40" placeholder="Search..." />
               </form>
-              <a id="logolink" href="http://www.daywon.com/faq" target="_blank"><img src="img/logo.jpg" / id="logo"><br /><p>Connecting your Gmail Contacts, Calendar Events & Tasks</p></a>
+              <a id="logolink" href="http://www.daywon.com/faq" target="_blank"><img src="img/logo.jpg" / id="logo"><br /><p>Connecting your Gmail Contacts,<br />Calendar Events & Tasks</p></a>
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav navbar-right">
@@ -877,7 +877,7 @@
               <div class="row">
                 <div class="col-md-4" id="contactpane1">
                   <img src="img/contact.png" class="contactpadding" />
-                  <h1 class="contactpadding">Contacts (<span id="itemCount">{{contactsCount}}</span>)</h1>
+                  <h1 class="contactpadding">Contacts (<span id="itemCount">{{contactsToShow.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1222,7 +1222,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/events.png" / class="contactpadding">
-                  <h1 class="contactpadding">Events ({{eventsCount}})</h1>
+                  <h1 class="contactpadding">Events ({{eventsToShow.length}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1450,7 +1450,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/tasks.png" / class="contactpadding">
-                  <h1 class="contactpadding" id="mobileTaskHead">Tasks ({{tasksCount}})</h1>
+                  <h1 class="contactpadding" id="mobileTaskHead">Tasks ({{tasksToShow.length}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -1683,7 +1683,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/tags.png" / class="contactpadding">
-                  <h1 class="contactpadding tagHeader">Tags ({{tagsCount}})</h1>
+                  <h1 class="contactpadding tagHeader">Tags ({{tagsToShow.length}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>

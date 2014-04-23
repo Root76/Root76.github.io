@@ -124,13 +124,15 @@ hr {
 }
 
 #logolink p {
-	font-size: 11px;
-	line-height: 10px;
+	font-size: 12px;
+	line-height: 14px;
 	margin-bottom: 0px;
+	color:#777;
+	font-weight: 700;
 	position:absolute;
-	bottom:5px;
+	bottom:3px;
 	left:94px;
-	font-family: 'Open Sans', sans-serif;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 .backArrow {
