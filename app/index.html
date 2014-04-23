@@ -188,7 +188,7 @@
                   </div>
                 </div>
                 <div class="formrow">Contact address: <input type="text" id="contactAddr"></div>
-                <div class="formrow">Search related items: <br /><input id="typeAheadContact" />
+                <div class="formrow">Connect related items: <br /><input id="typeAheadContact" />
                 </div>
                 <div class="formrow">
                   Selected Items:
@@ -241,7 +241,7 @@
                           <div class="endSelect formrow endEvent"><input type="radio" name="ending" value="on">On <input type="text" id="endEventRepeat"><img src="img/calendar.png" /></div>
                   </div>
                 </div>
-                <div class="formrow">Search related items: <br /><input id="typeAheadEvent" /></div>
+                <div class="formrow">Connect related items: <br /><input id="typeAheadEvent" /></div>
                 <div class="formrow">
                   Selected Items:
                   <div class="relatedList relatedEvents">
@@ -265,7 +265,7 @@
                     <option>Low</option>
                   </select>
                 </div>
-                <div class="formrow">Search related items: <br /><input id="typeAheadTask" />
+                <div class="formrow">Connect related items: <br /><input id="typeAheadTask" />
                 </div>
                 <div class="formrow">
                   Selected Items:
@@ -280,7 +280,7 @@
             <div class="createTag createForm">
               <form>
                 <div class="formrow">Tag title: <input type="text" id="tagName"></div>
-                <div class="formrow">Search related items: <br /><input id="typeAheadTag" />
+                <div class="formrow">Connect related items: <br /><input id="typeAheadTag" />
                 </div>
                 <div class="formrow">
                   Selected Items:
@@ -618,7 +618,7 @@
                 <div class="formrow">Contact company: <input type="text" id="contactOrg"></div>
                 <div class="formrow">Contact phone number: <input type="text" id="contactNumber"></div>
                 <div class="formrow">Contact address: <input type="text" id="contactAddr"></div>
-                <div class="formrow">Search related items: <br /><input id="typeAheadContact" />
+                <div class="formrow">Connect related items: <br /><input id="typeAheadContact" />
                 </div>
                 <div class="formrow">
                   Selected Items:
@@ -703,7 +703,7 @@
                   <div id="dashboardSorting">
                     <div id="taskSorting" class="dashboardSorter">
                       <div class="sortcont sortcont2">
-                        <h4 class="beforeDropdown">Show me: </h4>
+                        <h4 class="beforeDropdown">Show: </h4>
                         {{view Ember.Select
                              content=tasksController.showOptions
                              optionLabelPath="content.label"
@@ -711,7 +711,7 @@
                              selection=tasksController.selectedShowOption}}
                       </div>
                       <div class="sortcont sortcont3 sortcontTasks">
-                        <h4 class="beforeDropdown">Sorted by: </h4>
+                        <h4 class="beforeDropdown">Sort by: </h4>
                         {{view Ember.Select
                              content=tasksController.sortOptions
                              optionLabelPath="content.label"
@@ -721,7 +721,7 @@
                     </div>
                     <div id="tagSorting" class="dashboardSorter">
                     <div class="sortcont sortcont3 sortcontTags">
-                      <h4 class="beforeDropdown">Sorted by: </h4>
+                      <h4 class="beforeDropdown">Sort by: </h4>
                       {{view Ember.Select
                            content=tagsController.sortOptions
                            optionLabelPath="content.label"
@@ -894,7 +894,7 @@
                     </div>
                   </div>
                   <div class="filtercolumn contactpadding">
-                    <h4>Sorted by:</h4>
+                    <h4>Sort by:</h4>
                     <div class="contsort">
         					  {{view Ember.Select 
         						   class="listSorter" 
@@ -1963,7 +1963,7 @@
             <h2 id="contactname" class="taskname orphantitle">Select an orphan</h2>
             <div class="panelcontent dashContent" id="eventscontent">              
               <form id="associationForm">
-                <div class="formrow">Search related items: <br />
+                <div class="formrow">Connect related items: <br />
                   <input id="typeAheadOrphanEvent" />
                 </div>
                 <div class="formrow">
@@ -2028,7 +2028,7 @@
             <h2 id="contactname" class="taskname orphantitle">Select an orphan</h2>
             <div class="panelcontent dashContent" id="eventscontent">              
               <form id="associationForm">
-                <div class="formrow">Search related items: <br />
+                <div class="formrow">Connect related items: <br />
                   <input id="typeAheadOrphanTask" />
                 </div>
                 <div class="formrow">
@@ -2085,7 +2085,7 @@
             <h2 id="contactname" class="taskname orphantitle">Select an orphan</h2>
             <div class="panelcontent dashContent" id="eventscontent">              
               <form id="associationForm">
-                <div class="formrow">Search related items: <br />
+                <div class="formrow">Connect related items: <br />
                   <input id="typeAheadOrphanTag" />
                 </div>
                 <div class="formrow">
@@ -2115,7 +2115,7 @@
                 <div id="calToday">Today</div>
               </div>
               <div id="showme" class="menucont menucal">
-                <div><h2>Show me:</h2></div>
+                <div><h2>Show:</h2></div>
                 <div class="menusubcont">
                   <div class="subcontitem showitem selected calview" id="mainevent"><img src="img/calendar.png" /></div>
                   <div class="subcontitem showitem selected calview" id="maintask"><img src="img/tasks.png" /></div>
