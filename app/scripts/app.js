@@ -80,8 +80,8 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
     // "4N9-_NWfYvYxpesMVpne",
   }
 });
@@ -754,7 +754,6 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
 App.Contact = DS.Model.extend({
     name: DS.attr('string'),
     emails: DS.attr('array'),
-    contact_emails: DS.attr('array'),
     organization: DS.attr('string'),
     phones: DS.attr('array'),
     address: DS.attr('string'),
@@ -929,11 +928,11 @@ IndividualObjectRoute = Ember.Mixin.create({
 			this.controller.set('editing', {});
 			this.controller.set('editing.anything', false);
 		},
-		editField: function(field) {
+		editField: function(field, iter) {
 			this.controller.set('editing.anything', true);
 			this.controller.set('editing.' + field, true);
 		    Ember.run.schedule('afterRender', this, function() {
-				$('#' + field + 'Input').focus();
+				$('#' + field + 'Input' + iter).focus();
 		    });
 		}
 	}

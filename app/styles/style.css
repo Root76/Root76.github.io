@@ -2584,7 +2584,7 @@ font-family:'Open Sans', sans-serif;
 	left: 0px !important;
 	float: left !important;
 	top: 0px !important;
-	width: 100% !important;
+	width: initial !important;
 }
 
 .dynamicEmail.desktopEmail {
@@ -2609,6 +2609,7 @@ font-family:'Open Sans', sans-serif;
 	margin-top:0px !important;
 	padding-top:65px !important;
 	font-size:24px;
+	top:0px;
 }
 
 #dCol2 {

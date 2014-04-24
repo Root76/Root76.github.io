@@ -990,20 +990,32 @@
             </div>
             <div class="panelcontent" id="contactcontent">
               <div class="infopanel selected">
-                <div class="contactrow" {{action "editField" "phone" on="doubleClick"}}>
+                <div class="contactrow">
                   <img src="img/cellphone.png">
                   <h4 class="phonenumber">
                     {{#each phone in phones}}
-                    	<span>{{phone.number}}</span>
+                    	<span {{action "editField" "phone" on="doubleClick"}}>
+                        {{#if editing.phone}}
+                          {{input class="editField" id="phoneInput" type="text" value=phone.number focus-out="save" insert-newline="save"}}
+                        {{else}}
+                          {{phone.number}}
+                        {{/if}}
+                      </span>
                     {{/each}}
                   </h4>
                 </div>
-                <div class="contactrow" {{action "editField" "email" on="doubleClick"}}>
+                <div class="contactrow">
                   <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png"></a>
                		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
                   <h4 class="emailfield">
                     {{#each email in emails}}
-                      {{email.email}}
+                      <span {{action "editField" "email" "1" on="doubleClick"}}>
+                        {{#if editing.email}}
+                          {{input class="editField" id="emailInput1" type="text" value=email.email focus-out="save" insert-newline="save"}}
+                        {{else}}
+                          {{email.email}}
+                        {{/if}}
+                      </span>
                     {{/each}}
                   </h4>
                 </div>
@@ -1101,14 +1113,36 @@
             <div class="row">
               <div class="col-md-4 dCol" id="dCol1">
                 <div>
-                  <h1>{{name}}</h1>
+                  <h1 {{action "editField" "name" "2" on="doubleClick"}}>
+                    {{#if editing.name}}
+                      {{input class="editField" id="nameInput2" type="text" value=name focus-out="save" insert-newline="save"}}
+                    {{else}}
+                      {{#if name}}
+                        {{name}}
+                      {{else}}
+                        {{#if emails}}
+                          {{#each emails}}
+                            {{email}}
+                          {{/each}}
+                        {{else}}
+                          N/A
+                        {{/if}}
+                      {{/if}}
+                      <span class="hidden">{{id}}</span>
+                    {{/if}}
+                  </h1>
                   <div class="contactgroup contactDetails">
                     <div class="contactitem">
-                      <a href="" target="_blank" class="dynamicEmail"><img src="img/openmail.png">
-                        {{#each email in emails}}
-                          <span>{{email.email}}</span>
-                        {{/each}}
-                      </a>
+                      <a href="" target="_blank" class="dynamicEmail"><img src="img/openmail.png"></a>
+                      {{#each email in emails}}
+                        <span {{action "editField" "email" "2" on="doubleClick"}}>
+                          {{#if editing.email}}
+                            {{input class="editField" id="emailInput2" type="text" value=email.email focus-out="save" insert-newline="save"}}
+                          {{else}}
+                            {{email.email}}
+                          {{/if}}
+                        </span>
+                      {{/each}}
                     </div>
                     <div class="contactitem">
                       <img src="img/openmail.png" />
@@ -1116,17 +1150,35 @@
                     </div>
                     <div class="contactitem">
                       <img src="img/cellphone.png" />
-                        {{#each phone in phones}}
-                          <span>{{phone.number}}</span>
-                        {{/each}}
+                      {{#each phone in phones}}
+                        <span {{action "editField" "phone" "2" on="doubleClick"}}>
+                          {{#if editing.phone}}
+                            {{input class="editField" id="phoneInput2" type="text" value=phone.number focus-out="save" insert-newline="save"}}
+                          {{else}}
+                            {{phone.number}}
+                          {{/if}}
+                        </span>
+                      {{/each}}
                     </div>
                     <div class="contactitem">
                       <img src="img/birthday.png" />
-                      <span>{{birthday}}</span>
+                      <span {{action "editField" "birthday" "2" on="doubleClick"}}>
+                        {{#if editing.birthday}}
+                          {{input class="editField" id="birthdayInput2" type="text" value=birthday focus-out="save" insert-newline="save"}}
+                        {{else}}
+                          {{birthday}}
+                        {{/if}}
+                      </span>
                     </div>
                     <div class="contactitem">
                       <img src="img/location.png" />
-                      <span>{{address}}</span>
+                      <span {{action "editField" "address" "2" on="doubleClick"}}>                  
+                        {{#if editing.address}}
+                          {{input class="editField" id="addressInput2" type="text" value=address focus-out="save" insert-newline="save"}}
+                        {{else}}
+                          {{address}}
+                        {{/if}}
+                      </span>
                     </div>
                   </div>
                   <div class="contactgroup relatedObjects">
@@ -1381,8 +1433,21 @@
           <div class="row">
             <div class="col-md-4 dCol" id="dCol1">
               <img class="columnDivider" src="img/divider_orange.png" />
-              <h1>{{title}}</h1>
-              <h4>{{description}}</h4>
+              <h1 id="contactname" class="eventname" {{action "editField" "title" "2" on="doubleClick"}}>
+                {{#if editing.title}}
+                  {{input class="editField" id="titleInput2" type="text" value=title focus-out="save" insert-newline="save"}}
+                {{else}}
+                  {{title}}
+                  <span class="hidden">{{id}}</span>
+                {{/if}}
+              </h1>
+              <h4 {{action "editField" "description" "2" on="doubleClick"}}>
+                {{#if editing.description}}
+                  {{input class="editField" id="descriptionInput2" type="text" value=description focus-out="save" insert-newline="save"}}
+                {{else}}
+                  {{description}}
+                {{/if}}
+              </h4>
               <div id="relatedTags">
                 {{#each tag in tags}}
                   <div class="relatedItem">
@@ -1519,12 +1584,12 @@
                   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
                   <img src="img/arrow.png" class="backArrow" />
 					        <h2 id="contactname" class="taskname" {{action "editField" "title" on="doubleClick"}}>
-                  {{#if editing.title}}
-					          {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
-					        {{else}}
-					          {{title}}
-                    <span class="hidden">{{id}}</span>
-					        {{/if}}
+                    {{#if editing.title}}
+  					          {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
+  					        {{else}}
+  					          {{title}}
+                      <span class="hidden">{{id}}</span>
+  					        {{/if}}
                   </h2>
                   <div id="detailmenubar">
                     <img src="img/contact.png" />
@@ -1578,7 +1643,7 @@
                       <br />
                       <br />
                       <div {{action "editField" "due" on="doubleClick"}}>
-                        <b>Event End: </b>
+                        <b>Task Due: </b>
                         {{#if editing.due}}
                           {{input class="editField" id="dueInput" type="datetime-local" value=due_inputformatted focus-out="save" insert-newline="save"}}
                         {{else}}
@@ -1606,8 +1671,21 @@
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
                       <img class="columnDivider" src="img/divider_green.png" />
-                      <h1>{{title}}</h1>
-                      <h4>{{notes}}</h4>
+                      <h1 id="contactname" class="taskname" {{action "editField" "title" "2" on="doubleClick"}}>
+                        {{#if editing.title}}
+                          {{input class="editField" id="titleInput2" type="text" value=title focus-out="save" insert-newline="save"}}
+                        {{else}}
+                          {{title}}
+                          <span class="hidden">{{id}}</span>
+                        {{/if}}
+                      </h1>
+                      <h4 {{action "editField" "notes" "2" on="doubleClick"}}>
+                        {{#if editing.notes}}
+                           {{textarea class="editField" id="notesInput2" type="text" value=notes focus-out="save" insert-newline="save"}}
+                        {{else}}
+                          {{notes}}
+                        {{/if}}
+                      </h4>
                       <div id="relatedTags">
                         {{#each tag in tags}}
                           {{#if tag.name}}
@@ -1805,7 +1883,14 @@
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
                       <img class="columnDivider" src="img/divider_yellow.png" />
-                      <h1>{{name}}</h1>
+                      <h1 id="contactname" class="tagname" {{action "editField" "name" "2" on="doubleClick"}}>
+                        {{#if editing.name}}
+                          {{input class="editField" id="nameInput2" type="text" value=name focus-out="save" insert-newline="save"}}
+                        {{else}}
+                          {{name}}
+                          <span class="hidden">{{id}}</span>
+                        {{/if}}
+                      </h1>
                       <div class="contactgroup relatedObjects taggedObjects">
                         <div class="contactitem">
                           <img src="img/contact.png" />
