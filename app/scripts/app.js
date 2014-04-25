@@ -78,10 +78,10 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-staging.herokuapp.com/",
+  host: "http://daywon-api-prod.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
     // "4N9-_NWfYvYxpesMVpne",
   }
 });
@@ -242,7 +242,7 @@ App.ContactsController = Ember.ArrayController.extend({
 		}
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
-	}.property('showOption', 'sortProperty', 'model.@each.due', 'sortProperties'),
+	}.property('showOption', 'sortProperty', 'sortProperties'),
 	
 	showOptions: [
 		{label: "All", id: "all"},
@@ -281,7 +281,6 @@ App.EventsController = Ember.ArrayController.extend({
 	showProperty: "updated_at",
 	eventsToShow: function(a) { 
 		var option = this.get('showOption');
-		
 		var sorted;
 		switch (option) {
 		case "all":
@@ -308,7 +307,7 @@ App.EventsController = Ember.ArrayController.extend({
 		}
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
-	}.property('showOption', 'showProperty', 'model.@each.due', 'sortProperties'),
+	}.property('showOption', 'showProperty', 'sortProperties'),
 	eventOrphans: function(a) {
 		var oList = this.store;
 		return oList.filter('event', {is_orphan: true}, function(event) {
@@ -407,11 +406,10 @@ App.TasksController = Ember.ArrayController.extend({
 	tasksToShow: function(a) { 
 		var option = this.get('showOption');
 		var now = moment();
-		
 		var sorted = Utility.sortByTimeOption(this, 'due', option);
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
-	}.property('showOption', 'model.@each.due', 'sortProperties'),
+	}.property('showOption', 'sortProperties', 'model.@each.due'),
 	taskOrphans: function(a) {
 		var oList = this.store;
 		return oList.filter('task', {is_orphan: true}, function(task) {
@@ -483,7 +481,7 @@ App.TagsController = Ember.ArrayController.extend({
 		var sorted = this;
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
-	}.property('showOption', 'model.@each.due', 'sortProperties'),
+	}.property('showOption', 'sortProperties'),
 	tagOrphans: function(a) {
 		var oList = this.store;
 		return oList.filter('tag', {is_orphan: true}, function(tag) {

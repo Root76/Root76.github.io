@@ -1304,29 +1304,29 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="events/index">
-                <div class="col-md-7" id="eventpanel2">
-                  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
-                  <img src="img/arrow.png" class="backArrow" />
-                  <h2 id="contactname" class="eventname"><b>Select an event</b></h2>
-                  <div id="detailmenubar">
-                    <img src="img/contact.png" />
-                    <img src="img/events.png" class="selected" />
-                    <img src="img/tasks.png" />
-                    <img src="img/tags.png" /> 
-                    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
-                    <img src="img/trash.png" id="trashicon"/>              
-                  </div>
-                  <div class="panelcontent" id="eventscontent">              
-                    <div class="infopanel">
-                    </div>
-                    <div class="infopanel">
-                    </div>
-                    <div class="infopanel selected">
-                    </div>
-                    <div class="infopanel">
-                    </div>
-                  </div>
-                </div>
+          <div class="col-md-7" id="eventpanel2">
+            <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+            <img src="img/arrow.png" class="backArrow" />
+            <h2 id="contactname" class="eventname"><b>Select an event</b></h2>
+            <div id="detailmenubar">
+              <img src="img/contact.png" />
+              <img src="img/events.png" class="selected" />
+              <img src="img/tasks.png" />
+              <img src="img/tags.png" /> 
+              <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+              <img src="img/trash.png" id="trashicon"/>              
+            </div>
+            <div class="panelcontent" id="eventscontent">              
+              <div class="infopanel">
+              </div>
+              <div class="infopanel">
+              </div>
+              <div class="infopanel selected">
+              </div>
+              <div class="infopanel">
+              </div>
+            </div>
+          </div>
         </script>
         <script type="text/x-handlebars" id="events/event">
         <div class="col-md-7 mobileIn" id="eventpanel2">
@@ -1536,7 +1536,7 @@
                   <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
                   <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
                   <ul id="tasklist" class="sidelist">
-                    {{#each task in controller}}
+                    {{#each task in tasksToShow}}
                       {{#if task.title}}
                         {{#link-to 'tasks.task' task}}<li><img src="img/check.png" {{bind-attr class="task.status:completed"}} />{{task.title}}</li>{{/link-to}}
                       {{else}}

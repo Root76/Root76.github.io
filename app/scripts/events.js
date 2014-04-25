@@ -111,12 +111,12 @@ function rebindEvents() {
 
                     $.ajax({
                         type: 'GET',
-                        url: 'http://daywon-api-staging.herokuapp.com/' + objectType + "/" + thisId,
+                        url: 'http://daywon-api-prod.herokuapp.com/' + objectType + "/" + thisId,
                         contentType: "application/json",
                         dataType: "json",
                         headers: {
-                            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                            "X-AUTHENTICATION-TOKEN": authToken,
+                            "X-AUTHENTICATION-EMAIL": userEmail
                         },
                         success: function (data) {
                             console.log("original data: " + data['events']);
@@ -612,7 +612,7 @@ function rebindEvents() {
                     task_ids: taskIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tags";
+			url = "http://daywon-api-prod.herokuapp.com/tags";
 			objectDescription = "Tag: " + tagTitle;
         } else if ($(event.target).parent().hasClass("createTask")) {
             var taskTitle = $("#taskName").val();
@@ -633,7 +633,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tasks";
+			url = "http://daywon-api-prod.herokuapp.com/tasks";
 			objectDescription = "Task: " + taskTitle;
         } else if ($(event.target).parent().hasClass("createContact")) {
             var contactFirst = String($("#contactFirst").val());
@@ -659,7 +659,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/contacts";
+			url = "http://daywon-api-prod.herokuapp.com/contacts";
 			objectDescription = "Contact: " + contactTitle;
         } else if ($(event.target).parent().hasClass("createEvent")) {
 
@@ -741,7 +741,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/events";
+			url = "http://daywon-api-prod.herokuapp.com/events";
 			objectDescription = "Event: " + eventTitle;
         }
         console.log(data);
@@ -753,8 +753,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+				"X-AUTHENTICATION-TOKEN": authToken,
+				"X-AUTHENTICATION-EMAIL": userEmail
 			},
 			success: function (data) {
 				console.log(data);
@@ -771,7 +771,7 @@ function rebindEvents() {
 
     $("#associationForm").submit(function(){
 
-        var url = "http://daywon-api-staging.herokuapp.com/";
+        var url = "http://daywon-api-prod.herokuapp.com/";
         var data;
         var orphanName = $("#contactname").html();
         var orphanID = $("#selectedID").html();
@@ -865,8 +865,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -889,7 +889,7 @@ function rebindEvents() {
 
     $(".settingToggler").change(function(){
             
-            var url = "http://daywon-api-staging.herokuapp.com/users/settings";
+            var url = "http://daywon-api-prod.herokuapp.com/users/settings";
             var setting1 = new Boolean($("#toggle:checked").length);
             var setting2 = new Boolean($("#toggle2:checked").length);
             var setting3 = new Boolean($("#toggle3:checked").length);
@@ -913,8 +913,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -1131,12 +1131,12 @@ function rebindEvents() {
     if ($('.ocount').length) {
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            url: 'http://daywon-api-prod.herokuapp.com/orphans',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -1171,12 +1171,12 @@ function rebindEvents() {
         $("#reportCount > span").html(totalUsers);
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/users/settings/',
+            url: 'http://daywon-api-prod.herokuapp.com/users/settings/',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1217,12 +1217,12 @@ function rebindEvents() {
         });
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/users/info/',
+            url: 'http://daywon-api-prod.herokuapp.com/users/info/',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1247,12 +1247,12 @@ function rebindEvents() {
     if ($("#adminTable").length) {
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/reports_admin',
+            url: 'http://daywon-api-prod.herokuapp.com/reports_admin',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1603,23 +1603,23 @@ function rebindEvents() {
     modal6Links.click(function(){ $('#openModal6').addClass('active'); });
 
 	// set current email
-    $("#eaddr option:first").html("hweaver@evenspring.com");
+    $("#eaddr option:first").html(userEmail);
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         }
     };
 
     $.ajax({
         type: 'GET',
-        url: 'http://daywon-api-staging.herokuapp.com/contacts',
+        url: 'http://daywon-api-prod.herokuapp.com/contacts',
         contentType: "application/json",
         dataType: "json",
         headers: {
-            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         },
         success: function (data) {
             var emailData = data;
@@ -1644,7 +1644,7 @@ function rebindEvents() {
               datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               prefetch: {
-                url: 'http://daywon-api-staging.herokuapp.com/events',
+                url: 'http://daywon-api-prod.herokuapp.com/events',
                 ajax: ajaxObj,
                 filter: function(obj) {
                   return obj.events;
@@ -1656,7 +1656,7 @@ function rebindEvents() {
               datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               prefetch: {
-                url: 'http://daywon-api-staging.herokuapp.com/tasks',
+                url: 'http://daywon-api-prod.herokuapp.com/tasks',
                 ajax: ajaxObj,
                 filter: function(obj) {
                   return obj.tasks;
@@ -1668,7 +1668,7 @@ function rebindEvents() {
               datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               prefetch: {
-                url: 'http://daywon-api-staging.herokuapp.com/tags',
+                url: 'http://daywon-api-prod.herokuapp.com/tags',
                 ajax: ajaxObj,
                 filter: function(obj) {
                   return obj.tags;
@@ -1799,7 +1799,7 @@ function rebindEvents() {
                 var displayText;
                 var objImage;
                 var payload;
-                var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
+                var url = 'http://daywon-api-prod.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
                 //check which object has been selected
                 if (datum.hasOwnProperty('organization')) { // contact
                     objectID = 'contact' + datum.id;
@@ -1945,8 +1945,8 @@ function rebindEvents() {
                         dataType: "json",
                         data: JSON.stringify(payload),
                         headers: {
-                            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                            "X-AUTHENTICATION-TOKEN": authToken,
+                            "X-AUTHENTICATION-EMAIL": userEmail
                         },
                         success: function (data) {
                             console.log(data);
@@ -2052,7 +2052,7 @@ function rebindEvents() {
             }
             console.log("object type:" + mainObjectType);
             var payload;
-            var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + '/' + mainObjectId;
+            var url = 'http://daywon-api-prod.herokuapp.com/' + mainObjectType + '/' + mainObjectId;
             var allObjects = $('.infopanel.selected .contactrow');
             var objectArray = new Array();
             var thisObjId;
@@ -2170,8 +2170,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(payload),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -2258,12 +2258,12 @@ setTimeout(function(){
 
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            url: 'http://daywon-api-prod.herokuapp.com/orphans',
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -2317,12 +2317,12 @@ setTimeout(function(){
                 var data = 'Input values';
                 $.ajax({
                     type: 'GET',
-                    url: 'http://daywon-api-staging.herokuapp.com/contacts',
+                    url: 'http://daywon-api-prod.herokuapp.com/contacts',
                     contentType: "application/json",
                     dataType: "json",
                     headers: {
-                        "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                        "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                        "X-AUTHENTICATION-TOKEN": authToken,
+                        "X-AUTHENTICATION-EMAIL": userEmail
                     },
                     success: cb,
                     error: function(e) {
