@@ -1,4 +1,4 @@
-@media screen and (max-height:810px) {
+@media screen and (max-height:880px) {
 	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2, #detailPanel, .dCol, .columnDivider {
 		height:500px;
 	}
@@ -7,7 +7,10 @@
 		z-index:1000;
 	}
 	.panelcontent {
-		height:270px !important;
+		height:325px !important;
+	}
+	#contactcontent.panelcontent {
+		height:300px !important;
 	}
 	.dashContent {
 		height:395px !important;
@@ -25,7 +28,7 @@
 
 }
 
-@media screen and (max-height:650px) {
+@media screen and (max-height:720px) {
 	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2, #detailPanel, .dCol, .columnDivider {
 		height:378px;
 	}
@@ -36,8 +39,11 @@
 		top:150px;
 	}
 	.panelcontent {
-		height:165px !important;
+		height:228px !important;
 		top:10px;
+	}
+	#contactcontent.panelcontent {
+		height:203px !important;
 	}
 	.dashContent {
 		height:275px !important;
@@ -56,13 +62,16 @@
 		height: 40px;
 		width: 100%;
 		position: relative;
-		top: -15px;
+		margin-bottom:10px;
 	}
 	.panelfooter {
-		top:21px !important;
+		top:18px !important;
 	}
 	.dashList li {
 		padding:15px !important;
+	}
+	#contactname {
+		top:0px !important;
 	}
 }
 

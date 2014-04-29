@@ -1595,7 +1595,7 @@ to {
 	top:35px;
 	width:100%;
 	position:relative;
-	height:445px;
+	height:476px;
 	padding:10px;
 	background:#fff;
 	overflow:auto;
@@ -1692,7 +1692,7 @@ to {
 }
 
 #contactpanel2 .panelcontent {
-	height:380px;
+	height:400px;
 }
 
 .panelcontent p {
@@ -1768,6 +1768,10 @@ to {
 	position:relative;
 	top:15px;
 	height:0px;
+}
+
+.contactrow h4:hover {
+	text-decoration:underline;
 }
 
 .panelfooter h5 {
@@ -1941,6 +1945,8 @@ to {
 	padding-left:15px;
 	background:none;
 	float:right;
+	position: relative;
+	top: -4px;
 }
 
 #settingfooter {
@@ -2495,7 +2501,7 @@ font-family:'Open Sans', sans-serif;
 	height:650px;
 	width: 33.33%;
 	float: left;
-	overflow-y:hidden;
+	overflow:hidden;
 }
 
 .dCol .iScrollVerticalScrollbar {
@@ -2597,6 +2603,14 @@ font-family:'Open Sans', sans-serif;
 	left:-12px;
 	top:-1px;
 	float:left;
+}
+
+#detailPanel a {
+	color:#fff;
+}
+
+#dCol3 a {
+	color:#666;
 }
 
 #dCol1 {
@@ -3549,7 +3563,9 @@ color: #fff;
 	max-width:500px;
 }
 
-
+#allDayStart .xdsoft_timepicker {
+	display:none !important;
+}
 
 #eventDetailPopup.active {
 	display:block;

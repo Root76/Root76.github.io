@@ -223,6 +223,9 @@
                 <div class="formrow eventDateEnd">
                   End date: <input type="text" id="eventEnd"><img src="img/calendar.png" />
                 </div>
+                <div class="formrow allDayStart">
+                  Date: <input type="text" id="allDayStart"><img src="img/calendar.png" />
+                </div>
                 <div id="recurringContainer">
                   <div class="formrow">
                     Repeats: <br /><select id="recurrChoice">
@@ -793,9 +796,17 @@
                     </div>
                     <div class="infopanel">
                       <div class="daySeparator">
+                        <h3>Today</h3>
+                        {{#each event in eventsController.upcomingToday}}
+                          {{#link-to 'events.event' event}}<li><span>{{event.title}}</span></li>{{/link-to}}
+                        {{else}}
+                          <li class="eventless"><span>No Events</span></li>
+                        {{/each}} 
+                      </div>
+                      <div class="daySeparator">
                         <h3>Tomorrow</h3>
                         {{#each event in eventsController.upcomingTomorrow}}
-                          <li><span>{{event.title}}</span></li>
+                          {{#link-to 'events.event' event}}<li><span>{{event.title}}</span></li>{{/link-to}}
                         {{else}}
                           <li class="eventless"><span>No Events</span></li>
                         {{/each}} 
@@ -840,14 +851,6 @@
                           <li class="eventless"><span>No Events</span></li>
                         {{/each}}
                       </div>
-                      <div class="daySeparator">
-                        <h3>Day 7</h3>
-                        {{#each event in eventsController.upcomingDay7}}
-                          {{#link-to 'events.event' event}}<li><span>{{event.title}}</span></li>{{/link-to}}
-                        {{else}}
-                          <li class="eventless"><span>No Events</span></li>
-                        {{/each}}
-                      </div>
                     </div>
                     <div class="infopanel">
                       {{#each tag in tagsController}}
@@ -879,7 +882,7 @@
                   <img src="img/contact.png" class="contactpadding" />
                   <h1 class="contactpadding">Contacts (<span id="itemCount">{{contactsToShow.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-                    <input name="q" type="text" size="40" placeholder="Search...">
+                    <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustContacts">
                   </form>
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
@@ -1066,8 +1069,8 @@
                 </form>
                 {{#each event in events}}
                   <div class="contactrow eventrow">
-                    {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon">{{/link-to}}
-                    <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span><img src="img/close.png" class="removeAssoc" />
+                    {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon">
+                    <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
                   </div>
                 {{/each}}
               </div>
@@ -1079,8 +1082,8 @@
                 </form>
                 {{#each task in tasks}}
                   <div class="contactrow taskrow">
-                    {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">{{/link-to}}
-                    <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span><img src="img/close.png" class="removeAssoc" />
+                    {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">
+                    <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
                   </div>
                 {{/each}}
               </div>
@@ -1092,8 +1095,8 @@
                 </form>
                 {{#each tag in tags}}
                   <div class="contactrow tagrow">
-                    {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="tagIcon">{{/link-to}}
-                    <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span><img src="img/close.png" class="removeAssoc" />
+                    {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="tagIcon">
+                    <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
                   </div>
                 {{/each}}
               </div>
@@ -1212,7 +1215,7 @@
                     <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                     <ul class="columnlist">
                       {{#each event in events}}
-                        <li>{{event.title}}</li>
+                        <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
                       {{else}}
                         <li>N/A</li>
                       {{/each}}
@@ -1222,7 +1225,7 @@
                     <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                     <ul class="columnlist">
                       {{#each event in events}}
-                        <li>{{event.title}}</li>
+                        <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
                       {{else}}
                         <li>N/A</li>
                       {{/each}}
@@ -1242,7 +1245,7 @@
                     <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                     <ul class="columnlist">
                       {{#each task in tasks}}
-                        <li>{{task.title}}</li>
+                        <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
                       {{else}}
                         <li>N/A</li>
                       {{/each}}
@@ -1252,7 +1255,7 @@
                     <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                     <ul class="columnlist">
                       {{#each task in tasks}}
-                        <li>{{task.title}}</li>
+                        <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
                       {{else}}
                         <li>N/A</li>
                       {{/each}}
@@ -1276,7 +1279,7 @@
                   <img src="img/events.png" / class="contactpadding">
                   <h1 class="contactpadding">Events ({{eventsToShow.length}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-                    <input name="q" type="text" size="40" placeholder="Search...">
+                    <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustEvents">
                   </form>
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
@@ -1329,41 +1332,41 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="events/event">
-        <div class="col-md-7 mobileIn" id="eventpanel2">
-          <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
-          <img src="img/arrow.png" class="backArrow" />
-	        <h2 id="contactname" class="eventname" {{action "editField" "title" on="doubleClick"}}>
-          {{#if editing.title}}
-	          {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
-	        {{else}}
-	          {{title}}
-            <span class="hidden">{{id}}</span>
-	        {{/if}}
-          </h2>
-          <div id="detailmenubar">
-            <img src="img/contact.png" />
-            <img src="img/events.png" class="selected" />
-            <img src="img/tasks.png" />
-            <img src="img/tags.png" /> 
-            <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
-            <img src="img/trash.png" id="trashicon"/>
-            <button {{action "deleteRecord"}} id="destroy">{{id}}</button>
-          </div>
-          <div class="panelcontent" id="eventscontent">                
-            <div class="infopanel">
-              <form id="addForm">
-                <div class="formrow">Add contacts: <br />
-                  <input id="typeAheadAddContact" />
-                </div>
-              </form>
-              {{#each contact in contacts}}
-                <div class="contactrow personrow">
-                  {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">{{/link-to}}
-                  <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span><img src="img/close.png" class="removeAssoc" />
-                </div>
-              {{/each}}
+          <div class="col-md-7 mobileIn" id="eventpanel2">
+            <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+            <img src="img/arrow.png" class="backArrow" />
+  	        <h2 id="contactname" class="eventname" {{action "editField" "title" on="doubleClick"}}>
+            {{#if editing.title}}
+  	          {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
+  	        {{else}}
+  	          {{title}}
+              <span class="hidden">{{id}}</span>
+  	        {{/if}}
+            </h2>
+            <div id="detailmenubar">
+              <img src="img/contact.png" />
+              <img src="img/events.png" class="selected" />
+              <img src="img/tasks.png" />
+              <img src="img/tags.png" /> 
+              <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+              <img src="img/trash.png" id="trashicon"/>
+              <button {{action "deleteRecord"}} id="destroy">{{id}}</button>
             </div>
-            <div class="infopanel selected">
+            <div class="panelcontent" id="eventscontent">                
+              <div class="infopanel">
+                <form id="addForm">
+                  <div class="formrow">Add contacts: <br />
+                    <input id="typeAheadAddContact" />
+                  </div>
+                </form>
+                {{#each contact in contacts}}
+                  <div class="contactrow personrow">
+                    {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">
+                    <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
+                  </div>
+                {{/each}}
+              </div>
+              <div class="infopanel selected">
                 <div {{action "editField" "description" on="doubleClick"}}>
                 	<b>Description: </b>
                   {{#if editing.description}}
@@ -1400,113 +1403,113 @@
                   {{/if}}
                   <br />
                 </div>
-            </div>
-            <div class="infopanel">
-              <form id="addForm">
-                <div class="formrow">Add tasks: <br />
-                  <input id="typeAheadAddTask" />
-                </div>
-              </form>
-              {{#each task in tasks}}
-                <div class="contactrow taskrow">
-                  {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">{{/link-to}}
-                  <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span><img src="img/close.png" class="removeAssoc" />
-                </div>
-              {{/each}}
-            </div>
-            <div class="infopanel">
+              </div>
+              <div class="infopanel">
                 <form id="addForm">
-                  <div class="formrow">Add tags: <br />
-                    <input id="typeAheadAddTag" />
+                  <div class="formrow">Add tasks: <br />
+                    <input id="typeAheadAddTask" />
                   </div>
                 </form>
-              {{#each tag in tags}}
-                <div class="contactrow tagrow">
-                  {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="tagIcon">{{/link-to}}
-                  <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span><img src="img/close.png" class="removeAssoc" />
-                </div>
-              {{/each}}
-            </div>
-          </div>
-        </div>
-        <div id="detailPanel" class="panelIn">
-          <div class="row">
-            <div class="col-md-4 dCol" id="dCol1">
-              <img class="columnDivider" src="img/divider_orange.png" />
-              <h1 id="contactname" class="eventname" {{action "editField" "title" "2" on="doubleClick"}}>
-                {{#if editing.title}}
-                  {{input class="editField" id="titleInput2" type="text" value=title focus-out="save" insert-newline="save"}}
-                {{else}}
-                  {{title}}
-                  <span class="hidden">{{id}}</span>
-                {{/if}}
-              </h1>
-              <h4 {{action "editField" "description" "2" on="doubleClick"}}>
-                {{#if editing.description}}
-                  {{input class="editField" id="descriptionInput2" type="text" value=description focus-out="save" insert-newline="save"}}
-                {{else}}
-                  {{description}}
-                {{/if}}
-              </h4>
-              <div id="relatedTags">
-                {{#each tag in tags}}
-                  <div class="relatedItem">
-                    <img src="img/tags.png" class="relatedImage"/>
-                    <span class="relatedName">{{tag.name}}</span>
+                {{#each task in tasks}}
+                  <div class="contactrow taskrow">
+                    {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">
+                    <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
                   </div>
-                {{/each}}         
-              </div>
-              <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
-              <img id="detailTrash" src="img/trash.png" />
-            </div>
-            <div class="col-md-4 dCol" id="dCol2">
-              <img class="columnDivider" src="img/divider_orange.png" />
-              <div class="columnhead">
-                <img src="img/contact.png" />
-                <h3>Contacts</h3>
-              </div>
-              <br />
-              <ul class="columnlist">
-                {{#each contact in contacts}}
-                  <li>{{contact.name}}</li>
-                {{else}}
-                  <li>N/A</li>
                 {{/each}}
-              </ul>
-            </div>
-            <div class="col-md-4 dCol" id="dCol3">
-              <div class="columnhead">
-                <img src="img/tasks.png" />
-                <h3>Tasks</h3>
               </div>
-              <br />
-              <div class="detailSection">
-                <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                <ul class="columnlist">
-                  {{#each task in tasks}}
-                    <li>{{task.title}}</li>
-                  {{else}}
-                    <li>N/A</li>
-                  {{/each}}
-                </ul>
-              </div>
-              <div class="detailSection">
-                <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                <ul class="columnlist">
-                  {{#each task in tasks}}
-                    <li>{{task.title}}</li>
-                  {{else}}
-                    <li>N/A</li>
-                  {{/each}}
-                </ul>
+              <div class="infopanel">
+                  <form id="addForm">
+                    <div class="formrow">Add tags: <br />
+                      <input id="typeAheadAddTag" />
+                    </div>
+                  </form>
+                {{#each tag in tags}}
+                  <div class="contactrow tagrow">
+                    {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="tagIcon">
+                    <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
+                  </div>
+                {{/each}}
               </div>
             </div>
           </div>
-        </div>
-        <div id="detailPanelHider"></div>
-        <div class="col-md-1 flipswitch fsorange">
-          <img src="img/fliparrow_orange.png" id="fliparrow"/>
-        </div>
+          <div id="detailPanel" class="panelIn">
+            <div class="row">
+              <div class="col-md-4 dCol" id="dCol1">
+                <img class="columnDivider" src="img/divider_orange.png" />
+                <h1 id="contactname" class="eventname" {{action "editField" "title" "2" on="doubleClick"}}>
+                  {{#if editing.title}}
+                    {{input class="editField" id="titleInput2" type="text" value=title focus-out="save" insert-newline="save"}}
+                  {{else}}
+                    {{title}}
+                    <span class="hidden">{{id}}</span>
+                  {{/if}}
+                </h1>
+                <h4 {{action "editField" "description" "2" on="doubleClick"}}>
+                  {{#if editing.description}}
+                    {{input class="editField" id="descriptionInput2" type="text" value=description focus-out="save" insert-newline="save"}}
+                  {{else}}
+                    {{description}}
+                  {{/if}}
+                </h4>
+                <div id="relatedTags">
+                  {{#each tag in tags}}
+                    <div class="relatedItem">
+                      {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="relatedImage"/>
+                      <span class="relatedName">{{tag.name}}</span>{{/link-to}}
+                    </div>
+                  {{/each}}         
+                </div>
+                <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
+                <img id="detailTrash" src="img/trash.png" />
+              </div>
+              <div class="col-md-4 dCol" id="dCol2">
+                <img class="columnDivider" src="img/divider_orange.png" />
+                <div class="columnhead">
+                  <img src="img/contact.png" />
+                  <h3>Contacts</h3>
+                </div>
+                <br />
+                <ul class="columnlist">
+                  {{#each contact in contacts}}
+                    <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
+                  {{else}}
+                    <li>N/A</li>
+                  {{/each}}
+                </ul>
+              </div>
+              <div class="col-md-4 dCol" id="dCol3">
+                <div class="columnhead">
+                  <img src="img/tasks.png" />
+                  <h3>Tasks</h3>
+                </div>
+                <br />
+                <div class="detailSection">
+                  <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                  <ul class="columnlist">
+                    {{#each task in tasks}}
+                      <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
+                    {{else}}
+                      <li>N/A</li>
+                    {{/each}}
+                  </ul>
+                </div>
+                <div class="detailSection">
+                  <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                  <ul class="columnlist">
+                    {{#each task in tasks}}
+                      <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
+                    {{else}}
+                      <li>N/A</li>
+                    {{/each}}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="detailPanelHider"></div>
+          <div class="col-md-1 flipswitch fsorange">
+            <img src="img/fliparrow_orange.png" id="fliparrow"/>
+          </div>
         </script>
         <script type="text/x-handlebars" id="tasks">
           <div class="mobileCover" id="tasksCover"></div>
@@ -1517,7 +1520,7 @@
                   <img src="img/tasks.png" / class="contactpadding">
                   <h1 class="contactpadding" id="mobileTaskHead">Tasks ({{tasksToShow.length}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-                    <input name="q" type="text" size="40" placeholder="Search...">
+                    <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustTasks">
                   </form>
                   <div class="filtercolumn contactpadding">
                     <h4>Sort by:</h4>
@@ -1610,8 +1613,8 @@
                       </form>
                       {{#each contact in contacts}}
                       <div class="contactrow personrow">
-                        {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">{{/link-to}}
-                        <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span><img src="img/close.png" class="removeAssoc" />
+                        {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon"><h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span>{{/link-to}}
+                        <img src="img/close.png" class="removeAssoc" />
                       </div>
                       {{/each}}
                     </div>
@@ -1623,8 +1626,8 @@
                       </form>
                       {{#each event in events}}
                         <div class="contactrow eventrow">
-                          {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon">{{/link-to}}
-                          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span><img src="img/close.png" class="removeAssoc" />
+                          {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon"><h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span>{{/link-to}}
+                          <img src="img/close.png" class="removeAssoc" />
                         </div>
                       {{/each}}
                     </div>
@@ -1690,8 +1693,8 @@
                         {{#each tag in tags}}
                           {{#if tag.name}}
                             <div class="relatedItem">
-                              <img src="img/tags.png" class="relatedImage"/>
-                              <span class="relatedName">{{tag.name}}</span>
+                              {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="relatedImage"/>
+                              <span class="relatedName">{{tag.name}}</span>{{/link-to}}
                             </div>
                           {{/if}}
                         {{/each}}
@@ -1711,7 +1714,7 @@
                         <ul class="columnlist">
                         {{#each event in events}}
                           {{#if event.title}}
-                          <li>{{event.title}}</li>
+                          <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
                           {{/if}}
                         {{else}}
                           <li>N/A</li>
@@ -1723,7 +1726,7 @@
                         <ul class="columnlist">
                         {{#each event in events}}
                           {{#if event.title}}
-                          <li>{{event.title}}</li>
+                          <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
                           {{/if}}
                         {{else}}
                           <li>N/A</li>
@@ -1740,7 +1743,7 @@
                       <ul class="columnlist">
                       {{#each contact in contacts}}
                         {{#if contact.name}}
-                        <li>{{contact.name}}</li>
+                        <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
                         {{/if}}
                       {{else}}
                         <li>N/A</li>
@@ -1763,7 +1766,7 @@
                   <img src="img/tags.png" / class="contactpadding">
                   <h1 class="contactpadding tagHeader">Tags ({{tagsToShow.length}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-                    <input name="q" type="text" size="40" placeholder="Search...">
+                    <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustTags">
                   </form>
                   <div class="filtercolumn contactpadding">
                     <h4>Show:</h4>
@@ -1843,8 +1846,8 @@
                       </form>
                       {{#each contact in contacts}}
                         <div class="contactrow personrow">
-                          {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">{{/link-to}}
-                          <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span><img src="img/close.png" class="removeAssoc" />
+                          {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">
+                          <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
                         </div>
                       {{/each}}
                     </div>
@@ -1856,8 +1859,8 @@
                       </form>
                       {{#each event in events}}
                         <div class="contactrow eventrow">
-                          {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon">{{/link-to}}
-                          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span><img src="img/close.png" class="removeAssoc" />
+                          {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon">
+                          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
                         </div>
                       {{/each}}
                     </div>
@@ -1869,8 +1872,8 @@
                       </form>
                       {{#each task in tasks}}
                         <div class="contactrow taskrow">
-                          {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">{{/link-to}}
-                          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span><img src="img/close.png" class="removeAssoc" />
+                          {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">
+                          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
                         </div>
                       {{/each}}
                     </div>
@@ -1919,9 +1922,9 @@
                         <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
                           {{#each event in events}}
-                          {{#if event.title}}
-                            <li>{{event.title}}</li>
-                          {{/if}}
+                            {{#if event.title}}
+                              <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
+                            {{/if}}
                           {{else}}
                             <li>N/A</li>
                           {{/each}}
@@ -1931,9 +1934,9 @@
                         <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
                         <ul class="columnlist">
                           {{#each event in events}}
-                          {{#if event.title}}
-                            <li>{{event.title}}</li>
-                          {{/if}}
+                            {{#if event.title}}
+                              <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
+                            {{/if}}
                           {{else}}
                             <li>N/A</li>
                           {{/each}}
@@ -1949,7 +1952,7 @@
                       <ul class="columnlist">
                         {{#each contact in contacts}}
                           {{#if contact.name}}
-                            <li>{{contact.name}}</li>
+                            <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
                           {{/if}}
                         {{else}}
                           <li>N/A</li>

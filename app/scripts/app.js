@@ -78,10 +78,10 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-prod.herokuapp.com/",
+  host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
     // "4N9-_NWfYvYxpesMVpne",
   }
 });
@@ -284,7 +284,7 @@ App.EventsController = Ember.ArrayController.extend({
 		var sorted;
 		switch (option) {
 		case "all":
-			sorted = this;
+			sorted = this.sortBy(['updated_at']);
 			break;
 		case "tagged":
 			sorted = this.filter(function(item) {		
@@ -319,7 +319,7 @@ App.EventsController = Ember.ArrayController.extend({
 		{label: "Tagged", id: "tagged", showProperty: "updated_at"},
 		{label: "New This Week", id: "newThisWeek", showProperty: "updated_at"},
 		{label: "New This Month", id: "newThisMonth", showProperty: "updated_at"},
-		{label: "Recent", id: "recent", showProperty: "updated_at"},
+		{label: "Recent", id: "recent", showProperty: "updated_at"}
 	],
 	showOptions2: [
 		{label: "Today", id: "today", showProperty: "start_datetime"},
@@ -340,6 +340,11 @@ App.EventsController = Ember.ArrayController.extend({
             $(".ui-accordion").accordion("refresh");
         }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
 	}.observes('selectedShowOption'),
+    upcomingToday: function(){
+		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'today');
+		sorted = sorted.sortBy('start_datetime');
+		return sorted;
+	}.property('events', 'model.@each.start_datetime'),
     upcomingTomorrow: function(){
 		var sorted = Utility.sortByTimeOption(this, 'start_datetime', 'tomorrow');
 		sorted = sorted.sortBy('start_datetime');
