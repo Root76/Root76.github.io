@@ -78,11 +78,12 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-staging.herokuapp.com/",
+  host: "http://daywon-api-prod.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
     // "4N9-_NWfYvYxpesMVpne",
+    // "epDAyxZkc4uLqoyvym_L"
   }
 });
 
@@ -666,6 +667,32 @@ App.ReportsTagsController = Ember.ArrayController.extend({
 	}.property('tagsController.tagsToShow'),	
 });
 
+App.OrphansIndexController = Ember.ArrayController.extend({
+    needs: ['events', 'tasks', 'tags'],
+    eventsController: Ember.computed.alias("controllers.events"),
+    tasksController: Ember.computed.alias("controllers.tasks"),
+    tagsController: Ember.computed.alias("controllers.tags"),
+	oEvents: function() { 
+		var sorted = this.get('eventsController').get('eventOrphans');
+        return sorted;
+	}.property('eventsController.eventOrphans'),
+	oTasks: function() { 
+		var sorted = this.get('tasksController').get('taskOrphans');
+        return sorted;
+	}.property('tasksController.taskOrphans'),
+	oTags: function() { 
+		var sorted = this.get('tagsController').get('tagOrphans');
+        return sorted;
+	}.property('tagsController.tagOrphans')/*,
+	orphanTotal: function() {
+		var events = this.get('eventsController').get('eventOrphans');
+		var tasks = this.get('tasksController').get('taskOrphans');
+		var tags = this.get('tagsController').get('tagOrphans');
+    	var allItems = [].concat(events, tasks, tags);
+    	return allItems;
+	}.property('eventsController.eventOrphans', 'tasksController.taskOrphans', 'tagsController.tagOrphans')*/
+});
+
 App.OrphaneventsController = Ember.ArrayController.extend({
     needs: ['events'],
     eventsController: Ember.computed.alias("controllers.events"),
@@ -812,6 +839,8 @@ App.Event = DS.Model.extend({
     location: DS.attr('string'),
     start_datetime: DS.attr('date'),
     end_datetime: DS.attr('date'),
+    start_date: DS.attr('date'),
+    end_date: DS.attr('date'),
     updated_at: DS.attr('date'),
     is_orphan: DS.attr('boolean'),
     start_inputformatted: function(key, value) {
@@ -826,6 +855,18 @@ App.Event = DS.Model.extend({
     start_displayformatted: function() {
     	return Utility.convertToReadableDate(this.get('start_datetime')) || "N/A";
     }.property('start_datetime'),
+    startdate_inputformatted: function(key, value) {
+	    if (arguments.length > 1) {
+	    	var date = moment(value);
+	    	if (date.isValid())
+	    		this.set('start_date', date.toDate());
+	    }
+	    var dateString = Utility.convertToHTMLDateTimeLocalInput(this.get('start_date'));
+    	return dateString || "N/A";
+    }.property('start_date'),
+    startdate_displayformatted: function() {
+    	return moment(this.get('start_date')).format('MMMM Do, YYYY');
+    }.property('start_date'),
     end_inputformatted: function(key, value) {
 	    if (arguments.length > 1) {
 	    	var date = moment(value);
@@ -838,6 +879,18 @@ App.Event = DS.Model.extend({
     end_displayformatted: function() {
     	return Utility.convertToReadableDate(this.get('end_datetime')) || "N/A";
     }.property('end_datetime'),
+    enddate_inputformatted: function(key, value) {
+	    if (arguments.length > 1) {
+	    	var date = moment(value);
+	    	if (date.isValid())
+	    		this.set('end_date', date.toDate());
+	    }
+	    var dateString = Utility.convertToHTMLDateTimeLocalInput(this.get('end_date'));
+    	return dateString || "N/A";
+    }.property('end_date'),
+    enddate_displayformatted: function() {
+    	return moment(this.get('end_date')).format('MMMM Do, YYYY');
+    }.property('end_date'),
     contacts: DS.attr('array'),
     tasks: DS.attr('array'),
     tags: DS.attr('array')
@@ -1197,12 +1250,6 @@ App.TagsTagRoute = Ember.Route.extend({
 		}
   	}
 }, IndividualObjectRoute);
-
-App.OrphansIndexRoute = Ember.Route.extend({
-	model: function() {
-		return this.get('store').find('orphan');
-	}
-});
 
 App.OrphaneventsRoute = Ember.Route.extend({
 	model: function() {

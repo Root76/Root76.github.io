@@ -48,18 +48,18 @@
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav navbar-right">
-				{{#linkTo 'index' tagName='li' class='navbar-link'}}
-				  <a {{bindAttr href="view.href"}}><img src="img/dashboard.png" class="navimg" />Dashboard</a>
-			  	  <div class="dropdownarrow">
-				    <img class="dropdownimage" src="img/arrow_black.png" />
-				  </div>
-				{{/linkTo}}
-				{{#linkTo 'reports' tagName='li' class='navbar-link'}}
-				  <a {{bindAttr href="view.href"}}><img src="img/report.png" class="navimg" />Show Me</a>
-			  	  <div class="dropdownarrow">
-				    <img class="dropdownimage" src="img/arrow_black.png" />
-				  </div>
-				{{/linkTo}}
+        				{{#linkTo 'index' tagName='li' class='navbar-link'}}
+        				  <a {{bindAttr href="view.href"}}><img src="img/dashboard.png" class="navimg" />Dashboard</a>
+        			  	  <div class="dropdownarrow">
+        				    <img class="dropdownimage" src="img/arrow_black.png" />
+        				  </div>
+        				{{/linkTo}}
+        				{{#linkTo 'reports' tagName='li' class='navbar-link'}}
+        				  <a {{bindAttr href="view.href"}}><img src="img/report.png" class="navimg" />Show Me</a>
+        			  	  <div class="dropdownarrow">
+        				    <img class="dropdownimage" src="img/arrow_black.png" />
+        				  </div>
+        				{{/linkTo}}
                 <li class="navbar-link dropdown" id="viewmenu">
                   {{#link-to 'contacts' class="dropdown-toggle" data-toggle="dropdown"}}<img src="img/view.png" class="navimg" />View{{/link-to}}
                   <ul class="dropdown-menu">
@@ -69,20 +69,17 @@
                     <li>{{#link-to 'tags'}}<img src="img/tags.png" class="subnavimg" id="viewtags" />Tags{{/link-to}}</li>
                     <li>{{#link-to 'orphans'}}<img src="img/orphans.png" class="subnavimg" />Orphans{{/link-to}}</li>
                     <li>{{#link-to 'calendar'}}<img src="img/calendar.png" class="subnavimg" />Calendar{{/link-to}}</li>
-				    <div class="dropdownarrow">
-				      <img class="dropdownimage" src="img/arrow_black.png" />
-				    </div>
-				  </ul>
-				  <div class="dropdownarrow">
-				    <img class="dropdownimage" src="img/arrow_black.png" />
-				  </div>
+        				  </ul>
+        				  <div class="dropdownarrow">
+        				    <img class="dropdownimage" src="img/arrow_black.png" />
+        				  </div>
                 </li>
-				{{#linkTo 'settings' tagName='li' class='navbar-link'}}
-				  <a {{bindAttr href="view.href"}}><img src="img/settings.png" class="navimg" />Settings</a>
-			  	  <div class="dropdownarrow">
-				    <img class="dropdownimage" src="img/arrow_black.png" />
-				  </div>
-				{{/linkTo}}
+        				{{#linkTo 'settings' tagName='li' class='navbar-link'}}
+        				  <a {{bindAttr href="view.href"}}><img src="img/settings.png" class="navimg" />Settings</a>
+        			  	  <div class="dropdownarrow">
+        				    <img class="dropdownimage" src="img/arrow_black.png" />
+        				  </div>
+        				{{/linkTo}}
                 <li>
                 <input id="searchAll" onclick="bindSearchField();" />
                 </li>
@@ -1387,19 +1384,43 @@
                 </div>
                 <div {{action "editField" "start_datetime" on="doubleClick"}}>
                 	<b>Event Start: </b>
-                  {{#if editing.start_datetime}}
-                  	{{input class="editField" id="start_datetimeInput" type="datetime-local" value=start_inputformatted focus-out="save" insert-newline="save"}}
+                  {{#if start_datetime}}
+                    {{#if editing.start_datetime}}
+                    	{{input class="editField" id="start_datetimeInput" type="datetime-local" value=start_inputformatted focus-out="save" insert-newline="save"}}
+                    {{else}}
+                 			{{start_displayformatted}}
+                    {{/if}}
                   {{else}}
-               			{{start_displayformatted}}
+                    {{#if start_date}}
+                      {{#if editing.start_date}}
+                        {{input class="editField" id="startdate_datetimeInput" type="datetime-local" value=startdate_inputformatted focus-out="save" insert-newline="save"}}
+                      {{else}}
+                        {{startdate_displayformatted}}
+                      {{/if}}
+                    {{else}}
+                      N/A
+                    {{/if}}
                   {{/if}}
                   <br />
                 </div>
                 <div {{action "editField" "end_datetime" on="doubleClick"}}>
                 	<b>Event End: </b>
-                  {{#if editing.end_datetime}}
-                  	{{input class="editField" id="end_datetimeInput" type="datetime-local" value=end_inputformatted focus-out="save" insert-newline="save"}}
+                  {{#if end_datetime}}
+                    {{#if editing.end_datetime}}
+                      {{input class="editField" id="end_datetimeInput" type="datetime-local" value=end_inputformatted focus-out="save" insert-newline="save"}}
+                    {{else}}
+                      {{end_displayformatted}}
+                    {{/if}}
                   {{else}}
-               			{{end_displayformatted}}
+                    {{#if end_date}}
+                      {{#if editing.end_date}}
+                        {{input class="editField" id="enddate_datetimeInput" type="datetime-local" value=enddate_inputformatted focus-out="save" insert-newline="save"}}
+                      {{else}}
+                        {{enddate_displayformatted}}
+                      {{/if}}
+                    {{else}}
+                      N/A
+                    {{/if}}
                   {{/if}}
                   <br />
                 </div>
@@ -1972,7 +1993,7 @@
         <script type="text/x-handlebars" id="orphans/index">
           <div id="appcont" class="orphancont">
             <img id="orphanlogo" src="img/orphans.png" />
-            <h1 id="orphanhead">Orphans (<span id="totalOrphans">3</span>)</h1>
+            <h1 id="orphanhead">Orphans (<span id="totalOrphans"></span>)</h1>
             <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag. To maximize the usefulness of Day Won, eliminate all Orphans.</h2>
             <div id="orphancontainer">
               <div class="orphansubcontainer">
@@ -1988,23 +2009,17 @@
             <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
             <ul>
             {{#each event in model}}
-              {{#if event.title}}
-                <li class="eventCounter">{{event.title}}</li>
-              {{/if}}
+              <li class="eventCounter">{{event.title}}</li>
             {{/each}}
             </ul>
             <ul>
-            {{#each task in orphans}}
-              {{#if task.title}}
-                <li class="taskCounter">{{task.title}}</li>
-              {{/if}}
+            {{#each task in model}}
+              <li class="taskCounter">{{task.title}}</li>
             {{/each}}
             </ul>
             <ul>
-            {{#each tag in controller}}
-              {{#if tag.name}}
-                <li class="tagCounter">{{tag.name}}</li>
-              {{/if}}
+            {{#each tag in model}}
+              <li class="tagCounter">{{tag.name}}</li>
             {{/each}}
             </ul>
           </div>
@@ -2016,7 +2031,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding">Orphan Events (<span id="itemCount"></span>)</h1>
+                  <h1 class="contactpadding">Orphan Events (<span id="itemCount">{{oEvents.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -2073,7 +2088,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount"></span>)</h1>
+                  <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount">{{oTasks.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
@@ -2138,7 +2153,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/orphans.png" / class="contactpadding">
-                  <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount"></span>)</h1>
+                  <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount">{{oTags.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search...">
                   </form>
