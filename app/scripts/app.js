@@ -309,26 +309,39 @@ App.EventsController = Ember.ArrayController.extend({
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
 	}.property('showOption', 'showProperty', 'sortProperties'),
-	eventsNoDuplicates: function() {
-		var uniqueEvents = this.getEach('id').uniq();
-		console.log("unique titles length: " + uniqueEvents.length);
-		var allEvents = this.getEach('title');
-		console.log("all titles: " + allEvents);
-		var eventObject = $.extend({}, uniqueEvents);
-		console.log(eventObject);
-		for (var i = 0; i < uniqueEvents.length; i++) {
-			var title = eventObject[i];
-			eventObject[i] = {};
-			var test = this.store.filter('event', {title: title}, function(event) {
-				return event.get('id');
+	eventsNoDuplicates: function() 
+	{
+		
+		var uniqueEvents = this.getEach('title').uniq();
+		console.log("uniqueEvents.length");
+		console.log(uniqueEvents.length);
+		console.log("uniqueEvents");
+		console.log(uniqueEvents);
+
+
+		//var eventObject = $.extend({}, uniqueEvents);
+		//console.log(eventObject.length);
+
+		var eventObject = {};
+		var eventIDS = {};
+
+		for (var i = 0; i < uniqueEvents.length; i++) 
+		{
+			var title = uniqueEvents[i];
+			console.log(title);
+						
+
+			var test = this.store.filter('event', {title: title}, function(event) 
+			{
+				eventIDS[title] = event.get('id');			
 			});
-			eventObject[i]['id'] = test;
-			eventObject[i]['title'] = title;
+			
 		}
-		console.log(eventObject);
-		console.log("object length: " + eventObject.length);
-		//console.log(eventObject);
-		return uniqueEvents;
+		
+		console.log("eventIDS");
+		console.log(eventIDS);
+
+		return eventIDS;
 	}.property('events'),
 	eventOrphans: function(a) {
 		var oList = this.store;
