@@ -78,10 +78,10 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-prod.herokuapp.com/",
+  host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
     // "4N9-_NWfYvYxpesMVpne",
     // "epDAyxZkc4uLqoyvym_L"
   }
@@ -232,7 +232,7 @@ App.ContactsController = Ember.ArrayController.extend({
 			sorted = this.sortBy(['updated_at']);
 			var RECENT_COUNT = 10;
 			var currentCount = 0;
-			sorted = sorted.filter(function(item) {		
+			sorted = sorted.filter(function(item) {
 				currentCount++;
 				return currentCount <= RECENT_COUNT;
 			});
@@ -285,10 +285,10 @@ App.EventsController = Ember.ArrayController.extend({
 		var sorted;
 		switch (option) {
 		case "all":
-			sorted = this.sortBy(['updated_at']);
+			sorted = this.sortBy(['start_datetime']);
 			break;
 		case "tagged":
-			sorted = this.filter(function(item) {		
+			sorted = this.filter(function(item) {
 				//filter out tagged items
 				return false;
 			});
@@ -309,6 +309,27 @@ App.EventsController = Ember.ArrayController.extend({
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
 	}.property('showOption', 'showProperty', 'sortProperties'),
+	eventsNoDuplicates: function() {
+		var uniqueEvents = this.getEach('id').uniq();
+		console.log("unique titles length: " + uniqueEvents.length);
+		var allEvents = this.getEach('title');
+		console.log("all titles: " + allEvents);
+		var eventObject = $.extend({}, uniqueEvents);
+		console.log(eventObject);
+		for (var i = 0; i < uniqueEvents.length; i++) {
+			var title = eventObject[i];
+			eventObject[i] = {};
+			var test = this.store.filter('event', {title: title}, function(event) {
+				return event.get('id');
+			});
+			eventObject[i]['id'] = test;
+			eventObject[i]['title'] = title;
+		}
+		console.log(eventObject);
+		console.log("object length: " + eventObject.length);
+		//console.log(eventObject);
+		return uniqueEvents;
+	}.property('events'),
 	eventOrphans: function(a) {
 		var oList = this.store;
 		return oList.filter('event', {is_orphan: true}, function(event) {

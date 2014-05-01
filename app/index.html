@@ -1274,7 +1274,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/events.png" / class="contactpadding">
-                  <h1 class="contactpadding">Events ({{eventsToShow.length}})</h1>
+                  <h1 class="contactpadding">Events ({{eventsNoDuplicates.length}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustEvents">
                   </form>
@@ -1289,9 +1289,9 @@
                     </div>
                   </div>
                   <ul id="eventlist" class="sidelist">
-                    {{#each event in eventsToShow}}
-                      {{#if event.title}}
-                        {{#link-to 'events.event' event}}<li>{{event.title}}</li>{{/link-to}}
+                    {{#each event in eventsNoDuplicates}}
+                      {{#if event}}
+                        {{#link-to 'events.event' event}}<li>{{event}}</li>{{/link-to}}
                       {{else}}
                         {{#link-to 'events.event' event}}<li>N/A</li>{{/link-to}}
                       {{/if}}
