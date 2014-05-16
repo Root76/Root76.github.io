@@ -5,7 +5,7 @@ setTimeout(function() {
             document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://daywon.s3-website-us-west-2.amazonaws.com/login.html";
         }
     }
-}, 1000);
+}, 2000);
 
 function rebindEvents() {
 
@@ -26,11 +26,25 @@ function rebindEvents() {
         if ($(event.target).hasClass('selected')) {
             $(event.target).removeClass('selected');
             $(subSortList).css("display", "none");
+            if (this.id === 'maintask') {
+                $('.calTask').removeClass('active');
+            } else if (this.id === 'mainevent') {
+                $('.calEvent').removeClass('active');
+            } else {
+                console.log('nope');
+            }
         } else {
             $(event.target).addClass('selected');
             $(subSortList).css("display", "block");
+            if (this.id === 'maintask') {
+                $('.calTask').addClass('active');
+            } else if (this.id === 'mainevent') {
+                $('.calEvent').addClass('active');
+            } else {
+                console.log('nope');
+            }
         }
-        $(".listitem").accordion("refresh");
+        $(".listitem.active").accordion("refresh");
     });
 
     $('.sortitem').unbind("click").bind("click", function(event){
@@ -69,7 +83,7 @@ function rebindEvents() {
             } else {
                 $(".subTag").css("display", "none");
             }
-            $(".listitem").accordion("refresh"); 
+            $(".listitem.active").accordion("refresh"); 
         }, 1000);
     });
 
@@ -115,8 +129,8 @@ function rebindEvents() {
                         contentType: "application/json",
                         dataType: "json",
                         headers: {
-                            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                            "X-AUTHENTICATION-TOKEN": authToken,
+                            "X-AUTHENTICATION-EMAIL": userEmail
                         },
                         success: function (data) {
                             console.log("original data: " + data['events']);
@@ -248,18 +262,22 @@ function rebindEvents() {
 
     $('#collapseall').click(function(){
     	$("#loader").addClass("showLoader");
+        var allItems = $('.listitem');
     	setTimeout(function(){
-	        $('.listitem').accordion({
-	            active: false,
-	            collapsible: true,
-	            header: "h3.mainsort", // force only 1 header in this accordion
-				beforeActivate: function(evt, obj) {
-					var OFFSET = -30;
-					var collapsing = obj.newHeader.length === 0;
-					if (!collapsing)
-						$('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
-				}
-	        });
+            for (var i = 0; i < 15; i++) {
+                $(allItems[i]).addClass('active');
+                $(allItems[i]).accordion({
+                    active: false,
+                    collapsible: true,
+                    header: "h3.mainsort", // force only 1 header in this accordion
+                    beforeActivate: function(evt, obj) {
+                        var OFFSET = -30;
+                        var collapsing = obj.newHeader.length === 0;
+                        if (!collapsing)
+                            $('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
+                    }
+                });
+            }
 	        $('.accordionarrow').removeClass('arrowdown');
 	        setTimeout(function(){
 	    		$("#loader").removeClass("showLoader");
@@ -359,19 +377,29 @@ function rebindEvents() {
 	  return s.indexOf(' ') >= 0;
 	}
 
-    $(".dynamicEmail").parent().click(function(){
+    $(".emailLink").attr("href", "");
+
+    $(".emailLink").parent().click(function(){
         /*Grabbing the innerHTML alone doesn't work because of the <script> tags Ember inserts around model data. As a workaround, we grab all of the innerHTML, load it into a hidden div, drop the <script> tags from the DOM, and grab the hidden div's innerHTML (just the email address)*/
-        $(".dynamicEmail").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&to=");
-        $(".mobileEmail").attr("href", "mailto:");
-        var desktopLink = $(".desktopEmail").attr("href");
-        var mobileLink = $(".mobileEmail").attr("href");
         var emailAddr = $(".emailfield");
         emailAddr = $(emailAddr[0]).html();
         $("#preloader").html(emailAddr);
         $("#preloader > script").remove();
-        emailAddr = $("#preloader").html();
-        $(".dynamicEmail").attr("href", desktopLink + emailAddr);
-        $(".mobileEmail").attr("href", mobileLink + emailAddr);
+        $("#preloader > span > script").remove();
+        emailAddr = $("#preloader > span").html();
+        if (emailAddr != null) {
+            emailAddr = emailAddr.replace(/\s+/g, '');
+            console.log("email: " + emailAddr);
+            $(".dynamicEmail").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&to=");
+            $(".mobileEmail").attr("href", "mailto:");
+            var desktopLink = $(".dynamicEmail").attr("href");
+            var mobileLink = $(".mobileEmail").attr("href");
+            $(".dynamicEmail").attr("href", desktopLink + emailAddr);
+            $(".mobileEmail").attr("href", mobileLink + emailAddr);
+        } else {
+            $('#openModal7').addClass('active');
+            return false;
+        }
     });
 
     $("#mobileContact").click(function(){
@@ -466,6 +494,7 @@ function rebindEvents() {
     });
 
     $(".allDayStart").hide();
+    $(".allDayEnd").hide();
 
     $("#allDay").unbind("click").bind("click", function(){
         var allDay = $("#allDay");
@@ -473,10 +502,12 @@ function rebindEvents() {
             $(".eventDateStart").hide();
             $(".eventDateEnd").hide();
             $(".allDayStart").show();
+            $(".allDayEnd").show();
         } else {
             $(".eventDateStart").show();
             $(".eventDateEnd").show();
             $(".allDayStart").hide();
+            $(".allDayEnd").hide();
         }
     });
 
@@ -693,7 +724,7 @@ function rebindEvents() {
                 var eventEn = moment($("#eventEnd").val()).format();
             } else {
                 var eventSt = moment($("#allDayStart").val()).format();
-                var eventEn = null;
+                var eventEn = moment($("#allDayEnd").val()).format();
             }
             var isRecurring = new Boolean($("#recurring:checked").length);
             var monday = new Boolean(false);
@@ -775,8 +806,8 @@ function rebindEvents() {
 			dataType: "json",
 			data: JSON.stringify(data),
 			headers: {
-				"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-				"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+				"X-AUTHENTICATION-TOKEN": authToken,
+				"X-AUTHENTICATION-EMAIL": userEmail
 			},
 			success: function (data) {
 				console.log(data);
@@ -887,8 +918,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -935,8 +966,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(data),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -1055,8 +1086,10 @@ function rebindEvents() {
             for (var i = 0; i < 15; i++) {
                 $(allItems[i]).addClass('active');
             }
-            allItems.accordion("refresh");
-            setTimeout($("#loader").removeClass("showLoader"), 500);
+            setTimeout(function(){
+                $('.listitem.active').accordion("refresh");
+                $("#loader").removeClass("showLoader");
+            }, 1000);
         }, 500);
         window.onscroll = function(ev) {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 155) {
@@ -1068,10 +1101,21 @@ function rebindEvents() {
                         console.log('skipping, already active');
                     } else {
                         $(allItems[i]).addClass('active');
+                        $(allItems[i]).accordion({
+                            active: false,
+                            collapsible: true,
+                            header: "h3.mainsort", // force only 1 header in this accordion
+                            beforeActivate: function(evt, obj) {
+                                var OFFSET = -30;
+                                var collapsing = obj.newHeader.length === 0;
+                                if (!collapsing)
+                                    $('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
+                            }
+                        });
                         j++;
                     }
                 }
-                allItems.accordion("refresh");
+                $('.listitem.active').accordion("refresh");
             }
         };
     }
@@ -1135,11 +1179,11 @@ function rebindEvents() {
             mouseWheel: true,
             scrollbars: true
         });
-        var scroller = new IScroll('#dCol2', {
+        var scroller2 = new IScroll('#dCol2', {
             mouseWheel: true,
             scrollbars: true
         });
-        var scroller = new IScroll('#dCol3', {
+        var scroller3 = new IScroll('#dCol3', {
             mouseWheel: true,
             scrollbars: true
         });
@@ -1157,8 +1201,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -1175,12 +1219,6 @@ function rebindEvents() {
                 var orphanTags = JSON.parse(orphanObjRoot);
                 orphanTags = orphanTags.tags;
                 orphanTags = orphanTags.length;
-                $("#totalOrphans").html(orphanEvents + orphanTasks + orphanTags);
-                var orphanCounters = $(".ocount");
-                $(orphanCounters[0]).html(orphanEvents);
-                $(orphanCounters[1]).html(orphanTasks);
-                $(orphanCounters[2]).html(orphanTags);
-
             },
             error: function (e) {
                 //alert("There was an error loading orphans: " + e);
@@ -1197,8 +1235,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1243,8 +1281,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1273,8 +1311,8 @@ function rebindEvents() {
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1520,7 +1558,7 @@ function rebindEvents() {
     	new Opentip(contactImages[0], "Phone Number", {
             style: "lefttip"
         });
-    	new Opentip(contactImages[1], "Send Email", {
+    	new Opentip(contactImages[1], "Compose Email", {
             style: "lefttip"
         });
         new Opentip("#bdayImage", "Birthday", {
@@ -1532,7 +1570,7 @@ function rebindEvents() {
     }
     if ($('.contactDetails').length) {
         var slideImages = $('.contactgroup img');
-        new Opentip(slideImages[0], "Send Email", {
+        new Opentip(slideImages[0], "Compose Email", {
             style: "lefttip"
         });
         new Opentip(slideImages[1], "View Emails", {
@@ -1616,14 +1654,15 @@ function rebindEvents() {
     modal5Links.click(function(){ $('#openModal5').addClass('active'); });
     var modal6Links = $('.openModal6');
     modal6Links.click(function(){ $('#openModal6').addClass('active'); });
-
+    var modal6Links = $('.openModal7');
+    modal6Links.click(function(){ $('#openModal7').addClass('active'); });
 	// set current email
-    $("#eaddr option:first").html("hweaver@evenspring.com");
+    $("#eaddr option:first").html(userEmail);
     
     var ajaxObj = {
         headers: {
-            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         }
     };
 
@@ -1633,8 +1672,8 @@ function rebindEvents() {
         contentType: "application/json",
         dataType: "json",
         headers: {
-            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+            "X-AUTHENTICATION-TOKEN": authToken,
+            "X-AUTHENTICATION-EMAIL": userEmail
         },
         success: function (data) {
             var emailData = data;
@@ -1975,8 +2014,8 @@ function rebindEvents() {
                         dataType: "json",
                         data: JSON.stringify(payload),
                         headers: {
-                            "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                            "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                            "X-AUTHENTICATION-TOKEN": authToken,
+                            "X-AUTHENTICATION-EMAIL": userEmail
                         },
                         success: function (data) {
                             console.log(data);
@@ -2206,8 +2245,8 @@ function rebindEvents() {
                 dataType: "json",
                 data: JSON.stringify(payload),
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -2268,32 +2307,48 @@ setTimeout(function(){
     $('#eventStart').datetimepicker({
         id:"eventDateStart",
         formatTime: 'g:i A',
-        format: 'm/d/Y g:i A'
+        format: 'm/d/Y g:i A',
+        validateOnBlur:false
     });
     $('#allDayStart').datetimepicker({
         id:"allDayStart",
         format: 'm/d/Y',
-        pickTime: false
+        pickTime: false,
+        validateOnBlur:false
     });
     $('#eventEnd').datetimepicker({
         id:"eventDateEnd",
         formatTime: 'g:i A',
-        format: 'm/d/Y g:i A'
+        format: 'm/d/Y g:i A',
+        validateOnBlur:false
+    });
+    $('#allDayEnd').datetimepicker({
+        id:"allDayEnd",
+        format: 'm/d/Y',
+        pickTime: false,
+        validateOnBlur:false
     });
     $('#taskDue').datetimepicker({
         id:"taskDate",
         formatTime: 'g:i A',
-        format: 'm/d/Y g:i A'
+        format: 'm/d/Y g:i A',
+        validateOnBlur:false
     });
     $('#endEventRepeat').datetimepicker({
         id:"endEvent",
         formatTime: 'g:i A',
-        format: 'm/d/Y g:i A'
+        format: 'm/d/Y g:i A',
+        validateOnBlur:false
     });
 
     $('.formrow img').click(function(event){
-        $(event.target).parent().find('input').focus();
+        $(event.target).parent().find('input').datetimepicker('show');
     });
+
+    /*var scroller3 = new IScroll('#bodyScroller', {
+        mouseWheel: true,
+        scrollbars: true
+    });*/
 
     function ajaxOrphans() {
 
@@ -2303,8 +2358,8 @@ setTimeout(function(){
             contentType: "application/json",
             dataType: "json",
             headers: {
-                "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                "X-AUTHENTICATION-TOKEN": authToken,
+                "X-AUTHENTICATION-EMAIL": userEmail
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -2315,19 +2370,14 @@ setTimeout(function(){
                 var orphanEvents = JSON.parse(orphanObjRoot);
                 orphanEvents = orphanEvents.events;
                 orphanEvents = orphanEvents.length;
-                console.log("orphan events: " + orphanEvents);
                 var orphanTasks = JSON.parse(orphanObjRoot);
                 orphanTasks = orphanTasks.tasks;
                 orphanTasks = orphanTasks.length;
-                console.log("orphan tasks: " + orphanTasks);
                 var orphanTags = JSON.parse(orphanObjRoot);
                 orphanTags = orphanTags.tags;
                 orphanTags = orphanTags.length;
-                console.log("orphan tags: " + orphanTags);
                 var totalOrphans = orphanEvents + orphanTags + orphanTasks;
-                console.log(totalOrphans);
                 $("#orphancount > span").html(totalOrphans);
-                $("#totalOrphans").html(totalOrphans);
             },
             error: function (e) {
                 //alert("There was an error loading orphans: " + e);
@@ -2362,8 +2412,8 @@ setTimeout(function(){
                     contentType: "application/json",
                     dataType: "json",
                     headers: {
-                        "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-                        "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+                        "X-AUTHENTICATION-TOKEN": authToken,
+                        "X-AUTHENTICATION-EMAIL": userEmail
                     },
                     success: cb,
                     error: function(e) {

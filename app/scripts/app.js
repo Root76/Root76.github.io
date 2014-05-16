@@ -80,9 +80,9 @@ userEmail = query_string.user_email;
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
-    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
-    // "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-TOKEN": authToken,
+    "X-AUTHENTICATION-EMAIL": userEmail
+    // authToken,
     // "epDAyxZkc4uLqoyvym_L"
   }
 });
@@ -152,6 +152,8 @@ Utility.sortByTimeOption = function(enumerable, timePropertyName, timeOption) {
 			case "newThisMonth": // from beginning of month until now
 				var beginningOfMonth = moment([now.year(), now.month()])
 				return time >= beginningOfMonth && time < now;
+			case "upcoming": // from beginning of month until now
+				return time >= now;
 			}
 		}
 		return false;
@@ -309,45 +311,133 @@ App.EventsController = Ember.ArrayController.extend({
 		sorted = sorted.sortBy(this.get('sortProperties'));
         return sorted;
 	}.property('showOption', 'showProperty', 'sortProperties'),
-	eventsNoDuplicates: function() 
-	{
-		
-		var uniqueEvents = this.getEach('title').uniq();
-		console.log("uniqueEvents.length");
-		console.log(uniqueEvents.length);
-		console.log("uniqueEvents");
-		console.log(uniqueEvents);
+	eventsNoDuplicates: function() {
 
-
-		//var eventObject = $.extend({}, uniqueEvents);
-		//console.log(eventObject.length);
-
-		var eventObject = {};
-		var eventIDS = {};
-
-		for (var i = 0; i < uniqueEvents.length; i++) 
-		{
-			var title = uniqueEvents[i];
-			console.log(title);
-						
-
-			var test = this.store.filter('event', {title: title}, function(event) 
-			{
-				eventIDS[title] = event.get('id');			
+		var option = this.get('showOption');
+		var sorted;
+		switch (option) {
+		case "all":
+			sorted = this.sortBy(['start_datetime']);
+			break;
+		case "tagged":
+			sorted = this.filter(function(item) {
+				//filter out tagged items
+				return false;
 			});
-			
+			break;
+		case "recent":
+			sorted = this.sortBy(['updated_at']);
+			var RECENT_COUNT = 10;
+			var currentCount = 0;
+			sorted = sorted.filter(function(item) {		
+				currentCount++;
+				return currentCount <= RECENT_COUNT;
+			});
+			break;
+		default:
+			sorted = Utility.sortByTimeOption(this, this.get('showProperty'), option);
+			break;
 		}
-		
-		console.log("eventIDS");
-		console.log(eventIDS);
+		sorted = sorted.sortBy(this.get('sortProperties'));
 
-		return eventIDS;
+		var uniqueEvents = this.getEach('title').uniq();
+		console.log(uniqueEvents);
+		var eventObject = $.extend({}, uniqueEvents);
+
+		for (var i = 0; i < uniqueEvents.length; i++) {
+			var title = eventObject[i];
+			var uniqueTitles = sorted.filterProperty('title', title);
+			console.log("loop " + i + ". length" + uniqueTitles.length + ". title :" + uniqueEvents[i]);
+			if (uniqueTitles[0]['_data']['start_date'] === null) {
+				console.log("has a datetime");
+				uniqueTitles = Utility.sortByTimeOption(uniqueTitles, 'start_datetime', "upcoming");
+				uniqueTitles = uniqueTitles.sortBy(['start_datetime']);
+			} else {
+				console.log("no datetime, just a date");
+				uniqueTitles = Utility.sortByTimeOption(uniqueTitles, 'start_date', "upcoming");
+				uniqueTitles = uniqueTitles.sortBy(['start_date']);		
+			}
+			console.log(uniqueTitles);
+			if (uniqueTitles.length > 0) {
+				if (uniqueTitles[0].hasOwnProperty('_data')) {
+					eventObject[i] = uniqueTitles[0]['_data'];
+				} else {
+					eventObject[i] = uniqueTitles[0]['id'];
+				}
+			}
+		}
+
+		var array = $.map(eventObject, function(value, index) {
+		    return [value];
+		});
+
+		console.log(array);
+
+        return array;
+
+	}.property('events', 'showOption', 'showProperty', 'sortProperties'),
+	uniqueEventCount: function() {
+		var uniqueEvents = this.getEach('title').uniq();
+		return uniqueEvents.length;
 	}.property('events'),
 	eventOrphans: function(a) {
-		var oList = this.store;
-		return oList.filter('event', {is_orphan: true}, function(event) {
-			return event.get('is_orphan');
+
+		console.log(this);
+
+		var uniqueEvents = this.getEach('title').uniq();
+		console.log("unique events: " + uniqueEvents);
+		var eventObject = $.extend({}, uniqueEvents);
+
+		for (var i = 0; i < uniqueEvents.length; i++) {
+			var title = eventObject[i];
+			var uniqueTitles = this.filterProperty('title', title);
+			if (uniqueTitles[0]['_data']['start_date'] === null) {
+				uniqueTitles = Utility.sortByTimeOption(uniqueTitles, 'start_datetime', "upcoming");
+				uniqueTitles = uniqueTitles.sortBy(['start_datetime']);
+			} else {
+				uniqueTitles = Utility.sortByTimeOption(uniqueTitles, 'start_date', "upcoming");
+				uniqueTitles = uniqueTitles.sortBy(['start_date']);		
+			}
+			if (uniqueTitles.length > 0) {
+				if (uniqueTitles[0].hasOwnProperty('_data')) {
+					eventObject[i] = uniqueTitles[0]['_data'];
+					console.log("had data");
+				} else {
+					eventObject[i] = uniqueTitles[0]['id'];
+					console.log("no data");
+				}
+			}
+			if (eventObject[i]['is_orphan'] === false) {
+				delete eventObject[i];
+				console.log("deleting");
+			} else {
+				console.log("orphan");
+			}
+		}
+
+		function ObjectLength( object ) {
+		    var length = 0;
+		    for( var key in object ) {
+		        if( object[key].hasOwnProperty('title') ) {
+		            length++;
+		        }
+		    }
+		    return length;
+		};
+
+		var oLength = ObjectLength(eventObject);
+
+		var array = $.map(eventObject, function(value, index) {
+			if (index < oLength) {
+		    	return [value];
+			}
 		});
+
+		console.log(array.length);
+		console.log(array);
+
+        return array;
+
 	}.property('events'),
 	showOptions: [
 		{label: "All", id: "all", showProperty: "updated_at"},
@@ -513,7 +603,6 @@ App.TagsController = Ember.ArrayController.extend({
 		this.set('sortProperties', sortProperties);
 		this.set('sortAscending', this.selectedSortOption.ascending);
 	}.observes('selectedSortOption'),
-	
 	showOption: "allOpen",
 	tagsToShow: function(a) { 
 		var option = this.get('showOption');
@@ -587,47 +676,7 @@ App.IndexController = Ember.ObjectController.extend({
     	});*/
        	return todayEvents;
     }.property('events')
-});	
-
-		/*sortOptions: [
-			{label: "Tasks with no dates", primarySort: "noDate", secondarySort: "due", ascending: false},
-			{label: "Tasks with dates", primarySort: "hasDate", secondarySort: "due", ascending: false},
-			{label: "Priority", primarySort: "status", ascending: false},
-			{label: "Alphabetical", primarySort: "title", ascending: true}
-		],
-		selectedSortOption: null,
-		selectedSortOptionChanged: function() {
-			var sortProperties = [this.selectedSortOption.primarySort];
-			if (this.selectedSortOption.secondarySort)
-				sortProperties.push(this.selectedSortOption.secondarySort);
-			this.set('sortProperties', sortProperties);
-			this.set('sortAscending', this.selectedSortOption.ascending);
-		}.observes('selectedSortOption'),
-		
-		showOptions: [
-			{label: "All Open", id: "allOpen"},
-			{label: "Overdue", id: "overdue"},
-			{label: "Today & Overdue", id: "todayAndOverdue"},
-			{label: "Next 7 Days", id: "next7Days"}
-		],
-		showOptions2: [
-			{label: "Today", id: "today"},
-			{label: "Tomorrow", id: "tomorrow"},
-			{label: "This Week", id: "thisWeek"},
-			{label: "Next Week", id: "nextWeek"},
-			{label: "All Open Activities", id: "allOpen"},
-		],
-		selectedShowOption: null,
-		selectedShowOptionChanged: function() {
-			if (this.selectedShowOption) {
-				this.set('showOption', this.selectedShowOption.id);
-			}
-			
-	        setTimeout(function(){
-	            $(".ui-accordion").accordion("refresh");
-	        }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
-		}.observes('selectedShowOption'),*/
-
+});
 
 App.SettingsController = Ember.ObjectController.extend({
     needs: ['contacts', 'events', 'tasks', 'tags'],
@@ -655,12 +704,11 @@ App.ReportsEventsController = Ember.ArrayController.extend({
     eventsController: Ember.computed.alias("controllers.events"),
     sortProperties: ['start_datetime'],
     sortAscending: false,
-	
 	eventsToShow: function() { 
-		var sorted = this.get('eventsController').get('eventsToShow');
+		var sorted = this.get('eventsController').get('eventsNoDuplicates');
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
-	}.property('eventsController.eventsToShow')
+	}.property('eventsController.eventsNoDuplicates')
 });
 
 App.ReportsTasksController = Ember.ArrayController.extend({
@@ -668,12 +716,11 @@ App.ReportsTasksController = Ember.ArrayController.extend({
     tasksController: Ember.computed.alias("controllers.tasks"),
     sortProperties: ['due'],
     sortAscending: false,
-	
 	tasksToShow: function() { 
 		var sorted = this.get('tasksController').get('tasksToShow');
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
-	}.property('tasksController.tasksToShow'),	
+	}.property('tasksController.tasksToShow')
 });
 
 App.ReportsContactsController = Ember.ArrayController.extend({
@@ -717,7 +764,17 @@ App.OrphansIndexController = Ember.ArrayController.extend({
 	oTags: function() { 
 		var sorted = this.get('tagsController').get('tagOrphans');
         return sorted;
-	}.property('tagsController.tagOrphans')/*,
+	}.property('tagsController.tagOrphans'),
+	totalOrphans: function() {
+		var events = this.get('eventsController').get('eventOrphans');
+		var tasks = this.get('tasksController').get('taskOrphans');
+		var tags = this.get('tagsController').get('tagOrphans');
+
+    	var allItems = [].concat(events, tasks, tags);
+    	console.log(allItems);
+    	return allItems;
+
+	}.property('eventsController.eventOrphans', 'tasksController.taskOrphans', 'tagsController.tagOrphans')/*,
 	orphanTotal: function() {
 		var events = this.get('eventsController').get('eventOrphans');
 		var tasks = this.get('tasksController').get('taskOrphans');
@@ -829,8 +886,15 @@ App.Contact = DS.Model.extend({
     tasks: DS.attr('array'),
     tags: DS.attr('array'),
     relatedEmailsLink: function() {
-		return 'https://mail.google.com/mail/u/?authuser=' + userEmail + // pick the right user account in case of multiple login
-			'#search/from:' + this.get('email') + '+OR+to:' + this.get('email'); // filter emails from/to this person
+    	var addresses = this.get('emails');
+    	console.log(addresses.length);
+    	if (addresses.length < 1) {
+			return 'https://mail.google.com/mail/u/?authuser=#search/from:+OR+to:'; // filter emails from/to this person
+    	} else {
+	    	addresses = addresses[0]['email'];
+			return 'https://mail.google.com/mail/u/?authuser=' + userEmail + // pick the right user account in case of multiple login
+				'#search/from:' + addresses + '+OR+to:' + addresses; // filter emails from/to this person
+		}
     }.property('emails'),
     birthdayProperty: function() {
     	var properties = this.get('extended_properties') || [];
@@ -1328,53 +1392,146 @@ App.CalendarRoute = Ember.Route.extend({
 });
 
 var calPopupTemplate = Handlebars.compile($('#calPopupTemplate').html());
+var calPopupTemplate2 = Handlebars.compile($('#calPopupTemplate2').html());
 App.CalView = Ember.View.extend({
 	didInsertElement: function() {
+
 		var self = this;
 		var model = this.get('controller.model');
-	    var json = model.map(function(record) {
-	    	var json = record.toJSON();
-	    	json.id = record.id;
-            return json;
+	    var jsonEvent = model.map(function(record) {
+	    	jsonEvent = record.toJSON();
+	    	jsonEvent.id = record.id;
+            return jsonEvent;
         });
-        for (var i = 0; i < json.length; i++) {
-        	if (json[i].hasOwnProperty("start_datetime")) {
-        		json[i]["start"] = json[i]["start_datetime"];
-        	}
-        	if (json[i].hasOwnProperty("end_datetime")) {
-        		json[i]["end"] = json[i]["end_datetime"];
-        	}
-        }
-    	this.$().fullCalendar({
-	        header: {
-	            left: 'prev,next today',
-	            center: 'title',
-	            right: 'month,agendaWeek,agendaDay,agendaList'
-	        },
-	        events: json,
-	        eventClick: function(calEvent, jsEvent, view) {
-		        var calElement = this;
-				model.store.find('event', calEvent.id).then(function(event) { 
-					event.reload().then(function(reloadedEvent) { // wait for related tags to be pulled
-				        calEvent.start_formatted = moment(calEvent.start).format('MMMM Do YYYY, h:mm:ss a');
-				        calEvent.end_formatted = moment(calEvent.end).format('MMMM Do YYYY, h:mm:ss a');
-				        calEvent.tags = reloadedEvent.get('tags');
-				        var eventInfo = calPopupTemplate(calEvent);
 
-				        new Opentip(calElement, eventInfo, {
-		            		style: "calitem",
-		            		showOn: "creation",
-		            		hideTrigger: "closeButton",
-		            		className: "calevent",
-		            		background: "#88c44c",
-		            		closeButtonRadius: 15,
-		            		closeButtonCrossSize: 10,
-		            		closeButtonCrossColor: "#ffffff"
-		        		});
-					});
-				});
-		    }
-   		});
+        console.log("events: " + jsonEvent.length);
+        console.log(jsonEvent);
+
+        var getTasks = function(cb) {
+            var data = 'Input values';
+            $.ajax({
+                type: 'GET',
+                url: 'http://daywon-api-staging.herokuapp.com/tasks',
+                contentType: "application/json",
+                dataType: "json",
+                headers: {
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
+                },
+                success: cb,
+                error: function(e) {
+                    console.log("couldn't fetch tasks: " + e);
+                }
+            });
+        }
+
+        var callback = function(data) {
+
+        	var allTasks = data.tasks;
+        	var jsonTask = [];
+        	var j = 0;
+        	for (var i = jsonEvent.length; j < allTasks.length; j++) {
+        		jsonEvent[i] = allTasks[j];
+        		i++;
+        	}
+
+        	console.log("with tasks: " + jsonEvent.length);
+        	console.log(jsonEvent);
+
+        	var json = jsonEvent;
+
+	        for (var i = 0; i < json.length; i++) {
+
+	        	if (json[i].hasOwnProperty("start_datetime")) {
+	        		json[i]["start"] = json[i]["start_datetime"];
+	        	} else
+	        	if (json[i].hasOwnProperty("start_date")) {
+	        		json[i]["start"] = json[i]["start_date"];
+	        	} 
+
+	        	if (json[i].hasOwnProperty("end_datetime")) {
+	        		json[i]["end"] = json[i]["end_datetime"];
+	        	} else
+	        	if (json[i].hasOwnProperty("end_date")) {
+	        		json[i]["end"] = json[i]["end_date"];
+	        	}
+
+	        	if (json[i].hasOwnProperty("due")) {
+	        		console.log("there's a due");
+	        		json[i]['start'] = json[i]["due"];
+	        		json[i]['end'] = json[i]["due"];
+	        		json[i]['className'] = 'calTask active';
+	        	} else {
+	        		json[i]['className'] = 'calEvent active';
+	        	}
+	        }
+
+	        console.log("INSTANTIATE");
+	        startCalendar(jsonEvent, that);
+
+        }
+
+        var that = this;
+        getTasks(callback);
+
+        function startCalendar(json, that) {
+	        console.log("final json");
+	        console.log(json);
+	    	that.$().fullCalendar({
+		        header: {
+		            left: 'prev,next today',
+		            center: 'title',
+		            right: 'month,agendaWeek,agendaDay,agendaList'
+		        },
+		        events: json,
+		        eventClick: function(calItem, jsEvent, view) {
+			        var calElement = this;
+			        console.log(calItem);
+			        if (calItem.hasOwnProperty('location')) {
+						model.store.find('event', calItem.id).then(function(event) { 
+							event.reload().then(function(reloadedEvent) { // wait for related tags to be pulled
+						        calItem.start_formatted = moment(calItem.start).format('MMMM Do YYYY, h:mm:ss a');
+						        calItem.end_formatted = moment(calItem.end).format('MMMM Do YYYY, h:mm:ss a');
+						        calItem.tags = reloadedEvent.get('tags');
+						        var eventInfo = calPopupTemplate(calItem);
+
+						        new Opentip(calElement, eventInfo, {
+				            		style: "calitem",
+				            		showOn: "creation",
+				            		hideTrigger: "closeButton",
+				            		className: "calpop",
+				            		background: "#e35d32",
+				            		closeButtonRadius: 15,
+				            		closeButtonCrossSize: 10,
+				            		closeButtonCrossColor: "#ffffff"
+				        		});
+							});
+						});
+					} else if (calItem.hasOwnProperty('due')) {
+						model.store.find('task', calItem.id).then(function(task) { 
+							task.reload().then(function(reloadedTask) { // wait for related tags to be pulled
+						        calItem.due_formatted = moment(calItem.due).format('MMMM Do YYYY, h:mm:ss a');
+						        calItem.tags = reloadedTask.get('tags');
+						        var taskInfo = calPopupTemplate2(calItem);
+
+						        new Opentip(calElement, taskInfo, {
+				            		style: "calitem",
+				            		showOn: "creation",
+				            		hideTrigger: "closeButton",
+				            		className: "calpop",
+				            		background: "#88c44c",
+				            		closeButtonRadius: 15,
+				            		closeButtonCrossSize: 10,
+				            		closeButtonCrossColor: "#ffffff"
+				        		});
+							});
+						});
+					} else {
+						alert("something's wrong");
+					}
+			    }
+	   		});
+		}
 		window.transitionToTag = function(id) {
 			document.location.href = document.location.href.split('#')[0] + '#/tags/' + id;
 		}

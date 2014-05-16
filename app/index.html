@@ -102,8 +102,10 @@
         </div>
         <div class="container">
           <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" id="bodyScroller">
+              <div>
               {{outlet}}
+              </div>
             </div>
           </div>
         </div>
@@ -145,15 +147,51 @@
         <div id="openModal2" class="modalDialog">
           <div>
             <a href="javascript:void(0)" title="Close" class="close">X</a>
-            <h2>Help</h2>
+            <h1>Help</h1>
             <a href="tel:7575040207"><h2 id="phonenumber">757-504-0207</h2></a>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lacinia semper augue quis euismod. Aliquam volutpat mauris sed ipsum dignissim convallis. Pellentesque ut rhoncus felis. Nullam a mauris nec mi fermentum eleifend ut sed tellus. In aliquet nisl congue enim lacinia pulvinar. Morbi at tincidunt eros, ac aliquet felis. Morbi eleifend diam id tincidunt blandit. Praesent condimentum ligula non odio tempor pulvinar. In a odio eros. Sed nec mi blandit, ornare nibh tristique, egestas enim. Donec ornare nisl diam, eu aliquet ante semper ac. Suspendisse potenti. Donec egestas tellus et fringilla interdum. Cras malesuada tellus dui. Nulla et sodales massa.</p>
-
-            <p>Aliquam luctus elit felis, vitae aliquam tortor tempus nec. Nullam pretium velit vel blandit commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc non quam eros. Pellentesque vitae magna vitae arcu porttitor vulputate et ut diam. Ut sagittis leo sed congue accumsan. Morbi elementum ac nisi ut imperdiet. Nam accumsan, felis vel tincidunt volutpat, purus mi posuere nisi, cursus fringilla augue magna sit amet ante. Ut ac elit magna. Quisque tincidunt justo et elit sagittis tempor. Suspendisse dignissim ullamcorper lorem eu commodo. Nulla non tristique lorem.</p>
-
-            <p>Nam mattis, lectus sit amet sodales fermentum, lorem mi consectetur sapien, id hendrerit nisi massa lobortis lacus. Duis nec lectus purus. Nullam ultricies augue nec hendrerit malesuada. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum consequat auctor posuere. Vestibulum id enim non nulla gravida tristique id vel lacus. Donec scelerisque felis nibh. Suspendisse non gravida est, quis fringilla nibh. Maecenas porttitor egestas velit eu congue. Vestibulum eget faucibus tortor. Integer id elit fermentum, pharetra nibh ut, placerat orci. Duis odio est, varius vitae elit non, pharetra laoreet arcu. Quisque hendrerit ligula fringilla, egestas orci vel, viverra est.
-            </p>
+            <h3>Calendar</h3>
+            <p>View your calendar Events here in 4 options: Day, Week, Month or List. You decide which activity to see too: Events, Tasks, Contacts & Tags.</p>
+            <h3>Collapse all</h3>
+            <p>On the Show Me page, you can Collapse every line of information all at once to de-clutter your screen.  You can always collapse a specific line of information by clicking the arrow on the far right.</p>
+            <h3>Contacts</h3>
+            <p>Contacts are used to keep information about specific people.  On the Contacts page, search, view, edit, create & delete your Contacts here with 5 filter & 2 sort options.</p>
+            <h3>Create</h3>
+            <p>From virtually any screen, you can Create new Contacts, Events, Tasks or Tags.  While doing so, you can also link the new object to any of your Contacts, Events, Tasks or Tags.</p>
+            <h3>Cross platform access</h3>
+            <p>At this time Day Won only runs on your Internet browser.  But you can access Day Won from any browser on any device: PC, smartphone & tablet.  If you sync a device or app to Gmail, any Contact, Event or Task can be viewed in Gmail or that app without using Day Won—you just won't see the Day Won connections.  We don't want to force you to always have to use Day Won.  So even when you don't have Internet access, you will always have access to your Contacts & Events in your dedicated contact or calendar apps.</p>
+            <h3>Dashboard</h3>
+            <p>Recent Activities: view the last 10 items you've edited in both Gmail & Day Won</p>
+            <p>Tasks: quickly view your Tasks with a simple sort & filter option</p>
+            <p>Events: see your calendar Events for the next 7 days</p>
+            <p>Tags: quickly view your Tags sorted alphabetically or by Tag count</p>
+            <p>Contacts: jump to the Contact view</p>
+            <h3>Delete</h3>
+            <p>You can delete any Contact, Event, Task or Tag.</p>
+            <h3>Events</h3>
+            <p>Events are calendar date items.  On the Events page, search, view, edit, create & delete calendar Events here with 5 filter options.  Reminders utilize Gmail's default settings.</p>
+            <h3>Expand all</h3>
+            <p>On the Show Me page, you can Expand every line of information.  You can always expand a specific line of information by clicking the arrow on the far right.</p>
+            <h3>Orphans</h3>
+            <p>Here is where you link your calendar Events, Tasks and Tags to each other and your Contacts.  Select a category of Orphans and you'll be directed to a screen where you can search for any item in Day Won to link together.  You can link any activity or object in Day Won to as many or few other activities as you want.  To get the maximum benefit of Day Won, keep your Orphan count down to zero.</p>
+            <h3>Printing</h3>
+            <p>On virtually any page, you can print whatever is on your screen.  As much as we all like to be environmentally friendly, sometimes “old school” paper comes in handy.</p>
+            <h3>Settings</h3>
+            <p>Sort by last name controls how your Contacts are sorted.</p>
+            <p>Turn new user popups back on brings back the handy pointers displayed the first time you use Day Won.</p>
+            <p>Always display note field for Contact keeps the note field visible for viewing or editing.</p>
+            <p>Push contextual information into Web Mail provides you some of the Day Won linking benefits when you're using Gmail's Contacts, Calendar or Tasks.</p>
+            <h3>Show</h3>
+            <p>Show allows you to filter the information that is displayed.</p>
+            <h3>Show Me</h3>
+            <p>On this page you can display lists of your information in 280 different views by selecting various combinations of “Show,” “Sort by” and “Upcoming Schedule.”  You can toggle on & off all “Show” icons simultaneously.  But you can only “Sort by” one icon at a time.  Use “Upcoming Schedule” to filter your views over pre-fixed date ranges.  To manage the clutter on your screen, you can “Collapse all” or “Expand all” the lines of information that is displayed.</p>
+            <h3>Sort by</h3>
+            <p>On various object or activity views, you can sort the information that is displayed.</p>
+            <h3>Syncing to Gmail</h3>
+            <p>Day Won is always in sync with your Gmail account.  Your Contacts sync to Gmail Contacts, Events to Gmail Calendar & Tasks to Gmail Tasks.  Any changes or additions you make in Gmail will sync over to Day Won.  The Gmail Contact Groups get imported into Tags in Day Won.  Unfortunately, the links between your Day Won Contacts, Events, Tasks & Tags do not get synced with Gmail.  This is why we created Day Won because those objects are not connected in Gmail.</p>
+            <h3>Tags</h3>
+            <p>You don't have to use Tags to link objects.  Tags are just another way to quickly find related things.  On the Tags page, search, view, edit, create & delete Tags here with 2 sort options (alphabetically & by Tag count).  Contact groups from Gmail are imported into Day Won as Tags.</p>
+            <h3>Tasks</h3>
+            <p>Tasks are todo items.  On the Tasks page, search, view, edit, complete, create & delete Tasks here with 4 sort options.  You have the option of having a date for a Task but you don't have to have one.</p>
           </div>
         </div>
         <div id="openModal3" class="modalDialog">
@@ -221,7 +259,10 @@
                   End date: <input type="text" id="eventEnd"><img src="img/calendar.png" />
                 </div>
                 <div class="formrow allDayStart">
-                  Date: <input type="text" id="allDayStart"><img src="img/calendar.png" />
+                  Start date: <input type="text" id="allDayStart"><img src="img/calendar.png" />
+                </div>
+                <div class="formrow allDayEnd">
+                  End date: <input type="text" id="allDayEnd"><img src="img/calendar.png" />
                 </div>
                 <div id="recurringContainer">
                   <div class="formrow">
@@ -328,6 +369,12 @@
             <h5>We're preparing your Contacts, Events, Tasks and Tags. Just a moment, please!</h5>
           </div>
         </div>
+        <div id="openModal7" class="modalDialog">
+          <div>
+            <a href="javascript:void(0)" title="Close" class="close">X</a>
+            <h1>Please add an email address to a Contact before composing or viewing emails.</h1>
+          </div>
+        </div>
         <ul id="loader">
           <li></li>
           <li></li>
@@ -335,10 +382,10 @@
           <li></li>
         </ul>
         <script type="text/x-handlebars" id="reports">
-        <div class="mobileCover" id="reportsCover"></div>
-        <h1 class="reportsHeader">Show Me</h1>
-        <h5 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show, Sorted by Contacts for Today).</h4>
-        <div class="row" id="sortbycolumn">
+          <div class="mobileCover" id="reportsCover"></div>
+          <h1 class="reportsHeader">Show Me</h1>
+          <h5 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show, Sorted by Contacts for Today).</h4>
+          <div class="row" id="sortbycolumn">
             <div class="col-lg-12">
               <div id="showme" class="menucont">
                 <div><h2>Show:<a href="javascript:void(0)" class="small-create-icon openModal3"><img src="img/create.png"/></a></h2></div>
@@ -375,24 +422,22 @@
                   </div>
                 </div>
               </div>
-              <div id="schedule" class="menucont">
-                <div><h3>Upcoming Schedule:</h3></div>
-                <div class="selectcont">
-                  <select>
-                    <option>Today</option>
-                    <option>Tomorrow</option>
-                    <option>This Week</option>
-                    <option>Next Week</option>
-                    <option>All Open Activites</option>
-                  </select>
-                  <img src="img/downarrow.jpg" />
-                </div>
-              </div>
             </div>
           </div>
           {{outlet}}
         </script>
         <script type="text/x-handlebars" id="reports/events">
+          <div id="schedule" class="menucont">
+            <div><h3>Upcoming Schedule:</h3></div>
+            <div class="selectcont">
+              {{view Ember.Select
+               content=eventsController.showOptions2
+               optionLabelPath="content.label"
+               optionValuePath="content.id"
+               selection=eventsController.selectedShowOption}}
+              <img src="img/downarrow.jpg" />
+            </div>
+          </div>
           <div id="appcont" class="homeapp reportapp">
             <div class="section-container" id="homecont">
               <h3 id="collapseall" class="reportToggler">Collapse all</h3>
@@ -432,6 +477,17 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="reports/tasks">
+          <div id="schedule" class="menucont">
+            <div><h3>Upcoming Schedule:</h3></div>
+            <div class="selectcont">
+              {{view Ember.Select
+               content=tasksController.showOptions
+               optionLabelPath="content.label"
+               optionValuePath="content.id"
+               selection=tasksController.selectedShowOption}}
+              <img src="img/downarrow.jpg" />
+            </div>
+          </div>
           <div id="appcont" class="homeapp reportapp">
             <div class="section-container" id="homecont">
               <h3 id="collapseall" class="reportToggler">Collapse all</h3>
@@ -472,6 +528,17 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="reports/contacts">
+          <div id="schedule" class="menucont">
+            <div><h3>Upcoming Schedule:</h3></div>
+            <div class="selectcont">
+              {{view Ember.Select
+               content=contactsController.showOptions
+               optionLabelPath="content.label"
+               optionValuePath="content.id"
+               selection=contactsController.selectedShowOption}}
+              <img src="img/downarrow.jpg" />
+            </div>
+          </div>
           <div id="appcont" class="homeapp reportapp">
             <div class="section-container" id="homecont">
               <h3 id="collapseall" class="reportToggler">Collapse all</h3>
@@ -519,6 +586,17 @@
           </div>
         </script>
         <script type="text/x-handlebars" id="reports/tags">
+          <div id="schedule" class="menucont">
+            <div><h3>Upcoming Schedule:</h3></div>
+            <div class="selectcont">
+              {{view Ember.Select
+               content=tagsController.sortOptions
+               optionLabelPath="content.label"
+               optionValuePath="content.id"
+               selection=tagsController.selectedSortOption}}
+              <img src="img/downarrow.jpg" />
+            </div>
+          </div>
           <div id="appcont" class="homeapp reportapp">
             <div class="section-container" id="homecont">
               <h3 id="collapseall" class="reportToggler">Collapse all</h3>
@@ -1005,13 +1083,14 @@
                   </h4>
                 </div>
                 <div class="contactrow">
-                  <a href="" target="_blank" class="dynamicEmail desktopEmail"><img src="img/openmail.png"></a>
-               		<a href="" class="dynamicEmail mobileEmail"><img src="img/openmail.png"></a>
+                  <a href="javascript:void(0)" class="openModal7" style="display:none">No email</a>
+                  <a href="" target="_blank" class="dynamicEmail emailLink desktopEmail"><img src="img/openmail.png"></a>
+               		<a href="" class="dynamicEmail emailLink mobileEmail"><img src="img/openmail.png"></a>
                   <h4 class="emailfield">
                     {{#each email in emails}}
-                      <span {{action "editField" "email" "1" on="doubleClick"}}>
+                      <span {{action "editField" "email" on="doubleClick"}}>
                         {{#if editing.email}}
-                          {{input class="editField" id="emailInput1" type="text" value=email.email focus-out="save" insert-newline="save"}}
+                          {{input class="editField" id="emailInput" type="text" value=email.email focus-out="save" insert-newline="save"}}
                         {{else}}
                           {{email.email}}
                         {{/if}}
@@ -1133,20 +1212,24 @@
                   </h1>
                   <div class="contactgroup contactDetails">
                     <div class="contactitem">
-                      <a href="" target="_blank" class="dynamicEmail"><img src="img/openmail.png"></a>
-                      {{#each email in emails}}
-                        <span {{action "editField" "email" "2" on="doubleClick"}}>
-                          {{#if editing.email}}
-                            {{input class="editField" id="emailInput2" type="text" value=email.email focus-out="save" insert-newline="save"}}
-                          {{else}}
-                            {{email.email}}
-                          {{/if}}
-                        </span>
-                      {{/each}}
+                      <a href="" target="_blank" class="dynamicEmail emailLink"><img src="img/openmail.png"></a>
+                      {{#if emails}}
+                        {{#each email in emails}}
+                          <span {{action "editField" "email" "2" on="doubleClick"}}>
+                            {{#if editing.email}}
+                              {{input class="editField" id="emailInput2" type="text" value=email.email focus-out="save" insert-newline="save"}}
+                            {{else}}
+                              {{email.email}}
+                            {{/if}}
+                          </span>
+                        {{/each}}
+                      {{else}}
+                        <span>No email</span>
+                      {{/if}}
                     </div>
                     <div class="contactitem">
                       <img src="img/openmail.png" />
-                      <a {{bind-attr href="relatedEmailsLink"}} target="_blank">View Emails</a>
+                      <a {{bind-attr href="relatedEmailsLink"}} target="_blank" class="emailLink">View Emails</a>
                     </div>
                     <div class="contactitem">
                       <img src="img/cellphone.png" />
@@ -1274,7 +1357,7 @@
               <div class="row">
                 <div class="col-md-4" id="taskpane1">
                   <img src="img/events.png" / class="contactpadding">
-                  <h1 class="contactpadding">Events ({{eventsNoDuplicates.length}})</h1>
+                  <h1 class="contactpadding">Events ({{uniqueEventCount}})</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustEvents">
                   </form>
@@ -1290,10 +1373,8 @@
                   </div>
                   <ul id="eventlist" class="sidelist">
                     {{#each event in eventsNoDuplicates}}
-                      {{#if event}}
-                        {{#link-to 'events.event' event}}<li>{{event}}</li>{{/link-to}}
-                      {{else}}
-                        {{#link-to 'events.event' event}}<li>N/A</li>{{/link-to}}
+                      {{#if event.title}}
+                        {{#link-to 'events.event' event.id}}<li>{{event.title}}</li>{{/link-to}}
                       {{/if}}
                     {{/each}}
                   </ul>
@@ -1456,73 +1537,79 @@
           <div id="detailPanel" class="panelIn">
             <div class="row">
               <div class="col-md-4 dCol" id="dCol1">
-                <img class="columnDivider" src="img/divider_orange.png" />
-                <h1 id="contactname" class="eventname" {{action "editField" "title" "2" on="doubleClick"}}>
-                  {{#if editing.title}}
-                    {{input class="editField" id="titleInput2" type="text" value=title focus-out="save" insert-newline="save"}}
-                  {{else}}
-                    {{title}}
-                    <span class="hidden">{{id}}</span>
-                  {{/if}}
-                </h1>
-                <h4 {{action "editField" "description" "2" on="doubleClick"}}>
-                  {{#if editing.description}}
-                    {{input class="editField" id="descriptionInput2" type="text" value=description focus-out="save" insert-newline="save"}}
-                  {{else}}
-                    {{description}}
-                  {{/if}}
-                </h4>
-                <div id="relatedTags">
-                  {{#each tag in tags}}
-                    <div class="relatedItem">
-                      {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="relatedImage"/>
-                      <span class="relatedName">{{tag.name}}</span>{{/link-to}}
-                    </div>
-                  {{/each}}         
+                <div>
+                  <h1 id="contactname" class="eventname" {{action "editField" "title" "2" on="doubleClick"}}>
+                    {{#if editing.title}}
+                      {{input class="editField" id="titleInput2" type="text" value=title focus-out="save" insert-newline="save"}}
+                    {{else}}
+                      {{title}}
+                      <span class="hidden">{{id}}</span>
+                    {{/if}}
+                  </h1>
+                  <h4 {{action "editField" "description" "2" on="doubleClick"}}>
+                    {{#if editing.description}}
+                      {{input class="editField" id="descriptionInput2" type="text" value=description focus-out="save" insert-newline="save"}}
+                    {{else}}
+                      {{description}}
+                    {{/if}}
+                  </h4>
+                  <div id="relatedTags">
+                    {{#each tag in tags}}
+                      <div class="relatedItem">
+                        {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="relatedImage"/>
+                        <span class="relatedName">{{tag.name}}</span>{{/link-to}}
+                      </div>
+                    {{/each}}         
+                  </div>
+                  <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
+                  <img id="detailTrash" src="img/trash.png" />
                 </div>
-                <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
-                <img id="detailTrash" src="img/trash.png" />
+                <img class="columnDivider" src="img/divider_orange.png" />
               </div>
               <div class="col-md-4 dCol" id="dCol2">
-                <img class="columnDivider" src="img/divider_orange.png" />
-                <div class="columnhead">
-                  <img src="img/contact.png" />
-                  <h3>Contacts</h3>
+                <div>
+                  <div class="columnhead">
+                    <img src="img/contact.png" />
+                    <h3>Contacts</h3>
+                  </div>
+                  <br />
+                  <ul class="columnlist">
+                    {{#each contact in contacts}}
+                      <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
+                    {{else}}
+                      <li>N/A</li>
+                    {{/each}}
+                  </ul>
                 </div>
-                <br />
-                <ul class="columnlist">
-                  {{#each contact in contacts}}
-                    <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
-                  {{else}}
-                    <li>N/A</li>
-                  {{/each}}
-                </ul>
+                <img class="columnDivider" src="img/divider_orange.png" />
               </div>
               <div class="col-md-4 dCol" id="dCol3">
-                <div class="columnhead">
-                  <img src="img/tasks.png" />
-                  <h3>Tasks</h3>
-                </div>
-                <br />
-                <div class="detailSection">
-                  <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                  <ul class="columnlist">
-                    {{#each task in tasks}}
-                      <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
-                    {{else}}
-                      <li>N/A</li>
-                    {{/each}}
-                  </ul>
-                </div>
-                <div class="detailSection">
-                  <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                  <ul class="columnlist">
-                    {{#each task in tasks}}
-                      <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
-                    {{else}}
-                      <li>N/A</li>
-                    {{/each}}
-                  </ul>
+                <div>
+                  <div class="columnhead">
+                    <img src="img/tasks.png" />
+                    <h3>Tasks</h3>
+                  </div>
+                  <br />
+                  <div class="detailSection">
+                    <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                    <ul class="columnlist">
+                      {{#each task in tasks}}
+                        <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
+                      {{else}}
+                        <li>N/A</li>
+                      {{/each}}
+                    </ul>
+                  </div>
+                  <div class="detailSection">
+                    <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                    <ul class="columnlist">
+                      {{#each task in tasks}}
+                        <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
+                      {{else}}
+                        <li>N/A</li>
+                      {{/each}}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1663,9 +1750,6 @@
                         {{/if}}
                         </div>
                       </div>
-                      <br />
-                      <br />
-                      <br />
                       <div {{action "editField" "due" on="doubleClick"}}>
                         <b>Task Due: </b>
                         {{#if editing.due}}
@@ -1694,82 +1778,88 @@
                 <div id="detailPanel" class="panelIn">
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
-                      <img class="columnDivider" src="img/divider_green.png" />
-                      <h1 id="contactname" class="taskname" {{action "editField" "title" "2" on="doubleClick"}}>
-                        {{#if editing.title}}
-                          {{input class="editField" id="titleInput2" type="text" value=title focus-out="save" insert-newline="save"}}
-                        {{else}}
-                          {{title}}
-                          <span class="hidden">{{id}}</span>
-                        {{/if}}
-                      </h1>
-                      <h4 {{action "editField" "notes" "2" on="doubleClick"}}>
-                        {{#if editing.notes}}
-                           {{textarea class="editField" id="notesInput2" type="text" value=notes focus-out="save" insert-newline="save"}}
-                        {{else}}
-                          {{notes}}
-                        {{/if}}
-                      </h4>
-                      <div id="relatedTags">
-                        {{#each tag in tags}}
-                          {{#if tag.name}}
-                            <div class="relatedItem">
-                              {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="relatedImage"/>
-                              <span class="relatedName">{{tag.name}}</span>{{/link-to}}
-                            </div>
+                      <div>
+                        <h1 id="contactname" class="taskname" {{action "editField" "title" "2" on="doubleClick"}}>
+                          {{#if editing.title}}
+                            {{input class="editField" id="titleInput2" type="text" value=title focus-out="save" insert-newline="save"}}
+                          {{else}}
+                            {{title}}
+                            <span class="hidden">{{id}}</span>
                           {{/if}}
-                        {{/each}}
+                        </h1>
+                        <h4 {{action "editField" "notes" "2" on="doubleClick"}}>
+                          {{#if editing.notes}}
+                             {{textarea class="editField" id="notesInput2" type="text" value=notes focus-out="save" insert-newline="save"}}
+                          {{else}}
+                            {{notes}}
+                          {{/if}}
+                        </h4>
+                        <div id="relatedTags">
+                          {{#each tag in tags}}
+                            {{#if tag.name}}
+                              <div class="relatedItem">
+                                {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="relatedImage"/>
+                                <span class="relatedName">{{tag.name}}</span>{{/link-to}}
+                              </div>
+                            {{/if}}
+                          {{/each}}
+                        </div>
+                        <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
+                        <img id="detailTrash" src="img/trash.png" />
                       </div>
-                      <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
-                      <img id="detailTrash" src="img/trash.png" />
+                      <img class="columnDivider" src="img/divider_green.png" />
                     </div>
                     <div class="col-md-4 dCol" id="dCol2">
+                      <div>
+                        <div class="columnhead">
+                          <img src="img/events.png" />
+                          <h3>Events</h3>
+                        </div>
+                        <br />
+                        <div class="detailSection">
+                          <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                          <ul class="columnlist">
+                          {{#each event in events}}
+                            {{#if event.title}}
+                            <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
+                            {{/if}}
+                          {{else}}
+                            <li>N/A</li>
+                          {{/each}}
+                          </ul>
+                        </div>
+                        <div class="detailSection">
+                          <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                          <ul class="columnlist">
+                          {{#each event in events}}
+                            {{#if event.title}}
+                            <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
+                            {{/if}}
+                          {{else}}
+                            <li>N/A</li>
+                          {{/each}}
+                          </ul>
+                        </div>
+                      </div>
                       <img class="columnDivider" src="img/divider_green.png" />
-                      <div class="columnhead">
-                        <img src="img/events.png" />
-                        <h3>Events</h3>
-                      </div>
-                      <br />
-                      <div class="detailSection">
-                        <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                        <ul class="columnlist">
-                        {{#each event in events}}
-                          {{#if event.title}}
-                          <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
-                          {{/if}}
-                        {{else}}
-                          <li>N/A</li>
-                        {{/each}}
-                        </ul>
-                      </div>
-                      <div class="detailSection">
-                        <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                        <ul class="columnlist">
-                        {{#each event in events}}
-                          {{#if event.title}}
-                          <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
-                          {{/if}}
-                        {{else}}
-                          <li>N/A</li>
-                        {{/each}}
-                        </ul>
-                      </div>      
                     </div>
                     <div class="col-md-4 dCol" id="dCol3">
-                      <div class="columnhead">
-                        <img src="img/contact.png" />
-                        <h3>Contacts</h3>
+                      <div>
+                        <div class="columnhead">
+                          <img src="img/contact.png" />
+                          <h3>Contacts</h3>
+                        </div>
+                        <br />
+                        <ul class="columnlist">
+                        {{#each contact in contacts}}
+                          {{#if contact.name}}
+                          <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
+                          {{/if}}
+                        {{else}}
+                          <li>N/A</li>
+                        {{/each}}
+                        </ul>
                       </div>
-                      <br />
-                      <ul class="columnlist">
-                      {{#each contact in contacts}}
-                        {{#if contact.name}}
-                        <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
-                        {{/if}}
-                      {{else}}
-                        <li>N/A</li>
-                      {{/each}}
-                      </ul>
                     </div>
                   </div>
                 </div>
@@ -1906,79 +1996,85 @@
                 <div id="detailPanel" class="panelIn">
                   <div class="row">
                     <div class="col-md-4 dCol" id="dCol1">
-                      <img class="columnDivider" src="img/divider_yellow.png" />
-                      <h1 id="contactname" class="tagname" {{action "editField" "name" "2" on="doubleClick"}}>
-                        {{#if editing.name}}
-                          {{input class="editField" id="nameInput2" type="text" value=name focus-out="save" insert-newline="save"}}
-                        {{else}}
-                          {{name}}
-                          <span class="hidden">{{id}}</span>
-                        {{/if}}
-                      </h1>
-                      <div class="contactgroup relatedObjects taggedObjects">
-                        <div class="contactitem">
-                          <img src="img/contact.png" />
-                          <span>({{contactsCount}})</span>
+                      <div>
+                        <h1 id="contactname" class="tagname" {{action "editField" "name" "2" on="doubleClick"}}>
+                          {{#if editing.name}}
+                            {{input class="editField" id="nameInput2" type="text" value=name focus-out="save" insert-newline="save"}}
+                          {{else}}
+                            {{name}}
+                            <span class="hidden">{{id}}</span>
+                          {{/if}}
+                        </h1>
+                        <div class="contactgroup relatedObjects taggedObjects">
+                          <div class="contactitem">
+                            <img src="img/contact.png" />
+                            <span>({{contactsCount}})</span>
+                          </div>
+                          <div class="contactitem">
+                            <img src="img/events.png" />
+                            <span>({{eventsCount}})</span>
+                          </div>
+                          <div class="contactitem">
+                            <img src="img/tasks.png" />
+                            <span>({{tasksCount}})</span>
+                          </div>
                         </div>
-                        <div class="contactitem">
-                          <img src="img/events.png" />
-                          <span>({{eventsCount}})</span>
-                        </div>
-                        <div class="contactitem">
-                          <img src="img/tasks.png" />
-                          <span>({{tasksCount}})</span>
-                        </div>
+                        <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
+                        <img id="detailTrash" src="img/trash.png" />
                       </div>
-                      <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
-                      <img id="detailTrash" src="img/trash.png" />
+                      <img class="columnDivider" src="img/divider_yellow.png" />
                     </div>
                     <div class="col-md-4 dCol" id="dCol2">
-                      <img class="columnDivider" src="img/divider_yellow.png" />
-                      <div class="columnhead">
-                        <img src="img/events.png" />
-                        <h3>Events</h3>
+                      <div>
+                        <div class="columnhead">
+                          <img src="img/events.png" />
+                          <h3>Events</h3>
+                        </div>
+                        <br />
+                        <div class="detailSection">
+                          <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                          <ul class="columnlist">
+                            {{#each event in events}}
+                              {{#if event.title}}
+                                <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
+                              {{/if}}
+                            {{else}}
+                              <li>N/A</li>
+                            {{/each}}
+                          </ul>
+                        </div>
+                        <div class="detailSection">
+                          <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+                          <ul class="columnlist">
+                            {{#each event in events}}
+                              {{#if event.title}}
+                                <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
+                              {{/if}}
+                            {{else}}
+                              <li>N/A</li>
+                            {{/each}}
+                          </ul>
+                        </div>
                       </div>
-                      <br />
-                      <div class="detailSection">
-                        <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                        <ul class="columnlist">
-                          {{#each event in events}}
-                            {{#if event.title}}
-                              <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
-                            {{/if}}
-                          {{else}}
-                            <li>N/A</li>
-                          {{/each}}
-                        </ul>
-                      </div>
-                      <div class="detailSection">
-                        <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-                        <ul class="columnlist">
-                          {{#each event in events}}
-                            {{#if event.title}}
-                              <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
-                            {{/if}}
-                          {{else}}
-                            <li>N/A</li>
-                          {{/each}}
-                        </ul>
-                      </div>                 
+                      <img class="columnDivider" src="img/divider_yellow.png" />       
                     </div>
                     <div class="col-md-4 dCol" id="dCol3">
-                      <div class="columnhead">
-                        <img src="img/contact.png" />
-                        <h3>Contacts</h3>
+                      <div>
+                        <div class="columnhead">
+                          <img src="img/contact.png" />
+                          <h3>Contacts</h3>
+                        </div>
+                        <br />
+                        <ul class="columnlist">
+                          {{#each contact in contacts}}
+                            {{#if contact.name}}
+                              <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
+                            {{/if}}
+                          {{else}}
+                            <li>N/A</li>
+                          {{/each}}
+                        </ul>
                       </div>
-                      <br />
-                      <ul class="columnlist">
-                        {{#each contact in contacts}}
-                          {{#if contact.name}}
-                            <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
-                          {{/if}}
-                        {{else}}
-                          <li>N/A</li>
-                        {{/each}}
-                      </ul>
                     </div>
                   </div>
                 </div>
@@ -1993,35 +2089,20 @@
         <script type="text/x-handlebars" id="orphans/index">
           <div id="appcont" class="orphancont">
             <img id="orphanlogo" src="img/orphans.png" />
-            <h1 id="orphanhead">Orphans (<span id="totalOrphans"></span>)</h1>
+            <h1 id="orphanhead">Orphans (<span id="totalOrphans">{{totalOrphans.length}}</span>)</h1>
             <h2 id="orphansubhead">On this screen you can link or associate an activity to a specific Contact, Event, Task or Tag. To maximize the usefulness of Day Won, eliminate all Orphans.</h2>
             <div id="orphancontainer">
               <div class="orphansubcontainer">
-                {{#link-to 'orphanevents'}}<img src="img/events.png" /><h1 class="ocount"></h1>{{/link-to}}
+                {{#link-to 'orphanevents'}}<img src="img/events.png" /><h1 class="ocount">{{oEvents.length}}</h1>{{/link-to}}
               </div>
               <div class="orphansubcontainer">
-                {{#link-to 'orphantasks'}}<img src="img/tasks.png" /><h1 class="ocount"></h1>{{/link-to}}
+                {{#link-to 'orphantasks'}}<img src="img/tasks.png" /><h1 class="ocount">{{oTasks.length}}</h1>{{/link-to}}
               </div>
               <div class="orphansubcontainer">
-                {{#link-to 'orphantags'}}<img src="img/tags.png" /><h1 class="ocount"></h1>{{/link-to}}
+                {{#link-to 'orphantags'}}<img src="img/tags.png" /><h1 class="ocount">{{oTags.length}}</h1>{{/link-to}}
               </div>
             </div>
             <h2 id="orphanhelp">Orphans are activities created outside of Day Won in your web mail application or other web mail API enabled applications. On this page you can associate these activites to your contacts.</h2>
-            <ul>
-            {{#each event in model}}
-              <li class="eventCounter">{{event.title}}</li>
-            {{/each}}
-            </ul>
-            <ul>
-            {{#each task in model}}
-              <li class="taskCounter">{{task.title}}</li>
-            {{/each}}
-            </ul>
-            <ul>
-            {{#each tag in model}}
-              <li class="tagCounter">{{tag.name}}</li>
-            {{/each}}
-            </ul>
           </div>
         </script>
         <script type="text/x-handlebars" id="orphanevents">
@@ -2049,6 +2130,8 @@
                     {{#each event in oEvents}}
                       {{#if event.title}}
                         <li><span>{{event.title}}</span><span style="display:none">{{event.id}}</span></li>
+                      {{else}}
+                        <li><span>No title</span><span style="display:none">{{event.id}}</span></li>
                       {{/if}}
                     {{/each}}
                   </ul>
@@ -2364,6 +2447,21 @@
             <p><b>Event description:</b>  {{description}}</p>
             <p><b>Event start:</b>  {{start_formatted}}</p>
             <p><b>Event end:</b>  {{end_formatted}}</p>
+          </div>
+        </script>
+        <script type="text/x-handlebars" id="calPopupTemplate2">
+          <a href="./#/tasks/{{id}}"><h2>{{title}}</h2></a>
+          <div class="calPopupTags">
+            <ul>
+              {{#each tags}}
+                <a href="javascript:void(0)" onclick="transitionToTag({{id}});"><li><img src="img/tags.png"><span>{{name}}</span></li></a>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="calPopupCont">
+            <p><b>Task notes:</b>  {{description}}</p>
+            <p><b>Task due:</b>  {{due_formatted}}</p>
+            <p><b>Task priority:</b>  {{priority}}</p>
           </div>
         </script>
         <script src="scripts/libs/jquery-1.10.2.js"></script>
