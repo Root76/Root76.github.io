@@ -2517,11 +2517,6 @@ font-family:'Open Sans', sans-serif;
 	overflow:hidden;
 }
 
-.dCol .iScrollVerticalScrollbar {
-	right:10px !important;
-	opacity:.35 !important;
-}
-
 .dCol h1, .dCol h4 {
 	left:0px !important;
 	margin-left:0px !important;
@@ -2559,6 +2554,7 @@ font-family:'Open Sans', sans-serif;
 
 .columnhead {
 	padding:15px;
+	padding-top:50px;
 }
 
 .columnhead img {
@@ -2642,7 +2638,6 @@ font-family:'Open Sans', sans-serif;
 #dCol2 {
 	background:#c7bec1;
 	padding:5px;
-	padding-top:50px;
 	padding-left:0px;
 	z-index:2;
 }
@@ -2650,8 +2645,22 @@ font-family:'Open Sans', sans-serif;
 #dCol3 {
 	background:#f4f4f4;
 	padding:0px;
-	padding-top:50px;
 	z-index:1;
+}
+
+
+.dCol .iScrollVerticalScrollbar {
+	right:0px !important;
+	opacity:.35 !important;
+	width:12px !important;
+	border-radius: 15px !important;
+}
+
+.dCol .iScrollVerticalScrollbar .iScrollIndicator {
+	width:80%;
+	right:0px;
+	cursor:pointer;
+	border-radius: 15px !important;
 }
 
 #relatedTags {
@@ -2766,22 +2775,10 @@ font-family:'Open Sans', sans-serif;
     height: 0px;
 }
 
-.notesField {
-	color: #fff;
-	float: right;
-	margin-top: 7px;
-	width: 90%;
-}
-
 .notesLabel2 {
 	float:none;
 	cursor:pointer;
 	padding-bottom:20px;
-}
-
-.notesLabel {
-	float: left;
-	width: 10%;
 }
 
 #detailTrash, .detailCreate {

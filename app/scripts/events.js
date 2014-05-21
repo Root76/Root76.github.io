@@ -125,7 +125,7 @@ function rebindEvents() {
 
                     $.ajax({
                         type: 'GET',
-                        url: 'http://daywon-api-staging.herokuapp.com/' + objectType + "/" + thisId,
+                        url: 'http://daywon-api-prod.herokuapp.com/' + objectType + "/" + thisId,
                         contentType: "application/json",
                         dataType: "json",
                         headers: {
@@ -511,6 +511,19 @@ function rebindEvents() {
         }
     });
 
+    $(".taskDateTime").hide();
+
+    $("#taskTime").unbind("click").bind("click", function(){
+        var taskTime = $("#taskTime");
+        if (taskTime.is(":checked")) {
+            $(".taskDate").hide();
+            $(".taskDateTime").show();
+        } else {
+            $(".taskDate").show();
+            $(".taskDateTime").hide();
+        }
+    });
+
     $("#trashicon").unbind("click").bind("click", function(){
         setTimeout(function(){
             $(".deleteContainer > div:first-child").click(function(){
@@ -569,6 +582,8 @@ function rebindEvents() {
     });
 
     $(".createForm").unbind('submit').bind('submit', function(event){		
+
+        $("#loader").addClass("showLoader");
 
 		var showPopupMessage = function(target, message, style) {
 			var statusPopup = new Opentip($(target), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
@@ -660,14 +675,20 @@ function rebindEvents() {
                     task_ids: taskIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tags";
+			url = "http://daywon-api-prod.herokuapp.com/tags";
 			objectDescription = "Tag: " + tagTitle;
         } else if ($(event.target).parent().hasClass("createTask")) {
             var taskTitle = $("#taskName").val();
             taskTitle = String(taskTitle);
             var taskDesc = $("#taskNotes").val();
             taskDesc = String(taskDesc);
-            var taskDue = moment($("#taskDue").val()).format();
+            var taskDueWithTime = new Boolean($("#taskTime:checked").length);
+            if (taskDueWithTime === true) {
+                alert("all day");
+                var taskDue = moment($("#taskDue").val()).format();
+            } else {
+                var taskDue = moment($("#taskDueTime").val()).format();
+            }
             var taskPriority = $("#taskPriority").prop("selectedIndex");
             var data = {
                 task: {
@@ -681,7 +702,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/tasks";
+			url = "http://daywon-api-prod.herokuapp.com/tasks";
 			objectDescription = "Task: " + taskTitle;
         } else if ($(event.target).parent().hasClass("createContact")) {
             var contactFirst = String($("#contactFirst").val());
@@ -707,7 +728,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/contacts";
+			url = "http://daywon-api-prod.herokuapp.com/contacts";
 			objectDescription = "Contact: " + contactTitle;
         } else if ($(event.target).parent().hasClass("createEvent")) {
 
@@ -719,12 +740,11 @@ function rebindEvents() {
             eventLoc = String(eventLoc);
             var isAllDay = new Boolean($("#allDay:checked").length);
             if (isAllDay === true) {
-                alert("all day");
-                var eventSt = moment($("#eventStart").val()).format();
-                var eventEn = moment($("#eventEnd").val()).format();
-            } else {
                 var eventSt = moment($("#allDayStart").val()).format();
                 var eventEn = moment($("#allDayEnd").val()).format();
+            } else {
+                var eventSt = moment($("#eventStart").val()).format();
+                var eventEn = moment($("#eventEnd").val()).format();
             }
             var isRecurring = new Boolean($("#recurring:checked").length);
             var monday = new Boolean(false);
@@ -765,9 +785,13 @@ function rebindEvents() {
                     endingCount = null;
                 }
                 endingDate = moment($("#endEventRepeat").val()).format();
+                if (endingDate.length < 1) {
+                    endingDate = null;
+                }
                 recurr = {
                     frequency: repeatInterval,
                     ends_after: {
+                        occurences: endingCount,
                         date: endingDate
                     }
                 };
@@ -794,7 +818,7 @@ function rebindEvents() {
                     tag_ids: tagIds
                 }
             };
-			url = "http://daywon-api-staging.herokuapp.com/events";
+			url = "http://daywon-api-prod.herokuapp.com/events";
 			objectDescription = "Event: " + eventTitle;
         }
         console.log(data);
@@ -811,6 +835,7 @@ function rebindEvents() {
 			},
 			success: function (data) {
 				console.log(data);
+                $("#loader").removeClass("showLoader");
 				showPopupMessage(event.target, "Successfully created " + objectDescription, "success");
                 setTimeout(refetchTypeaheadData, 1000);
 			},
@@ -824,125 +849,133 @@ function rebindEvents() {
 
     $("#associationForm").submit(function(){
 
-        var url = "http://daywon-api-staging.herokuapp.com/";
-        var data;
-        var orphanName = $("#contactname").html();
-        var orphanID = $("#selectedID").html();
+        $("#loader").addClass("showLoader");
 
-        var relatedContacts = $("li[objectid*='contact']");
-        var relatedEvents = $("li[objectid*='event']");
-        var relatedTasks = $("li[objectid*='task']");
-        var relatedTags = $("li[objectid*='tag']");
-        var contactIds = new Array();
-        var eventIds = new Array();
-        var taskIds = new Array();
-        var tagIds = new Array();
-        var thisObject;
-        var i;
+        setTimeout(function(){
 
-        for (i = 0; i < relatedContacts.length; i++) {
-            thisObject = $(relatedContacts[i]).attr('objectid');
-            thisObject = thisObject.replace(/\D/g,'');
-            contactIds[i] = thisObject;
-        }
+            var url = "http://daywon-api-prod.herokuapp.com/";
+            var data;
+            var orphanName = $("#contactname").html();
+            var orphanID = $("#selectedID").html();
 
-        for (i = 0; i < relatedEvents.length; i++) {
-            thisObject = $(relatedEvents[i]).attr('objectid');
-            thisObject = thisObject.replace(/\D/g,'');
-            eventIds[i] = thisObject;
-        }
+            var relatedContacts = $("li[objectid*='contact']");
+            var relatedEvents = $("li[objectid*='event']");
+            var relatedTasks = $("li[objectid*='task']");
+            var relatedTags = $("li[objectid*='tag']");
+            var contactIds = new Array();
+            var eventIds = new Array();
+            var taskIds = new Array();
+            var tagIds = new Array();
+            var thisObject;
+            var i;
 
-        for (i = 0; i < relatedTasks.length; i++) {
-            thisObject = $(relatedTasks[i]).attr('objectid');
-            thisObject = thisObject.replace(/\D/g,'');
-            taskIds[i] = thisObject;
-        }
-        
-        for (i = 0; i < relatedTags.length; i++) {
-            thisObject = $(relatedTags[i]).attr('objectid');
-            thisObject = thisObject.replace(/\D/g,'');
-            tagIds[i] = thisObject;
-        }
+            for (i = 0; i < relatedContacts.length; i++) {
+                thisObject = $(relatedContacts[i]).attr('objectid');
+                thisObject = thisObject.replace(/\D/g,'');
+                contactIds[i] = thisObject;
+            }
 
-        console.log("contacts: " + contactIds);
-        console.log("events: " + eventIds);
-        console.log("tasks: " + taskIds);
-        console.log("tags: " + tagIds);
+            for (i = 0; i < relatedEvents.length; i++) {
+                thisObject = $(relatedEvents[i]).attr('objectid');
+                thisObject = thisObject.replace(/\D/g,'');
+                eventIds[i] = thisObject;
+            }
 
-        if ($("#typeAheadOrphanEvent").length) {
-            url += "events/" + orphanID;
-            data = {
-                event: {
-                    contact_ids: contactIds,
-                    task_ids: taskIds,
-                    tag_ids: tagIds
-                }
+            for (i = 0; i < relatedTasks.length; i++) {
+                thisObject = $(relatedTasks[i]).attr('objectid');
+                thisObject = thisObject.replace(/\D/g,'');
+                taskIds[i] = thisObject;
+            }
+            
+            for (i = 0; i < relatedTags.length; i++) {
+                thisObject = $(relatedTags[i]).attr('objectid');
+                thisObject = thisObject.replace(/\D/g,'');
+                tagIds[i] = thisObject;
+            }
+
+            console.log("contacts: " + contactIds);
+            console.log("events: " + eventIds);
+            console.log("tasks: " + taskIds);
+            console.log("tags: " + tagIds);
+
+            if ($("#typeAheadOrphanEvent").length) {
+                url += "events/" + orphanID;
+                data = {
+                    event: {
+                        contact_ids: contactIds,
+                        task_ids: taskIds,
+                        tag_ids: tagIds
+                    }
+                };
+            } else if ($("#typeAheadOrphanTask").length) {
+                url += "tasks/" + orphanID;
+                data = {
+                    task: {
+                        contact_ids: contactIds,
+                        event_ids: eventIds,
+                        tag_ids: tagIds
+                    }
+                };
+            } else if ($("#typeAheadOrphanTag").length) {
+                url += "tags/" + orphanID;
+                data = {
+                    tag: {
+                        contact_ids: contactIds,
+                        event_ids: eventIds,
+                        task_ids: taskIds
+                    }
+                };
+            }
+
+            var showPopupMessage = function(target, message, style) {
+                var statusPopup = new Opentip($('#associationForm'), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
+                statusPopup.show();
+                statusPopup.container.css('z-index', 100000);
+                setTimeout(function() {
+                    statusPopup.hide();
+                    setTimeout($('.close').click(), 300);
+                }, 2000);
             };
-        } else if ($("#typeAheadOrphanTask").length) {
-            url += "tasks/" + orphanID;
-            data = {
-                task: {
-                    contact_ids: contactIds,
-                    event_ids: eventIds,
-                    tag_ids: tagIds
-                }
-            };
-        } else if ($("#typeAheadOrphanTag").length) {
-            url += "tags/" + orphanID;
-            data = {
-                tag: {
-                    contact_ids: contactIds,
-                    event_ids: eventIds,
-                    task_ids: taskIds
-                }
-            };
-        }
 
-        var showPopupMessage = function(target, message, style) {
-            var statusPopup = new Opentip($('#associationForm'), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
-            statusPopup.show();
-            statusPopup.container.css('z-index', 100000);
-            setTimeout(function() {
-                statusPopup.hide();
-                setTimeout($('.close').click(), 300);
-            }, 2000);
-        };
+            if (orphanName === "Select an orphan") {
+                showPopupMessage(event.target, "Please select an orphan", "error");
+            } else {
+                $.ajax({
+                    type: 'PUT',
+                    url: url,
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(data),
+                    headers: {
+                        "X-AUTHENTICATION-TOKEN": authToken,
+                        "X-AUTHENTICATION-EMAIL": userEmail
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        showPopupMessage(event.target, "Successfully edited " + orphanName, "success");
+                        $('.currentcontact').remove();
+                        $('#contactname').html("Select an orphan");
+                        $('.relatedOrphans li').remove();
+                        var orphanLength = $('.orphanList li').length;
+                        $("#itemCount").html(orphanLength);
+                        setTimeout(refetchTypeaheadData, 1000);
+                    },
+                    error: function (e) {
+                        console.log(e.statusText);
+                        showPopupMessage(event.target, "Error editting " + orphanName, "error");
+                    }
+                });
+            }
+            $("#loader").removeClass("showLoader");
 
-        if (orphanName === "Select an orphan") {
-            showPopupMessage(event.target, "Please select an orphan", "error");
-        } else {
-            $.ajax({
-                type: 'PUT',
-                url: url,
-                contentType: "application/json",
-                dataType: "json",
-                data: JSON.stringify(data),
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
-                },
-                success: function (data) {
-                    console.log(data);
-                    showPopupMessage(event.target, "Successfully edited " + orphanName, "success");
-                    $('.currentcontact').remove();
-                    $('#contactname').html("Select an orphan");
-                    $('.relatedOrphans li').remove();
-                    var orphanLength = $('.orphanList li').length;
-                    $("#itemCount").html(orphanLength);
-                    setTimeout(refetchTypeaheadData, 1000);
-                },
-                error: function (e) {
-                    console.log(e.statusText);
-                    showPopupMessage(event.target, "Error editting " + orphanName, "error");
-                }
-            });
-        }
+        }, 500);
         return false;
+
     });
 
     $(".settingToggler").change(function(){
             
-            var url = "http://daywon-api-staging.herokuapp.com/users/settings";
+            var url = "http://daywon-api-prod.herokuapp.com/users/settings";
             var setting1 = new Boolean($("#toggle:checked").length);
             var setting2 = new Boolean($("#toggle2:checked").length);
             var setting3 = new Boolean($("#toggle3:checked").length);
@@ -1157,6 +1190,10 @@ function rebindEvents() {
         }
     }
 
+    $('#prioritySelector').change(function(){
+        console.log(this.value);
+    });
+
     $('.flipswitch').unbind('click').click(function(){
         var slider = $('#detailPanel');
         if (slider.hasClass('panelOut')) {
@@ -1174,20 +1211,26 @@ function rebindEvents() {
         }
     });
 
-    if ($('.flipswitch').length) {
-        var scroller = new IScroll('#dCol1', {
-            mouseWheel: true,
-            scrollbars: true
-        });
-        var scroller2 = new IScroll('#dCol2', {
-            mouseWheel: true,
-            scrollbars: true
-        });
-        var scroller3 = new IScroll('#dCol3', {
-            mouseWheel: true,
-            scrollbars: true
-        });
-    }
+    setTimeout(function(){
+        if ($('.flipswitch').length) {
+            var scroller = new IScroll('#dCol1', {
+                mouseWheel: true,
+                scrollbars: true,
+                invertWheelDirection: false
+            });
+            var scroller2 = new IScroll('#dCol2', {
+                mouseWheel: true,
+                scrollbars: true,
+                invertWheelDirection: false
+            });
+            var scroller3 = new IScroll('#dCol3', {
+                mouseWheel: true,
+                scrollbars: true,
+                invertWheelDirection: false,
+                interactiveScrollbars: true
+            });
+        }
+    }, 500);
 
     $(".deleteContainer > div-child").click(function(){
         //alert("clicked");
@@ -1197,7 +1240,7 @@ function rebindEvents() {
     if ($('.ocount').length) {
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            url: 'http://daywon-api-prod.herokuapp.com/orphans',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -1231,7 +1274,7 @@ function rebindEvents() {
         $("#reportCount > span").html(totalUsers);
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/users/settings/',
+            url: 'http://daywon-api-prod.herokuapp.com/users/settings/',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -1277,7 +1320,7 @@ function rebindEvents() {
         });
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/users/info/',
+            url: 'http://daywon-api-prod.herokuapp.com/users/info/',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -1307,7 +1350,7 @@ function rebindEvents() {
     if ($("#adminTable").length) {
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/reports_admin',
+            url: 'http://daywon-api-prod.herokuapp.com/reports_admin',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -1668,7 +1711,7 @@ function rebindEvents() {
 
     $.ajax({
         type: 'GET',
-        url: 'http://daywon-api-staging.herokuapp.com/contacts',
+        url: 'http://daywon-api-prod.herokuapp.com/contacts',
         contentType: "application/json",
         dataType: "json",
         headers: {
@@ -1698,7 +1741,7 @@ function rebindEvents() {
               datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               prefetch: {
-                url: 'http://daywon-api-staging.herokuapp.com/events',
+                url: 'http://daywon-api-prod.herokuapp.com/events',
                 ajax: ajaxObj,
                 filter: function(obj) {
                   return obj.events;
@@ -1710,7 +1753,7 @@ function rebindEvents() {
               datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               prefetch: {
-                url: 'http://daywon-api-staging.herokuapp.com/tasks',
+                url: 'http://daywon-api-prod.herokuapp.com/tasks',
                 ajax: ajaxObj,
                 filter: function(obj) {
                   return obj.tasks;
@@ -1722,7 +1765,7 @@ function rebindEvents() {
               datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
               queryTokenizer: Bloodhound.tokenizers.whitespace,
               prefetch: {
-                url: 'http://daywon-api-staging.herokuapp.com/tags',
+                url: 'http://daywon-api-prod.herokuapp.com/tags',
                 ajax: ajaxObj,
                 filter: function(obj) {
                   return obj.tags;
@@ -1824,7 +1867,7 @@ function rebindEvents() {
                     var existingItems = $('[objectid=' + objectID + ']', itemList);
                     if (existingItems.length === 0) {
                         var newRow = $('<li objectid="' + objectID + '" class="' + extraClasses + '"><span>' + displayText + '</span><img src="img/close.png"></li>');
-                        $('img', newRow).click(function() { newRow.remove(); });
+                        $('.association > img').click(function() { newRow.remove(); });
                         itemList.append(newRow);
                     }
                 }
@@ -1868,12 +1911,12 @@ function rebindEvents() {
                 var displayText;
                 var objImage;
                 var payload;
-                var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
+                var url = 'http://daywon-api-prod.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
                 //check which object has been selected
                 if (datum.hasOwnProperty('organization')) { // contact
                     objectID = 'contact' + datum.id;
                     displayText = datum.name;
-                    objImage = "contact";
+                    objImage = "contacts";
                 } else if (datum.hasOwnProperty('start_datetime')) { // event
                     objectID = 'event' + datum.id;
                     displayText = datum.title;
@@ -1893,9 +1936,9 @@ function rebindEvents() {
                     var itemList = $(".infopanel.selected");
                     var existingItems = $('[objectid=' + objectID + ']', itemList);
                     if (existingItems.length === 0) {
-                        var newRow = $('<div objectid="' + objectID + '" class="contactrow tagrow"><img src="img/' + objImage + '.png"><h4>' + displayText + '</h4><span class="hidden">' + datum.id + '</span><img src="img/close.png" class="removeAssoc" /></div>');
-                        $('img', newRow).click(function() { newRow.remove(); });
+                        var newRow = $('<div objectid="' + objectID + '" class="contactrow tagrow newlyadded"><a href="#/' + objImage + '/' + datum.id + '"><img src="img/' + objImage + '.png"><h4>' + displayText + '</h4><span class="hidden">' + datum.id + '</span></a><img src="img/close.png" class="removeAssoc" /></div>');
                         itemList.append(newRow);
+                        $('.removeAssoc').click(function() { newRow.remove(); });
                     }
                     var allObjects = $('.infopanel.selected .contactrow');
                     var objectArray = new Array();
@@ -2069,6 +2112,8 @@ function rebindEvents() {
                 searchTypeaheadOptions.hint = false;
                 searchAll.typeahead(searchTypeaheadOptions, contactsDatasource, emailsDatasource, eventsDatasource, tasksDatasource, tagsDatasource)
                 .on('typeahead:selected',  function(obj, datum) {
+
+                    $("#loader").addClass("showLoader");
                     $(obj.target).typeahead('val', '');
 
                     var id = datum.id;
@@ -2127,7 +2172,7 @@ function rebindEvents() {
             }
             console.log("object type:" + mainObjectType);
             var payload;
-            var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + '/' + mainObjectId;
+            var url = 'http://daywon-api-prod.herokuapp.com/' + mainObjectType + '/' + mainObjectId;
             var allObjects = $('.infopanel.selected .contactrow');
             var objectArray = new Array();
             var thisObjId;
@@ -2313,7 +2358,7 @@ setTimeout(function(){
     $('#allDayStart').datetimepicker({
         id:"allDayStart",
         format: 'm/d/Y',
-        pickTime: false,
+        timepicker: false,
         validateOnBlur:false
     });
     $('#eventEnd').datetimepicker({
@@ -2325,11 +2370,17 @@ setTimeout(function(){
     $('#allDayEnd').datetimepicker({
         id:"allDayEnd",
         format: 'm/d/Y',
-        pickTime: false,
+        timepicker: false,
         validateOnBlur:false
     });
     $('#taskDue').datetimepicker({
         id:"taskDate",
+        format: 'm/d/Y',
+        timepicker: false,
+        validateOnBlur:false
+    });
+    $('#taskDueTime').datetimepicker({
+        id:"taskDateTime",
         formatTime: 'g:i A',
         format: 'm/d/Y g:i A',
         validateOnBlur:false
@@ -2354,7 +2405,7 @@ setTimeout(function(){
 
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/orphans',
+            url: 'http://daywon-api-prod.herokuapp.com/orphans',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -2405,10 +2456,9 @@ setTimeout(function(){
             }
 
             var getContacts = function(cb) {
-                var data = 'Input values';
                 $.ajax({
                     type: 'GET',
-                    url: 'http://daywon-api-staging.herokuapp.com/contacts',
+                    url: 'http://daywon-api-prod.herokuapp.com/contacts',
                     contentType: "application/json",
                     dataType: "json",
                     headers: {

@@ -63,7 +63,7 @@
                 <li class="navbar-link dropdown" id="viewmenu">
                   {{#link-to 'contacts' class="dropdown-toggle" data-toggle="dropdown"}}<img src="img/view.png" class="navimg" />View{{/link-to}}
                   <ul class="dropdown-menu">
-                    <li>{{#link-to 'contacts'}}<img src="img/contact.png" class="subnavimg" id="viewcontacts" />Contacts{{/link-to}}</li>
+                    <li>{{#link-to 'contacts'}}<img src="img/contacts.png" class="subnavimg" id="viewcontacts" />Contacts{{/link-to}}</li>
                     <li>{{#link-to 'events'}}<img src="img/events.png" class="subnavimg" id="viewevents" />Events{{/link-to}}</li>
                     <li>{{#link-to 'tasks'}}<img src="img/tasks.png" class="subnavimg" id="viewtasks" />Tasks{{/link-to}}</li>
                     <li>{{#link-to 'tags'}}<img src="img/tags.png" class="subnavimg" id="viewtags" />Tags{{/link-to}}</li>
@@ -278,7 +278,7 @@
                   </div>
                   <div class="formrow">
                     Ends: <div class="endSelect formrow"><input type="radio" name="ending" value="never">Never</div>
-                          <div class="endSelect formrow"><input type="radio" name="ending" value="after">After <input type="number" name="occurences" id="recurrNumber"> occurences</div>
+                          <div class="endSelect formrow"><input type="radio" name="ending" value="after">After <input type="number" name="occurences" min="1" max="99999" id="recurrNumber"> occurences</div>
                           <div class="endSelect formrow endEvent"><input type="radio" name="ending" value="on">On <input type="text" id="endEventRepeat"><img src="img/calendar.png" /></div>
                   </div>
                 </div>
@@ -297,7 +297,15 @@
               <form>
                 <div class="formrow">Task title: <input type="text" id="taskName"></div>
                 <div class="formrow">Task notes: <input type="text" id="taskNotes"></div>
+                <div class="formrow">
+                  <span>Add time to due date: </span>
+                  <div class="squaredTwo">
+                    <input type="checkbox" value="None" id="taskTime" name="check" />
+                    <label for="taskTime"></label>
+                  </div>
+                </div>
                 <div class="formrow taskDate">Due date: <input type="text" id="taskDue"><img src="img/calendar.png" /></div>
+                <div class="formrow taskDateTime">Due date and time: <input type="text" id="taskDueTime"><img src="img/calendar.png" /></div>
                 <div class="formrow">Priority:<br /> 
                   <select id="taskPriority">
                     <option>Select a priority</option>
@@ -392,7 +400,7 @@
                 <div class="menusubcont">
                   <div class="subcontitem showitem selected" id="subEvent" ><img src="img/calendar.png" /></div>
                   <div class="subcontitem showitem selected" id="subTask" ><img src="img/tasks.png" /></div>
-                  <div class="subcontitem showitem selected" id="subContact" ><img src="img/contact.png" /></div>
+                  <div class="subcontitem showitem selected" id="subContact" ><img src="img/contacts.png" /></div>
                   <div class="subcontitem showitem selected" id="subTag" ><img src="img/tags.png" /></div>
                 </div>
               </div>
@@ -411,7 +419,7 @@
                     </ul>    
                   </div>
                   <div class="subcontitem sortitem" id="maincontact">
-                    {{#link-to 'reports.contacts'}}<img src="img/contact.png" />{{/link-to}}
+                    {{#link-to 'reports.contacts'}}<img src="img/contacts.png" />{{/link-to}}
                   </div>
                   <div class="subcontitem sortitem" id="maintag">
                     {{#link-to 'reports.tags'}}<img src="img/tags.png" />{{/link-to}}
@@ -453,7 +461,7 @@
                     </h3>
                     <div class="subitems">
                       <div class="subitem ss3 subContact">
-                        <img class="subicon" src="img/contact.png" />
+                        <img class="subicon" src="img/contacts.png" />
                         <span class="subitemtext">Loading...</span>
                       </div>
                       <div class="subitem ss4 subTask">
@@ -504,7 +512,7 @@
                     </h3>
                     <div class="subitems">
                       <div class="subitem ss3 subContact">
-                        <img class="subicon" src="img/contact.png" />
+                        <img class="subicon" src="img/contacts.png" />
                         <span class="subitemtext">Loading...</span>
                       </div>
                       <div class="subitem ss1 subEvent">
@@ -548,7 +556,7 @@
                   <li class="listitem maincontact">
                     <img src="img/arrow_black.png" class="accordionarrow reportarrow">
                     <h3 class="mainsort">
-                      {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="listimg" />{{/link-to}}
+                      {{#link-to 'contacts.contact' contact}}<img src="img/contacts.png" class="listimg" />{{/link-to}}
                       {{#if contact.name}}
                         {{contact.name}}
                       {{else}}
@@ -612,7 +620,7 @@
                     </h3>
                     <div class="subitems">
                       <div class="subitem ss3 subContact">
-                        <img class="subicon" src="img/contact.png" />
+                        <img class="subicon" src="img/contacts.png" />
                         <span class="subitemtext">Loading...</span>
                       </div>
                       <div class="subitem ss1 subEvent">
@@ -640,7 +648,7 @@
           <h1 id="viewHeader">View</h1>
           <div class="row">
             <div class="viewButton">
-              {{#link-to 'contacts'}}<div class="circlebg"><img src="img/contact.png" /><p>Contacts</p></div>
+              {{#link-to 'contacts'}}<div class="circlebg"><img src="img/contacts.png" /><p>Contacts</p></div>
             {{/link-to}}</div>
             <div class="viewButton">
               {{#link-to 'events'}}<div class="circlebg"><img src="img/events.png" /><p>Events</p></div>{{/link-to}}
@@ -669,7 +677,7 @@
           <h1 id="viewHeader">Create</h1>
           <div class="row">
             <div class="viewButton createButton">
-              {{#link-to 'create.contact'}}<div class="circlebg"><img src="img/contact.png" /><p>Contacts</p></div>
+              {{#link-to 'create.contact'}}<div class="circlebg"><img src="img/contacts.png" /><p>Contacts</p></div>
             {{/link-to}}</div>
             <div class="viewButton createButton">
               {{#link-to 'create.event'}}<div class="circlebg"><img src="img/events.png" /><p>Events</p></div>{{/link-to}}
@@ -814,7 +822,7 @@
                         <div class="subitem subdash ss2">
                           {{#if item.isContact}}
                             {{#link-to 'contacts.contact' item}}
-                              <img class="subicon" src="img/contact.png" />
+                              <img class="subicon" src="img/contacts.png" />
                               {{#if item.name}}
                                 <span class="subitemtext subdashtext">{{item.name}}</span>
                               {{else}}
@@ -954,7 +962,7 @@
             <div class="section-container" id="contactscont">
               <div class="row">
                 <div class="col-md-4" id="contactpane1">
-                  <img src="img/contact.png" class="contactpadding" />
+                  <img src="img/contacts.png" class="contactpadding" />
                   <h1 class="contactpadding">Contacts (<span id="itemCount">{{contactsToShow.length}}</span>)</h1>
                   <form method="get" action="/search" class="search contactpadding" id="contactsearch">
                     <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustContacts">
@@ -1011,11 +1019,11 @@
         <script type="text/x-handlebars" id="contacts/index">
           <div class="col-md-7" id="contactpanel2">
             <h1 id="mobileContact">Contacts</h1>
-            <img id="profilepic" src="img/contact.png" />
+            <img id="profilepic" src="img/contacts.png" />
             <img src="img/arrow.png" class="backArrow" />
             <h2 id="contactname" class="contactname contacttext"><b>Select a contact</b></h2>
             <div id="detailmenubar" class="contactmenu">
-              <img src="img/contact.png" class="selected" />
+              <img src="img/contacts.png" class="selected" />
               <img src="img/events.png" />
               <img src="img/tasks.png" />
               <img src="img/tags.png" />
@@ -1037,7 +1045,7 @@
         <script type="text/x-handlebars" id="contacts/contact">
           <div class="col-md-7 mobileIn" id="contactpanel2">
             <h1 id="mobileContact">Contacts</h1>
-            <img id="profilepic" src="img/contact.png" />
+            <img id="profilepic" src="img/contacts.png" />
             <img src="img/arrow.png" class="backArrow" />            
 		        <h2 id="contactname" class="contactname contacttext" {{action "editField" "name" on="doubleClick"}}>
               {{#if editing.name}}
@@ -1058,7 +1066,7 @@
   		        {{/if}}
             </h2>
             <div id="detailmenubar" class="contactmenu">
-              <img src="img/contact.png" class="selected" />
+              <img src="img/contacts.png" class="selected" />
               <img src="img/events.png" />
               <img src="img/tasks.png" />
               <img src="img/tags.png" />
@@ -1287,7 +1295,7 @@
               <div class="col-md-4 dCol" id="dCol2">
                 <div>
                   <div class="columnhead">
-                    <img src="img/contact.png" />
+                    <img src="img/contacts.png" />
                     <h3>Events</h3>
                   </div>
                   <br />
@@ -1390,7 +1398,7 @@
             <img src="img/arrow.png" class="backArrow" />
             <h2 id="contactname" class="eventname"><b>Select an event</b></h2>
             <div id="detailmenubar">
-              <img src="img/contact.png" />
+              <img src="img/contacts.png" />
               <img src="img/events.png" class="selected" />
               <img src="img/tasks.png" />
               <img src="img/tags.png" /> 
@@ -1422,7 +1430,7 @@
   	        {{/if}}
             </h2>
             <div id="detailmenubar">
-              <img src="img/contact.png" />
+              <img src="img/contacts.png" />
               <img src="img/events.png" class="selected" />
               <img src="img/tasks.png" />
               <img src="img/tags.png" /> 
@@ -1439,7 +1447,7 @@
                 </form>
                 {{#each contact in contacts}}
                   <div class="contactrow personrow">
-                    {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">
+                    {{#link-to 'contacts.contact' contact}}<img src="img/contacts.png" class="contactIcon">
                     <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
                   </div>
                 {{/each}}
@@ -1505,6 +1513,8 @@
                   {{/if}}
                   <br />
                 </div>
+                <b>Recurring: </b>
+                {{nextDate}}
               </div>
               <div class="infopanel">
                 <form id="addForm">
@@ -1569,7 +1579,7 @@
               <div class="col-md-4 dCol" id="dCol2">
                 <div>
                   <div class="columnhead">
-                    <img src="img/contact.png" />
+                    <img src="img/contacts.png" />
                     <h3>Contacts</h3>
                   </div>
                   <br />
@@ -1671,7 +1681,7 @@
                   <img src="img/arrow.png" class="backArrow" />
                   <h2 id="contactname" class="taskname">Select a task</h2>
                   <div id="detailmenubar">
-                    <img src="img/contact.png" />
+                    <img src="img/contacts.png" />
                     <img src="img/events.png" />
                     <img src="img/tasks.png" class="selected" />
                     <img src="img/tags.png" />   
@@ -1703,7 +1713,7 @@
   					        {{/if}}
                   </h2>
                   <div id="detailmenubar">
-                    <img src="img/contact.png" />
+                    <img src="img/contacts.png" />
                     <img src="img/events.png" />
                     <img src="img/tasks.png" class="selected" />
                     <img src="img/tags.png" />
@@ -1721,7 +1731,7 @@
                       </form>
                       {{#each contact in contacts}}
                       <div class="contactrow personrow">
-                        {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon"><h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span>{{/link-to}}
+                        {{#link-to 'contacts.contact' contact}}<img src="img/contacts.png" class="contactIcon"><h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span>{{/link-to}}
                         <img src="img/close.png" class="removeAssoc" />
                       </div>
                       {{/each}}
@@ -1741,14 +1751,16 @@
                     </div>
                     <div class="infopanel selected">
                       <div {{action "editField" "notes" on="doubleClick"}}>
-                        <h5 class="notesLabel">Note:</h5>
-                        <div class="notesField" style="color: #000;">
+                        <b>Note:</b>
                         {{#if editing.notes}}
                            {{textarea class="editField" id="notesInput" type="text" value=notes focus-out="save" insert-newline="save"}}
                         {{else}}
                           {{notes}}
                         {{/if}}
-                        </div>
+                      </div>
+                      <div {{action "editField" "priority" on="doubleClick"}}>
+                        <b>Priority: </b>
+                        {{priority}}
                       </div>
                       <div {{action "editField" "due" on="doubleClick"}}>
                         <b>Task Due: </b>
@@ -1846,7 +1858,7 @@
                     <div class="col-md-4 dCol" id="dCol3">
                       <div>
                         <div class="columnhead">
-                          <img src="img/contact.png" />
+                          <img src="img/contacts.png" />
                           <h3>Contacts</h3>
                         </div>
                         <br />
@@ -1908,7 +1920,7 @@
             <img src="img/arrow.png" class="backArrow" />
             <h2 id="contactname" class="tagname">Select a tag</h2>
             <div id="detailmenubar">
-              <img src="img/contact.png" />
+              <img src="img/contacts.png" />
               <img src="img/events.png" />
               <img src="img/tasks.png" />
               <img src="img/tags.png" class="selected" />   
@@ -1940,7 +1952,7 @@
 					        {{/if}}
                   </h2>
                   <div id="detailmenubar">
-                    <img src="img/contact.png" />
+                    <img src="img/contacts.png" />
                     <img src="img/events.png" />
                     <img src="img/tasks.png" />
                     <img src="img/tags.png" class="selected" />   
@@ -1957,7 +1969,7 @@
                       </form>
                       {{#each contact in contacts}}
                         <div class="contactrow personrow">
-                          {{#link-to 'contacts.contact' contact}}<img src="img/contact.png" class="contactIcon">
+                          {{#link-to 'contacts.contact' contact}}<img src="img/contacts.png" class="contactIcon">
                           <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
                         </div>
                       {{/each}}
@@ -2007,7 +2019,7 @@
                         </h1>
                         <div class="contactgroup relatedObjects taggedObjects">
                           <div class="contactitem">
-                            <img src="img/contact.png" />
+                            <img src="img/contacts.png" />
                             <span>({{contactsCount}})</span>
                           </div>
                           <div class="contactitem">
@@ -2061,7 +2073,7 @@
                     <div class="col-md-4 dCol" id="dCol3">
                       <div>
                         <div class="columnhead">
-                          <img src="img/contact.png" />
+                          <img src="img/contacts.png" />
                           <h3>Contacts</h3>
                         </div>
                         <br />
@@ -2318,10 +2330,10 @@
             <div class="section-container" id="taskscont">
               <div class="row">
                 <div id="settingsummary">
-                  <img src="img/contact.png" id="settingimage" />
+                  <img src="img/contacts.png" id="settingimage" />
                   <div class="itemcounts">
                     <div class="itemcount">
-                      {{#link-to 'contacts'}}<img src="img/contact.png" /><p>{{contactsCount}}</p>{{/link-to}}
+                      {{#link-to 'contacts'}}<img src="img/contacts.png" /><p>{{contactsCount}}</p>{{/link-to}}
                     </div>
                     <div class="itemcount">
                       {{#link-to 'events'}}<img src="img/events.png" /><p>{{eventsCount}}</p>{{/link-to}}
@@ -2348,7 +2360,7 @@
                     <h3>tyler@evenspring.com</h3>
                     <div id="objectCount">
                       <div class="itemcountMobile">
-                        <img src="img/contact.png" /><p>(31)</p>
+                        <img src="img/contacts.png" /><p>(31)</p>
                       </div>
                       <div class="itemcountMobile">
                         <img src="img/events.png" /><p>(24)</p>

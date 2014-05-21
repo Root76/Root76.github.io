@@ -45,6 +45,7 @@ App.Router.map(function () {
     this.resource("admin");
 });
 
+//Observe Route Change
 App.ApplicationController = Ember.Controller.extend({
   currentPathDidChange: function() {
   	$("#loader").addClass("showLoader");
@@ -52,9 +53,18 @@ App.ApplicationController = Ember.Controller.extend({
         rebindEvents();
         setTimeout(function(){
 	        $("#loader").removeClass("showLoader");
+	        //this.get('model').reload();
 	    }, 400);
     });
   }.observes('currentPath')
+});
+
+//Observe URL Change
+$(window).on('hashchange', function(){
+  console.log("Hash URL is " + location.hash.substr(1));
+  setTimeout(function(){
+  	$('.newlyadded').remove();
+  }, 1000);
 });
 
 /***Rest Adapter***/
@@ -78,7 +88,7 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-staging.herokuapp.com/",
+  host: "http://daywon-api-prod.herokuapp.com/",
   headers: {
     "X-AUTHENTICATION-TOKEN": authToken,
     "X-AUTHENTICATION-EMAIL": userEmail
@@ -341,30 +351,52 @@ App.EventsController = Ember.ArrayController.extend({
 		sorted = sorted.sortBy(this.get('sortProperties'));
 
 		var uniqueEvents = this.getEach('title').uniq();
-		console.log(uniqueEvents);
-		var eventObject = $.extend({}, uniqueEvents);
+		console.log("unique events");
 
+		var eventObject = $.extend({}, uniqueEvents);
+		console.log(eventObject);
 		for (var i = 0; i < uniqueEvents.length; i++) {
 			var title = eventObject[i];
+			console.log('title: ' + title);
 			var uniqueTitles = sorted.filterProperty('title', title);
-			console.log("loop " + i + ". length" + uniqueTitles.length + ". title :" + uniqueEvents[i]);
-			if (uniqueTitles[0]['_data']['start_date'] === null) {
-				console.log("has a datetime");
-				uniqueTitles = Utility.sortByTimeOption(uniqueTitles, 'start_datetime', "upcoming");
-				uniqueTitles = uniqueTitles.sortBy(['start_datetime']);
-			} else {
-				console.log("no datetime, just a date");
-				uniqueTitles = Utility.sortByTimeOption(uniqueTitles, 'start_date', "upcoming");
-				uniqueTitles = uniqueTitles.sortBy(['start_date']);		
-			}
+			//console.log("loop " + i + ". length" + uniqueTitles.length + ". title :" + uniqueEvents[i]);
+			console.log('unique');
 			console.log(uniqueTitles);
+			console.log(uniqueTitles.length);
+			if (uniqueTitles.length > 1) {
+				if (uniqueTitles[0]['_data']['start_date'] === null) {
+					//console.log("has a datetime");
+					uniqueTitles = Utility.sortByTimeOption(uniqueTitles, 'start_datetime', "upcoming");
+					uniqueTitles = uniqueTitles.sortBy(['start_datetime']);
+				} else {
+					//console.log("no datetime, just a date");
+					uniqueTitles = Utility.sortByTimeOption(uniqueTitles, 'start_date', "upcoming");
+					uniqueTitles = uniqueTitles.sortBy(['start_date']);		
+				}
+			}
+			console.log('unique title');
+			console.log(uniqueTitles);
+
 			if (uniqueTitles.length > 0) {
 				if (uniqueTitles[0].hasOwnProperty('_data')) {
 					eventObject[i] = uniqueTitles[0]['_data'];
+					/*if (uniqueTitles.length > 1) {
+						//console.log("there's another one");
+						if (uniqueTitles[1]['_data']['start_date'] === null) {
+							//console.log('appending full datetime');
+							eventObject[i]['nextDate'] = uniqueTitles[1]['_data']['start_datetime'];
+						} else {
+							//console.log('appending just a date, aint nobody got time for that');
+							eventObject[i]['nextDate'] = uniqueTitles[1]['_data']['start_date'];						
+						}
+					}*/
 				} else {
 					eventObject[i] = uniqueTitles[0]['id'];
 				}
+			} else {
+				eventObject[i] = uniqueTitles;
 			}
+			console.log(eventObject[i]);
 		}
 
 		var array = $.map(eventObject, function(value, index) {
@@ -939,8 +971,50 @@ App.Event = DS.Model.extend({
     end_datetime: DS.attr('date'),
     start_date: DS.attr('date'),
     end_date: DS.attr('date'),
+    /*nextDate: function() {
+
+        var callback = function(data) {
+            console.log(data.events);
+            var eventData = data.events;
+            console.log(title);
+            for (var i = 0; i < eventData.length; i++) {
+            	if (eventData[i][title] == title) {
+            		console.log('same title, keeping');
+            	} else {
+            		console.log('different title, removing');
+            		delete eventData[i];
+            	}
+            }
+            console.log(eventData);
+        }
+
+        var getEvents = function(cb) {
+            $.ajax({
+                type: 'GET',
+                url: 'http://daywon-api-prod.herokuapp.com/events',
+                contentType: "application/json",
+                dataType: "json",
+                headers: {
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": userEmail
+                },
+                success: cb,
+                error: function(e) {
+                    console.log("couldn't fetch preloader contacts: " + e);
+                }
+            });
+        }
+
+        var title = this.get('title');
+
+        getEvents(callback);
+
+        return title;
+
+    }.property('title'),*/
     updated_at: DS.attr('date'),
     is_orphan: DS.attr('boolean'),
+    recurring: DS.attr('boolean'),
     start_inputformatted: function(key, value) {
 	    if (arguments.length > 1) {
 	    	var date = moment(value);
@@ -1007,7 +1081,6 @@ App.Task = DS.Model.extend({
 	hasDate: function() { 
 	   return this.get('due') !== undefined && this.get('due') !== null;
 	}.property('due'),
-
     due_inputformatted: function(key, value) {
 	    if (arguments.length > 1) {
 	    	var date = moment(value);
@@ -1411,7 +1484,7 @@ App.CalView = Ember.View.extend({
             var data = 'Input values';
             $.ajax({
                 type: 'GET',
-                url: 'http://daywon-api-staging.herokuapp.com/tasks',
+                url: 'http://daywon-api-prod.herokuapp.com/tasks',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {
