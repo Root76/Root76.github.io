@@ -47,16 +47,131 @@ App.Router.map(function () {
 
 //Observe Route Change
 App.ApplicationController = Ember.Controller.extend({
-  currentPathDidChange: function() {
-  	$("#loader").addClass("showLoader");
-    Ember.run.schedule('afterRender', this, function() {
-        rebindEvents();
-        setTimeout(function(){
-	        $("#loader").removeClass("showLoader");
-	        //this.get('model').reload();
-	    }, 400);
-    });
-  }.observes('currentPath')
+    currentPathDidChange: function() {
+  		$("#loader").addClass("showLoader");
+    	Ember.run.schedule('afterRender', this, function() {
+        	rebindEvents();
+        	console.log("rebind this");
+        	console.log(this);
+	        setTimeout(function(){
+		        $("#loader").removeClass("showLoader");
+		        //this.get('model').reload();
+		    }, 400);
+	    });
+    }.observes('currentPath'),
+	actions: {
+
+	    createContact: function(contact) {
+            var data = {
+                contact: {
+                    name: contact.name,
+                    organization: contact.organization,
+                    //phones: contact.phones,
+                    address: contact.address
+                    //emails: contact.emails
+                }
+            };
+	        var store = this.get('store');
+	        var getContacts = function(cb) {
+		        $.ajax({
+					type: 'POST',
+					url: 'http://daywon-api-staging.herokuapp.com/contacts',
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(data),
+					headers: {
+						"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+						"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+					},
+					success: cb,
+					error: function (e) {
+						console.log(e.statusText);
+					}
+				});
+		    }
+            var callback = function(data) {
+                console.log(data);
+		        store.push('contact', {
+		        	id: data.id,
+		        	name: data.name
+		        });
+            }
+		    getContacts(callback);
+	    },
+	    createTask: function(task) {
+            var data = {
+                task: {
+                    title: task.title,
+                    notes: task.description,
+                    due: moment(task.due).format(),
+                    priority: parseInt(task.priority)
+                }
+            };
+	        var store = this.get('store');
+	        var getTasks = function(cb) {
+		        $.ajax({
+					type: 'POST',
+					url: 'http://daywon-api-staging.herokuapp.com/tasks',
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(data),
+					headers: {
+						"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+						"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+					},
+					success: cb,
+					error: function (e) {
+						console.log(e.statusText);
+					}
+				});
+		    }
+            var callback = function(data) {
+                console.log(data);
+		        store.push('task', {
+		        	id: data.id,
+                    title: data.title,
+                    notes: data.description,
+                    due: data.due,
+                    priority: data.priority
+		        });
+            }
+		    getTasks(callback);
+	    },
+	    createTag: function(tag) {
+            var data = {
+                tag: {
+                    name: tag.name
+                }
+            };
+	        var store = this.get('store');
+	        var getTags = function(cb) {
+		        $.ajax({
+					type: 'POST',
+					url: 'http://daywon-api-staging.herokuapp.com/tags',
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(data),
+					headers: {
+						"X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+						"X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+					},
+					success: cb,
+					error: function (e) {
+						console.log(e.statusText);
+					}
+				});
+		    }
+            var callback = function(data) {
+                console.log(data);
+		        store.push('tag', {
+		        	id: data.id,
+		        	name: data.name,
+		        	count: 0
+		        });
+            }
+		    getTags(callback);
+	    }
+	}
 });
 
 //Observe URL Change
@@ -64,7 +179,7 @@ $(window).on('hashchange', function(){
   console.log("Hash URL is " + location.hash.substr(1));
   setTimeout(function(){
   	$('.newlyadded').remove();
-  }, 1000);
+  }, 700);
 });
 
 /***Rest Adapter***/
@@ -88,11 +203,11 @@ authToken = query_string.authentication_token;
 userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-prod.herokuapp.com/",
+  host: "http://daywon-api-staging.herokuapp.com/",
   headers: {
-    "X-AUTHENTICATION-TOKEN": authToken,
-    "X-AUTHENTICATION-EMAIL": userEmail
-    // authToken,
+    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
+    // "4N9-_NWfYvYxpesMVpne",
     // "epDAyxZkc4uLqoyvym_L"
   }
 });
@@ -710,6 +825,43 @@ App.IndexController = Ember.ObjectController.extend({
     }.property('events')
 });
 
+App.ContactFormComponent = Ember.Component.extend({
+  actions: {
+    submit: function() {
+      this.sendAction('submit', {
+        name: this.get('name'),
+        organization: this.get('organization'),
+        phones: this.get('phoneList'),
+        address: this.get('address'),
+        emails: this.get('emailList')
+      });
+    }
+  }
+});
+
+App.TaskFormComponent = Ember.Component.extend({
+  actions: {
+    submit: function() {
+      this.sendAction('submit', {
+        title: this.get('title'),
+        notes: this.get('notes'),
+        due: this.get('due'),
+        priority: this.get('priority')
+      });
+    }
+  }
+});
+
+App.TagFormComponent = Ember.Component.extend({
+  actions: {
+    submit: function() {
+      this.sendAction('submit', {
+        name: this.get('name')
+      });
+    }
+  }
+});
+
 App.SettingsController = Ember.ObjectController.extend({
     needs: ['contacts', 'events', 'tasks', 'tags'],
     contactsController: Ember.computed.alias("controllers.contacts"),
@@ -924,7 +1076,7 @@ App.Contact = DS.Model.extend({
 			return 'https://mail.google.com/mail/u/?authuser=#search/from:+OR+to:'; // filter emails from/to this person
     	} else {
 	    	addresses = addresses[0]['email'];
-			return 'https://mail.google.com/mail/u/?authuser=' + userEmail + // pick the right user account in case of multiple login
+			return 'https://mail.google.com/mail/u/?authuser=' + "hweaver@evenspring.com" + // pick the right user account in case of multiple login
 				'#search/from:' + addresses + '+OR+to:' + addresses; // filter emails from/to this person
 		}
     }.property('emails'),
@@ -991,12 +1143,12 @@ App.Event = DS.Model.extend({
         var getEvents = function(cb) {
             $.ajax({
                 type: 'GET',
-                url: 'http://daywon-api-prod.herokuapp.com/events',
+                url: 'http://daywon-api-staging.herokuapp.com/events',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
+                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                 },
                 success: cb,
                 error: function(e) {
@@ -1484,12 +1636,12 @@ App.CalView = Ember.View.extend({
             var data = 'Input values';
             $.ajax({
                 type: 'GET',
-                url: 'http://daywon-api-prod.herokuapp.com/tasks',
+                url: 'http://daywon-api-staging.herokuapp.com/tasks',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
+                    "X-AUTHENTICATION-TOKEN": "4N9-_NWfYvYxpesMVpne",
+                    "X-AUTHENTICATION-EMAIL": "hweaver@evenspring.com"
                 },
                 success: cb,
                 error: function(e) {

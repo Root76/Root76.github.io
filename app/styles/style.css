@@ -888,6 +888,8 @@ h1, h2, h3, h4 {
 #footer {
 	position:fixed;
 	bottom:0px;
+	left:0px;
+	right:0px;
 	height:60px;
 	line-height:24px;
 	border-top:1px solid #EEE;
@@ -3777,7 +3779,7 @@ input#toggle5:checked + label:after {
 
 #loader{
 	position: fixed;
-	z-index: 3;
+	z-index: 99999;
 	margin: 0 auto;
 	left: 0;
 	right: 0;

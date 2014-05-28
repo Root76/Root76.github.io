@@ -109,7 +109,6 @@
             </div>
           </div>
         </div>
-        </script>
         <div id="footer">
           <div class="container">
             <div id="helplinks">
@@ -206,7 +205,7 @@
               <option>Tag</option>
             </select>
             <div class="createContact createForm">
-              <form>
+              <!--<form>
                 <div class="formrow">First name: <input type="text" id="contactFirst"></div>
                 <div class="formrow">Last name: <input type="text" id="contactLast"></div>
                 <div class="formrow">Contact email: 
@@ -233,7 +232,8 @@
                   </div>
                 </div>
                 <div class="formrow"><input type="submit"></div>
-              </form>
+              </form>-->
+              {{contact-form submit="createContact" submitTitle="Create Contact"}}          
             </div>
             <div class="createEvent createForm">
               <form>
@@ -294,7 +294,7 @@
               </form>
             </div>
             <div class="createTask createForm">
-              <form>
+              <!--<form>
                 <div class="formrow">Task title: <input type="text" id="taskName"></div>
                 <div class="formrow">Task notes: <input type="text" id="taskNotes"></div>
                 <div class="formrow">
@@ -324,10 +324,11 @@
                   </div>
                 </div>
                 <div class="formrow"><input type="submit"></div>
-              </form>
+              </form>-->
+              {{task-form submit="createTask" submitTitle="Create Task"}}
             </div>
             <div class="createTag createForm">
-              <form>
+              <!--<form>
                 <div class="formrow">Tag title: <input type="text" id="tagName"></div>
                 <div class="formrow">Connect related items: <br /><input id="typeAheadTag" />
                 </div>
@@ -339,7 +340,8 @@
                   </div>
                 </div>
                 <div class="formrow"><input type="submit"></div>
-              </form>          
+              </form>-->
+              {{tag-form submit="createTag" submitTitle="Create Tag"}}          
             </div>
           </div>
         </div>
@@ -389,6 +391,7 @@
           <li></li>
           <li></li>
         </ul>
+        </script>
         <script type="text/x-handlebars" id="reports">
           <div class="mobileCover" id="reportsCover"></div>
           <h1 class="reportsHeader">Show Me</h1>
@@ -764,6 +767,31 @@
             </div>
           </div>
         </script>
+        <script type="text/x-handlebars" data-template-name="components/contact-form">
+         <form {{action "submit" on="submit"}}>
+           <div class="formrow"><label>Contact name: {{input type="text" value=name}}</label></div>
+           <div class="formrow"><label>Contact email: {{input type="text" value=emailList}}</label></div>
+           <div class="formrow"><label>Contact address: {{input type="text" value=address}}</label></div>
+           <div class="formrow"><label>Contact phone: {{input type="text" value=phoneList}}</label></div>
+           <div class="formrow"><label>Contact organization: {{input type="text" value=organization}}</label></div>
+           <input type="submit" {{bindAttr value=submitTitle}}>
+         </form>
+        </script>
+        <script type="text/x-handlebars" data-template-name="components/task-form">
+         <form {{action "submit" on="submit"}}>
+           <div class="formrow"><label>Task title: {{input type="text" value=title}}</label></div>
+           <div class="formrow"><label>Task notes: {{input type="text" value=notes}}</label></div>
+           <div class="formrow taskDate"><label>Task due: {{input type="text" value=due id="taskDue"}}</label></div>
+           <div class="formrow"><label>Task priority: {{input type="text" value=priority}}</label></div>
+           <input type="submit" {{bindAttr value=submitTitle}}>
+         </form>
+        </script>
+        <script type="text/x-handlebars" data-template-name="components/tag-form">
+         <form {{action "submit" on="submit"}}>
+           <div class="formrow"><label>Tag name: {{input type="text" value=name}}</label></div>
+           <input type="submit" {{bindAttr value=submitTitle}}>
+         </form>
+        </script>
         <script type="text/x-handlebars" id="index">
           <div class="mobileCover" id="eventsCover"></div>
           <div id="appcont" class="viewcont">
@@ -996,7 +1024,7 @@
                   <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
                   <button class="sortingToggle" id="byCompany" {{action sortCompany}}>Sort</button>
                   <ul id="contactlist" class="sidelist">
-                    {{#each contact in contactsToShow}}
+                    {{#each contact in controller}}
                       {{#if contact.name}}
                         {{#link-to 'contacts.contact' contact}}<li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li>{{/link-to}}
                       {{else}}
@@ -1314,7 +1342,7 @@
                     <ul class="columnlist">
                       {{#each event in events}}
                         <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
-                      {{else}}
+                      {{else}} 
                         <li>N/A</li>
                       {{/each}}
                     </ul>
@@ -1447,8 +1475,24 @@
                 </form>
                 {{#each contact in contacts}}
                   <div class="contactrow personrow">
-                    {{#link-to 'contacts.contact' contact}}<img src="img/contacts.png" class="contactIcon">
-                    <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
+                    {{#link-to 'contacts.contact' contact}}
+                      <img src="img/contacts.png" class="contactIcon">
+                      <h4>
+                        {{#if contact.name}}
+                          {{contact.name}}
+                        {{else}}
+                          {{#if contact.emails}}
+                            {{#each email in emails}}
+                              {{email.email}}
+                            {{/each}}
+                          {{else}}
+                            No name or email`
+                          {{/if}}
+                        {{/if}}
+                      </h4>
+                      <span class="hidden">{{contact.id}}</span>
+                    {{/link-to}}
+                    <img src="img/close.png" class="removeAssoc" />
                   </div>
                 {{/each}}
               </div>
