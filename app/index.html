@@ -97,8 +97,7 @@
             <span style="color:#ff0000"></span>
           </div>{{/link-to}}
           <a href="javascript:window.print()" id="printparent"><img src="img/print.png" id="printimg" /></a>
-          <img src="img/logo.jpg" id="mobileLogo">
-          <img src="img/logo2.jpg" id="mobileLogo2">
+          <img src="img/logo2.jpg" id="mobileLogo">
         </div>
         <div class="container">
           <div class="row">
@@ -236,7 +235,7 @@
               {{contact-form submit="createContact" submitTitle="Create Contact"}}          
             </div>
             <div class="createEvent createForm">
-              <form>
+              <!--<form>
                 <div class="formrow">Event title: <input type="text" id="eventName"></div>
                 <div class="formrow">Event description: <input type="text" id="eventDetails"></div>
                 <div class="formrow">Event location: <input type="text" id="eventLocation"></div>
@@ -291,7 +290,8 @@
                   </div>
                 </div>
                 <div class="formrow"><input type="submit"></div>
-              </form>
+              </form>-->
+              {{event-form submit="createEvent" submitTitle="Create Event"}}          
             </div>
             <div class="createTask createForm">
               <!--<form>
@@ -769,27 +769,127 @@
         </script>
         <script type="text/x-handlebars" data-template-name="components/contact-form">
          <form {{action "submit" on="submit"}}>
-           <div class="formrow"><label>Contact name: {{input type="text" value=name}}</label></div>
-           <div class="formrow"><label>Contact email: {{input type="text" value=emailList}}</label></div>
-           <div class="formrow"><label>Contact address: {{input type="text" value=address}}</label></div>
-           <div class="formrow"><label>Contact phone: {{input type="text" value=phoneList}}</label></div>
-           <div class="formrow"><label>Contact organization: {{input type="text" value=organization}}</label></div>
-           <input type="submit" {{bindAttr value=submitTitle}}>
+           <div class="formrow">Contact name: {{input type="text" value=name}}</div>
+          <div class="formrow">Contact email: 
+            <div id="emailsContainer">
+              <img src="img/create.png" /><img src="img/close.png" />
+              <input type="text" class="contactEmail" />
+            </div>
+          </div>
+           <div class="formrow">Contact company: {{input type="text" value=organization}}</div>
+          <div class="formrow">Contact phone number:                   
+            <div id="phonesContainer">
+              <img src="img/create.png" /><img src="img/close.png" />
+              <input type="text" class="contactPhone" />
+            </div>
+          </div>
+           <div class="formrow">Contact address: {{input type="text" value=address}}</div>
+           <div class="formrow">Connect related items: 
+              <br /><input id="typeAheadContact" />
+           </div>
+           <div class="formrow">
+              Selected Items:
+              <div class="relatedList relatedContacts">
+                <ul>
+                </ul>
+              </div>
+           </div>
+           <div class="formrow"><input type="submit" {{bindAttr value=submitTitle}}></div>
          </form>
         </script>
+        <script type="text/x-handlebars" data-template-name="components/event-form">
+         <form {{action "submit" on="submit"}}>
+           <div class="formrow">Event title: {{input type="text" value=title}}</div>
+           <div class="formrow">Event description: {{input type="text" value=description}}</div>
+           <div class="formrow">Event location: {{input type="text" value=location}}</div>
+            <div class="formrow">
+              <span>All Day: </span>
+              <div class="squaredTwo">
+                <input type="checkbox" value="None" id="allDay" name="check" />
+                <label for="allDay"></label>
+              </div>
+              <span>Recurring: </span>
+              <div class="squaredTwo">
+                <input type="checkbox" value="None" id="recurring" name="check" />
+                <label for="recurring"></label>
+              </div>
+            </div>
+            <div class="formrow eventDateStart">
+              Start date: <input type="text" id="eventStart"><img src="img/calendar.png" />
+            </div>
+            <div class="formrow eventDateEnd">
+              End date: <input type="text" id="eventEnd"><img src="img/calendar.png" />
+            </div>
+            <div class="formrow allDayStart">
+              Start date: <input type="text" id="allDayStart"><img src="img/calendar.png" />
+            </div>
+            <div class="formrow allDayEnd">
+              End date: <input type="text" id="allDayEnd"><img src="img/calendar.png" />
+            </div>
+            <div id="recurringContainer">
+              <div class="formrow">
+                Repeats: <br /><select id="recurrChoice">
+                  <option>Daily</option>
+                  <option>Weekly</option>
+                  <option>Monthly</option>
+                  <option>Yearly</option>
+                  <option>All weekdays</option>
+                  <option>Monday / Wednesday / Friday</option>
+                  <option>Tuesday / Thursday</option>
+                </select><div id="recurringInterval"> every <input type="number" name="quantity" min="1" max="30" id="intervalSelect"> days</div>
+              </div>
+              <div class="formrow">
+                Ends: <div class="endSelect formrow"><input type="radio" name="ending" value="never">Never</div>
+                      <div class="endSelect formrow"><input type="radio" name="ending" value="after">After <input type="number" name="occurences" min="1" max="99999" id="recurrNumber"> occurences</div>
+                      <div class="endSelect formrow endEvent"><input type="radio" name="ending" value="on">On <input type="text" id="endEventRepeat"><img src="img/calendar.png" /></div>
+              </div>
+            </div>
+           <div class="formrow">Connect related items: 
+              <br /><input id="typeAheadEvent" />
+           </div>
+           <div class="formrow">
+              Selected Items:
+              <div class="relatedList relatedEvents">
+                <ul>
+                </ul>
+              </div>
+           </div>
+           <div class="formrow"><input type="submit" {{bindAttr value=submitTitle}}></div>
+         </form>
+        </script>  
         <script type="text/x-handlebars" data-template-name="components/task-form">
          <form {{action "submit" on="submit"}}>
-           <div class="formrow"><label>Task title: {{input type="text" value=title}}</label></div>
-           <div class="formrow"><label>Task notes: {{input type="text" value=notes}}</label></div>
-           <div class="formrow taskDate"><label>Task due: {{input type="text" value=due id="taskDue"}}</label></div>
-           <div class="formrow"><label>Task priority: {{input type="text" value=priority}}</label></div>
-           <input type="submit" {{bindAttr value=submitTitle}}>
+           <div class="formrow">Task title: {{input type="text" value=title}}</label></div>
+           <div class="formrow">Task notes: {{input type="text" value=notes}}</label></div>
+           <div class="formrow taskDate">Task due: {{input type="text" value=due id="taskDue"}}</div>
+           <div class="formrow">Task priority: {{input type="text" value=priority}}</div>
+           <div class="formrow">Connect related items: 
+              <br /><input id="typeAheadTask" />
+           </div>
+           <div class="formrow">
+              Selected Items:
+              <div class="relatedList relatedTasks">
+                <ul>
+                </ul>
+              </div>
+           </div>
+           <div class="formrow"><input type="submit" {{bindAttr value=submitTitle}}></div>
          </form>
         </script>
         <script type="text/x-handlebars" data-template-name="components/tag-form">
          <form {{action "submit" on="submit"}}>
-           <div class="formrow"><label>Tag name: {{input type="text" value=name}}</label></div>
-           <input type="submit" {{bindAttr value=submitTitle}}>
+           <div class="formrow">Tag name: {{input type="text" value=name}}</div>
+           <div class="formrow">Connect related items: 
+              <br /><input id="typeAheadTag" />
+           </div>
+           <div class="formrow">
+              Selected Items:
+              <div class="relatedList relatedTags">
+                <ul>
+                </ul>
+              </div>
+           </div>
+           <div class="formrow"><input type="submit" {{bindAttr value=submitTitle}}></div>
          </form>
         </script>
         <script type="text/x-handlebars" id="index">

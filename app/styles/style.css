@@ -617,6 +617,7 @@ h1, h2, h3, h4 {
 	position: relative;
 	margin: 0 auto;
 	top: -60px;
+	z-index:9999999;
 }
 
 #wrapper p {
@@ -867,6 +868,10 @@ h1, h2, h3, h4 {
 	margin-bottom:100px;
 	width:100%;
 	z-index:1;
+}
+
+#openModal6 {
+	z-index:9999999;
 }
 
 .mobileCover {

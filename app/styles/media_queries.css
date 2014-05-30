@@ -75,7 +75,7 @@
 	}
 }
 
-@media screen and (min-width:1025px) {
+@media screen and (min-width:1024px) {
 	ul.nav li.dropdown:hover > ul.dropdown-menu {
     	display: block;    
 	}
@@ -86,10 +86,14 @@
 	}
 }
 
-@media screen and (max-width:1024px) {
+@media screen and (max-width:1023px) {
 	body {
-		top:40px;
+		top:30px;
 		bottom:0px;
+	}
+
+	#scrollblock {
+		height:30px;
 	}
 
 	#loginBody {
@@ -158,7 +162,7 @@
 		position:fixed;
 		bottom:0px;
 		left:0px;
-		height:40px;
+		height:30px;
 		width:100%;
 		background:#fff;
 		-webkit-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
@@ -182,7 +186,7 @@
 
 	.mobileNavItem img {
 		margin:0 auto;
-		width:35px;
+		width:25px;
 		display:block;
 		position:relative;
 		top:-5px;
@@ -191,13 +195,12 @@
 	.mobileNavItem p {
 		width:100%;
 		text-align:center;
-		padding-top:20px;
+		padding-top:10px;
 		font-family:'Open Sans', sans-serif;	
 		color:#333;	
 	}
 
 	#mobileSearchButton {
-		height:40px;
 		padding-top:5px;
 		top:-2px;
 	}
@@ -207,7 +210,7 @@
 		top: 0px;
 		right: initial;
 		left:0px;
-		height: 40px;
+		height: 30px;
 		-webkit-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
 		-moz-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
 		box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
@@ -579,12 +582,20 @@
 		color:#fff !important;
 	}
 
+	#orphancount {
+		top:-2px;
+	}
+
 	#orphancount img {
 		top:-5px;
 	}
 
 	#orphancount span {
-		top:-7px;
+		top:-5px;
+	}
+
+	#eaddr {
+		top:-5px;
 	}
 
 	#appcont {
@@ -600,8 +611,8 @@
 	.viewcont {
 		margin-top: 0px !important;
 		position: fixed;
-		top: 40px;
-		bottom: 40px;
+		top: 30px;
+		bottom: 30px;
 		overflow: auto !important;
 	}
 
@@ -1202,8 +1213,8 @@
 	#mobileLogo {
 		display:block;
 		position: absolute;
-		top: 0px;
-		width: 80px;
+		top: 1px;
+		height: 28px;
 		left: 6px;
 	}
 
@@ -1277,6 +1288,31 @@
 }
 
 @media screen and (max-width:479px) {
+
+	.mobileNavItem img {
+		width:35px;
+	}
+
+	.mobileNavItem p {
+		padding-top:20px;
+	}
+
+	.loggedin {
+		height: 40px;
+	}
+
+	#scrollblock {
+		height:40px;
+	}
+
+	.viewcont {
+		top: 40px;
+		bottom: 40px;
+	}
+
+	#mobileNav {
+		height:40px;
+	}
 
 	#orphanlogo {
 		width:150px;
