@@ -982,15 +982,14 @@ function rebindEvents() {
             var setting2 = new Boolean($("#toggle2:checked").length);
             var setting3 = new Boolean($("#toggle3:checked").length);
             var setting4 = new Boolean($("#toggle4:checked").length);
-            var setting5 = new Boolean($("#toggle5:checked").length);
 
             var data = {
                 user: {
                     sort_by_last_name: setting1,
                     show_new_user_popups: setting2,
                     display_contact_notes: setting3,
-                    push_info_to_webmail: setting4,
-                    receive_email: setting5
+                    push_info_to_webmail: false,
+                    receive_email: setting4
                 }
             };
 
@@ -1305,15 +1304,10 @@ function rebindEvents() {
                 } else {
                     $("#toggle3").removeAttr("checked");
                 }
-                if (arr[3] === true) {
+                if (arr[4] === true) {
                     $("#toggle4").attr("checked", "checked");
                 } else {
                     $("#toggle4").removeAttr("checked");
-                }
-                if (arr[4] === true) {
-                    $("#toggle5").attr("checked", "checked");
-                } else {
-                    $("#toggle5").removeAttr("checked");
                 }
             },
             error: function (e) {

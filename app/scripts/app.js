@@ -70,8 +70,8 @@ function QueryStringToJSON() {
 
 var query_string = QueryStringToJSON();
 
-authToken = query_string.authentication_token;
-userEmail = query_string.user_email;
+authToken = "4N9-_NWfYvYxpesMVpne";
+userEmail = "hweaver@evenspring.com";
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   host: "http://daywon-api-staging.herokuapp.com/",
