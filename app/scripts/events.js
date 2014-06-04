@@ -1398,6 +1398,8 @@ function rebindEvents() {
 
     var yyyy = today.getFullYear();
     if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} today = mm+'/'+dd+'/'+yyyy;
+
+    today = moment(today).format('dddd, MMMM Do, YYYY');
     $('#curDate').html(today);
 
     setTimeout(function(){
@@ -1416,8 +1418,6 @@ function rebindEvents() {
       target: true,
       offset: [0, -140],
       delay: 0
-      /*className: "myStyle",
-      background: "#000"*/
     };
     Opentip.styles.toptip = {
       tipJoint: "bottom",
@@ -1425,8 +1425,6 @@ function rebindEvents() {
       target: true,
       offset: [0, -130],
       delay: 0
-      /*className: "myStyle",
-      background: "#000"*/
     };
     Opentip.styles.righttip = {
       tipJoint: "left",
@@ -1434,8 +1432,6 @@ function rebindEvents() {
       target: true,
       delay: 0,
       offset: [10, -140]
-      /*className: "myStyle",
-      background: "#000"*/
     };
     Opentip.styles.lefttip = {
       tipJoint: "right",
@@ -1443,8 +1439,6 @@ function rebindEvents() {
       target: true,
       delay: 0,
       offset: [10, -140]
-      /*className: "myStyle",
-      background: "#000"*/
     };    
     Opentip.styles.success = {
       tipJoint: "top",

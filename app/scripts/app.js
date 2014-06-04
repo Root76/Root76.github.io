@@ -2050,7 +2050,6 @@ App.CalView = Ember.View.extend({
 						        calItem.end_formatted = moment(calItem.end).format('MMMM Do YYYY, h:mm:ss a');
 						        calItem.tags = reloadedEvent.get('tags');
 						        var eventInfo = calPopupTemplate(calItem);
-
 						        new Opentip(calElement, eventInfo, {
 				            		style: "calitem",
 				            		showOn: "creation",
@@ -2069,7 +2068,6 @@ App.CalView = Ember.View.extend({
 						        calItem.due_formatted = moment(calItem.due).format('MMMM Do YYYY, h:mm:ss a');
 						        calItem.tags = reloadedTask.get('tags');
 						        var taskInfo = calPopupTemplate2(calItem);
-
 						        new Opentip(calElement, taskInfo, {
 				            		style: "calitem",
 				            		showOn: "creation",
