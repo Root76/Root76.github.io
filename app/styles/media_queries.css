@@ -227,7 +227,7 @@
 	}
 
 	.dashHeading {
-		padding:25px !important;
+		padding:15px !important;
 	}
 
 	.mobileEmail {
@@ -1178,11 +1178,12 @@
 	}
 
 	.dashList {
-		top:86px !important;
+		top:66px !important;
 	}
 
 	.dashList li {
 		font-size:18px;
+		padding:15px !important;
 	}
 	.dashList li:first-child,
 	.dashList li:first-child:hover,

@@ -70,11 +70,11 @@ function QueryStringToJSON() {
 
 var query_string = QueryStringToJSON();
 
-authToken = "4N9-_NWfYvYxpesMVpne";
-userEmail = "hweaver@evenspring.com";
+authToken = query_string.authentication_token;
+userEmail = query_string.user_email;
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: "http://daywon-api-staging.herokuapp.com/",
+  host: "http://daywon-api-prod.herokuapp.com/",
   headers: {
     "X-AUTHENTICATION-TOKEN": authToken,
     "X-AUTHENTICATION-EMAIL": userEmail
@@ -195,7 +195,7 @@ App.ApplicationController = Ember.Controller.extend({
 	        var getContacts = function(cb) {
 		        $.ajax({
 					type: 'POST',
-					url: 'http://daywon-api-staging.herokuapp.com/contacts',
+					url: 'http://daywon-api-prod.herokuapp.com/contacts',
 					contentType: "application/json",
 					dataType: "json",
 					data: JSON.stringify(data),
@@ -344,7 +344,7 @@ App.ApplicationController = Ember.Controller.extend({
 	        var getEvents = function(cb) {
 		        $.ajax({
 					type: 'POST',
-					url: 'http://daywon-api-staging.herokuapp.com/events',
+					url: 'http://daywon-api-prod.herokuapp.com/events',
 					contentType: "application/json",
 					dataType: "json",
 					data: JSON.stringify(data),
@@ -431,7 +431,7 @@ App.ApplicationController = Ember.Controller.extend({
 	        var getTasks = function(cb) {
 		        $.ajax({
 					type: 'POST',
-					url: 'http://daywon-api-staging.herokuapp.com/tasks',
+					url: 'http://daywon-api-prod.herokuapp.com/tasks',
 					contentType: "application/json",
 					dataType: "json",
 					data: JSON.stringify(data),
@@ -518,7 +518,7 @@ App.ApplicationController = Ember.Controller.extend({
 	        var getTags = function(cb) {
 		        $.ajax({
 					type: 'POST',
-					url: 'http://daywon-api-staging.herokuapp.com/tags',
+					url: 'http://daywon-api-prod.herokuapp.com/tags',
 					contentType: "application/json",
 					dataType: "json",
 					data: JSON.stringify(data),
@@ -865,7 +865,7 @@ App.EventsController = Ember.ArrayController.extend({
 				uniqueTitles = uniqueTitles.sortBy(['start_datetime']);
 			} else {
 				uniqueTitles = Utility.sortByTimeOption(uniqueTitles, 'start_date', "upcoming");
-				uniqueTitles = uniqueTitles.sortBy(['start_date']);		
+				uniqueTitles = uniqueTitles.sortBy(['start_date']);
 			}
 			if (uniqueTitles.length > 0) {
 				if (uniqueTitles[0].hasOwnProperty('_data')) {
@@ -1199,7 +1199,6 @@ App.SettingsController = Ember.ObjectController.extend({
     eventsController: Ember.computed.alias("controllers.events"),
     tasksController: Ember.computed.alias("controllers.tasks"),
     tagsController: Ember.computed.alias("controllers.tags"),
-
     contactsCount: function() {
     	return (this.get('gatheredContacts') || []).length;
     }.property('gatheredContacts'),
@@ -1474,7 +1473,7 @@ App.Event = DS.Model.extend({
         var getEvents = function(cb) {
             $.ajax({
                 type: 'GET',
-                url: 'http://daywon-api-staging.herokuapp.com/events',
+                url: 'http://daywon-api-prod.herokuapp.com/events',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {
@@ -1967,7 +1966,7 @@ App.CalView = Ember.View.extend({
             var data = 'Input values';
             $.ajax({
                 type: 'GET',
-                url: 'http://daywon-api-staging.herokuapp.com/tasks',
+                url: 'http://daywon-api-prod.herokuapp.com/tasks',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {

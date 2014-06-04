@@ -1782,6 +1782,7 @@ to {
 	top: 11px;
 	height: 25px !important;
 	width: 25px;
+	cursor: pointer;
 }
 
 .contactrow h4 {
