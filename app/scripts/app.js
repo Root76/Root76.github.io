@@ -1,3 +1,5 @@
+  var App;
+
 requirejs.config({
     baseUrl: 'scripts'
 });
@@ -45,7 +47,7 @@ requirejs([
   "./events"
 ], function($) {
 
-  var App = window.App = Ember.Application.create({
+  App = window.App = Ember.Application.create({
       LOG_TRANSITIONS: true
   });
 
