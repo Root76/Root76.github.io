@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.SettingsController = Ember.ObjectController.extend({
     needs: ['contacts', 'events', 'tasks', 'tags'],
     contactsController: Ember.computed.alias("controllers.contacts"),
@@ -16,4 +21,6 @@ App.SettingsController = Ember.ObjectController.extend({
     tagsCount: function() {
     	return (this.get('gatheredTags') || []).length;
     }.property('gatheredTags')
+});
+
 });

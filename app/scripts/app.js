@@ -1,4 +1,4 @@
-  var App;
+var App;
 
 requirejs.config({
     baseUrl: 'scripts'
@@ -6,20 +6,6 @@ requirejs.config({
 
 requirejs([
   "./jquery",
-  "libs/datetimepicker",
-  "libs/jquery-ui",
-  "libs/plugins",
-  "libs/opentip",
-  "libs/moment",
-  "libs/typeahead",
-  "libs/iscroll",
-  "libs/handlebars",
-  "libs/ember",
-  "libs/ember-data",
-  "bootstrap/bootstrap",
-  "libs/fullcalendar",
-  "libs/fastclick",
-  "./app",
   "controllers/appController",
   "controllers/indexController",
   "controllers/contactsController",
@@ -44,6 +30,19 @@ requirejs([
   "routes/orphanRoutes",
   "routes/reportsRoutes",
   "routes/settingsRoute",
+  "libs/datetimepicker",
+  "libs/jquery-ui",
+  "libs/plugins",
+  "libs/opentip",
+  "libs/moment",
+  "libs/typeahead",
+  "libs/iscroll",
+  "libs/handlebars",
+  "libs/ember",
+  "libs/ember-data",
+  "bootstrap/bootstrap",
+  "libs/fullcalendar",
+  "libs/fastclick",
   "./events"
 ], function($) {
 

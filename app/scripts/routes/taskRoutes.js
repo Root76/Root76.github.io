@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.TasksRoute = Ember.Route.extend({
   	model: function() {
     	return this.get('store').find('task');
@@ -33,3 +38,5 @@ App.TasksTaskRoute = Ember.Route.extend({
 		}
   	}
 }, IndividualObjectRoute);
+
+});

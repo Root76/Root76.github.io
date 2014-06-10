@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.TagsRoute = Ember.Route.extend({
   	model: function() {
     	return this.get('store').find('tag');
@@ -29,3 +34,5 @@ App.TagsTagRoute = Ember.Route.extend({
 		}
   	}
 }, IndividualObjectRoute);
+
+});

@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.ContactsRoute = Ember.Route.extend({
   	model: function() {
     	return this.get('store').find('contact');
@@ -43,3 +48,5 @@ App.ContactsContactRoute = Ember.Route.extend({
 		}
   	}
 }, IndividualObjectRoute);
+
+});

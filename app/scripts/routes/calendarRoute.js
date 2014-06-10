@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.CalendarRoute = Ember.Route.extend({
     model: function() {
         return this.get('store').find('event');
@@ -152,4 +157,6 @@ App.CalView = Ember.View.extend({
 			document.location.href = document.location.href.split('#')[0] + '#/tags/' + id;
 		}
     }
+});
+
 });

@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.OrphaneventsRoute = Ember.Route.extend({
 	model: function() {
 		return this.get('store').find('event');
@@ -26,4 +31,6 @@ App.OrphantagsRoute = Ember.Route.extend({
 		controller.set('model', model);
         this.controllerFor('tags').set('model', model);
 	}
+});
+
 });

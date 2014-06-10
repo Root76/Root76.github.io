@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.Orphan = DS.Model.extend({
 	eventOrphans: function() {
 		return this.get('events');
@@ -8,4 +13,6 @@ App.Orphan = DS.Model.extend({
 	tagOrphans: function() {
 		return this.get('tag');
 	}
+});
+
 });

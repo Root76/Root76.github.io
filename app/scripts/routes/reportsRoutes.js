@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.ReportsContactsRoute = Ember.Route.extend({
   model: function() {
     return this.get('store').find('contact');
@@ -36,4 +41,6 @@ App.ReportsTagsRoute = Ember.Route.extend({
 		controller.set('model', model);
         this.controllerFor('tags').set('model', model);
 	}
+});
+
 });

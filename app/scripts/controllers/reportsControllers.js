@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.ReportsContactsController = Ember.ArrayController.extend({
 	needs: ['contacts'],
     contactsController: Ember.computed.alias("controllers.contacts"),
@@ -45,4 +50,6 @@ App.ReportsTagsController = Ember.ArrayController.extend({
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
 	}.property('tagsController.tagsToShow'),	
+});
+
 });

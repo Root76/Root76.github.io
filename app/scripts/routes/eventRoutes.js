@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.EventsRoute = Ember.Route.extend({
     model: function () {
         return this.store.find('event');
@@ -29,3 +34,5 @@ App.EventsEventRoute = Ember.Route.extend({
 		}
   	}
 }, IndividualObjectRoute);
+
+});

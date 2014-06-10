@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.ContactsController = Ember.ArrayController.extend({
     sortProperties: ['name'],
     sortAscending: true,
@@ -98,4 +103,6 @@ App.ContactsController = Ember.ArrayController.extend({
             $(".ui-accordion").accordion("refresh");
         }, 10); // 10ms to let page re-render first, and then refresh accordion to make it sized properly
 	}.observes('selectedShowOption')
+});
+
 });

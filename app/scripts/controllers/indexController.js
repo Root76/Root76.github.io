@@ -1,3 +1,9 @@
+requirejs([
+  "./app",
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.IndexController = Ember.ObjectController.extend({
     needs: ['contacts', 'events', 'tasks', 'tags'],
     contactsController: Ember.computed.alias("controllers.contacts"),
@@ -36,4 +42,6 @@ App.IndexController = Ember.ObjectController.extend({
     	});*/
        	return todayEvents;
     }.property('events')
+});
+
 });

@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.SettingsRoute = Ember.Route.extend({
     model: function() {
         return Ember.Object.create({
@@ -28,4 +33,6 @@ App.SettingsRoute = Ember.Route.extend({
     	});
 
 	}
+});
+
 });

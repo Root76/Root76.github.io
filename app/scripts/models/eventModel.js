@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.Event = DS.Model.extend({
     title: DS.attr('string'),
     description: DS.attr('string'),
@@ -60,4 +65,6 @@ App.Event = DS.Model.extend({
     contacts: DS.attr('array'),
     tasks: DS.attr('array'),
     tags: DS.attr('array')
+});
+
 });

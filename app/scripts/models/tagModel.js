@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.Tag = DS.Model.extend({
     name: DS.attr('string'),
     contacts: DS.attr('array'),
@@ -14,4 +19,6 @@ App.Tag = DS.Model.extend({
     tasksCount: function() {
     	return this.get('tasks').length;
     }.property('tasks')
+});
+
 });

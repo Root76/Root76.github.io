@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.EventsController = Ember.ArrayController.extend({
     sortProperties: ['start_datetime', 'end_datetime'],
     sortAscending: false,
@@ -256,4 +261,6 @@ App.EventsController = Ember.ArrayController.extend({
 		sorted = sorted.sortBy('start_datetime');
 		return sorted;
 	}.property('events', 'model.@each.start_datetime')
+});
+
 });

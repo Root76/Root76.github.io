@@ -1,3 +1,21 @@
+requirejs([
+    "jquery",
+    "./app",
+    "libs/datetimepicker",
+    "libs/jquery-ui",
+    "libs/plugins",
+    "libs/opentip",
+    "libs/moment",
+    "libs/typeahead",
+    "libs/iscroll",
+    "libs/handlebars",
+    "libs/ember",
+    "libs/ember-data",
+    "bootstrap/bootstrap",
+    "libs/fullcalendar",
+    "libs/fastclick",
+], function($) {
+
 setTimeout(function() {
     var logSelect = document.getElementById("eaddr");
     logSelect.onchange = function() {
@@ -2196,3 +2214,5 @@ setTimeout(function(){
     }, false);
 
 }, 1);
+
+});

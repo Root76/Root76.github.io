@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.OrphansIndexController = Ember.ArrayController.extend({
     needs: ['events', 'tasks', 'tags'],
     eventsController: Ember.computed.alias("controllers.events"),
@@ -59,4 +64,6 @@ App.OrphantagsController = Ember.ArrayController.extend({
 		rebindEvents(); // by the time the page re-renders, this will run and remake the accordions
         return sorted;
 	}.property('tagsController.tagOrphans')
+});
+
 });

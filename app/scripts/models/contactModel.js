@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.Contact = DS.Model.extend({
     name: DS.attr('string'),
     emails: DS.attr('array'),
@@ -55,4 +60,6 @@ App.Contact = DS.Model.extend({
     tagsCount: function() {
     	return this.get('tags').length;
     }.property('tags')
+});
+
 });

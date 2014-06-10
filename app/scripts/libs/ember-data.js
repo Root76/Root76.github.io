@@ -1,3 +1,6 @@
+requirejs([
+  "libs/ember",
+], function($) {
 /*!
  * @overview  Ember Data
  * @copyright Copyright 2011-2014 Tilde Inc. and contributors.
@@ -11130,3 +11133,5 @@ define("ember-inflector/lib/system/string",
   });
 global.DS = requireModule('ember-data/lib/main')['default'];
 }(window));
+
+});

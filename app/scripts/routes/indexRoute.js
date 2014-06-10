@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 App.IndexRoute = Ember.Route.extend({
     model: function() {
         return Ember.Object.create({
@@ -27,4 +32,6 @@ App.IndexRoute = Ember.Route.extend({
     		controller.set('gatheredTags', data.get('content'));
     	});
 	}
+});
+
 });

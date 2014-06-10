@@ -1,3 +1,8 @@
+requirejs([
+  "libs/ember",
+  "libs/ember-data"
+], function($) {
+
 IndividualObjectRoute = Ember.Mixin.create({	
 	setupController: function(controller, model) {
 		this._super(controller, model);
@@ -21,4 +26,6 @@ IndividualObjectRoute = Ember.Mixin.create({
 		    });
 		}
 	}
+});
+
 });
