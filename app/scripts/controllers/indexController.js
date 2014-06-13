@@ -1,5 +1,4 @@
 requirejs([
-  "./app",
   "libs/ember",
   "libs/ember-data"
 ], function($) {

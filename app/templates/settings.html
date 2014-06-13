@@ -1,0 +1,94 @@
+<div class="mobileCover" id="settingsCover"></div>
+  <div id="appcont" class="settingspage viewcont">
+    <h1>Settings</h1>
+    <div class="section-container" id="taskscont">
+      <div class="row">
+        <div id="settingsummary">
+          <img src="img/contacts.png" id="settingimage" />
+          <div class="itemcounts">
+            <div class="itemcount">
+              {{#link-to 'contacts'}}<img src="img/contacts.png" /><p>{{contactsCount}}</p>{{/link-to}}
+            </div>
+            <div class="itemcount">
+              {{#link-to 'events'}}<img src="img/events.png" /><p>{{eventsCount}}</p>{{/link-to}}
+            </div>
+            <div class="itemcount">
+              {{#link-to 'tasks'}}<img src="img/tasks.png" /><p>{{tasksCount}}</p>{{/link-to}}
+            </div>
+            <div class="itemcount">
+              {{#link-to 'tags'}}<img src="img/tags.png" /><p>{{tagsCount}}</p>{{/link-to}}
+            </div>
+          </div>
+        </div>
+        <div id="settingmain">
+          <div id="settingname">
+            <h1></h1>
+            <hr />
+            <h3></h3>
+          </div>
+        </div>
+        <div id="settingfooter">
+          <div id="settingsMobile">
+            <img src="img/tyler.png" id="settingimageMobile" />
+            <h1>Tyler Carbone</h1>
+            <h3>tyler@evenspring.com</h3>
+            <div id="objectCount">
+              <div class="itemcountMobile">
+                <img src="img/contacts.png" /><p>(31)</p>
+              </div>
+              <div class="itemcountMobile">
+                <img src="img/events.png" /><p>(24)</p>
+              </div>
+              <div class="itemcountMobile">
+                <img src="img/tasks.png" /><p>(16)</p>
+              </div>
+              <div class="itemcountMobile">
+                <img src="img/tags.png" /><p>(43)</p>
+              </div>
+            </div>
+            <div id="otheroptionsMobile">
+              <a href="#">Delete Account</a>
+              <a href="#">Terms of Agreement</a>
+              <a href="#">Privacy Policy</a>
+            </div>
+          </div>
+          <div class="settingoption">
+            <input type="checkbox" name="toggle" id="toggle" class="settingToggler">
+            <label for="toggle"></label>
+            <h5>Sort by last name</h5>
+          </div>
+          <div class="settingoption">
+            <input type="checkbox" name="toggle2" id="toggle2" class="settingToggler">
+            <label for="toggle2"></label>
+            <h5>Turn new user popups back on</h5>
+          </div>
+          <div class="settingoption">
+            <input type="checkbox" name="toggle3" id="toggle3" class="settingToggler">
+            <label for="toggle3"></label>
+            <h5>Always display note field for Contact</h5>
+          </div>
+          <div class="settingoption">
+            <input type="checkbox" name="toggle4" id="toggle4" class="settingToggler">
+            <label for="toggle5"></label>
+            <h5>Opt-out of emails from Day Won</h5>
+          </div>
+          <div id="otheroptions">
+            <a href="#" id="deleteaccount">Delete Account</a>
+            <a href="javascript:void(0)" class="openModal4">Terms of Agreement</a>
+            <a href="javascript:void(0)" class="openModal5">Privacy Policy</a>
+          </div>
+          <div id="helplinksMobile">
+            <a href="javascript:void(0)" class="openModal2"><div><img src="img/help.png" id="helpimg" /><span>Help</span></div></a>
+            <a href="javascript:void(0)" class="openModal"><div><img src="img/feedback.png" id="feedbackimg" /><span>Feedback</span></div></a>
+            <a href="javascript:void(0)"><div><img src="img/share.png" id="socialimg" /><span id="shareDesktop">Tell Friends About Day Won</span><span id="shareMobile">Share</span></div></a>
+          </div>
+          <div class="sociallinks" id="socialLinksMobile">
+            <a target="_blank" href="http://www.linkedin.com/company/Day-Won-LLC"><div class="linkedinIcon"></div></a>
+            <a target="_blank" href="http://www.google.com/+DayWon"><div class="googleIcon"></div></a>
+            <a target="_blank" href="http://www.twitter.com/DayWonApp"><div class="twitterIcon"></div></a>
+            <a target="_blank" href="http://www.facebook.com/daywonapp"><div class="facebookIcon"></div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
