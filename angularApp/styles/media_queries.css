@@ -1,0 +1,1572 @@
+@media screen and (max-height:880px) {
+	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2, #detailPanel, .dCol, .columnDivider {
+		height:500px;
+	}
+	.columnDivider {
+		width:10px;
+		z-index:1000;
+	}
+	.panelcontent {
+		height:325px !important;
+	}
+	#contactcontent.panelcontent {
+		height:300px !important;
+	}
+	.dashContent {
+		height:395px !important;
+	}
+	.panelfooter {
+		height: 35px !important;
+		top: 43px !important;
+	}
+	.flipswitch {
+		height:500px;
+	}
+	#fliparrow {
+		top:215px;
+	}
+
+}
+
+@media screen and (max-height:720px) {
+	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2, #detailPanel, .dCol, .columnDivider {
+		height:378px;
+	}
+	.flipswitch {
+		height:378px;
+	}
+	#fliparrow {
+		top:150px;
+	}
+	.panelcontent {
+		height:228px !important;
+		top:10px;
+	}
+	#contactcontent.panelcontent {
+		height:203px !important;
+	}
+	.dashContent {
+		height:275px !important;
+		top:14px;
+	}
+	#profilepic {
+		top:25px !important;
+	}
+	.contacttext {
+		top:0px !important;
+	}
+	#detailmenubar {
+		top:0px;
+	}
+	.contactrow {
+		height: 40px;
+		width: 100%;
+		position: relative;
+		margin-bottom:10px;
+	}
+	.panelfooter {
+		top:18px !important;
+	}
+	.dashList li {
+		padding:15px !important;
+	}
+	#contactname {
+		top:0px !important;
+	}
+}
+
+@media screen and (min-width:1024px) {
+	ul.nav li.dropdown:hover > ul.dropdown-menu {
+    	display: block;    
+	}
+	.navbar-nav>li {
+	}
+	#mobilesearch {
+		display:none;
+	}
+}
+
+@media screen and (max-width:1023px) {
+	body {
+		top:30px;
+		bottom:0px;
+	}
+
+	#scrollblock {
+		height:30px;
+	}
+
+	#loginBody {
+		top:10px;
+	}
+
+	#orphanhead {
+		font-size:32px;
+		left: -15px;
+		top: 10px;
+	}
+
+	#orphanlogo {
+		width:150px;
+	}
+
+	#orphanhelp {
+		padding-right: 15px;
+		bottom: 0px;
+	}
+
+	#logo {
+		float:left;
+		text-align:left;
+		padding-left:15px;
+		padding-top:0px;
+	}
+	.search {
+		display:none;
+		margin-top:11px;
+	}
+	#mobilesearch {
+		display:block;
+		float:right;
+		padding-right:15px;
+	}
+	.menucont h2 {
+		padding-left:10px;
+	}
+	.navimg {
+		float:none;
+		position:static;
+		padding-bottom:2px;
+	}
+	#createmenu ul {
+		width:100%;
+	}
+
+/************************Custom*************************/
+
+	.container {
+		padding:0px;
+	}
+
+	#footer {
+		display:none;
+	}
+
+	.navbar {
+		display:none;
+	}
+
+	#mobileNav {
+		display:block;
+		z-index:999;
+		position:fixed;
+		bottom:0px;
+		left:0px;
+		height:30px;
+		width:100%;
+		background:#fff;
+		-webkit-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		-moz-box-shadow:    0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		box-shadow:         0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+	}
+
+	.mobileNavItem {
+		width:16.66%;
+		height:40px;
+		float:left;
+		border-right:1px solid #CCC;
+		position:relative;
+	}
+
+	.mobileNavItem .imgCont {
+		position:absolute;
+		top:0px;
+		width:100%;
+	}
+
+	.mobileNavItem img {
+		margin:0 auto;
+		width:25px;
+		display:block;
+		position:relative;
+		top:-5px;
+	}
+
+	.mobileNavItem p {
+		width:100%;
+		text-align:center;
+		padding-top:12px;
+		font-family:'Open Sans', sans-serif;	
+		color:#333;	
+	}
+
+	#mobileSearchButton {
+		padding-top:5px;
+		top:-2px;
+	}
+
+	.loggedin {
+		position: fixed;
+		top: 0px;
+		right: initial;
+		left:0px;
+		height: 30px;
+		-webkit-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		-moz-box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		box-shadow: 0px -1px 30px 0px rgba(50, 50, 50, 0.75);
+		width: 100%;
+		padding-top:5px;
+	}
+
+	#printimg {
+		display:none;
+	}
+
+	.desktopEmail {
+		display:none;
+	}
+
+	.dashHeading {
+		padding:15px !important;
+	}
+
+	.mobileEmail {
+		display:block;
+	}
+
+	.modalDialog {
+		display:none !important;
+	}
+
+	.homeapp {
+		top: 40px;
+		bottom: 40px;
+		position: fixed;
+		overflow: auto !important;
+		background:#1390d2 !important;
+		color:#fff;
+		margin-top:0px !important;
+		left:0px;
+		right:0px;
+	}
+
+	.reportapp {
+		top:178px;
+	}
+
+	.sortcontTasks {
+		display:none !important;
+	}
+
+	.sortcontTags {
+		right:60px !important;
+	}
+
+	#appcont h4 {
+		display:none;
+	}
+
+	.emailfield {
+		display:block !important;
+	}
+
+	.section-container {
+		padding:0px;
+		height:auto;
+	}
+
+	#appcont h1 {
+		margin-left:12px;
+	}
+
+	#dashcreate {
+		display:none;
+	}
+
+	#logoImg {
+		display:none;
+	}
+
+	#wrapper h1 {
+		display:block;
+	}
+
+	.list {
+		padding:0px !important;
+		margin:0px !important;
+	}
+
+	.dashitem {
+		background:#fff !important;
+	}
+
+	.dashitem h3 {
+		color:#000;
+	}
+
+	.ui-state-active {
+		color:#fff !important;
+	}
+
+	.eventssublist {
+		list-style: none;
+		position: relative;
+		left: 0px;
+		padding: 10px;
+		padding-bottom: 0px;
+	}
+
+	.eventssublist li {
+		float:none;
+		margin-left:0px !important;
+	}
+
+	.reportsHeader {
+		display:none;
+	}
+
+	.small-create-icon > img {
+		display:none;
+	}
+
+	#showme, #sortby {
+		width:100%;
+	}
+
+	.menusubcont {
+		width: 65%;
+		float: right;
+	}
+
+	.menucont {
+		border:0px;
+		border-bottom:1px solid #777;
+	}
+
+	.menucont h2 {
+		float:left;
+		color:#fff;
+	}
+
+	.menucont h3 {
+		float: left;
+		margin: 0px;
+		margin-top: 7px;
+		font-size: 24px;
+		padding-left:10px;
+		color:#fff;
+	}
+
+	#eventslist li span {
+		font-weight:700;
+	}
+
+	.subcontitem img {
+		height: 45px !important;
+	}
+
+	#schedule {
+		width:100%;
+	}
+
+	.selectcont {
+		width: 50%;
+		float: right;
+	}
+
+	#sortbycolumn {
+		background:#7ca664;
+		position: fixed;
+		top: 40px;
+		z-index:10;
+	}
+
+	#homecont h3 {
+		color:#000;
+	}
+
+	.dashRecent > h1, .dashEvents > h1, .dashTasks > h1, .dashTags > h1 {
+		color:#fff !important;
+	}
+
+	.reportapp {
+		background:#7ca664 !important;
+	}
+
+	.listitem {
+		margin-bottom:0px;
+	}
+
+	.listitem .ui-state-active {
+		background:#fff !important;
+		color:#000 !important;
+	}
+
+	.listitem .subitems {
+		background:#7ca664 !important;
+	}
+
+	.subitemtext {
+		color:#fff;
+		margin-right: 0px;
+		margin-left: 15px;
+	}
+
+	.dashboardContainer .subdashtext {
+		color:#000;
+	}
+
+	.reportToggler {
+		display:none !important;
+	}
+
+	#settingsMobile {
+		display:block;
+	}
+
+	.settingspage h1 {
+		text-align:center;
+		color:#fff;
+		margin:0px !important;
+		padding:10px;
+	}
+
+	#socialLinksMobile {
+		display: block;
+		width: 100%;
+		padding: 0px;
+		height: 30px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	#socialLinksMobile div {
+		width:25%;
+		height:100%;
+		background-repeat:no-repeat;
+		background-size:15%;
+		background-position:center;
+	}
+
+	#helplinksMobile {
+		display:block;
+		width:100%;
+	}
+
+	#helplinksMobile > a > div {
+		width:25%;
+		float:left;
+		background:#3e3e3e;
+		color:#fff;
+		height:52px;
+	}
+
+	#helplinksMobile > a:last-child > div {
+		width:50%;
+	}
+
+	#helplinksMobile > a > div > span {
+		line-height: 50px;
+		padding-left: 10px;
+	}
+
+	#settingsummary, #settingmain {
+		display:none;
+	}
+
+	#otheroptions {
+		display:none;
+	}
+
+	.settingspage tr:nth-child(even) {
+		color:#ddd;
+	}
+
+	#otheroptionsMobile {
+		position:relative;
+		top:10px;
+		margin-bottom:20px;
+	}
+
+	#otheroptionsMobile a {
+		width: 100%;
+		display: block;
+		font-size: 18px;
+		line-height: 24px;
+		padding: 5px;
+		padding-left:20px;
+		color:#000;
+	}
+
+	#settingfooter {
+		width:100%;
+		padding:0px;
+		height:100%;
+		top:0px;
+	}
+
+	#objectCount {
+		width:100%;
+	}
+
+	.itemcountMobile {
+		width:25%;
+		float:left;
+		background:#3e3e3e;
+		color:#fff;
+		font-size:24px;
+	}
+
+	.itemcountMobile p {
+		padding-top:5px;
+	}
+
+	.itemcountMobile img {
+		width:50px;
+		float:left;
+	}
+
+	#settingsMobile h1 {
+		text-align:left !important;
+		color:#000 !important;
+		background:none !important;
+		padding-left:115px !important;
+	}
+
+	#settingsMobile h3 {
+		margin-left:118px;
+		margin-top:10px;
+		margin-bottom:17px;
+	}
+
+	#settingimageMobile {
+		width:75px;
+		float:left;
+		margin-left:20px;
+		margin-top:17px;
+	}
+
+	.settingspage {
+		background:#01a5af !important;
+	}
+
+	#helpimg {
+		max-width:35px;
+		max-height:35px;
+		margin-top:8px;
+		margin-left:10px;
+	}
+
+	#feedbackimg {
+		max-width:60px;
+		max-height:60px;
+		margin-top:11px;
+		margin-left:10px;
+	}
+
+	#socialimg {
+		max-width:60px;
+		max-height:60px;
+		margin-top:12px;
+		margin-left:10px;
+	}
+
+	.settingoption {
+		background:#01a5af;
+		height:50px;
+		padding-top:10px;
+	}
+
+	.settingoption h5 {
+		padding-left:20px;
+		color:#fff !important;
+	}
+
+	#orphancount {
+		top:-2px;
+	}
+
+	#orphancount img {
+		top:-5px;
+	}
+
+	#orphancount span {
+		top:-5px;
+	}
+
+	#eaddr {
+		top:-5px;
+	}
+
+	#appcont {
+		margin-top:0px;
+		margin-bottom:0px;
+		overflow:initial;
+	}
+
+	#contactpane1, #taskpane1, #eventpane1 {
+		width:100%;
+	}
+
+	.viewcont {
+		margin-top: 0px !important;
+		position: fixed;
+		top: 30px;
+		bottom: 30px;
+		overflow: auto !important;
+	}
+
+	#contactsearch {
+		display: block;
+		position: absolute;
+		top: 2px;
+		right: 0px;
+		width: 50%;
+	}
+
+	.contsort {
+		position: relative;
+		width: 100%;
+		right: 0px;
+	}
+
+	.contsort select {
+		float: right;
+		position: relative;
+		top: -27px;
+		width:50%;
+
+	}
+
+	.filtercolumn h4 {
+		display:block !important;
+		top: -15px;
+	}
+
+	#detailPanelHider {
+		display:none;
+	}
+
+	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2 {
+		margin-left: 0px;
+		width: 100%;
+		right:100%;
+		top: 40px;
+		height: 100%;
+		padding:0px;
+		overflow:auto;
+   	}
+
+	#createicon {
+		display:none;
+	}
+
+	#contactsdash {
+		-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
+		-moz-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
+		box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
+	}
+
+   	@keyframes mIn {
+		from {
+		-ms-transform: right(100%);
+		}
+		to {
+		-ms-transform: right(0%);
+		}
+	}
+
+	@-webkit-keyframes mIn {
+		from {
+		-webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(0%);
+		}
+		to {
+		-webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(100%);
+		}
+	}
+
+	@keyframes mOut {
+		from {
+		-ms-transform: right(0%);
+		}
+		to {
+		-ms-transform: right(100%);
+		}
+	}
+
+	@-webkit-keyframes mOut {
+		from {
+		-webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(100%);
+		}
+		to {
+		-webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(0%);
+		}
+	}
+
+	.mobileIn {
+		animation-name: mIn;
+		-webkit-animation-name: mIn;
+		-webkit-animation-duration:.6s;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-timing-function: ease;
+		-webkit-animation-fill-mode: forwards;
+		z-index:15;
+	}
+
+	.mobileOut {
+		animation-name: mOut;
+		-webkit-animation-name: mOut;
+		-webkit-animation-duration:.6s;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-timing-function: ease;
+		-webkit-animation-fill-mode: forwards;
+		z-index:15;
+	}
+
+	#detailPanel {
+		margin-left:0px;
+		display:none;
+	}
+
+	#profilepic {
+		display:none;
+	}
+
+	#contactscont h1, #taskscont h1 {
+		left: 0px;
+		width: 100%;
+		text-align: center;
+		margin: 0px;
+		padding: 10px;
+	}
+
+	#detailmenubar {
+		left: 0px !important;
+		padding: 20px;
+		position: relative;
+		top: 0px;
+		padding-top: 10px;
+		width:auto;
+	}
+
+	.contacttext {
+		top: 0px;
+		margin: 0px !important;
+		border-top: 1px solid #CCC;
+		border-bottom: 1px solid #fff;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		left:0px;
+		padding-left: 20px;
+	}
+
+	.backArrow {
+		display: block;
+		position: absolute;
+		top: 11px;
+		left: 20px;
+		height: 35px;
+		cursor: pointer;
+		transform: rotate(90deg);
+		-ms-transform: rotate(90deg);
+		-webkit-transform: rotate(90deg);
+	}
+
+	#mobileContact {
+		display:block;
+		padding-left:70px !important;
+		color:#fff;
+	}
+
+	.contactmenu > a > #createicon {
+		top:10px !important;
+		right:20px !important;
+	}
+
+	img.contactpadding {
+		display:none;
+	}
+
+	#detailmenubar > #trashicon {
+		top:5px !important;
+		right:20px !important;
+		height:70px;
+	}
+
+	.filtercolumn.contactpadding {
+		border-bottom: 1px solid #CCC;
+		padding-bottom: 10px;
+		margin: 0px;
+		padding: 0px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.panelcontent {
+		top:-8px;
+	}
+
+	.panelfooter {
+		top:0px;
+	}
+
+	/* section login.html */
+	#wrapper {
+		width: 100%;
+		height: 400px;
+		top: 0px;
+	}
+
+	#wrapper p {
+		margin-top: 15px;
+		font-size: 16px;
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	.signuptext {
+		margin-top:25px;
+	}
+
+	#wrapper h1 {
+		font-size: 72px;
+		top: -20px;
+	}
+
+	.login-form {
+		width:100%;
+		height:370px;
+	}
+
+	.login-form .header {
+		padding:20px;
+	}
+
+	.login-form .header h1 {
+		font-size: 28px;
+		line-height:34px;
+		margin-bottom: 10px;
+	}
+
+	.login-form span {
+		font-size:24px;
+		text-align:center;
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	.login-form .content {
+		padding: 20px;
+	}
+
+	.login-form .content .input {
+		width: 307px;
+		padding: 15px;
+		font-size: 14px;
+	}
+	
+	#tos {
+		margin-top: 0px;
+		margin-bottom:25px;
+	}
+
+	.toAuth {
+		font-size: 18px;
+	}
+	/* end login.html */
+
+	#contactlist, #tasklist, #eventlist, #taglist {
+		width:100%;
+		position: absolute;
+		top:100px;
+	}
+
+
+
+	#contactscont h1 {
+		background: #41bee1;
+		padding: 9px;
+		text-align: left;
+		padding-left: 20px;
+		color:#fff;
+	}
+
+	#taskscont h1 {
+		text-align: left;
+		padding-left: 20px;
+	}
+
+	.dashHeading {
+		background:none !important;
+		color:#fff;
+	}
+
+	.tagDetailHeader {
+		background: #ec8f38 !important;
+		padding: 9px !important;
+		text-align: left !important;
+		padding-left: 20px !important;
+	}
+
+	.taskDetailHeader {
+		background:#88c44c !important;
+	}
+
+	.tagname {
+		padding: 10px;
+		ht: inherit;
+		padding-left: 30px;
+		margin: 0px;
+		background: #72696c;
+		border-bottom:1px solid #ccc;
+	}
+
+	.eventname {
+		padding: 10px;
+		ht: inherit;
+		padding-left: 30px;
+		margin: 0px;
+		border-bottom:1px solid #ccc;	
+	}
+
+	.dashboardHeading {
+		background:none !important;
+		border:none !important;
+	}
+
+	.dashboardContainer #eventpanel2 {
+		background:#e35d32;
+	}
+
+	#taskSorting .sortcont2, #tagSorting .sortcont3 {
+		top:66px;
+		right:10px !important;
+	}
+
+	.dashContent {
+		background: #fff !important;
+		position: absolute;
+		top: 112px;
+		bottom: 80px;
+		height: initial;
+		padding: 0px;
+	}
+
+	.orphantitle {
+		margin-top: 10px;
+		margin-bottom: 20px;
+		margin-left: 10px !important;
+	}
+
+	#collapseall, #expandall {
+		color:#fff !important;
+	}
+
+	.mainsort {
+		margin-top:0px !important;
+	}
+
+	.createMobile {
+		display:block !important;
+	}
+
+	.createContainer {
+		padding:20px;
+		padding-bottom:60px;
+	}
+
+	.newContact {
+		background:#a5d0e1;
+		color:#fff;
+	}
+
+	.newEvent {
+		background:#e35d32;
+		color:#fff;
+	}
+
+	.newTask {
+		background:#956364;
+		color:#fff;
+	}
+
+	.newTag {
+		background:#40373a;
+		color:#fff;
+	}
+
+	.contactrow.eventrow h4,
+	.contactrow.taskrow h4,
+	.contactrow.tagrow h4 
+	 {
+		display:block !important;
+	}
+
+	.calendarContainer {
+		background:#fff !important;
+		color:#000;
+		height:100% !important;
+	}
+
+	#calendarHeader {
+		background:#dbd9da;
+		padding:10px;
+		padding-left:20px;
+		width:100%;
+		margin:0px;
+		margin-bottom:20px;
+	}
+
+	table.fc-border-separate {
+		padding-top:48px;
+		position:relative;
+	}
+
+	#curDate {
+		top: 109px;
+		padding-left: 20px;
+		font-size:18px;
+	}
+
+	.fc-header-title h2 {
+		font-size:18px;
+		position:relative;
+		top:106px;
+	}
+
+	.menucal {
+		top:-1px;
+		right:0px;
+		border-bottom:1px solid #333;
+		z-index:1;
+	}
+
+	.fc-button-prev, .fc-button-next {
+		top:108px;
+	}
+
+	#calendarchoice {
+		position:relative;
+		top:22px;
+	}
+
+	.calview {
+		border:0px;
+	}
+
+	#calToday {
+		right:0px;
+	}
+	
+	.dashboardContainer .col-md-7 {
+		top:40px !important;
+	}
+
+	.fc-content {
+		position: relative;
+		top: 23px;
+	}
+
+	.menucal h2 {
+		background: none !important;
+		font-size: 24px !important;
+		top: 6px;
+		position: relative;
+		left: 20px;
+		color: #000;
+	}
+
+	.calchoice:hover {
+		background:#b3d13d;
+	}
+
+	.calchoice.selected {
+		background:#b3d13d;
+	}
+
+	.mobileCover {
+		position:fixed;
+		display:block;
+		z-index:-1;
+		top:0px;
+		left:0px;
+		right:0px;
+		bottom:0px;
+	}
+
+	#indexCover {
+		background:#1390d2;
+	}
+
+	#reportsCover {
+		background:#7ca664;
+	}
+
+	#viewCover {
+		background:#eee;
+	}
+
+	#tagsCover {
+		background:#ec8f38;
+	}
+
+	#eventsCover {
+		background:#e35d32;
+	}
+
+	#tasksCover {
+		background:#88c44c;
+	}
+
+	#calendarCover {
+		background:#72696c;
+	}
+	#settingsCover {
+		background:#01a5af;
+	}
+	#createContactCover {
+		background:#a5d0e1;
+	}
+	#createEventCover {
+		background:#e35d32;
+	}
+	#createTaskCover{
+		background:#956364;
+	}
+	#createTagCover{
+		background:#40373a;
+	}
+
+	.fc {
+		height:100%;
+	}
+
+	.opentip-container {
+		display: none;
+	}
+
+	#shareMobile {
+		display:block;
+	}
+
+	#shareDesktop {
+		display:none;
+	}
+	#helplinksMobile > a > div {
+		width:33.33% !important;
+	}
+	#taskscontent h4 {
+		color:#fff;
+		display:block;
+	}
+	.subitem {
+		margin-left:0px;
+		height:auto;
+	}
+	.subicon {
+		width:40px;
+	}
+	#loginBody {
+		background:#6f6667;
+	}
+	#wrapper h1 {
+		color:#b3cf38;
+	}
+	.login-form {
+		border:none;
+		box-shadow: none;
+		-moz-box-shadow: none;
+		-webkit-box-shadow: none;
+	}
+
+	.dashList {
+		top:66px !important;
+	}
+
+	.dashList li {
+		font-size:18px;
+		padding:15px !important;
+	}
+	.dashList li:first-child,
+	.dashList li:first-child:hover,
+	.dashList li.currentcontact:first-child {
+		background:#00a3ac !important
+	}
+	.dashList li:nth-child(2),
+	.dashList li:nth-child(2):hover,
+	.dashList li.currentcontact:nth-child(2) {
+		background:#88c44c !important;
+	}
+	.dashList li:nth-child(3),
+	.dashList li:nth-child(3):hover,
+	.dashList li.currentcontact:nth-child(3) {
+		background:#e35d32 !important
+	}
+	.dashList li:nth-child(4),
+	.dashList li:nth-child(4):hover,
+	.dashList li.currentcontact:nth-child(4) {
+		background:#ec8f38 !important;
+	}
+	.dashList li:last-child,
+	.dashList li:last-child:hover,
+	.dashList li.currentcontact:last-child {
+		background:#41bee1 !important;
+	}
+
+	#mobileLogo {
+		display:block;
+		position: absolute;
+		top: 1px;
+		height: 28px;
+		left: 6px;
+	}
+
+	.descriptionText {
+		display:none;
+	}
+
+}
+
+@media screen and (max-width:639px) {
+	#homecont h3 {
+		font-size:16px;
+	}
+
+	#orphansubhead, #orphanhelp {
+		font-size:20px;
+	}
+
+	#orphancontainer img {
+		width:100px;
+	}
+
+	.ocount {
+		margin-left:0px !important;
+	}
+
+	.homeapp h1 {
+		padding-top: 12px !important;
+		font-size:24px;
+		padding-left:2px;
+		margin-top:0px;
+	}
+	.sortcont {
+		width:150px;
+		top:5px;
+	}
+	.accordionarrow {
+		top:-7px;
+	}
+	.reportarrow {
+		top:9px;
+	}
+	.settingoption h5 {
+		font-size:16px;
+	}
+	#helplinksMobile > a > div > span {
+		font-size:12px;
+	}
+	#feedbackimg {
+		max-width: 40px;
+		max-height: 40px;
+		margin-top: 20px;
+		margin-left: 0px;
+	}
+	#socialimg {
+		max-width: 40px;
+		max-height: 40px;
+		margin-top: 17px;
+		margin-left: 10px;
+	}
+	#helpimg {
+		max-width: 25px;
+		max-height: 25px;
+		margin-top: 14px;
+		margin-left: 10px;
+	}
+	.menucont h3 {
+		font-size:18px;
+		margin-top:12px;
+	}
+}
+
+@media screen and (max-width:479px) {
+
+	.mobileNavItem img {
+		width:35px;
+	}
+
+	.mobileNavItem p {
+		padding-top:20px;
+	}
+
+	.loggedin {
+		height: 40px;
+	}
+
+	#scrollblock {
+		height:40px;
+	}
+
+	.viewcont {
+		top: 40px;
+		bottom: 40px;
+	}
+
+	#mobileNav {
+		height:40px;
+	}
+
+	#orphanlogo {
+		width:150px;
+	}
+
+	#orphancontainer img {
+		width:75px;
+		left:10px;
+	}
+
+	#taskSort {
+		width:65%;
+	}
+
+	#calendarchoice {
+		top:20px;
+		height:35px;
+	}
+
+	.calchoice {
+		height:35px;
+		line-height:35px;
+		float: right;
+		width: 12.5%;
+		font-size: 12px;
+	}
+
+	#calToday {
+		right: initial;
+		height: 35px;
+		line-height: 35px;
+		font-size: 12px;
+	}
+
+	#wrapper h1 {
+		font-size:36px;
+		top:0px;
+		margin-top:0px;
+		margin-bottom:20px;
+	}
+
+	.login-form span {
+		font-size:12px;
+		line-height:20px;
+	}
+
+	.login-form .header {
+		padding-bottom:0px;
+		padding-top:0px;
+	}
+
+	.signuptext {
+		margin-top:10px;
+	}
+
+	#wrapper p {
+		margin-top:10px;
+		font-size:12px;
+	}
+
+	#tos {
+		margin-bottom:0px;
+	}
+
+}
+
+@media screen and (max-width:419px) {
+	.orphantitle {
+		font-size:20px;
+		margin-top:14px;
+	}
+	#taskSorting .sortcont2, #tagSorting .sortcont3 {
+		top:69px;
+	}
+	.dashitem h3 {
+		font-size:12px !important;
+	}
+	.mobileText {
+		display:block;
+	}
+	.desktopText {
+		display:none;
+	}
+	.menusubcont {
+		width:50%;
+	}
+	.menucont h2 {
+		font-size:18px !important;
+		margin-bottom:7px !important;
+		padding-left:5px !important;
+		left:0px;
+	}
+	.menucont h3 {
+		font-size:16px;
+		margin-top:11px;
+		padding-left:5px;
+	}
+	.subcontitem img {
+		height:35px !important;
+	}
+	.circlebg {
+		width:100px;
+		height:100px;
+		margin-bottom:10px;
+	}
+	.viewButton img {
+		width:70px;
+		left:15px;
+		top:0px;
+	}
+	.viewButton p {
+		padding-top: 60px;
+		font-size: 16px;
+	}
+	#viewHeader {
+		margin-bottom:10px;
+	}
+	.settingoption h5 {
+		font-size:12px;
+		padding-left:5px;
+	}
+	#otheroptionsMobile a {
+		font-size:12px;
+		padding-left:5px;
+	}
+	#settingsMobile h1, #settingsMobile h3 {
+		font-size:16px;
+		padding-left:90px !important;
+		margin:0px !important;
+	}
+	#settingsMobile h1 {
+		padding-top:17px;
+	}
+	#settingsMobile h3 {
+		padding-bottom:17px;
+	}
+	#settingimageMobile {
+		width:50px;
+		margin-top:13px;
+	}
+	.itemcountMobile img {
+		float: none;
+		margin: 0 auto;
+		display: block;
+	}
+	.itemcountMobile p {
+		padding:0px;
+		text-align:center;
+	}
+
+	.fc-header-title h2 {
+		top:79px;
+		font-size:12px;
+		font-weight:700;
+	}
+
+	#curDate {
+		top: 82px;
+		font-size: 12px;
+		padding-left: 5px;
+		font-weight:700;
+	}
+
+	.fc-button-prev, .fc-button-next {
+		top:78px;
+	}
+
+	.fc-button-prev {
+		right:50px;
+	}
+
+	.fc-button-next {
+		right:5px;
+	}
+
+	table.fc-border-separate {
+		padding-top:35px;
+	}
+
+	.reportapp { 
+		top:156px;
+	}
+
+	#contactscont h1, #taskscont h1 {
+		padding: 10px;
+		font-size: 36px;
+		padding:10px !important;
+	}
+
+	#mobileContact {
+		font-size: 36px !important;
+		padding-top: 8px !important;
+	}
+
+	#contactsearch {
+		top: 0px;
+		margin-top: 7px;
+		padding: 0px;
+		padding-right: 5px;
+	}
+
+	.contsort select {
+		top:-29px;
+	}
+
+	.filtercolumn.contactpadding {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	#contactlist li, #tasklist li, #eventlist li, #taglist li {
+		padding:5px;
+		padding-top:10px;
+		padding-bottom:10px;
+	}
+
+	.dashitem h3 {
+		font-size:10px !important;
+	}
+
+	#orphanlogo {
+		width:100px;
+	}
+
+	.ocount {
+		font-size:24px !important;
+	}
+
+	#orphanhelp {
+		bottom:100px;
+	}
+
+	#mobileLogo {
+		display:none;
+	}
+
+	#mobileLogo2 {
+		display:block;
+		position: absolute;
+		top: 2px;
+		width: 36px;
+		left: 5px;
+	}
+
+	#helplinksMobile > a > div > span {
+		padding-left:0px;
+	}
+
+	.dashList {
+		top: 60px !important;
+	}
+	.dashList li {
+		padding: 10px !important;
+	}
+
+}
