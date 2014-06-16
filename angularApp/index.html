@@ -9,13 +9,19 @@
         <link rel="stylesheet" type="text/css" href="styles/datetimepicker.css">
         <link rel="stylesheet" type="text/css" href="styles/media_queries.css">
         <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
+    
+        <script type="text/javascript" src="libs/angular.min.js"></script>
+        <script type="text/javascript" src="libs/angular-resource.min.js"></script>
+        <script type="text/javascript" src="libs/lodash.js"></script>
+        <script type="text/javascript" src="libs/restangular-master/dist/restangular.min.js"></script>
+        <script type="text/javascript" src="scripts/ContactServicesModule.js"></script>
+        <script type="text/javascript" src="scripts/app.js"></script>
     </head>
     <body>
     	<div ng-controller="IndexController as index">
-    		{{index.hello}}
+    		 <div ng-repeat="contact in index.contacts">
+                <p>{{contact.name}}</p>
+            </div>
     	</div>
-	
-		<script type="text/javascript" src="libs/angular.min.js"></script>
-		<script type="text/javascript" src="scripts/app.js"></script>
     </body>
 </html>
