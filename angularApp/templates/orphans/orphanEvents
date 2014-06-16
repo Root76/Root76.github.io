@@ -1,0 +1,54 @@
+<div class="mobileCover" id="eventsCover"></div>
+<div id="appcont" class="viewcont">
+  <div class="section-container" id="taskscont">
+    <div class="row">
+      <div class="col-md-4" id="taskpane1">
+        <img src="img/orphans.png" / class="contactpadding">
+        <h1 class="contactpadding">Orphan Events (<span id="itemCount">{{oEvents.length}}</span>)</h1>
+        <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+          <input name="q" type="text" size="40" placeholder="Search...">
+        </form>
+        <div class="filtercolumn contactpadding">
+          <h4>Show:</h4>
+          <div class="contsort">
+          {{view Ember.Select 
+             content=showOptions
+             optionLabelPath="content.label"
+             optionValuePath="content.id"
+             selection=selectedShowOption}}
+          </div>
+        </div>
+        <ul id="eventlist" class="sidelist orphanList">
+          {{#each event in oEvents}}
+            {{#if event.title}}
+              <li><span>{{event.title}}</span><span style="display:none">{{event.id}}</span></li>
+            {{else}}
+              <li><span>No title</span><span style="display:none">{{event.id}}</span></li>
+            {{/if}}
+          {{/each}}
+        </ul>
+        <span id="selectedID"></span>
+      </div>
+      <div class="col-md-7" id="eventpanel2">
+        <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+        <img src="img/arrow.png" class="backArrow" />
+        <h2 id="contactname" class="taskname orphantitle">Select an orphan</h2>
+        <div class="panelcontent dashContent" id="eventscontent">              
+          <form id="associationForm">
+            <div class="formrow">Connect related items: <br />
+              <input id="typeAheadOrphanEvent" />
+            </div>
+            <div class="formrow">
+              Selected Items:
+              <div class="relatedList relatedEvents relatedOrphans">
+                <ul>
+                </ul>
+              </div>
+            </div>
+            <div class="formrow"><input type="submit"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
