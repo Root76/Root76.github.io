@@ -22,13 +22,7 @@
         <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
         <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
         <ul id="tasklist" class="sidelist orphanList">
-          {{#each task in oTasks}}
-            {{#if task.title}}
-              <li><span>{{task.title}}</span><span style="display:none">{{task.id}}</span></li>
-            {{else}}
-              <li><span>N/A</span><span style="display:none">{{task.id}}</span></li>
-            {{/if}}
-          {{/each}}           
+          <li><span>Task Title</span><span style="display:none">{{task.id}}</span></li>         
         </ul>
         <span id="selectedID"></span>
       </div>
