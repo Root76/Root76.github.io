@@ -1,0 +1,32 @@
+<div class="mobileCover" id="eventsCover"></div>
+  <div id="appcont" class="viewcont">
+    <div class="section-container" id="taskscont">
+      <div class="row">
+        <div class="col-md-4" id="taskpane1">
+          <img src="img/events.png" / class="contactpadding">
+          <h1 class="contactpadding">Events ({{uniqueEventCount}})</h1>
+          <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+            <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustEvents">
+          </form>
+          <div class="filtercolumn contactpadding">
+            <h4>Show:</h4>
+            <div class="contsort">
+					  {{view Ember.Select 
+						   content=showOptions
+						   optionLabelPath="content.label"
+						   optionValuePath="content.id"
+						   selection=selectedShowOption}}
+            </div>
+          </div>
+          <ul id="eventlist" class="sidelist">
+            {{#each event in eventsNoDuplicates}}
+              {{#if event.title}}
+                {{#link-to 'events.event' event.id}}<li>{{event.title}}</li>{{/link-to}}
+              {{/if}}
+            {{/each}}
+          </ul>
+        </div>
+        {{outlet}}
+      </div>
+    </div>
+  </div>

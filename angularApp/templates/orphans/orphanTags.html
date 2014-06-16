@@ -1,0 +1,52 @@
+<div class="mobileCover" id="tagsCover"></div>
+<div id="appcont" class="viewcont">
+  <div class="section-container" id="taskscont">
+    <div class="row">
+      <div class="col-md-4" id="taskpane1">
+        <img src="img/orphans.png" / class="contactpadding">
+        <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount">{{oTags.length}}</span>)</h1>
+        <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+          <input name="q" type="text" size="40" placeholder="Search...">
+        </form>
+        <div class="filtercolumn contactpadding">
+          <h4>Show:</h4>
+          <div class="contsort">
+          {{view Ember.Select
+             content=sortOptions
+             optionLabelPath="content.label"
+             optionValuePath="content.id"
+             selection=selectedSortOption}}
+          </div>
+        </div>
+        <ul id="taglist" class="sidelist orphanList">
+          {{#each tag in oTags}}
+            {{#if tag.is_orphan}}
+              <li><span>{{tag.name}}</span><span style="display:none">{{tag.id}}</span></li>
+            {{/if}}
+          {{/each}}               
+        </ul>
+        <span id="selectedID"></span>
+      </div>
+      <div class="col-md-7" id="tagpanel2">
+        <h1 id="mobileContact" class="eventDetailHeader">Tags</h1>
+        <img src="img/arrow.png" class="backArrow" />
+        <h2 id="contactname" class="taskname orphantitle">Select an orphan</h2>
+        <div class="panelcontent dashContent" id="eventscontent">              
+          <form id="associationForm">
+            <div class="formrow">Connect related items: <br />
+              <input id="typeAheadOrphanTag" />
+            </div>
+            <div class="formrow">
+              Selected Items:
+              <div class="relatedList relatedEvents relatedOrphans">
+                <ul>
+                </ul>
+              </div>
+            </div>
+            <div class="formrow"><input type="submit"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
