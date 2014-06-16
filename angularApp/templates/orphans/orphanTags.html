@@ -11,19 +11,15 @@
         <div class="filtercolumn contactpadding">
           <h4>Show:</h4>
           <div class="contsort">
-          {{view Ember.Select
-             content=sortOptions
-             optionLabelPath="content.label"
-             optionValuePath="content.id"
-             selection=selectedSortOption}}
+          <select>
+            <option>Sort Option</option>
+            <option>Sort Option</option>
+            <option>Sort Option</option>
+          </select>
           </div>
         </div>
         <ul id="taglist" class="sidelist orphanList">
-          {{#each tag in oTags}}
-            {{#if tag.is_orphan}}
-              <li><span>{{tag.name}}</span><span style="display:none">{{tag.id}}</span></li>
-            {{/if}}
-          {{/each}}               
+          <li><span>Tag Name</span><span style="display:none">{{tag.id}}</span></li>        
         </ul>
         <span id="selectedID"></span>
       </div>

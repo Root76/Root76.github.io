@@ -4,26 +4,22 @@
       <div class="row">
         <div class="col-md-4" id="taskpane1">
           <img src="img/tags.png" / class="contactpadding">
-          <h1 class="contactpadding tagHeader">Tags ({{tagsToShow.length}})</h1>
+          <h1 class="contactpadding tagHeader">Tags (##)</h1>
           <form method="get" action="/search" class="search contactpadding" id="contactsearch">
             <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustTags">
           </form>
           <div class="filtercolumn contactpadding">
             <h4>Show:</h4>
             <div class="contsort">
-					  {{view Ember.Select
-						   content=sortOptions
-						   optionLabelPath="content.label"
-						   optionValuePath="content.id"
-						   selection=selectedSortOption}}
+              <select>
+                <option>Sort Option</option>
+                <option>Sort Option</option>
+                <option>Sort Option</option>
+              </select>
             </div>
           </div>
           <ul id="taglist" class="sidelist">
-            {{#each tag in controller}}
-              {{#if tag.name}}
-                {{#link-to 'tags.tag' tag}}<li>{{tag.name}} ({{tag.count}})</li>{{/link-to}}
-              {{/if}}
-            {{/each}}                 
+            <a href="tag.html"><li>Tag Name (#)</li></a>          
           </ul>
         </div>
         {{outlet}}

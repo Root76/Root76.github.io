@@ -11,13 +11,10 @@
         <div class="filtercolumn contactpadding">
           <h4>Sort by:</h4>
           <div class="contsort">
-          {{view Ember.Select 
-             class="listSorter" 
-             id="taskSort"
-             content=sortOptions
-             optionLabelPath="content.label"
-             optionValuePath="content.primarySort"
-             selection=selectedSortOption}}
+          <select class="listSorter" id="taskSort">
+            <option>Sort Option</option>
+            <option>Sort Option</option>
+          </select>
           </div>
         </div>
         <button class="sortingToggle" id="byDate" {{action sortDate}}>Sort</button>
