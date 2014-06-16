@@ -1,0 +1,43 @@
+<div class="mobileCover" id="reportsCover"></div>
+  <h1 class="reportsHeader">Show Me</h1>
+  <h5 class="reportsHeader">This page displays your information in different lists based on the options you select (ex., to make a handy ToDo list, select Tasks under Show, Sorted by Contacts for Today).</h4>
+  <div class="row" id="sortbycolumn">
+    <div class="col-lg-12">
+      <div id="showme" class="menucont">
+        <div><h2>Show:<a href="javascript:void(0)" class="small-create-icon openModal3"><img src="img/create.png"/></a></h2></div>
+        <div class="menusubcont">
+          <div class="subcontitem showitem selected" id="subEvent" ><img src="img/calendar.png" /></div>
+          <div class="subcontitem showitem selected" id="subTask" ><img src="img/tasks.png" /></div>
+          <div class="subcontitem showitem selected" id="subContact" ><img src="img/contacts.png" /></div>
+          <div class="subcontitem showitem selected" id="subTag" ><img src="img/tags.png" /></div>
+        </div>
+      </div>
+      <div id="sortby" class="menucont">
+        <div><h2>Sort by:</h2></div>
+        <div class="menusubcont">
+          <div class="subcontitem sortitem"  id="mainevent">
+            <a href="reports/events"><img src="img/calendar.png" /></a>
+          </div>
+          <div class="subcontitem sortitem" id="maintask">
+            <a><img src="img/tasks.png" /></a>
+            <ul>
+              <li class="suboption">Date</li>
+              <li class="suboption">Priority</li>
+              <li class="suboption">Alphabetical</li>
+            </ul>    
+          </div>
+          <div class="subcontitem sortitem" id="maincontact">
+            <a><img src="img/contacts.png" /></a>
+          </div>
+          <div class="subcontitem sortitem" id="maintag">
+            <a><img src="img/tags.png" /></a>
+            <ul>
+              <li class="suboption">Alphabetical</li>
+              <li class="suboption">Count</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{outlet}}

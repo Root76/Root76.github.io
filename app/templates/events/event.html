@@ -1,0 +1,226 @@
+<div class="col-md-7 mobileIn" id="eventpanel2">
+    <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+    <img src="img/arrow.png" class="backArrow" />
+        <h2 id="contactname" class="eventname" {{action "editField" "title" on="doubleClick"}}>
+    {{#if editing.title}}
+          {{input class="editField" id="titleInput" type="text" value=title focus-out="save" insert-newline="save"}}
+        {{else}}
+          {{title}}
+      <span class="hidden">{{id}}</span>
+        {{/if}}
+    </h2>
+    <div id="detailmenubar">
+      <img src="img/contacts.png" />
+      <img src="img/events.png" class="selected" />
+      <img src="img/tasks.png" />
+      <img src="img/tags.png" /> 
+      <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+      <img src="img/trash.png" id="trashicon"/>
+      <button {{action "deleteRecord"}} id="destroy">{{id}}</button>
+    </div>
+    <div class="panelcontent" id="eventscontent">                
+      <div class="infopanel">
+        <form id="addForm">
+          <div class="formrow">Add contacts: <br />
+            <input id="typeAheadAddContact" />
+          </div>
+        </form>
+        {{#each contact in contacts}}
+          <div class="contactrow personrow">
+            {{#link-to 'contacts.contact' contact}}
+              <img src="img/contacts.png" class="contactIcon">
+              <h4>
+                {{#if contact.name}}
+                  {{contact.name}}
+                {{else}}
+                  {{#if contact.emails}}
+                    {{#each email in emails}}
+                      {{email.email}}
+                    {{/each}}
+                  {{else}}
+                    No name or email`
+                  {{/if}}
+                {{/if}}
+              </h4>
+              <span class="hidden">{{contact.id}}</span>
+            {{/link-to}}
+            <img src="img/close.png" class="removeAssoc" />
+          </div>
+        {{/each}}
+      </div>
+      <div class="infopanel selected">
+        <div {{action "editField" "description" on="doubleClick"}}>
+        	<b>Description: </b>
+          {{#if editing.description}}
+          	{{input class="editField" id="descriptionInput" type="text" value=description focus-out="save" insert-newline="save"}}
+          {{else}}
+       			{{description}}
+          {{/if}}
+          <br />
+        </div>
+        <div {{action "editField" "location" on="doubleClick"}}>
+        	<b>Location: </b>
+          {{#if editing.location}}
+          	{{input class="editField" id="locationInput" type="text" value=location focus-out="save" insert-newline="save"}}
+          {{else}}
+       			{{location}}
+          {{/if}}
+          <br />
+        </div>
+        <div {{action "editField" "start_datetime" on="doubleClick"}}>
+        	<b>Event Start: </b>
+          {{#if start_datetime}}
+            {{#if editing.start_datetime}}
+            	{{input class="editField" id="start_datetimeInput" type="datetime-local" value=start_inputformatted focus-out="save" insert-newline="save"}}
+            {{else}}
+         			{{start_displayformatted}}
+            {{/if}}
+          {{else}}
+            {{#if start_date}}
+              {{#if editing.start_date}}
+                {{input class="editField" id="startdate_datetimeInput" type="datetime-local" value=startdate_inputformatted focus-out="save" insert-newline="save"}}
+              {{else}}
+                {{startdate_displayformatted}}
+              {{/if}}
+            {{else}}
+              N/A
+            {{/if}}
+          {{/if}}
+          <br />
+        </div>
+        <div {{action "editField" "end_datetime" on="doubleClick"}}>
+        	<b>Event End: </b>
+          {{#if end_datetime}}
+            {{#if editing.end_datetime}}
+              {{input class="editField" id="end_datetimeInput" type="datetime-local" value=end_inputformatted focus-out="save" insert-newline="save"}}
+            {{else}}
+              {{end_displayformatted}}
+            {{/if}}
+          {{else}}
+            {{#if end_date}}
+              {{#if editing.end_date}}
+                {{input class="editField" id="enddate_datetimeInput" type="datetime-local" value=enddate_inputformatted focus-out="save" insert-newline="save"}}
+              {{else}}
+                {{enddate_displayformatted}}
+              {{/if}}
+            {{else}}
+              N/A
+            {{/if}}
+          {{/if}}
+          <br />
+        </div>
+        <b>Recurring: </b>
+        {{nextDate}}
+      </div>
+      <div class="infopanel">
+        <form id="addForm">
+          <div class="formrow">Add tasks: <br />
+            <input id="typeAheadAddTask" />
+          </div>
+        </form>
+        {{#each task in tasks}}
+          <div class="contactrow taskrow">
+            {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">
+            <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
+          </div>
+        {{/each}}
+      </div>
+      <div class="infopanel">
+          <form id="addForm">
+            <div class="formrow">Add tags: <br />
+              <input id="typeAheadAddTag" />
+            </div>
+          </form>
+        {{#each tag in tags}}
+          <div class="contactrow tagrow">
+            {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="tagIcon">
+            <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  <div id="detailPanel" class="panelIn">
+    <div class="row">
+      <div class="col-md-4 dCol" id="dCol1">
+        <div>
+          <h1 id="contactname" class="eventname" {{action "editField" "title" "2" on="doubleClick"}}>
+            {{#if editing.title}}
+              {{input class="editField" id="titleInput2" type="text" value=title focus-out="save" insert-newline="save"}}
+            {{else}}
+              {{title}}
+              <span class="hidden">{{id}}</span>
+            {{/if}}
+          </h1>
+          <h4 {{action "editField" "description" "2" on="doubleClick"}}>
+            {{#if editing.description}}
+              {{input class="editField" id="descriptionInput2" type="text" value=description focus-out="save" insert-newline="save"}}
+            {{else}}
+              {{description}}
+            {{/if}}
+          </h4>
+          <div id="relatedTags">
+            {{#each tag in tags}}
+              <div class="relatedItem">
+                {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="relatedImage"/>
+                <span class="relatedName">{{tag.name}}</span>{{/link-to}}
+              </div>
+            {{/each}}         
+          </div>
+          <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
+          <img id="detailTrash" src="img/trash.png" />
+        </div>
+        <img class="columnDivider" src="img/divider_orange.png" />
+      </div>
+      <div class="col-md-4 dCol" id="dCol2">
+        <div>
+          <div class="columnhead">
+            <img src="img/contacts.png" />
+            <h3>Contacts</h3>
+          </div>
+          <br />
+          <ul class="columnlist">
+            {{#each contact in contacts}}
+              <li>{{#link-to 'contacts.contact' contact}}{{contact.name}}{{/link-to}}</li>
+            {{else}}
+              <li>N/A</li>
+            {{/each}}
+          </ul>
+        </div>
+        <img class="columnDivider" src="img/divider_orange.png" />
+      </div>
+      <div class="col-md-4 dCol" id="dCol3">
+        <div>
+          <div class="columnhead">
+            <img src="img/tasks.png" />
+            <h3>Tasks</h3>
+          </div>
+          <br />
+          <div class="detailSection">
+            <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+            <ul class="columnlist">
+              {{#each task in tasks}}
+                <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
+              {{else}}
+                <li>N/A</li>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="detailSection">
+            <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+            <ul class="columnlist">
+              {{#each task in tasks}}
+                <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
+              {{else}}
+                <li>N/A</li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="detailPanelHider"></div>
+  <div class="col-md-1 flipswitch fsorange">
+    <img src="img/fliparrow_orange.png" id="fliparrow"/>
+  </div>
