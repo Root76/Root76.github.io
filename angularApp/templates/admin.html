@@ -1,7 +1,7 @@
           <div class="mobileCover" id="settingsCover"></div>
           <div id="appcont" class="settingspage">
             <h1>Admin Report</h1>
-            <h2 id="reportCount"><span></span> total users</h2>
+            <h2 id="reportCount"><span>#</span> total users</h2>
             <a href="https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a46373758w77381203p79990338/" target="_blank"><img src="img/analytics.png" id="analyticsLogo"></a>
             <a href="https://mandrillapp.com" target="_blank"><img src="img/mailchimp.png" id="chimpLogo"></a>
             <div>
@@ -23,28 +23,25 @@
           <a href="./#/events/{{id}}"><h2>{{title}}</h2></a>
           <div class="calPopupTags">
             <ul>
-              {{#each tags}}
-                <a href="javascript:void(0)" onclick="transitionToTag({{id}});"><li><img src="img/tags.png"><span>{{name}}</span></li></a>
-              {{/each}}
+              <a href="javascript:void(0)" onclick="transitionToTag({{id}});"><li><img src="img/tags.png"><span>Tag Name</span></li></a>
             </ul>
           </div>
           <div class="calPopupCont">
-            <p><b>Event description:</b>  {{description}}</p>
-            <p><b>Event start:</b>  {{start_formatted}}</p>
-            <p><b>Event end:</b>  {{end_formatted}}</p>
+            <p><b>Event description:</b>  Description</p>
+            <p><b>Event start:</b>  Start Date</p>
+            <p><b>Event end:</b>  End date</p>
           </div>
         </script>
         <script type="text/x-handlebars" id="calPopupTemplate2">
-          <a href="./#/tasks/{{id}}"><h2>{{title}}</h2></a>
+          <a href="./#/tasks/{{id}}"><h2>Title</h2></a>
           <div class="calPopupTags">
             <ul>
-              {{#each tags}}
-                <a href="javascript:void(0)" onclick="transitionToTag({{id}});"><li><img src="img/tags.png"><span>{{name}}</span></li></a>
-              {{/each}}
+              <a href="javascript:void(0)" onclick="transitionToTag({{id}});"><li><img src="img/tags.png"><span>Tag Name</span></li></a>
             </ul>
           </div>
           <div class="calPopupCont">
-            <p><b>Task notes:</b>  {{description}}</p>
-            <p><b>Task due:</b>  {{due_formatted}}</p>
-            <p><b>Task priority:</b>  {{priority}}</p>
+            <p><b>Task notes:</b>  Description</p>
+            <p><b>Task due:</b>  Due Date</p>
+            <p><b>Task priority:</b> Priority Level</p>
           </div>
+        </script>

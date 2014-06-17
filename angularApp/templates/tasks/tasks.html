@@ -4,38 +4,26 @@
       <div class="row">
         <div class="col-md-4" id="taskpane1">
           <img src="img/tasks.png" / class="contactpadding">
-          <h1 class="contactpadding" id="mobileTaskHead">Tasks ({{tasksToShow.length}})</h1>
+          <h1 class="contactpadding" id="mobileTaskHead">Tasks (##)</h1>
           <form method="get" action="/search" class="search contactpadding" id="contactsearch">
             <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustTasks">
           </form>
           <div class="filtercolumn contactpadding">
             <h4>Sort by:</h4>
             <div class="contsort">
-					  {{view Ember.Select 
-						   class="listSorter" 
-						   id="taskSort"
-						   content=sortOptions
-						   optionLabelPath="content.label"
-						   optionValuePath="content.primarySort"
-						   selection=selectedSortOption}}
+              <select class="listSorter" id="taskSort">
+                <option>Sort Options</option>
+                <option>Sort Options</option>
+                <option>Sort Options</option>
+              </select>
             </div>
           </div>
-          <button class="sortingToggle" id="byDate" {{action sortDate}}>Sort</button>
-          <button class="sortingToggle" id="byPriority" {{action sortPriority}}>Sort</button>
-          <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
-          <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
+          <button class="sortingToggle" id="byDate">Sort</button>
+          <button class="sortingToggle" id="byPriority">Sort</button>
+          <button class="sortingToggle" id="byName">Sort</button>
+          <button class="sortingToggle" id="byContact">Sort</button>
           <ul id="tasklist" class="sidelist">
-            {{#each task in tasksToShow}}
-              {{#if task.title}}
-                {{#link-to 'tasks.task' task}}<li><img src="img/check.png" {{bind-attr class="task.status:completed"}} />{{task.title}}</li>{{/link-to}}
-              {{else}}
-                {{#if task.notes}}
-                  {{#link-to 'tasks.task' task}}<li><img src="img/check.png" {{bind-attr class="task.status:completed"}} />{{task.notes}}</li>{{/link-to}}
-                {{else}}
-                  {{#link-to 'tasks.task' task}}<li><img src="img/check.png" {{bind-attr class="task.status:completed"}} />N/A</li>{{/link-to}}
-                {{/if}}
-              {{/if}}
-            {{/each}}           
+            <a href="task.html"><li><img src="img/check.png" />Task Title</li></a>
           </ul>
         </div>
         {{outlet}}

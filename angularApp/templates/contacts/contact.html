@@ -2,23 +2,9 @@
     <h1 id="mobileContact">Contacts</h1>
     <img id="profilepic" src="img/contacts.png" />
     <img src="img/arrow.png" class="backArrow" />            
-        <h2 id="contactname" class="contactname contacttext" {{action "editField" "name" on="doubleClick"}}>
-      {{#if editing.name}}
-	          {{input class="editField" id="nameInput" type="text" value=name focus-out="save" insert-newline="save"}}
-	        {{else}}
-        {{#if name}}
-	            {{name}}
-        {{else}}
-          {{#if emails}}
-            {{#each emails}}
-              {{email}}
-            {{/each}}
-          {{else}}
-            N/A
-          {{/if}}
-        {{/if}}
-        <span class="hidden">{{id}}</span>
-	        {{/if}}
+    <h2 id="contactname" class="contactname contacttext">
+      Name
+      <span class="hidden">{{id}}</span>
     </h2>
     <div id="detailmenubar" class="contactmenu">
       <img src="img/contacts.png" class="selected" />
@@ -27,22 +13,16 @@
       <img src="img/tags.png" />
       <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addContact" /></a>
       <img src="img/trash.png" id="trashicon" />
-      <button {{action "deleteRecord"}} id="destroy">{{id}}</button>
+      <button id="destroy">{{id}}</button>
     </div>
     <div class="panelcontent" id="contactcontent">
       <div class="infopanel selected">
         <div class="contactrow">
           <img src="img/cellphone.png">
           <h4 class="phonenumber">
-            {{#each phone in phones}}
-            	<span {{action "editField" "phone" on="doubleClick"}}>
-                {{#if editing.phone}}
-                  {{input class="editField" id="phoneInput" type="text" value=phone.number focus-out="save" insert-newline="save"}}
-                {{else}}
-                  {{phone.number}}
-                {{/if}}
-              </span>
-            {{/each}}
+          	<span>
+              Phone Number
+            </span>
           </h4>
         </div>
         <div class="contactrow">
@@ -50,53 +30,29 @@
           <a href="" target="_blank" class="dynamicEmail emailLink desktopEmail"><img src="img/openmail.png"></a>
        		<a href="" class="dynamicEmail emailLink mobileEmail"><img src="img/openmail.png"></a>
           <h4 class="emailfield">
-            {{#each email in emails}}
-              <span {{action "editField" "email" on="doubleClick"}}>
-                {{#if editing.email}}
-                  {{input class="editField" id="emailInput" type="text" value=email.email focus-out="save" insert-newline="save"}}
-                {{else}}
-                  {{email.email}}
-                {{/if}}
-              </span>
-            {{/each}}
+            <span>
+              Email Address
+            </span>
           </h4>
         </div>
-        <div class="contactrow" {{action "editField" "birthday" on="doubleClick"}}>
+        <div class="contactrow">
           <img id="bdayImage" src="img/birthday.png">
           <h4 id="bday">
-          {{#if editing.birthday}}
-            {{input class="editField" id="birthdayInput" type="text" value=birthday focus-out="save" insert-newline="save"}}
-          {{else}}
-            {{birthday}}
-          {{/if}}
+            Birthday
           </h4>
         </div>
-        <div class="contactrow" {{action "editField" "address" on="doubleClick"}}>
+        <div class="contactrow">
           <img id="locationImage" src="img/location.png">
           <h4 class="contactlocation">
-          {{#if editing.address}}
-          	{{input class="editField" id="addressInput" type="text" value=address focus-out="save" insert-newline="save"}}
-          {{else}}
-          	{{address}}
-          {{/if}}
+            Address
           </h4>
         </div>
-        <div class="contactpropertiesrow" {{action "editField" "properties" on="doubleClick"}}>
+        <div class="contactpropertiesrow">
           <h3 class="propertiesHeader">
             Custom Fields
-            {{#if editing.properties}}<img src="img/create.png" {{action "addProperty"}}><img src="img/check.png" {{action "save"}}>{{/if}}
           </h3>
           <div class="propertiesList">
-            {{#if editing.properties}}
-              {{#each property in extended_properties}}
-                <div class="key">{{input class="editField" type="text" value=property.key insert-newline="save"}}:</div><div class="value">{{input class="editField" type="text" value=property.value insert-newline="save"}}</div>
-                <img src="img/trash.png" {{action "deleteProperty" _view.contentIndex}}><br/>
-              {{/each}}
-            {{else}}
-              {{#each property in extended_properties}}
-                <div class="key">{{property.key}}:</div><div class="value">{{property.value}}</div><br/>
-              {{/each}}
-            {{/if}}
+              <div class="key">Property:</div><div class="value">Value</div><br/>
           </div>
         </div>
       </div>
@@ -106,12 +62,10 @@
             <input id="typeAheadAddEvent" />
           </div>
         </form>
-        {{#each event in events}}
           <div class="contactrow eventrow">
-            {{#link-to 'events.event' event}}<img src="img/events.png" class="eventIcon">
-            <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
+            <a href="event.html"><img src="img/events.png" class="eventIcon">
+            <h4>Event Title</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" class="removeAssoc" />
           </div>
-        {{/each}}
       </div>
       <div class="infopanel">
         <form id="addForm">
@@ -119,12 +73,10 @@
             <input id="typeAheadAddTask" />
           </div>
         </form>
-        {{#each task in tasks}}
           <div class="contactrow taskrow">
-            {{#link-to 'tasks.task' task}}<img src="img/tasks.png" class="taskIcon">
-            <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
+            <a href="tasks.html"><img src="img/tasks.png" class="taskIcon">
+            <h4>Task Title</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" class="removeAssoc" />
           </div>
-        {{/each}}
       </div>
       <div class="infopanel">
         <form id="addForm">
@@ -132,22 +84,16 @@
             <input id="typeAheadAddTag" />
           </div>
         </form>
-        {{#each tag in tags}}
           <div class="contactrow tagrow">
-            {{#link-to 'tags.tag' tag}}<img src="img/tags.png" class="tagIcon">
-            <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span>{{/link-to}}<img src="img/close.png" class="removeAssoc" />
+            <a href="tags.html"><img src="img/tags.png" class="tagIcon">
+            <h4>Tag Name</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" class="removeAssoc" />
           </div>
-        {{/each}}
       </div>
     </div>
-    <div class="panelfooter" id="contactfooter" {{action "editField" "notes" on="doubleClick"}}>
+    <div class="panelfooter" id="contactfooter">
       <h5 class="notesLabel">Note:</h5>
       <div class="notesField">
-      {{#if editing.notes}}
-      	 {{textarea class="editField" id="notesInput" type="text" value=notes focus-out="save" insert-newline="save"}}
-      {{else}}
-      	{{notes}}
-      {{/if}}              
+        Notes          
       </div>
     </div>
   </div>
@@ -155,93 +101,53 @@
     <div class="row">
       <div class="col-md-4 dCol" id="dCol1">
         <div>
-          <h1 {{action "editField" "name" "2" on="doubleClick"}}>
-            {{#if editing.name}}
-              {{input class="editField" id="nameInput2" type="text" value=name focus-out="save" insert-newline="save"}}
-            {{else}}
-              {{#if name}}
-                {{name}}
-              {{else}}
-                {{#if emails}}
-                  {{#each emails}}
-                    {{email}}
-                  {{/each}}
-                {{else}}
-                  N/A
-                {{/if}}
-              {{/if}}
+          <h1>
+              Name
               <span class="hidden">{{id}}</span>
-            {{/if}}
           </h1>
           <div class="contactgroup contactDetails">
             <div class="contactitem">
               <a href="" target="_blank" class="dynamicEmail emailLink"><img src="img/openmail.png"></a>
-              {{#if emails}}
-                {{#each email in emails}}
-                  <span {{action "editField" "email" "2" on="doubleClick"}}>
-                    {{#if editing.email}}
-                      {{input class="editField" id="emailInput2" type="text" value=email.email focus-out="save" insert-newline="save"}}
-                    {{else}}
-                      {{email.email}}
-                    {{/if}}
-                  </span>
-                {{/each}}
-              {{else}}
-                <span>No email</span>
-              {{/if}}
+              Email Address
             </div>
             <div class="contactitem">
               <img src="img/openmail.png" />
-              <a {{bind-attr href="relatedEmailsLink"}} target="_blank" class="emailLink">View Emails</a>
+              <a href="emailLink" target="_blank" class="emailLink">View Emails</a>
             </div>
             <div class="contactitem">
               <img src="img/cellphone.png" />
-              {{#each phone in phones}}
-                <span {{action "editField" "phone" "2" on="doubleClick"}}>
-                  {{#if editing.phone}}
-                    {{input class="editField" id="phoneInput2" type="text" value=phone.number focus-out="save" insert-newline="save"}}
-                  {{else}}
-                    {{phone.number}}
-                  {{/if}}
+                <span>
+                  Phone Number
                 </span>
-              {{/each}}
             </div>
             <div class="contactitem">
               <img src="img/birthday.png" />
-              <span {{action "editField" "birthday" "2" on="doubleClick"}}>
-                {{#if editing.birthday}}
-                  {{input class="editField" id="birthdayInput2" type="text" value=birthday focus-out="save" insert-newline="save"}}
-                {{else}}
-                  {{birthday}}
-                {{/if}}
+              <span>
+                Birthday
               </span>
             </div>
             <div class="contactitem">
               <img src="img/location.png" />
-              <span {{action "editField" "address" "2" on="doubleClick"}}>                  
-                {{#if editing.address}}
-                  {{input class="editField" id="addressInput2" type="text" value=address focus-out="save" insert-newline="save"}}
-                {{else}}
-                  {{address}}
-                {{/if}}
+              <span>                  
+                Address
               </span>
             </div>
           </div>
           <div class="contactgroup relatedObjects">
             <div class="contactitem">
               <img src="img/events.png" />
-              <span>({{eventsCount}})</span>
+              <span>(##)</span>
             </div>
             <div class="contactitem">
               <img src="img/tasks.png" />
-              <span>({{tasksCount}})</span>
+              <span>(##)</span>
             </div>
             <div class="contactitem">
               <img src="img/tags.png" />
-              <span>({{tagsCount}})</span>
+              <span>(##)</span>
             </div>
           </div>
-          <h5 class="notesLabel2">Note: {{notes}}</h5>
+          <h5 class="notesLabel2">Note: Notes</h5>
           <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
           <img id="detailTrash" src="img/trash.png" />
         </div>
@@ -257,21 +163,13 @@
           <div class="detailSection">
             <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
             <ul class="columnlist">
-              {{#each event in events}}
-                <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
-              {{else}}
-                <li>N/A</li>
-              {{/each}}
+              <li><a href="event.html">Event Title</a></li>
             </ul>
           </div>
           <div class="detailSection">
             <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
             <ul class="columnlist">
-              {{#each event in events}}
-                <li>{{#link-to 'events.event' event}}{{event.title}}{{/link-to}}</li>
-              {{else}} 
-                <li>N/A</li>
-              {{/each}}
+              <li><a href="event.html">Event Title</a></li>
             </ul>
           </div>
         </div>
@@ -287,21 +185,13 @@
           <div class="detailSection">
             <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
             <ul class="columnlist">
-              {{#each task in tasks}}
-                <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
-              {{else}}
-                <li>N/A</li>
-              {{/each}}
+              <li><a href="task.html">Task Title</a></li>
             </ul>
           </div>
           <div class="detailSection">
             <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
             <ul class="columnlist">
-              {{#each task in tasks}}
-                <li>{{#link-to 'tasks.task' task}}{{task.title}}{{/link-to}}</li>
-              {{else}}
-                <li>N/A</li>
-              {{/each}}
+              <li><a href="task.html">Task Title</a></li>
             </ul>
           </div>
         </div>
