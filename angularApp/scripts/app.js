@@ -1,6 +1,6 @@
 (function(){
 
-	var app = angular.module('DayWonApplication', ['ContactServices']);
+	var app = angular.module('DayWonApplication', ['ContactServices', 'TagServices']);
 
 	var authToken = 'qoRyedh9o5xFLY8cpDzA';
 	var authEmail = 'pastadiablo@gmail.com';
@@ -12,11 +12,34 @@
 		$httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 	}]);
 
-	app.controller('IndexController', ['$resource', 'contactService', 
-		function($resource, contactService) {
+	app.controller('IndexController', ['$resource', 'contactService', 'tagService',
+		function($resource, contactService, tagService) {
 
 
 			var ctrl = this;
+			
+			/*
+			tagService.Tags.get(function(data){
+				console.log(data);
+				ctrl.tags = data.tags;
+
+				tagService.Tag.get({tag_id:ctrl.tags[0]['id']}, function(data) {
+					console.log(data.name);
+					ctrl.tags = data.contacts;
+					data.$save();
+				});
+			});
+
+			var newTag = {
+				'name':'Blue Steel'
+			};
+
+			tagService.Tags.create(newTag, function(data) {
+				console.log('Tags: ' + data);
+			});
+			*/
+			
+			/*
 			contactService.Contacts.query(function(data) {
 				
 				ctrl.contacts = data;
@@ -38,7 +61,7 @@
 			contactService.Contacts.create(newContact, function(data) {
 				console.log("completed create!");
 				console.log(data);
-			});
+			});*/
 
 
 
