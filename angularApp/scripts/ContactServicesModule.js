@@ -7,7 +7,28 @@
 	ContactServicesModule.factory('contactService', ['$resource', '$http', '$log', 
 		function ($resource, $http, $log) {
 			return {
-						Contacts: $resource(baseURL + '/contacts'),
+						Contacts: $resource(baseURL + '/contacts', null, {
+							create:
+							{
+								method: 'POST',
+								isArray: false,
+								transformRequest: [function(data, headersGetter){
+
+									if(!data["extended_properties"])
+										data["extended_properties"] = [];
+
+									var contact = {'contact': data};		
+
+									console.log("Outgoing Data!");
+									console.log(JSON.stringify(contact));
+							
+
+									return contact;
+
+								}].concat($http.defaults.transformRequest)
+
+							}
+						}),
 						Contact:  $resource(baseURL + '/contacts/:contact_id', {contact_id:"@id"}, {
 
 							save:
@@ -16,9 +37,6 @@
 								isArray: false,
 								transformRequest: [function(data, headersGetter){
 																	
-									
-									console.log(data);
-
 									if(!data["tags"] || data["tags"].length < 1)
 										delete data["tags"];
 									
@@ -29,13 +47,17 @@
 										delete data["tasks"];
 
 	
-									var contact = {'contact': data};
-									console.log(contact);
-									
+									var contact = {'contact': data};									
 
-									return contact
+									return contact;
 
 								}].concat($http.defaults.transformRequest)
+							},
+
+							delete:
+							{
+								method: 'DELETE',
+								isArray: false,
 							}
 						}),
 					}

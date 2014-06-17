@@ -20,19 +20,26 @@
 			contactService.Contacts.query(function(data) {
 				
 				ctrl.contacts = data;
-				
+
 				contactService.Contact.get({contact_id:ctrl.contacts[0]['id']}, function(data) {
 						
-						console.log(data);
-
 						ctrl.contact = data;
-						ctrl.contact.address = 'Bosham Lane';
+						ctrl.contact.address = 'The Shire';
 						
 						ctrl.contact.$save();
 					
 				});
 
 			});
+			var newContact = 	{
+									'name':'Bilbo Baggins',
+									'address':'3 Shire Lane'								
+								};
+			contactService.Contacts.create(newContact, function(data) {
+				console.log("completed create!");
+				console.log(data);
+			});
+
 
 
 		}]);
