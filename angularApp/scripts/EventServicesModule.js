@@ -1,42 +1,40 @@
-(function(){
+ (function(){
 
-	var TaskServicesModule = angular.module('TaskServices', ['ngResource']);
+	var EventServicesModule = angular.module('EventServices', ['ngResource']);
 
 	var baseURL = "http://daywon-api-staging.herokuapp.com";
 
-	TaskServicesModule.factory('taskService', ['$resource', '$http', '$log', 
-		function ($resource, $http, $log) {
+	EventServicesModule.factory('eventService', ['$resource', '$http', '$log', 
+		function($resource, $http, $log) {
 			return {
-				Tasks : $resource(baseURL + "/tasks", null, {
-					
+				Events : $resource(baseURL + "/events", null, {
 					create:
 					{
 						method: 'POST',
 						isArray: false,
-						transformRequest: [function(data, headersGetter){
-							return {'task': data};
+						transformRequest: [function(data, headersGetter){ 
+							return {'event': data}; 
 						}].concat($http.defaults.transformRequest)
 
 					}
 				}),
 
-				Task : $resource(baseURL + "/tasks/:task_id", {task_id:"@id"}, {
-					
+				Event : $resource(baseURL + "/events/:event_id", {event_id:"@id"}, {
 					save:
 					{
 						method: 'PUT',
 						isArray: false,
 						transformRequest: [function(data, headersGetter){
 
-							data['contact_ids'] = _.map(data['contacts'], function(contact) { return contact.id; });	
-							data['event_ids'] = _.map(data['events'], function(event) { return event.id; });
+							data['task_ids'] = _.map(data['tasks'], function(task) { return task.id; });	
+							data['contact_ids'] = _.map(data['contacts'], function(contact) { return contact.id; });
 							data['tag_ids'] = _.map(data['tags'], function(tag) { return tag.id; });
 
+							delete data["tasks"];
 							delete data["contacts"];
-							delete data["events"];
 							delete data["tags"];
 
-							return {"task":data};
+							return {"event":data};
 						}].concat($http.defaults.transformRequest)
 					},
 
@@ -46,16 +44,15 @@
 						isArray: false,
 						transformRequest: [function(data, headersGetter){
 
+							delete data["tasks"];
 							delete data["contacts"];
-							delete data["events"];
 							delete data["tags"];
 
-							return {"task":data};
+							return {"event":data};
 						}].concat($http.defaults.transformRequest)
-
-					}					
+					}
 				})
-			}
+			};
 		}
 	]);
 })();

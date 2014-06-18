@@ -17,9 +17,7 @@
 									if(!data["extended_properties"])
 										data["extended_properties"] = [];
 
-									var contact = {'contact': data};		
-									return contact;
-
+									return {'contact': data};		
 								}].concat($http.defaults.transformRequest)
 
 							}

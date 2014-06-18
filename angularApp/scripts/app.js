@@ -1,6 +1,6 @@
 (function(){
 
-	var app = angular.module('DayWonApplication', ['ContactServices', 'TagServices', 'TaskServices']);
+	var app = angular.module('DayWonApplication', ['ContactServices', 'TagServices', 'TaskServices', 'EventServices']);
 
 	var authToken = 'qoRyedh9o5xFLY8cpDzA';
 	var authEmail = 'pastadiablo@gmail.com';
@@ -12,12 +12,24 @@
 		$httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 	}]);
 
-	app.controller('IndexController', ['$resource', 'contactService', 'tagService', 'taskService',
-		function($resource, contactService, tagService, taskService) {
+	app.controller('IndexController', ['$resource', 'contactService', 'tagService', 'taskService', 'eventService',
+		function($resource, contactService, tagService, taskService, eventService) {
 
-/*
+
 			var ctrl = this;
-			
+
+			eventService.Events.get(function(data){
+				console.log(data);
+				ctrl.events = data.events;
+
+				eventService.Event.get({event_id:ctrl.events[0]['id']}, function(data){
+					console.log(data);
+					ctrl.event = data;
+					ctrl.event.description = "this is my new description!";
+					ctrl.event.$save();
+				});
+			})
+/*			
 			taskService.Tasks.get(function(data){
 				console.log(data);
 				ctrl.tasks = data.tasks;

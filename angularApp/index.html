@@ -16,12 +16,13 @@
         <script type="text/javascript" src="scripts/ContactServicesModule.js"></script>
         <script type="text/javascript" src="scripts/TagServicesModule.js"></script>
         <script type="text/javascript" src="scripts/TaskServicesModule.js"></script>
+        <script type="text/javascript" src="scripts/EventServicesModule.js"></script>
         <script type="text/javascript" src="scripts/app.js"></script>
     </head>
     <body>
     	<div ng-controller="IndexController as index">
-    		 <div ng-repeat="task in index.tasks">
-                <p>{{task.title}}</p>
+    		 <div ng-repeat="event in index.events">
+                <p>{{event.title}}</p>
             </div>
     	</div>
     </body>

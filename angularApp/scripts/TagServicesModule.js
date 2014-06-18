@@ -13,10 +13,7 @@
 						method: 'POST',
 						isArray: false,
 						transformRequest: [function(data, headersGetter){
-
-							var tag = {'tag': data};		
-							return tag;
-
+							return {'tag': data};		
 						}].concat($http.defaults.transformRequest)
 
 					}
@@ -36,6 +33,7 @@
 								delete data["contacts"];
 								delete data["events"];
 								delete data["tasks"];
+
 								delete data['count'];
 
 								var tag = {'tag': data};									
@@ -53,6 +51,7 @@
 								delete data["contacts"];
 								delete data["events"];
 								delete data["tasks"];
+								
 								delete data['count'];
 
 								var tag = {'tag': data};									
