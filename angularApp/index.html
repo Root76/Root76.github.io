@@ -19,11 +19,15 @@
         <script type="text/javascript" src="libs/datetimepicker.js"></script>
         <script type="text/javascript" src="libs/angular.min.js"></script>
         <script type="text/javascript" src="libs/angular-resource.min.js"></script>
+        <script type="text/javascript" src="libs/angular-route.min.js"></script>
         <script type="text/javascript" src="libs/lodash.js"></script>
-        <script type="text/javascript" src="scripts/ContactServicesModule.js"></script>
-        <script type="text/javascript" src="scripts/TagServicesModule.js"></script>
-        <script type="text/javascript" src="scripts/TaskServicesModule.js"></script>
-        <script type="text/javascript" src="scripts/EventServicesModule.js"></script>
+        <script type="text/javascript" src="scripts/Contacts/ContactServicesModule.js"></script>
+        <script type="text/javascript" src="scripts/Tags/TagServicesModule.js"></script>
+        <script type="text/javascript" src="scripts/Tasks/TaskServicesModule.js"></script>
+        <script type="text/javascript" src="scripts/Events/EventServicesModule.js"></script>
+        <script type="text/javascript" src="scripts/Reports/ReportsModule.js"></script>
+        <script type="text/javascript" src="scripts/Dashboard/DashboardModule.js"></script>
+        <script type="text/javascript" src="scripts/Routing.js"></script>
         <script type="text/javascript" src="scripts/app.js"></script>
         <script type="text/javascript" src="scripts/events.js"></script>
     </head>
@@ -62,13 +66,13 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav navbar-right">
                 <li>
-                  <a {{bindAttr href="view.href"}}><img src="img/dashboard.png" class="navimg" />Dashboard</a>
+                  <a href="#/"><img src="img/dashboard.png" class="navimg" />Dashboard</a>
                   <!--<div class="dropdownarrow">
                     <img class="dropdownimage" src="img/arrow_black.png" />
                   </div>-->
                 </li>
                 <li>
-                  <a {{bindAttr href="view.href"}}><img src="img/report.png" class="navimg" />Show Me</a>
+                  <a href="#/reports"><img src="img/report.png" class="navimg" />Show Me</a>
                   <!--<div class="dropdownarrow">
                     <img class="dropdownimage" src="img/arrow_black.png" />
                   </div>-->
@@ -117,132 +121,7 @@
             <div class="col-lg-12" id="bodyScroller">
               <div>
                 <!--OUTLET-->
-                <div class="mobileCover" id="eventsCover"></div>
-                  <div id="appcont" class="viewcont" ng-controller="IndexController as index">
-                    <div class="section-container dashboardContainer" id="taskscont">
-                      <div class="row">
-                        <p class="descriptionText">This page provides you a quick overview & access to your relavent Contacts, Calendar Events & Tasks from Gmail.</p>
-                        <div class="col-md-4 dashboardHeading" id="taskpane1">
-                          <img src="img/dashboard.png" / class="contactpadding">
-                          <h1 class="contactpadding dashHeading">Dashboard</h1>
-                          <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addContact" /></a>
-                          <ul id="eventlist" class="sidelist dashList">
-                            <li class="currentcontact"><span>Recent Activities (last 10 edited)</span></li>
-                            <li><span>Tasks</span></li>
-                            <li><span>Events (next 7 days)</span></li>
-                            <li><span>Tags</span></li>
-                            <a href="contacts.html"><li>Contacts</li></a>
-                          </ul>
-                        </div>
-                        <div class="col-md-7 sidelist dashRecent" id="eventpanel2">
-                          <h1 id="mobileContact" class="eventDetailHeader">Dashboard</h1>
-                          <img src="img/arrow.png" class="backArrow" />
-                          <h2 id="contactname" class="taskname orphantitle">Recent Activities (last 10 edited)</h2>
-                          <div id="dashboardSorting">
-                            <div id="taskSorting" class="dashboardSorter">
-                              <div class="sortcont sortcont2">
-                                <h4 class="beforeDropdown">Show: </h4>
-                                <select>
-                                  <option>Option 1</option>
-                                  <option>Option 2</option>
-                                  <option>Option 3</option>
-                                </select>
-                              </div>
-                              <div class="sortcont sortcont3 sortcontTasks">
-                                <h4 class="beforeDropdown">Sort by: </h4>
-                                <select>
-                                  <option>Option 1</option>
-                                  <option>Option 2</option>
-                                  <option>Option 3</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div id="tagSorting" class="dashboardSorter">
-                            <div class="sortcont sortcont3 sortcontTags">
-                              <h4 class="beforeDropdown">Sort by: </h4>
-                                <select>
-                                  <option>Option 1</option>
-                                  <option>Option 2</option>
-                                  <option>Option 3</option>
-                                </select>
-                            </div>
-                            </div>
-                          </div>
-                          <div class="panelcontent dashContent" id="eventscontent">              
-                            <div class="infopanel selected">
-                                <div class="subitem subdash ss2" ng-repeat="contact in index.contacts">
-                                    <a href="contacts/contact.html">
-                                      <img class="subicon" src="img/contacts.png" />
-                                      <span class="subitemtext subdashtext">{{contact.name}}</span>
-                                    </a>
-                                    <!--<a href="events/event.html">
-                                      <img class="subicon" src="img/events.png" />
-                                      <span class="subitemtext subdashtext">Item Title</span>
-                                    </a>
-                                    <a href="tasks/task.html">
-                                      <img class="subicon" src="img/tasks.png" />
-                                      <span class="subitemtext subdashtext">Item Title</span>
-                                    </a>
-                                    <a href="tags/tag">
-                                      <img class="subicon" src="img/tags.png" />
-                                      <span class="subitemtext subdashtext">Item Name</span>
-                                    </a>-->
-                                </div>
-                            </div>
-                            <div class="infopanel">
-                              <a href="tasks/task">
-                                <div class="subitem subdash" ng-repeat="task in index.tasks">
-                                  <img class="subicon" src="img/tasks.png" />
-                                  <span class="subitemtext subdashtext">{{task.title}}</span>
-                                </div>
-                              </a>
-                            </div>
-                            <div class="infopanel">
-                              <div class="daySeparator">
-                                <h3>Today</h3>
-                                <a href="events/event" ng-repeat="event in index.events"><li><span>{{event.title}}</span></li></a>
-                              </div>
-                              <div class="daySeparator">
-                                <h3>Tomorrow</h3>
-                                <a href="events/event"><li><span>Event Name</span></li></a>
-                              </div>
-                              <div class="daySeparator">
-                                <h3>Day 2</h3>
-                                <a href="events/event"><li><span>Event Name</span></li></a>
-                              </div>
-                              <div class="daySeparator">
-                                <h3>Day 3</h3>
-                                <a href="events/event"><li><span>Event Name</span></li></a>
-                              </div>
-                              <div class="daySeparator">
-                                <h3>Day 4</h3>
-                                <a href="events/event"><li><span>Event Name</span></li></a>
-                              </div>
-                              <div class="daySeparator">
-                                <h3>Day 5</h3>
-                                <a href="events/event"><li><span>Event Name</span></li></a>
-                              </div>
-                              <div class="daySeparator">
-                                <h3>Day 6</h3>
-                                <a href="events/event"><li><span>Event Name</span></li></a>
-                              </div>
-                            </div>
-                            <div class="infopanel">
-                              <a href="tags/tag" ng-repeat="tag in index.tags">
-                                <div class="subitem subdash">
-                                  <img class="subicon" src="img/tags.png" />
-                                  <span class="subitemtext subdashtext">{{tag.name}}</span>          
-                                </div>
-                              </a>
-                              <div class="subitem subdash">
-                                <span class="subitemtext subdashtext">No Tags</span>          
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div ng-view></div>
                 <!--OUTLET-->
               </div>
             </div>
