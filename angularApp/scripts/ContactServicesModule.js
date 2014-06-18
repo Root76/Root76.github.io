@@ -17,14 +17,7 @@
 									if(!data["extended_properties"])
 										data["extended_properties"] = [];
 
-									var contact = {'contact': data};		
-
-									console.log("Outgoing Data!");
-									console.log(JSON.stringify(contact));
-							
-
-									return contact;
-
+									return {'contact': data};		
 								}].concat($http.defaults.transformRequest)
 
 							}
@@ -37,28 +30,35 @@
 								isArray: false,
 								transformRequest: [function(data, headersGetter){
 																	
-									if(!data["tags"] || data["tags"].length < 1)
-										delete data["tags"];
-									
-									if(!data["events"] || data["events"].length < 1)
-										delete data["events"];
-									
-									if(!data["tasks"] || data["tasks"].length < 1)
-										delete data["tasks"];
+									data['tag_ids'] = _.map(data['tags'], function(tag) { return tag.id; });	
+									data['event_ids'] = _.map(data['events'], function(event) { return event.id; });
+									data['task_ids'] = _.map(data['tasks'], function(task) { return task.id; });
 
+									delete data["tags"];
+									delete data["events"];
+									delete data["tasks"];
 	
 									var contact = {'contact': data};									
-
 									return contact;
 
 								}].concat($http.defaults.transformRequest)
 							},
 
-							delete:
+							quicksave:
 							{
-								method: 'DELETE',
+								method: 'PUT',
 								isArray: false,
-							}
+								transformRequest: [function(data, headersGetter){
+
+									delete data["tags"];
+									delete data["events"];
+									delete data["tasks"];
+
+									var contact = {'contact': data};									
+									return contact;
+
+								}].concat($http.defaults.transformRequest)
+							},
 						}),
 					}
 			}]);
