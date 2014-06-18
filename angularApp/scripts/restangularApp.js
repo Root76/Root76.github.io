@@ -15,6 +15,9 @@
 
 
 		this.contacts = Restangular.all('contacts');
+		this.events = Restangular.all('events');
+		this.tasks = Restangular.all('tasks');
+		this.tags = Restangular.all('tags');
 
 		var indexCtrl = this;
 
