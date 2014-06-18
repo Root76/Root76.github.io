@@ -1,6 +1,6 @@
 (function(){
 
-	var app = angular.module('DayWonApplication', ['ContactServices', 'TagServices']);
+	var app = angular.module('DayWonApplication', ['ContactServices', 'TagServices', 'TaskServices']);
 
 	var authToken = 'qoRyedh9o5xFLY8cpDzA';
 	var authEmail = 'pastadiablo@gmail.com';
@@ -12,12 +12,31 @@
 		$httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 	}]);
 
-	app.controller('IndexController', ['$resource', 'contactService', 'tagService',
-		function($resource, contactService, tagService) {
+	app.controller('IndexController', ['$resource', 'contactService', 'tagService', 'taskService',
+		function($resource, contactService, tagService, taskService) {
 
-
+/*
 			var ctrl = this;
 			
+			taskService.Tasks.get(function(data){
+				console.log(data);
+				ctrl.tasks = data.tasks;
+
+				taskService.Task.get({task_id:ctrl.tasks[0]['id']}, function(data){
+					console.log(data);
+					ctrl.task = data;
+					ctrl.task.status = true;
+					ctrl.task.$save();
+				});
+			});
+
+			var newTask = {
+				'title' : 'Play new Summoners Rift on PBE'
+			}*/
+/*
+			taskService.Tasks.create(newTask, function(data){
+				console.log(data);
+			});*/
 			/*
 			tagService.Tags.get(function(data){
 				console.log(data);

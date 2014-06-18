@@ -60,12 +60,6 @@
 
 							}].concat($http.defaults.transformRequest)
 						},
-
-						delete:
-						{
-							method: 'DELETE',
-							isArray: false,
-						}
 					})
 			};
 		}]);

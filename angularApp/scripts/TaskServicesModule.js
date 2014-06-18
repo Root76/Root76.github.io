@@ -31,13 +31,32 @@
 						isArray: false,
 						transformRequest: [function(data, headersGetter){
 
+							data['contact_ids'] = _.map(data['contacts'], function(contact) { return contact.id; });	
+							data['event_ids'] = _.map(data['events'], function(event) { return event.id; });
+							data['tag_ids'] = _.map(data['tags'], function(tag) { return tag.id; });
+
+							delete data["contacts"];
+							delete data["events"];
+							delete data["tags"];
+
+							return {"task":data};
 						}].concat($http.defaults.transformRequest)
 					},
-					
-					delete:
-					{
 
-					}
+					quicksave:
+					{
+						method: 'PUT',
+						isArray: false,
+						transformRequest: [function(data, headersGetter){
+
+							delete data["contacts"];
+							delete data["events"];
+							delete data["tags"];
+
+							return {"task":data};
+						}].concat($http.defaults.transformRequest)
+
+					}					
 				})
 			}
 		}
