@@ -2,8 +2,8 @@
 
 	var app = angular.module('DayWonApplication', ['ContactServices', 'TagServices', 'TaskServices', 'EventServices']);
 
-	var authToken = 'qoRyedh9o5xFLY8cpDzA';
-	var authEmail = 'pastadiablo@gmail.com';
+	var authToken = '4N9-_NWfYvYxpesMVpne';
+	var authEmail = 'hweaver@evenspring.com';
 
 	app.config(['$httpProvider', function($httpProvider) {
 
@@ -21,7 +21,6 @@
 			eventService.Events.get(function(data){
 				console.log(data);
 				ctrl.events = data.events;
-
 				eventService.Event.get({event_id:ctrl.events[0]['id']}, function(data){
 					console.log(data);
 					ctrl.event = data;
@@ -29,7 +28,7 @@
 					ctrl.event.$save();
 				});
 			})
-/*			
+			
 			taskService.Tasks.get(function(data){
 				console.log(data);
 				ctrl.tasks = data.tasks;
@@ -42,14 +41,14 @@
 				});
 			});
 
-			var newTask = {
+			/*var newTask = {
 				'title' : 'Play new Summoners Rift on PBE'
 			}*/
 /*
 			taskService.Tasks.create(newTask, function(data){
 				console.log(data);
 			});*/
-			/*
+			
 			tagService.Tags.get(function(data){
 				console.log(data);
 				ctrl.tags = data.tags;
@@ -59,7 +58,7 @@
 					ctrl.tags = data.contacts;
 					data.$save();
 				});
-			});
+			});/*
 
 			var newTag = {
 				'name':'Blue Steel'
@@ -70,7 +69,7 @@
 			});
 			*/
 			
-			/*
+			
 			contactService.Contacts.query(function(data) {
 				
 				ctrl.contacts = data;
@@ -85,7 +84,7 @@
 				});
 
 			});
-			var newContact = 	{
+			/*var newContact = 	{
 									'name':'Bilbo Baggins',
 									'address':'3 Shire Lane'								
 								};

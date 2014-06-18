@@ -7,8 +7,6 @@ setTimeout(function() {
     }
 }, 2000);
 
-function rebindEvents() {
-
     $('nav a').click(function(evt){
 		var link = $(this);
 		var samePage = link.hasClass('active');
@@ -130,7 +128,7 @@ function rebindEvents() {
                         dataType: "json",
                         headers: {
                             "X-AUTHENTICATION-TOKEN": authToken,
-                            "X-AUTHENTICATION-EMAIL": userEmail
+                            "X-AUTHENTICATION-EMAIL": authEmail
                         },
                         success: function (data) {
                             console.log("original data: " + data['events']);
@@ -285,7 +283,7 @@ function rebindEvents() {
 	    }, 100);
     });
 	
-	$('.detailSection').accordion({
+	/*$('.detailSection').accordion({
 		active: 0,
 		collapsible: true,
 		beforeActivate: function(evt, obj) {
@@ -296,7 +294,7 @@ function rebindEvents() {
 				$(evt.target).find('.detailArrow').addClass('arrowdown');
 		}
 	});
-	$('.detailSection').click();
+	$('.detailSection').click();*/
 
     $('#expandall').click(function(){
     	$("#loader").addClass("showLoader");
@@ -682,7 +680,7 @@ function rebindEvents() {
                     data: JSON.stringify(data),
                     headers: {
                         "X-AUTHENTICATION-TOKEN": authToken,
-                        "X-AUTHENTICATION-EMAIL": userEmail
+                        "X-AUTHENTICATION-EMAIL": authEmail
                     },
                     success: function (data) {
                         console.log(data);
@@ -733,7 +731,7 @@ function rebindEvents() {
                 data: JSON.stringify(data),
                 headers: {
                     "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
+                    "X-AUTHENTICATION-EMAIL": authEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -817,12 +815,6 @@ function rebindEvents() {
         chosenForm = chosenForm[0];
         $('.createForm.selected').removeClass('selected');
         $(chosenForm).addClass('selected');
-    });
-
-    $(".listSorter").change(function(){
-        setTimeout(function(){
-            rebindEvents();
-        }, 100);
     });
 
     if ($(".dashboardContainer").length) {
@@ -978,7 +970,7 @@ function rebindEvents() {
             dataType: "json",
             headers: {
                 "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-EMAIL": authEmail
             },
             success: function (data) {
                 var orphanObj = JSON.stringify(data);
@@ -1012,7 +1004,7 @@ function rebindEvents() {
             dataType: "json",
             headers: {
                 "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-EMAIL": authEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1053,7 +1045,7 @@ function rebindEvents() {
             dataType: "json",
             headers: {
                 "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-EMAIL": authEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1083,7 +1075,7 @@ function rebindEvents() {
             dataType: "json",
             headers: {
                 "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
+                "X-AUTHENTICATION-EMAIL": authEmail
             },
             success: function (data) {
                 var arr = [];
@@ -1422,12 +1414,12 @@ function rebindEvents() {
     var modal6Links = $('.openModal7');
     modal6Links.click(function(){ $('#openModal7').addClass('active'); });
 	// set current email
-    $("#eaddr option:first").html(userEmail);
+    $("#eaddr option:first").html(authEmail);
     
     var ajaxObj = {
         headers: {
             "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-EMAIL": authEmail
         }
     };
 
@@ -1438,7 +1430,7 @@ function rebindEvents() {
         dataType: "json",
         headers: {
             "X-AUTHENTICATION-TOKEN": authToken,
-            "X-AUTHENTICATION-EMAIL": userEmail
+            "X-AUTHENTICATION-EMAIL": authEmail
         },
         success: function (data) {
             var emailData = data;
@@ -1780,7 +1772,7 @@ function rebindEvents() {
                         data: JSON.stringify(payload),
                         headers: {
                             "X-AUTHENTICATION-TOKEN": authToken,
-                            "X-AUTHENTICATION-EMAIL": userEmail
+                            "X-AUTHENTICATION-EMAIL": authEmail
                         },
                         success: function (data) {
                             console.log(data);
@@ -2013,7 +2005,7 @@ function rebindEvents() {
                 data: JSON.stringify(payload),
                 headers: {
                     "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": userEmail
+                    "X-AUTHENTICATION-EMAIL": authEmail
                 },
                 success: function (data) {
                     console.log(data);
@@ -2027,7 +2019,6 @@ function rebindEvents() {
             });
         });
     }, 2000);
-}
 
 setTimeout(function(){
 
@@ -2100,96 +2091,6 @@ setTimeout(function(){
         });
 
     }, 1000);
-
-    /*var scroller3 = new IScroll('#bodyScroller', {
-        mouseWheel: true,
-        scrollbars: true
-    });*/
-
-    function ajaxOrphans() {
-
-        $.ajax({
-            type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/orphans',
-            contentType: "application/json",
-            dataType: "json",
-            headers: {
-                "X-AUTHENTICATION-TOKEN": authToken,
-                "X-AUTHENTICATION-EMAIL": userEmail
-            },
-            success: function (data) {
-                var orphanObj = JSON.stringify(data);
-                orphanObj = JSON.parse(orphanObj);
-                var orphanObjRoot = orphanObj.orphans;
-                orphanObjRoot = JSON.stringify(orphanObjRoot);
-                orphanObjRoot = orphanObjRoot.substring(1, orphanObjRoot.length-1);
-                var orphanEvents = JSON.parse(orphanObjRoot);
-                orphanEvents = orphanEvents.events;
-                orphanEvents = orphanEvents.length;
-                var orphanTasks = JSON.parse(orphanObjRoot);
-                orphanTasks = orphanTasks.tasks;
-                orphanTasks = orphanTasks.length;
-                var orphanTags = JSON.parse(orphanObjRoot);
-                orphanTags = orphanTags.tags;
-                orphanTags = orphanTags.length;
-                var totalOrphans = orphanEvents + orphanTags + orphanTasks;
-                $("#orphancount > span").html(totalOrphans);
-            },
-            error: function (e) {
-                //alert("There was an error loading orphans: " + e);
-            }
-        });
-
-    }
-
-    function checkContactLoad() {
-
-        var contactCompare = function () {
-
-            var callback = function(data) {
-                currentCount = data.length;
-                console.log("contact data preloaded: " + currentCount + "contacts. last count: " + lastCount);
-                if (currentCount === lastCount) {
-                    console.log("gottem all, stopping repeat");
-                    clearInterval(repeatCompare);
-                    $("#loader").removeClass("showLoader");
-                    $("#openModal6").removeClass("active");
-                } else {
-                    lastCount = currentCount;
-                    console.log("not the same, repeating");
-                }
-            }
-
-            var getContacts = function(cb) {
-                $.ajax({
-                    type: 'GET',
-                    url: 'http://daywon-api-staging.herokuapp.com/contacts',
-                    contentType: "application/json",
-                    dataType: "json",
-                    headers: {
-                        "X-AUTHENTICATION-TOKEN": authToken,
-                        "X-AUTHENTICATION-EMAIL": userEmail
-                    },
-                    success: cb,
-                    error: function(e) {
-                        console.log("couldn't fetch preloader contacts: " + e);
-                    }
-                });
-            }
-
-            getContacts(callback);
-
-        }
-
-        var repeatCompare = setInterval(contactCompare, 2000);
-
-    }
-
-    var lastCount = -1;
-    var currentCount = 0;
-
-    ajaxOrphans();
-    checkContactLoad();
 
     window.addEventListener('load', function() {
         new FastClick(document.body);
