@@ -16,8 +16,8 @@ $( document ).ready(function() {
 		if (!link.hasClass('dropdown-toggle'))
 			samePage |= link.parent().hasClass('active');
 		
-		if (!samePage)
-			$("#loader").addClass("showLoader");
+//		if (!samePage)
+//			$("#loader").addClass("showLoader");
     });
 
     $('.showitem').unbind("click").bind("click", function(event){

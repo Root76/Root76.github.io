@@ -1,5 +1,5 @@
 <div class="mobileCover" id="eventsCover"></div>
-<div id="appcont" class="viewcont" ng-controller="DashboardController as dashboard">
+<div id="appcont" class="viewcont" ng-controller="IndexController as dashboard">
   <div class="section-container dashboardContainer" id="taskscont">
     <div class="row">
       <p class="descriptionText">This page provides you a quick overview & access to your relavent Contacts, Calendar Events & Tasks from Gmail.</p>
@@ -51,7 +51,7 @@
         </div>
         <div class="panelcontent dashContent" id="eventscontent">              
           <div class="infopanel selected">
-              <div class="subitem subdash ss2" ng-repeat="contact in index.contacts">
+              <div class="subitem subdash ss2" ng-repeat="contact in dashboard.contacts">
                   <a href="contacts/contact.html">
                     <img class="subicon" src="img/contacts.png" />
                     <span class="subitemtext subdashtext">{{contact.name}}</span>
@@ -72,7 +72,7 @@
           </div>
           <div class="infopanel">
             <a href="tasks/task">
-              <div class="subitem subdash" ng-repeat="task in index.tasks">
+              <div class="subitem subdash" ng-repeat="task in dashboard.tasks">
                 <img class="subicon" src="img/tasks.png" />
                 <span class="subitemtext subdashtext">{{task.title}}</span>
               </div>
@@ -81,7 +81,7 @@
           <div class="infopanel">
             <div class="daySeparator">
               <h3>Today</h3>
-              <a href="events/event" ng-repeat="event in index.events"><li><span>{{event.title}}</span></li></a>
+              <a href="events/event" ng-repeat="event in dashboard.events"><li><span>{{event.title}}</span></li></a>
             </div>
             <div class="daySeparator">
               <h3>Tomorrow</h3>
@@ -109,7 +109,7 @@
             </div>
           </div>
           <div class="infopanel">
-            <a href="tags/tag" ng-repeat="tag in index.tags">
+            <a href="tags/tag" ng-repeat="tag in dashboard.tags">
               <div class="subitem subdash">
                 <img class="subicon" src="img/tags.png" />
                 <span class="subitemtext subdashtext">{{tag.name}}</span>          
