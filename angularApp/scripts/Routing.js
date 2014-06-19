@@ -14,8 +14,16 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('dashboard', {
 			url: "/dashboard",
-			templateUrl: "templates/dashboard.html",
+			templateUrl: "templates/dashboard/dashboard.html",
 			controller: "DashboardController"
+		})
+		.state('settings', {
+			url: "/settings",
+			templateUrl: "templates/settings.html"
+		})
+		.state('orphans', {
+			url: "/orphans",
+			templateUrl: "templates/orphans/orphans.html"
 		})
 
 	});
