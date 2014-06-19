@@ -1,19 +1,22 @@
 (function() {
 
+var RoutingModule = angular.module('Routing', ['ReportsModule', 'DashboardModule']);
 
-var RoutingModule = angular.module('Routing', ['ngRoute', 'ReportsModule', 'DashboardModule']);
+RoutingModule.config(function($stateProvider, $urlRouterProvider) {
+	
+	$urlRouterProvider.otherwise("/dashboard");
 
-RoutingModule.config(['$routeProvider',
-	function($routeProvider) {
-		$routeProvider.
-		when('/reports', {
-			templateUrl: 'templates/reports/reports.html',
-			controller: 'ReportsController',
-		}).
-		when('/', {
-			templateUrl: 'templates/dashboard.html',
-			controller: 'DashboardController',
+	$stateProvider
+		.state('reports', {
+			url: "/reports",
+			templateUrl: "templates/reports/reports.html",
+			controller: "ReportsController"
 		})
-	}]);
+		.state('dashboard', {
+			url: "/dashboard",
+			templateUrl: "templates/dashboard.html",
+			controller: "DashboardController"
+		})
 
+	});
 })();
