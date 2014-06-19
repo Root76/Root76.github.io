@@ -5,7 +5,7 @@ var RoutingModule = angular.module('Routing', ['ReportsModule', 'DashboardModule
 RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 	
 	$urlRouterProvider.otherwise("/dashboard");
-
+	
 	$stateProvider
 		.state('reports', {
 			url: "/reports",
@@ -24,6 +24,10 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 		.state('orphans', {
 			url: "/orphans",
 			templateUrl: "templates/orphans/orphans.html"
+		})
+		.state('calendar', {
+			url: "/calendar",
+			templateUrl: "templates/reports/reports.html"
 		})
 
 	});
