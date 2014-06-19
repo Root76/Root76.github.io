@@ -15,7 +15,7 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 		.state('dashboard', {
 			url: "/dashboard",
 			templateUrl: "templates/dashboard/dashboard.html",
-			controller: "DashboardController"
+			controller: "IndexController"
 		})
 		.state('settings', {
 			url: "/settings",
