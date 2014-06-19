@@ -1,9 +1,9 @@
+var authToken = '4N9-_NWfYvYxpesMVpne';
+var authEmail = 'hweaver@evenspring.com';
+
 (function(){
 
 	var app = angular.module('DayWonApplication', ['ContactServices', 'TagServices', 'TaskServices', 'EventServices', 'Routing']);
-
-	var authToken = '4N9-_NWfYvYxpesMVpne';
-	var authEmail = 'hweaver@evenspring.com';
 
 	app.config(['$httpProvider', function($httpProvider) {
 

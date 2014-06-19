@@ -7,6 +7,8 @@ setTimeout(function() {
     }
 }, 2000);
 
+$( document ).ready(function() {
+
     $('nav a').click(function(evt){
 		var link = $(this);
 		var samePage = link.hasClass('active');
@@ -1394,7 +1396,26 @@ setTimeout(function() {
 	if (links.hasClass('active'))
 		viewMenu.addClass('active');
 	else viewMenu.removeClass('active');
-	
+
+    // javascript-based calling of modals so as to not interfere with Ember URLS with #
+    var allModals = $('.modalDialog');
+    var closeButtons = $('.close');
+    closeButtons.click(function(){ allModals.removeClass('active'); }); 
+    var modal1Links = $('.openModal');
+    modal1Links.click(function(){ $('#openModal').addClass('active'); });
+    var modal2Links = $('.openModal2');
+    modal2Links.click(function(){ $('#openModal2').addClass('active'); });
+    var modal3Links = $('.openModal3');
+    modal3Links.click(function(){ $('#openModal3').addClass('active'); });
+    var modal4Links = $('.openModal4');
+    modal4Links.click(function(){ $('#openModal4').addClass('active'); });
+    var modal5Links = $('.openModal5');
+    modal5Links.click(function(){ $('#openModal5').addClass('active'); });
+    var modal6Links = $('.openModal6');
+    modal6Links.click(function(){ $('#openModal6').addClass('active'); });
+    var modal6Links = $('.openModal7');
+    modal6Links.click(function(){ $('#openModal7').addClass('active'); });
+
 	// set current email
     $("#eaddr option:first").html(authEmail);
     
@@ -2088,3 +2109,5 @@ setTimeout(function(){
     })();
 
 }, 1);
+
+});
