@@ -10,6 +10,14 @@ RoutingModule.config(['$routeProvider',
 			templateUrl: 'templates/reports/reports.html',
 			controller: 'ReportsController',
 		}).
+		when('/calendar', {
+			templateUrl: 'templates/calendar.html',
+			controller: 'CalendarController',
+		}).
+		when('/settings', {
+			templateUrl: 'templates/settings.html',
+			controller: 'SettingsController',
+		}).
 		when('/', {
 			templateUrl: 'templates/dashboard.html',
 			controller: 'DashboardController',
