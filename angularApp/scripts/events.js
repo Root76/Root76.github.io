@@ -9,6 +9,8 @@ setTimeout(function() {
 
 $( document ).ready(function() {
 
+setTimeout(function(){
+
     $('nav a').click(function(evt){
 		var link = $(this);
 		var samePage = link.hasClass('active');
@@ -48,7 +50,11 @@ $( document ).ready(function() {
     });
 
     $('.sortitem').unbind("click").bind("click", function(event){
-        var sortType = event.target.id;
+        console.log("clicked");
+        var sortType = this.id;
+        console.log(sortType);
+        $('.listitem').removeClass('active');
+        $('.listitem.' + sortType).addClass('active');
         if ($(event.target).parent().hasClass('selected')) {
             if ($(event.target).find('ul').hasClass('invis')) {
                 $(event.target).find('ul').removeClass('invis');
@@ -62,8 +68,7 @@ $( document ).ready(function() {
             $(event.target).parent().addClass('selected');
             $(event.target).find('ul').addClass("sortby");
         }
-        setTimeout(function(){
-            if ($("#subEvent.selected").length) {
+            /*if ($("#subEvent.selected").length) {
                 $(".subEvent").css("display", "block");
             } else {
                 $(".subEvent").css("display", "none");
@@ -82,170 +87,221 @@ $( document ).ready(function() {
                 $(".subTag").css("display", "block");
             } else {
                 $(".subTag").css("display", "none");
-            }
-            $(".listitem.active").accordion("refresh"); 
-        }, 1000);
+            }*/
+        setTimeout(function(){
+            $(".listitem.active").accordion("refresh");
+        }, 500); 
     });
 
-    setTimeout(function(){
-		$('.listitem > h3').unbind("click").bind("click", function(){
+    $('.listitem').accordion({
+        active: false,
+        collapsible: true,
+        header: "h3.mainsort"/*, // force only 1 header in this accordion
+        beforeActivate: function(evt, obj) {
+            var OFFSET = -30;
+            var collapsing = obj.newHeader.length === 0;
+            if (!collapsing)
+                //$('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
+        }*/
+    });
 
-            var thisArrow = $(this).parent().find(".accordionarrow");
-            var thisId = $(this).find('a').attr('href');
-            thisId = thisId.replace( /^\D+/g, '');
-            var currentObject, objectType;
-            var dataContacts, dataEvents, dataTasks, dataTags;
+	$('.listitem > h3').unbind("click").bind("click", function(){
 
-	        if ($(thisArrow).hasClass("arrowdown")) {
-	            $(thisArrow).removeClass("arrowdown");
-	        } else {
-                $(thisArrow).addClass("arrowdown");
-                if ($(this).hasClass("dataRetrieved")) {
-                    console.log("already have data, not requesting again");
-                } else {
-                    $(this).addClass('dataRetrieved');
-                    $('.currentAccord').removeClass('currentAccord');
-                    $(this).parent().addClass('currentAccord');
-                    var contactListCont = $('.currentAccord').find('.subContact');
-                    var eventListCont = $('.currentAccord').find('.subEvent');
-                    var taskListCont = $('.currentAccord').find('.subTask');
-                    var tagListCont = $('.currentAccord').find('.subTag');
+        var thisArrow = $(this).parent().find(".accordionarrow");
+        var thisId = $(this).find('span.ng-binding').html();
+        thisId = thisId.replace( /^\D+/g, '');
+        var currentObject, objectType;
+        var dataContacts, dataEvents, dataTasks, dataTags;
 
-                    console.log(contactListCont.length + " " + eventListCont.length + " " + taskListCont.length + " " + tagListCont.length);
+        if ($(thisArrow).hasClass("arrowdown")) {
+            $(thisArrow).removeClass("arrowdown");
+        } else {
+            $(thisArrow).addClass("arrowdown");
+            if ($(this).hasClass("dataRetrieved")) {
+                console.log("already have data, not requesting again");
+            } else {
+                $(this).addClass('dataRetrieved');
+                $('.currentAccord').removeClass('currentAccord');
+                $(this).parent().addClass('currentAccord');
+                var contactListCont = $('.currentAccord').find('.subContact');
+                var eventListCont = $('.currentAccord').find('.subEvent');
+                var taskListCont = $('.currentAccord').find('.subTask');
+                var tagListCont = $('.currentAccord').find('.subTag');
 
-                    if ($(this).parent().hasClass('maincontact')) {
-                        objectType = "contacts";
-                    } else if ($(this).parent().hasClass('mainevent')) {
-                        objectType = "events";
-                    } else if ($(this).parent().hasClass('maintask')) {
-                        objectType = "tasks";
-                    } else if ($(this).parent().hasClass('maintag')) {
-                        objectType = "tags";
-                    } 
+                console.log(contactListCont.length + " " + eventListCont.length + " " + taskListCont.length + " " + tagListCont.length);
 
-                    $.ajax({
-                        type: 'GET',
-                        url: 'http://daywon-api-staging.herokuapp.com/' + objectType + "/" + thisId,
-                        contentType: "application/json",
-                        dataType: "json",
-                        headers: {
-                            "X-AUTHENTICATION-TOKEN": authToken,
-                            "X-AUTHENTICATION-EMAIL": authEmail
-                        },
-                        success: function (data) {
-                            console.log("original data: " + data['events']);
-                            try {
-                                if (data['contacts'].length > -1) {
-                                    dataContacts = data['contacts'];
-                                    var arrContacts = [];
-                                    for (var key in dataContacts) {
-                                        if (dataContacts.hasOwnProperty(key)) {
-                                            arrContacts.push(dataContacts[key]);  
-                                        }
-                                    }
-                                    console.log(arrContacts.length + " Contacts");
-                                    $(contactListCont).find('span').remove();
-                                    if (arrContacts.length > 0) {
-                                        for (var i = 0; i < arrContacts.length; i++) {
-                                            currentObject = arrContacts[i].name;
-                                            currentObject = '<span class="subitemtext">' + currentObject + '</span>';
-                                            $(contactListCont).append(currentObject);
-                                        }
-                                    } else {
-                                        $(contactListCont).append('<span class="subitemtext">No related contacts</span>');
+                if ($(this).parent().hasClass('maincontact')) {
+                    objectType = "contacts";
+                } else if ($(this).parent().hasClass('mainevent')) {
+                    objectType = "events";
+                } else if ($(this).parent().hasClass('maintask')) {
+                    objectType = "tasks";
+                } else if ($(this).parent().hasClass('maintag')) {
+                    objectType = "tags";
+                } 
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://daywon-api-staging.herokuapp.com/' + objectType + "/" + thisId,
+                    contentType: "application/json",
+                    dataType: "json",
+                    headers: {
+                        "X-AUTHENTICATION-TOKEN": authToken,
+                        "X-AUTHENTICATION-EMAIL": authEmail
+                    },
+                    success: function (data) {
+                        console.log("original data: " + data['events']);
+                        try {
+                            if (data['contacts'].length > -1) {
+                                dataContacts = data['contacts'];
+                                var arrContacts = [];
+                                for (var key in dataContacts) {
+                                    if (dataContacts.hasOwnProperty(key)) {
+                                        arrContacts.push(dataContacts[key]);  
                                     }
                                 }
-                            } catch (err) {
-                                console.log("no contact array found: " + err);
-                            }
-                            try {
-                                if (data['events'].length > -1) {
-                                    dataEvents = data['events'];
-                                    var arrEvents = [];
-                                    for (var key in dataEvents) {
-                                        if (dataEvents.hasOwnProperty(key)) {
-                                            arrEvents.push(dataEvents[key]);
-                                        }
+                                console.log(arrContacts.length + " Contacts");
+                                $(contactListCont).find('span').remove();
+                                if (arrContacts.length > 0) {
+                                    for (var i = 0; i < arrContacts.length; i++) {
+                                        currentObject = arrContacts[i].name;
+                                        currentObject = '<span class="subitemtext">' + currentObject + '</span>';
+                                        $(contactListCont).append(currentObject);
                                     }
-                                    console.log(arrEvents.length + " Events");
-                                    $(eventListCont).find('span').remove();
-                                    if (arrEvents.length > 0) {
-                                        for (var i = 0; i < arrEvents.length; i++) {
-                                            currentObject = arrEvents[i].title;
-                                            currentObject = '<span class="subitemtext">' + currentObject + '</span>';
-                                            $(eventListCont).append(currentObject);
-                                        }
-                                    } else {
-                                        $(eventListCont).append('<span class="subitemtext">No related events</span>');
-                                    }
-                                } 
-                            } catch (err) {
-                                console.log("no event array found: " + err);
-                                $(eventListCont).find('span').remove();
-                                $(eventListCont).append("Error retrieving events");
-                            }
-                            try {
-                                if (data['tasks'].length > -1) {
-                                    dataTasks = data['tasks'];
-                                    var arrTasks = [];
-                                        for (var key in dataTasks) {
-                                        if (dataTasks.hasOwnProperty(key)) {
-                                            arrTasks.push(dataTasks[key]);  
-                                        }
-                                    }
-                                    console.log(arrTasks.length + " Tasks");
-                                    $(taskListCont).find('span').remove();
-                                    if (arrTasks.length > 0) {
-                                        for (var i = 0; i < arrTasks.length; i++) {
-                                            currentObject = arrTasks[i].title;
-                                            currentObject = '<span class="subitemtext">' + currentObject + '</span>';
-                                            $(taskListCont).append(currentObject);
-                                        }
-                                    } else {
-                                        $(taskListCont).append('<span class="subitemtext">No related tasks</span>');
-                                    }
-                                } 
-                            } catch (err) {
-                                console.log("no task array found: " + err);
-                                $(taskListCont).find('span').remove();
-                                $(taskListCont).append("Error retrieving tasks");
-                            }
-                            try {
-                                if (data['tags'].length > -1) {
-                                    dataTags = data['tags'];
-                                    var arrTags = [];
-                                        for (var key in dataTags) {
-                                        if (dataTags.hasOwnProperty(key)) {
-                                            arrTags.push(dataTags[key]);  
-                                        }
-                                    }
-                                    console.log(arrTags.length + " Tags");
-                                    $(tagListCont).find('span').remove();
-                                    if (arrTags.length > 0) {
-                                        for (var i = 0; i < arrTags.length; i++) {
-                                            currentObject = arrTags[i].name;
-                                            currentObject = '<span class="subitemtext">' + currentObject + '</span>';
-                                            $(tagListCont).append(currentObject);
-                                        }
-                                    } else {
-                                        $(tagListCont).append('<span class="subitemtext">No related tags</span>');
-                                    }
+                                } else {
+                                    $(contactListCont).append('<span class="subitemtext">No related contacts</span>');
                                 }
-                            } catch (err) {
-                                console.log("no tag array found: " + err);
-                                $(tagListCont).find('span').remove();
-                                $(tagListCont).append("Error retrieving tags");
                             }
-                        },
-                        error: function (e) {
-                            alert("There was an error loading settings: " + e);
+                        } catch (err) {
+                            console.log("no contact array found: " + err);
                         }
+                        try {
+                            if (data['events'].length > -1) {
+                                dataEvents = data['events'];
+                                var arrEvents = [];
+                                for (var key in dataEvents) {
+                                    if (dataEvents.hasOwnProperty(key)) {
+                                        arrEvents.push(dataEvents[key]);
+                                    }
+                                }
+                                console.log(arrEvents.length + " Events");
+                                $(eventListCont).find('span').remove();
+                                if (arrEvents.length > 0) {
+                                    for (var i = 0; i < arrEvents.length; i++) {
+                                        currentObject = arrEvents[i].title;
+                                        currentObject = '<span class="subitemtext">' + currentObject + '</span>';
+                                        $(eventListCont).append(currentObject);
+                                    }
+                                } else {
+                                    $(eventListCont).append('<span class="subitemtext">No related events</span>');
+                                }
+                            } 
+                        } catch (err) {
+                            console.log("no event array found: " + err);
+                            $(eventListCont).find('span').remove();
+                            $(eventListCont).append("Error retrieving events");
+                        }
+                        try {
+                            if (data['tasks'].length > -1) {
+                                dataTasks = data['tasks'];
+                                var arrTasks = [];
+                                    for (var key in dataTasks) {
+                                    if (dataTasks.hasOwnProperty(key)) {
+                                        arrTasks.push(dataTasks[key]);  
+                                    }
+                                }
+                                console.log(arrTasks.length + " Tasks");
+                                $(taskListCont).find('span').remove();
+                                if (arrTasks.length > 0) {
+                                    for (var i = 0; i < arrTasks.length; i++) {
+                                        currentObject = arrTasks[i].title;
+                                        currentObject = '<span class="subitemtext">' + currentObject + '</span>';
+                                        $(taskListCont).append(currentObject);
+                                    }
+                                } else {
+                                    $(taskListCont).append('<span class="subitemtext">No related tasks</span>');
+                                }
+                            } 
+                        } catch (err) {
+                            console.log("no task array found: " + err);
+                            $(taskListCont).find('span').remove();
+                            $(taskListCont).append("Error retrieving tasks");
+                        }
+                        try {
+                            if (data['tags'].length > -1) {
+                                dataTags = data['tags'];
+                                var arrTags = [];
+                                    for (var key in dataTags) {
+                                    if (dataTags.hasOwnProperty(key)) {
+                                        arrTags.push(dataTags[key]);  
+                                    }
+                                }
+                                console.log(arrTags.length + " Tags");
+                                $(tagListCont).find('span').remove();
+                                if (arrTags.length > 0) {
+                                    for (var i = 0; i < arrTags.length; i++) {
+                                        currentObject = arrTags[i].name;
+                                        currentObject = '<span class="subitemtext">' + currentObject + '</span>';
+                                        $(tagListCont).append(currentObject);
+                                    }
+                                } else {
+                                    $(tagListCont).append('<span class="subitemtext">No related tags</span>');
+                                }
+                            }
+                        } catch (err) {
+                            console.log("no tag array found: " + err);
+                            $(tagListCont).find('span').remove();
+                            $(tagListCont).append("Error retrieving tags");
+                        }
+                    },
+                    error: function (e) {
+                        alert("There was an error loading settings: " + e);
+                    }
 
-                    });
-                }
+                });
             }
-	    });
-	}, 100);
+        }
+    });
+
+    if ($("#sortbycolumn").length) {
+        var allItems = $('.listitem');
+        for (var i = 0; i < 15; i++) {
+            $(allItems[i]).addClass('active');
+        }
+        setTimeout(function(){
+            $('.listitem.active').accordion("refresh");
+            $("#loader").removeClass("showLoader");
+        }, 1000); 
+        window.onscroll = function(ev) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 155) {
+                console.log("rock bottom");
+                var currentSort = $('.sortitem.selected').attr('id');
+                var allItems = $('.listitem.' + currentSort);
+                console.log(currentSort);
+                var j = 0;
+                for (var i = 0; j < 15; i++) {
+                    if ($(allItems[i]).hasClass('active')) {
+                        console.log('skipping, already active');
+                    } else {
+                        $(allItems[i]).addClass('active');
+                        $(allItems[i]).accordion({
+                            active: false,
+                            collapsible: true,
+                            header: "h3.mainsort", // force only 1 header in this accordion
+                            /*beforeActivate: function(evt, obj) {
+                                var OFFSET = -30;
+                                var collapsing = obj.newHeader.length === 0;
+                                if (!collapsing)
+                                    //$('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
+                            }*/
+                        });
+                        j++;
+                    }
+                }
+                $('.listitem.active').accordion("refresh");
+            }
+        };
+    }
 
     $('.sortcont').click(function(e) {
     }).on('click', 'h3', function(e) {
@@ -269,13 +325,13 @@ $( document ).ready(function() {
                 $(allItems[i]).accordion({
                     active: false,
                     collapsible: true,
-                    header: "h3.mainsort", // force only 1 header in this accordion
+                    header: "h3.mainsort"/*, // force only 1 header in this accordion
                     beforeActivate: function(evt, obj) {
                         var OFFSET = -30;
                         var collapsing = obj.newHeader.length === 0;
                         if (!collapsing)
                             $('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
-                    }
+                    }*/
                 });
             }
 	        $('.accordionarrow').removeClass('arrowdown');
@@ -343,8 +399,6 @@ $( document ).ready(function() {
     $('.detailCreate').click(function(){
         $("#createicon").click();
     });
-
-    $('.listitem > .sortitem > select').click();
 	
 	$("#contactsdash").click(function() {
 		$("#viewmenu > a")[0].click();
@@ -838,46 +892,6 @@ $( document ).ready(function() {
         $(dayList[6]).find('h3').html(day7);
     } else {
         $("#openModal6").removeClass("active");
-    }
-
-    if ($("#sortbycolumn").length) {
-        setTimeout(function(){
-            var allItems = $('.listitem');
-            for (var i = 0; i < 15; i++) {
-                $(allItems[i]).addClass('active');
-            }
-            setTimeout(function(){
-                $('.listitem.active').accordion("refresh");
-                $("#loader").removeClass("showLoader");
-            }, 1000);
-        }, 500);
-        window.onscroll = function(ev) {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 155) {
-                console.log("rock bottom");
-                var allItems = $('.listitem');
-                var j = 0;
-                for (var i = 0; j < 15; i++) {
-                    if ($(allItems[i]).hasClass('active')) {
-                        console.log('skipping, already active');
-                    } else {
-                        $(allItems[i]).addClass('active');
-                        $(allItems[i]).accordion({
-                            active: false,
-                            collapsible: true,
-                            header: "h3.mainsort", // force only 1 header in this accordion
-                            beforeActivate: function(evt, obj) {
-                                var OFFSET = -30;
-                                var collapsing = obj.newHeader.length === 0;
-                                if (!collapsing)
-                                    $('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
-                            }
-                        });
-                        j++;
-                    }
-                }
-                $('.listitem.active').accordion("refresh");
-            }
-        };
     }
 
     if ($("#contactShow").length) {
@@ -2110,4 +2124,6 @@ setTimeout(function(){
 
 }, 1);
 
+
+}, 1000);
 });
