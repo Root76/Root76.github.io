@@ -51,5 +51,4 @@ var authEmail = 'hweaver@evenspring.com';
 
 
 		}]);
-
 })();

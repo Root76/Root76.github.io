@@ -1,6 +1,10 @@
 
-var dashboardModule = angular.module('DashboardModule', []);
 
-dashboardModule.controller('DashboardController', function(){
-	
-});
+(function(){
+
+	var dashboardModule = angular.module('DashboardModule', []);
+
+	dashboardModule.controller('DashboardController', function(){
+		
+	});
+})();
