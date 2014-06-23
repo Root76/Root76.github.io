@@ -1,5 +1,5 @@
 <div class="mobileCover" id="eventsCover"></div>
-  <div id="appcont" class="viewcont">
+  <div id="appcont" class="viewcont" ng-controller="EventsController as allEvents">
     <div class="section-container" id="taskscont">
       <div class="row">
         <div class="col-md-4" id="taskpane1">
@@ -19,10 +19,34 @@
             </div>
           </div>
           <ul id="eventlist" class="sidelist">
-            <a href="event.html"><li>Event Title</li></a>
+            <a href="event.html" ng-repeat="event in allEvents.events"><li>{{event.title}}</li></a>
           </ul>
         </div>
-        {{outlet}}
+        <!--OUTLET-->
+        <div class="col-md-7" id="eventpanel2">
+          <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+          <img src="img/arrow.png" class="backArrow" />
+          <h2 id="contactname" class="eventname"><b>Select an event</b></h2>
+          <div id="detailmenubar">
+            <img src="img/contacts.png" />
+            <img src="img/events.png" class="selected" />
+            <img src="img/tasks.png" />
+            <img src="img/tags.png" /> 
+            <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+            <img src="img/trash.png" id="trashicon"/>              
+          </div>
+          <div class="panelcontent" id="eventscontent">              
+            <div class="infopanel">
+            </div>
+            <div class="infopanel">
+            </div>
+            <div class="infopanel selected">
+            </div>
+            <div class="infopanel">
+            </div>
+          </div>
+        </div>
+        <!--/OUTLET-->
       </div>
     </div>
   </div>

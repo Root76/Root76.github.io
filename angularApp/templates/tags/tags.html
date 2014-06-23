@@ -1,5 +1,5 @@
 <div class="mobileCover" id="tagsCover"></div>
-  <div id="appcont" class="viewcont">
+  <div id="appcont" class="viewcont" ng-controller="TagsController as allTags">
     <div class="section-container" id="taskscont">
       <div class="row">
         <div class="col-md-4" id="taskpane1">
@@ -19,10 +19,34 @@
             </div>
           </div>
           <ul id="taglist" class="sidelist">
-            <a href="tag.html"><li>Tag Name (#)</li></a>          
+            <a href="tag.html" ng-repeat="tag in allTags.tags"><li>{{tag.name}} ({{tag.count}})</li></a>          
           </ul>
         </div>
-        {{outlet}}
+        <!--OUTLET-->
+        <div class="col-md-7" id="tagpanel2">
+          <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
+          <img src="img/arrow.png" class="backArrow" />
+          <h2 id="contactname" class="tagname">Select a tag</h2>
+          <div id="detailmenubar">
+            <img src="img/contacts.png" />
+            <img src="img/events.png" />
+            <img src="img/tasks.png" />
+            <img src="img/tags.png" class="selected" />   
+            <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
+            <img src="img/trash.png" id="trashicon"/>              
+          </div>
+          <div class="panelcontent" id="tagscontent">
+            <div class="infopanel">
+            </div>
+            <div class="infopanel">
+            </div>
+            <div class="infopanel">
+            </div>
+            <div class="infopanel selected">
+            </div>
+          </div>
+        </div>
+        <!--/OUTLET-->
       </div>
     </div>
   </div>

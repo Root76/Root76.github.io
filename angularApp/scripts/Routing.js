@@ -29,6 +29,21 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 			url: "/calendar",
 			templateUrl: "templates/reports/reports.html"
 		})
-
+		.state('contacts', {
+			url: "/contacts",
+			templateUrl: "templates/contacts/contacts.html"
+		})
+		.state('events', {
+			url: "/events",
+			templateUrl: "templates/events/events.html"
+		})
+		.state('tasks', {
+			url: "/tasks",
+			templateUrl: "templates/tasks/tasks.html"
+		})
+		.state("tags", {
+			url: "/tags",
+			templateUrl: "templates/tags/tags.html"
+		})
 	});
 })();
