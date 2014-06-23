@@ -1442,6 +1442,11 @@ h1, h2, h3, h4 {
 	border-bottom:1px solid #ddd;
 	font-weight:400;
 	cursor:pointer;
+	position:relative;
+}
+
+#tasklist li {
+	padding-left:40px;
 }
 
 #contactlist li:hover {
@@ -1454,11 +1459,11 @@ h1, h2, h3, h4 {
 
 #tasklist img {
 	width: 40px;
-	position: relative;
+	position: absolute;
 	left: 0px;
-	top: -10px;
-	margin-left: -30px;
+	top: 0px;
 }
+
 #tasklist img.completed {
 	opacity: 1;
 }

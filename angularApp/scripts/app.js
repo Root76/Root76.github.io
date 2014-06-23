@@ -1,3 +1,18 @@
+function QueryStringToJSON() {            
+    var pairs = location.search.slice(1).split('&');
+    var result = {};
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+    return JSON.parse(JSON.stringify(result));
+}
+
+var query_string = QueryStringToJSON();
+
+//var authToken = query_string.authentication_token;
+//var userEmail = query_string.user_email;
+
 var authToken = '4N9-_NWfYvYxpesMVpne';
 var authEmail = 'hweaver@evenspring.com';
 
@@ -17,7 +32,7 @@ var authEmail = 'hweaver@evenspring.com';
 
 			eventService.Events.get(function(data){
 				$scope.events = data.events;
-			})
+			});
 			
 			taskService.Tasks.get(function(data){
 				$scope.tasks = data.tasks;
@@ -30,7 +45,6 @@ var authEmail = 'hweaver@evenspring.com';
 			contactService.Contacts.query(function(data) {
 				$scope.contacts = data;
 			});
-
 
 			$scope.create = function()
 			{
@@ -52,4 +66,26 @@ var authEmail = 'hweaver@evenspring.com';
 			}
 
 		}]);
+
+	app.controller('ContactsController', ['$resource', 'contactService',
+		function($resource, contactService) {
+
+		}]);
+
+	app.controller('EventsController', ['$resource', 'eventService',
+		function($resource, eventService) {
+
+		}]);
+
+	app.controller('TasksController', ['$resource', 'taskService',
+		function($resource, taskService) {
+
+		}]);
+
+	app.controller('TagsController', ['$resource', 'tagService',
+		function($resource, tagService) {
+
+		}]);
+
+
 })();

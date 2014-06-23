@@ -16,7 +16,7 @@
         <div><h2>Sort by:</h2></div>
         <div class="menusubcont">
           <div class="subcontitem sortitem"  id="mainevent">
-            <a href="reports/events"><img src="img/calendar.png" /></a>
+            <a><img src="img/calendar.png" /></a>
           </div>
           <div class="subcontitem sortitem" id="maintask">
             <a><img src="img/tasks.png" /></a>
@@ -26,7 +26,7 @@
               <li class="suboption">Alphabetical</li>
             </ul>    
           </div>
-          <div class="subcontitem sortitem" id="maincontact">
+          <div class="subcontitem sortitem selected" id="maincontact">
             <a><img src="img/contacts.png" /></a>
           </div>
           <div class="subcontitem sortitem" id="maintag">
@@ -51,16 +51,17 @@
       <img src="img/downarrow.jpg" />
     </div>
   </div>
-  <div id="appcont" class="homeapp reportapp">
+  <div id="appcont" class="homeapp reportapp" ng-controller="IndexController as reports">
     <div class="section-container" id="homecont">
       <h3 id="collapseall" class="reportToggler">Collapse all</h3>
       <h3 id="expandall" class="reportToggler">Expand all</h3>
       <ul class="list">
-        <li class="listitem maincontact">
+        <li class="listitem maincontact" ng-repeat="contact in reports.contacts">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
-            <a href="contacts/contact"><img src="img/contacts.png" class="listimg" /></a>
-            Contact Name or Email
+            <img src="img/contacts.png" class="listimg" />
+            <span class="hidden">{{contact.id}}</span>
+            {{contact.name}}
           </h3>
           <div class="subitems">
             <div class="subitem ss1 subEvent">
@@ -77,11 +78,12 @@
             </div>
           </div>
         </li>
-        <li class="listitem mainevent">
+        <li class="listitem mainevent" ng-repeat="event in reports.events">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
-            <a href="events/event"><img src="img/calendar.png" class="listimg" /></a>
-            Event Title
+            <img src="img/events.png" class="listimg" />
+            <span class="hidden">{{event.id}}</span>
+            {{event.title}}
           </h3>
           <div class="subitems">
             <div class="subitem ss3 subContact">
@@ -98,11 +100,12 @@
             </div>
           </div>
         </li> 
-        <li class="listitem maintask">
+        <li class="listitem maintask" ng-repeat="task in reports.tasks">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
-            <a href="tasks/task"><img src="img/tasks.png" class="listimg" /></a>
-            Task Title
+            <img src="img/tasks.png" class="listimg" />
+            <span class="hidden">{{task.id}}</span>
+            {{task.title}}
             <img src="img/check.png" class="checkmark" />
           </h3>
           <div class="subitems">
@@ -120,10 +123,11 @@
             </div>
           </div>
         </li>
-        <li class="listitem maintag">
+        <li class="listitem maintag" ng-repeat="tag in reports.tags">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
-            <a href="tags/tag"><img src="img/tags.png" class="listimg" /></a>
+            <img src="img/tags.png" class="listimg" />
+            <span class="hidden">{{tag.id}}</span>
             Tag Name
           </h3>
           <div class="subitems">

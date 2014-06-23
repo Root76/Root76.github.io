@@ -9,21 +9,21 @@
         <link rel="stylesheet" type="text/css" href="styles/datetimepicker.css">
         <link rel="stylesheet" type="text/css" href="styles/media_queries.css">
         <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
-         <script type="text/javascript" src="libs/jquery-1.10.2.js"></script>
-         <script type="text/javascript" src="libs/opentip.js"></script>
-         <script type="text/javascript" src="libs/moment.js"></script>
-         <script type="text/javascript" src="libs/typeahead.js"></script>
-         <script type="text/javascript" src="libs/iscroll.js"></script>
-         <script type="text/javascript" src="libs/fullcalendar.js"></script>
-         <script type="text/javascript" src="libs/fastclick.js"></script>
-         <script type="text/javascript" src="libs/datetimepicker.js"></script>
-         <script type="text/javascript" src="libs/angular.min.js"></script>
-         <script type="text/javascript" src="libs/angular-resource.min.js"></script>
+        <script type="text/javascript" src="libs/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="libs/jquery-ui.js"></script>
+        <script type="text/javascript" src="libs/opentip.js"></script>
+        <script type="text/javascript" src="libs/moment.js"></script>
+        <script type="text/javascript" src="libs/typeahead.js"></script>
+        <script type="text/javascript" src="libs/iscroll.js"></script>
+        <script type="text/javascript" src="libs/fullcalendar.js"></script>
+        <script type="text/javascript" src="libs/fastclick.js"></script>
+        <script type="text/javascript" src="libs/datetimepicker.js"></script>
+        <script type="text/javascript" src="libs/angular.min.js"></script>
+        <script type="text/javascript" src="libs/angular-resource.min.js"></script>
         <script type="text/javascript" src="libs/angular-route.min.js"></script>
         <script type="text/javascript" src="libs/angular-ui-router.min.js"></script>
         <script type="text/javascript" src="libs/ui-bootstrap-tpls-0.11.0.min.js"></script>
         <script type="text/javascript" src="libs/lodash.js"></script>
-
         <script type="text/javascript" src="scripts/Contacts/ContactServicesModule.js"></script>
         <script type="text/javascript" src="scripts/Tags/TagServicesModule.js"></script>
         <script type="text/javascript" src="scripts/Tasks/TaskServicesModule.js"></script>
@@ -34,7 +34,6 @@
         <script type="text/javascript" src="scripts/create.js"></script>
         <script type="text/javascript" src="scripts/app.js"></script>
         <script type="text/javascript" src="scripts/events.js"></script>
-
     </head>
     <body>
         <div id="scrollblock"></div>
@@ -83,12 +82,12 @@
                   </div>-->
                 </li>
                 <li class="navbar-link dropdown" id="viewmenu">
-                  <a href="contacts.html"><img src="img/view.png" class="navimg" />View</a>
+                  <a ui-sref="contacts.html"><img src="img/view.png" class="navimg" />View</a>
                   <ul class="dropdown-menu">
-                    <li><a href="contacts">"<img src="img/contacts.png" class="subnavimg" id="viewcontacts" />Contacts</a></li>
-                    <li><a href="events">"<img src="img/events.png" class="subnavimg" id="viewevents" />Events</a></li>
-                    <li><a href="tasks">"<img src="img/tasks.png" class="subnavimg" id="viewtasks" />Tasks</a></li>
-                    <li><a href="tags">"<img src="img/tags.png" class="subnavimg" id="viewtags" />Tags</a></li>
+                    <li><a ui-sref="contacts">"<img src="img/contacts.png" class="subnavimg" id="viewcontacts" />Contacts</a></li>
+                    <li><a ui-sref="events">"<img src="img/events.png" class="subnavimg" id="viewevents" />Events</a></li>
+                    <li><a ui-sref="tasks">"<img src="img/tasks.png" class="subnavimg" id="viewtasks" />Tasks</a></li>
+                    <li><a ui-sref="tags">"<img src="img/tags.png" class="subnavimg" id="viewtags" />Tags</a></li>
                     <li><a ui-sref="orphans">"<img src="img/orphans.png" class="subnavimg" />Orphans</a></li>
                     <li><a ui-sref="calendar">"<img src="img/calendar.png" class="subnavimg" />Calendar</a></li>
                   </ul>
@@ -111,7 +110,7 @@
         </nav>
         <div class="loggedin">
           <select id="eaddr">
-            <option value="emailaddress">tyler@evenspring.com</option>
+            <option value="emailaddress">email@evenspring.com</option>
             <option value="Logout">Logout</option>
           </select>
           <a ui-sref="orphans"><div id="orphancount">
