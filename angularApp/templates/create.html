@@ -1,0 +1,203 @@
+
+<div>
+  <a href="javascript:void(0)" title="Close" class="close">X</a>
+  <h2 id="createHeader">Create:   </h2>
+
+  <span class="dropdown" is-open="status.isopen">
+
+    <h3 id="createHeader" class="dropdown-toggle">{{dropdownText}} <span class="caret"></span></h3>
+    
+    <ul class="dropdown-menu">
+      <li><a href ng-click="selectCreation(1)">Contact</a></li>
+      <li><a href ng-click="selectCreation(2)">Event</a></li>
+      <li><a href ng-click="selectCreation(3)">Task</a></li>
+      <li><a href ng-click="selectCreation(4)">Tag</a></li>
+    </ul>
+  </span>
+
+  <div ng-show="contactSelected()" ng-controller="ContactCreationController">
+    <form>
+      
+      <div class="formrow">
+        <h4>Contact name</h4> 
+        <input type="text" class="form-control" ng-model="newContact.name" placeholder="Enter the contacts name">
+      </div>
+      
+      <div class="formrow">
+        <h4>{{emailTitle()}}</h4>
+        <div id="emailsContainer"><img ng-click="addEmail()" src="img/create.png"/></div>
+        <div ng-repeat="email in newContact.emails">
+          <input type="text" class="form-control" ng-model="email.email" placeholder="Enter the contacts email">
+          <div id="emailsDelete">
+            <img ng-click="removeEmail(email)" src="img/close.png"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="formrow">
+        <h4>Contact company</h4> 
+        <input type="text" class="form-control" ng-model="newContact.organization" placeholder="Enter the contacts company">
+      </div>
+
+      <div class="formrow">
+        <h4>{{phoneTitle()}}</h4>
+        <div id="phonesContainer"><img ng-click="addPhone()" src="img/create.png"/></div>
+        <div ng-repeat="phone in newContact.phones">
+          <input type="text" class="form-control" ng-model="phone.number" placeholder="Enter the contacts phone number">
+          <div id="phonesDelete">
+            <img ng-click="removePhone(phone)" src="img/close.png"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="formrow">
+        <h4>Contact address</h4> 
+        <input type="text" class="form-control" ng-model="newContact.address" placeholder="Enter the contacts company">
+      </div>
+
+      <div class="formrow">
+        <h4>Associate Events</h4>
+        <input type="text" ng-model="selectedEvent" typeahead="event.title for event in events | filter:$viewValue" class="form-control">
+      </div>
+
+      <button class="btn btn-default" ng-click="createContact()">Create Contact</button>
+
+    </form>
+
+     <!--<form>
+       <div class="formrow">First name: <input type="text" id="contactFirst"></div>
+       <div class="formrow">Last name: <input type="text" id="contactLast"></div>
+       <div class="formrow">Contact email: 
+         <div id="emailsContainer">
+           <img src="img/create.png" /><img src="img/close.png" />
+           <input type="text" class="contactEmail" />
+         </div>
+       </div>
+       <div class="formrow">Contact company: <input type="text" id="contactOrg"></div>
+       <div class="formrow">Contact phone number:                   
+         <div id="phonesContainer">
+           <img src="img/create.png" /><img src="img/close.png" />
+           <input type="text" class="contactPhone" />
+         </div>
+       </div>
+       <div class="formrow">Contact address: <input type="text" id="contactAddr"></div>
+       <div class="formrow">Connect related items: <br /><input id="typeAheadContact" />
+       </div>
+       <div class="formrow">
+         Selected Items:
+         <div class="relatedList relatedContacts">
+           <ul>
+           </ul>
+         </div>
+       </div>
+       <div class="formrow"><input type="submit"></div>
+     </form> -->
+
+   </div>
+   <div ng-show="eventSelected()">
+     <form>
+       <div class="formrow">Event title: <input type="text" id="eventName"></div>
+       <div class="formrow">Event description: <input type="text" id="eventDetails"></div>
+       <div class="formrow">Event location: <input type="text" id="eventLocation"></div>
+       <div class="formrow">
+         <span>All Day: </span>
+         <div class="squaredTwo">
+           <input type="checkbox" value="None" id="allDay" name="check" />
+           <label for="allDay"></label>
+         </div>
+         <span>Recurring: </span>
+         <div class="squaredTwo">
+           <input type="checkbox" value="None" id="recurring" name="check" />
+           <label for="recurring"></label>
+         </div>
+       </div>
+       <div class="formrow eventDateStart">
+         Start date: <input type="text" id="eventStart"><img src="img/calendar.png" />
+       </div>
+       <div class="formrow eventDateEnd">
+         End date: <input type="text" id="eventEnd"><img src="img/calendar.png" />
+       </div>
+       <div class="formrow allDayStart">
+         Start date: <input type="text" id="allDayStart"><img src="img/calendar.png" />
+       </div>
+       <div class="formrow allDayEnd">
+         End date: <input type="text" id="allDayEnd"><img src="img/calendar.png" />
+       </div>
+       <div id="recurringContainer">
+         <div class="formrow">
+           Repeats: <br /><select id="recurrChoice">
+             <option>Daily</option>
+             <option>Weekly</option>
+             <option>Monthly</option>
+             <option>Yearly</option>
+             <option>All weekdays</option>
+             <option>Monday / Wednesday / Friday</option>
+             <option>Tuesday / Thursday</option>
+           </select><div id="recurringInterval"> every <input type="number" name="quantity" min="1" max="30" id="intervalSelect"> days</div>
+         </div>
+         <div class="formrow">
+           Ends: <div class="endSelect formrow"><input type="radio" name="ending" value="never">Never</div>
+                 <div class="endSelect formrow"><input type="radio" name="ending" value="after">After <input type="number" name="occurences" min="1" max="99999" id="recurrNumber"> occurences</div>
+                 <div class="endSelect formrow endEvent"><input type="radio" name="ending" value="on">On <input type="text" id="endEventRepeat"><img src="img/calendar.png" /></div>
+         </div>
+       </div>
+       <div class="formrow">Connect related items: <br /><input id="typeAheadEvent" /></div>
+       <div class="formrow">
+         Selected Items:
+         <div class="relatedList relatedEvents">
+           <ul>
+           </ul>
+         </div>
+       </div>
+       <div class="formrow"><input type="submit"></div>
+     </form>
+   </div>
+   <div ng-show="taskSelected()">
+     <form>
+       <div class="formrow">Task title: <input type="text" id="taskName"></div>
+       <div class="formrow">Task notes: <input type="text" id="taskNotes"></div>
+       <div class="formrow">
+         <span>Add time to due date: </span>
+         <div class="squaredTwo">
+           <input type="checkbox" value="None" id="taskTime" name="check" />
+           <label for="taskTime"></label>
+         </div>
+       </div>
+       <div class="formrow taskDate">Due date: <input type="text" id="taskDue"><img src="img/calendar.png" /></div>
+       <div class="formrow taskDateTime">Due date and time: <input type="text" id="taskDueTime"><img src="img/calendar.png" /></div>
+       <div class="formrow">Priority:<br /> 
+         <select id="taskPriority">
+           <option>Select a priority</option>
+           <option>High</option>
+           <option>Normal</option>
+           <option>Low</option>
+         </select>
+       </div>
+       <div class="formrow">Connect related items: <br /><input id="typeAheadTask" />
+       </div>
+       <div class="formrow">
+         Selected Items:
+         <div class="relatedList relatedTasks">
+           <ul>
+           </ul>
+         </div>
+       </div>
+       <div class="formrow"><input type="submit"></div>
+     </form>
+   </div>
+   <div ng-show="tagSelected()">
+     <form>
+       <div class="formrow">Tag title: <input type="text" id="tagName"></div>
+       <div class="formrow">Connect related items: <br /><input id="typeAheadTag" />
+       </div>
+       <div class="formrow">
+         Selected Items:
+         <div class="relatedList relatedTags">
+           <ul>
+           </ul>
+         </div>
+       </div>
+       <div class="formrow"><input type="submit"></div>
+     </form>
+   </div>
+</div>

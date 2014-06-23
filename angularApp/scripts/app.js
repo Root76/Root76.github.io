@@ -3,7 +3,7 @@ var authEmail = 'hweaver@evenspring.com';
 
 (function(){
 
-	var app = angular.module('DayWonApplication', ['ui.router', 'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 'Routing']);
+	var app = angular.module('DayWonApplication', ['ui.router', 'ui.bootstrap', 'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 'Routing', 'CreateModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
 
@@ -12,29 +12,44 @@ var authEmail = 'hweaver@evenspring.com';
 		//$httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 	}]);
 
-	app.controller('IndexController', ['$resource', 'contactService', 'tagService', 'taskService', 'eventService',
-		function($resource, contactService, tagService, taskService, eventService) {
-
-
-			var ctrl = this;
+	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
+		function($scope, $resource, $modal, contactService, tagService, taskService, eventService) {
 
 			eventService.Events.get(function(data){
-				ctrl.events = data.events;
+				$scope.events = data.events;
 			})
 			
 			taskService.Tasks.get(function(data){
-				ctrl.tasks = data.tasks;
+				$scope.tasks = data.tasks;
 			});
 
 			tagService.Tags.get(function(data){
-				ctrl.tags = data.tags;
+				$scope.tags = data.tags;
 			});			
 			
 			contactService.Contacts.query(function(data) {
-				ctrl.contacts = data;
+				$scope.contacts = data;
 			});
 
 
+			$scope.create = function()
+			{
+				var modalInstance = $modal.open({
+					templateUrl: 'templates/create.html',
+					controller: 'CreationController',
+					resolve : {
+						contacts : function() { return $scope.contacts; },
+						events : function() { return $scope.events; },
+						tasks : function() { return $scope.tasks; },
+						tags : function() { return $scope.tags; }
+					}
+				});
+
+				modalInstance.result.then(function(newContact) {
+					console.log(newContact);
+					contactService.Contacts.create(newContact);
+				});
+			}
 
 		}]);
 })();
