@@ -1,3 +1,9 @@
+<script type="text/ng-template" id="createAssociateTemplate.html">
+  <a tabindex="-1">
+      <img ng-src="img/{{match.model.type}}s.png">
+      <span bind-html-unsafe="match.model.title | typeaheadHighlight:query"></span>
+  </a>
+</script>
 
 <div>
   <a href="javascript:void(0)" title="Close" class="close">X</a>
@@ -56,9 +62,26 @@
       </div>
 
       <div class="formrow">
-        <h4>Associate Events</h4>
-        <input type="text" ng-model="selectedEvent" typeahead="event.title for event in events | filter:$viewValue" class="form-control">
+        <h4>Associate Items</h4>
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue}" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label)" class="form-control">
       </div>
+
+       <div class="formrow">
+         Selected Items:
+         <div class="relatedList relatedContacts">
+           <ul ng-repeat="object in associatedObjects">
+
+              <li ng-show="object.type=='event'">
+                <img class="pull-left" src="img/events.png">
+                {{object.title}}
+                <img ng-click="removeObject(object)" src="img/close.png"/>
+              </li>
+
+              <li ng-show="object.type=='task'"><img src="img/tasks.png">{{object.title}}</li>
+              <li ng-show="object.type=='tag'"><img src="img/tags.png">{{object.title}}</li>
+           </ul>
+         </div>
+       </div>
 
       <button class="btn btn-default" ng-click="createContact()">Create Contact</button>
 
@@ -94,7 +117,10 @@
      </form> -->
 
    </div>
-   <div ng-show="eventSelected()">
+   <div ng-show="eventSelected()" ng-controller="EventCreationController">
+
+
+     <!--
      <form>
        <div class="formrow">Event title: <input type="text" id="eventName"></div>
        <div class="formrow">Event description: <input type="text" id="eventDetails"></div>
@@ -151,7 +177,10 @@
        </div>
        <div class="formrow"><input type="submit"></div>
      </form>
+     -->
    </div>
+
+
    <div ng-show="taskSelected()">
      <form>
        <div class="formrow">Task title: <input type="text" id="taskName"></div>

@@ -67,24 +67,32 @@ var authEmail = 'hweaver@evenspring.com';
 
 		}]);
 
-	app.controller('ContactsController', ['$resource', 'contactService',
-		function($resource, contactService) {
-
+	app.controller('ContactsController', ['$resource', '$scope', 'contactService',
+		function($resource, $scope, contactService) {
+			contactService.Contacts.query(function(data) {
+				$scope.contacts = data;
+			});
 		}]);
 
-	app.controller('EventsController', ['$resource', 'eventService',
-		function($resource, eventService) {
-
+	app.controller('EventsController', ['$resource', '$scope', 'eventService',
+		function($resource, $scope, eventService) {
+			eventService.Events.get(function(data){
+				$scope.events = data.events;
+			});
 		}]);
 
-	app.controller('TasksController', ['$resource', 'taskService',
-		function($resource, taskService) {
-
+	app.controller('TasksController', ['$resource', '$scope', 'taskService',
+		function($resource, $scope, taskService) {
+			taskService.Tasks.get(function(data){
+				$scope.tasks = data.tasks;
+			});
 		}]);
 
-	app.controller('TagsController', ['$resource', 'tagService',
-		function($resource, tagService) {
-
+	app.controller('TagsController', ['$resource', '$scope', 'tagService',
+		function($resource, $scope, tagService) {
+			tagService.Tags.get(function(data){
+				$scope.tags = data.tags;
+			});	
 		}]);
 
 
