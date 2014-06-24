@@ -13,8 +13,8 @@ var query_string = QueryStringToJSON();
 //var authToken = query_string.authentication_token;
 //var userEmail = query_string.user_email;
 
-var authToken = '4N9-_NWfYvYxpesMVpne';
-var authEmail = 'hweaver@evenspring.com';
+var authToken = 'qoRyedh9o5xFLY8cpDzA';
+var authEmail = 'pastadiablo@gmail.com';
 
 (function(){
 
@@ -30,21 +30,26 @@ var authEmail = 'hweaver@evenspring.com';
 	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
 		function($scope, $resource, $modal, contactService, tagService, taskService, eventService) {
 
-			eventService.Events.get(function(data){
+			var eventsPromise = eventService.Events.get();
+			eventsPromise.$promise.then(function(data){
 				$scope.events = data.events;
 			});
 			
-			taskService.Tasks.get(function(data){
+			var tasksPromise = taskService.Tasks.get();
+			eventsPromise.$promise.then(function(data){
 				$scope.tasks = data.tasks;
 			});
 
-			tagService.Tags.get(function(data){
+			var tagsPromise = tagService.Tags.get();
+			tagsPromise.$promise.then(function(data){
 				$scope.tags = data.tags;
-			});			
-			
-			contactService.Contacts.query(function(data) {
+			});
+
+			var contactsPromise = contactService.Contacts.query();
+			contactsPromise.$promise.then(function(data) {
 				$scope.contacts = data;
 			});
+
 
 			$scope.create = function()
 			{
@@ -52,10 +57,10 @@ var authEmail = 'hweaver@evenspring.com';
 					templateUrl: 'templates/create.html',
 					controller: 'CreationController',
 					resolve : {
-						contacts : function() { return $scope.contacts; },
-						events : function() { return $scope.events; },
-						tasks : function() { return $scope.tasks; },
-						tags : function() { return $scope.tags; }
+						contacts : function() { return contactsPromise; },
+						events : function() { return eventsPromise; },
+						tasks : function() { return tasksPromise; },
+						tags : function() { return tagsPromise; }
 					}
 				});
 

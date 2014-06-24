@@ -3,14 +3,14 @@
 	var createModule = angular.module('CreateModule', ['ContactServices']);
 
 	createModule.controller('CreationController', ['$scope', '$modalInstance', 'contacts', 'events', 'tasks', 'tags',
-		function($scope, $modalInstance, contacts, events, tasks, tags) {
+		function($scope, $modalInstance, contactsPromise, eventsPromise, tasksPromise, tagsPromise) {
 
 			$scope.modalInstance = $modalInstance;
 
-			$scope.contacts = contacts;
-			$scope.events = events;
-			$scope.tasks = tasks;
-			$scope.tags = tags;
+			$scope.contactsPromise = contactsPromise;
+			$scope.eventsPromise = eventsPromise;
+			$scope.tasksPromise = tasksPromise;
+			$scope.tagsPromise = tagsPromise;
 
 			$scope.dropdownText="Select an object";
 			$scope.selection = 0;
@@ -71,48 +71,63 @@
 			$scope.objects = [];
 			$scope.associatedObjects = [];
 
-			for(var i = 0; i < $scope.events.length; i++)
-			{
-				var event = $scope.events[i];
+			$scope.eventsPromise.$promise.then(function(data){
 
-				event.type = "event";
+				var events = data.events;
 
-				var skip = false;
-
-				if(event.recurring)
+				for(var i = 0; i < events.length; i++)
 				{
-					for(var j = 0; j < $scope.objects.length; j++)
+					var event = events[i];
+
+					event.type = "event";
+
+					var skip = false;
+
+					if(event.recurring)
 					{
-						if($scope.objects[j].title == event.title)
-							skip = true;
+						for(var j = 0; j < $scope.objects.length; j++)
+						{
+							if($scope.objects[j].title == event.title)
+								skip = true;
+						}
 					}
-				}
 
-				if(!skip)
-					$scope.objects.push(event);
-			}	
+					if(!skip)
+						$scope.objects.push(event);
+				}	
+			});
 			
+			
+			$scope.tasksPromise.$promise.then(function(data){
 
-			for(var i = 0; i < $scope.tasks.length; i++)
-			{
-				var task = $scope.tasks[i];
+				var tasks = data.tasks;
 
-				task.type = "task";
+				for(var i = 0; i < tasks.length; i++)
+				{
+					var task = tasks[i];
 
-				$scope.objects.push(task);
-			}
+					task.type = "task";
 
-			for(var i = 0; i < $scope.tags.length; i++)
-			{
-				var tag = $scope.tags[i];
+					$scope.objects.push(task);
+				}
+			});
+			
+			$scope.tagsPromise.$promise.then(function(data){
+				
+				var tags = data.tags;
 
-				tag.type = "tag";
-				tag.title = tag.name;
+				for(var i = 0; i < tags.length; i++)
+				{
+					var tag = tags[i];
 
-				$scope.objects.push(tag);
-			}
+					tag.type = "tag";
+					tag.title = tag.name;
 
-			console.log($scope.objects);
+					$scope.objects.push(tag);
+				}
+			});
+
+			
 
 			$scope.emailTitle = function() {
 				if($scope.newContact.emails.length > 1)
@@ -189,7 +204,7 @@
 
 				if($scope.newContact.emails.length < 1 && $scope.newContact.emails[0] == '')
 					delete $scope.newContact.emails;
-				
+
 				$scope.modalInstance.close($scope.newContact);
 			}
 

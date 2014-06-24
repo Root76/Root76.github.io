@@ -33,6 +33,10 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 			url: "/contacts",
 			templateUrl: "templates/contacts/contacts.html"
 		})
+		.state('contacts.contact', {
+			url: "/:contact_id",
+			templateUrl: "templates/contacts/contact.html"
+		})
 		.state('events', {
 			url: "/events",
 			templateUrl: "templates/events/events.html"
