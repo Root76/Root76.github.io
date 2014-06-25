@@ -16,6 +16,22 @@ var query_string = QueryStringToJSON();
 var authToken = '4N9-_NWfYvYxpesMVpne';
 var authEmail = 'hweaver@evenspring.com';
 
+function hashHandler(){
+    this.oldHash = window.location.hash;
+    this.Check;
+    var that = this;
+    var detect = function(){
+        if(that.oldHash!=window.location.hash){
+            console.log(window.location.hash);
+            that.oldHash = window.location.hash;
+            rebindEvents();
+        }
+    };
+    this.Check = setInterval(function(){ detect() }, 100);
+}
+
+var hashDetection = new hashHandler();
+
 (function(){
 
 	var app = angular.module('DayWonApplication', 
