@@ -1,6 +1,6 @@
 (function() {
 
-var RoutingModule = angular.module('Routing', ['ReportsModule', 'DashboardModule']);
+var RoutingModule = angular.module('Routing', ['ReportsModule', 'DashboardModule', 'Contacts']);
 
 RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 	
@@ -35,7 +35,8 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('contacts.contact', {
 			url: "/:contact_id",
-			templateUrl: "templates/contacts/contact.html"
+			templateUrl: "templates/contacts/contact.html",
+			controller: "ContactController"
 		})
 		.state('events', {
 			url: "/events",

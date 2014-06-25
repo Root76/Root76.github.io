@@ -18,7 +18,11 @@ var authEmail = 'pastadiablo@gmail.com';
 
 (function(){
 
-	var app = angular.module('DayWonApplication', ['ui.router', 'ui.bootstrap', 'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 'Routing', 'CreateModule']);
+	var app = angular.module('DayWonApplication', 
+		['ui.router', 'ui.bootstrap', 
+		'Contacts', 
+		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
+		'Routing', 'CreateModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
 
@@ -70,13 +74,6 @@ var authEmail = 'pastadiablo@gmail.com';
 				});
 			}
 
-		}]);
-
-	app.controller('ContactsController', ['$resource', '$scope', 'contactService',
-		function($resource, $scope, contactService) {
-			contactService.Contacts.query(function(data) {
-				$scope.contacts = data;
-			});
 		}]);
 
 	app.controller('EventsController', ['$resource', '$scope', 'eventService',

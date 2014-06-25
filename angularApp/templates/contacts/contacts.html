@@ -32,10 +32,12 @@
           <button class="sortingToggle" id="byName">Sort</button>
           <button class="sortingToggle" id="byCompany">Sort</button>
           <ul id="contactlist" class="sidelist">
-            <a href="contact.html" ng-repeat="contact in contacts"><li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li></a>
+            <div ng-repeat="contact in contacts">
+              <a ui-sref="contacts.contact({contact_id: contact.id})"><li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li></a>
+            </div>
           </ul>
         </div>
-        <!--OUTLET-->
+        <div ui-view></div>
         <div class="col-md-7" id="contactpanel2">
           <h1 id="mobileContact">Contacts</h1>
           <img id="profilepic" src="img/contacts.png" />
