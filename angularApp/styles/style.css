@@ -1848,6 +1848,10 @@ to {
 	width:55px !important;
 }
 
+.calPopupCont p {
+	font-size:14px;
+}
+
 #settingcounter {
 	display:none;
 }
