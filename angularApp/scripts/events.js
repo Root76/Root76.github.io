@@ -1118,20 +1118,6 @@ setTimeout(function(){
         });
     }
 
-    if ($('#calendarcont').length) {
-        $('#calendarcont').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            editable: true,
-            events: {
-
-            }
-        });
-    }
-
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
@@ -2124,6 +2110,6 @@ setTimeout(function(){
 
 }, 1);
 
+}, 100);
 
-}, 1000);
 });

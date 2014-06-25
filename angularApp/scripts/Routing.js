@@ -27,7 +27,7 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('calendar', {
 			url: "/calendar",
-			templateUrl: "templates/reports/reports.html"
+			templateUrl: "templates/calendar.html"
 		})
 		.state('contacts', {
 			url: "/contacts",

@@ -94,5 +94,51 @@ var authEmail = 'hweaver@evenspring.com';
 
 		}]);
 
+	app.controller('CalendarController', ['$resource', 'taskService', 'eventService',
+		function($resource, taskService, eventService) {
+
+			var ctrl = this;
+
+			eventService.Events.get(function(data){
+
+				ctrl.events = data.events;
+				var totalEvents = ctrl.events;
+
+				for (var i = 0; i < totalEvents.length; i++) {
+
+					if (totalEvents[i].hasOwnProperty('start_datetime')) {
+						totalEvents[i]['start'] = totalEvents[i]['start_datetime'];
+					} else if (totalEvents[i].hasOwnProperty('start_date')) {
+						totalEvents[i]['start'] = totalEvents[i]['start_date'];
+					}
+
+					if (totalEvents[i].hasOwnProperty('end_datetime')) {
+						totalEvents[i]['end'] = totalEvents[i]['end_datetime'];
+					} else if (totalEvents[i].hasOwnProperty('end_date')) {
+						totalEvents[i]['end'] = totalEvents[i]['end_date'];
+					}
+
+					console.log(totalEvents[i]);
+
+				}
+
+		        $('#calendarcont').fullCalendar({
+		            header: {
+		                left: 'prev,next today',
+		                center: 'title',
+		                right: 'month,agendaWeek,agendaDay'
+		            },
+		            editable: true,
+		            events: totalEvents
+		        });
+
+			});
+			
+			taskService.Tasks.get(function(data){
+				ctrl.tasks = data.tasks;
+			});
+
+		}]);	
+
 
 })();
