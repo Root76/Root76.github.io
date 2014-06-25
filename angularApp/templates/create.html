@@ -1,29 +1,33 @@
 <script type="text/ng-template" id="createAssociateTemplate.html">
-  <a tabindex="-1">
+  <a>
       <img ng-src="img/{{match.model.type}}s.png">
       <span bind-html-unsafe="match.model.title | typeaheadHighlight:query"></span>
   </a>
 </script>
 
 <div>
-  <a href="javascript:void(0)" title="Close" class="close">X</a>
-  <h2 id="createHeader">Create:   </h2>
 
-  <span class="dropdown" is-open="status.isopen">
+  <div class="modal-header">
+    <a href="javascript:void(0)" title="Close" class="close">X</a>
+    <h2 id="createHeader">Create:   </h2>
 
-    <h3 id="createHeader" class="dropdown-toggle">{{dropdownText}} <span class="caret"></span></h3>
-    
-    <ul class="dropdown-menu">
-      <li><a href ng-click="selectCreation(1)">Contact</a></li>
-      <li><a href ng-click="selectCreation(2)">Event</a></li>
-      <li><a href ng-click="selectCreation(3)">Task</a></li>
-      <li><a href ng-click="selectCreation(4)">Tag</a></li>
-    </ul>
-  </span>
+    <span class="dropdown" is-open="status.isopen">
+
+      <h3 id="createHeader" class="dropdown-toggle">{{dropdownText}} <span class="caret"></span></h3>
+      
+      <ul class="dropdown-menu">
+        <li><a href ng-click="selectCreation(1)">Contact</a></li>
+        <li><a href ng-click="selectCreation(2)">Event</a></li>
+        <li><a href ng-click="selectCreation(3)">Task</a></li>
+        <li><a href ng-click="selectCreation(4)">Tag</a></li>
+      </ul>
+    </span>
+  </div>
 
   <div ng-show="contactSelected()" ng-controller="ContactCreationController">
-    <form>
-      
+    
+    <div class="modal-body">
+
       <div class="formrow">
         <h4>Contact name</h4> 
         <input type="text" class="form-control" ng-model="newContact.name" placeholder="Enter the contacts name">
@@ -83,42 +87,86 @@
          </div>
        </div>
 
-      <button class="btn btn-default" ng-click="createContact()">Create Contact</button>
+    </div>
 
-    </form>
+    <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="createContact()">Create Contact</button>
+    </div>
 
-     <!--<form>
-       <div class="formrow">First name: <input type="text" id="contactFirst"></div>
-       <div class="formrow">Last name: <input type="text" id="contactLast"></div>
-       <div class="formrow">Contact email: 
-         <div id="emailsContainer">
-           <img src="img/create.png" /><img src="img/close.png" />
-           <input type="text" class="contactEmail" />
-         </div>
-       </div>
-       <div class="formrow">Contact company: <input type="text" id="contactOrg"></div>
-       <div class="formrow">Contact phone number:                   
-         <div id="phonesContainer">
-           <img src="img/create.png" /><img src="img/close.png" />
-           <input type="text" class="contactPhone" />
-         </div>
-       </div>
-       <div class="formrow">Contact address: <input type="text" id="contactAddr"></div>
-       <div class="formrow">Connect related items: <br /><input id="typeAheadContact" />
-       </div>
-       <div class="formrow">
-         Selected Items:
-         <div class="relatedList relatedContacts">
-           <ul>
-           </ul>
-         </div>
-       </div>
-       <div class="formrow"><input type="submit"></div>
-     </form> -->
 
-   </div>
-   <div ng-show="eventSelected()" ng-controller="EventCreationController">
+  </div>
 
+  <div ng-show="eventSelected()" ng-controller="EventCreationController">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Event title</h4> 
+          <input type="text" class="form-control" ng-model="newEvent.title" placeholder="Enter the events title">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Event description</h4> 
+          <input type="text" class="form-control" ng-model="newEvent.description" placeholder="Enter the events description">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Event location</h4> 
+          <input type="text" class="form-control" ng-model="newEvent.location" placeholder="Enter the events location">
+        </div>
+      </div>
+
+      <div class="formcolumn">
+        <div class="col-md-6">
+          <h4> 
+            All Day
+            <input type="checkbox" ng-model="newEvent.is_all_day" ng-click="AllDay()"/>
+          </h4>
+        </div>
+        <div class="col-md-6">
+          <h4>
+            Recurring
+            <input type="checkbox" ng-model="newEvent.recurring" ng-click="Recurring()"/>
+          </h4>
+        </div>
+      </div>
+
+      <!-- INSERT CONDITIONAL FIELDS HERE -->
+
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Start Date</h4>
+          <div class="input-group">
+            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newEvent.startDate" is-open="startDateOpened" datepicker-options="dateOptions" close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event, 'start')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-4" ng-hide="newEvent.is_all_day">
+          <timepicker ng-model="startTime" ng-change="changed()" minute-step="15" show-meridian="true"></timepicker>
+        </div>
+
+        <div class="col-md-6">
+          <h4>End Date</h4>
+          <div class="input-group">
+            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newEvent.endDate" is-open="endDateOpened" datepicker-options="dateOptions" close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event, 'end')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-4" ng-hide="newEvent.is_all_day">
+          <timepicker ng-model="endTime" ng-change="changed()" minute-step="15" show-meridian="true"></timepicker>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="createEvent()">Create Event</button>
+    </div>
 
      <!--
      <form>

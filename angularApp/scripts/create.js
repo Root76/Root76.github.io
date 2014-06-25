@@ -232,6 +232,29 @@
 			};
 
 
+			$scope.AllDay = function() {
+
+			};
+
+			$scope.today = function() {
+			  $scope.dt = new Date();
+			};
+			$scope.today();
+			
+			$scope.format = 'shortDate';
+
+			$scope.open = function($event, which) {
+		      $event.preventDefault();
+		      $event.stopPropagation();
+
+		      if(which == 'start')
+		      	$scope.startDateOpened = !($scope.startDateOpened);
+
+		      if(which == 'end')
+		      	$scope.endDateOpened = !($scope.endDateOpened);
+		    };
+
+
 	}]);
 /*
 	createModule.Controller('ContactCreationController', ['$scope', '$resource', 'contactService', 
