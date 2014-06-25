@@ -32,37 +32,12 @@
           <button class="sortingToggle" id="byName">Sort</button>
           <button class="sortingToggle" id="byCompany">Sort</button>
           <ul id="contactlist" class="sidelist">
-            <div ng-repeat="contact in contacts">
-              <a ui-sref="contacts.contact({contact_id: contact.id})"><li>{{contact.name}}<span class="hidden">{{contact.updated_at}}</span></li></a>
+            <div ng-repeat="contact in contacts | orderBy: ordering">
+              <a ui-sref="contacts.contact({contact_id: contact.id})"><li>{{getContactTitle(contact)}}<span class="hidden">{{contact.updated_at}}</span></li></a>
             </div>
           </ul>
         </div>
         <div ui-view></div>
-        <div class="col-md-7" id="contactpanel2">
-          <h1 id="mobileContact">Contacts</h1>
-          <img id="profilepic" src="img/contacts.png" />
-          <img src="img/arrow.png" class="backArrow" />
-          <h2 id="contactname" class="contactname contacttext"><b>Select a contact</b></h2>
-          <div id="detailmenubar" class="contactmenu">
-            <img src="img/contacts.png" class="selected" />
-            <img src="img/events.png" />
-            <img src="img/tasks.png" />
-            <img src="img/tags.png" />
-            <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addContact" /></a>
-            <img src="img/trash.png" id="trashicon" />              
-          </div>
-          <div class="panelcontent">
-            <div class="infopanel selected">
-            </div>
-            <div class="infopanel">
-            </div>
-            <div class="infopanel">
-            </div>
-            <div class="infopanel">
-            </div>
-          </div>
-        </div>
-        <!--/OUTLET-->
       </div>
     </div>
  </div>
