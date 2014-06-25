@@ -61,19 +61,19 @@
         </div>
       </div>
 
-      <div class="infopanel"">
+      <div class="infopanel">
         <form id="addForm">
           <div class="formrow">Add events: <br />
             <input id="typeAheadAddEvent" />
           </div>
         </form>
-          <div class="contactrow eventrow" ng-repeat="event in conatact.events">
+          <div class="contactrow eventrow" ng-repeat="event in contact.events">
             <a href="event.html"><img src="img/events.png" class="eventIcon">
             <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" class="removeAssoc" />
           </div>
       </div>
 
-      <div class="infopanel"">
+      <div class="infopanel">
         <form id="addForm">
           <div class="formrow">Add tasks: <br />
             <input id="typeAheadAddTask" />

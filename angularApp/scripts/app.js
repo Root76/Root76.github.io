@@ -20,7 +20,7 @@ var authEmail = 'hweaver@evenspring.com';
 
 	var app = angular.module('DayWonApplication', 
 		['ui.router', 'ui.bootstrap', 
-		'Contacts', 
+		'Contacts', 'Events',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
 		'Routing', 'CreateModule']);
 
@@ -74,13 +74,6 @@ var authEmail = 'hweaver@evenspring.com';
 				});
 			}
 
-		}]);
-
-	app.controller('EventsController', ['$resource', '$scope', 'eventService',
-		function($resource, $scope, eventService) {
-			eventService.Events.get(function(data){
-				$scope.events = data.events;
-			});
 		}]);
 
 	app.controller('TasksController', ['$resource', '$scope', 'taskService',

@@ -1,143 +1,142 @@
 <div class="col-md-7 mobileIn" id="eventpanel2">
-    <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
-    <img src="img/arrow.png" class="backArrow" />
-        <h2 id="contactname" class="eventname">
-        Event Title
-        <span class="hidden">{{id}}</span>
-    </h2>
-    <div id="detailmenubar">
-      <img src="img/contacts.png" />
-      <img src="img/events.png" class="selected" />
-      <img src="img/tasks.png" />
-      <img src="img/tags.png" /> 
-      <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
-      <img src="img/trash.png" id="trashicon"/>
-      <button id="destroy">{{id}}</button>
+  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+  <img src="img/arrow.png" class="backArrow" />
+      <h2 id="contactname" class="eventname">
+      Event Title
+      <span class="hidden">{{event.id}}</span>
+  </h2>
+  <div id="detailmenubar">
+    <img src="img/contacts.png" />
+    <img src="img/events.png" class="selected" />
+    <img src="img/tasks.png" />
+    <img src="img/tags.png" /> 
+    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
+    <img src="img/trash.png" id="trashicon"/>
+    <button id="destroy">{{event.id}}</button>
+  </div>
+  <div class="panelcontent" id="eventscontent">                
+    <div class="infopanel">
+      <form id="addForm">
+        <div class="formrow">Add contacts: <br />
+          <input id="typeAheadAddContact" />
+        </div>
+      </form>
+        <div class="contactrow personrow">
+          <a href="contact.html">
+            <img src="img/contacts.png" class="contactIcon">
+            <h4>
+              Contact Name
+            </h4>
+            <span class="hidden">{{event.contacts[0].id}}</span>
+          </a>
+          <img src="img/close.png" class="removeAssoc" />
+        </div>
     </div>
-    <div class="panelcontent" id="eventscontent">                
-      <div class="infopanel">
+    <div class="infopanel selected">
+      <div>
+      	<b>Description: </b>
+          Description
+        <br />
+      </div>
+      <div>
+      	<b>Location: </b>
+          Location
+        <br />
+      </div>
+      <div>
+      	<b>Event Start: </b>
+          Start Datetime
+        <br />
+      </div>
+      <div>
+      	<b>Event End: </b>
+          End Datetime
+        <br />
+      </div>
+      <b>Recurring: </b>
+        True/False
+    </div>
+    <div class="infopanel">
+      <form id="addForm">
+        <div class="formrow">Add tasks: <br />
+          <input id="typeAheadAddTask" />
+        </div>
+      </form>
+      <div class="contactrow taskrow">
+        <a href="task.html"><img src="img/tasks.png" class="taskIcon">
+        <h4>Task Title</h4><span class="hidden">{{event.tasks[0].id}}</span></a><img src="img/close.png" class="removeAssoc" />
+      </div>
+    </div>
+    <div class="infopanel">
         <form id="addForm">
-          <div class="formrow">Add contacts: <br />
-            <input id="typeAheadAddContact" />
+          <div class="formrow">Add tags: <br />
+            <input id="typeAheadAddTag" />
           </div>
         </form>
-          <div class="contactrow personrow">
-            <a href="contact.html">
-              <img src="img/contacts.png" class="contactIcon">
-              <h4>
-                Contact Name
-              </h4>
-              <span class="hidden">{{contact.id}}</span>
-            </a>
-            <img src="img/close.png" class="removeAssoc" />
-          </div>
-        {{/each}}
-      </div>
-      <div class="infopanel selected">
-        <div>
-        	<b>Description: </b>
-            Description
-          <br />
+        <div class="contactrow tagrow">
+          <a href="tags.html"><img src="img/tags.png" class="tagIcon">
+          <h4>Tag Name</h4><span class="hidden">{{event.tags[0].id}}</span></a><img src="img/close.png" class="removeAssoc" />
         </div>
-        <div>
-        	<b>Location: </b>
-            Location
-          <br />
-        </div>
-        <div>
-        	<b>Event Start: </b>
-            Start Datetime
-          <br />
-        </div>
-        <div>
-        	<b>Event End: </b>
-            End Datetime
-          <br />
-        </div>
-        <b>Recurring: </b>
-          True/False
-      </div>
-      <div class="infopanel">
-        <form id="addForm">
-          <div class="formrow">Add tasks: <br />
-            <input id="typeAheadAddTask" />
-          </div>
-        </form>
-        <div class="contactrow taskrow">
-          <a href="task.html"><img src="img/tasks.png" class="taskIcon">
-          <h4>Task Title</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" class="removeAssoc" />
-        </div>
-      </div>
-      <div class="infopanel">
-          <form id="addForm">
-            <div class="formrow">Add tags: <br />
-              <input id="typeAheadAddTag" />
-            </div>
-          </form>
-          <div class="contactrow tagrow">
-            <a href="tags.html"><img src="img/tags.png" class="tagIcon">
-            <h4>Tag Name</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" class="removeAssoc" />
-          </div>
-      </div>
     </div>
   </div>
-  <div id="detailPanel" class="panelIn">
-    <div class="row">
-      <div class="col-md-4 dCol" id="dCol1">
-        <div>
-          <h1 id="contactname" class="eventname">
-            Title
-          </h1>
-          <h4>
-            Description
-          </h4>
-          <div id="relatedTags">
-            <div class="relatedItem">
-              <a href="tag.html"><img src="img/tags.png" class="relatedImage"/>
-              <span class="relatedName">Tag Name</span></a>
-          </div>
-          <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
-          <img id="detailTrash" src="img/trash.png" />
+</div>
+<div id="detailPanel" class="panelIn">
+  <div class="row">
+    <div class="col-md-4 dCol" id="dCol1">
+      <div>
+        <h1 id="contactname" class="eventname">
+          Title
+        </h1>
+        <h4>
+          Description
+        </h4>
+        <div id="relatedTags">
+          <div class="relatedItem">
+            <a href="tag.html"><img src="img/tags.png" class="relatedImage"/>
+            <span class="relatedName">Tag Name</span></a>
         </div>
-        <img class="columnDivider" src="img/divider_orange.png" />
+        <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
+        <img id="detailTrash" src="img/trash.png" />
       </div>
-      <div class="col-md-4 dCol" id="dCol2">
-        <div>
-          <div class="columnhead">
-            <img src="img/contacts.png" />
-            <h3>Contacts</h3>
-          </div>
-          <br />
+      <img class="columnDivider" src="img/divider_orange.png" />
+    </div>
+    <div class="col-md-4 dCol" id="dCol2">
+      <div>
+        <div class="columnhead">
+          <img src="img/contacts.png" />
+          <h3>Contacts</h3>
+        </div>
+        <br />
+        <ul class="columnlist">
+          <li><a href="contact.html">Contact Name</a></li>
+        </ul>
+      </div>
+      <img class="columnDivider" src="img/divider_orange.png" />
+    </div>
+    <div class="col-md-4 dCol" id="dCol3">
+      <div>
+        <div class="columnhead">
+          <img src="img/tasks.png" />
+          <h3>Tasks</h3>
+        </div>
+        <br />
+        <div class="detailSection">
+          <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
           <ul class="columnlist">
-            <li><a href="contact.html">Contact Name</a></li>
+            <li><a href="task.html">Task Title</a></li>
           </ul>
         </div>
-        <img class="columnDivider" src="img/divider_orange.png" />
-      </div>
-      <div class="col-md-4 dCol" id="dCol3">
-        <div>
-          <div class="columnhead">
-            <img src="img/tasks.png" />
-            <h3>Tasks</h3>
-          </div>
-          <br />
-          <div class="detailSection">
-            <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-            <ul class="columnlist">
-              <li><a href="task.html">Task Title</a></li>
-            </ul>
-          </div>
-          <div class="detailSection">
-            <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
-            <ul class="columnlist">
-              <li><a href="task.html">Task Title</a></li>
-            </ul>
-          </div>
+        <div class="detailSection">
+          <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
+          <ul class="columnlist">
+            <li><a href="task.html">Task Title</a></li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
-  <div id="detailPanelHider"></div>
-  <div class="col-md-1 flipswitch fsorange">
-    <img src="img/fliparrow_orange.png" id="fliparrow"/>
-  </div>
+</div>
+<div id="detailPanelHider"></div>
+<div class="col-md-1 flipswitch fsorange">
+  <img src="img/fliparrow_orange.png" id="fliparrow"/>
+</div>

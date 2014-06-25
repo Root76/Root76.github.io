@@ -5,13 +5,16 @@
 	ContactsModule.controller('ContactsController', ['$resource', '$scope', 'contactService',
 		function($resource, $scope, contactService) {
 
-			$scope.ordering = ['name', 'emails[0].email'];
+			$scope.ordering = ['name', 'emails[0].email', 'id'];
 
 			$scope.getContactTitle = function(contact) {
 				if(contact.name)
 					return contact.name;
 				else
-					return contact.emails[0].email;
+					if(contact.emails[0])
+						return contact.emails[0].email;
+					else
+						return "";
 			}
 		}]);
 	
