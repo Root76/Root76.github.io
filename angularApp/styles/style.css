@@ -1349,16 +1349,24 @@ h1, h2, h3, h4 {
 #emailsContainer img, #phonesContainer img {
 	position: absolute;
 	top: -45px;
-	right: 30px;
+	right: 0px;
 	width: 50px;
 	height: 50px;
 }
-
+/*
 #emailsContainer img:last-of-type, #phonesContainer img:last-of-type {
 	width: 26px;
 	height: 26px;
 	right: 0px;
 	top: -33px;
+}*/
+
+#emailsDelete img, #phonesDelete img {
+	position: relative;
+	width: 26px;
+	height: 26px;
+	right: 0px;
+	top: 0px;
 }
 
 #emailsContainer input, #phonesContainer input {

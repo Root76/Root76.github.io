@@ -13,12 +13,16 @@ var query_string = QueryStringToJSON();
 //var authToken = query_string.authentication_token;
 //var userEmail = query_string.user_email;
 
-var authToken = '4N9-_NWfYvYxpesMVpne';
-var authEmail = 'hweaver@evenspring.com';
+var authToken = 'qoRyedh9o5xFLY8cpDzA';
+var authEmail = 'pastadiablo@gmail.com';
 
 (function(){
 
-	var app = angular.module('DayWonApplication', ['ui.router', 'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 'Routing']);
+	var app = angular.module('DayWonApplication', 
+		['ui.router', 'ui.bootstrap', 
+		'Contacts', 
+		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
+		'Routing', 'CreateModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
 
@@ -27,71 +31,70 @@ var authEmail = 'hweaver@evenspring.com';
 		//$httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 	}]);
 
-	app.controller('IndexController', ['$resource', 'contactService', 'tagService', 'taskService', 'eventService',
-		function($resource, contactService, tagService, taskService, eventService) {
+	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
+		function($scope, $resource, $modal, contactService, tagService, taskService, eventService) {
 
-			var ctrl = this;
+			var eventsPromise = eventService.Events.get();
+			eventsPromise.$promise.then(function(data){
+				$scope.events = data.events;
+			});
+			
+			var tasksPromise = taskService.Tasks.get();
+			eventsPromise.$promise.then(function(data){
+				$scope.tasks = data.tasks;
+			});
 
+			var tagsPromise = tagService.Tags.get();
+			tagsPromise.$promise.then(function(data){
+				$scope.tags = data.tags;
+			});
+
+			var contactsPromise = contactService.Contacts.query();
+			contactsPromise.$promise.then(function(data) {
+				$scope.contacts = data;
+			});
+
+
+			$scope.create = function()
+			{
+				var modalInstance = $modal.open({
+					templateUrl: 'templates/create.html',
+					controller: 'CreationController',
+					resolve : {
+						contacts : function() { return contactsPromise; },
+						events : function() { return eventsPromise; },
+						tasks : function() { return tasksPromise; },
+						tags : function() { return tagsPromise; }
+					}
+				});
+
+				modalInstance.result.then(function(newContact) {
+					console.log(newContact);
+					contactService.Contacts.create(newContact);
+				});
+			}
+
+		}]);
+
+	app.controller('EventsController', ['$resource', '$scope', 'eventService',
+		function($resource, $scope, eventService) {
 			eventService.Events.get(function(data){
-				ctrl.events = data.events;
+				$scope.events = data.events;
 			});
-			
+		}]);
+
+	app.controller('TasksController', ['$resource', '$scope', 'taskService',
+		function($resource, $scope, taskService) {
 			taskService.Tasks.get(function(data){
-				ctrl.tasks = data.tasks;
+				$scope.tasks = data.tasks;
 			});
+		}]);
 
+	app.controller('TagsController', ['$resource', '$scope', 'tagService',
+		function($resource, $scope, tagService) {
 			tagService.Tags.get(function(data){
-				ctrl.tags = data.tags;
-			});			
-			
-			contactService.Contacts.query(function(data) {
-				ctrl.contacts = data;
-			});
-
-		}]);
-
-	app.controller('ContactsController', ['$resource', 'contactService',
-		function($resource, contactService) {
-
-			var ctrl = this;
-
-			contactService.Contacts.query(function(data) {
-				ctrl.contacts = data;
-			});
-
-		}]);
-
-	app.controller('EventsController', ['$resource', 'eventService',
-		function($resource, eventService) {
-
-			var ctrl = this;
-
-			eventService.Events.get(function(data) {
-				ctrl.events = data.events;
-			});
-
-		}]);
-
-	app.controller('TasksController', ['$resource', 'taskService',
-		function($resource, taskService) {
-
-			var ctrl = this;
-
-			taskService.Tasks.get(function(data) {
-				ctrl.tasks = data.tasks;
-			});
-
-		}]);
-
-	app.controller('TagsController', ['$resource', 'tagService',
-		function($resource, tagService) {
-
-			var ctrl = this;
-
-			tagService.Tags.get(function(data) {
-				ctrl.tags = data.tags;
-			});
-
+				$scope.tags = data.tags;
+			});	
 		}]);
 
 	app.controller('CalendarController', ['$resource', 'taskService', 'eventService',
