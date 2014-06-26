@@ -2,6 +2,59 @@
 
 	var createModule = angular.module('CreateModule', ['ContactServices']);
 
+	createModule.filter("associatedContactObjects", function() {
+		return function(objects) {
+			var filtered_list = [];
+
+			if(objects)
+				for(var i = 0; i < objects.length; i++)
+					if(objects[i].type != "contact")
+						filtered_list.push(objects[i]);
+
+
+			return filtered_list
+		};
+	});
+
+	createModule.filter("associatedEventObjects", function() {
+		return function(objects) {
+			var filtered_list = [];
+
+			if(objects)
+				for(var i = 0; i < objects.length; i++)
+					if(objects[i].type != "event")
+						filtered_list.push(objects[i]);
+					
+			return filtered_list
+		};
+	});
+
+	createModule.filter("associatedTaskObjects", function() {
+		return function(objects) {
+			var filtered_list = [];
+
+			if(objects)
+				for(var i = 0; i < objects.length; i++)
+					if(objects[i].type != "task")
+						filtered_list.push(objects[i]);
+					
+			return filtered_list
+		};
+	});
+
+	createModule.filter("associatedTagObjects", function() {
+		return function(objects) {
+			var filtered_list = [];
+
+			if(objects)
+				for(var i = 0; i < objects.length; i++)
+					if(objects[i].type != "tag")
+						filtered_list.push(objects[i]);
+					
+			return filtered_list
+		};
+	});
+	
 	createModule.controller('CreationController', ['$scope', '$modalInstance', 'contacts', 'events', 'tasks', 'tags',
 		function($scope, $modalInstance, contactsPromise, eventsPromise, tasksPromise, tagsPromise) {
 
@@ -19,57 +72,22 @@
 				isopen: false
 			};
 
-			$scope.selectCreation = function(selection) 
-			{
-				$scope.selection = selection;
-
-				switch(selection)
-				{
-					case 1: 
-						$scope.dropdownText="Contact";
-						break;
-					case 2:
-						$scope.dropdownText="Event";
-						break;
-					case 3:
-						$scope.dropdownText="Task";
-						break;
-					case 4:
-						$scope.dropdownText="Tag";
-						break;
-				} 
-
-				$scope.status.isopen = false;				
-			};
-
-			$scope.contactSelected = function() { return $scope.selection == 1; };
-			$scope.eventSelected = function() { return $scope.selection == 2; };
-			$scope.taskSelected = function() { return $scope.selection == 3; };
-			$scope.tagSelected = function() { return $scope.selection == 4; };
-
-		}]);
-
-	createModule.controller('ContactCreationController', ['$scope', 
-		function($scope) {
-
-			$scope.newContact = {
-				name: '',
-				emails: [
-					{email:''}
-				],
-				organization: '',
-				phones: [
-					{number:''}
-				],
-				address:'',
-				event_ids:'',
-				task_ids:'',
-				tag_ids:'',
-			}
-
 			$scope.selectedObject = undefined;
 			$scope.objects = [];
 			$scope.associatedObjects = [];
+
+			$scope.contactsPromise.$promise.then(function(data){
+				var contacts = data;
+
+				for(var i = 0; i < contacts.length; i++)
+				{
+					var contact = contacts[i];
+
+					contact.type = "contact";
+
+					$scope.objects.push(contact);
+				}
+			});
 
 			$scope.eventsPromise.$promise.then(function(data){
 
@@ -127,6 +145,53 @@
 				}
 			});
 
+			$scope.selectCreation = function(selection) 
+			{
+				$scope.selection = selection;
+
+				switch(selection)
+				{
+					case 1: 
+						$scope.dropdownText="Contact";
+						break;
+					case 2:
+						$scope.dropdownText="Event";
+						break;
+					case 3:
+						$scope.dropdownText="Task";
+						break;
+					case 4:
+						$scope.dropdownText="Tag";
+						break;
+				} 
+
+				$scope.status.isopen = false;				
+			};
+
+			$scope.contactSelected = function() { return $scope.selection == 1; };
+			$scope.eventSelected = function() { return $scope.selection == 2; };
+			$scope.taskSelected = function() { return $scope.selection == 3; };
+			$scope.tagSelected = function() { return $scope.selection == 4; };
+
+		}]);
+
+	createModule.controller('ContactCreationController', ['$scope', 
+		function($scope) {
+
+			$scope.newContact = {
+				name: '',
+				emails: [
+					{email:''}
+				],
+				organization: '',
+				phones: [
+					{number:''}
+				],
+				address:'',
+				event_ids:'',
+				task_ids:'',
+				tag_ids:'',
+			}
 			
 
 			$scope.emailTitle = function() {
@@ -255,6 +320,18 @@
 		    };
 
 
+	}]);
+
+	createModule.controller("TagCreationController", ['$scope',
+		function($scope) {
+
+			$scope.newTag = {
+				name: "",
+				count: 0
+			};
+			$scope.createTag = function() {
+
+			};
 	}]);
 /*
 	createModule.Controller('ContactCreationController', ['$scope', '$resource', 'contactService', 

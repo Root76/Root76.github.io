@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="createAssociateTemplate.html">
   <a>
-      <img ng-src="img/{{match.model.type}}s.png">
+      <img ng-src="img/{{match.model.type}}s.png" width="16px">
       <span bind-html-unsafe="match.model.title | typeaheadHighlight:query"></span>
   </a>
 </script>
@@ -67,7 +67,7 @@
 
       <div class="formrow">
         <h4>Associate Items</h4>
-        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue}" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label)" class="form-control">
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedContactObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label)" class="form-control">
       </div>
 
        <div class="formrow">
@@ -134,7 +134,7 @@
 
       <div class="row">
       </div>
-      <!-- INSERT CONDITIONAL FIELDS HERE -->
+      <!-- TODO: INSERT CONDITIONAL FIELDS HERE -->
 
       <div class="row">
         <div class="col-md-6">
@@ -169,102 +169,70 @@
     <div class="modal-footer">
       <button class="btn btn-primary" ng-click="createEvent()">Create Event</button>
     </div>
-
-     <!--
-     <form>
-       <div class="formrow">Event title: <input type="text" id="eventName"></div>
-       <div class="formrow">Event description: <input type="text" id="eventDetails"></div>
-       <div class="formrow">Event location: <input type="text" id="eventLocation"></div>
-       <div class="formrow">
-         <span>All Day: </span>
-         <div class="squaredTwo">
-           <input type="checkbox" value="None" id="allDay" name="check" />
-           <label for="allDay"></label>
-         </div>
-         <span>Recurring: </span>
-         <div class="squaredTwo">
-           <input type="checkbox" value="None" id="recurring" name="check" />
-           <label for="recurring"></label>
-         </div>
-       </div>
-       <div class="formrow eventDateStart">
-         Start date: <input type="text" id="eventStart"><img src="img/calendar.png" />
-       </div>
-       <div class="formrow eventDateEnd">
-         End date: <input type="text" id="eventEnd"><img src="img/calendar.png" />
-       </div>
-       <div class="formrow allDayStart">
-         Start date: <input type="text" id="allDayStart"><img src="img/calendar.png" />
-       </div>
-       <div class="formrow allDayEnd">
-         End date: <input type="text" id="allDayEnd"><img src="img/calendar.png" />
-       </div>
-       <div id="recurringContainer">
-         <div class="formrow">
-           Repeats: <br /><select id="recurrChoice">
-             <option>Daily</option>
-             <option>Weekly</option>
-             <option>Monthly</option>
-             <option>Yearly</option>
-             <option>All weekdays</option>
-             <option>Monday / Wednesday / Friday</option>
-             <option>Tuesday / Thursday</option>
-           </select><div id="recurringInterval"> every <input type="number" name="quantity" min="1" max="30" id="intervalSelect"> days</div>
-         </div>
-         <div class="formrow">
-           Ends: <div class="endSelect formrow"><input type="radio" name="ending" value="never">Never</div>
-                 <div class="endSelect formrow"><input type="radio" name="ending" value="after">After <input type="number" name="occurences" min="1" max="99999" id="recurrNumber"> occurences</div>
-                 <div class="endSelect formrow endEvent"><input type="radio" name="ending" value="on">On <input type="text" id="endEventRepeat"><img src="img/calendar.png" /></div>
-         </div>
-       </div>
-       <div class="formrow">Connect related items: <br /><input id="typeAheadEvent" /></div>
-       <div class="formrow">
-         Selected Items:
-         <div class="relatedList relatedEvents">
-           <ul>
-           </ul>
-         </div>
-       </div>
-       <div class="formrow"><input type="submit"></div>
-     </form>
-     -->
-   </div>
+  </div>
 
 
-   <div ng-show="taskSelected()">
-     <form>
-       <div class="formrow">Task title: <input type="text" id="taskName"></div>
-       <div class="formrow">Task notes: <input type="text" id="taskNotes"></div>
-       <div class="formrow">
-         <span>Add time to due date: </span>
-         <div class="squaredTwo">
-           <input type="checkbox" value="None" id="taskTime" name="check" />
-           <label for="taskTime"></label>
-         </div>
-       </div>
-       <div class="formrow taskDate">Due date: <input type="text" id="taskDue"><img src="img/calendar.png" /></div>
-       <div class="formrow taskDateTime">Due date and time: <input type="text" id="taskDueTime"><img src="img/calendar.png" /></div>
-       <div class="formrow">Priority:<br /> 
-         <select id="taskPriority">
-           <option>Select a priority</option>
-           <option>High</option>
-           <option>Normal</option>
-           <option>Low</option>
-         </select>
-       </div>
-       <div class="formrow">Connect related items: <br /><input id="typeAheadTask" />
-       </div>
-       <div class="formrow">
-         Selected Items:
-         <div class="relatedList relatedTasks">
-           <ul>
-           </ul>
-         </div>
-       </div>
-       <div class="formrow"><input type="submit"></div>
-     </form>
-   </div>
-   <div ng-show="tagSelected()">
+  <div ng-show="taskSelected()">
+    <form>
+      <div class="formrow">Task title: <input type="text" id="taskName"></div>
+      <div class="formrow">Task notes: <input type="text" id="taskNotes"></div>
+      <div class="formrow">
+        <span>Add time to due date: </span>
+        <div class="squaredTwo">
+          <input type="checkbox" value="None" id="taskTime" name="check" />
+          <label for="taskTime"></label>
+        </div>
+      </div>
+      <div class="formrow taskDate">Due date: <input type="text" id="taskDue"><img src="img/calendar.png" /></div>
+      <div class="formrow taskDateTime">Due date and time: <input type="text" id="taskDueTime"><img src="img/calendar.png" /></div>
+      <div class="formrow">Priority:<br /> 
+        <select id="taskPriority">
+          <option>Select a priority</option>
+          <option>High</option>
+          <option>Normal</option>
+          <option>Low</option>
+        </select>
+      </div>
+      <div class="formrow">Connect related items: <br /><input id="typeAheadTask" />
+      </div>
+      <div class="formrow">
+        Selected Items:
+        <div class="relatedList relatedTasks">
+          <ul>
+          </ul>
+        </div>
+      </div>
+      <div class="formrow"><input type="submit"></div>
+    </form>
+  </div>
+
+  <div ng-show="tagSelected()" ng-controller="TagCreationController">
+    
+    <div class="modal-body">
+      <div class="row">
+        
+        <div class="col-md-12">
+          <h4>Tag title</h4> 
+          <input type="text" class="form-control" ng-model="newTag.title" placeholder="Enter the tags title">
+        </div>
+
+        <div class="col-md-12">
+          <h4>Associate Items</h4>
+          <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedTagObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label)" class="form-control">
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="createTag()">Create Event</button>
+    </div>
+
+
+
+  </div>
+
+    <!--
      <form>
        <div class="formrow">Tag title: <input type="text" id="tagName"></div>
        <div class="formrow">Connect related items: <br /><input id="typeAheadTag" />
@@ -278,5 +246,5 @@
        </div>
        <div class="formrow"><input type="submit"></div>
      </form>
-   </div>
+     -->
 </div>
