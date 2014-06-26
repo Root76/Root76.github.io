@@ -178,6 +178,10 @@ hr {
 	background:#fff;
 }
 
+.ng-scope {
+	position:relative;
+}
+
 .nav>li>a {
 	padding:25px;
 	padding-left:8px;
@@ -202,6 +206,35 @@ hr {
 	background-color:#e9e8e5;
 	padding:0px;
 	border:0px;
+}
+
+.formrow .dropdown-menu {
+	width:auto;
+	opacity:.7;
+	background-color:#000;
+	color:#fff;
+	font-size:18px;
+	padding-right:30px;
+	position:absolute;
+}
+
+.emailInputContainer {
+	position:relative;
+}
+
+#emailsDelete, #phonesDelete {
+	position:absolute;
+	right:4px;
+	bottom:4px;
+}
+
+.formrow .dropdown-menu li {
+	padding:3px;
+	cursor:pointer;
+}
+
+.formrow .dropdown-menu li a {
+	color:#eee;
 }
 
 #orphancount {
@@ -1344,6 +1377,7 @@ h1, h2, h3, h4 {
 
 #emailsContainer, #phonesContainer {
 	position:relative;
+	right:-8px;
 }
 
 #emailsContainer img, #phonesContainer img {
@@ -3973,6 +4007,28 @@ input#toggle5:checked + label:after {
 #recurringContainer.active {
 	display:block;
 }
+
+.typeaheadAssociated img {
+	width: 40px;
+	height: auto;
+	position: absolute;
+	top: -8px;
+	right: -37px;
+}
+
+.typeaheadSelected img {
+	opacity: 1;
+	top: -1px;
+	left: 3px;
+}
+
+.typeaheadSelected img:first-of-type {
+	left:-5px;
+	top:-10px;
+	height:40px;
+	width:auto;
+}
+
 
 .squaredTwo {
 	width: 28px;

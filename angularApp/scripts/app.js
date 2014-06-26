@@ -37,7 +37,7 @@ var hashDetection = new hashHandler();
 	var app = angular.module('DayWonApplication', 
 		['ui.router', 'ui.bootstrap', 
 		'Contacts', 
-		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
+		'ContactServices', 'TagServices', 'TaskServices', 'EventServices',
 		'Routing', 'CreateModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
@@ -70,6 +70,14 @@ var hashDetection = new hashHandler();
 				$scope.contacts = data;
 			});
 
+			var allObjects = {
+				contacts: contactsPromise,
+				events: eventsPromise,
+				tasks: tasksPromise,
+				tags: tagsPromise
+			}
+
+			console.log(allObjects.events);
 
 			$scope.create = function()
 			{
@@ -280,7 +288,7 @@ var hashDetection = new hashHandler();
 							    });
 
 							} else {
-								alert("something's wrong");
+								alert("unable to detect object type");
 							}
 					    }
 			        });

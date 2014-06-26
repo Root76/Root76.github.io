@@ -36,7 +36,7 @@
       <div class="formrow">
         <h4>{{emailTitle()}}</h4>
         <div id="emailsContainer"><img ng-click="addEmail()" src="img/create.png"/></div>
-        <div ng-repeat="email in newContact.emails">
+        <div ng-repeat="email in newContact.emails" class="emailInputContainer">
           <input type="text" class="form-control" ng-model="email.email" placeholder="Enter the contacts email">
           <div id="emailsDelete">
             <img ng-click="removeEmail(email)" src="img/close.png"/>
@@ -65,12 +65,12 @@
         <input type="text" class="form-control" ng-model="newContact.address" placeholder="Enter the contacts company">
       </div>
 
-      <div class="formrow">
+      <div class="formrow typeaheadAssociated">
         <h4>Associate Items</h4>
         <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue}" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label)" class="form-control">
       </div>
 
-       <div class="formrow">
+       <div class="formrow typeaheadSelected">
          Selected Items:
          <div class="relatedList relatedContacts">
            <ul ng-repeat="object in associatedObjects">
