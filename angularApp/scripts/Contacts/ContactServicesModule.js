@@ -14,6 +14,8 @@
 								isArray: false,
 								transformRequest: [function(data, headersGetter){
 
+									console.log("HAHA!!!");
+									
 									if(!data["extended_properties"])
 										data["extended_properties"] = [];
 

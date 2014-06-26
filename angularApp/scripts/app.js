@@ -50,26 +50,38 @@ var hashDetection = new hashHandler();
 	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
 		function($scope, $resource, $modal, contactService, tagService, taskService, eventService) {
 
-			var eventsPromise = eventService.Events.get();
-			eventsPromise.$promise.then(function(data){
-				$scope.events = data.events;
-			});
+			$scope.loadContacts = function() {
+				$scope.contactsPromise = contactService.Contacts.query();
+				$scope.contactsPromise.$promise.then(function(data) {
+					$scope.contacts = data;
+				});
+			};
+
+			$scope.loadEvents = function() {
+				$scope.eventsPromise = eventService.Events.get();
+				$scope.eventsPromise.$promise.then(function(data){
+					$scope.events = data.events;
+				});
+			};
 			
-			var tasksPromise = taskService.Tasks.get();
-			eventsPromise.$promise.then(function(data){
-				$scope.tasks = data.tasks;
-			});
+			$scope.loadTasks = function() {
+				$scope.tasksPromise = taskService.Tasks.get();
+				$scope.tasksPromise.$promise.then(function(data){
+					$scope.tasks = data.tasks;
+				});
+			};
 
-			var tagsPromise = tagService.Tags.get();
-			tagsPromise.$promise.then(function(data){
-				$scope.tags = data.tags;
-			});
+			$scope.loadTags = function() {
+				$scope.tagsPromise = tagService.Tags.get();
+				$scope.tagsPromise.$promise.then(function(data){
+					$scope.tags = data.tags;
+				});
+			};
 
-			var contactsPromise = contactService.Contacts.query();
-			contactsPromise.$promise.then(function(data) {
-				$scope.contacts = data;
-			});
-
+			$scope.loadContacts();
+			$scope.loadEvents();
+			$scope.loadTasks();
+			$scope.loadTags();
 
 			$scope.create = function()
 			{
@@ -77,16 +89,43 @@ var hashDetection = new hashHandler();
 					templateUrl: 'templates/create.html',
 					controller: 'CreationController',
 					resolve : {
-						contacts : function() { return contactsPromise; },
-						events : function() { return eventsPromise; },
-						tasks : function() { return tasksPromise; },
-						tags : function() { return tagsPromise; }
+						contactsPromise : function() { return $scope.contactsPromise; },
+						eventsPromise : function() { return $scope.eventsPromise; },
+						tasksPromise : function() { return $scope.tasksPromise; },
+						tagsPromise : function() { return $scope.tagsPromise; }
 					}
 				});
 
-				modalInstance.result.then(function(newContact) {
-					console.log(newContact);
-					contactService.Contacts.create(newContact);
+				modalInstance.result.then(function(newObject) {
+
+					if(newObject.type == "contact")
+					{
+						delete newObject.type;
+						contactService.Contacts.create(newObject);
+						$scope.loadContacts();
+					}
+					else if(newObject.type == "event")
+					{
+						delete newObject.type;
+						eventService.Events.create(newObject).$promise.then(function(){
+							console.log("Reloading events");
+							$scope.loadEvents();	
+						});
+						
+					}
+					else if(newObject.type == "task")
+					{
+						delete newObject.type;
+						taskService.Tasks.create(newObject);
+						$scope.loadTasks();
+					}
+					else if(newObject.type == "tag")
+					{
+						delete newObject.type;
+						tagService.Tags.create(newObject);
+						$scope.loadTags();
+					}
+					
 				});
 			}
 
