@@ -1,6 +1,6 @@
 (function() {
 
-var RoutingModule = angular.module('Routing', ['ReportsModule', 'DashboardModule', 'Contacts']);
+var RoutingModule = angular.module('Routing', ['ReportsModule', 'DashboardModule', 'Contacts', 'Events']);
 
 RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 	
@@ -41,6 +41,11 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 		.state('events', {
 			url: "/events",
 			templateUrl: "templates/events/events.html"
+		})
+		.state('events.event', {
+			url: "/:event_id",
+			templateUrl: "templates/events/event.html",
+			controller: "EventController"
 		})
 		.state('tasks', {
 			url: "/tasks",

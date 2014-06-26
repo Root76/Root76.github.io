@@ -19,33 +19,13 @@
             </div>
           </div>
           <ul id="eventlist" class="sidelist">
-            <a href="event.html" ng-repeat="event in events"><li>{{event.title}}</li></a>
+            <div ng-repeat="event in events">
+              <a ui-sref="events.event({event_id: event.id})"><li>{{event.title}}</li></a>
+            </div>
           </ul>
         </div>
         <!--OUTLET-->
-        <div class="col-md-7" id="eventpanel2">
-          <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
-          <img src="img/arrow.png" class="backArrow" />
-          <h2 id="contactname" class="eventname"><b>Select an event</b></h2>
-          <div id="detailmenubar">
-            <img src="img/contacts.png" />
-            <img src="img/events.png" class="selected" />
-            <img src="img/tasks.png" />
-            <img src="img/tags.png" /> 
-            <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addEvent" /></a>
-            <img src="img/trash.png" id="trashicon"/>              
-          </div>
-          <div class="panelcontent" id="eventscontent">              
-            <div class="infopanel">
-            </div>
-            <div class="infopanel">
-            </div>
-            <div class="infopanel selected">
-            </div>
-            <div class="infopanel">
-            </div>
-          </div>
-        </div>
+        <div ui-view></div>
         <!--/OUTLET-->
       </div>
     </div>
