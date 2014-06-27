@@ -376,7 +376,7 @@ function rebindEvents() {
     		}, 100);
         });
 
-        $("#createicon").click(function(event){
+       /* $("#createicon").click(function(event){
             var createChoice = document.getElementById("createselect");
             if (createChoice.length) {
                 $('.createForm').removeClass('selected');
@@ -394,7 +394,7 @@ function rebindEvents() {
                     createChoice.selectedIndex = 4;
                 }
             }
-        });
+        });*/
 
         $('.detailCreate').click(function(){
             $("#createicon").click();

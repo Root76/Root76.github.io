@@ -10,7 +10,7 @@
     <img src="img/events.png" />
     <img src="img/tasks.png" />
     <img src="img/tags.png" class="selected" />   
-    <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
+    <a href="javascript:void(0)"><img src="img/create.png" class="addTag" ng-click="create()" /></a>
     <img src="img/trash.png" id="trashicon"/>    
     <button id="destroy">{{id}}</button>
   </div>
@@ -75,7 +75,7 @@
             <span>(#)</span>
           </div>
         </div>
-        <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" class="detailCreate" /></a>
+        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()" /></a>
         <img id="detailTrash" src="img/trash.png" />
       </div>
       <img class="columnDivider" src="img/divider_yellow.png" />

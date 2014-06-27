@@ -101,8 +101,10 @@ var hashDetection = new hashHandler();
 					if(newObject.type == "contact")
 					{
 						delete newObject.type;
-						contactService.Contacts.create(newObject);
-						$scope.loadContacts();
+						contactService.Contacts.create(newObject).$promise.then(function(){
+							console.log("Reloading contacts");
+							$scope.loadContacts();	
+						});
 					}
 					else if(newObject.type == "event")
 					{
@@ -116,14 +118,18 @@ var hashDetection = new hashHandler();
 					else if(newObject.type == "task")
 					{
 						delete newObject.type;
-						taskService.Tasks.create(newObject);
-						$scope.loadTasks();
+						taskService.Tasks.create(newObject).$promise.then(function(){
+							console.log("Reloading tasks");
+							$scope.loadTasks();	
+						});
 					}
 					else if(newObject.type == "tag")
 					{
 						delete newObject.type;
-						tagService.Tags.create(newObject);
-						$scope.loadTags();
+						tagService.Tags.create(newObject).$promise.then(function(){
+							console.log("Reloading tags");
+							$scope.loadTags();	
+						});
 					}
 					
 				});
