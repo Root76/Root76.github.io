@@ -73,6 +73,9 @@ var hashDetection = new hashHandler();
 				$scope.eventsPromise.$promise.then(function(data){
 					$scope.events = data.events;
 					allObjects.events = data.events;
+					for (var i = 0; i < allObjects.events.length; i++) {
+						allObjects.events[i]['type'] = "event";
+					}
 				});
 			};
 			
@@ -81,6 +84,9 @@ var hashDetection = new hashHandler();
 				$scope.tasksPromise.$promise.then(function(data){
 					$scope.tasks = data.tasks;
 					allObjects.tasks = data.tasks;
+					for (var i = 0; i < allObjects.tasks.length; i++) {
+						allObjects.tasks[i]['type'] = "task";
+					}
 				});
 			};
 
@@ -89,6 +95,9 @@ var hashDetection = new hashHandler();
 				$scope.tagsPromise.$promise.then(function(data){
 					$scope.tags = data.tags;
 					allObjects.tags = data.tags;
+					for (var i = 0; i < allObjects.tags.length; i++) {
+						allObjects.tags[i]['type'] = "tag";
+					}
 				});
 			};
 
@@ -101,7 +110,14 @@ var hashDetection = new hashHandler();
 						console.log("Promises fulfilled");
 						clearInterval(checkPromises);
 						var combinedObjects = allObjects.contacts.concat(allObjects.events, allObjects.tasks, allObjects.tags);
+
+						console.log(combinedObjects);
+
 						$scope.totalObjects = combinedObjects;
+
+						//console.log(combinedObjects);
+						//combinedObjects = combinedObjects.splice(10, 11);
+						//console.log(combinedObjects);
 
 					} else {
 						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
