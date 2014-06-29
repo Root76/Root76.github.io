@@ -51,10 +51,11 @@
         </div>
         <div class="panelcontent dashContent" id="eventscontent">              
           <div class="infopanel selected">
-              <div class="subitem subdash ss2" ng-repeat="contact in contacts">
-                  <a href="contacts/contact.html">
+              <div class="subitem subdash ss2" ng-repeat="object in totalObjects | orderBy : IndexSort">
+                  <a href="contacts/contact.html" ng-if="object.type == 'contact' ">
                     <img class="subicon" src="img/contacts.png" />
-                    <span class="subitemtext subdashtext">{{contact.name}}</span>
+                    <span class="subitemtext subdashtext" ng-if="object.name != null">{{object.name}}</span>
+                    <span class="subitemtext subdashtext" ng-if="object.emails != null">{{object.emails[0].email}}</span>
                   </a>
                   <!--<a href="events/event.html">
                     <img class="subicon" src="img/events.png" />

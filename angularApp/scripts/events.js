@@ -7,6 +7,8 @@ setTimeout(function() {
     }
 }, 2000);
 
+rebindEvents();
+
 function rebindEvents() { 
 
     setTimeout(function(){
