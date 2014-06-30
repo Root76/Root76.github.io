@@ -49,10 +49,21 @@ var hashDetection = new hashHandler();
 	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
 		function($scope, $resource, $modal, contactService, tagService, taskService, eventService) {
 
+			var allObjects = {
+				contacts: "",
+				events: "",
+				tasks: "",
+				tags: ""
+			};
+
 			$scope.loadContacts = function() {
 				$scope.contactsPromise = contactService.Contacts.query();
 				$scope.contactsPromise.$promise.then(function(data) {
 					$scope.contacts = data;
+					allObjects.contacts = data;
+					for (var i = 0; i < allObjects.contacts.length; i++) {
+						allObjects.contacts[i]['type'] = "contact";
+					}
 				});
 			};
 
@@ -60,6 +71,10 @@ var hashDetection = new hashHandler();
 				$scope.eventsPromise = eventService.Events.get();
 				$scope.eventsPromise.$promise.then(function(data){
 					$scope.events = data.events;
+					allObjects.events = data.events;
+					for (var i = 0; i < allObjects.events.length; i++) {
+						allObjects.events[i]['type'] = "event";
+					}
 				});
 			};
 			
@@ -67,6 +82,10 @@ var hashDetection = new hashHandler();
 				$scope.tasksPromise = taskService.Tasks.get();
 				$scope.tasksPromise.$promise.then(function(data){
 					$scope.tasks = data.tasks;
+					allObjects.tasks = data.tasks;
+					for (var i = 0; i < allObjects.tasks.length; i++) {
+						allObjects.tasks[i]['type'] = "task";
+					}
 				});
 			};
 
@@ -74,13 +93,46 @@ var hashDetection = new hashHandler();
 				$scope.tagsPromise = tagService.Tags.get();
 				$scope.tagsPromise.$promise.then(function(data){
 					$scope.tags = data.tags;
+					allObjects.tags = data.tags;
+					for (var i = 0; i < allObjects.tags.length; i++) {
+						allObjects.tags[i]['type'] = "tag";
+					}
 				});
 			};
+
+			$scope.combineAll = function() {
+
+				var checkPromises = setInterval(function() {
+
+					if (allObjects.contacts.length > 0 && allObjects.events.length > 0 && allObjects.tasks.length > 0 && allObjects.tags.length > 0) {
+
+						console.log("Promises fulfilled");
+						clearInterval(checkPromises);
+						var combinedObjects = allObjects.contacts.concat(allObjects.events, allObjects.tasks, allObjects.tags);
+
+						console.log(combinedObjects);
+
+						$scope.totalObjects = combinedObjects;
+
+						//console.log(combinedObjects);
+						//combinedObjects = combinedObjects.splice(10, 11);
+						//console.log(combinedObjects);
+
+					} else {
+						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
+					}
+
+				}, 100);
+
+			}
 
 			$scope.loadContacts();
 			$scope.loadEvents();
 			$scope.loadTasks();
 			$scope.loadTags();
+			$scope.combineAll();
+
+			$scope.IndexSort = "-updated_at";
 
 			$scope.create = function()
 			{
