@@ -33,10 +33,9 @@ function hashHandler(){
 var hashDetection = new hashHandler();
 
 (function(){
-
 	var app = angular.module('DayWonApplication', 
 		['ui.router', 'ui.bootstrap', 
-		'Contacts', 'Events',
+		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
 		'Routing', 'CreateModule']);
 
@@ -209,19 +208,6 @@ var hashDetection = new hashHandler();
 
 		}]);
 
-	app.controller('TasksController', ['$resource', '$scope', 'taskService',
-		function($resource, $scope, taskService) {
-			taskService.Tasks.get(function(data){
-				$scope.tasks = data.tasks;
-			});
-		}]);
-
-	app.controller('TagsController', ['$resource', '$scope', 'tagService',
-		function($resource, $scope, tagService) {
-			tagService.Tags.get(function(data){
-				$scope.tags = data.tags;
-			});	
-		}]);
 
 	app.controller('CalendarController', ['$resource', 'taskService', 'eventService',
 		function($resource, taskService, eventService) {
@@ -403,5 +389,81 @@ var hashDetection = new hashHandler();
 			});
 
 		}]);
+
+	app.filter('openEvents', function() {
+		return function(events) {
+			var filtered_list = [];
+			if(events)
+			{
+				for(var i = 0; i < events.length; i++)
+				{
+					var event = events[i];
+					var today = new Date();
+
+					if(event.recurrence) //rules are different for recurrence events
+					{
+					}
+					else
+					{
+						if(event.end_datetime > today)
+							filtered_list.push(event);
+					}
+				}
+			}
+			return filtered_list;
+		}
+	});
+
+	app.filter('closedEvents', function() {
+		return function(events) {
+			var filtered_list = [];
+			if(events)
+			{
+					for(var i = 0; i < events.length; i++)
+				{
+					var event = events[i];
+					var today = new Date();
+
+					if(event.recurrence) //rules are different for recurrence events
+					{
+					}
+					else
+					{
+						if(event.end_datetime < today)
+							filtered_list.push(event);
+					}
+				}
+			}
+			return filtered_list;
+		}
+	});
+
+	app.filter('openTasks', function() {
+		return function(tasks) {
+			var filtered_list = [];
+			if(tasks)
+				for(var i = 0; i < tasks.length; i++)
+				{
+					if(!tasks[i].status)
+						filtered_list.push(tasks[i]);
+				}
+
+			return filtered_list;
+		}
+	});
+
+	app.filter('closedTasks', function() {
+		return function(tasks) {
+			var filtered_list = [];
+			if(tasks)
+				for(var i = 0; i < tasks.length; i++)
+				{
+					if(tasks[i].status)
+						filtered_list.push(tasks[i]);
+				}
+
+			return filtered_list;
+		}
+	});
 
 })();

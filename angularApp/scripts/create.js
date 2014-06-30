@@ -187,6 +187,10 @@
 			$scope.taskSelected = function() { return $scope.selection == 3; };
 			$scope.tagSelected = function() { return $scope.selection == 4; };
 
+			$scope.quit = function() {
+				console.log("Quitting create functionality");
+				$modalInstance.close();
+			}
 		}]);
 
 	createModule.controller('ContactCreationController', ['$scope', 

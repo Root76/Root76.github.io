@@ -23,34 +23,12 @@
           <button class="sortingToggle" id="byName">Sort</button>
           <button class="sortingToggle" id="byContact">Sort</button>
           <ul id="tasklist" class="sidelist">
-            <a href="task.html" ng-repeat="task in tasks"><li><img src="img/check.png" />{{task.title}}</li></a>
+            <div ng-repeat="task in tasks">
+              <a ui-sref="tasks.task({task_id:task.id})"><li><img src="img/check.png" />{{task.title}}</li></a>
+            </div>
           </ul>
         </div>
-        <!--OUTLET-->
-        <div class="col-md-7" id="taskpanel2">
-          <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
-          <img src="img/arrow.png" class="backArrow" />
-          <h2 id="contactname" class="taskname">Select a task</h2>
-          <div id="detailmenubar">
-            <img src="img/contacts.png" />
-            <img src="img/events.png" />
-            <img src="img/tasks.png" class="selected" />
-            <img src="img/tags.png" />   
-            <a href="javascript:void(0)"><img src="img/create.png" id="createicon" class="addTask" ng-click="create()"/></a>
-            <img src="img/trash.png" id="trashicon"/>              
-          </div>
-          <div class="panelcontent" id="taskscontent">
-            <div class="infopanel">
-            </div>
-            <div class="infopanel selected">
-            </div>
-            <div class="infopanel">
-            </div>
-            <div class="infopanel">
-            </div>
-          </div>
-        </div>
-        <!--/OUTLET-->
+        <div ui-view></div>
       </div>
     </div>
   </div>

@@ -8,7 +8,7 @@
 <div>
 
   <div class="modal-header">
-    <a href="javascript:void(0)" title="Close" class="close">X</a>
+    <a href="javascript:void(0)" title="Close" class="close" ng-click="quit()">X</a>
     <h2 id="createHeader">Create:   </h2>
 
     <span class="dropdown" is-open="status.isopen">
@@ -101,8 +101,6 @@
     <div class="modal-footer">
       <button class="btn btn-primary" ng-click="createContact()">Create Contact</button>
     </div>
-
-
   </div>
 
   <div ng-show="eventSelected()" ng-controller="EventCreationController">
@@ -240,7 +238,6 @@
       <button class="btn btn-primary" ng-click="createEvent()">Create Event</button>
     </div>
   </div>
-
 
   <div ng-show="taskSelected()" ng-controller="TaskCreationController">
     <div class="modal-body">
@@ -384,7 +381,6 @@
     <div class="modal-footer">
       <button class="btn btn-primary" ng-click="createTag()">Create Tag</button>
     </div>
-
   </div>
 
 </div>
