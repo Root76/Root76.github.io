@@ -60,44 +60,64 @@ var hashDetection = new hashHandler();
 			$scope.loadContacts = function() {
 				$scope.contactsPromise = contactService.Contacts.query();
 				$scope.contactsPromise.$promise.then(function(data) {
+					
 					$scope.contacts = data;
+
 					allObjects.contacts = data;
 					for (var i = 0; i < allObjects.contacts.length; i++) {
 						allObjects.contacts[i]['type'] = "contact";
 					}
+
 				});
 			};
 
 			$scope.loadEvents = function() {
 				$scope.eventsPromise = eventService.Events.get();
 				$scope.eventsPromise.$promise.then(function(data){
+
 					$scope.events = data.events;
+
+					var thisDate;
+					var today = moment().format('MMMM Do YYYY');
+
 					allObjects.events = data.events;
 					for (var i = 0; i < allObjects.events.length; i++) {
 						allObjects.events[i]['type'] = "event";
+						thisDate = allObjects.events[i]['start_datetime'];
+						console.log(today);
+						if (moment(thisDate).format('MMMM Do YYYY') == today) {
+							console.log(allObjects.events[i]['title'] + " is occuring today: " + allObjects.events[i]['start_datetime']);
+						}
 					}
+
 				});
 			};
 			
 			$scope.loadTasks = function() {
 				$scope.tasksPromise = taskService.Tasks.get();
 				$scope.tasksPromise.$promise.then(function(data){
+
 					$scope.tasks = data.tasks;
+
 					allObjects.tasks = data.tasks;
 					for (var i = 0; i < allObjects.tasks.length; i++) {
 						allObjects.tasks[i]['type'] = "task";
 					}
+
 				});
 			};
 
 			$scope.loadTags = function() {
 				$scope.tagsPromise = tagService.Tags.get();
 				$scope.tagsPromise.$promise.then(function(data){
+
 					$scope.tags = data.tags;
+
 					allObjects.tags = data.tags;
 					for (var i = 0; i < allObjects.tags.length; i++) {
 						allObjects.tags[i]['type'] = "tag";
 					}
+
 				});
 			};
 
