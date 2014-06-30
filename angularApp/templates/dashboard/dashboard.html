@@ -79,51 +79,53 @@
             <a href="tasks/task">
               <div class="subitem subdash" ng-repeat="task in tasks">
                 <img class="subicon" src="img/tasks.png" />
-                <span class="subitemtext subdashtext" ng-if="task.title != null">{{task.title}}</span>
-                <span class="subitemtext subdashtext" ng-if="task.title == null">No Task Title</span>
+                <a ui-sref="tasks.task({task_id: task.id})">
+                  <span class="subitemtext subdashtext" ng-if="task.title != null">{{task.title}}</span>
+                  <span class="subitemtext subdashtext" ng-if="task.title == null">No Task Title</span>
+                </a>
               </div>
             </a>
           </div>
           <div class="infopanel">
             <div class="daySeparator">
               <h3>Today</h3>
-              <a href="events/event" ng-repeat="event in events"><li><span>{{event.title}}</span></li></a>
+              <div ng-repeat="event in events1"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
             </div>
             <div class="daySeparator">
               <h3>Tomorrow</h3>
-              <a href="events/event"><li><span>Event Name</span></li></a>
+              <div ng-repeat="event in events2"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
             </div>
             <div class="daySeparator">
               <h3>Day 2</h3>
-              <a href="events/event"><li><span>Event Name</span></li></a>
+              <div ng-repeat="event in events3"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
             </div>
             <div class="daySeparator">
               <h3>Day 3</h3>
-              <a href="events/event"><li><span>Event Name</span></li></a>
+              <div ng-repeat="event in events4"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
             </div>
             <div class="daySeparator">
               <h3>Day 4</h3>
-              <a href="events/event"><li><span>Event Name</span></li></a>
+              <div ng-repeat="event in events5"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
             </div>
             <div class="daySeparator">
               <h3>Day 5</h3>
-              <a href="events/event"><li><span>Event Name</span></li></a>
+              <div ng-repeat="event in events6"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
             </div>
             <div class="daySeparator">
               <h3>Day 6</h3>
-              <a href="events/event"><li><span>Event Name</span></li></a>
+              <div ng-repeat="event in events7"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
             </div>
           </div>
           <div class="infopanel">
-            <a href="tags/tag" ng-repeat="tag in tags">
-              <div class="subitem subdash">
-                <img class="subicon" src="img/tags.png" />
-                <span class="subitemtext subdashtext">{{tag.name}}</span>          
+              <div class="subitem subdash" ng-repeat="tag in tags">
+                <a ui-sref="tags.tag({tag_id: tag.id})">
+                  <img class="subicon" src="img/tags.png" />
+                  <span class="subitemtext subdashtext">{{tag.name}}</span>          
+                </a>
               </div>
-            </a>
-            <div class="subitem subdash" ng-if="tags.length == 0">
-              <span class="subitemtext subdashtext">No Tags</span>          
-            </div>
+              <div class="subitem subdash" ng-if="tags.length == 0">
+                <span class="subitemtext subdashtext">No Tags</span>          
+              </div>
           </div>
         </div>
       </div>
