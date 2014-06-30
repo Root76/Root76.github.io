@@ -1,5 +1,5 @@
 <div class="mobileCover" id="settingsCover"></div>
-  <div id="appcont" class="settingspage viewcont">
+  <div id="appcont" class="settingspage viewcont" ng-controller="IndexController">
     <h1>Settings</h1>
     <div class="section-container" id="taskscont">
       <div class="row">
@@ -7,16 +7,16 @@
           <img src="img/contacts.png" id="settingimage" />
           <div class="itemcounts">
             <div class="itemcount">
-              <a href="contacts.html"><img src="img/contacts.png" /><p>##</p></a>
+              <a href="contacts.html"><img src="img/contacts.png" /><p>{{contacts.length}}</p></a>
             </div>
             <div class="itemcount">
-              <a href="events.html"><img src="img/events.png" /><p>##</p></a>
+              <a href="events.html"><img src="img/events.png" /><p>{{events.length}}</p></a>
             </div>
             <div class="itemcount">
-              <a href="tasks.html"><img src="img/tasks.png" /><p>##</p></a>
+              <a href="tasks.html"><img src="img/tasks.png" /><p>{{tasks.length}}</p></a>
             </div>
             <div class="itemcount">
-              <a href="tags.html"><img src="img/tags.png" /><p>##</p></a>
+              <a href="tags.html"><img src="img/tags.png" /><p>{{tags.length}}</p></a>
             </div>
           </div>
         </div>
@@ -34,16 +34,16 @@
             <h3>tyler@evenspring.com</h3>
             <div id="objectCount">
               <div class="itemcountMobile">
-                <img src="img/contacts.png" /><p>(31)</p>
+                <img src="img/contacts.png" /><p>{{contacts.length}}</p>
               </div>
               <div class="itemcountMobile">
-                <img src="img/events.png" /><p>(24)</p>
+                <img src="img/events.png" /><p>{{events.length}}</p>
               </div>
               <div class="itemcountMobile">
-                <img src="img/tasks.png" /><p>(16)</p>
+                <img src="img/tasks.png" /><p>{{tasks.length}}</p>
               </div>
               <div class="itemcountMobile">
-                <img src="img/tags.png" /><p>(43)</p>
+                <img src="img/tags.png" /><p>{{tags.length}}</p>
               </div>
             </div>
             <div id="otheroptionsMobile">
