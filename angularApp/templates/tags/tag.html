@@ -2,7 +2,7 @@
   <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
   <img src="img/arrow.png" class="backArrow" />
 	<h2 id="contactname" class="tagname">
-    Name
+    {{tag.name}}
     <span class="hidden">{{id}}</span>
   </h2>
   <div id="detailmenubar">
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="infopanel selected">                      
-      <h5>Count: #</h5>
+      <h5>Count: {{tag.count}}</h5>
     </div>
   </div>
 </div>
@@ -58,21 +58,21 @@
     <div class="col-md-4 dCol" id="dCol1">
       <div>
         <h1 id="contactname" class="tagname">
-            Name
+            {{tag.name}}
             <span class="hidden">{{id}}</span>
         </h1>
         <div class="contactgroup relatedObjects taggedObjects">
           <div class="contactitem">
             <img src="img/contacts.png" />
-            <span>(#)</span>
+            <span>({{tag.contacts.length}})</span>
           </div>
           <div class="contactitem">
             <img src="img/events.png" />
-            <span>(#)</span>
+            <span>({{tag.events.length}})</span>
           </div>
           <div class="contactitem">
             <img src="img/tasks.png" />
-            <span>(#)</span>
+            <span>({{tag.tasks.length}})</span>
           </div>
         </div>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()" /></a>

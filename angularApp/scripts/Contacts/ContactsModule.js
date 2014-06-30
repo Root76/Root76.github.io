@@ -11,10 +11,11 @@
 				if(contact.name)
 					return contact.name;
 				else
-					if(contact.emails[0])
+					if(contact.emails[0] && contact.emails[0].email)
 						return contact.emails[0].email;
-					else
-						return "";
+
+				
+				return "No name or email";		
 			}
 		}]);
 	

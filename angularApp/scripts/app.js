@@ -33,10 +33,9 @@ function hashHandler(){
 var hashDetection = new hashHandler();
 
 (function(){
-
 	var app = angular.module('DayWonApplication', 
 		['ui.router', 'ui.bootstrap', 
-		'Contacts', 'Events',
+		'Contacts', 'Events', 'Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
 		'Routing', 'CreateModule']);
 
@@ -144,12 +143,7 @@ var hashDetection = new hashHandler();
 			});
 		}]);
 
-	app.controller('TagsController', ['$resource', '$scope', 'tagService',
-		function($resource, $scope, tagService) {
-			tagService.Tags.get(function(data){
-				$scope.tags = data.tags;
-			});	
-		}]);
+
 
 	app.controller('CalendarController', ['$resource', 'taskService', 'eventService',
 		function($resource, taskService, eventService) {
