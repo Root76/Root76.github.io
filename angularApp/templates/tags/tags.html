@@ -19,34 +19,14 @@
             </div>
           </div>
           <ul id="taglist" class="sidelist">
-            <a href="tag.html" ng-repeat="tag in tags"><li>{{tag.name}} ({{tag.count}})</li></a>          
+            <div ng-repeat="tag in tags">
+              <a ui-sref="tags.tag( {tag_id : tag.id} )" ng-click="selectTag()"><li>{{tag.name}} ({{tag.count}})</li></a>
+            </div>
           </ul>
         </div>
-        <!--OUTLET-->
-        <div class="col-md-7" id="tagpanel2">
-          <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
-          <img src="img/arrow.png" class="backArrow" />
-          <h2 id="contactname" class="tagname">Select a tag</h2>
-          <div id="detailmenubar">
-            <img src="img/contacts.png" />
-            <img src="img/events.png" />
-            <img src="img/tasks.png" />
-            <img src="img/tags.png" class="selected" />   
-            <a href="javascript:void(0)" class="openModal3"><img src="img/create.png" id="createicon" class="addTag" /></a>
-            <img src="img/trash.png" id="trashicon"/>              
-          </div>
-          <div class="panelcontent" id="tagscontent">
-            <div class="infopanel">
-            </div>
-            <div class="infopanel">
-            </div>
-            <div class="infopanel">
-            </div>
-            <div class="infopanel selected">
-            </div>
-          </div>
-        </div>
-        <!--/OUTLET-->
+
+        <div ui-view></div>
+
       </div>
     </div>
   </div>

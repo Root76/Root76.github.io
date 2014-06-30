@@ -51,30 +51,36 @@
         </div>
         <div class="panelcontent dashContent" id="eventscontent">              
           <div class="infopanel selected">
-              <div class="subitem subdash ss2" ng-repeat="contact in contacts">
-                  <a href="contacts/contact.html">
+              <div class="subitem subdash ss2" ng-repeat="object in totalObjects | orderBy : IndexSort | limitTo:10 ">
+                  <a href="contacts/contact.html" ng-if="object.type == 'contact' ">
                     <img class="subicon" src="img/contacts.png" />
-                    <span class="subitemtext subdashtext">{{contact.name}}</span>
+                    <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
+                    <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length > 0 " >{{object.emails[0].email}}</span>
+                    <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length == 0 ">No Name or Email</span>
                   </a>
-                  <!--<a href="events/event.html">
+                  <a href="events/event.html" ng-if="object.type == 'event' ">
                     <img class="subicon" src="img/events.png" />
-                    <span class="subitemtext subdashtext">Item Title</span>
+                    <span class="subitemtext subdashtext" ng-if="object.title != null ">{{object.title}}</span>
+                    <span class="subitemtext subdashtext" ng-if="object.title == null ">No Title</span>
                   </a>
-                  <a href="tasks/task.html">
+                  <a href="tasks/task.html" ng-if="object.type == 'task' ">
                     <img class="subicon" src="img/tasks.png" />
-                    <span class="subitemtext subdashtext">Item Title</span>
+                    <span class="subitemtext subdashtext" ng-if="object.title != title ">{{object.title}}</span>
+                    <span class="subitemtext subdashtext" ng-if="object.title == null ">No Task Title</span>
                   </a>
-                  <a href="tags/tag">
+                  <a href="tags/tag" ng-if="object.type == 'tag' ">
                     <img class="subicon" src="img/tags.png" />
-                    <span class="subitemtext subdashtext">Item Name</span>
-                  </a>-->
+                    <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
+                    <span class="subitemtext subdashtext" ng-if="object.name == null ">No Name</span>
+                  </a>
               </div>
           </div>
           <div class="infopanel">
             <a href="tasks/task">
               <div class="subitem subdash" ng-repeat="task in tasks">
                 <img class="subicon" src="img/tasks.png" />
-                <span class="subitemtext subdashtext">{{task.title}}</span>
+                <span class="subitemtext subdashtext" ng-if="task.title != null">{{task.title}}</span>
+                <span class="subitemtext subdashtext" ng-if="task.title == null">No Task Title</span>
               </div>
             </a>
           </div>
@@ -115,7 +121,7 @@
                 <span class="subitemtext subdashtext">{{tag.name}}</span>          
               </div>
             </a>
-            <div class="subitem subdash">
+            <div class="subitem subdash" ng-if="tags.length == 0">
               <span class="subitemtext subdashtext">No Tags</span>          
             </div>
           </div>

@@ -11,10 +11,11 @@
 				if(contact.name)
 					return contact.name;
 				else
-					if(contact.emails[0])
+					if(contact.emails[0] && contact.emails[0].email)
 						return contact.emails[0].email;
-					else
-						return "";
+
+				
+				return "No name or email";		
 			}
 		}]);
 	
@@ -60,79 +61,4 @@
 			}
 		}])
 
-	ContactsModule.filter('openEvents', function() {
-		return function(events) {
-			var filtered_list = [];
-			if(events)
-			{
-				for(var i = 0; i < events.length; i++)
-				{
-					var event = events[i];
-					var today = new Date();
-
-					if(event.recurrence) //rules are different for recurrence events
-					{
-					}
-					else
-					{
-						if(event.end_datetime > today)
-							filtered_list.push(event);
-					}
-				}
-			}
-			return filtered_list;
-		}
-	});
-
-	ContactsModule.filter('closedEvents', function() {
-		return function(events) {
-			var filtered_list = [];
-			if(events)
-			{
-					for(var i = 0; i < events.length; i++)
-				{
-					var event = events[i];
-					var today = new Date();
-
-					if(event.recurrence) //rules are different for recurrence events
-					{
-					}
-					else
-					{
-						if(event.end_datetime < today)
-							filtered_list.push(event);
-					}
-				}
-			}
-			return filtered_list;
-		}
-	});
-
-	ContactsModule.filter('openTasks', function() {
-		return function(tasks) {
-			var filtered_list = [];
-			if(tasks)
-				for(var i = 0; i < tasks.length; i++)
-				{
-					if(!tasks[i].status)
-						filtered_list.push(tasks[i]);
-				}
-
-			return filtered_list;
-		}
-	});
-
-	ContactsModule.filter('closedTasks', function() {
-		return function(tasks) {
-			var filtered_list = [];
-			if(tasks)
-				for(var i = 0; i < tasks.length; i++)
-				{
-					if(tasks[i].status)
-						filtered_list.push(tasks[i]);
-				}
-
-			return filtered_list;
-		}
-	});
 })();

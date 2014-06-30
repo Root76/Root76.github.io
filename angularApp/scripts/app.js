@@ -33,10 +33,9 @@ function hashHandler(){
 var hashDetection = new hashHandler();
 
 (function(){
-
 	var app = angular.module('DayWonApplication', 
 		['ui.router', 'ui.bootstrap', 
-		'Contacts', 'Events',
+		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
 		'Routing', 'CreateModule']);
 
@@ -50,38 +49,110 @@ var hashDetection = new hashHandler();
 	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
 		function($scope, $resource, $modal, contactService, tagService, taskService, eventService) {
 
+			var allObjects = {
+				contacts: "",
+				events: "",
+				tasks: "",
+				tags: ""
+			};
+
 			$scope.loadContacts = function() {
 				$scope.contactsPromise = contactService.Contacts.query();
 				$scope.contactsPromise.$promise.then(function(data) {
+					
 					$scope.contacts = data;
+
+					allObjects.contacts = data;
+					for (var i = 0; i < allObjects.contacts.length; i++) {
+						allObjects.contacts[i]['type'] = "contact";
+					}
+
 				});
 			};
 
 			$scope.loadEvents = function() {
 				$scope.eventsPromise = eventService.Events.get();
 				$scope.eventsPromise.$promise.then(function(data){
+
 					$scope.events = data.events;
+
+					var thisDate;
+					var today = moment().format('MMMM Do YYYY');
+
+					allObjects.events = data.events;
+					for (var i = 0; i < allObjects.events.length; i++) {
+						allObjects.events[i]['type'] = "event";
+						thisDate = allObjects.events[i]['start_datetime'];
+						console.log(today);
+						if (moment(thisDate).format('MMMM Do YYYY') == today) {
+							console.log(allObjects.events[i]['title'] + " is occuring today: " + allObjects.events[i]['start_datetime']);
+						}
+					}
+
 				});
 			};
 			
 			$scope.loadTasks = function() {
 				$scope.tasksPromise = taskService.Tasks.get();
 				$scope.tasksPromise.$promise.then(function(data){
+
 					$scope.tasks = data.tasks;
+
+					allObjects.tasks = data.tasks;
+					for (var i = 0; i < allObjects.tasks.length; i++) {
+						allObjects.tasks[i]['type'] = "task";
+					}
+
 				});
 			};
 
 			$scope.loadTags = function() {
 				$scope.tagsPromise = tagService.Tags.get();
 				$scope.tagsPromise.$promise.then(function(data){
+
 					$scope.tags = data.tags;
+
+					allObjects.tags = data.tags;
+					for (var i = 0; i < allObjects.tags.length; i++) {
+						allObjects.tags[i]['type'] = "tag";
+					}
+
 				});
 			};
+
+			$scope.combineAll = function() {
+
+				var checkPromises = setInterval(function() {
+
+					if (allObjects.contacts.length > 0 && allObjects.events.length > 0 && allObjects.tasks.length > 0 && allObjects.tags.length > 0) {
+
+						console.log("Promises fulfilled");
+						clearInterval(checkPromises);
+						var combinedObjects = allObjects.contacts.concat(allObjects.events, allObjects.tasks, allObjects.tags);
+
+						console.log(combinedObjects);
+
+						$scope.totalObjects = combinedObjects;
+
+						//console.log(combinedObjects);
+						//combinedObjects = combinedObjects.splice(10, 11);
+						//console.log(combinedObjects);
+
+					} else {
+						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
+					}
+
+				}, 100);
+
+			}
 
 			$scope.loadContacts();
 			$scope.loadEvents();
 			$scope.loadTasks();
 			$scope.loadTags();
+			$scope.combineAll();
+
+			$scope.IndexSort = "-updated_at";
 
 			$scope.create = function()
 			{
@@ -101,8 +172,10 @@ var hashDetection = new hashHandler();
 					if(newObject.type == "contact")
 					{
 						delete newObject.type;
-						contactService.Contacts.create(newObject);
-						$scope.loadContacts();
+						contactService.Contacts.create(newObject).$promise.then(function(){
+							console.log("Reloading contacts");
+							$scope.loadContacts();	
+						});
 					}
 					else if(newObject.type == "event")
 					{
@@ -116,14 +189,18 @@ var hashDetection = new hashHandler();
 					else if(newObject.type == "task")
 					{
 						delete newObject.type;
-						taskService.Tasks.create(newObject);
-						$scope.loadTasks();
+						taskService.Tasks.create(newObject).$promise.then(function(){
+							console.log("Reloading tasks");
+							$scope.loadTasks();	
+						});
 					}
 					else if(newObject.type == "tag")
 					{
 						delete newObject.type;
-						tagService.Tags.create(newObject);
-						$scope.loadTags();
+						tagService.Tags.create(newObject).$promise.then(function(){
+							console.log("Reloading tags");
+							$scope.loadTags();	
+						});
 					}
 					
 				});
@@ -131,19 +208,6 @@ var hashDetection = new hashHandler();
 
 		}]);
 
-	app.controller('TasksController', ['$resource', '$scope', 'taskService',
-		function($resource, $scope, taskService) {
-			taskService.Tasks.get(function(data){
-				$scope.tasks = data.tasks;
-			});
-		}]);
-
-	app.controller('TagsController', ['$resource', '$scope', 'tagService',
-		function($resource, $scope, tagService) {
-			tagService.Tags.get(function(data){
-				$scope.tags = data.tags;
-			});	
-		}]);
 
 	app.controller('CalendarController', ['$resource', 'taskService', 'eventService',
 		function($resource, taskService, eventService) {
@@ -325,5 +389,81 @@ var hashDetection = new hashHandler();
 			});
 
 		}]);
+
+	app.filter('openEvents', function() {
+		return function(events) {
+			var filtered_list = [];
+			if(events)
+			{
+				for(var i = 0; i < events.length; i++)
+				{
+					var event = events[i];
+					var today = new Date();
+
+					if(event.recurrence) //rules are different for recurrence events
+					{
+					}
+					else
+					{
+						if(event.end_datetime > today)
+							filtered_list.push(event);
+					}
+				}
+			}
+			return filtered_list;
+		}
+	});
+
+	app.filter('closedEvents', function() {
+		return function(events) {
+			var filtered_list = [];
+			if(events)
+			{
+					for(var i = 0; i < events.length; i++)
+				{
+					var event = events[i];
+					var today = new Date();
+
+					if(event.recurrence) //rules are different for recurrence events
+					{
+					}
+					else
+					{
+						if(event.end_datetime < today)
+							filtered_list.push(event);
+					}
+				}
+			}
+			return filtered_list;
+		}
+	});
+
+	app.filter('openTasks', function() {
+		return function(tasks) {
+			var filtered_list = [];
+			if(tasks)
+				for(var i = 0; i < tasks.length; i++)
+				{
+					if(!tasks[i].status)
+						filtered_list.push(tasks[i]);
+				}
+
+			return filtered_list;
+		}
+	});
+
+	app.filter('closedTasks', function() {
+		return function(tasks) {
+			var filtered_list = [];
+			if(tasks)
+				for(var i = 0; i < tasks.length; i++)
+				{
+					if(tasks[i].status)
+						filtered_list.push(tasks[i]);
+				}
+
+			return filtered_list;
+		}
+	});
 
 })();

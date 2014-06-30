@@ -187,6 +187,10 @@
 			$scope.taskSelected = function() { return $scope.selection == 3; };
 			$scope.tagSelected = function() { return $scope.selection == 4; };
 
+			$scope.quit = function() {
+				console.log("Quitting create functionality");
+				$modalInstance.close();
+			}
 		}]);
 
 	createModule.controller('ContactCreationController', ['$scope', 
@@ -437,8 +441,8 @@
 				title: "",
 				notes: "",
 				status: false,
-				priority: 0,
-				due: "",
+				priority: 1,
+				due: new Date(),
 				type: "task"
 			};
 
@@ -452,7 +456,37 @@
 		    };
 
 			$scope.createTask = function() {
+				
+				//TODO: Perform validation!
+				var valid = true;
 
+				var contact_ids = [];
+				var tag_ids = [];
+				var event_ids = [];
+
+				for(var i = 0; i < $scope.associatedObjects.length; i++)
+				{
+					if($scope.associatedObjects[i].type == "contact")
+						contact_ids.push($scope.associatedObjects[i].id);
+					if($scope.associatedObjects[i].type == "tag")
+						tag_ids.push($scope.associatedObjects[i].id);
+					if($scope.associatedObjects[i].type == "event")
+						event_ids.push($scope.associatedObjects[i].id);
+				}
+				
+				$scope.newTask.contact_ids = contact_ids;
+				$scope.newTask.tag_ids = tag_ids;
+				$scope.newTask.event_ids = event_ids;
+				
+				$scope.newTask.due.setHours(0);
+				$scope.newTask.due.setMinutes(0);
+				$scope.newTask.due.setSeconds(0);
+				$scope.newTask.due.setMilliseconds(0);
+				
+				if(valid)
+				{
+					$scope.modalInstance.close($scope.newTask);
+				}
 			};
 	}]);
 
@@ -461,11 +495,35 @@
 
 			$scope.newTag = {
 				name: "",
-				count: 0,
 				type: "tag"
 			};
 			$scope.createTag = function() {
 
+				//TODO: Perform validation!
+				var valid = true;
+
+				var contact_ids = [];
+				var task_ids = [];
+				var event_ids = [];
+
+				for(var i = 0; i < $scope.associatedObjects.length; i++)
+				{
+					if($scope.associatedObjects[i].type == "contact")
+						contact_ids.push($scope.associatedObjects[i].id);
+					if($scope.associatedObjects[i].type == "task")
+						task_ids.push($scope.associatedObjects[i].id);
+					if($scope.associatedObjects[i].type == "event")
+						event_ids.push($scope.associatedObjects[i].id);
+				}
+				
+				$scope.newTag.contact_ids = contact_ids;
+				$scope.newTag.task_ids = task_ids;
+				$scope.newTag.event_ids = event_ids;
+
+				if(valid)
+				{
+					$scope.modalInstance.close($scope.newTag);
+				}
 			};
 	}]);
 /*
