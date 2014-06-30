@@ -76,8 +76,7 @@ var hashDetection = new hashHandler();
 
 					$scope.events = data.events;
 
-					var thisDate;
-					var j = 0;
+					var thisDate, j;
 					var today = moment().format('MMMM Do YYYY');
 					var tomorrow = moment().add('days', 1).format('MMMM Do YYYY');
 					var day3 = moment().add('days', 2).format('MMMM Do YYYY');
@@ -98,8 +97,9 @@ var hashDetection = new hashHandler();
 					console.log("Tomorrow is " + tomorrow);
 					allObjects.events = data.events;
 					
-					//VV Need to loop that
-					//allObjects.events[i]['type'] = "event";
+					for (var i = 0; i < allObjects.events.length; i++) {
+						allObjects.events[i]['type'] = "event";
+					}
 
 					function buildArray(eventArray, targetDate) {
 
@@ -124,8 +124,6 @@ var hashDetection = new hashHandler();
 					buildArray(events5, day5);
 					buildArray(events6, day6);
 					buildArray(events7, day7);
-
-					console.log(events1);
 
 					$scope.events1 = events1;
 					$scope.events2 = events2;
