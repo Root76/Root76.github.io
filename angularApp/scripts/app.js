@@ -198,6 +198,12 @@ var hashDetection = new hashHandler();
 
 			$scope.IndexSort = "-updated_at";
 
+			$scope.TaskSort = ['due', 'priority', 'title'];
+			$scope.TaskOrder = $scope.TaskSort[2];
+
+			$scope.TagSort = ['count', 'name'];
+			$scope.TagOrder = $scope.TagSort[1];
+
 			$scope.create = function()
 			{
 				var modalInstance = $modal.open({

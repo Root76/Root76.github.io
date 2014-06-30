@@ -31,53 +31,45 @@
             </div>
             <div class="sortcont sortcont3 sortcontTasks">
               <h4 class="beforeDropdown">Sort by: </h4>
-              <select>
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-              </select>
+              <select ng-model="TaskOrder" ng-options="option for option in TaskSort"></select>
             </div>
           </div>
           <div id="tagSorting" class="dashboardSorter">
-          <div class="sortcont sortcont3 sortcontTags">
-            <h4 class="beforeDropdown">Sort by: </h4>
-              <select>
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-              </select>
-          </div>
+            <div class="sortcont sortcont3 sortcontTags">
+              <h4 class="beforeDropdown">Sort by: </h4>
+              <select ng-model="TagOrder" ng-options="option for option in TagSort"></select>
+            </div>
           </div>
         </div>
         <div class="panelcontent dashContent" id="eventscontent">              
           <div class="infopanel selected">
-              <div class="subitem subdash ss2" ng-repeat="object in totalObjects | orderBy : IndexSort | limitTo:10 ">
-                  <a href="contacts/contact.html" ng-if="object.type == 'contact' ">
-                    <img class="subicon" src="img/contacts.png" />
-                    <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
-                    <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length > 0 " >{{object.emails[0].email}}</span>
-                    <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length == 0 ">No Name or Email</span>
-                  </a>
-                  <a href="events/event.html" ng-if="object.type == 'event' ">
-                    <img class="subicon" src="img/events.png" />
-                    <span class="subitemtext subdashtext" ng-if="object.title != null ">{{object.title}}</span>
-                    <span class="subitemtext subdashtext" ng-if="object.title == null ">No Title</span>
-                  </a>
-                  <a href="tasks/task.html" ng-if="object.type == 'task' ">
-                    <img class="subicon" src="img/tasks.png" />
-                    <span class="subitemtext subdashtext" ng-if="object.title != title ">{{object.title}}</span>
-                    <span class="subitemtext subdashtext" ng-if="object.title == null ">No Task Title</span>
-                  </a>
-                  <a href="tags/tag" ng-if="object.type == 'tag' ">
-                    <img class="subicon" src="img/tags.png" />
-                    <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
-                    <span class="subitemtext subdashtext" ng-if="object.name == null ">No Name</span>
-                  </a>
-              </div>
+            <div class="subitem subdash ss2" ng-repeat="object in totalObjects | orderBy : IndexSort | limitTo:10 ">
+              <a ui-sref="contacts.contact({contact_id: object.id})" ng-if="object.type == 'contact' ">
+                <img class="subicon" src="img/contacts.png" />
+                <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
+                <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length > 0 " >{{object.emails[0].email}}</span>
+                <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length == 0 ">No Name or Email</span>
+              </a>
+              <a ui-sref="events.event({event_id: object.id})" ng-if="object.type == 'event' ">
+                <img class="subicon" src="img/events.png" />
+                <span class="subitemtext subdashtext" ng-if="object.title != null ">{{object.title}}</span>
+                <span class="subitemtext subdashtext" ng-if="object.title == null ">No Title</span>
+              </a>
+              <a ui-sref="tasks.task({task_id: object.id})" ng-if="object.type == 'task' ">
+                <img class="subicon" src="img/tasks.png" />
+                <span class="subitemtext subdashtext" ng-if="object.title != title ">{{object.title}}</span>
+                <span class="subitemtext subdashtext" ng-if="object.title == null ">No Task Title</span>
+              </a>
+              <a ui-sref="tags.tag({tag_id: object.id})" ng-if="object.type == 'tag' ">
+                <img class="subicon" src="img/tags.png" />
+                <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
+                <span class="subitemtext subdashtext" ng-if="object.name == null ">No Name</span>
+              </a>
+            </div>
           </div>
           <div class="infopanel">
             <a href="tasks/task">
-              <div class="subitem subdash" ng-repeat="task in tasks">
+              <div class="subitem subdash" ng-repeat="task in tasks | orderBy:TaskOrder ">
                 <img class="subicon" src="img/tasks.png" />
                 <a ui-sref="tasks.task({task_id: task.id})">
                   <span class="subitemtext subdashtext" ng-if="task.title != null">{{task.title}}</span>
@@ -90,42 +82,49 @@
             <div class="daySeparator">
               <h3>Today</h3>
               <div ng-repeat="event in events1"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
+              <li class="eventless" ng-if="events1.length < 1"><span>No Events</span></li>            
             </div>
             <div class="daySeparator">
               <h3>Tomorrow</h3>
               <div ng-repeat="event in events2"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
+              <li class="eventless" ng-if="events2.length < 1"><span>No Events</span></li>            
             </div>
             <div class="daySeparator">
               <h3>Day 2</h3>
               <div ng-repeat="event in events3"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
+              <li class="eventless" ng-if="events3.length < 1"><span>No Events</span></li>            
             </div>
             <div class="daySeparator">
               <h3>Day 3</h3>
               <div ng-repeat="event in events4"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
+              <li class="eventless" ng-if="events4.length < 1"><span>No Events</span></li>            
             </div>
             <div class="daySeparator">
               <h3>Day 4</h3>
               <div ng-repeat="event in events5"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
+              <li class="eventless" ng-if="events5.length < 1"><span>No Events</span></li>            
             </div>
             <div class="daySeparator">
               <h3>Day 5</h3>
               <div ng-repeat="event in events6"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
+              <li class="eventless" ng-if="events6.length < 1"><span>No Events</span></li>            
             </div>
             <div class="daySeparator">
               <h3>Day 6</h3>
               <div ng-repeat="event in events7"><a ui-sref="events.event({event_id: event.id})"><li><span>{{event.title}}</span></li></a></div>
+              <li class="eventless" ng-if="events7.length < 1"><span>No Events</span></li>            
             </div>
           </div>
           <div class="infopanel">
-              <div class="subitem subdash" ng-repeat="tag in tags">
-                <a ui-sref="tags.tag({tag_id: tag.id})">
-                  <img class="subicon" src="img/tags.png" />
-                  <span class="subitemtext subdashtext">{{tag.name}}</span>          
-                </a>
-              </div>
-              <div class="subitem subdash" ng-if="tags.length == 0">
-                <span class="subitemtext subdashtext">No Tags</span>          
-              </div>
+            <div class="subitem subdash" ng-repeat="tag in tags | orderBy:TagOrder ">
+              <a ui-sref="tags.tag({tag_id: tag.id})">
+                <img class="subicon" src="img/tags.png" />
+                <span class="subitemtext subdashtext">{{tag.name}}</span>          
+              </a>
+            </div>
+            <div class="subitem subdash" ng-if="tags.length == 0">
+              <span class="subitemtext subdashtext">No Tags</span>          
+            </div>
           </div>
         </div>
       </div>
