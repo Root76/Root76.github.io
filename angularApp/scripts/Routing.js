@@ -72,7 +72,7 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 		.state('tasks.task', {
 			url: "/:task_id",
 			templateUrl: "templates/tasks/task.html",
-			controller: "EventController"
+			controller: "TaskController"
 		})
 //TAGS ROUTES
 		.state("tags", {
