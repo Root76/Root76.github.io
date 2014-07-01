@@ -59,44 +59,108 @@ var hashDetection = new hashHandler();
 			$scope.loadContacts = function() {
 				$scope.contactsPromise = contactService.Contacts.query();
 				$scope.contactsPromise.$promise.then(function(data) {
+					
 					$scope.contacts = data;
+
 					allObjects.contacts = data;
 					for (var i = 0; i < allObjects.contacts.length; i++) {
 						allObjects.contacts[i]['type'] = "contact";
 					}
+
 				});
 			};
 
 			$scope.loadEvents = function() {
 				$scope.eventsPromise = eventService.Events.get();
 				$scope.eventsPromise.$promise.then(function(data){
+
 					$scope.events = data.events;
+
+					var thisDate, j;
+					var today = moment().format('MMMM Do YYYY');
+					var tomorrow = moment().add('days', 1).format('MMMM Do YYYY');
+					var day3 = moment().add('days', 2).format('MMMM Do YYYY');
+					var day4 = moment().add('days', 3).format('MMMM Do YYYY');
+					var day5 = moment().add('days', 4).format('MMMM Do YYYY');
+					var day6 = moment().add('days', 5).format('MMMM Do YYYY');
+					var day7 = moment().add('days', 6).format('MMMM Do YYYY');
+
+					var events1 = new Array();
+					var events2 = new Array();
+					var events3 = new Array();
+					var events4 = new Array();
+					var events5 = new Array();
+					var events6 = new Array();
+					var events7 = new Array();
+
+					console.log("Today is " + today);
+					console.log("Tomorrow is " + tomorrow);
 					allObjects.events = data.events;
+					
 					for (var i = 0; i < allObjects.events.length; i++) {
 						allObjects.events[i]['type'] = "event";
 					}
+
+					function buildArray(eventArray, targetDate) {
+
+						j = 0;
+
+						for (var i = 0; i < allObjects.events.length; i++) {
+
+							thisDate = allObjects.events[i]['start_datetime'];
+							if (moment(thisDate).format('MMMM Do YYYY') == targetDate) {
+								eventArray[j] = allObjects.events[i];
+								j++;
+							}
+
+						}
+
+					}
+
+					buildArray(events1, today);
+					buildArray(events2, tomorrow);
+					buildArray(events3, day3);
+					buildArray(events4, day4);
+					buildArray(events5, day5);
+					buildArray(events6, day6);
+					buildArray(events7, day7);
+
+					$scope.events1 = events1;
+					$scope.events2 = events2;
+					$scope.events3 = events3;
+					$scope.events4 = events4;
+					$scope.events5 = events5;
+					$scope.events6 = events6;
+					$scope.events7 = events7;
+
 				});
 			};
 			
 			$scope.loadTasks = function() {
 				$scope.tasksPromise = taskService.Tasks.get();
 				$scope.tasksPromise.$promise.then(function(data){
+
 					$scope.tasks = data.tasks;
+
 					allObjects.tasks = data.tasks;
 					for (var i = 0; i < allObjects.tasks.length; i++) {
 						allObjects.tasks[i]['type'] = "task";
 					}
+
 				});
 			};
 
 			$scope.loadTags = function() {
 				$scope.tagsPromise = tagService.Tags.get();
 				$scope.tagsPromise.$promise.then(function(data){
+
 					$scope.tags = data.tags;
+
 					allObjects.tags = data.tags;
 					for (var i = 0; i < allObjects.tags.length; i++) {
 						allObjects.tags[i]['type'] = "tag";
 					}
+
 				});
 			};
 
@@ -131,6 +195,12 @@ var hashDetection = new hashHandler();
 			$scope.combineAll();
 
 			$scope.IndexSort = "-updated_at";
+
+			$scope.TaskSort = ['due', 'priority', 'title'];
+			$scope.TaskOrder = $scope.TaskSort[2];
+
+			$scope.TagSort = ['count', 'name'];
+			$scope.TagOrder = $scope.TagSort[1];
 
 			$scope.create = function()
 			{
