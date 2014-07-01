@@ -7,23 +7,13 @@
 
 			$scope.ordering = ['name', 'emails[0].email', 'id'];
 
-			$scope.getContactTitle = function(contact) {
-				if(contact.name)
-					return contact.name;
-				else
-					if(contact.emails[0] && contact.emails[0].email)
-						return contact.emails[0].email;
-
-				
-				return "No name or email";		
-			}
 		}]);
 	
 	ContactsModule.controller('ContactController', ['$resource', '$scope', '$stateParams', 'contactService',
 		function($resource, $scope, $stateParams, contactService){
 			
 			$scope.contactPromise = contactService.Contact.get({contact_id: $stateParams['contact_id']}, function(data) {
-				console.log(data);
+		//		console.log(data);
 				$scope.contact = data;
 			});
 

@@ -106,11 +106,9 @@ var hashDetection = new hashHandler();
 
 					if (allObjects.contacts.length > 0 && allObjects.events.length > 0 && allObjects.tasks.length > 0 && allObjects.tags.length > 0) {
 
-						console.log("Promises fulfilled");
+						//console.log("Promises fulfilled");
 						clearInterval(checkPromises);
 						var combinedObjects = allObjects.contacts.concat(allObjects.events, allObjects.tasks, allObjects.tags);
-
-						console.log(combinedObjects);
 
 						$scope.totalObjects = combinedObjects;
 
@@ -119,7 +117,7 @@ var hashDetection = new hashHandler();
 						//console.log(combinedObjects);
 
 					} else {
-						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
+						//console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
 					}
 
 				}, 100);
@@ -184,6 +182,17 @@ var hashDetection = new hashHandler();
 					}
 					
 				});
+			}
+
+			$scope.getContactTitle = function(contact) {
+				if(contact.name)
+					return contact.name;
+				else
+					if(contact.emails[0] && contact.emails[0].email)
+						return contact.emails[0].email;
+
+				
+				return "No name or email";		
 			}
 
 		}]);
@@ -370,62 +379,77 @@ var hashDetection = new hashHandler();
 
 		}]);
 
-	app.filter('openEvents', function() {
-		return function(events) {
-			var filtered_list = [];
-			if(events)
-			{
-				for(var i = 0; i < events.length; i++)
-				{
-					var event = events[i];
-					var today = new Date();
+	
+	var filtered_list = [];
 
-					if(event.recurrence) //rules are different for recurrence events
-					{
-					}
-					else
-					{
-						if(event.end_datetime > today)
-							filtered_list.push(event);
-					}
-				}
+	app.filter('openEvents', function(){
+		return function(eventShells, allEvents) {
+			filtered_list = [];
+
+			if(eventShells && allEvents)
+			{
+				for(var i = 0; i < eventShells.length; i++)
+					for(var j = 0; j < allEvents.length; j++)
+						if(allEvents[j].id == eventShells[i].id) //Our event id matches with the list of full data events
+						{
+							var today = moment();
+
+							if(allEvents[j].recurrence) //rules are different for recurrence events
+							{
+								if(moment(allEvents[j].end_datetime) > today)
+									filtered_list.push(eventShells[i]);
+							}
+							else
+							{
+								if(moment(allEvents[j].end_datetime) > today)
+									filtered_list.push(eventShells[i]);
+							}
+						}
 			}
+
 			return filtered_list;
 		}
 	});
 
-	app.filter('closedEvents', function() {
-		return function(events) {
-			var filtered_list = [];
-			if(events)
-			{
-					for(var i = 0; i < events.length; i++)
-				{
-					var event = events[i];
-					var today = new Date();
+	app.filter('closedEvents', function(){
+		return function(eventShells, allEvents) {
+			filtered_list = [];
 
-					if(event.recurrence) //rules are different for recurrence events
-					{
-					}
-					else
-					{
-						if(event.end_datetime < today)
-							filtered_list.push(event);
-					}
-				}
+			if(eventShells && allEvents)
+			{
+				for(var i = 0; i < eventShells.length; i++)
+					for(var j = 0; j < allEvents.length; j++)
+						if(allEvents[j].id == eventShells[i].id) //Our event id matches with the list of full data events
+						{
+							var today = moment();
+
+							if(allEvents[j].recurrence) //rules are different for recurrence events
+							{
+								if(moment(allEvents[j].end_datetime) < today)
+									filtered_list.push(eventShells[i]);
+							}
+							else
+							{
+								if(moment(allEvents[j].end_datetime) < today)
+									filtered_list.push(eventShells[i]);
+							}
+						}
 			}
+
 			return filtered_list;
 		}
 	});
 
 	app.filter('openTasks', function() {
 		return function(tasks) {
-			var filtered_list = [];
+			filtered_list = [];
 			if(tasks)
 				for(var i = 0; i < tasks.length; i++)
 				{
 					if(!tasks[i].status)
+					{
 						filtered_list.push(tasks[i]);
+					}
 				}
 
 			return filtered_list;
@@ -434,12 +458,14 @@ var hashDetection = new hashHandler();
 
 	app.filter('closedTasks', function() {
 		return function(tasks) {
-			var filtered_list = [];
+			filtered_list = [];
 			if(tasks)
 				for(var i = 0; i < tasks.length; i++)
 				{
 					if(tasks[i].status)
+					{
 						filtered_list.push(tasks[i]);
+					}
 				}
 
 			return filtered_list;

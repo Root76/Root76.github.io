@@ -68,7 +68,7 @@
           </div>
         </form>
           <div class="contactrow eventrow" ng-repeat="event in contact.events">
-            <a href="event.html"><img src="img/events.png" class="eventIcon">
+            <a ui-sref="events.event({event_id:event.id})"><img src="img/events.png" class="eventIcon">
             <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" class="removeAssoc" />
           </div>
       </div>
@@ -79,8 +79,8 @@
             <input id="typeAheadAddTask" />
           </div>
         </form>
-          <div class="contactrow taskrow">
-            <a href="tasks.html"><img src="img/tasks.png" class="taskIcon" ng-repeat="task in contact.tasks">
+          <div class="contactrow taskrow" ng-repeat="task in contact.tasks">
+            <a ui-sref="tasks.task({task_id:task.id})"><img src="img/tasks.png" class="taskIcon">
             <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" class="removeAssoc" />
           </div>
       </div>
@@ -92,7 +92,7 @@
           </div>
         </form>
           <div class="contactrow tagrow" ng-repeat="tag in contact.tags">
-            <a href="tags.html"><img src="img/tags.png" class="tagIcon">
+            <a ui-sref="tags.tag({tag_id:tag.id})"><img src="img/tags.png" class="tagIcon">
             <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" class="removeAssoc" />
           </div>
       </div>
@@ -171,14 +171,20 @@
           <br />
           <div class="detailSection">
             <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showOpenEvents=!showOpenEvents"></div>
-            <ul class="columnlist" ng-show="showOpenEvents" ng-repeat="event in contact.events | openEvents">
-              <li><a href="event.html">{{event.title}}</a></li>
+            <ul class="columnlist" ng-show="showOpenEvents">
+              <div ng-repeat="event in contact.events | openEvents:events">
+                <li><a ui-sref="events.event({event_id:event.id})">{{event.title}}</a></li>
+              </div>
+              <li ng-if="(contact.events | openEvents:events).length==0"><i>No events upcoming</i></li>
             </ul>
           </div>
           <div class="detailSection">
             <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showClosedEvents=!showClosedEvents"></div>
-            <ul class="columnlist" ng-show="showClosedEvents" ng-repeat="event in contact.events | closedEvents">
-              <li><a href="event.html">{{event.title}}</a></li>
+            <ul class="columnlist" ng-show="showClosedEvents">
+              <div ng-repeat="event in contact.events | closedEvents:events">
+                <li><a ui-sref="events.event({event_id:event.id})">{{event.title}}</a></li>
+              </div>
+              <li ng-if="(contact.events | closedEvents:events).length==0"><i>No events past</i></li>
             </ul>
           </div>
         </div>
@@ -193,14 +199,20 @@
           <br />
           <div class="detailSection">
             <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showOpenTasks=!showOpenTasks"></div>
-            <ul class="columnlist" ng-show="showOpenTasks" ng-repeat="task in contact.tasks | openTasks">
-              <li><a href="task.html">{{task.title}}</a></li>
+            <ul class="columnlist" ng-show="showOpenTasks">
+              <div ng-repeat="task in contact.tasks | openTasks">
+                <li><a ui-sref="tasks.task({task_id:task.id})">{{task.title}}</a></li>
+              </div>
+              <li ng-if="(contact.tasks | openTasks).length==0"><i>No open tasks</i></li>
             </ul>
           </div>
           <div class="detailSection">
             <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showClosedTasks=!showClosedtasks"></div>
-            <ul class="columnlist" ng-show="showClosedTasks" ng-repeat="task in contact.tasks | closedTasks">
-              <li><a href="task.html">{{task.title}}</a></li>
+            <ul class="columnlist" ng-show="showClosedTasks">
+              <div ng-repeat="task in contact.tasks | closedTasks">
+                <li><a ui-sref="tasks.task({task_id:task.id})">{{task.title}}</a></li>
+              </div>
+              <li ng-if="(contact.tasks | closedTasks).length==0"><i>No closed tasks</i></li>
             </ul>
           </div>
         </div>
