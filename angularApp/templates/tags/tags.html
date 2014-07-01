@@ -20,7 +20,7 @@
           </div>
           <ul id="taglist" class="sidelist">
             <div ng-repeat="tag in tags">
-              <a ui-sref="tags.tag( {tag_id : tag.id} )" ng-click="selectTag()"><li>{{tag.name}} ({{tag.count}})</li></a>
+              <a ui-sref="tags.tag( {tag_id : tag.id} )"><li>{{tag.name}} ({{tag.count}})</li></a>
             </div>
           </ul>
         </div>

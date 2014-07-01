@@ -1,6 +1,6 @@
 (function() {
 
-var RoutingModule = angular.module('Routing', ['ReportsModule', 'DashboardModule', 'Contacts', 'Events']);
+var RoutingModule = angular.module('Routing', []);
 
 RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 	

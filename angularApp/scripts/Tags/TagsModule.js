@@ -4,10 +4,7 @@
 
 	TagsModule.controller('TagsController', ['$resource', '$scope', 'tagService',
 		function($resource, $scope, tagService){
-
-			$scope.selectedTag = false;
-			$scope.selectTag = function() { $scope.selectedTag = true; };
-		
+			
 		}]);
 
 	TagsModule.controller('TagController', ['$resource', '$scope', '$stateParams', 'tagService',

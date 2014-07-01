@@ -3,7 +3,7 @@
   <img src="img/arrow.png" class="backArrow" />
 	<h2 id="contactname" class="tagname">
     {{tag.name}}
-    <span class="hidden">{{id}}</span>
+    <span class="hidden">{{tag.id}}</span>
   </h2>
   <div id="detailmenubar">
     <img src="img/contacts.png" />
@@ -12,7 +12,7 @@
     <img src="img/tags.png" class="selected" />   
     <a href="javascript:void(0)"><img src="img/create.png" class="addTag" ng-click="create()" /></a>
     <img src="img/trash.png" id="trashicon"/>    
-    <button id="destroy">{{id}}</button>
+    <button id="destroy">{{tag.id}}</button>
   </div>
   <div class="panelcontent" id="tagscontent">
     <div class="infopanel">
@@ -21,12 +21,14 @@
           <input id="typeAheadAddContact" />
         </div>
       </form>
-      <div class="contactrow personrow">
-        <div ng-repeat="contact in tag.contacts | orderBy: ['name', 'emails[0].email', 'id']">
+      <div ng-repeat="contact in tag.contacts | orderBy: ['name', 'emails[0].email', 'id']">
+        <div class="contactrow personrow">
           <a ui-sref="contacts.contact({contact_id:contact.id})"><img src="img/contacts.png" class="contactIcon">
           <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" class="removeAssoc" />
         </div>
-        <h4 ng-if="tag.contacts.length == 0"><i>No associated contacts</i></h4>
+      </div>
+      <div class="contactrow personrow" ng-if="tag.contacts.length == 0">
+        <h4><i>No associated contacts</i></h4>
       </div>
     </div>
     <div class="infopanel">
@@ -35,12 +37,14 @@
           <input id="typeAheadAddEvent" />
         </div>
       </form>
-      <div class="contactrow eventrow">
-        <div ng-repeat="event in tag.events">
+      <div ng-repeat="event in tag.events">
+        <div class="contactrow eventrow">
           <a ui-sref="events.event({event_id:event.id})"><img src="img/events.png" class="eventIcon">
           <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" class="removeAssoc" />
         </div>
-        <h4 ng-if="tag.events.length == 0"><i>No associated events</i></h4>
+      </div>
+      <div class="contactrow eventrow" ng-if="tag.events.length == 0">
+        <h4><i>No associated events</i></h4>
       </div>
     </div>
     <div class="infopanel">
@@ -49,12 +53,14 @@
           <input id="typeAheadAddTask" />
         </div>
       </form>
-      <div class="contactrow taskrow">
-        <div ng-repeat="task in tag.tasks">
+      <div ng-repeat="task in tag.tasks">
+        <div class="contactrow taskrow">
           <a ui-sref="tasks.task({task_id:task.id})"><img src="img/tasks.png" class="taskIcon">
           <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" class="removeAssoc" />
         </div>
-        <h4 ng-if="tag.tasks.length == 0"><i>No associated tasks</i></h4>
+      </div>
+      <div class="contactrow taskrow" ng-if="tag.tasks.length == 0">
+        <h4><i>No associated tasks</i></h4>
       </div>
     </div>
     <div class="infopanel selected">                      
