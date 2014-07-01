@@ -10,6 +10,10 @@
 	TasksModule.controller('TaskController', ['$resource', '$scope', '$stateParams','taskService',
 		function($resource, $scope, $stateParams, taskService) {
 			
+			$scope.showOpenEvents = true;
+			$scope.showClosedEvents = true;
+			
+
 			$scope.taskPromise = taskService.Task.get({task_id: $stateParams['task_id']}, function(data) {
 				console.log(data);
 				$scope.task = data;

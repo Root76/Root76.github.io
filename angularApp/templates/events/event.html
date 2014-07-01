@@ -2,7 +2,7 @@
   <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
   <img src="img/arrow.png" class="backArrow" />
       <h2 id="contactname" class="eventname">
-      Event Title
+      {{event.title}}
       <span class="hidden">{{event.id}}</span>
   </h2>
   <div id="detailmenubar">
@@ -21,40 +21,37 @@
           <input id="typeAheadAddContact" />
         </div>
       </form>
-        <div class="contactrow personrow">
-          <a href="contact.html">
-            <img src="img/contacts.png" class="contactIcon">
-            <h4>
-              Contact Name
-            </h4>
-            <span class="hidden">{{event.contacts[0].id}}</span>
-          </a>
-          <img src="img/close.png" class="removeAssoc" />
+      <div class="contactrow personrow">
+        <div ng-repeat="contact in event.contacts">
+          <a ui-sref="contacts.contact({contact_id:contact.id})"><img src="img/contacts.png" class="contactIcon">
+          <h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" class="removeAssoc" />
         </div>
+        <h4 ng-if="event.contacts.length==0"><i>No associated contacts</i></h4> 
+      </div>
     </div>
     <div class="infopanel selected">
       <div>
-      	<b>Description: </b>
-          Description
+        <b>Description: </b>
+          {{event.description}}
         <br />
       </div>
       <div>
-      	<b>Location: </b>
-          Location
+        <b>Location: </b>
+          {{event.location}}
         <br />
       </div>
       <div>
-      	<b>Event Start: </b>
-          Start Datetime
+        <b>Event Start: </b>
+          {{event.start_datetime}}
         <br />
       </div>
       <div>
-      	<b>Event End: </b>
-          End Datetime
+        <b>Event End: </b>
+          {{event.end_datetime}}
         <br />
       </div>
       <b>Recurring: </b>
-        True/False
+        {{event.recurring}}
     </div>
     <div class="infopanel">
       <form id="addForm">
@@ -63,8 +60,11 @@
         </div>
       </form>
       <div class="contactrow taskrow">
-        <a href="task.html"><img src="img/tasks.png" class="taskIcon">
-        <h4>Task Title</h4><span class="hidden">{{event.tasks[0].id}}</span></a><img src="img/close.png" class="removeAssoc" />
+        <div ng-repeat="task in event.tasks">
+          <a ui-sref="tasks.task({task_id:task.id})"><img src="img/tasks.png" class="taskIcon">
+          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+        </div>
+        <h4 ng-if="event.tasks.length==0"><i>No associated tasks</i></h4> 
       </div>
     </div>
     <div class="infopanel">
@@ -74,21 +74,25 @@
           </div>
         </form>
         <div class="contactrow tagrow">
-          <a href="tags.html"><img src="img/tags.png" class="tagIcon">
-          <h4>Tag Name</h4><span class="hidden">{{event.tags[0].id}}</span></a><img src="img/close.png" class="removeAssoc" />
+          <div ng-repeat="tag in event.tags">
+            <a ui-sref="tags.tag({tag_id:tag.id})"><img src="img/tags.png" class="tagIcon">
+            <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+          </div>
+          <h4 ng-if="event.tags.length==0"><i>No associated tags</i></h4> 
         </div>
     </div>
   </div>
 </div>
+
 <div id="detailPanel" class="panelIn">
   <div class="row">
     <div class="col-md-4 dCol" id="dCol1">
       <div>
         <h1 id="contactname" class="eventname">
-          Title
+          {{event.title}}
         </h1>
         <h4>
-          Description
+          {{event.description}}
         </h4>
         <div id="relatedTags">
           <div class="relatedItem">

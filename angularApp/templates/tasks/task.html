@@ -2,7 +2,7 @@
   <h1 id="mobileContact" class="taskDetailHeader">Tasks</h1>
   <img src="img/arrow.png" class="backArrow" />
 	<h2 id="contactname" class="taskname">
-    Title <span class="hidden">{{id}}</span>
+    {{task.title}} <span class="hidden">{{task.id}}</span>
   </h2>
   <div id="detailmenubar">
     <img src="img/contacts.png" />
@@ -12,7 +12,7 @@
     <span id="taskcheck"><img src="img/check.png" /></span>
     <a href="javascript:void(0)"><img src="img/create.png" class="addTask" ng-click="create()" /></a>
     <img src="img/trash.png" id="trashicon"/>
-    <button id="destroy">{{id}}</button>           
+    <button id="destroy">{{task.id}}</button>           
   </div>
   <div class="panelcontent" id="taskscontent">
     <div class="infopanel">
@@ -22,8 +22,11 @@
         </div>
       </form>
       <div class="contactrow personrow">
-        <a href="contact.html"><img src="img/contacts.png" class="contactIcon"><h4>Contact Name</h4><span class="hidden">{{contact.id}}</span></a>
-        <img src="img/close.png" class="removeAssoc" />
+        <div ng-repeat="contact in task.contacts">
+          <a ui-sref="contacts.contact({contact_id:contact.id})"><img src="img/contacts.png" class="contactIcon"><h4>{{contact.name}}</h4><span class="hidden">{{contact.id}}</span></a>
+          <img src="img/close.png" class="removeAssoc" />
+        </div>
+        <h4 ng-if="task.contacts.length==0">No associated contacts</h4>
       </div>
     </div>
     <div class="infopanel">
@@ -33,22 +36,25 @@
         </div>
       </form>
       <div class="contactrow eventrow">
-        <a href="event.html"><img src="img/events.png" class="eventIcon"><h4>Event Title</h4><span class="hidden">{{event.id}}</span></a>
-        <img src="img/close.png" class="removeAssoc" />
+        <div ng-repeat="event in task.events">
+          <a ui-sref="events.event({event_id:event.id})"><img src="img/events.png" class="eventIcon"><h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a>
+          <img src="img/close.png" class="removeAssoc" />
+        </div>
+        <h4 ng-if="task.events.length==0"><i>No associated tags</i></h4>
       </div>
     </div>
     <div class="infopanel selected">
       <div {{action "editField" "notes" on="doubleClick"}}>
         <b>Note:</b>
-        Notes
+        {{task.notes}}
       </div>
       <div {{action "editField" "priority" on="doubleClick"}}>
         <b>Priority: </b>
-        #
+        #{{task.priority}}
       </div>
       <div {{action "editField" "due" on="doubleClick"}}>
         <b>Task Due: </b>
-        Due Date
+        {{task.due}}
         <br />
       </div>
     </div>
@@ -59,8 +65,11 @@
         </div>
       </form>
       <div class="contactrow tagrow">
-        <a href="tag.html"><img src="img/tags.png" class="tagIcon"></a>
-        <h4>Tag Name</h4><span class="hidden">{{tag.id}}</span><img src="img/close.png" class="removeAssoc" />
+        <div ng-repeat="tag in task.tags">
+          <a ui-sref="tags.tag({tag_id:tag.id})"><img src="img/tags.png" class="tagIcon"></a>
+          <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span><img src="img/close.png" class="removeAssoc" />
+        </div>
+        <h4 ng-if="task.tags.length==0"><i>No associated tags</i></h4>
       </div>
     </div>
   </div>
@@ -72,18 +81,18 @@
     <div class="col-md-4 dCol" id="dCol1">
       <div>
         <h1 id="contactname" class="taskname" {{action "editField" "title" "2" on="doubleClick"}}>
-          Title <span class="hidden">{{id}}</span>
+          {{task.title}} <span class="hidden">{{task.id}}</span>
         </h1>
         <h4 {{action "editField" "notes" "2" on="doubleClick"}}>
-          Notes
+          Notes: {{task.notes}}
         </h4>
-        <div id="relatedTags">
-              <div class="relatedItem">
-                <a href="tag.html">
-                  <img src="img/tags.png" class="relatedImage"/>
-                  <span class="relatedName">Tag Name</span>
-                </a>
-              </div>
+        <div id="relatedTags" ng-if="task.tags.length > 0">
+          <div class="relatedItem" ng-each="tag in task.tags">
+            <a ui-sref="tags.tag({tag_id:tag.id})">
+              <img src="img/tags.png" class="relatedImage"/>
+              <span class="relatedName">{{tag.name}}</span>
+            </a>
+          </div>
         </div>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()"/></a>
         <img id="detailTrash" src="img/trash.png" />
@@ -100,13 +109,19 @@
         <div class="detailSection">
           <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
           <ul class="columnlist">
-            <li><a href="event.html">Event Title</a></li>
+            <div ng-repeat="event in task.events | openEvents:events">
+              <li><a ui-sref="events.event({event_id:event.id})">{{event.title}}</a></li>
+            </div>
+            <li ng-if="(task.events | openEvents:events).length == 0"><i>No upcoming events</i></li>
           </ul>
         </div>
         <div class="detailSection">
           <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown"></div>
           <ul class="columnlist">
-            <li><a href="event.html">Event Title</a></li>
+            <div ng-repeat="event in task.events | closedEvents:events">
+              <li><a ui-sref="events.event({event_id:event.id})">{{event.title}}</a></li>
+            </div>
+            <li ng-if="(task.events | closedEvents:events).length == 0"><i>No past events</i></li>
           </ul>
         </div>
       </div>
@@ -120,7 +135,10 @@
         </div>
         <br />
         <ul class="columnlist">
-          <li><a href="contact.html">Contact Name</a></li>
+          <div ng-repeat="contact in task.contacts">
+            <li><a ui-sref="contacts.contact({contact_id:contact.id})">{{contact.name}}</a></li>
+          </div>
+          <li ng-if="task.contacts.length == 0"><i>No associated contacts</i></li>
         </ul>
       </div>
     </div>
