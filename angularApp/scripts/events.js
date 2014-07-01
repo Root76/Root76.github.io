@@ -883,7 +883,6 @@ function rebindEvents() {
             var day5 = moment().add('days', 4).format('dddd, MMMM Do');
             var day6 = moment().add('days', 5).format('dddd, MMMM Do');
             var day7 = moment().add('days', 6).format('dddd, MMMM Do');
-            console.log("tomorrow: " + day2);
             var dayList = $(".daySeparator");
             $(dayList[0]).find('h3').html("Today, " + today);
             $(dayList[1]).find('h3').html(day2);

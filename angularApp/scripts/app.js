@@ -94,8 +94,6 @@ var hashDetection = new hashHandler();
 					var events6 = new Array();
 					var events7 = new Array();
 
-					console.log("Today is " + today);
-					console.log("Tomorrow is " + tomorrow);
 					allObjects.events = data.events;
 					
 					for (var i = 0; i < allObjects.events.length; i++) {

@@ -3,8 +3,16 @@
     <img id="profilepic" src="img/contacts.png" />
     <img src="img/arrow.png" class="backArrow" />       
 
-    <h2 id="contactname" class="contactname contacttext">
+    <h2 id="contactname" class="contactname contacttext" ng-if="contact.name.length > 0">
       {{contact.name}}
+      <span class="hidden">{{contact.id}}</span>
+    </h2>
+    <h2 id="contactname" class="contactname contacttext" ng-if="contact.emails.length > 0 && contact.name == null">
+      {{contact.emails[0].email}}
+      <span class="hidden">{{contact.id}}</span>
+    </h2>
+    <h2 id="contactname" class="contactname contacttext" ng-if="contact.name == null && contact.emails.length < 1">
+      No name or email
       <span class="hidden">{{contact.id}}</span>
     </h2>
 
@@ -128,9 +136,17 @@
     <div class="row">
       <div class="col-md-4 dCol" id="dCol1">
         <div>
-          <h1>
-              {{contact.name}}
-              <span class="hidden">{{id}}</span>
+          <h1 ng-if="contact.name.length > 0">
+            {{contact.name}}
+            <span class="hidden">{{contact.id}}</span>
+          </h1>
+          <h1 ng-if="contact.emails.length > 0 && contact.name == null">
+            {{contact.emails[0].email}}
+            <span class="hidden">{{contact.id}}</span>
+          </h1>
+          <h1 ng-if="contact.name == null && contact.emails.length < 1">
+            No name or email
+            <span class="hidden">{{contact.id}}</span>
           </h1>
           <div class="contactgroup contactDetails">
             <div class="contactitem">

@@ -1664,6 +1664,7 @@ to {
 	overflow:auto;
 	overflow-x:hidden;
 	z-index:1000;
+	display:block !important;
 }
 
 .dashContent {
