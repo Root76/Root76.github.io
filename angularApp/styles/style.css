@@ -214,6 +214,48 @@ hr {
 	position:absolute;
 }
 
+.formrow > .col-md-6 {
+	padding: 0px;
+	padding-bottom:25px;
+	float: none;
+	display: inline-block;
+	width: 49%;
+}
+
+.repeatOptionHeader {
+	margin-bottom:15px !important;
+}
+
+.repeatOption {
+	display:inline;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.occurenceInt {
+	display:inline;
+	width:100px;
+}
+
+.eventOption {
+	padding-bottom:0px !important;
+}
+
+.formrow > .col-md-6:nth-child(even) {
+	float:right;
+}
+
+.formrow > .col-md-6 > table {
+	position: absolute;
+	top: -5px;
+}
+
+.timepickerUI table tr:first-child > td:first-child .btn,
+.timepickerUI table tr:first-child > td:nth-child(3) .btn,
+.timepickerUI table tr:last-child > td:first-child .btin {
+	padding-left:14px;
+}
+
 .emailInputContainer {
 	position:relative;
 }
@@ -2378,6 +2420,11 @@ margin-bottom: 10px;
 .formrow {
 	width:100%;
 	position:relative;
+	margin-bottom:10px;
+}
+
+.repeatsSelect {
+	margin-bottom:0px !important;
 }
 
 .formrow input {
@@ -2390,6 +2437,14 @@ margin-bottom: 10px;
 	bottom: -16px;
 	height: 69px;
 	cursor:pointer;
+}
+
+.formrow h4 {
+	margin-top:0px;
+}
+
+.colHeader {
+	float:left;
 }
 
 #endEvent {
@@ -4008,9 +4063,10 @@ input#toggle5:checked + label:after {
 .typeaheadAssociated img {
 	width: 40px;
 	height: auto;
-	position: absolute;
+	position: relative;
 	top: -8px;
-	right: -37px;
+	right: -35px;
+	float: right;
 }
 
 .typeaheadSelected img {
@@ -4044,6 +4100,7 @@ input#toggle5:checked + label:after {
 	position: relative;
 	margin-right: 20px;
 	margin-bottom: 12px;
+	float:right;
 }
 
 .squaredTwo label {

@@ -74,7 +74,6 @@
          Selected Items:
          <div class="relatedList relatedContacts">
            <ul ng-repeat="object in associatedObjects">
-
               <li ng-show="object.type=='event'">
                 <img class="pull-left" src="img/events.png">
                 {{object.title}}
@@ -106,41 +105,37 @@
   <div ng-show="eventSelected()" ng-controller="EventCreationController">
     
     <div class="modal-body">
-      <div class="row">
-        <div class="col-md-12">
-          <h4>Event title</h4> 
-          <input type="text" class="form-control" ng-model="newEvent.title" placeholder="Enter the events title">
-        </div>
+      <div class="formrow">
+        <h4>Event title</h4> 
+        <input type="text" class="form-control" ng-model="newEvent.title" placeholder="Enter the events title">
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <h4>Event description</h4> 
-          <input type="text" class="form-control" ng-model="newEvent.description" placeholder="Enter the events description">
-        </div>
+      <div class="formrow">
+        <h4>Event description</h4> 
+        <input type="text" class="form-control" ng-model="newEvent.description" placeholder="Enter the events description">
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <h4>Event location</h4> 
-          <input type="text" class="form-control" ng-model="newEvent.location" placeholder="Enter the events location">
+      <div class="formrow">
+        <h4>Event location</h4> 
+        <input type="text" class="form-control" ng-model="newEvent.location" placeholder="Enter the events location">
+      </div>
+
+      <div class="formrow">
+        <div class="col-md-6 eventOption">
+          <h4 class="colHeader">All Day: </h4>
+          <div class="squaredTwo">
+            <input type="checkbox" value="None" id="allDay" name="check" ng-model="newEvent.is_all_day" ng-click="AllDay()">
+            <label for="allDay"></label>
+          </div>
+        </div>
+        <div class="col-md-6 eventOption">
+          <h4 class="colHeader">Recurring: </h4>
+          <div class="squaredTwo">
+            <input type="checkbox" value="None" id="recurring" name="check" ng-model="newEvent.recurring" ng-click="Recurring()">
+            <label for="recurring"></label>
+          </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <h4> 
-            All Day
-            <input type="checkbox" ng-model="newEvent.is_all_day" ng-click="AllDay()"/>
-          </h4>
-        </div>
-        <div class="col-md-6">
-          <h4>
-            Recurring
-            <input type="checkbox" ng-model="newEvent.recurring" ng-click="Recurring()"/>
-          </h4>
-        </div>
-      </div>
-
-      <div class="row">
+      <div class="formrow">
         <div class="col-md-6">
           <h4>Start Date</h4>
           <div class="input-group">
@@ -150,10 +145,9 @@
             </span>
           </div>
         </div>
-        <div class="col-md-4" ng-hide="newEvent.is_all_day">
+        <div class="col-md-6 timepickerUI" ng-hide="newEvent.is_all_day">
           <timepicker ng-model="startTime" ng-change="changed()" minute-step="15" show-meridian="true"></timepicker>
         </div>
-
         <div class="col-md-6">
           <h4>End Date</h4>
           <div class="input-group">
@@ -163,7 +157,7 @@
             </span>
           </div>
         </div>
-        <div class="col-md-4" ng-hide="newEvent.is_all_day">
+        <div class="col-md-6 timepickerUI" ng-hide="newEvent.is_all_day">
           <timepicker ng-model="endTime" ng-change="changed()" minute-step="15" show-meridian="true"></timepicker>
         </div>
       </div>
@@ -171,10 +165,10 @@
 
       <div ng-show="newEvent.recurring">
         
-        <div class="row">
+        <div class="formrow repeatsSelect">
           <div class="col-md-6">
             <h4>Repeats</h4>
-            <select ng-model="recurrence.frequency" ng-options="frequency.value as frequency.display for frequency in frequencies"></select>
+            <select ng-model="recurrence.frequency" ng-options="frequency.value as frequency.display for frequency in frequencies" class="form-control"></select>
           </div>
 
           <div class="col-md-6" ng-show="recurrence.frequency=='day'">
@@ -185,9 +179,9 @@
         </div>
 
         <form>
-          <input type="radio" ng-model="endsAfter" value="never"> Never <br/>
-          <input type="radio" ng-model="endsAfter" value="after"> After <input type="text" class="form-control" ng-model="endsAfterOcurrences"> occurences <br/>
-          <input type="radio" ng-model="endsAfter" value="on"> On 
+          <input type="radio" ng-model="endsAfter" value="never" class="repeatOptionHeader"><h4 class="repeatOption" >Never</h4><br />
+          <input type="radio" ng-model="endsAfter" value="after" class="repeatOptionHeader"><h4 class="repeatOption" >After</h4><input type="number" class="form-control occurenceInt" ng-model="endsAfterOcurrences"> <h4 class="repeatOption">Occurences</h4><br />
+          <input type="radio" ng-model="endsAfter" value="on" class="repeatOptionHeader"><h4 class="repeatOption" >On</h4> 
             <div class="input-group">
             <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endsAfterDate" is-open="endsAfterDateOpened" datepicker-options="dateOptions" close-text="Close" />
             <span class="input-group-btn">
@@ -200,16 +194,15 @@
       </div>
       <!-- TODO: INSERT CONDITIONAL FIELDS HERE -->
 
-      <div class="col-md-12">
+      <div class="formrow typeaheadAssociated">
         <h4>Associate Items</h4>
-        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedEventObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedEventObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control" />
       </div>
 
-       <div class="col-md-12">
+       <div class="formrow typeaheadSelected">
          Selected Items:
          <div class="relatedList relatedTags">
            <ul ng-repeat="object in associatedObjects">
-
               <li ng-show="object.type=='contact'">
                 <img class="pull-left" src="img/contacts.png">
                 {{object.title}}
@@ -227,7 +220,6 @@
                 {{object.title}}
                 <img ng-click="removeObject(object)" src="img/close.png"/>
               </li>
-           
            </ul>
          </div>
        </div>
@@ -242,17 +234,17 @@
   <div ng-show="taskSelected()" ng-controller="TaskCreationController">
     <div class="modal-body">
 
-      <div class="col-md-12">
+      <div class="formrow">
         <h4>Task title</h4> 
         <input type="text" class="form-control" ng-model="newTask.title" placeholder="Enter the tasks title">
       </div>
       
-      <div class="col-md-12">
+      <div class="formrow">
         <h4>Task notes</h4> 
         <input type="text" class="form-control" ng-model="newTask.notes" placeholder="Enter notes about the task">
       </div>
 
-      <div class="col-md-12">
+      <div class="formrow">
         <h4>Due Date</h4>
         <div class="input-group">
           <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newEvent.due" is-open="dueOpened" close-text="Close" />
@@ -262,39 +254,35 @@
         </div>
       </div>
 
-      <div class="col-md-12">
+      <div class="formrow">
         <h4>Task priority</h4> 
         <input type="text" class="form-control" ng-model="newTask.priority" placeholder="Enter the tasks priority">
       </div>
 
-      <div class="col-md-12">
+      <div class="formrow typeaheadAssociated">
         <h4>Associate Items</h4>
         <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedTaskObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
       </div>
 
-      <div class="col-md-12">
+      <div class="formrow typeaheadSelected">
         Selected Items:
         <div class="relatedList relatedTags">
           <ul ng-repeat="object in associatedObjects">
-
-            <li ng-show="object.type=='event'">
-              <img class="pull-left" src="img/events.png">
+            <li ng-show="object.type=='contact'">
+              <img class="pull-left" src="img/contacts.png">
               {{object.title}}
               <img ng-click="removeObject(object)" src="img/close.png"/>
             </li>
-
             <li ng-show="object.type=='event'">
               <img src="img/events.png">
               {{object.title}}
               <img ng-click="removeObject(object)" src="img/close.png"/>
             </li>
-            
-            <li ng-show="object.type=='contact'">
-              <img src="img/contacts.png">
+            <li ng-show="object.type=='tag'">
+              <img src="img/tags.png">
               {{object.title}}
               <img ng-click="removeObject(object)" src="img/close.png"/>
             </li>
-         
           </ul>
         </div>
       </div>
@@ -340,39 +328,35 @@
   <div ng-show="tagSelected()" ng-controller="TagCreationController">
     
     <div class="modal-body">        
-      <div class="col-md-12">
+      <div class="formrow">
         <h4>Tag name</h4> 
         <input type="text" class="form-control" ng-model="newTag.name" placeholder="Enter the tags name">
       </div>
 
-      <div class="col-md-12">
+      <div class="formrow">
         <h4>Associate Items</h4>
         <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedTagObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
       </div>
 
-       <div class="col-md-12">
+       <div class="formrow">
          Selected Items:
          <div class="relatedList relatedTags">
            <ul ng-repeat="object in associatedObjects">
-
               <li ng-show="object.type=='event'">
                 <img class="pull-left" src="img/events.png">
                 {{object.title}}
                 <img ng-click="removeObject(object)" src="img/close.png"/>
               </li>
-
               <li ng-show="object.type=='task'">
                 <img src="img/tasks.png">
                 {{object.title}}
                 <img ng-click="removeObject(object)" src="img/close.png"/>
               </li>
-              
               <li ng-show="object.type=='contact'">
                 <img src="img/contacts.png">
                 {{object.title}}
                 <img ng-click="removeObject(object)" src="img/close.png"/>
               </li>
-           
            </ul>
          </div>
        </div>
