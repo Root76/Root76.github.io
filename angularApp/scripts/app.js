@@ -62,7 +62,6 @@ var hashDetection = new hashHandler();
 				$scope.contactsPromise.$promise.then(function(data) {
 					
 					$scope.contacts = data;
-
 					allObjects.contacts = data;
 					for (var i = 0; i < allObjects.contacts.length; i++) {
 						allObjects.contacts[i]['type'] = "contact";
@@ -140,6 +139,8 @@ var hashDetection = new hashHandler();
 				$scope.tasksPromise.$promise.then(function(data){
 
 					$scope.tasks = data.tasks;
+					$scope.FilteredTasks = $scope.tasks;
+					console.log(data.tasks);
 
 					allObjects.tasks = data.tasks;
 					for (var i = 0; i < allObjects.tasks.length; i++) {
@@ -195,10 +196,51 @@ var hashDetection = new hashHandler();
 
 			$scope.IndexSort = "-updated_at";
 
-			$scope.TaskSort = ['due', 'priority', 'title'];
-			$scope.TaskOrder = $scope.TaskSort[2];
+			$scope.TaskShow = ['Open Tasks', 'Closed Tasks'];
 
-			$scope.TagSort = ['count', 'name'];
+			$scope.TaskFilter = null;
+
+			$scope.updateTaskList = function() {
+				console.log("chosen filter");
+				console.log($scope.TaskFilter);
+				$scope.FilteredTasks = new Array();
+				if ($scope.TaskFilter === "Open Tasks") {
+					for (var i = 0; i < $scope.tasks.length; i++) {
+						if ($scope.tasks[i]['status'] == false) {
+							$scope.FilteredTasks.push($scope.tasks[i]);
+							console.log("status was false, pushing to array");
+							console.log($scope.FilteredTasks);
+						} else {
+							console.log("status is true");
+						}
+					}
+				}
+				if ($scope.TaskFilter === "Closed Tasks") {
+					for (var i = 0; i < $scope.tasks.length; i++) {
+						if ($scope.tasks[i]['status'] == true) {
+							$scope.FilteredTasks.push($scope.tasks[i]);
+							console.log("status was true, pushing to array");
+							console.log($scope.FilteredTasks);
+						} else {
+							console.log("status is false");
+						}
+					}					
+				}
+			}
+
+			$scope.TaskSort = [
+				{title: 'Tasks with no dates', prop: 'due'}, 
+				{title: 'Tasks with dates', prop: '-due'},
+				{title: 'Priority', prop: 'priority'}, 
+				{title: 'Alphabetical', prop: 'title'}
+			];
+
+			$scope.TaskOrder = $scope.TaskSort[0];
+
+			$scope.TagSort = [
+				{title: 'Count', prop: 'count'},
+				{title: 'Name', prop: 'name'}
+			];
 			$scope.TagOrder = $scope.TagSort[1];
 
 			$scope.create = function()
