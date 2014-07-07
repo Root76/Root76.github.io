@@ -11,15 +11,11 @@
           <div class="filtercolumn contactpadding">
             <h4>Show:</h4>
             <div class="contsort">
-              <select>
-                <option>Sort Option</option>
-                <option>Sort Option</option>
-                <option>Sort Option</option>
-              </select>
+              <select ng-model="TagOrder" ng-options="option.title for option in TagSort"></select>
             </div>
           </div>
           <ul id="taglist" class="sidelist">
-            <div ng-repeat="tag in tags">
+            <div ng-repeat="tag in tags | orderBy:TagOrder.prop ">
               <a ui-sref="tags.tag( {tag_id : tag.id} )"><li>{{tag.name}} ({{tag.count}})</li></a>
             </div>
           </ul>

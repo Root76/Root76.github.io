@@ -15,12 +15,16 @@
 			$scope.showOpenTasks = true;
 			$scope.showClosedTasks = true;
 
-
-
 			$scope.tagPromise = tagService.Tag.get({tag_id: $stateParams['tag_id']}, function(data) {
 				console.log(data);
 				$scope.tag = data;
 			});
+
+			$scope.TagSort = [
+				{title: 'Count', prop: 'count'},
+				{title: 'Name', prop: 'name'}
+			];
+			$scope.TagOrder = $scope.TagSort[1];
 
 		}]);
 })();

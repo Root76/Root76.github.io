@@ -11,11 +11,7 @@
           <div class="filtercolumn contactpadding">
             <h4>Sort by:</h4>
             <div class="contsort">
-              <select class="listSorter" id="taskSort">
-                <option>Sort Options</option>
-                <option>Sort Options</option>
-                <option>Sort Options</option>
-              </select>
+              <select ng-model="TaskOrder" ng-options="option.title for option in TaskSort"></select>
             </div>
           </div>
           <button class="sortingToggle" id="byDate">Sort</button>
@@ -23,7 +19,7 @@
           <button class="sortingToggle" id="byName">Sort</button>
           <button class="sortingToggle" id="byContact">Sort</button>
           <ul id="tasklist" class="sidelist">
-            <div ng-repeat="task in tasks">
+            <div ng-repeat="task in tasks | orderBy:TaskOrder.prop" >
               <a ui-sref="tasks.task({task_id:task.id})"><li><img src="img/check.png" />{{task.title}}</li></a>
             </div>
           </ul>

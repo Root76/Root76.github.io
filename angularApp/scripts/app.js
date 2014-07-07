@@ -194,37 +194,65 @@ var hashDetection = new hashHandler();
 			$scope.loadTags();
 			$scope.combineAll();
 
-			$scope.IndexSort = "-updated_at";
+			$scope.TaskShow = ['Open Tasks', 'Overdue', 'Today & Overdue', 'Next 7 Days'];
 
-			$scope.TaskShow = ['Open Tasks', 'Closed Tasks'];
-
-			$scope.TaskFilter = null;
+			$scope.TaskFilter = $scope.TaskShow[0];
 
 			$scope.updateTaskList = function() {
+
 				console.log("chosen filter");
 				console.log($scope.TaskFilter);
 				$scope.FilteredTasks = new Array();
+				var today = moment().format('MMMM Do YYYY');
+
 				if ($scope.TaskFilter === "Open Tasks") {
 					for (var i = 0; i < $scope.tasks.length; i++) {
 						if ($scope.tasks[i]['status'] == false) {
 							$scope.FilteredTasks.push($scope.tasks[i]);
 							console.log("status was false, pushing to array");
 							console.log($scope.FilteredTasks);
-						} else {
-							console.log("status is true");
 						}
 					}
 				}
-				if ($scope.TaskFilter === "Closed Tasks") {
+				else if ($scope.TaskFilter === "Overdue") {
 					for (var i = 0; i < $scope.tasks.length; i++) {
 						if ($scope.tasks[i]['status'] == true) {
 							$scope.FilteredTasks.push($scope.tasks[i]);
 							console.log("status was true, pushing to array");
 							console.log($scope.FilteredTasks);
-						} else {
-							console.log("status is false");
 						}
 					}					
+				}
+				else if ($scope.TaskFilter === "Today & Overdue") {
+					var taskDate;
+					for (var i = 0; i < $scope.tasks.length; i++) {
+						taskDate = moment($scope.tasks[i]['due']).format('MMMM Do YYYY');
+						if ($scope.tasks[i]['status'] == true || taskDate == today) {
+							$scope.FilteredTasks.push($scope.tasks[i]);
+							console.log("status was true, pushing to array");
+						}
+					}					
+				}
+				else if ($scope.TaskFilter === "Next 7 Days") {
+					var taskDate;
+					var day2 = moment().add('days', 1).format('MMMM Do YYYY');
+					var day3 = moment().add('days', 2).format('MMMM Do YYYY');
+					var day4 = moment().add('days', 3).format('MMMM Do YYYY');
+					var day5 = moment().add('days', 4).format('MMMM Do YYYY');
+					var day6 = moment().add('days', 5).format('MMMM Do YYYY');
+					var day7 = moment().add('days', 6).format('MMMM Do YYYY');
+					var next7Days = [today, day2, day3, day4, day5, day6, day7];
+					console.log(next7Days);
+					for (var i = 0; i < $scope.tasks.length; i++) {
+						taskDate = moment($scope.tasks[i]['due']).format('MMMM Do YYYY');
+						if (next7Days.indexOf(taskDate) > -1) {
+							$scope.FilteredTasks.push($scope.tasks[i]);
+							console.log("date falls within timespan");
+							console.log($scope.FilteredTasks);
+						} else {
+							console.log("not in the array");
+						}
+					}		
 				}
 			}
 
@@ -236,6 +264,7 @@ var hashDetection = new hashHandler();
 			];
 
 			$scope.TaskOrder = $scope.TaskSort[0];
+			$scope.IndexSort = "-updated_at";
 
 			$scope.TagSort = [
 				{title: 'Count', prop: 'count'},
@@ -245,6 +274,7 @@ var hashDetection = new hashHandler();
 
 			$scope.create = function()
 			{
+
 				var modalInstance = $modal.open({
 					templateUrl: 'templates/create.html',
 					controller: 'CreationController',
@@ -293,6 +323,7 @@ var hashDetection = new hashHandler();
 					}
 					
 				});
+				
 			}
 
 			$scope.getContactTitle = function(contact) {
