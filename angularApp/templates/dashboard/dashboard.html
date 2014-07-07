@@ -23,21 +23,17 @@
           <div id="taskSorting" class="dashboardSorter">
             <div class="sortcont sortcont2">
               <h4 class="beforeDropdown">Show: </h4>
-              <select>
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-              </select>
+              <select ng-model="TaskFilter" ng-options="option for option in TaskShow" ng-change="updateTaskList()"></select>
             </div>
             <div class="sortcont sortcont3 sortcontTasks">
               <h4 class="beforeDropdown">Sort by: </h4>
-              <select ng-model="TaskOrder" ng-options="option for option in TaskSort"></select>
+              <select ng-model="TaskOrder" ng-options="option.title for option in TaskSort"></select>
             </div>
           </div>
           <div id="tagSorting" class="dashboardSorter">
             <div class="sortcont sortcont3 sortcontTags">
               <h4 class="beforeDropdown">Sort by: </h4>
-              <select ng-model="TagOrder" ng-options="option for option in TagSort"></select>
+              <select ng-model="TagOrder" ng-options="option.title for option in TagSort"></select>
             </div>
           </div>
         </div>
@@ -69,7 +65,7 @@
           </div>
           <div class="infopanel">
             <a href="tasks/task">
-              <div class="subitem subdash" ng-repeat="task in tasks | orderBy:TaskOrder ">
+              <div class="subitem subdash" ng-repeat="task in FilteredTasks | orderBy:TaskOrder.prop ">
                 <img class="subicon" src="img/tasks.png" />
                 <a ui-sref="tasks.task({task_id: task.id})">
                   <span class="subitemtext subdashtext" ng-if="task.title != null">{{task.title}}</span>
@@ -116,7 +112,7 @@
             </div>
           </div>
           <div class="infopanel">
-            <div class="subitem subdash" ng-repeat="tag in tags | orderBy:TagOrder ">
+            <div class="subitem subdash" ng-repeat="tag in tags | orderBy:TagOrder.prop ">
               <a ui-sref="tags.tag({tag_id: tag.id})">
                 <img class="subicon" src="img/tags.png" />
                 <span class="subitemtext subdashtext">{{tag.name}}</span>          
