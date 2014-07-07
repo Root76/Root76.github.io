@@ -13,10 +13,7 @@
 		function($resource, $scope, $stateParams, contactService){
 			
 			$scope.contactPromise = contactService.Contact.get({contact_id: $stateParams['contact_id']}, function(data) {
-<<<<<<< HEAD
-		//		console.log(data);
-				$scope.contacts = data;
-=======
+
 				console.log(data);
 				$scope.contact = data;
 
@@ -56,8 +53,6 @@
 					$scope.notesIndex = 0;
 					$scope.contact.extended_properties.push({key:'notes', value:''});
 				}
-
->>>>>>> 65a9de107d99ac27cbcc6ab4c9b14e2694d75d14
 			});
 
 			$scope.detailsView = false;
@@ -67,23 +62,7 @@
 			$scope.showOpenTasks = true;
 			$scope.showClosedTasks = true;
 
-<<<<<<< HEAD
-			$scope.selectedSection = 0;
 
-			$scope.selectSection = function(section) {
-				console.log("select section " + section);
-				$scope.selectedSection = section;
-			};
-
-			$scope.isSectionSelected = function(section) {
-				if($scope.selectedSection == section)
-					return true;
-				else
-					return false;
-			};
-
-=======
->>>>>>> 65a9de107d99ac27cbcc6ab4c9b14e2694d75d14
 			$scope.contactBirthday = function() {
 
 				$scope.contactPromise.then(function(contact) {
@@ -95,7 +74,6 @@
 				});				
 			}
 
-<<<<<<< HEAD
 			$scope.ContactShow = ['All', 'Tagged', 'New This Week', 'New This Month', 'Recent'];
 
 			$scope.ContactFilter = $scope.ContactShow[0];
@@ -155,7 +133,6 @@
 
 			}
 
-=======
 			$scope.addPhone = function() {
 				$scope.contact.phones.push({number:''});
 
@@ -206,7 +183,6 @@
 				console.log($scope.contact);
 				$scope.contact.$save();
 			}
->>>>>>> 65a9de107d99ac27cbcc6ab4c9b14e2694d75d14
 		}])
 
 })();
