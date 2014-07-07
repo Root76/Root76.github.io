@@ -13,8 +13,46 @@
 		function($resource, $scope, $stateParams, contactService){
 			
 			$scope.contactPromise = contactService.Contact.get({contact_id: $stateParams['contact_id']}, function(data) {
-		//		console.log(data);
+				console.log(data);
 				$scope.contact = data;
+
+				if($scope.contact.phones.length == 0)
+					$scope.contact.phones.push({number:''});
+				if($scope.contact.emails.length == 0)
+					$scope.contact.emails.push({email:''});
+
+				$scope.birthdayIndex = undefined;
+				$scope.notesIndex = undefined;
+
+				if($scope.contact.extended_properties)
+					for(var i = 0; i < $scope.contact.extended_properties.length; i++)
+					{
+						if($scope.contact.extended_properties[i].key === "birthday")
+							$scope.birthdayIndex = i;
+						else
+						if($scope.contact.extended_properties[i].key === "notes")
+							$scope.notesIndex = i;
+					}
+				else
+					$scope.contact.extended_properties = [];
+
+				if($scope.birthdayIndex == undefined)
+				{
+					$scope.birthdayIndex = 0;
+					$scope.contact.extended_properties.push({key:'birthday', value:''});
+
+					if($scope.notesIndex == undefined)
+					{
+						$scope.notesIndex = 1;
+						$scope.contact.extended_properties.push({key:'notes', value:''});
+					}
+				}
+				else if($scope.notesIndex == undefined)
+				{
+					$scope.notesIndex = 0;
+					$scope.contact.extended_properties.push({key:'notes', value:''});
+				}
+
 			});
 
 			$scope.detailsView = false;
@@ -23,21 +61,6 @@
 			$scope.showClosedEvents = true;
 			$scope.showOpenTasks = true;
 			$scope.showClosedTasks = true;
-
-
-			$scope.selectedSection = 0;
-
-			$scope.selectSection = function(section) {
-				console.log("select section " + section);
-				$scope.selectedSection = section;
-			};
-
-			$scope.isSectionSelected = function(section) {
-				if($scope.selectedSection == section)
-					return true;
-				else
-					return false;
-			};
 
 			$scope.contactBirthday = function() {
 
@@ -48,6 +71,57 @@
 							return contact.extended_properties[i].value;
 					}
 				});				
+			}
+
+			$scope.addPhone = function() {
+				$scope.contact.phones.push({number:''});
+
+				$scope.contact.$save();
+			}
+
+			$scope.removePhone = function(number) {
+				var index = $scope.contact.phones.indexOf(number);
+
+				if(index > -1 && $scope.contact.phones.length > 1)
+					$scope.contact.phones.splice(index, 1);
+
+				$scope.contact.$save();
+			}
+
+			$scope.addEmail = function() {
+				$scope.contact.emails.push({email:''});
+
+				$scope.contact.$save();
+			}
+
+			$scope.removeEmail = function(email) {
+				var index = $scope.contact.emails.indexOf(email);
+				
+				if(index > -1 && $scope.contact.emails.length > 1)
+					$scope.contact.emails.splice(index, 1);
+
+				$scope.contact.$save();
+			}
+
+			$scope.addProperty = function() {
+				$scope.contact.extended_properties.push({key:'', value:''});
+
+				$scope.contact.$save();
+			}
+
+			$scope.removeProperty = function(property) {
+				var index = $scope.contact.extended_properties.indexOf(property);
+				
+				if(index > -1 && $scope.contact.extended_properties.length > 1)
+					$scope.contact.extended_properties.splice(index, 1);
+
+				$scope.contact.$save();
+			}
+
+
+			$scope.saveContact = function() {
+				console.log($scope.contact);
+				$scope.contact.$save();
 			}
 		}])
 

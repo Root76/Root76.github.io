@@ -1,260 +1,280 @@
 <div class="col-md-7 mobileIn" id="contactpanel2">
-    <h1 id="mobileContact">Contacts</h1>
-    <img id="profilepic" src="img/contacts.png" />
-    <img src="img/arrow.png" class="backArrow" />       
+  <h1 id="mobileContact">Contacts</h1>
+  <img id="profilepic" src="img/contacts.png" />
+  <img src="img/arrow.png" class="backArrow" />       
 
-    <h2 id="contactname" class="contactname contacttext" ng-if="contact.name.length > 0">
-      {{contact.name}}
-      <span class="hidden">{{contact.id}}</span>
-    </h2>
-    <h2 id="contactname" class="contactname contacttext" ng-if="contact.emails.length > 0 && contact.name == null">
-      {{contact.emails[0].email}}
-      <span class="hidden">{{contact.id}}</span>
-    </h2>
-    <h2 id="contactname" class="contactname contacttext" ng-if="contact.name == null && contact.emails.length < 1">
-      No name or email
-      <span class="hidden">{{contact.id}}</span>
-    </h2>
+  <h2 id="contactname" class="contactname contacttext">
+    <span editable-text="contact.name" onaftersave="saveContact()">{{contact.name || contact.emails[0].email || 'No name or email'}}</span>
+    <span class="hidden">{{contact.id}}</span>
+  </h2>
 
-    <div id="detailmenubar" class="contactmenu">
-      <img src="img/contacts.png" class="selected" />
-      <img src="img/events.png"/>
-      <img src="img/tasks.png"/>
-      <img src="img/tags.png"/>
-      <a href="javascript:void(0)"><img src="img/create.png" class="addContact" ng-click="create()"/></a>
-      <img src="img/trash.png" id="trashicon" />
-      <button id="destroy">{{contact.id}}</button>
-    </div>
+  <div id="detailmenubar" class="contactmenu">
+    <img src="img/contacts.png" class="selected" />
+    <img src="img/events.png"/>
+    <img src="img/tasks.png"/>
+    <img src="img/tags.png"/>
+    <a href="javascript:void(0)"><img src="img/create.png" class="addContact" ng-click="create()"/></a>
+    <img src="img/trash.png" id="trashicon" />
+    <button id="destroy">{{contact.id}}</button>
+  </div>
 
-    <div class="panelcontent" id="contactcontent" ng-show="detailsView">
 
-      <div class="infopanel selected">
-        <div class="contactrow">
-          <img src="img/cellphone.png">
+
+  <div class="panelcontent" id="contactcontent" ng-show="detailsView">
+
+    <div class="infopanel selected">
+
+      <div class="contactrow" ng-repeat="phone in contact.phones">
+        <img src="img/cellphone.png">
+        <div>
           <h4 class="phonenumber">
-          	<span>
-              {{contact.phones[0].number}}
+            <span editable-text="phone.number" onaftersave="saveContact()">
+              {{phone.number || 'No phone number'}}
             </span>
           </h4>
+          <div id="phonesDelete" ng-if="phone != contact.phones[0]">
+            <img ng-click="removePhone(phone)" src="img/close.png"/>
+          </div>
+          <div id="phonesDelete" ng-if="phone === contact.phones[0]" >
+            <img ng-click="addPhone()" src="img/create.png"/>
+          </div>
         </div>
-        <div class="contactrow">
-          <a href="javascript:void(0)" class="openModal7" style="display:none">No email</a>
-          <a href="" target="_blank" class="dynamicEmail emailLink desktopEmail"><img src="img/openmail.png"></a>
-       		<a href="" class="dynamicEmail emailLink mobileEmail"><img src="img/openmail.png"></a>
-          <h4 class="emailfield">
-            <span>
-              {{contact.emails[0].email}}
-            </span>
-          </h4>
+      </div>
+
+      <div class="contactrow" ng-repeat="email in contact.emails">
+        <a href="javascript:void(0)" class="openModal7" style="display:none">No email</a>
+        <a href="" target="_blank" class="dynamicEmail emailLink desktopEmail"><img src="img/openmail.png"></a>
+        <a href="" class="dynamicEmail emailLink mobileEmail"><img src="img/openmail.png"></a>
+        <h4 class="emailfield">
+          <span editable-text="email.email" onaftersave="saveContact()">
+            {{email.email || 'No email'}}
+          </span>
+        </h4>
+        <div id="emailsDelete" ng-if="email != contact.emails[0]">
+          <img ng-click="removeEmail(email)" src="img/close.png"/>
         </div>
-        <div class="contactrow">
-          <img id="bdayImage" src="img/birthday.png">
-          <h4 id="bday">
-            {{contactBirthday}}
-          </h4>
+        <div id="emailsDelete" ng-if="email === contact.emails[0]" >
+          <img ng-click="addEmail()" src="img/create.png"/>
         </div>
-        <div class="contactrow">
-          <img id="locationImage" src="img/location.png">
-          <h4 class="contactlocation">
-            {{contact.address}}
-          </h4>
-        </div>
-        <div class="contactpropertiesrow">
-          <h3 class="propertiesHeader">
-            Custom Fields
-          </h3>
-          <div class="propertiesList">
-              <div class="key">Property:</div><div class="value">Value</div><br/>
-              <div ng-repeat="property in contact.extended_properties">
-                <div class="key">{{property.key}}</div><div class="value">{{property.value}}</div><br/>
+      </div>
+
+      <div class="contactrow">
+        <img id="bdayImage" src="img/birthday.png">
+        <h4 id="bday">
+          <span editable-text="contact.extended_properties[birthdayIndex].value" onaftersave="saveContact()">
+            {{contact.extended_properties[birthdayIndex].value || 'No birthday'}}
+          </span>
+        </h4>
+      </div>
+
+      <div class="contactrow">
+        <img id="locationImage" src="img/location.png">
+        <h4 class="contactlocation">
+          <span editable-text="contact.address" onaftersave="saveContact()">
+            {{contact.address || 'No location'}}
+          </span>
+        </h4>
+      </div>
+
+      <div class="contactpropertiesrow">
+        <h3 class="propertiesHeader">
+          Custom Fields
+          <img ng-click="addProperty()" src="img/create.png"/>
+        </h3>
+        <div>
+          <div ng-repeat="property in contact.extended_properties" >
+            <div ng-if="property.key != 'birthday' && property.key != 'notes'">
+              <div class="key" editable-text="property.key" onaftersave="saveContact()">
+                {{property.key || 'No property set'}}
               </div>
+              <div class="value" editable-text="property.value" onaftersave="saveContact()">
+                {{property.value || 'No value set'}}
+              </div>
+              <div id="emailsDelete">
+                <img ng-click="removeProperty(property)" src="img/close.png"/>
+              </div>
+              <br/>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div class="infopanel">
-        <form id="addForm">
-          <div class="formrow">Add events: <br />
-            <input id="typeAheadAddEvent" />
-          </div>
-        </form>
-        <div ng-repeat="event in contact.events">
-          <div class="contactrow eventrow">
-            <a ui-sref="events.event({event_id:event.id})"><img src="img/events.png" class="eventIcon">
-            <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" class="removeAssoc" />
-          </div>
-        </div>
-        <div class="contactrow eventrow" ng-if="contact.events.length==0">
-          <h4><i>No associated events</i></h4>
-        </div>
-      </div>
-
-      <div class="infopanel">
-        <form id="addForm">
-          <div class="formrow">Add tasks: <br />
-            <input id="typeAheadAddTask" />
-          </div>
-        </form>
-        <div ng-repeat="task in contact.tasks">
-          <div class="contactrow taskrow">
-            <a ui-sref="tasks.task({task_id:task.id})"><img src="img/tasks.png" class="taskIcon">
-            <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" class="removeAssoc" />
-          </div>
-        </div>
-        <div class="contactrow taskrow" ng-if="contact.tasks.length==0">
-          <h4><i>No associated tasks</i></h4>
-        </div>
-      </div>
-
-      <div class="infopanel">
-        <form id="addForm">
-          <div class="formrow">Add tags: <br />
-            <input id="typeAheadAddTag" />
-          </div>
-        </form>
-        <div ng-repeat="tag in contact.tags">
-          <div class="contactrow tagrow">
-            <a ui-sref="tags.tag({tag_id:tag.id})"><img src="img/tags.png" class="tagIcon">
-            <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" class="removeAssoc" />
-          </div>
-        </div>
-        <div class="contactrow tagrow" ng-if="contact.tags.length==0">
-          <h4><i>No associated tags</i></h4>
         </div>
       </div>
     </div>
 
-    <div class="panelfooter" id="contactfooter">
-      <h5 class="notesLabel">Note:</h5>
-      <div class="notesField">
-        {{contact.notes}}          
+    <div class="infopanel">
+      <form id="addForm">
+        <div class="formrow">Add events: <br />
+          <input id="typeAheadAddEvent" />
+        </div>
+      </form>
+      <div ng-repeat="event in contact.events">
+        <div class="contactrow eventrow">
+          <a ui-sref="events.event({event_id:event.id})"><img src="img/events.png" class="eventIcon">
+          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+        </div>
+      </div>
+      <div class="contactrow eventrow" ng-if="contact.events.length==0">
+        <h4><i>No associated events</i></h4>
+      </div>
+    </div>
+
+    <div class="infopanel">
+      <form id="addForm">
+        <div class="formrow">Add tasks: <br />
+          <input id="typeAheadAddTask" />
+        </div>
+      </form>
+      <div ng-repeat="task in contact.tasks">
+        <div class="contactrow taskrow">
+          <a ui-sref="tasks.task({task_id:task.id})"><img src="img/tasks.png" class="taskIcon">
+          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+        </div>
+      </div>
+      <div class="contactrow taskrow" ng-if="contact.tasks.length==0">
+        <h4><i>No associated tasks</i></h4>
+      </div>
+    </div>
+
+    <div class="infopanel">
+      <form id="addForm">
+        <div class="formrow">Add tags: <br />
+          <input id="typeAheadAddTag" />
+        </div>
+      </form>
+      <div ng-repeat="tag in contact.tags">
+        <div class="contactrow tagrow">
+          <a ui-sref="tags.tag({tag_id:tag.id})"><img src="img/tags.png" class="tagIcon">
+          <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+        </div>
+      </div>
+      <div class="contactrow tagrow" ng-if="contact.tags.length==0">
+        <h4><i>No associated tags</i></h4>
       </div>
     </div>
   </div>
 
-  <div id="detailPanel" class="panelIn" ng-hide="detailsView">
-    <div class="row">
-      <div class="col-md-4 dCol" id="dCol1">
-        <div>
-          <h1 ng-if="contact.name.length > 0">
-            {{contact.name}}
-            <span class="hidden">{{contact.id}}</span>
-          </h1>
-          <h1 ng-if="contact.emails.length > 0 && contact.name == null">
+  <div class="panelfooter" id="contactfooter">
+    <h5 class="notesLabel">Note:</h5>
+    <div class="notesField" editable-textarea="contact.extended_properties[notesIndex].value" e-rows="7" e-cols="40" onaftersave="saveContact()">
+      <pre>{{contact.extended_properties[notesIndex].value || 'No note set'}}</pre>
+    </div>
+  </div>
+</div>
+
+<div id="detailPanel" class="panelIn" ng-hide="detailsView">
+  <div class="row">
+    <div class="col-md-4 dCol" id="dCol1">
+      <div>
+        <h1>
+          {{getContactTitle(contact)}}
+          <span class="hidden">{{contact.id}}</span>
+        </h1>
+        <div class="contactgroup contactDetails">
+          <div class="contactitem">
+            <a href="" target="_blank" class="dynamicEmail emailLink"><img src="img/openmail.png"></a>
             {{contact.emails[0].email}}
-            <span class="hidden">{{contact.id}}</span>
-          </h1>
-          <h1 ng-if="contact.name == null && contact.emails.length < 1">
-            No name or email
-            <span class="hidden">{{contact.id}}</span>
-          </h1>
-          <div class="contactgroup contactDetails">
-            <div class="contactitem">
-              <a href="" target="_blank" class="dynamicEmail emailLink"><img src="img/openmail.png"></a>
-              {{contact.emails[0].email}}
-            </div>
-            <div class="contactitem">
-              <img src="img/openmail.png" />
-              <a href="emailLink" target="_blank" class="emailLink">View Emails</a>
-            </div>
-            <div class="contactitem">
-              <img src="img/cellphone.png" />
-                <span>
-                  {{contact.phones[0].number}}
-                </span>
-            </div>
-            <div class="contactitem">
-              <img src="img/birthday.png" />
+          </div>
+          <div class="contactitem">
+            <img src="img/openmail.png" />
+            <a href="emailLink" target="_blank" class="emailLink">View Emails</a>
+          </div>
+          <div class="contactitem">
+            <img src="img/cellphone.png" />
               <span>
-                {{contactBirthday}}
+                {{contact.phones[0].number}}
               </span>
-            </div>
-            <div class="contactitem">
-              <img src="img/location.png" />
-              <span>                  
-                {{contact.address}}
-              </span>
-            </div>
           </div>
-          <div class="contactgroup relatedObjects">
-            <div class="contactitem">
-              <img src="img/events.png" />
-              <span>{{contact.events.length}}</span>
-            </div>
-            <div class="contactitem">
-              <img src="img/tasks.png" />
-              <span>{{contact.tasks.length}}</span>
-            </div>
-            <div class="contactitem">
-              <img src="img/tags.png" />
-              <span>{{contact.tags.length}}</span>
-            </div>
+          <div class="contactitem">
+            <img src="img/birthday.png" />
+            <span>
+              {{contactBirthday}}
+            </span>
           </div>
-          <h5 class="notesLabel2">Note: {{contact.notes}}</h5>
-          <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()" /></a>
-          <img id="detailTrash" src="img/trash.png" />
-        </div>
-        <img class="columnDivider" src="img/divider_blue.png" />
-      </div>
-      <div class="col-md-4 dCol" id="dCol2">
-        <div>
-          <div class="columnhead">
-            <img src="img/contacts.png" />
-            <h3>Events</h3>
-          </div>
-          <br />
-          <div class="detailSection">
-            <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showOpenEvents=!showOpenEvents"></div>
-            <ul class="columnlist" ng-show="showOpenEvents">
-              <div ng-repeat="event in contact.events | openEvents:events">
-                <li><a ui-sref="events.event({event_id:event.id})">{{event.title}}</a></li>
-              </div>
-              <li ng-if="(contact.events | openEvents:events).length==0"><i>No events upcoming</i></li>
-            </ul>
-          </div>
-          <div class="detailSection">
-            <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showClosedEvents=!showClosedEvents"></div>
-            <ul class="columnlist" ng-show="showClosedEvents">
-              <div ng-repeat="event in contact.events | closedEvents:events">
-                <li><a ui-sref="events.event({event_id:event.id})">{{event.title}}</a></li>
-              </div>
-              <li ng-if="(contact.events | closedEvents:events).length==0"><i>No events past</i></li>
-            </ul>
+          <div class="contactitem">
+            <img src="img/location.png" />
+            <span>                  
+              {{contact.address}}
+            </span>
           </div>
         </div>
-        <img class="columnDivider" src="img/divider_blue.png" />
-      </div>
-      <div class="col-md-4 dCol" id="dCol3">
-        <div>
-          <div class="columnhead">
+        <div class="contactgroup relatedObjects">
+          <div class="contactitem">
+            <img src="img/events.png" />
+            <span>{{contact.events.length}}</span>
+          </div>
+          <div class="contactitem">
             <img src="img/tasks.png" />
-            <h3>Tasks</h3>
+            <span>{{contact.tasks.length}}</span>
           </div>
-          <br />
-          <div class="detailSection">
-            <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showOpenTasks=!showOpenTasks"></div>
-            <ul class="columnlist" ng-show="showOpenTasks">
-              <div ng-repeat="task in contact.tasks | openTasks">
-                <li><a ui-sref="tasks.task({task_id:task.id})">{{task.title}}</a></li>
-              </div>
-              <li ng-if="(contact.tasks | openTasks).length==0"><i>No open tasks</i></li>
-            </ul>
+          <div class="contactitem">
+            <img src="img/tags.png" />
+            <span>{{contact.tags.length}}</span>
           </div>
-          <div class="detailSection">
-            <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showClosedTasks=!showClosedtasks"></div>
-            <ul class="columnlist" ng-show="showClosedTasks">
-              <div ng-repeat="task in contact.tasks | closedTasks">
-                <li><a ui-sref="tasks.task({task_id:task.id})">{{task.title}}</a></li>
-              </div>
-              <li ng-if="(contact.tasks | closedTasks).length==0"><i>No closed tasks</i></li>
-            </ul>
-          </div>
+        </div>
+        <h5 class="notesLabel2">Note: {{contact.notes}}</h5>
+        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()" /></a>
+        <img id="detailTrash" src="img/trash.png" />
+      </div>
+      <img class="columnDivider" src="img/divider_blue.png" />
+    </div>
+    <div class="col-md-4 dCol" id="dCol2">
+      <div>
+        <div class="columnhead">
+          <img src="img/contacts.png" />
+          <h3>Events</h3>
+        </div>
+        <br />
+        <div class="detailSection">
+          <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showOpenEvents=!showOpenEvents"></div>
+          <ul class="columnlist" ng-show="showOpenEvents">
+            <div ng-repeat="event in contact.events | openEvents:events">
+              <li><a ui-sref="events.event({event_id:event.id})">{{event.title}}</a></li>
+            </div>
+            <li ng-if="(contact.events | openEvents:events).length==0"><i>No events upcoming</i></li>
+          </ul>
+        </div>
+        <div class="detailSection">
+          <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showClosedEvents=!showClosedEvents"></div>
+          <ul class="columnlist" ng-show="showClosedEvents">
+            <div ng-repeat="event in contact.events | closedEvents:events">
+              <li><a ui-sref="events.event({event_id:event.id})">{{event.title}}</a></li>
+            </div>
+            <li ng-if="(contact.events | closedEvents:events).length==0"><i>No events past</i></li>
+          </ul>
+        </div>
+      </div>
+      <img class="columnDivider" src="img/divider_blue.png" />
+    </div>
+    <div class="col-md-4 dCol" id="dCol3">
+      <div>
+        <div class="columnhead">
+          <img src="img/tasks.png" />
+          <h3>Tasks</h3>
+        </div>
+        <br />
+        <div class="detailSection">
+          <div class="detailTitle">Open<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showOpenTasks=!showOpenTasks"></div>
+          <ul class="columnlist" ng-show="showOpenTasks">
+            <div ng-repeat="task in contact.tasks | openTasks">
+              <li><a ui-sref="tasks.task({task_id:task.id})">{{task.title}}</a></li>
+            </div>
+            <li ng-if="(contact.tasks | openTasks).length==0"><i>No open tasks</i></li>
+          </ul>
+        </div>
+        <div class="detailSection">
+          <div class="detailTitle">History<img src="img/arrow_black.png" class="accordionarrow detailArrow arrowdown" ng-click="showClosedTasks=!showClosedtasks"></div>
+          <ul class="columnlist" ng-show="showClosedTasks">
+            <div ng-repeat="task in contact.tasks | closedTasks">
+              <li><a ui-sref="tasks.task({task_id:task.id})">{{task.title}}</a></li>
+            </div>
+            <li ng-if="(contact.tasks | closedTasks).length==0"><i>No closed tasks</i></li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div id="detailPanelHider"></div>
-  <div class="col-md-1 flipswitch fsblue">
-    <img src="img/fliparrow_blue.png" id="fliparrow" ng-click="detailsView=!detailsView"/>
-  </div>
+<div id="detailPanelHider"></div>
+<div class="col-md-1 flipswitch fsblue">
+  <img src="img/fliparrow_blue.png" id="fliparrow" ng-click="detailsView=!detailsView"/>
+</div>

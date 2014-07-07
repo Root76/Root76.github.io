@@ -4411,3 +4411,13 @@ input#toggle5:checked + label:after {
     transform: rotate(360deg);
   }
 }
+
+/* customize xeditable css */
+span.editable-click { 
+    color: white;
+    border-bottom: dotted 2px white;
+}
+span.editable-click:hover { 
+    color: #FDFDFD;
+    border-bottom-color: #FDFDFD;
+}

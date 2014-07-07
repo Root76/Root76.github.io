@@ -34,7 +34,7 @@ var hashDetection = new hashHandler();
 
 (function(){
 	var app = angular.module('DayWonApplication', 
-		['ui.router', 'ui.bootstrap', 
+		['ui.router', 'ui.bootstrap', 'xeditable',
 		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
 		'Calendar',
@@ -254,13 +254,12 @@ var hashDetection = new hashHandler();
 			}
 
 			$scope.getContactTitle = function(contact) {
-				console.log(contact);
-
-				if(contact.name)
-					return contact.name;
-				else
-					if(contact.emails && contact.emails[0] && contact.emails[0].email)
-						return contact.emails[0].email;
+				if(contact)
+					if(contact.name)
+						return contact.name;
+					else
+						if(contact.emails && contact.emails[0] && contact.emails[0].email)
+							return contact.emails[0].email;
 
 				
 				return "No name or email";		

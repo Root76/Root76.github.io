@@ -201,6 +201,7 @@
 				emails: [
 					{email:''}
 				],
+				notes: '',
 				organization: '',
 				phones: [
 					{number:''}
