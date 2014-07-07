@@ -2,7 +2,7 @@
 
 	var TaskServicesModule = angular.module('TaskServices', ['ngResource']);
 
-	var baseURL = "http://daywon-api-staging.herokuapp.com";
+	var baseURL = "https://daywon-api-staging.herokuapp.com";
 
 	TaskServicesModule.factory('taskService', ['$resource', '$http', '$log', 
 		function ($resource, $http, $log) {

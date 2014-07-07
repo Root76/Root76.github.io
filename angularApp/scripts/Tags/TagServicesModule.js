@@ -2,7 +2,7 @@
 
 	var TagServicesModule = angular.module('TagServices', ['ngResource']);
 
-	var baseURL = "http://daywon-api-staging.herokuapp.com";
+	var baseURL = "https://daywon-api-staging.herokuapp.com";
 
 	TagServicesModule.factory('tagService', ['$resource', '$http', '$log', 
 		function ($resource, $http, $log) {

@@ -2,7 +2,7 @@
 
 	var EventServicesModule = angular.module('EventServices', ['ngResource']);
 
-	var baseURL = "http://daywon-api-staging.herokuapp.com";
+	var baseURL = "https://daywon-api-staging.herokuapp.com";
 
 	EventServicesModule.factory('eventService', ['$resource', '$http', '$log', 
 		function($resource, $http, $log) {

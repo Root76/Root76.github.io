@@ -2,7 +2,7 @@
 	
 	var ContactServicesModule = angular.module('ContactServices', ['ngResource']);
 
-	var baseURL = "http://daywon-api-staging.herokuapp.com";
+	var baseURL = "https://daywon-api-staging.herokuapp.com";
 
 	ContactServicesModule.factory('contactService', ['$resource', '$http', '$log', 
 		function ($resource, $http, $log) {
@@ -13,8 +13,6 @@
 								method: 'POST',
 								isArray: false,
 								transformRequest: [function(data, headersGetter){
-
-									console.log("HAHA!!!");
 									
 									if(!data["extended_properties"])
 										data["extended_properties"] = [];
