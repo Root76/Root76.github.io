@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="styles/style.css">
         <link rel="stylesheet" type="text/css" href="styles/datetimepicker.css">
         <link rel="stylesheet" type="text/css" href="styles/media_queries.css">
+        <link rel="stylesheet" type="text/css" href="styles/xeditable.css">
         <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
         <script type="text/javascript" src="libs/jquery-1.10.2.js"></script>
         <script type="text/javascript" src="libs/jquery-ui.js"></script>
@@ -22,6 +23,7 @@
         <script type="text/javascript" src="libs/angular-resource.min.js"></script>
         <script type="text/javascript" src="libs/angular-route.min.js"></script>
         <script type="text/javascript" src="libs/angular-ui-router.min.js"></script>
+        <script type="text/javascript" src="libs/xeditable.js"></script>
         <script type="text/javascript" src="libs/ui-bootstrap-tpls-0.11.0.min.js"></script>
         <script type="text/javascript" src="libs/lodash.js"></script>
         <script type="text/javascript" src="scripts/Contacts/ContactsModule.js"></script>
@@ -87,7 +89,7 @@
                   </div>-->
                 </li>
                 <li class="navbar-link dropdown" id="viewmenu">
-                  <a ui-sref="contacts.html"><img src="img/view.png" class="navimg" />View</a>
+                  <a ui-sref="contacts.index"><img src="img/view.png" class="navimg" />View</a>
                   <ul class="dropdown-menu">
                     <li><a ui-sref="contacts.index">"<img src="img/contacts.png" class="subnavimg" id="viewcontacts" />Contacts</a></li>
                     <li><a ui-sref="events.index">"<img src="img/events.png" class="subnavimg" id="viewevents" />Events</a></li>

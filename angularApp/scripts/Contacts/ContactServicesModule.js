@@ -39,7 +39,7 @@
 									delete data["tags"];
 									delete data["events"];
 									delete data["tasks"];
-	
+
 									var contact = {'contact': data};									
 									return contact;
 
