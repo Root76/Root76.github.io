@@ -31,36 +31,22 @@
 								method: 'PUT',
 								isArray: false,
 								transformRequest: [function(data, headersGetter){
-																	
-									data['tag_ids'] = _.map(data['tags'], function(tag) { return tag.id; });	
-									data['event_ids'] = _.map(data['events'], function(event) { return event.id; });
-									data['task_ids'] = _.map(data['tasks'], function(task) { return task.id; });
+									
+									var contact = JSON.parse(JSON.stringify(data));
 
-									delete data["tags"];
-									delete data["events"];
-									delete data["tasks"];
+									contact['tag_ids'] = _.map(contact['tags'], function(tag) { return tag.id; });	
+									contact['event_ids'] = _.map(contact['events'], function(event) { return event.id; });
+									contact['task_ids'] = _.map(contact['tasks'], function(task) { return task.id; });
 
-									var contact = {'contact': data};									
-									return contact;
-
-								}].concat($http.defaults.transformRequest)
-							},
-
-							quicksave:
-							{
-								method: 'PUT',
-								isArray: false,
-								transformRequest: [function(data, headersGetter){
-
-									delete data["tags"];
-									delete data["events"];
-									delete data["tasks"];
-
-									var contact = {'contact': data};									
-									return contact;
+									delete contact["tags"];
+									delete contact["events"];
+									delete contact["tasks"];
+								
+									return {'contact': contact};
 
 								}].concat($http.defaults.transformRequest)
 							},
+
 						}),
 					}
 			}]);

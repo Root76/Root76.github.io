@@ -27,16 +27,18 @@
 						method: 'PUT',
 						isArray: false,
 						transformRequest: [function(data, headersGetter){
+									
+							var task = JSON.parse(JSON.stringify(data));
 
-							data['contact_ids'] = _.map(data['contacts'], function(contact) { return contact.id; });	
-							data['event_ids'] = _.map(data['events'], function(event) { return event.id; });
-							data['tag_ids'] = _.map(data['tags'], function(tag) { return tag.id; });
+							task['contact_ids'] = _.map(task['contacts'], function(contact) { return contact.id; });	
+							task['event_ids'] = _.map(task['events'], function(event) { return event.id; });
+							task['tag_ids'] = _.map(task['tags'], function(tag) { return tag.id; });
 
-							delete data["contacts"];
-							delete data["events"];
-							delete data["tags"];
+							delete task["contacts"];
+							delete task["events"];
+							delete task["tags"];
 
-							return {"task":data};
+							return {"task":task};
 						}].concat($http.defaults.transformRequest)
 					},
 

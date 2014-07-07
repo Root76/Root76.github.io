@@ -25,37 +25,20 @@
 							method: 'PUT',
 							isArray: false,
 							transformRequest: [function(data, headersGetter){
+									
+								var tag = JSON.parse(JSON.stringify(data));
 														
-								data['contact_ids'] = _.map(data['contacts'], function(contact) { return contact.id; });	
-								data['event_ids'] = _.map(data['events'], function(event) { return event.id; });
-								data['task_ids'] = _.map(data['tasks'], function(task) { return task.id; });
+								tag['contact_ids'] = _.map(tag['contacts'], function(contact) { return contact.id; });	
+								tag['event_ids'] = _.map(tag['events'], function(event) { return event.id; });
+								tag['task_ids'] = _.map(tag['tasks'], function(task) { return task.id; });
 
-								delete data["contacts"];
-								delete data["events"];
-								delete data["tasks"];
+								delete tag["contacts"];
+								delete tag["events"];
+								delete tag["tasks"];
 
-								delete data['count'];
+								delete tag['count'];
 
-								var tag = {'tag': data};									
-								return tag;
-
-							}].concat($http.defaults.transformRequest)
-						},
-
-						quicksave:
-						{
-							method: 'PUT',
-							isArray: false,
-							transformRequest: [function(data, headersGetter){
-
-								delete data["contacts"];
-								delete data["events"];
-								delete data["tasks"];
-								
-								delete data['count'];
-
-								var tag = {'tag': data};									
-								return tag;
+								return {'tag' : tag};
 
 							}].concat($http.defaults.transformRequest)
 						},

@@ -178,6 +178,41 @@
 				$scope.contact.$save();
 			}
 
+			$scope.onSelect = function ($item, $model, $label) {
+
+				if($model.type == "event")
+					$scope.contact.events.push($model);
+				if($model.type == "task")
+					$scope.contact.tasks.push($model);
+				if($model.type == "tag")
+					$scope.contact.tags.push($model);
+
+				$scope.contact.$save();
+			}
+
+			$scope.removeEvent = function(event) {
+			
+				index = $scope.contact.events.indexOf(event);
+				$scope.contact.events.splice(index, 1);					
+
+				$scope.contact.$save();
+			}
+
+			$scope.removeTask = function(task) {
+
+				index = $scope.contact.tasks.indexOf(task);
+				$scope.contact.tasks.splice(index, 1);					
+
+				$scope.contact.$save();	
+			}
+
+			$scope.removeTag = function(tag) {	
+
+				index = $scope.contact.tags.indexOf(tag);
+				$scope.contact.tags.splice(index, 1);					
+
+				$scope.contact.$save();
+			}
 
 			$scope.saveContact = function() {
 				console.log($scope.contact);

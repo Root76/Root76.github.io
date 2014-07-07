@@ -103,13 +103,14 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add events: <br />
-          <input id="typeAheadAddEvent" />
+          <!-- <input id="typeAheadAddEvent" /> -->
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in events | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in contact.events">
         <div class="contactrow eventrow">
           <a ui-sref="events.event({event_id:event.id})"><img src="img/events.png" class="eventIcon">
-          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" ng-click="removeEvent(event)" />
         </div>
       </div>
       <div class="contactrow eventrow" ng-if="contact.events.length==0">
@@ -120,7 +121,7 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add tasks: <br />
-          <input id="typeAheadAddTask" />
+          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="task in contact.tasks">
@@ -137,7 +138,7 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add tags: <br />
-          <input id="typeAheadAddTag" />
+          <input type="text" ng-model="selectedTag" placeholder="Type to select tag" typeahead="tag as tag.name for tag in tags | filter:{name:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTag = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="tag in contact.tags">
@@ -165,13 +166,15 @@
     <div class="col-md-4 dCol" id="dCol1">
       <div>
         <h1>
-          {{getContactTitle(contact)}}
+          <div editable-text="contact.name" onaftersave="saveContact()">{{contact.name || contact.emails[0].email || 'No name or email'}}</div>
           <span class="hidden">{{contact.id}}</span>
         </h1>
         <div class="contactgroup contactDetails">
           <div class="contactitem">
             <a href="" target="_blank" class="dynamicEmail emailLink"><img src="img/openmail.png"></a>
-            {{contact.emails[0].email}}
+            <span editable-text="contact.emails[0].email" onaftersave="saveContact()">
+              {{contact.emails[0].email || 'No email'}}
+            </span>
           </div>
           <div class="contactitem">
             <img src="img/openmail.png" />
@@ -179,26 +182,25 @@
           </div>
           <div class="contactitem">
             <img src="img/cellphone.png" />
-              <span>
-                {{contact.phones[0].number}}
+              <span editable-text="contact.phones[0].number" onaftersave="saveContact()">
+                {{contact.phones[0].number || 'No phone number'}}
               </span>
           </div>
           <div class="contactitem">
             <img src="img/birthday.png" />
-            <span>
-              {{contactBirthday}}
+            <span editable-text="contact.extended_properties[birthdayIndex].value" onaftersave="saveContact()">
+              {{contact.extended_properties[birthdayIndex].value || 'No birthday'}}
             </span>
           </div>
           <div class="contactitem">
             <img src="img/location.png" />
-            <span>                  
-              {{contact.address}}
+            <span editable-text="contact.address" onaftersave="saveContact()">                  
+              {{contact.address || 'No address'}}
             </span>
           </div>
         </div>
         <div class="contactgroup relatedObjects">
           <div class="contactitem">
-            <img src="img/events.png" />
             <span>{{contact.events.length}}</span>
           </div>
           <div class="contactitem">
@@ -210,7 +212,12 @@
             <span>{{contact.tags.length}}</span>
           </div>
         </div>
-        <h5 class="notesLabel2">Note: {{contact.notes}}</h5>
+        <h5 class="notesLabel2">
+          Notes:
+          <div class="notesField" editable-textarea="contact.extended_properties[notesIndex].value" e-rows="7" e-cols="40" onaftersave="saveContact()">
+            <pre>{{contact.extended_properties[notesIndex].value || 'No note set'}}</pre>
+          </div>
+        </h5>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()" /></a>
         <img id="detailTrash" src="img/trash.png" />
       </div>
