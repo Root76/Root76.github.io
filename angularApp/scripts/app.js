@@ -33,6 +33,7 @@ function hashHandler(){
 var hashDetection = new hashHandler();
 
 (function(){
+
 	var app = angular.module('DayWonApplication', 
 		['ui.router', 'ui.bootstrap', 'xeditable',
 		'Contacts', 'Events', 'Tasks','Tags',
@@ -41,10 +42,8 @@ var hashDetection = new hashHandler();
 		'Routing', 'CreateModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
-
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-TOKEN'] = authToken;
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-EMAIL'] = authEmail; 
-		//$httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 	}]);
 
 	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
@@ -62,10 +61,13 @@ var hashDetection = new hashHandler();
 				$scope.contactsPromise.$promise.then(function(data) {
 					
 					$scope.contacts = data;
+
 					allObjects.contacts = data;
 					for (var i = 0; i < allObjects.contacts.length; i++) {
 						allObjects.contacts[i]['type'] = "contact";
 					}
+
+					$scope.FilteredContacts = allObjects.contacts;
 
 				});
 			};

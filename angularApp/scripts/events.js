@@ -895,43 +895,6 @@ function rebindEvents() {
             $("#openModal6").removeClass("active");
         }
 
-        if ($("#contactShow").length) {
-            var showContacts = document.getElementById("contactShow");
-            $(showContacts).unbind('change').change(function() {
-                if (showContacts.value === "Recent") {
-                    $("#showRecent").click();
-                } else if (showContacts.value === "All") {
-                    $("#showAll").click();
-                }
-            });
-        }
-
-        if ($("#contactSort").length) {
-            var sortContacts = document.getElementById("contactSort");
-            sortContacts.onchange = function() {
-                if (sortContacts.value === "Company") {
-                    $("#byCompany").click();
-                } else {
-                    $("#byName").click();
-                }
-            }
-        }
-
-        if ($("#taskSort").length) {
-            var sortTasks = document.getElementById("taskSort");
-            sortTasks.onchange = function() {
-                if (sortTasks.value === "Priority") {
-                    $("#byPriority").click();
-                } else if (sortTasks.value === "Alphabetically") {
-                    $("#byName").click();
-                } else if (sortTasks.value === "Contact") {
-                    $("#byContact").click();
-                } else {
-                    $("#byDate").click();
-                }
-            }
-        }
-
         $('#prioritySelector').change(function(){
             console.log(this.value);
         });
