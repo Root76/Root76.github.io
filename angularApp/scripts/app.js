@@ -68,6 +68,13 @@ var hashDetection = new hashHandler();
 					}
 
 					$scope.FilteredContacts = allObjects.contacts;
+					$scope.AllFilteredContacts = $scope.FilteredContacts;
+
+					$scope.FilteredContacts.forEach(function(contact){
+						contactService.Contact.get({contact_id: contact.id}, function(data) {
+							contact.tagcount = data.tags.length;
+						});
+					});
 
 				});
 			};
@@ -100,6 +107,9 @@ var hashDetection = new hashHandler();
 					
 					for (var i = 0; i < allObjects.events.length; i++) {
 						allObjects.events[i]['type'] = "event";
+						if (allObjects.events[i]['start_datetime'] == null) {
+							allObjects.events[i]['start_datetime'] = allObjects.events[i]['start_date'];
+						}
 					}
 
 					$scope.FilteredEvents = new Array();
@@ -144,8 +154,6 @@ var hashDetection = new hashHandler();
 								return 0;
 							});
 
-							console.log("duplicate events: ");
-							console.log(duplicateEvents);
 							console.log("occurences for " + thisTitle + ": " + titleCount);
 							
 							if (titleCount == 1) {
@@ -163,6 +171,27 @@ var hashDetection = new hashHandler();
 						}
 
 					}
+
+					$scope.FilteredEvents.sort(function(a, b) {
+						if (a.start_datetime < b.start_datetime) {
+							return -1;
+						}
+						if (a.start_datetime > b.start_datetime) {
+							return 1;
+						}
+						return 0;
+					});
+
+					$scope.FilteredEvents.forEach(function(event){
+						eventService.Event.get({event_id: event.id}, function(data) {
+							event.tagcount = data.tags.length;
+							if (data.tags.length > 0) {
+								console.log(data.title + " tagged " + data.tags.length + " times");
+							}
+						});
+					});
+
+					$scope.AllFilteredEvents = $scope.FilteredEvents;
 
 					function buildArray(eventArray, targetDate) {
 

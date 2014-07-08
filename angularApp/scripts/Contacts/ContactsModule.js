@@ -21,10 +21,8 @@
 				}
 				else if ($scope.ContactFilter === "Tagged") {
 					for (var i = 0; i < $scope.contacts.length; i++) {
-						if ($scope.contacts[i]['status'] == true) {
+						if ($scope.contacts[i]['tagcount'] > 0) {
 							$scope.FilteredContacts.push($scope.contacts[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredContacts);
 						}
 					}					
 				}

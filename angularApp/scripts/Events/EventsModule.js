@@ -22,14 +22,12 @@
 				var thisDate;
 
 				if ($scope.EventFilter === "All") {
-					$scope.FilteredEvents = $scope.events;
+					$scope.FilteredEvents = $scope.AllFilteredEvents;
 				}
 				else if ($scope.EventFilter === "Tagged") {
 					for (var i = 0; i < $scope.events.length; i++) {
-						if ($scope.events[i]['status'] == true) {
+						if ($scope.events[i]['tagcount'] > 0) {
 							$scope.FilteredEvents.push($scope.events[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredEvents);
 						}
 					}					
 				}
@@ -74,6 +72,7 @@
 			$scope.deleteEvent = function(event){
 				eventService.Event.delete({event_id:event.id});
 			}
+
 		}]);
 
 	EventsModule.controller('EventController', ['$resource', '$scope', '$stateParams', 'eventService',
