@@ -4,7 +4,60 @@
 
 	EventsModule.controller('EventsController', ['$resource', '$scope', 'eventService',
 		function($resource, $scope, eventService) {
-			
+
+			$scope.EventShow = ['All', 'Tagged', 'New This Week', 'New This Month', 'Recent'];
+
+			$scope.EventFilter = $scope.EventShow[0];
+
+			$scope.updateEventList = function() {
+
+				console.log("chosen filter");
+				console.log($scope.EventFilter);
+				$scope.FilteredEvents = new Array();
+				var today = moment().format('MMMM Do YYYY');
+
+				if ($scope.EventFilter === "All") {
+					$scope.FilteredEvents = $scope.events;
+				}
+				else if ($scope.EventFilter === "Tagged") {
+					for (var i = 0; i < $scope.events.length; i++) {
+						if ($scope.events[i]['status'] == true) {
+							$scope.FilteredEvents.push($scope.events[i]);
+							console.log("status was true, pushing to array");
+							console.log($scope.FilteredEvents);
+						}
+					}					
+				}
+				else if ($scope.EventFilter === "New This Week") {
+					for (var i = 0; i < $scope.events.length; i++) {
+						if ($scope.events[i]['status'] == true) {
+							$scope.FilteredEvents.push($scope.events[i]);
+							console.log("status was true, pushing to array");
+							console.log($scope.FilteredEvents);
+						}
+					}					
+				}
+				else if ($scope.EventFilter === "New This Month") {
+					for (var i = 0; i < $scope.events.length; i++) {
+						if ($scope.events[i]['status'] == true) {
+							$scope.FilteredEvents.push($scope.events[i]);
+							console.log("status was true, pushing to array");
+							console.log($scope.FilteredEvents);
+						}
+					}					
+				}
+				else if ($scope.EventFilter === "Recent") {
+					for (var i = 0; i < $scope.events.length; i++) {
+						if ($scope.events[i]['status'] == true) {
+							$scope.FilteredEvents.push($scope.events[i]);
+							console.log("status was true, pushing to array");
+							console.log($scope.FilteredEvents);
+						}
+					}					
+				}
+
+			}
+
 			$scope.deleteEvent = function(event){
 				eventService.Event.delete({event_id:event.id});
 			}

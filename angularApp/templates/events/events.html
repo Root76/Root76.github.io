@@ -11,15 +11,11 @@
           <div class="filtercolumn contactpadding">
             <h4>Show:</h4>
             <div class="contsort">
-					  <select>
-              <option>Show Options</option>
-              <option>Show Options</option>
-              <option>Show Options</option>
-            </select>
+              <select ng-model="EventFilter" ng-options="option for option in EventShow" ng-change="updateEventList()"></select>
             </div>
           </div>
           <ul id="eventlist" class="sidelist">
-            <div ng-repeat="event in events">
+            <div ng-repeat="event in FilteredEvents">
               <a ui-sref="events.event({event_id: event.id})"><li>{{event.title}}</li></a>
             </div>
           </ul>

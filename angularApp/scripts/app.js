@@ -100,6 +100,8 @@ var hashDetection = new hashHandler();
 					for (var i = 0; i < allObjects.events.length; i++) {
 						allObjects.events[i]['type'] = "event";
 					}
+					
+					$scope.FilteredEvents = allObjects.events;
 
 					function buildArray(eventArray, targetDate) {
 
@@ -141,13 +143,14 @@ var hashDetection = new hashHandler();
 				$scope.tasksPromise.$promise.then(function(data){
 
 					$scope.tasks = data.tasks;
-					$scope.FilteredTasks = $scope.tasks;
 					console.log(data.tasks);
 
 					allObjects.tasks = data.tasks;
 					for (var i = 0; i < allObjects.tasks.length; i++) {
 						allObjects.tasks[i]['type'] = "task";
 					}
+
+					$scope.FilteredTasks = allObjects.tasks;
 
 				});
 			};

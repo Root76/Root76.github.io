@@ -8,6 +8,16 @@
 			$scope.deleteTask = function(task){
 				taskService.Task.delete({task_id:task.id});
 			}
+
+			$scope.TaskSort = [
+				{title: 'Tasks with no dates', prop: 'due'}, 
+				{title: 'Tasks with dates', prop: '-due'},
+				{title: 'Priority', prop: 'priority'}, 
+				{title: 'Alphabetical', prop: 'title'}
+			];
+
+			$scope.TaskOrder = $scope.TaskSort[0];
+			
 		}]);
 
 	TasksModule.controller('TaskController', ['$resource', '$scope', '$stateParams','taskService',
@@ -20,15 +30,6 @@
 				console.log(data);
 				$scope.task = data;
 			});
-
-			$scope.TaskSort = [
-				{title: 'Tasks with no dates', prop: 'due'}, 
-				{title: 'Tasks with dates', prop: '-due'},
-				{title: 'Priority', prop: 'priority'}, 
-				{title: 'Alphabetical', prop: 'title'}
-			];
-
-			$scope.TaskOrder = $scope.TaskSort[0];
 
 			$scope.onSelect = function ($item, $model, $label) {
 
