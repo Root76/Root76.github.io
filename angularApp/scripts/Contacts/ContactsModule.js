@@ -47,13 +47,21 @@
 					}					
 				}
 				else if ($scope.ContactFilter === "Recent") {
-					for (var i = 0; i < $scope.contacts.length; i++) {
-						if ($scope.contacts[i]['status'] == true) {
-							$scope.FilteredContacts.push($scope.contacts[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredContacts);
+					$scope.ContactList = $scope.contacts;
+					$scope.ContactList.sort(function(a, b) {
+						if (a.updated_at < b.updated_at) {
+							return 1;
 						}
-					}					
+						if (a.updated_at > b.updated_at) {
+							return -1;
+						}
+						return 0;
+					});
+					for (var i = 0; i < 10; i++) {
+						$scope.FilteredContacts.push($scope.ContactList[i]);
+						console.log("status was true, pushing to array");
+						console.log($scope.FilteredContacts);
+					}				
 				}
 
 			}

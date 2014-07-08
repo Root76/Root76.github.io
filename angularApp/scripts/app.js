@@ -11,7 +11,7 @@ function QueryStringToJSON() {
 var query_string = QueryStringToJSON();
 
 //var authToken = query_string.authentication_token;
-//var userEmail = query_string.user_email;
+//var authEmail = query_string.user_email;
 
 var authToken = '4N9-_NWfYvYxpesMVpne';
 var authEmail = 'hweaver@evenspring.com';
@@ -80,6 +80,7 @@ var hashDetection = new hashHandler();
 
 					var thisDate, j;
 					var today = moment().format('MMMM Do YYYY');
+					var todayRaw = moment().format('YYYYMMDDHHMMSS')
 					var tomorrow = moment().add('days', 1).format('MMMM Do YYYY');
 					var day3 = moment().add('days', 2).format('MMMM Do YYYY');
 					var day4 = moment().add('days', 3).format('MMMM Do YYYY');
@@ -100,8 +101,68 @@ var hashDetection = new hashHandler();
 					for (var i = 0; i < allObjects.events.length; i++) {
 						allObjects.events[i]['type'] = "event";
 					}
-					
-					$scope.FilteredEvents = allObjects.events;
+
+					$scope.FilteredEvents = new Array();
+					var eventTitles = new Array();
+					var duplicateEvents = new Array();
+					var processedEvents = new Array();
+					var thisTitle, thisDate;
+
+					//allObjects.events.forEach(function(event){
+					//	eventTitles.push(event.title);
+					//});
+
+					console.log(allObjects.events);
+					console.log(eventTitles);
+
+					for (var i = 0; i < allObjects.events.length; i++) {
+
+						duplicateEvents = new Array();
+						thisTitle = allObjects.events[i]['title'];
+						var titleCount = 0;
+						var duplicateCount = 0;
+
+						if (processedEvents.indexOf(thisTitle) < 0) {
+
+							allObjects.events.forEach(function(event){
+								if (event.title == thisTitle) {
+									titleCount++;
+									if (titleCount == 1) {
+										processedEvents.push(thisTitle);
+									}
+									duplicateEvents.push(event);
+								}
+							});
+
+							duplicateEvents.sort(function(a, b) {
+								if (a.start_datetime < b.start_datetime) {
+									return -1;
+								}
+								if (a.start_datetime > b.start_datetime) {
+									return 1;
+								}
+								return 0;
+							});
+
+							console.log("duplicate events: ");
+							console.log(duplicateEvents);
+							console.log("occurences for " + thisTitle + ": " + titleCount);
+							
+							if (titleCount == 1) {
+								$scope.FilteredEvents.push($scope.events[i]);
+							}
+							else if (titleCount > 1) {
+								duplicateEvents.forEach(function(event){
+									if (todayRaw < moment(event.start_datetime).format('YYYYMMDDHHMMSS') && duplicateCount == 0) {
+										$scope.FilteredEvents.push(event);
+										duplicateCount++;
+									}
+								});
+							}
+
+						}
+
+					}
 
 					function buildArray(eventArray, targetDate) {
 
