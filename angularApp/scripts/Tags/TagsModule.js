@@ -26,5 +26,45 @@
 			];
 			$scope.TagOrder = $scope.TagSort[1];
 
+			$scope.onSelect = function ($item, $model, $label) {
+
+				if($model.type == "contact")
+					$scope.tag.contacts.push($model);
+				if($model.type == "event")
+					$scope.tag.events.push($model);
+				if($model.type == "task")
+					$scope.tag.tasks.push($model);
+
+				$scope.tag.$save();
+			}
+
+			$scope.removeContact = function(contact) {
+			
+				index = $scope.tag.contacts.indexOf(contact);
+				$scope.tag.contacts.splice(index, 1);					
+
+				$scope.tag.$save();
+			}
+
+			$scope.removeEvent = function(event) {
+
+				index = $scope.tag.events.indexOf(event);
+				$scope.tag.events.splice(index, 1);					
+
+				$scope.tag.$save();	
+			}
+
+			$scope.removeTask = function(task) {
+
+				index = $scope.tag.tasks.indexOf(task);
+				$scope.tag.tasks.splice(index, 1);					
+
+				$scope.tag.$save();	
+			}
+
+			$scope.saveTag = function() {
+				console.log($scope.tag);
+				$scope.tag.$save();
+			}
 		}]);
 })();

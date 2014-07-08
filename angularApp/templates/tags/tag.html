@@ -2,7 +2,9 @@
   <h1 id="mobileContact" class="tagDetailHeader">Tags</h1>
   <img src="img/arrow.png" class="backArrow" />
 	<h2 id="contactname" class="tagname">
-    {{tag.name}}
+    <span editable-text="tag.name" onaftersave="saveTag()">
+      {{tag.name || 'No name'}}
+    </span>
     <span class="hidden">{{tag.id}}</span>
   </h2>
   <div id="detailmenubar">
@@ -18,13 +20,13 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add contacts: <br />
-          <input id="typeAheadAddContact" />
+          <input type="text" ng-model="selectedContact" placeholder="Type to select contact" typeahead="contact as contact.name for contact in contacts | filter:{name:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedContact = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="contact in tag.contacts | orderBy: ['name', 'emails[0].email', 'id']">
         <div class="contactrow personrow">
           <a ui-sref="contacts.contact({contact_id:contact.id})"><img src="img/contacts.png" class="contactIcon">
-          <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+          <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" ng-click="removeContact(contact)" />
         </div>
       </div>
       <div class="contactrow personrow" ng-if="tag.contacts.length == 0">
@@ -34,13 +36,13 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add events: <br />
-          <input id="typeAheadAddEvent" />
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in events | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in tag.events">
         <div class="contactrow eventrow">
           <a ui-sref="events.event({event_id:event.id})"><img src="img/events.png" class="eventIcon">
-          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" ng-click="removeEvent(event)" />
         </div>
       </div>
       <div class="contactrow eventrow" ng-if="tag.events.length == 0">
@@ -50,13 +52,13 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add tasks: <br />
-          <input id="typeAheadAddTask" />
+          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="task in tag.tasks">
         <div class="contactrow taskrow">
           <a ui-sref="tasks.task({task_id:task.id})"><img src="img/tasks.png" class="taskIcon">
-          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" ng-click="removeTask(task)" />
         </div>
       </div>
       <div class="contactrow taskrow" ng-if="tag.tasks.length == 0">
@@ -74,8 +76,10 @@
     <div class="col-md-4 dCol" id="dCol1">
       <div>
         <h1 id="contactname" class="tagname">
-            {{tag.name}}
-            <span class="hidden">{{id}}</span>
+          <span editable-text="tag.name" onaftersave="saveTag()">
+            {{tag.name || 'No name'}}
+          </span>
+          <span class="hidden">{{id}}</span>
         </h1>
         <div class="contactgroup relatedObjects taggedObjects">
           <div class="contactitem">
