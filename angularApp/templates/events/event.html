@@ -2,7 +2,9 @@
   <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
   <img src="img/arrow.png" class="backArrow" />
   <h2 id="contactname" class="eventname">
-    {{event.title}}
+    <span editable-text="event.title" onaftersave="saveEvent()">
+      {{event.title || 'No title'}}
+    </span>
     <span class="hidden">{{event.id}}</span>
   </h2>
   <div id="detailmenubar">
@@ -11,79 +13,87 @@
     <img src="img/tasks.png" />
     <img src="img/tags.png" /> 
     <a href="javascript:void(0)"><img src="img/create.png" class="addEvent" ng-click="create()"/></a>
-    <img src="img/trash.png" id="trashicon"/>
+    <img src="img/trash.png" ng-click="deleteEvent(event)"/>
     <button id="destroy">{{event.id}}</button>
   </div>
   <div class="panelcontent" id="eventscontent">                
+    
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add contacts: <br />
-          <input id="typeAheadAddContact" />
+          <input type="text" ng-model="selectedContact" placeholder="Type to select contact" typeahead="contact as contact.name for contact in contacts | filter:{name:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedContact = undefined;" class="form-control">
         </div>
       </form>
-
       <div ng-repeat="contact in event.contacts">      
         <div class="contactrow personrow">
           <a ui-sref="contacts.contact({contact_id:contact.id})"><img src="img/contacts.png" class="contactIcon">
-          <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+          <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" ng-click="removeContact(contact)" />        
         </div>
       </div>
       <div class="contactrow personrow" ng-if="event.contacts.length==0">
         <h4><i>No associated contacts</i></h4> 
       </div>
-
     </div>
+
     <div class="infopanel selected">
       <div>
         <b>Description: </b>
-          {{event.description}}
+          <span editable-text="event.description" onaftersave="saveEvent()">
+            {{event.description || 'No description'}}
+          </span>
         <br />
       </div>
       <div>
         <b>Location: </b>
-          {{event.location}}
+          <span editable-text="event.location" onaftersave="saveEvent()">
+            {{event.location || 'No location'}}
+          </span>
         <br />
       </div>
       <div>
         <b>Event Start: </b>
-          {{event.start_datetime}}
+          DATE EDITING NOT IMPLEMENTED
         <br />
       </div>
       <div>
         <b>Event End: </b>
-          {{event.end_datetime}}
+          DATE EDITING NOT IMPLEMENTED
         <br />
       </div>
       <b>Recurring: </b>
-        {{event.recurring}}
+        <span editable-select="event.recurring" e-ng-options="recur.value as recur.description for recur in recurrenceValues" onaftersave="saveEvent()">
+          {{event.recurring || 'No description'}}
+        </span>
+        <br />
     </div>
+
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add tasks: <br />
-          <input id="typeAheadAddTask" />
+          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="task in event.tasks">
         <div class="contactrow taskrow">
           <a ui-sref="tasks.task({task_id:task.id})"><img src="img/tasks.png" class="taskIcon">
-          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" ng-click="removeTask(task)" />
         </div>
       </div>
       <div class="contactrow taskrow" ng-if="event.tasks.length==0">
         <h4><i>No associated tasks</i></h4> 
       </div>
-
     </div>
+
     <div class="infopanel">
         <form id="addForm">
           <div class="formrow">Add tags: <br />
-            <input id="typeAheadAddTag" />
+            <input type="text" ng-model="selectedTag" placeholder="Type to select tag" typeahead="tag as tag.name for tag in tags | filter:{name:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTag = undefined;" class="form-control">
           </div>
         </form>
         <div ng-repeat="tag in event.tags">
           <div class="contactrow tagrow">
             <a ui-sref="tags.tag({tag_id:tag.id})"><img src="img/tags.png" class="tagIcon">
-            <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" class="removeAssoc" />
+            <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" ng-click="removeTag(tag)"/>
           </div>
         </div>
         <div class="contactrow tagrow" ng-if="event.tags.length==0">
@@ -98,10 +108,14 @@
     <div class="col-md-4 dCol" id="dCol1">
       <div>
         <h1 id="contactname" class="eventname">
-          {{event.title}}
+          <span editable-text="event.title" onaftersave="saveEvent()">
+            {{event.title || 'No title'}}
+          </span>
         </h1>
         <h4>
-          {{event.description}}
+          <span editable-text="event.description" onaftersave="saveEvent()">
+            {{event.description || 'No description'}}
+          </span>
         </h4>
         <div id="relatedTags" ng-if="event.tags.length > 0">
           <div class="relatedItem" ng-repeat="tag in event.tags">
@@ -110,7 +124,7 @@
           </div>
         </div>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()"/></a>
-        <img id="detailTrash" src="img/trash.png" />
+        <img src="img/trash.png" ng-click="deleteEvent(event)"/>
       </div>
       <img class="columnDivider" src="img/divider_orange.png" />
     </div>

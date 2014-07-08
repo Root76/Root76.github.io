@@ -59,7 +59,10 @@
 			}
 
 			$scope.ordering = ['name', 'emails[0].email', 'id'];
-
+			
+			$scope.deleteContact = function(contact){
+				contactService.Contact.delete({contact_id:contact.id});
+			}
 		}]);
 	
 	ContactsModule.controller('ContactController', ['$resource', '$scope', '$stateParams', 'contactService',

@@ -14,7 +14,7 @@
     <img src="img/tasks.png"/>
     <img src="img/tags.png"/>
     <a href="javascript:void(0)"><img src="img/create.png" class="addContact" ng-click="create()"/></a>
-    <img src="img/trash.png" id="trashicon" />
+    <img src="img/trash.png" ng-click="deleteContact(contact)" />
     <button id="destroy">{{contact.id}}</button>
   </div>
 
@@ -219,7 +219,7 @@
           </div>
         </h5>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()" /></a>
-        <img id="detailTrash" src="img/trash.png" />
+        <img src="img/trash.png" ng-click="deleteContact(contact)"/>
       </div>
       <img class="columnDivider" src="img/divider_blue.png" />
     </div>
