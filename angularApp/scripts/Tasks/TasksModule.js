@@ -4,7 +4,10 @@
 	
 	TasksModule.controller('TasksController', ['$resource', '$scope', 'taskService',
 		function($resource, $scope, taskService) {
-
+			
+			$scope.deleteTask = function(task){
+				taskService.Task.delete({task_id:task.id});
+			}
 		}]);
 
 	TasksModule.controller('TaskController', ['$resource', '$scope', '$stateParams','taskService',

@@ -5,6 +5,10 @@
 	TagsModule.controller('TagsController', ['$resource', '$scope', 'tagService',
 		function($resource, $scope, tagService){
 			
+			$scope.deleteTag = function(tag){
+				tagService.Tag.delete({tag_id:tag.id});
+			}
+
 		}]);
 
 	TagsModule.controller('TagController', ['$resource', '$scope', '$stateParams', 'tagService',

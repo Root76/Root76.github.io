@@ -4,7 +4,10 @@
 
 	EventsModule.controller('EventsController', ['$resource', '$scope', 'eventService',
 		function($resource, $scope, eventService) {
-
+			
+			$scope.deleteEvent = function(event){
+				eventService.Event.delete({event_id:event.id});
+			}
 		}]);
 
 	EventsModule.controller('EventController', ['$resource', '$scope', '$stateParams', 'eventService',

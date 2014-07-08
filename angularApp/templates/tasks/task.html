@@ -14,7 +14,7 @@
     <img src="img/tags.png" />
     <span id="taskcheck"><img src="img/check.png" /></span>
     <a href="javascript:void(0)"><img src="img/create.png" class="addTask" ng-click="create()" /></a>
-    <img src="img/trash.png" id="trashicon"/>
+    <img src="img/trash.png" ng-click="deleteTask(task)"/>
     <button id="destroy">{{task.id}}</button>           
   </div>
   <div class="panelcontent" id="taskscontent">
@@ -113,7 +113,7 @@
           </div>
         </div>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()"/></a>
-        <img id="detailTrash" src="img/trash.png" />
+        <img src="img/trash.png" ng-click="deleteTask(task)" />
       </div>
       <img class="columnDivider" src="img/divider_green.png" />
     </div>
