@@ -27,6 +27,46 @@
 
 			$scope.TaskOrder = $scope.TaskSort[0];
 
+			$scope.onSelect = function ($item, $model, $label) {
+
+				if($model.type == "contact")
+					$scope.task.contacts.push($model);
+				if($model.type == "event")
+					$scope.task.events.push($model);
+				if($model.type == "tag")
+					$scope.task.tags.push($model);
+
+				$scope.task.$save();
+			}
+
+			$scope.removeContact = function(contact) {
+			
+				index = $scope.task.contacts.indexOf(contact);
+				$scope.task.contacts.splice(index, 1);					
+
+				$scope.task.$save();
+			}
+
+			$scope.removeEvent = function(event) {
+
+				index = $scope.task.events.indexOf(event);
+				$scope.task.events.splice(index, 1);					
+
+				$scope.task.$save();	
+			}
+
+			$scope.removeTag = function(tag) {	
+
+				index = $scope.task.tags.indexOf(tag);
+				$scope.task.tags.splice(index, 1);					
+
+				$scope.task.$save();
+			}
+
+			$scope.saveTask = function() {
+				console.log($scope.task);
+				$scope.task.$save();
+			}
 		}]);
 
 })();
