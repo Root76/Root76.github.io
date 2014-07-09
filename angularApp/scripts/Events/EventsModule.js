@@ -14,17 +14,20 @@
 				console.log("chosen filter");
 				console.log($scope.EventFilter);
 				$scope.FilteredEvents = new Array();
-				var today = moment().format('MMMM Do YYYY');
+
+				var today = moment().format('YYYYMMDDHHMMSS');
+				var lastMonth = moment().subtract('months', 1).calendar();
+				lastMonth = moment(lastMonth).format('YYYYMMDDHHMMSS');
+				console.log("last month: " + lastMonth);
+				var thisDate;
 
 				if ($scope.EventFilter === "All") {
-					$scope.FilteredEvents = $scope.events;
+					$scope.FilteredEvents = $scope.AllFilteredEvents;
 				}
 				else if ($scope.EventFilter === "Tagged") {
 					for (var i = 0; i < $scope.events.length; i++) {
-						if ($scope.events[i]['status'] == true) {
+						if ($scope.events[i]['tagcount'] > 0) {
 							$scope.FilteredEvents.push($scope.events[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredEvents);
 						}
 					}					
 				}
@@ -47,12 +50,20 @@
 					}					
 				}
 				else if ($scope.EventFilter === "Recent") {
-					for (var i = 0; i < $scope.events.length; i++) {
-						if ($scope.events[i]['status'] == true) {
-							$scope.FilteredEvents.push($scope.events[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredEvents);
+					$scope.EventList = $scope.events;
+					$scope.EventList.sort(function(a, b) {
+						if (a.updated_at < b.updated_at) {
+							return 1;
 						}
+						if (a.updated_at > b.updated_at) {
+							return -1;
+						}
+						return 0;
+					});
+					for (var i = 0; i < 10; i++) {
+						$scope.FilteredEvents.push($scope.EventList[i]);
+						console.log("status was true, pushing to array");
+						console.log($scope.FilteredEvents);
 					}					
 				}
 
@@ -61,6 +72,7 @@
 			$scope.deleteEvent = function(event){
 				eventService.Event.delete({event_id:event.id});
 			}
+
 		}]);
 
 	EventsModule.controller('EventController', ['$resource', '$scope', '$stateParams', 'eventService',

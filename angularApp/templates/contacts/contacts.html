@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-md-4" id="contactpane1">
           <img src="img/contacts.png" class="contactpadding" />
-          <h1 class="contactpadding">Contacts ({{contacts.length}})</h1>
+          <h1 class="contactpadding">Contacts ({{FilteredContacts.length}})</h1>
           <form method="get" action="/search" class="search contactpadding" id="contactsearch">
             <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustContacts">
           </form>
@@ -16,6 +16,7 @@
           <div class="filtercolumn contactpadding">
             <h4>Sort by:</h4>
             <div class="contsort">
+              <select ng-model="ContactOrder" ng-options="option.title for option in ContactSort"></select>
             </div>
           </div>
           <button class="sortingToggle" id="showAll">Sort</button>
@@ -23,7 +24,7 @@
           <button class="sortingToggle" id="byName">Sort</button>
           <button class="sortingToggle" id="byCompany">Sort</button>
           <ul id="contactlist" class="sidelist">
-            <div ng-repeat="contact in FilteredContacts | orderBy: ordering">
+            <div ng-repeat="contact in FilteredContacts | orderBy: ContactOrder.prop">
               <a ui-sref="contacts.contact({contact_id: contact.id})"><li>{{getContactTitle(contact)}}<span class="hidden">{{contact.updated_at}}</span></li></a>
             </div>
           </ul>

@@ -51,12 +51,12 @@
       <img src="img/downarrow.jpg" />
     </div>
   </div>
-  <div id="appcont" class="homeapp reportapp" ng-controller="IndexController as reports">
+  <div id="appcont" class="homeapp reportapp">
     <div class="section-container" id="homecont">
       <h3 id="collapseall" class="reportToggler">Collapse all</h3>
       <h3 id="expandall" class="reportToggler">Expand all</h3>
       <ul class="list">
-        <li class="listitem maincontact" ng-repeat="contact in reports.contacts">
+        <li class="listitem maincontact" ng-repeat="contact in FilteredContacts">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <img src="img/contacts.png" class="listimg" />
@@ -78,7 +78,7 @@
             </div>
           </div>
         </li>
-        <li class="listitem mainevent" ng-repeat="event in reports.events">
+        <li class="listitem mainevent" ng-repeat="event in IndexController.FilteredEvents">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <img src="img/events.png" class="listimg" />
@@ -100,7 +100,7 @@
             </div>
           </div>
         </li> 
-        <li class="listitem maintask" ng-repeat="task in reports.tasks">
+        <li class="listitem maintask" ng-repeat="task in tasks">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <img src="img/tasks.png" class="listimg" />
@@ -123,7 +123,7 @@
             </div>
           </div>
         </li>
-        <li class="listitem maintag" ng-repeat="tag in reports.tags">
+        <li class="listitem maintag" ng-repeat="tag in tags">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <img src="img/tags.png" class="listimg" />
