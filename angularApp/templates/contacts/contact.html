@@ -157,7 +157,7 @@
 
   <div class="panelfooter" id="contactfooter">
     <h5 class="notesLabel">Note:</h5>
-    <div class="notesField" editable-textarea="contact.extended_properties[notesIndex].value" e-rows="7" e-cols="40" onaftersave="saveContact()">
+    <div class="notesField" editable-text="contact.extended_properties[notesIndex].value" onaftersave="saveContact()">
       <pre>{{contact.extended_properties[notesIndex].value || 'No note set'}}</pre>
     </div>
   </div>
@@ -216,12 +216,12 @@
         </div>
         <h5 class="notesLabel2">
           Notes:
-          <div class="notesField" editable-textarea="contact.extended_properties[notesIndex].value" e-rows="7" e-cols="40" onaftersave="saveContact()">
+          <div class="notesField" editable-text="contact.extended_properties[notesIndex].value" onaftersave="saveContact()">
             <pre>{{contact.extended_properties[notesIndex].value || 'No note set'}}</pre>
           </div>
         </h5>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()" /></a>
-        <img src="img/trash.png" ng-click="deleteContact(contact)"/>
+        <img id="detailTrash" src="img/trash.png" ng-click="deleteContact(contact)"/>
       </div>
       <img class="columnDivider" src="img/divider_blue.png" />
     </div>
