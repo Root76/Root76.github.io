@@ -6,7 +6,22 @@
 		function($resource, $scope, taskService) {
 			
 			$scope.deleteTask = function(task){
+
+				var index;
+
+				for(var i = 0; i < $scope.FilteredTasks.length; i++)
+					if($scope.FilteredTasks[i].id == event.id)
+						index = i;
+
+				if(index > -1)
+				{
+					$scope.FilteredTasks.splice(index, 1);
+					$scope.updateTaskList();
+				}
+
 				taskService.Task.delete({task_id:task.id});
+
+				$state.go('tasks.index');
 			}
 
 			$scope.TaskSort = [

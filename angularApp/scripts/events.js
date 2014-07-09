@@ -644,7 +644,7 @@ function rebindEvents() {
 
             setTimeout(function(){
 
-                var url = "http://daywon-api-staging.herokuapp.com/";
+                var url = "https://daywon-api-staging.herokuapp.com/";
                 var data;
                 var orphanName = $("#contactname").html();
                 var orphanID = $("#selectedID").html();

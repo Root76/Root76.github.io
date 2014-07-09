@@ -6,7 +6,20 @@
 		function($resource, $scope, tagService){
 			
 			$scope.deleteTag = function(tag){
+				
+				var index;
+
+				for(var i = 0; i < $scope.tags.length; i++)
+					if($scope.tags[i].id == event.id)
+						index = i;
+
+				if(index > -1)
+					$scope.tags.splice(index, 1);
+
 				tagService.Tag.delete({tag_id:tag.id});
+
+				$state.go('tags.index');
+
 			}
 
 		}]);

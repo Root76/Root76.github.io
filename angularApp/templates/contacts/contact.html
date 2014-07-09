@@ -84,16 +84,18 @@
         <div>
           <div ng-repeat="property in contact.extended_properties" >
             <div ng-if="property.key != 'birthday' && property.key != 'notes'">
+
               <div class="key" editable-text="property.key" onaftersave="saveContact()">
                 {{property.key || 'No property set'}}
               </div>
               <div class="value" editable-text="property.value" onaftersave="saveContact()">
                 {{property.value || 'No value set'}}
               </div>
-              <div id="emailsDelete">
+              <div>
                 <img ng-click="removeProperty(property)" src="img/close.png"/>
               </div>
               <br/>
+
             </div>
           </div>
         </div>
