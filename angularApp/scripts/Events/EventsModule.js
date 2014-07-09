@@ -2,8 +2,8 @@
 
 	var EventsModule = angular.module('Events', ['ngResource', 'EventServices']);
 
-	EventsModule.controller('EventsController', ['$resource', '$scope', 'eventService',
-		function($resource, $scope, eventService) {
+	EventsModule.controller('EventsController', ['$resource', '$scope', '$state', 'eventService',
+		function($resource, $scope, $state, eventService) {
 
 			$scope.EventShow = ['All', 'Tagged', 'New This Week', 'New This Month', 'Recent'];
 
@@ -70,7 +70,25 @@
 			}
 
 			$scope.deleteEvent = function(event){
+
+				var index;
+
+				for(var i = 0; i < $scope.FilteredEvents.length; i++)
+					if($scope.FilteredEvents[i].id == event.id)
+						index = i;
+
+				if(index > -1)
+				{
+					console.log("Remove index: " + index)
+					console.log($scope.FilteredEvents);
+					$scope.FilteredEvents.splice(index, 1);
+					$scope.updateEventList();
+					console.log($scope.FilteredEvents);
+				}
+
 				eventService.Event.delete({event_id:event.id});
+
+				$state.go('events.index');
 			}
 
 		}]);
