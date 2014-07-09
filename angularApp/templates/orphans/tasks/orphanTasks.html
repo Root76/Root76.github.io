@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-4" id="taskpane1">
         <img src="img/orphans.png" / class="contactpadding">
-        <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount">##</span>)</h1>
+        <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount">{{taskOrphans.length}}</span>)</h1>
         <form method="get" action="/search" class="search contactpadding" id="contactsearch">
           <input name="q" type="text" size="40" placeholder="Search...">
         </form>
@@ -21,31 +21,14 @@
         <button class="sortingToggle" id="byPriority" {{action sortPriority}}>Sort</button>
         <button class="sortingToggle" id="byName" {{action sortName}}>Sort</button>
         <button class="sortingToggle" id="byContact" {{action sortContact}}>Sort</button>
-        <ul id="tasklist" class="sidelist orphanList">
-          <li><span>Task Title</span><span style="display:none">{{task.id}}</span></li>         
+
+        <ul id="tasklist" class="sidelist" ng-repeat="task in taskOrphans">
+            <a ui-sref="orphanTasks.task({task_id: task.id})"><li>{{task.title}}</li></a>     
         </ul>
+
         <span id="selectedID"></span>
       </div>
-      <div class="col-md-7" id="taskpanel2">
-        <h1 id="mobileContact" class="eventDetailHeader">Tasks</h1>
-        <img src="img/arrow.png" class="backArrow" />
-        <h2 id="contactname" class="taskname orphantitle">Select an orphan</h2>
-        <div class="panelcontent dashContent" id="eventscontent">              
-          <form id="associationForm">
-            <div class="formrow">Connect related items: <br />
-              <input id="typeAheadOrphanTask" />
-            </div>
-            <div class="formrow">
-              Selected Items:
-              <div class="relatedList relatedEvents relatedOrphans">
-                <ul>
-                </ul>
-              </div>
-            </div>
-            <div class="formrow"><input type="submit"></div>
-          </form>
-        </div>
-      </div>
+      <div ui-view></div>
     </div>
   </div>
 </div>

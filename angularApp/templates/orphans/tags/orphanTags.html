@@ -1,0 +1,29 @@
+<div class="mobileCover" id="tagsCover"></div>
+<div id="appcont" class="viewcont">
+  <div class="section-container" id="taskscont">
+    <div class="row">
+      <div class="col-md-4" id="taskpane1">
+        <img src="img/orphans.png" / class="contactpadding">
+        <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount">{{tagOrphans.length}}</span>)</h1>
+        <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+          <input name="q" type="text" size="40" placeholder="Search...">
+        </form>
+        <div class="filtercolumn contactpadding">
+          <h4>Show:</h4>
+          <div class="contsort">
+          <select>
+            <option>Sort Option</option>
+            <option>Sort Option</option>
+            <option>Sort Option</option>
+          </select>
+          </div>
+        </div>
+        <ul id="taglist" class="sidelist" ng-repeat="tag in tagOrphans">
+            <a ui-sref="orphanTags.tag({tag_id: tag.id})"><li>{{tag.name}}</li></a> 
+        </ul>
+        <span id="selectedID"></span>
+      </div>
+      <div ui-view></div>
+    </div>
+  </div>
+</div>

@@ -1,20 +1,19 @@
-<div class="col-md-7" id="eventpanel2">
-  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+<div class="col-md-7" id="tagpanel2">
+  <h1 id="mobileContact" class="eventDetailHeader">Tags</h1>
   <img src="img/arrow.png" class="backArrow" />
-  <h2 id="contactname" class="taskname orphantitle">{{event.title}}</h2>
-  <div class="panelcontent dashContent">
-
+  <h2 id="contactname" class="taskname orphantitle">{{tag.name}}</h2>
+  <div class="panelcontent dashContent" id="eventscontent">              
     <form>
       <div class="formrow">Connect related items: <br />
-        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in totalObjects | filter:{title:$viewValue} | associatedEventObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in totalObjects | filter:{title:$viewValue} | associatedTagObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
       </div>
       
       <div class="formrow">
         Selected Items:
         <div class="relatedList relatedTags">
           <ul ng-repeat="object in associatedObjects">
-            <li ng-show="object.type=='tag'">
-              <img class="pull-left" src="img/tags.png">
+            <li ng-show="object.type=='event'">
+              <img class="pull-left" src="img/events.png">
                 {{object.title}}
               <img ng-click="removeObject(object)" src="img/close.png"/>
             </li>

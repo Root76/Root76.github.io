@@ -1,14 +1,14 @@
-<div class="col-md-7" id="eventpanel2">
-  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+<div class="col-md-7" id="taskpanel2">
+  <h1 id="mobileContact" class="eventDetailHeader">Tasks</h1>
   <img src="img/arrow.png" class="backArrow" />
-  <h2 id="contactname" class="taskname orphantitle">{{event.title}}</h2>
-  <div class="panelcontent dashContent">
+  <h2 id="contactname" class="taskname orphantitle">{{task.title}}</h2>
+  <div class="panelcontent dashContent" id="eventscontent">              
 
     <form>
       <div class="formrow">Connect related items: <br />
-        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in totalObjects | filter:{title:$viewValue} | associatedEventObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in totalObjects | filter:{title:$viewValue} | associatedTaskObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
       </div>
-      
+
       <div class="formrow">
         Selected Items:
         <div class="relatedList relatedTags">
@@ -18,8 +18,8 @@
                 {{object.title}}
               <img ng-click="removeObject(object)" src="img/close.png"/>
             </li>
-            <li ng-show="object.type=='task'">
-              <img src="img/tasks.png">
+            <li ng-show="object.type=='event'">
+              <img src="img/events.png">
                 {{object.title}}
               <img ng-click="removeObject(object)" src="img/close.png"/>
             </li>
@@ -31,8 +31,8 @@
           </ul>
         </div>
       </div>
-      
-      <div class="formrow"><input type="submit" ng-click="submitAssociations()"></div>
+
+      <div class="formrow"><input type="submit"  ng-click="submitAssociations()"></div>
     </form>
   </div>
 </div>

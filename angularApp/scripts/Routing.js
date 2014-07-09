@@ -47,6 +47,38 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: "templates/orphans/events/orphanEvent.html",
 			controller: 'OrphanEventController'
 		})
+	//ORPHAN TASKS
+		.state('orphanTasks', {
+			abstract: true,
+			url: "/orphans/tasks",
+			templateUrl: "templates/orphans/tasks/orphanTasks.html",
+			controller: 'OrphansController'
+		})
+		.state('orphanTasks.index', {
+			url: "/",
+			templateUrl: "templates/orphans/tasks/orphanTask-index.html"
+		})
+		.state('orphanTasks.task', {
+			url: "/:task_id",
+			templateUrl: "templates/orphans/tasks/orphanTask.html",
+			controller: 'OrphanTaskController'
+		})
+	//ORPHAN TAGS
+		.state('orphanTags', {
+			abstract: true,
+			url: "/orphans/tags",
+			templateUrl: "templates/orphans/tags/orphanTags.html",
+			controller: 'OrphansController'
+		})
+		.state('orphanTags.index', {
+			url: "/",
+			templateUrl: "templates/orphans/tags/orphanTag-index.html"
+		})
+		.state('orphanTags.tag', {
+			url: "/:tag_id",
+			templateUrl: "templates/orphans/tags/orphanTag.html",
+			controller: 'OrphanTagController'
+		})
 //CONTACTS ROUTES
 		.state('contacts', {
 			abstract: true,
