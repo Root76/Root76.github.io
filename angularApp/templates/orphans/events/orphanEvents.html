@@ -1,0 +1,29 @@
+<div class="mobileCover" id="eventsCover"></div>
+<div id="appcont" class="viewcont">
+  <div class="section-container" id="taskscont">
+    <div class="row">
+      <div class="col-md-4" id="taskpane1">
+        <img src="img/orphans.png" / class="contactpadding">
+        <h1 class="contactpadding">Orphan Events (<span id="itemCount">{{eventOrphans.length}}</span>)</h1>
+        <form method="get" action="/search" class="search contactpadding" id="contactsearch">
+          <input name="q" type="text" size="40" placeholder="Search...">
+        </form>
+        <div class="filtercolumn contactpadding">
+          <h4>Show:</h4>
+          <div class="contsort">
+          <select>
+            <option>Show Option</option>
+            <option>Show Option</option>
+            <option>Show Option</option>
+          </select>
+          </div>
+        </div>
+        <ul id="eventlist" class="sidelist" ng-repeat="event in eventOrphans">
+            <a ui-sref="orphanEvents.event({event_id: event.id})"><li>{{event.title}}</li></a>
+        </ul>
+        <span id="selectedID"></span>
+      </div>
+      <div ui-view></div>
+    </div>
+  </div>
+</div>

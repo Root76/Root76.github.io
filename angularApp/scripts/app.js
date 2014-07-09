@@ -30,6 +30,8 @@ function hashHandler(){
     this.Check = setInterval(function(){ detect() }, 100);
 }
 
+var baseURL = "https://daywon-api-staging.herokuapp.com";
+
 var hashDetection = new hashHandler();
 
 (function(){
@@ -38,7 +40,7 @@ var hashDetection = new hashHandler();
 		['ui.router', 'ui.bootstrap', 'xeditable',
 		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
-		'Calendar',
+		'Calendar', 'Orphans',
 		'Routing', 'CreateModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
@@ -60,11 +62,12 @@ var hashDetection = new hashHandler();
 				$scope.contactsPromise = contactService.Contacts.query();
 				$scope.contactsPromise.$promise.then(function(data) {
 					
-					$scope.contacts = data;
+					$scope.contacts = data
 
 					allObjects.contacts = data;
 					for (var i = 0; i < allObjects.contacts.length; i++) {
 						allObjects.contacts[i]['type'] = "contact";
+						allObjects.contacts[i]['title'] = allObjects.contacts[i]['name'];
 					}
 
 					$scope.FilteredContacts = allObjects.contacts;
@@ -164,6 +167,7 @@ var hashDetection = new hashHandler();
 					allObjects.tags = data.tags;
 					for (var i = 0; i < allObjects.tags.length; i++) {
 						allObjects.tags[i]['type'] = "tag";
+						allObjects.tags[i]['title'] = allObjects.tags[i]['name'];
 					}
 
 				});
@@ -438,6 +442,59 @@ var hashDetection = new hashHandler();
 
 			return filtered_list;
 		}
+	});
+
+	app.filter("associatedContactObjects", function() {
+		return function(objects) {
+			var filtered_list = [];
+
+			if(objects)
+				for(var i = 0; i < objects.length; i++)
+					if(objects[i].type != "contact")
+						filtered_list.push(objects[i]);
+
+
+			return filtered_list
+		};
+	});
+
+	app.filter("associatedEventObjects", function() {
+		return function(objects) {
+			var filtered_list = [];
+
+			if(objects)
+				for(var i = 0; i < objects.length; i++)
+					if(objects[i].type != "event")
+						filtered_list.push(objects[i]);
+					
+			return filtered_list
+		};
+	});
+
+	app.filter("associatedTaskObjects", function() {
+		return function(objects) {
+			var filtered_list = [];
+
+			if(objects)
+				for(var i = 0; i < objects.length; i++)
+					if(objects[i].type != "task")
+						filtered_list.push(objects[i]);
+					
+			return filtered_list
+		};
+	});
+
+	app.filter("associatedTagObjects", function() {
+		return function(objects) {
+			var filtered_list = [];
+
+			if(objects)
+				for(var i = 0; i < objects.length; i++)
+					if(objects[i].type != "tag")
+						filtered_list.push(objects[i]);
+					
+			return filtered_list
+		};
 	});
 
 })();

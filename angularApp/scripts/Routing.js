@@ -21,13 +21,31 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 			url: "/settings",
 			templateUrl: "templates/settings.html"
 		})
-		.state('orphans', {
-			url: "/orphans",
-			templateUrl: "templates/orphans/orphans.html"
-		})
 		.state('calendar', {
 			url: "/calendar",
 			templateUrl: "templates/calendar.html"
+		})
+//ORPHANS ROUTES
+		.state('orphans', {
+			url: "/orphans",
+			templateUrl: "templates/orphans/orphans.html",
+			controller: 'OrphansController'
+		})
+	//ORPHAN EVENTS
+		.state('orphanEvents', {
+			abstract: true,
+			url: "/orphans/events",
+			templateUrl: "templates/orphans/events/orphanEvents.html",
+			controller: 'OrphansController'
+		})
+		.state('orphanEvents.index', {
+			url: "/",
+			templateUrl: "templates/orphans/events/orphanEvent-index.html"
+		})
+		.state('orphanEvents.event', {
+			url: "/:event_id",
+			templateUrl: "templates/orphans/events/orphanEvent.html",
+			controller: 'OrphanEventController'
 		})
 //CONTACTS ROUTES
 		.state('contacts', {

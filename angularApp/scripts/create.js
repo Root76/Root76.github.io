@@ -2,59 +2,6 @@
 
 	var createModule = angular.module('CreateModule', []);
 
-	createModule.filter("associatedContactObjects", function() {
-		return function(objects) {
-			var filtered_list = [];
-
-			if(objects)
-				for(var i = 0; i < objects.length; i++)
-					if(objects[i].type != "contact")
-						filtered_list.push(objects[i]);
-
-
-			return filtered_list
-		};
-	});
-
-	createModule.filter("associatedEventObjects", function() {
-		return function(objects) {
-			var filtered_list = [];
-
-			if(objects)
-				for(var i = 0; i < objects.length; i++)
-					if(objects[i].type != "event")
-						filtered_list.push(objects[i]);
-					
-			return filtered_list
-		};
-	});
-
-	createModule.filter("associatedTaskObjects", function() {
-		return function(objects) {
-			var filtered_list = [];
-
-			if(objects)
-				for(var i = 0; i < objects.length; i++)
-					if(objects[i].type != "task")
-						filtered_list.push(objects[i]);
-					
-			return filtered_list
-		};
-	});
-
-	createModule.filter("associatedTagObjects", function() {
-		return function(objects) {
-			var filtered_list = [];
-
-			if(objects)
-				for(var i = 0; i < objects.length; i++)
-					if(objects[i].type != "tag")
-						filtered_list.push(objects[i]);
-					
-			return filtered_list
-		};
-	});
-
 	createModule.controller('CreationController', ['$scope', '$modalInstance', 'contactsPromise', 'eventsPromise', 'tasksPromise', 'tagsPromise',
 		function($scope, $modalInstance, contactsPromise, eventsPromise, tasksPromise, tagsPromise) {
 

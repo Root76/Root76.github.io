@@ -1,10 +1,3 @@
-<script type="text/ng-template" id="createAssociateTemplate.html">
-  <a>
-      <img ng-src="img/{{match.model.type}}s.png" width="16px">
-      <span bind-html-unsafe="match.model.title | typeaheadHighlight:query"></span>
-  </a>
-</script>
-
 <div>
 
   <div class="modal-header">
@@ -67,7 +60,7 @@
 
       <div class="formrow typeaheadAssociated">
         <h4>Associate Items</h4>
-        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedContactObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedContactObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
       </div>
 
        <div class="formrow typeaheadSelected">
@@ -196,7 +189,7 @@
 
       <div class="formrow typeaheadAssociated">
         <h4>Associate Items</h4>
-        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedEventObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control" />
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedEventObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control" />
       </div>
 
        <div class="formrow typeaheadSelected">
@@ -261,7 +254,7 @@
 
       <div class="formrow typeaheadAssociated">
         <h4>Associate Items</h4>
-        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedTaskObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedTaskObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
       </div>
 
       <div class="formrow typeaheadSelected">
@@ -335,7 +328,7 @@
 
       <div class="formrow">
         <h4>Associate Items</h4>
-        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedTagObjects" typeahead-template-url="createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in objects | filter:{title:$viewValue} | associatedTagObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
       </div>
 
        <div class="formrow">

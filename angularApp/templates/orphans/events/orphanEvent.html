@@ -1,0 +1,37 @@
+<div class="col-md-7" id="eventpanel2">
+  <h1 id="mobileContact" class="eventDetailHeader">Events</h1>
+  <img src="img/arrow.png" class="backArrow" />
+  <h2 id="contactname" class="taskname orphantitle">{{event.title}}</h2>
+  <div class="panelcontent dashContent">
+
+      <div class="formrow">Connect related items: <br />
+        <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in totalObjects | filter:{title:$viewValue} | associatedEventObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
+      </div>
+      
+      <div class="formrow">
+        Selected Items:
+        <div class="relatedList relatedTags">
+          <ul ng-repeat="object in associatedObjects">
+            <li ng-show="object.type=='tag'">
+              <img class="pull-left" src="img/tags.png">
+                {{object.title}}
+              <img ng-click="removeObject(object)" src="img/close.png"/>
+            </li>
+            <li ng-show="object.type=='task'">
+              <img src="img/tasks.png">
+                {{object.title}}
+              <img ng-click="removeObject(object)" src="img/close.png"/>
+            </li>
+            <li ng-show="object.type=='contact'">
+              <img src="img/contacts.png">
+                {{object.title}}
+              <img ng-click="removeObject(object)" src="img/close.png"/>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="formrow"><input type="submit" ng-click="submitAssociations()"></div>
+
+  </div>
+</div>
