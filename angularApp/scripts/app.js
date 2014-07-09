@@ -85,7 +85,6 @@ var hashDetection = new hashHandler();
 
 					$scope.events = data.events;
 
-					var thisDate, j;
 					var today = moment().format('MMMM Do YYYY');
 					var todayRaw = moment().format('YYYYMMDDHHMMSS')
 					var tomorrow = moment().add('days', 1).format('MMMM Do YYYY');
@@ -114,33 +113,25 @@ var hashDetection = new hashHandler();
 
 					$scope.FilteredEvents = new Array();
 					var eventTitles = new Array();
-					var duplicateEvents = new Array();
 					var processedEvents = new Array();
-					var thisTitle, thisDate;
-
-					//allObjects.events.forEach(function(event){
-					//	eventTitles.push(event.title);
-					//});
-
-					console.log(allObjects.events);
-					console.log(eventTitles);
+					var thisTitle, thisDate, duplicateEvents, titleCount, duplicateCount;
 
 					for (var i = 0; i < allObjects.events.length; i++) {
 
 						duplicateEvents = new Array();
 						thisTitle = allObjects.events[i]['title'];
-						var titleCount = 0;
-						var duplicateCount = 0;
+						titleCount = 0;
+						duplicateCount = 0;
 
 						if (processedEvents.indexOf(thisTitle) < 0) {
 
 							allObjects.events.forEach(function(event){
 								if (event.title == thisTitle) {
 									titleCount++;
+									duplicateEvents.push(event);
 									if (titleCount == 1) {
 										processedEvents.push(thisTitle);
 									}
-									duplicateEvents.push(event);
 								}
 							});
 
@@ -153,8 +144,6 @@ var hashDetection = new hashHandler();
 								}
 								return 0;
 							});
-
-							console.log("occurences for " + thisTitle + ": " + titleCount);
 							
 							if (titleCount == 1) {
 								$scope.FilteredEvents.push($scope.events[i]);
@@ -192,6 +181,8 @@ var hashDetection = new hashHandler();
 					});
 
 					$scope.AllFilteredEvents = $scope.FilteredEvents;
+
+					var j;
 
 					function buildArray(eventArray, targetDate) {
 
