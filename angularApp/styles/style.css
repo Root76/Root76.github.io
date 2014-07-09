@@ -20,6 +20,15 @@
 	display:none;
 }
 
+#preload h1, #preload h5 {
+	text-align:center;
+	color:#BBB;
+}
+
+#preload h5 {
+	color:#999;
+}
+
 .mobileEmail {
 	display:none;
 }
@@ -2352,9 +2361,6 @@ to {
 	padding: 20px 20px 13px 20px;
 	border-radius: 10px;
 	background: #fff;
-	background: -moz-linear-gradient(#fff, #999);
-	background: -webkit-linear-gradient(#fff, #999);
-	background: -o-linear-gradient(#fff, #999);
 	position: fixed;
 	top: 0px;
 	bottom: 0px;
@@ -2364,8 +2370,8 @@ to {
 	display: block;
 	left: 10%;
 	right: 10%;
-	margin-top: 5%;
-	margin-bottom: 5%;
+	margin-top: 15%;
+	margin-bottom: 15%;
 }
 
 .close {
