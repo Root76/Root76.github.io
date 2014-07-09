@@ -56,6 +56,7 @@ function rebindEvents() {
             var sortType = this.id;
             console.log(sortType);
             $('.listitem').removeClass('active');
+            console.log($('.listitem.' + sortType));
             $('.listitem.' + sortType).addClass('active');
             if ($(event.target).parent().hasClass('selected')) {
                 if ($(event.target).find('ul').hasClass('invis')) {
