@@ -256,7 +256,8 @@ var hashDetection = new hashHandler();
 
 					if (allObjects.contacts.length > 0 && allObjects.events.length > 0 && allObjects.tasks.length > 0 && allObjects.tags.length > 0) {
 
-						//console.log("Promises fulfilled");
+						console.log("Promises fulfilled");
+						console.log("final object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
 						clearInterval(checkPromises);
 						var combinedObjects = allObjects.contacts.concat(allObjects.events, allObjects.tasks, allObjects.tags);
 
@@ -265,9 +266,12 @@ var hashDetection = new hashHandler();
 						//console.log(combinedObjects);
 						//combinedObjects = combinedObjects.splice(10, 11);
 						//console.log(combinedObjects);
+            			setTimeout(function(){
+            				$("#preload").removeClass("active");
+            			}, 500);
 
 					} else {
-						//console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
+						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
 					}
 
 				}, 100);

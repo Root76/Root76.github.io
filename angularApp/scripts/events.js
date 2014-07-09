@@ -892,7 +892,6 @@ function rebindEvents() {
             $(dayList[5]).find('h3').html(day6);
             $(dayList[6]).find('h3').html(day7);
         } else {
-            $("#openModal6").removeClass("active");
         }
 
         $('#prioritySelector').change(function(){
@@ -1377,7 +1376,7 @@ function rebindEvents() {
         modal5Links.click(function(){ $('#openModal5').addClass('active'); });
         var modal6Links = $('.openModal6');
         modal6Links.click(function(){ $('#openModal6').addClass('active'); });
-        var modal6Links = $('.openModal7');
+        var modal7Links = $('.openModal7');
         modal6Links.click(function(){ $('#openModal7').addClass('active'); });
 
     	// set current email
