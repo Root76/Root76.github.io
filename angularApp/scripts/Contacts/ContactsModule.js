@@ -2,8 +2,8 @@
 	
 	var ContactsModule = angular.module('Contacts', ['ngResource', 'ContactServices']);
 
-	ContactsModule.controller('ContactsController', ['$resource', '$scope', 'contactService',
-		function($resource, $scope, contactService) {
+	ContactsModule.controller('ContactsController', ['$resource', '$scope', '$state', 'contactService',
+		function($resource, $scope, $state, contactService) {
 
 			$scope.ContactShow = ['All', 'Tagged', 'New This Week', 'New This Month', 'Recent'];
 
@@ -86,7 +86,20 @@
 			$scope.ordering = ['name', 'emails[0].email', 'id'];
 			
 			$scope.deleteContact = function(contact){
+
+				var index;
+
+				for(var i = 0; i < $scope.FilteredContacts.length; i++)
+					if($scope.FilteredContacts[i].id == contact.id)
+						index = i;
+
+				if(index > -1)
+					$scope.FilteredContacts.splice(index, 1);
+
 				contactService.Contact.delete({contact_id:contact.id});
+
+				$state.go('contacts.index');
+
 			}
 		}]);
 	

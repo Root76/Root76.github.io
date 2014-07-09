@@ -79,11 +79,8 @@
 
 				if(index > -1)
 				{
-					console.log("Remove index: " + index)
-					console.log($scope.FilteredEvents);
 					$scope.FilteredEvents.splice(index, 1);
 					$scope.updateEventList();
-					console.log($scope.FilteredEvents);
 				}
 
 				eventService.Event.delete({event_id:event.id});
