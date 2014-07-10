@@ -106,7 +106,7 @@
       <form id="addForm">
         <div class="formrow">Add events: <br />
           <!-- <input id="typeAheadAddEvent" /> -->
-          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in events | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in contact.events">
