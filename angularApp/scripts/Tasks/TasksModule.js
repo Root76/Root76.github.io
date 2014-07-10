@@ -46,6 +46,7 @@
 				$scope.task = data;
 			});
 
+
 			$scope.onSelect = function ($item, $model, $label) {
 
 				if($model.type == "contact")

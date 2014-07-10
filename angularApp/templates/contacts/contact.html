@@ -13,7 +13,7 @@
     <img src="img/events.png"/>
     <img src="img/tasks.png"/>
     <img src="img/tags.png"/>
-    <a href="javascript:void(0)"><img src="img/create.png" class="addContact" ng-click="create()"/></a>
+    <a href="javascript:void(0)"><img src="img/create.png" class="addContact" ng-click="create('contact')"/></a>
     <img src="img/trash.png" ng-click="deleteContact(contact)" />
     <button id="destroy">{{contact.id}}</button>
   </div>
@@ -106,7 +106,7 @@
       <form id="addForm">
         <div class="formrow">Add events: <br />
           <!-- <input id="typeAheadAddEvent" /> -->
-          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in events | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in contact.events">
@@ -221,7 +221,7 @@
             <pre>{{contact.extended_properties[notesIndex].value || 'No note set'}}</pre>
           </div>
         </h5>
-        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()" /></a>
+        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('contact')" /></a>
         <img class="detailTrash" src="img/trash.png" ng-click="deleteContact(contact)"/>
       </div>
       <img class="columnDivider" src="img/divider_blue.png" />

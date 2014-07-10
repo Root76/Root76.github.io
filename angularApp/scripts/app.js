@@ -456,7 +456,7 @@ var hashDetection = new hashHandler();
 			];
 			$scope.TagOrder = $scope.TagSort[1];
 
-			$scope.create = function()
+			$scope.create = function(type)
 			{
 
 				var modalInstance = $modal.open({
@@ -466,44 +466,48 @@ var hashDetection = new hashHandler();
 						contactsPromise : function() { return $scope.contactsPromise; },
 						eventsPromise : function() { return $scope.eventsPromise; },
 						tasksPromise : function() { return $scope.tasksPromise; },
-						tagsPromise : function() { return $scope.tagsPromise; }
+						tagsPromise : function() { return $scope.tagsPromise; },
+						creationType : function() {return type;}
 					}
 				});
 
 				modalInstance.result.then(function(newObject) {
 
-					if(newObject.type == "contact")
+					if(newObject)
 					{
-						delete newObject.type;
-						contactService.Contacts.create(newObject).$promise.then(function(){
-							console.log("Reloading contacts");
-							$scope.loadContacts();	
-						});
-					}
-					else if(newObject.type == "event")
-					{
-						delete newObject.type;
-						eventService.Events.create(newObject).$promise.then(function(){
-							console.log("Reloading events");
-							$scope.loadEvents();	
-						});
-						
-					}
-					else if(newObject.type == "task")
-					{
-						delete newObject.type;
-						taskService.Tasks.create(newObject).$promise.then(function(){
-							console.log("Reloading tasks");
-							$scope.loadTasks();	
-						});
-					}
-					else if(newObject.type == "tag")
-					{
-						delete newObject.type;
-						tagService.Tags.create(newObject).$promise.then(function(){
-							console.log("Reloading tags");
-							$scope.loadTags();	
-						});
+						if(newObject.type == "contact")
+						{
+							delete newObject.type;
+							contactService.Contacts.create(newObject).$promise.then(function(){
+								console.log("Reloading contacts");
+								$scope.loadContacts();	
+							});
+						}
+						else if(newObject.type == "event")
+						{
+							delete newObject.type;
+							eventService.Events.create(newObject).$promise.then(function(){
+								console.log("Reloading events");
+								$scope.loadEvents();	
+							});
+							
+						}
+						else if(newObject.type == "task")
+						{
+							delete newObject.type;
+							taskService.Tasks.create(newObject).$promise.then(function(){
+								console.log("Reloading tasks");
+								$scope.loadTasks();	
+							});
+						}
+						else if(newObject.type == "tag")
+						{
+							delete newObject.type;
+							tagService.Tags.create(newObject).$promise.then(function(){
+								console.log("Reloading tags");
+								$scope.loadTags();	
+							});
+						}
 					}
 					
 				});

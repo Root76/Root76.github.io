@@ -12,7 +12,7 @@
     <img src="img/events.png" />
     <img src="img/tasks.png" />
     <img src="img/tags.png" class="selected" />   
-    <a href="javascript:void(0)"><img src="img/create.png" class="addTag" ng-click="create()" /></a>
+    <a href="javascript:void(0)"><img src="img/create.png" class="addTag" ng-click="create('tag')" /></a>
     <img src="img/trash.png" ng-click="deleteTag(tag)"/>    
     <button id="destroy">{{tag.id}}</button>
   </div>
@@ -36,7 +36,7 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add events: <br />
-          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in events | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in tag.events">
@@ -95,7 +95,7 @@
             <span>({{tag.tasks.length}})</span>
           </div>
         </div>
-        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()" /></a>
+        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('tag')" /></a>
         <img class="detailTrash" src="img/trash.png" ng-click="deleteTag(tag)"/>
       </div>
       <img class="columnDivider" src="img/divider_yellow.png" />
