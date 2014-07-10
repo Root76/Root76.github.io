@@ -10,15 +10,11 @@
         </form>
         <div class="filtercolumn contactpadding">
           <h4>Show:</h4>
-          <div class="contsort">
-          <select>
-            <option>Sort Option</option>
-            <option>Sort Option</option>
-            <option>Sort Option</option>
-          </select>
-          </div>
+            <div class="contsort">
+              <select ng-model="OrphanTagOrder" ng-options="option.title for option in OrphanTagSort"></select>
+            </div>
         </div>
-        <ul id="taglist" class="sidelist" ng-repeat="tag in tagOrphans">
+        <ul id="taglist" class="sidelist" ng-repeat="tag in tagOrphans | orderby:OrphanTagOrder.prop">
             <a ui-sref="orphanTags.tag({tag_id: tag.id})"><li>{{tag.name}}</li></a> 
         </ul>
         <span id="selectedID"></span>

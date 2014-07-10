@@ -10,13 +10,9 @@
         </form>
         <div class="filtercolumn contactpadding">
           <h4>Show:</h4>
-          <div class="contsort">
-          <select>
-            <option>Show Option</option>
-            <option>Show Option</option>
-            <option>Show Option</option>
-          </select>
-          </div>
+            <div class="contsort">
+              <select ng-model="OrphanEventFilter" ng-options="option for option in OrphanEventShow" ng-change="updateOrphanEventList()"></select>
+            </div>
         </div>
         <ul id="eventlist" class="sidelist" ng-repeat="event in FilteredOrphanEvents">
             <a ui-sref="orphanEvents.event({event_id: event.id})"><li>{{event.title}}</li></a>

@@ -345,6 +345,27 @@ var hashDetection = new hashHandler();
 						}
 
 					}
+
+					$scope.FilteredOrphanEvents.sort(function(a, b) {
+						if (a.start_datetime < b.start_datetime) {
+							return -1;
+						}
+						if (a.start_datetime > b.start_datetime) {
+							return 1;
+						}
+						return 0;
+					});
+
+					$scope.FilteredOrphanEvents.forEach(function(event){
+						eventService.Event.get({event_id: event.id}, function(data) {
+							event.tagcount = data.tags.length;
+							if (data.tags.length > 0) {
+								console.log(data.title + " tagged " + data.tags.length + " times");
+							}
+						});
+					});
+
+					$scope.AllFilteredOrphanEvents = $scope.FilteredOrphanEvents;
 				});
 			}
 
