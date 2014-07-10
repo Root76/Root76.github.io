@@ -4,10 +4,12 @@
       <div class="row">
         <div class="col-md-4" id="taskpane1">
           <img src="img/tags.png" / class="contactpadding">
-          <h1 class="contactpadding tagHeader">Tags ({{tags.length}})</h1>
-          <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-            <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustTags">
+          <h1 class="contactpadding tagHeader">Tags ({{(tags | filter:searchText).length}})</h1>
+
+          <form class="search contactpadding" id="contactsearch">
+            <input type="text" size="40" placeholder="Search..." ng-model="searchText.name">
           </form>
+
           <div class="filtercolumn contactpadding">
             <h4>Show:</h4>
             <div class="contsort">
@@ -15,8 +17,12 @@
             </div>
           </div>
           <ul id="taglist" class="sidelist">
-            <div ng-repeat="tag in tags | orderBy:TagOrder.prop ">
-              <a ui-sref="tags.tag( {tag_id : tag.id} )"><li>{{tag.name}} ({{tag.count}})</li></a>
+            <div ng-repeat="tag in tags | orderBy:TagOrder.prop | filter:searchText">
+
+              <a ui-sref="tags.tag( {tag_id : tag.id} )">
+                <li><span bind-html-unsafe="getTagTitle(tag) | typeaheadHighlight:searchText.name"></span></li>
+              </a>
+
             </div>
           </ul>
         </div>

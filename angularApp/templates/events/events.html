@@ -4,10 +4,12 @@
       <div class="row">
         <div class="col-md-4" id="taskpane1">
           <img src="img/events.png" / class="contactpadding">
-          <h1 class="contactpadding">Events ({{FilteredEvents.length}})</h1>
-          <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-            <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustEvents">
+          <h1 class="contactpadding">Events ({{(FilteredEvents | filter:searchText).length}})</h1>
+          
+          <form class="search contactpadding" id="contactsearch">
+            <input type="text" size="40" placeholder="Search..." ng-model="searchText.title">
           </form>
+          
           <div class="filtercolumn contactpadding">
             <h4>Show:</h4>
             <div class="contsort">
@@ -15,8 +17,12 @@
             </div>
           </div>
           <ul id="eventlist" class="sidelist">
-            <div ng-repeat="event in FilteredEvents">
-              <a ui-sref="events.event({event_id: event.id})"><li>{{event.title}}</li></a>
+            <div ng-repeat="event in FilteredEvents | filter:searchText">
+
+              <a ui-sref="events.event({event_id: event.id})">
+                <li><span bind-html-unsafe="event.title | typeaheadHighlight:searchText.title"></span></li>
+              </a>
+
             </div>
           </ul>
         </div>

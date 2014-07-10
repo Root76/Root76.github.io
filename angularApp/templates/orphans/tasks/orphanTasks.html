@@ -5,8 +5,8 @@
       <div class="col-md-4" id="taskpane1">
         <img src="img/orphans.png" / class="contactpadding">
         <h1 class="contactpadding" id="mobileTaskHead">Orphan Tasks (<span id="itemCount">{{taskOrphans.length}}</span>)</h1>
-        <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-          <input name="q" type="text" size="40" placeholder="Search...">
+        <form class="search contactpadding" id="contactsearch">
+          <input type="text" size="40" placeholder="Search..." ng-model="searchText.title">
         </form>
         <div class="filtercolumn contactpadding">
           <h4>Sort by:</h4>
@@ -16,8 +16,10 @@
         </div>
 
         <ul id="tasklist" class="sidelist">
-          <div ng-repeat="task in taskOrphans | orderBy:OrphanTaskOrder.prop" >
-            <a ui-sref="orphanTasks.task({task_id:task.id})"><li><img src="img/check.png" />{{task.title}}</li></a>
+          <div ng-repeat="task in taskOrphans | orderBy:OrphanTaskOrder.prop | filter:searchText" >
+            <a ui-sref="orphanTasks.task({task_id:task.id})">
+              <li><img src="img/check.png" /><span bind-html-unsafe="task.title | typeaheadHighlight:searchText.title"></span></li>
+            </a>
           </div>
         </ul>
 

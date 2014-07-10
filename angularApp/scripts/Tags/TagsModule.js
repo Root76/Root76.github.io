@@ -22,6 +22,10 @@
 
 			}
 
+			$scope.getTagTitle = function(tag) {
+				return tag.name + ' (' + tag.count + ')';
+			}
+
 		}]);
 
 	TagsModule.controller('TagController', ['$resource', '$scope', '$stateParams', 'tagService',

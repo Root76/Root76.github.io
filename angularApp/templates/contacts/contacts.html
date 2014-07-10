@@ -3,10 +3,12 @@
       <div class="row">
         <div class="col-md-4" id="contactpane1">
           <img src="img/contacts.png" class="contactpadding" />
-          <h1 class="contactpadding">Contacts ({{FilteredContacts.length}})</h1>
-          <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-            <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustContacts">
+          <h1 class="contactpadding">Contacts ({{ (FilteredContacts | filter:searchText).length}})</h1>
+          
+          <form class="search contactpadding" id="contactsearch">
+            <input type="text" size="40" placeholder="Search..." ng-model="searchText.name">
           </form>
+          
           <div class="filtercolumn contactpadding">
             <h4>Show:</h4>
             <div class="contsort">
@@ -24,8 +26,15 @@
           <button class="sortingToggle" id="byName">Sort</button>
           <button class="sortingToggle" id="byCompany">Sort</button>
           <ul id="contactlist" class="sidelist">
-            <div ng-repeat="contact in FilteredContacts | orderBy: ContactOrder.prop">
-              <a ui-sref="contacts.contact({contact_id: contact.id})"><li>{{getContactTitle(contact)}}<span class="hidden">{{contact.updated_at}}</span></li></a>
+            <div ng-repeat="contact in FilteredContacts | orderBy: ContactOrder.prop | filter:searchText">
+              
+              <a ui-sref="contacts.contact({contact_id: contact.id})">
+                <li>
+                  <span bind-html-unsafe="getContactTitle(contact) | typeaheadHighlight:searchText.name"></span>
+                  <span class="hidden">{{contact.updated_at}}</span>
+                </li>
+              </a>
+
             </div>
           </ul>
         </div>
