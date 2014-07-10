@@ -2,6 +2,38 @@
 	
 	var ContactsModule = angular.module('Contacts', ['ngResource', 'ContactServices']);
 
+	ContactsModule.filter('contactSearchFilter', function() {
+		return function(contacts, searchText) {
+
+			var filtered_list = [];
+			var defaultTitleString = "no name or email";
+
+			if(contacts && searchText)
+			{			
+				for(var i = 0; i < contacts.length; i++) 
+				{
+					
+					if(contacts[i].name && contacts[i].name != "")
+					{
+						if(contacts[i].name.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+							filtered_list.push(contacts[i]);
+					}
+					else if(contacts[i].email && contacts[i].email != "")
+					{
+						if(contacts[i].email.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+							filtered_list.push(contacts[i]);
+					}
+					else if(defaultTitleString.indexOf(searchText.toLowerCase()) > -1)
+						filtered_list.push(contacts[i]);
+				}
+			}
+			else
+				filtered_list = contacts;
+
+			return filtered_list;
+		}
+	});
+
 	ContactsModule.controller('ContactsController', ['$resource', '$scope', '$state', 'contactService',
 		function($resource, $scope, $state, contactService) {
 
