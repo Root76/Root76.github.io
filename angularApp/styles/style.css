@@ -4586,6 +4586,81 @@ pre.ng-binding {
 	opacity:1;
 }
 
+#eventscontent .editable-wrap {
+	display:inline;
+}
+
+#eventscontent .editable-buttons button {
+	background:rgba(227,93,50,0);
+	color:#e35d32;
+}
+
+#eventscontent .editable-wrap .editable-controls>input {
+	background:rgba(227,93,50,0);
+	color:#e35d32;
+}
+
+#eventscontent span.editable-click {
+	color:#000;
+}
+
+#eventscontent .editable-buttons button:hover {
+	background:rgba(227,93,50,1);
+	color:#fff;
+	opacity:1;
+	border: 1px solid #e35d32;
+}
+
+#taskscontent .editable-wrap {
+	display:inline;
+}
+
+#taskscontent .editable-buttons button {
+	background:rgba(136,196,76,0);
+	color:#88c44c;
+}
+
+#taskscontent .editable-wrap .editable-controls>input {
+	background:rgba(136,196,76,0);
+	color:#88c44c;
+}
+
+#taskscontent span.editable-click {
+	color:#000;
+}
+
+#taskscontent .editable-buttons button:hover {
+	background:rgba(136,196,76,1);
+	color:#fff;
+	opacity:1;
+	border: 1px solid #88c44c;
+}
+
+#tagscontent .editable-wrap {
+	display:inline;
+}
+
+#tagscontent .editable-buttons button {
+	background:rgba(236,143,56,0);
+	color:#ec8f38;
+}
+
+#tagscontent .editable-wrap .editable-controls>input {
+	background:rgba(236,143,56,0);
+	color:#ec8f38;
+}
+
+#tagscontent span.editable-click {
+	color:#000;
+}
+
+#tagscontent .editable-buttons button:hover {
+	background:rgba(236,143,56,1);
+	color:#fff;
+	opacity:1;
+	border: 1px solid #ec8f38;
+}
+
 .fadeAway {
 	opacity:0 !important;
 }
