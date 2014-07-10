@@ -543,9 +543,9 @@ var hashDetection = new hashHandler();
 						{
 							var today = moment();
 
-							if(allEvents[j].recurrence) //rules are different for recurrence events
+							if(allEvents[j].is_all_day) //rules are different all day events
 							{
-								if(moment(allEvents[j].end_datetime) > today)
+								if(moment(allEvents[j].end_date) > today)
 									filtered_list.push(eventShells[i]);
 							}
 							else
@@ -572,9 +572,9 @@ var hashDetection = new hashHandler();
 						{
 							var today = moment();
 
-							if(allEvents[j].recurrence) //rules are different for recurrence events
+							if(allEvents[j].is_all_day) //rules are different all day events
 							{
-								if(moment(allEvents[j].end_datetime) < today)
+								if(moment(allEvents[j].end_date) < today)
 									filtered_list.push(eventShells[i]);
 							}
 							else
