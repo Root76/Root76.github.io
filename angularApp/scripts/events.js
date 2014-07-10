@@ -51,261 +51,6 @@ function rebindEvents() {
             $(".listitem.active").accordion("refresh");
         });
 
-        $('.sortitem').unbind("click").bind("click", function(event){
-            console.log("clicked");
-            var sortType = this.id;
-            console.log(sortType);
-            $('.listitem').removeClass('active');
-            console.log($('.listitem.' + sortType));
-            $('.listitem.' + sortType).addClass('active');
-            if ($(event.target).parent().hasClass('selected')) {
-                if ($(event.target).find('ul').hasClass('invis')) {
-                    $(event.target).find('ul').removeClass('invis');
-                } else {
-                    $(event.target).find('ul').addClass('invis');
-                }
-            } else {
-                $('.selected').find('ul').removeClass("sortby");
-                $('.sortitem.selected').removeClass('selected');
-                $('.invis').removeClass('invis');
-                $(event.target).parent().addClass('selected');
-                $(event.target).find('ul').addClass("sortby");
-            }
-                /*if ($("#subEvent.selected").length) {
-                    $(".subEvent").css("display", "block");
-                } else {
-                    $(".subEvent").css("display", "none");
-                }
-                if ($("#subTask.selected").length) {
-                    $(".subTask").css("display", "block");
-                } else {
-                    $(".subTask").css("display", "none");
-                }
-                if ($("#subContact.selected").length) {
-                    $(".subContact").css("display", "block");
-                } else {
-                    $(".subContact").css("display", "none");
-                }
-                if ($("#subTag.selected").length) {
-                    $(".subTag").css("display", "block");
-                } else {
-                    $(".subTag").css("display", "none");
-                }*/
-            setTimeout(function(){
-                $(".listitem.active").accordion("refresh");
-            }, 500); 
-        });
-
-        $('.listitem').accordion({
-            active: false,
-            collapsible: true,
-            header: "h3.mainsort"/*, // force only 1 header in this accordion
-            beforeActivate: function(evt, obj) {
-                var OFFSET = -30;
-                var collapsing = obj.newHeader.length === 0;
-                if (!collapsing)
-                    //$('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
-            }*/
-        });
-
-    	$('.listitem > h3').unbind("click").bind("click", function(){
-
-            var thisArrow = $(this).parent().find(".accordionarrow");
-            var thisId = $(this).find('span.ng-binding').html();
-            thisId = thisId.replace( /^\D+/g, '');
-            var currentObject, objectType;
-            var dataContacts, dataEvents, dataTasks, dataTags;
-
-            if ($(thisArrow).hasClass("arrowdown")) {
-                $(thisArrow).removeClass("arrowdown");
-            } else {
-                $(thisArrow).addClass("arrowdown");
-                if ($(this).hasClass("dataRetrieved")) {
-                    console.log("already have data, not requesting again");
-                } else {
-                    $(this).addClass('dataRetrieved');
-                    $('.currentAccord').removeClass('currentAccord');
-                    $(this).parent().addClass('currentAccord');
-                    var contactListCont = $('.currentAccord').find('.subContact');
-                    var eventListCont = $('.currentAccord').find('.subEvent');
-                    var taskListCont = $('.currentAccord').find('.subTask');
-                    var tagListCont = $('.currentAccord').find('.subTag');
-
-                    console.log(contactListCont.length + " " + eventListCont.length + " " + taskListCont.length + " " + tagListCont.length);
-
-                    if ($(this).parent().hasClass('maincontact')) {
-                        objectType = "contacts";
-                    } else if ($(this).parent().hasClass('mainevent')) {
-                        objectType = "events";
-                    } else if ($(this).parent().hasClass('maintask')) {
-                        objectType = "tasks";
-                    } else if ($(this).parent().hasClass('maintag')) {
-                        objectType = "tags";
-                    } 
-
-                    $.ajax({
-                        type: 'GET',
-                        url: 'http://daywon-api-staging.herokuapp.com/' + objectType + "/" + thisId,
-                        contentType: "application/json",
-                        dataType: "json",
-                        headers: {
-                            "X-AUTHENTICATION-TOKEN": authToken,
-                            "X-AUTHENTICATION-EMAIL": authEmail
-                        },
-                        success: function (data) {
-                            console.log("original data: " + data['events']);
-                            try {
-                                if (data['contacts'].length > -1) {
-                                    dataContacts = data['contacts'];
-                                    var arrContacts = [];
-                                    for (var key in dataContacts) {
-                                        if (dataContacts.hasOwnProperty(key)) {
-                                            arrContacts.push(dataContacts[key]);  
-                                        }
-                                    }
-                                    console.log(arrContacts.length + " Contacts");
-                                    $(contactListCont).find('span').remove();
-                                    if (arrContacts.length > 0) {
-                                        for (var i = 0; i < arrContacts.length; i++) {
-                                            currentObject = arrContacts[i].name;
-                                            currentObject = '<span class="subitemtext">' + currentObject + '</span>';
-                                            $(contactListCont).append(currentObject);
-                                        }
-                                    } else {
-                                        $(contactListCont).append('<span class="subitemtext">No related contacts</span>');
-                                    }
-                                }
-                            } catch (err) {
-                                console.log("no contact array found: " + err);
-                            }
-                            try {
-                                if (data['events'].length > -1) {
-                                    dataEvents = data['events'];
-                                    var arrEvents = [];
-                                    for (var key in dataEvents) {
-                                        if (dataEvents.hasOwnProperty(key)) {
-                                            arrEvents.push(dataEvents[key]);
-                                        }
-                                    }
-                                    console.log(arrEvents.length + " Events");
-                                    $(eventListCont).find('span').remove();
-                                    if (arrEvents.length > 0) {
-                                        for (var i = 0; i < arrEvents.length; i++) {
-                                            currentObject = arrEvents[i].title;
-                                            currentObject = '<span class="subitemtext">' + currentObject + '</span>';
-                                            $(eventListCont).append(currentObject);
-                                        }
-                                    } else {
-                                        $(eventListCont).append('<span class="subitemtext">No related events</span>');
-                                    }
-                                } 
-                            } catch (err) {
-                                console.log("no event array found: " + err);
-                                $(eventListCont).find('span').remove();
-                                $(eventListCont).append("Error retrieving events");
-                            }
-                            try {
-                                if (data['tasks'].length > -1) {
-                                    dataTasks = data['tasks'];
-                                    var arrTasks = [];
-                                        for (var key in dataTasks) {
-                                        if (dataTasks.hasOwnProperty(key)) {
-                                            arrTasks.push(dataTasks[key]);  
-                                        }
-                                    }
-                                    console.log(arrTasks.length + " Tasks");
-                                    $(taskListCont).find('span').remove();
-                                    if (arrTasks.length > 0) {
-                                        for (var i = 0; i < arrTasks.length; i++) {
-                                            currentObject = arrTasks[i].title;
-                                            currentObject = '<span class="subitemtext">' + currentObject + '</span>';
-                                            $(taskListCont).append(currentObject);
-                                        }
-                                    } else {
-                                        $(taskListCont).append('<span class="subitemtext">No related tasks</span>');
-                                    }
-                                } 
-                            } catch (err) {
-                                console.log("no task array found: " + err);
-                                $(taskListCont).find('span').remove();
-                                $(taskListCont).append("Error retrieving tasks");
-                            }
-                            try {
-                                if (data['tags'].length > -1) {
-                                    dataTags = data['tags'];
-                                    var arrTags = [];
-                                        for (var key in dataTags) {
-                                        if (dataTags.hasOwnProperty(key)) {
-                                            arrTags.push(dataTags[key]);  
-                                        }
-                                    }
-                                    console.log(arrTags.length + " Tags");
-                                    $(tagListCont).find('span').remove();
-                                    if (arrTags.length > 0) {
-                                        for (var i = 0; i < arrTags.length; i++) {
-                                            currentObject = arrTags[i].name;
-                                            currentObject = '<span class="subitemtext">' + currentObject + '</span>';
-                                            $(tagListCont).append(currentObject);
-                                        }
-                                    } else {
-                                        $(tagListCont).append('<span class="subitemtext">No related tags</span>');
-                                    }
-                                }
-                            } catch (err) {
-                                console.log("no tag array found: " + err);
-                                $(tagListCont).find('span').remove();
-                                $(tagListCont).append("Error retrieving tags");
-                            }
-                        },
-                        error: function (e) {
-                            alert("There was an error loading settings: " + e);
-                        }
-
-                    });
-                }
-            }
-        });
-
-        if ($("#sortbycolumn").length) {
-            var allItems = $('.listitem');
-            for (var i = 0; i < 15; i++) {
-                $(allItems[i]).addClass('active');
-            }
-            setTimeout(function(){
-                $('.listitem.active').accordion("refresh");
-                $("#loader").removeClass("showLoader");
-            }, 1000); 
-            window.onscroll = function(ev) {
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 155) {
-                    console.log("rock bottom");
-                    var currentSort = $('.sortitem.selected').attr('id');
-                    var allItems = $('.listitem.' + currentSort);
-                    console.log(currentSort);
-                    var j = 0;
-                    for (var i = 0; j < 15; i++) {
-                        if ($(allItems[i]).hasClass('active')) {
-                            console.log('skipping, already active');
-                        } else {
-                            $(allItems[i]).addClass('active');
-                            $(allItems[i]).accordion({
-                                active: false,
-                                collapsible: true,
-                                header: "h3.mainsort", // force only 1 header in this accordion
-                                /*beforeActivate: function(evt, obj) {
-                                    var OFFSET = -30;
-                                    var collapsing = obj.newHeader.length === 0;
-                                    if (!collapsing)
-                                        //$('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
-                                }*/
-                            });
-                            j++;
-                        }
-                    }
-                    $('.listitem.active').accordion("refresh");
-                }
-            };
-        }
-
         $('.sortcont').click(function(e) {
         }).on('click', 'h3', function(e) {
             e.stopPropagation();
@@ -344,19 +89,6 @@ function rebindEvents() {
     	    }, 100);
         });
     	
-    	/*$('.detailSection').accordion({
-    		active: 0,
-    		collapsible: true,
-    		beforeActivate: function(evt, obj) {
-    			var collapsing = obj.newHeader.length === 0;
-    			if (collapsing)
-    				$(evt.target).find('.detailArrow').removeClass('arrowdown');
-    			else
-    				$(evt.target).find('.detailArrow').addClass('arrowdown');
-    		}
-    	});
-    	$('.detailSection').click();*/
-
         $('#expandall').click(function(){
         	$("#loader").addClass("showLoader");
         	setTimeout(function(){
@@ -378,26 +110,6 @@ function rebindEvents() {
     	    	}, 100);
     		}, 100);
         });
-
-       /* $("#createicon").click(function(event){
-            var createChoice = document.getElementById("createselect");
-            if (createChoice.length) {
-                $('.createForm').removeClass('selected');
-                if ($(event.target).hasClass("addContact")) {
-                    createChoice.selectedIndex = 1;
-                    $('.createContact').addClass('selected');
-                } else if ($(event.target).hasClass("addEvent")) {
-                    createChoice.selectedIndex = 2;
-                    $('.createEvent').addClass('selected');
-                } else if ($(event.target).hasClass("addTask")) {
-                    $('.createTask').addClass('selected');
-                    createChoice.selectedIndex = 3;
-                } else if ($(event.target).hasClass("addTag")) {
-                    $('.createTag').addClass('selected');
-                    createChoice.selectedIndex = 4;
-                }
-            }
-        });*/
 
         $('.detailCreate').click(function(){
             $("#createicon").click();
@@ -638,168 +350,42 @@ function rebindEvents() {
             }
         });
 
-        $("#associationForm").submit(function(){
-
-            $("#loader").addClass("showLoader");
-
-            setTimeout(function(){
-
-                var url = "https://daywon-api-staging.herokuapp.com/";
-                var data;
-                var orphanName = $("#contactname").html();
-                var orphanID = $("#selectedID").html();
-
-                var relatedContacts = $("li[objectid*='contact']");
-                var relatedEvents = $("li[objectid*='event']");
-                var relatedTasks = $("li[objectid*='task']");
-                var relatedTags = $("li[objectid*='tag']");
-                var contactIds = new Array();
-                var eventIds = new Array();
-                var taskIds = new Array();
-                var tagIds = new Array();
-                var thisObject;
-                var i;
-
-                for (i = 0; i < relatedContacts.length; i++) {
-                    thisObject = $(relatedContacts[i]).attr('objectid');
-                    thisObject = thisObject.replace(/\D/g,'');
-                    contactIds[i] = thisObject;
-                }
-
-                for (i = 0; i < relatedEvents.length; i++) {
-                    thisObject = $(relatedEvents[i]).attr('objectid');
-                    thisObject = thisObject.replace(/\D/g,'');
-                    eventIds[i] = thisObject;
-                }
-
-                for (i = 0; i < relatedTasks.length; i++) {
-                    thisObject = $(relatedTasks[i]).attr('objectid');
-                    thisObject = thisObject.replace(/\D/g,'');
-                    taskIds[i] = thisObject;
-                }
-                
-                for (i = 0; i < relatedTags.length; i++) {
-                    thisObject = $(relatedTags[i]).attr('objectid');
-                    thisObject = thisObject.replace(/\D/g,'');
-                    tagIds[i] = thisObject;
-                }
-
-                console.log("contacts: " + contactIds);
-                console.log("events: " + eventIds);
-                console.log("tasks: " + taskIds);
-                console.log("tags: " + tagIds);
-
-                if ($("#typeAheadOrphanEvent").length) {
-                    url += "events/" + orphanID;
-                    data = {
-                        event: {
-                            contact_ids: contactIds,
-                            task_ids: taskIds,
-                            tag_ids: tagIds
-                        }
-                    };
-                } else if ($("#typeAheadOrphanTask").length) {
-                    url += "tasks/" + orphanID;
-                    data = {
-                        task: {
-                            contact_ids: contactIds,
-                            event_ids: eventIds,
-                            tag_ids: tagIds
-                        }
-                    };
-                } else if ($("#typeAheadOrphanTag").length) {
-                    url += "tags/" + orphanID;
-                    data = {
-                        tag: {
-                            contact_ids: contactIds,
-                            event_ids: eventIds,
-                            task_ids: taskIds
-                        }
-                    };
-                }
-
-                var showPopupMessage = function(target, message, style) {
-                    var statusPopup = new Opentip($('#associationForm'), message, {style: style, showOn: null, hideOn: 'null', removeElementsOnHide: true});
-                    statusPopup.show();
-                    statusPopup.container.css('z-index', 100000);
-                    setTimeout(function() {
-                        statusPopup.hide();
-                        setTimeout($('.close').click(), 300);
-                    }, 2000);
-                };
-
-                if (orphanName === "Select an orphan") {
-                    showPopupMessage(event.target, "Please select an orphan", "error");
-                } else {
-                    $.ajax({
-                        type: 'PUT',
-                        url: url,
-                        contentType: "application/json",
-                        dataType: "json",
-                        data: JSON.stringify(data),
-                        headers: {
-                            "X-AUTHENTICATION-TOKEN": authToken,
-                            "X-AUTHENTICATION-EMAIL": authEmail
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            showPopupMessage(event.target, "Successfully edited " + orphanName, "success");
-                            $('.currentcontact').remove();
-                            $('#contactname').html("Select an orphan");
-                            $('.relatedOrphans li').remove();
-                            var orphanLength = $('.orphanList li').length;
-                            $("#itemCount").html(orphanLength);
-                            setTimeout(refetchTypeaheadData, 1000);
-                        },
-                        error: function (e) {
-                            console.log(e.statusText);
-                            showPopupMessage(event.target, "Error editting " + orphanName, "error");
-                        }
-                    });
-                }
-                $("#loader").removeClass("showLoader");
-
-            }, 500);
-            return false;
-
-        });
-
         $(".settingToggler").change(function(){
                 
-                var url = "http://daywon-api-staging.herokuapp.com/users/settings";
-                var setting1 = new Boolean($("#toggle:checked").length);
-                var setting2 = new Boolean($("#toggle2:checked").length);
-                var setting3 = new Boolean($("#toggle3:checked").length);
-                var setting4 = new Boolean($("#toggle4:checked").length);
+            var url = "http://daywon-api-staging.herokuapp.com/users/settings";
+            var setting1 = new Boolean($("#toggle:checked").length);
+            var setting2 = new Boolean($("#toggle2:checked").length);
+            var setting3 = new Boolean($("#toggle3:checked").length);
+            var setting4 = new Boolean($("#toggle4:checked").length);
 
-                var data = {
-                    user: {
-                        sort_by_last_name: setting1,
-                        show_new_user_popups: setting2,
-                        display_contact_notes: setting3,
-                        push_info_to_webmail: false,
-                        receive_email: setting4
-                    }
-                };
+            var data = {
+                user: {
+                    sort_by_last_name: setting1,
+                    show_new_user_popups: setting2,
+                    display_contact_notes: setting3,
+                    push_info_to_webmail: false,
+                    receive_email: setting4
+                }
+            };
 
-                $.ajax({
-                    type: 'PUT',
-                    url: url,
-                    contentType: "application/json",
-                    dataType: "json",
-                    data: JSON.stringify(data),
-                    headers: {
-                        "X-AUTHENTICATION-TOKEN": authToken,
-                        "X-AUTHENTICATION-EMAIL": authEmail
-                    },
-                    success: function (data) {
-                        console.log(data);
-                        setTimeout(refetchTypeaheadData, 1000);
-                    },
-                    error: function (e) {
-                        console.log(e.statusText);
-                    }
-                });
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(data),
+                headers: {
+                    "X-AUTHENTICATION-TOKEN": authToken,
+                    "X-AUTHENTICATION-EMAIL": authEmail
+                },
+                success: function (data) {
+                    console.log(data);
+                    setTimeout(refetchTypeaheadData, 1000);
+                },
+                error: function (e) {
+                    console.log(e.statusText);
+                }
+            });
 
         });
 

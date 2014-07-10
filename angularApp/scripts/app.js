@@ -41,7 +41,7 @@ var hashDetection = new hashHandler();
 		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
 		'Calendar', 'Orphans',
-		'Routing', 'CreateModule']);
+		'Routing', 'CreateModule', 'ReportsModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-TOKEN'] = authToken;
