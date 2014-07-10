@@ -90,7 +90,6 @@ function rebindEvents() {
         });
     	
         $('#expandall').click(function(){
-        	$("#loader").addClass("showLoader");
         	setTimeout(function(){
     			var oldScrollTo = $.fn.scrollTo; // temp disable scrollTo
     			$.fn.scrollTo = function() {};		
@@ -105,9 +104,7 @@ function rebindEvents() {
     	        $('.accordionarrow').addClass('arrowdown');
     			
     			$.fn.scrollTo = oldScrollTo; // restore scrollTo
-    	        setTimeout(function(){
-    	    		$("#loader").removeClass("showLoader");
-    	    	}, 100);
+
     		}, 100);
         });
 
@@ -677,16 +674,6 @@ function rebindEvents() {
 
         today = moment(today).format('dddd, MMMM Do, YYYY');
         $('#curDate').html(today);
-
-        setTimeout(function(){
-            $('#collapseall').click();
-            setTimeout(function(){
-                $(".spaceimage").remove();
-    			try { 
-    				$(".dashitem").accordion("refresh"); 
-    			} catch (e) { }
-            }, 1000);
-        }, 100);
 
         Opentip.styles.bottomtip = {
           tipJoint: "top",

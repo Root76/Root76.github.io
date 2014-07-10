@@ -26,8 +26,21 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                         j++;
                     }
                 }
+                rebindArrows();
             }
         };
+
+        function rebindArrows(){
+        	$('.listitem').click(function(){
+        		var thisArrow = $(this).find($('.accordionarrow'));
+        		console.log(thisArrow);
+        		if ($(thisArrow).hasClass('arrowdown')) {
+        			$(thisArrow).removeClass('arrowdown');
+        		} else {
+        			$(thisArrow).addClass('arrowdown');
+        		}
+        	});
+        }
 
 	    var allItems = $('.listitem');
 
@@ -69,10 +82,11 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 	            $(allItems[i]).addClass('active');
 	        }
 
+	        rebindArrows();
+
         });
 
 		$scope.getObjectDetails = function(object) {
-			console.log("nice selection you have there");
 
             var thisArrow = $(this).find(".accordionarrow");
             var currentObject, objectType;
