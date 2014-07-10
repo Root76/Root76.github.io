@@ -39,6 +39,14 @@
         </div>
         <div class="panelcontent dashContent" id="eventscontent">              
           <div class="infopanel selected">
+            <div id="preload">
+              <div>
+                <img src="img/logo.jpg" class="loadImage">
+                <h1>Loading, please wait.</h1>
+                <img src="img/loading.gif" class="loadImage" id="loadGif">
+                <h5>We're preparing your Contacts, Events, Tasks and Tags. Just a moment, please!</h5>
+              </div>
+            </div>
             <div class="subitem subdash ss2" ng-repeat="object in totalObjects | orderBy : IndexSort | limitTo:10 ">
               <a ui-sref="contacts.contact({contact_id: object.id})" ng-if="object.type == 'contact' ">
                 <img class="subicon" src="img/contacts.png" />

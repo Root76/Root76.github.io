@@ -270,9 +270,13 @@ var hashDetection = new hashHandler();
 						//console.log(combinedObjects);
 						//combinedObjects = combinedObjects.splice(10, 11);
 						//console.log(combinedObjects);
+            			$("#preload").addClass("fadeAway");
             			setTimeout(function(){
-            				$("#preload").removeClass("active");
-            			}, 500);
+            				$("#preload").remove();
+            				setTimeout(function(){
+            					$('.subitem.subdash.ss2').addClass('fadeInto');
+            				})
+            			}, 300);
 
 					} else {
 						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);

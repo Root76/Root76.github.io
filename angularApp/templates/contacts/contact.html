@@ -35,7 +35,7 @@
           <div id="phonesDelete" ng-if="phone != contact.phones[0]">
             <img ng-click="removePhone(phone)" src="img/close.png"/>
           </div>
-          <div id="phonesDelete" ng-if="phone === contact.phones[0]" >
+          <div ng-if="phone === contact.phones[0]" class="phoneCreate" >
             <img ng-click="addPhone()" src="img/create.png"/>
           </div>
         </div>
@@ -53,7 +53,7 @@
         <div id="emailsDelete" ng-if="email != contact.emails[0]">
           <img ng-click="removeEmail(email)" src="img/close.png"/>
         </div>
-        <div id="emailsDelete" ng-if="email === contact.emails[0]" >
+        <div ng-if="email === contact.emails[0]" class="phoneCreate" >
           <img ng-click="addEmail()" src="img/create.png"/>
         </div>
       </div>
@@ -91,8 +91,8 @@
               <div class="value" editable-text="property.value" onaftersave="saveContact()">
                 {{property.value || 'No value set'}}
               </div>
-              <div>
-                <img ng-click="removeProperty(property)" src="img/close.png"/>
+              <div style="position:relative">
+                <img ng-click="removeProperty(property)" src="img/close.png" class="removeCustomProperty" />
               </div>
               <br/>
 
@@ -202,6 +202,7 @@
           </div>
         </div>
         <div class="contactgroup relatedObjects">
+          <img src="img/events.png" />
           <div class="contactitem">
             <span>{{contact.events.length}}</span>
           </div>
