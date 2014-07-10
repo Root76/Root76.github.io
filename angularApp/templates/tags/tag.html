@@ -26,7 +26,7 @@
       <div ng-repeat="contact in tag.contacts | orderBy: ['name', 'emails[0].email', 'id']">
         <div class="contactrow personrow">
           <a ui-sref="contacts.contact({contact_id:contact.id})"><img src="img/contacts.png" class="contactIcon">
-          <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" ng-click="removeContact(contact)" />
+          <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" ng-click="removeContact(contact)" class="removeAssoc" />
         </div>
       </div>
       <div class="contactrow personrow" ng-if="tag.contacts.length == 0">
@@ -42,7 +42,7 @@
       <div ng-repeat="event in tag.events">
         <div class="contactrow eventrow">
           <a ui-sref="events.event({event_id:event.id})"><img src="img/events.png" class="eventIcon">
-          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" ng-click="removeEvent(event)" />
+          <h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a><img src="img/close.png" ng-click="removeEvent(event)" class="removeAssoc" />
         </div>
       </div>
       <div class="contactrow eventrow" ng-if="tag.events.length == 0">
@@ -58,7 +58,7 @@
       <div ng-repeat="task in tag.tasks">
         <div class="contactrow taskrow">
           <a ui-sref="tasks.task({task_id:task.id})"><img src="img/tasks.png" class="taskIcon">
-          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" ng-click="removeTask(task)" />
+          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" ng-click="removeTask(task)" class="removeAssoc" />
         </div>
       </div>
       <div class="contactrow taskrow" ng-if="tag.tasks.length == 0">

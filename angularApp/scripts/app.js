@@ -273,9 +273,7 @@ var hashDetection = new hashHandler();
             			$("#preload").addClass("fadeAway");
             			setTimeout(function(){
             				$("#preload").remove();
-            				setTimeout(function(){
-            					$('.subitem.subdash.ss2').addClass('fadeInto');
-            				})
+            				$('.subitem.subdash.ss2').addClass('fadeInto');
             			}, 300);
 
 					} else {
