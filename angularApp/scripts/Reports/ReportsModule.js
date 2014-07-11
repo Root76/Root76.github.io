@@ -24,6 +24,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                         });
 
                         bindArrow(allItems[i]);
+                        $(allItems[i]).addClass('fadeInto');
                         j++;
 
                     }
@@ -46,34 +47,40 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 
             var sortType = this.id;
             var theseAccords = $('.listitem.' + sortType);
-            $('.listitem').removeClass('active');
-            for (var i = 0; i < 15; i++) {
-            	$(theseAccords[i]).addClass('active');
-            }
-            if ($(event.target).parent().hasClass('selected')) {
-                if ($(event.target).find('ul').hasClass('invis')) {
-                    $(event.target).find('ul').removeClass('invis');
-                } else {
-                    $(event.target).find('ul').addClass('invis');
-                }
-            } else {
-                $('.selected').find('ul').removeClass("sortby");
-                $('.sortitem.selected').removeClass('selected');
-                $('.invis').removeClass('invis');
-                $(event.target).parent().addClass('selected');
-                $(event.target).find('ul').addClass("sortby");
-            }
-  
-            var allItems = $('.listitem.active');
-	        for (var i = 0; i < 15; i++) {
-	        	$(allItems[i]).accordion({
-			        active: true,
-			        collapsible: true,
-			        header: "h3.mainsort"
-			    });
-	            $(allItems[i]).addClass('active');
-	            bindArrow(allItems[i]);
-	        }
+            $('.listitem').removeClass('fadeInto');
+            $('.listitem').unbind("click");
+            setTimeout(function(){
+	            $('.listitem').removeClass('active');
+	            $('.accordionarrow').removeClass('arrowdown');
+	            for (var i = 0; i < 15; i++) {
+	            	$(theseAccords[i]).addClass('active');
+	            }
+	            if ($(event.target).parent().hasClass('selected')) {
+	                if ($(event.target).find('ul').hasClass('invis')) {
+	                    $(event.target).find('ul').removeClass('invis');
+	                } else {
+	                    $(event.target).find('ul').addClass('invis');
+	                }
+	            } else {
+	                $('.selected').find('ul').removeClass("sortby");
+	                $('.sortitem.selected').removeClass('selected');
+	                $('.invis').removeClass('invis');
+	                $(event.target).parent().addClass('selected');
+	                $(event.target).find('ul').addClass("sortby");
+	            }
+	  
+	            var allItems = $('.listitem.active');
+		        for (var i = 0; i < 15; i++) {
+		        	$(allItems[i]).accordion({
+				        active: true,
+				        collapsible: true,
+				        header: "h3.mainsort"
+				    });
+		            $(allItems[i]).addClass('active');
+		            bindArrow(allItems[i]);
+		        }
+		        $(allItems).addClass('fadeInto');
+		    }, 300);
 
         });
 
