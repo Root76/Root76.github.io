@@ -83,7 +83,7 @@
         <br />
       </div>
       <b>Recurring: </b>
-        <span editable-select="event.recurring" e-ng-options="recur.value as recur.description for recur in recurrenceValues" onaftersave="saveEvent()">
+        <span>
           {{recurrenceTitle(event.recurring)}}
         </span>
         <br />
