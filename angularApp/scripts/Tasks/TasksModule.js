@@ -95,6 +95,16 @@
 			};
 
 			$scope.saveTask = function() {
+
+				for(var i = 0; i < $scope.tasks.length; i++)
+				{
+					if($scope.tasks[i].id == $scope.task.id)
+					{
+						$scope.tasks[i].title = $scope.task.title
+						break;
+					}
+				}
+
 				console.log($scope.task);
 				$scope.task.$save();
 			}

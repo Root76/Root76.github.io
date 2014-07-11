@@ -279,6 +279,16 @@
 			}
 
 			$scope.saveContact = function() {
+
+				for(var i = 0; i < $scope.contacts.length; i++)
+				{
+					if($scope.contacts[i].id == $scope.contact.id)
+					{
+						$scope.contacts[i].name = $scope.contact.name
+						break;
+					}
+				}
+
 				console.log($scope.contact);
 				$scope.contact.$save();
 			}

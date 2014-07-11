@@ -84,6 +84,16 @@
 			}
 
 			$scope.saveTag = function() {
+
+				for(var i = 0; i < $scope.tags.length; i++)
+				{
+					if($scope.tags[i].id == $scope.tag.id)
+					{
+						$scope.tags[i].name = $scope.tag.name
+						break;
+					}
+				}
+
 				console.log($scope.tag);
 				$scope.tag.$save();
 			}

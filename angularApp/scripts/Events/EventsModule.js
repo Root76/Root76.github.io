@@ -104,13 +104,13 @@
 
 				if($scope.event.is_all_day)
 				{
-					$scope.eventDates.startDate = $scope.event.start_date;
-					$scope.eventDates.endDate = $scope.event.end_date;
+					$scope.eventDates.startDate = new Date($scope.event.start_date);
+					$scope.eventDates.endDate = new Date($scope.event.end_date);
 				}
 				else
 				{
-					$scope.eventDates.startDate = $scope.event.start_datetime;
-					$scope.eventDates.endDate = $scope.event.end_datetime;
+					$scope.eventDates.startDate = new Date($scope.event.start_datetime);
+					$scope.eventDates.endDate = new Date($scope.event.end_datetime);
 				}
 			});
 
@@ -184,6 +184,9 @@
 					$scope.event.start_date = $scope.eventDates.startDate;
 					$scope.event.end_date = $scope.eventDates.endDate;
 
+					console.log($scope.event.start_date);
+					console.log($scope.event.end_date);
+
 					$scope.event.start_date.setHours(0);
 					$scope.event.start_date.setMinutes(0);
 					$scope.event.start_date.setSeconds(0);
@@ -199,6 +202,16 @@
 					$scope.event.start_datetime = $scope.eventDates.startDate;
 					$scope.event.end_datetime = $scope.eventDates.endDate;
 				}
+
+				for(var i = 0; i < $scope.events.length; i++)
+				{
+					if($scope.events[i].id == $scope.event.id)
+					{
+						$scope.events[i].title = $scope.event.title
+						break;
+					}
+				}
+
 
 				console.log($scope.event);
 				$scope.event.$save();
