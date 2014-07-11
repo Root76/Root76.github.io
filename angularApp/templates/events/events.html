@@ -20,7 +20,7 @@
             <div ng-repeat="event in FilteredEvents | filter:searchText">
 
               <a ui-sref="events.event({event_id: event.id})">
-                <li><span bind-html-unsafe="event.title | typeaheadHighlight:searchText.title"></span></li>
+                <li><span bind-html-unsafe="(event.title || 'No event title') | typeaheadHighlight:searchText.title"></span></li>
               </a>
 
             </div>
