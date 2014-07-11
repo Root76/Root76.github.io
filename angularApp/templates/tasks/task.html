@@ -13,7 +13,7 @@
     <img src="img/tasks.png" class="selected" />
     <img src="img/tags.png" />
     <span id="taskcheck"><img src="img/check.png" /></span>
-    <a href="javascript:void(0)"><img src="img/create.png" class="addTask" ng-click="create()" /></a>
+    <a href="javascript:void(0)"><img src="img/create.png" class="addTask" ng-click="create('task')" /></a>
     <img src="img/trash.png" ng-click="deleteTask(task)"/>
     <button id="destroy">{{task.id}}</button>           
   </div>
@@ -27,7 +27,7 @@
       <div ng-repeat="contact in task.contacts">
         <div class="contactrow personrow">
           <a ui-sref="contacts.contact({contact_id:contact.id})"><img src="img/contacts.png" class="contactIcon"><h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a>
-          <img src="img/close.png" ng-click="removeContact(contact)" />
+          <img src="img/close.png" ng-click="removeContact(contact)" class="removeAssoc" />
         </div>
       </div>
       <div class="contactrow personrow" ng-if="task.contacts.length==0">
@@ -37,13 +37,13 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow">Add events: <br />
-          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in events | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in task.events">
         <div class="contactrow eventrow">
           <a ui-sref="events.event({event_id:event.id})"><img src="img/events.png" class="eventIcon"><h4>{{event.title}}</h4><span class="hidden">{{event.id}}</span></a>
-          <img src="img/close.png" ng-click="removeEvent(event)" />
+          <img src="img/close.png" ng-click="removeEvent(event)" class="removeAssoc" />
         </div>
       </div>
       <div class="contactrow eventrow" ng-if="task.events.length==0">
@@ -63,11 +63,23 @@
           {{task.priority || 'No priority'}}
         </span>
       </div>
-      <div>
-        <b>Task Due: </b>
-          DATE EDITING NOT IMPLEMENTED
+
+      <div class="detailDateContainer">
+        <div class="col-md-6">
+          <b>Task Due: </b>
+          <div class="input-group">
+            <input type="text" class="form-control" datepicker-popup="shortDate" ng-model="task.due" is-open="dateOpened" datepicker-options="dateOptions" close-text="Close"  ng-change="taskDateChanged()"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6 timepickerUI">
+          <timepicker ng-model="task.due" minute-step="15" show-meridian="true" ng-change="taskDateChanged()"></timepicker>
+        </div>
         <br />
       </div>
+
     </div>
     <div class="infopanel">
       <form id="addForm">
@@ -78,7 +90,7 @@
       <div ng-repeat="tag in task.tags">
         <div class="contactrow tagrow">
           <a ui-sref="tags.tag({tag_id:tag.id})"><img src="img/tags.png" class="tagIcon"></a>
-          <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span><img src="img/close.png" ng-click="removeTag(tag)" />
+          <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span><img src="img/close.png" ng-click="removeTag(tag)" class="removeAssoc" />
         </div>
       </div>
       <div class="contactrow tagrow" ng-if="task.tags.length==0">
@@ -112,8 +124,8 @@
             </a>
           </div>
         </div>
-        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()"/></a>
-        <img id="detailTrash" src="img/trash.png" ng-click="deleteTask(task)" />
+        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('task')"/></a>
+        <img class="detailTrash" src="img/trash.png" ng-click="deleteTask(task)" />
       </div>
       <img class="columnDivider" src="img/divider_green.png" />
     </div>

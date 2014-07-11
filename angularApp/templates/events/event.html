@@ -12,7 +12,7 @@
     <img src="img/events.png" class="selected" />
     <img src="img/tasks.png" />
     <img src="img/tags.png" /> 
-    <a href="javascript:void(0)"><img src="img/create.png" class="addEvent" ng-click="create()"/></a>
+    <a href="javascript:void(0)"><img src="img/create.png" class="addEvent" ng-click="create('event')"/></a>
     <img src="img/trash.png" ng-click="deleteEvent(event)"/>
     <button id="destroy">{{event.id}}</button>
   </div>
@@ -27,7 +27,7 @@
       <div ng-repeat="contact in event.contacts">      
         <div class="contactrow personrow">
           <a ui-sref="contacts.contact({contact_id:contact.id})"><img src="img/contacts.png" class="contactIcon">
-          <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" ng-click="removeContact(contact)" />        
+          <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" ng-click="removeContact(contact)" class="removeAssoc" />        
         </div>
       </div>
       <div class="contactrow personrow" ng-if="event.contacts.length==0">
@@ -50,19 +50,41 @@
           </span>
         <br />
       </div>
-      <div>
-        <b>Event Start: </b>
-          DATE EDITING NOT IMPLEMENTED
+      
+      <div class="detailDateContainer">
+        <div class="col-md-6">
+          <b>Event Start: </b>
+          <div class="input-group">
+            <input type="text" class="form-control" datepicker-popup="shortDate" ng-model="eventDates.startDate" is-open="startDateOpened" datepicker-options="dateOptions" close-text="Close"  ng-change="eventDatesChanged()"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event, 'start')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6 timepickerUI" ng-hide="event.is_all_day">
+          <timepicker ng-model="eventDates.startDate" minute-step="15" show-meridian="true" ng-change="eventDatesChanged()"></timepicker>
+        </div>
         <br />
       </div>
-      <div>
-        <b>Event End: </b>
-          DATE EDITING NOT IMPLEMENTED
+
+      <div class="detailDateContainer">
+        <div class="col-md-6">
+          <b>Event End: </b>
+          <div class="input-group">
+            <input type="text" class="form-control" datepicker-popup="shortDate" ng-model="eventDates.endDate" is-open="endDateOpened" datepicker-options="dateOptions" close-text="Close"  ng-change="eventDatesChanged()"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event, 'end')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6 timepickerUI" ng-hide="event.is_all_day">
+          <timepicker ng-model="eventDates.endDate" minute-step="15" show-meridian="true" ng-change="eventDatesChanged()"></timepicker>
+        </div>
         <br />
       </div>
       <b>Recurring: </b>
         <span editable-select="event.recurring" e-ng-options="recur.value as recur.description for recur in recurrenceValues" onaftersave="saveEvent()">
-          {{event.recurring || 'No description'}}
+          {{recurrenceTitle(event.recurring)}}
         </span>
         <br />
     </div>
@@ -76,7 +98,7 @@
       <div ng-repeat="task in event.tasks">
         <div class="contactrow taskrow">
           <a ui-sref="tasks.task({task_id:task.id})"><img src="img/tasks.png" class="taskIcon">
-          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" ng-click="removeTask(task)" />
+          <h4>{{task.title}}</h4><span class="hidden">{{task.id}}</span></a><img src="img/close.png" ng-click="removeTask(task)" class="removeAssoc" />
         </div>
       </div>
       <div class="contactrow taskrow" ng-if="event.tasks.length==0">
@@ -93,7 +115,7 @@
         <div ng-repeat="tag in event.tags">
           <div class="contactrow tagrow">
             <a ui-sref="tags.tag({tag_id:tag.id})"><img src="img/tags.png" class="tagIcon">
-            <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" ng-click="removeTag(tag)"/>
+            <h4>{{tag.name}}</h4><span class="hidden">{{tag.id}}</span></a><img src="img/close.png" ng-click="removeTag(tag)" class="removeAssoc" />
           </div>
         </div>
         <div class="contactrow tagrow" ng-if="event.tags.length==0">
@@ -123,8 +145,8 @@
             <span class="relatedName">{{tag.name}}</span></a>
           </div>
         </div>
-        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create()"/></a>
-        <img id="detailTrash" src="img/trash.png" ng-click="deleteEvent(event)"/>
+        <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('event')"/></a>
+        <img class="detailTrash" src="img/trash.png" ng-click="deleteEvent(event)"/>
       </div>
       <img class="columnDivider" src="img/divider_orange.png" />
     </div>

@@ -2,15 +2,15 @@
 
 	var TagsModule = angular.module('Tags', ['ngResource', 'TagServices']);
 
-	TagsModule.controller('TagsController', ['$resource', '$scope', 'tagService',
-		function($resource, $scope, tagService){
+	TagsModule.controller('TagsController', ['$resource', '$scope', '$state','tagService',
+		function($resource, $scope, $state, tagService){
 			
 			$scope.deleteTag = function(tag){
 				
 				var index;
 
 				for(var i = 0; i < $scope.tags.length; i++)
-					if($scope.tags[i].id == event.id)
+					if($scope.tags[i].id == tag.id)
 						index = i;
 
 				if(index > -1)
@@ -20,6 +20,10 @@
 
 				$state.go('tags.index');
 
+			}
+
+			$scope.getTagTitle = function(tag) {
+				return tag.name + ' (' + tag.count + ')';
 			}
 
 		}]);

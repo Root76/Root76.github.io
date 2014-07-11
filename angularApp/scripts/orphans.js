@@ -5,6 +5,84 @@ var OrphansModule = angular.module('Orphans', ['ContactServices', 'TagServices',
 OrphansModule.controller('OrphansController', ['$scope', '$resource', 
 	function($scope, $resource) {
 
+		$scope.OrphanEventShow = ['All', 'Tagged', 'New This Week', 'New This Month', 'Recent'];
+
+		$scope.OrphanEventFilter = $scope.OrphanEventShow[0];
+
+		$scope.updateOrphanEventList = function() {
+
+			console.log("chosen filter");
+			console.log($scope.OrphanEventFilter);
+			$scope.FilteredOrphanEvents = new Array();
+
+			var today = moment().format('YYYYMMDDHHMMSS');
+			var lastMonth = moment().subtract('months', 1).calendar();
+			lastMonth = moment(lastMonth).format('YYYYMMDDHHMMSS');
+			console.log("last month: " + lastMonth);
+			var thisDate;
+
+			if ($scope.OrphanEventFilter === "All") {
+				$scope.FilteredOrphanEvents = $scope.AllFilteredOrphanEvents;
+			}
+			else if ($scope.OrphanEventFilter === "Tagged") {
+				for (var i = 0; i < $scope.eventOrphans.length; i++) {
+					if ($scope.eventOrphans[i]['tagcount'] > 0) {
+						$scope.FilteredOrphanEvents.push($scope.eventOrphans[i]);
+					}
+				}					
+			}
+			else if ($scope.OrphanEventFilter === "New This Week") {
+				for (var i = 0; i < $scope.eventOrphans.length; i++) {
+					if ($scope.eventOrphans[i]['status'] == true) {
+						$scope.FilteredOrphanEvents.push($scope.eventOrphans[i]);
+						console.log("status was true, pushing to array");
+						console.log($scope.FilteredOrphanEvents);
+					}
+				}					
+			}
+			else if ($scope.OrphanEventFilter === "New This Month") {
+				for (var i = 0; i < $scope.eventOrphans.length; i++) {
+					if ($scope.eventOrphans[i]['status'] == true) {
+						$scope.FilteredOrphanEvents.push($scope.evenOrphants[i]);
+						console.log("status was true, pushing to array");
+						console.log($scope.FilteredOrphanEvents);
+					}
+				}					
+			}
+			else if ($scope.OrphanEventFilter === "Recent") {
+				$scope.OrphanEventList = $scope.eventOrphans;
+				$scope.OrphanEventList.sort(function(a, b) {
+					if (a.updated_at < b.updated_at) {
+						return 1;
+					}
+					if (a.updated_at > b.updated_at) {
+						return -1;
+					}
+					return 0;
+				});
+				for (var i = 0; i < 10; i++) {
+					$scope.FilteredOrphanEvents.push($scope.OrphanEventList[i]);
+					console.log("status was true, pushing to array");
+					console.log($scope.FilteredOrphanEvents);
+				}					
+			}
+		}
+
+
+		$scope.OrphanTaskSort = [
+			{title: 'Tasks with no dates', prop: 'due'}, 
+			{title: 'Tasks with dates', prop: '-due'},
+			{title: 'Priority', prop: 'priority'}, 
+			{title: 'Alphabetical', prop: 'title'}
+		];
+
+		$scope.OrphanTaskOrder = $scope.OrphanTaskSort[0];
+
+		$scope.OrphanTagSort = [
+			{title: 'Count', prop: 'count'},
+			{title: 'Name', prop: 'name'}
+		];
+		$scope.OrphanTagOrder = $scope.OrphanTagSort[1];
 		
 	}]);
 

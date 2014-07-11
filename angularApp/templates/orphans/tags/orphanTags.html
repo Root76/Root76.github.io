@@ -5,21 +5,19 @@
       <div class="col-md-4" id="taskpane1">
         <img src="img/orphans.png" / class="contactpadding">
         <h1 class="contactpadding tagHeader">Orphan Tags (<span id="itemCount">{{tagOrphans.length}}</span>)</h1>
-        <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-          <input name="q" type="text" size="40" placeholder="Search...">
+        <form class="search contactpadding" id="contactsearch">
+          <input type="text" size="40" placeholder="Search..." ng-model="searchText.name">
         </form>
         <div class="filtercolumn contactpadding">
           <h4>Show:</h4>
-          <div class="contsort">
-          <select>
-            <option>Sort Option</option>
-            <option>Sort Option</option>
-            <option>Sort Option</option>
-          </select>
-          </div>
+            <div class="contsort">
+              <select ng-model="OrphanTagOrder" ng-options="option.title for option in OrphanTagSort"></select>
+            </div>
         </div>
-        <ul id="taglist" class="sidelist" ng-repeat="tag in tagOrphans">
-            <a ui-sref="orphanTags.tag({tag_id: tag.id})"><li>{{tag.name}}</li></a> 
+        <ul id="taglist" class="sidelist" ng-repeat="tag in tagOrphans | orderBy:OrphanTagOrder.prop | filter:searchText">
+            <a ui-sref="orphanTags.tag({tag_id: tag.id})">
+              <li><span bind-html-unsafe="tag.name | typeaheadHighlight:searchText.name"></span></li>
+            </a> 
         </ul>
         <span id="selectedID"></span>
       </div>

@@ -20,6 +20,18 @@
 	display:none;
 }
 
+#preload {
+	opacity: 1;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+	position: absolute;
+	left: 61px;
+	margin: 0 auto;
+	top: 50px;
+}
+
 #preload h1, #preload h5 {
 	text-align:center;
 	color:#BBB;
@@ -207,7 +219,6 @@ hr {
 
 .dropdown-menu {
 	min-width:106px;
-	width:106px;
 	background-color:#e9e8e5;
 	padding:0px;
 	border:0px;
@@ -1110,9 +1121,15 @@ h1, h2, h3, h4 {
 	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
 	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.3);
 	box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.3);
+	display:none;
+	opacity:0;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
 }
 .listitem.active {
-	display: block;
+	display:block;
 }
 .listitem.active:last-child {
 	margin-bottom:0px;
@@ -1279,7 +1296,7 @@ h1, h2, h3, h4 {
 	border-top: 1px solid #AAA;
 }
 
-.infopanel li:hover {
+.dashContent li:hover {
 	color:#fff;
 	background:#e35d32;
 }
@@ -1442,11 +1459,33 @@ h1, h2, h3, h4 {
 }*/
 
 #emailsDelete img, #phonesDelete img {
-	position: relative;
+	position: absolute;
 	width: 26px;
 	height: 26px;
 	right: 0px;
-	top: 0px;
+	top: -26px;
+	cursor: pointer;
+	opacity:.7;
+	 -webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.phoneCreate {
+	position: absolute;
+	right: -8px;
+	cursor: pointer;
+	top:0px;
+	opacity:.7;
+	 -webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.phoneCreate:hover, #emailsDelete img:hover, #phonesDelete img:hover {
+	opacity:1;
 }
 
 #emailsContainer input, #phonesContainer input {
@@ -2907,7 +2946,7 @@ font-family:'Open Sans', sans-serif;
 	padding-bottom:20px;
 }
 
-#detailTrash, .detailCreate {
+.detailTrash, .detailCreate {
 	height: 55px;
 	position: absolute;
 	top: 6px;
@@ -2984,6 +3023,16 @@ font-family:'Open Sans', sans-serif;
 .contactpropertiesrow img {
 	width: 32px;
 	margin-top: -5px;
+	opacity:.7;
+	cursor:pointer;
+	 -webkit-transition: all .1s ease-in-out;
+	-moz-transition: all .1s ease-in-out;
+	-o-transition: all .1s ease-in-out;
+	transition: all .1s ease-in-out;
+}
+
+.contactpropertiesrow img:hover {
+	opacity:1;
 }
 
 #openModal6 h1 {
@@ -3016,6 +3065,14 @@ font-family:'Open Sans', sans-serif;
 #loadGif {
 	width:75px;
 	margin-top:30px;
+}
+
+.removeCustomProperty {
+	position: absolute;
+	right: 9px;
+	top: -15px;
+	height: 20px;
+	width: auto !important;
 }
 
  /*!
@@ -4518,5 +4575,127 @@ pre.ng-binding {
 	margin-left: 5px;
 	padding-left: 3px;
 	padding-right: 3px;
-	text-transform: capitalize;
+	padding
+	text-transform: capitalize !important;
+	background: rgba(255,255,255,0);
+	border: 1px solid;
+	opacity:.75;
+	 -webkit-transition: all .15s ease-in-out;
+	-moz-transition: all .15s ease-in-out;
+	-o-transition: all .15s ease-in-out;
+	transition: all .15s ease-in-out;
+}
+
+.editable-buttons button:hover {
+	background: rgba(255,255,255,0.4);
+	opacity:1;
+}
+
+#eventscontent .editable-wrap {
+	display:inline;
+}
+
+#eventscontent .editable-buttons button {
+	background:rgba(227,93,50,0);
+	color:#e35d32;
+}
+
+#eventscontent .editable-wrap .editable-controls>input {
+	background:rgba(227,93,50,0);
+	color:#e35d32;
+}
+
+#eventscontent span.editable-click {
+	color:#000;
+}
+
+#eventscontent .editable-buttons button:hover {
+	background:rgba(227,93,50,1);
+	color:#fff;
+	opacity:1;
+	border: 1px solid #e35d32;
+}
+
+#taskscontent .editable-wrap {
+	display:inline;
+}
+
+#taskscontent .editable-buttons button {
+	background:rgba(136,196,76,0);
+	color:#88c44c;
+}
+
+#taskscontent .editable-wrap .editable-controls>input {
+	background:rgba(136,196,76,0);
+	color:#88c44c;
+}
+
+#taskscontent span.editable-click {
+	color:#000;
+}
+
+#taskscontent .editable-buttons button:hover {
+	background:rgba(136,196,76,1);
+	color:#fff;
+	opacity:1;
+	border: 1px solid #88c44c;
+}
+
+#tagscontent .editable-wrap {
+	display:inline;
+}
+
+#tagscontent .editable-buttons button {
+	background:rgba(236,143,56,0);
+	color:#ec8f38;
+}
+
+#tagscontent .editable-wrap .editable-controls>input {
+	background:rgba(236,143,56,0);
+	color:#ec8f38;
+}
+
+#tagscontent span.editable-click {
+	color:#000;
+}
+
+#tagscontent .editable-buttons button:hover {
+	background:rgba(236,143,56,1);
+	color:#fff;
+	opacity:1;
+	border: 1px solid #ec8f38;
+}
+
+.fadeAway {
+	opacity:0 !important;
+}
+
+.subitem.subdash.ss2 {
+	opacity:0;
+	 -webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.fadeInto {
+	opacity:1 !important;
+}
+
+.detailDateContainer > div:first-child {
+	padding-left:0px;
+	padding-top:14px;
+}
+
+.detailDateContainer > .timepickerUI {
+	padding-top:12px;
+}
+
+.detailDateContainer .timepickerUI td,
+.detailDateContainer .timepickerUI a {
+	padding:0px;
+}
+
+.detailDateContainer .timepickerUI tr:first-child > td > a {
+	padding-left:2px !important;
 }

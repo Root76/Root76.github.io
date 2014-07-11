@@ -41,7 +41,7 @@ var hashDetection = new hashHandler();
 		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
 		'Calendar', 'Orphans',
-		'Routing', 'CreateModule']);
+		'Routing', 'CreateModule', 'ReportsModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-TOKEN'] = authToken;
@@ -258,7 +258,7 @@ var hashDetection = new hashHandler();
 
 				var checkPromises = setInterval(function() {
 
-					if (allObjects.contacts.length > 0 && allObjects.events.length > 0 && allObjects.tasks.length > 0 && allObjects.tags.length > 0) {
+					if (allObjects.contacts.length > 0 && allObjects.events.length) {
 
 						console.log("Promises fulfilled");
 						console.log("final object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
@@ -270,12 +270,14 @@ var hashDetection = new hashHandler();
 						//console.log(combinedObjects);
 						//combinedObjects = combinedObjects.splice(10, 11);
 						//console.log(combinedObjects);
+            			$("#preload").addClass("fadeAway");
             			setTimeout(function(){
-            				$("#preload").removeClass("active");
-            			}, 500);
+            				$("#preload").remove();
+            				$('.subitem.subdash.ss2').addClass('fadeInto');
+            			}, 300);
 
 					} else {
-						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
+						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length);
 					}
 
 				}, 100);
@@ -345,6 +347,27 @@ var hashDetection = new hashHandler();
 						}
 
 					}
+
+					$scope.FilteredOrphanEvents.sort(function(a, b) {
+						if (a.start_datetime < b.start_datetime) {
+							return -1;
+						}
+						if (a.start_datetime > b.start_datetime) {
+							return 1;
+						}
+						return 0;
+					});
+
+					$scope.FilteredOrphanEvents.forEach(function(event){
+						eventService.Event.get({event_id: event.id}, function(data) {
+							event.tagcount = data.tags.length;
+							if (data.tags.length > 0) {
+								console.log(data.title + " tagged " + data.tags.length + " times");
+							}
+						});
+					});
+
+					$scope.AllFilteredOrphanEvents = $scope.FilteredOrphanEvents;
 				});
 			}
 
@@ -433,7 +456,7 @@ var hashDetection = new hashHandler();
 			];
 			$scope.TagOrder = $scope.TagSort[1];
 
-			$scope.create = function()
+			$scope.create = function(type)
 			{
 
 				var modalInstance = $modal.open({
@@ -443,44 +466,48 @@ var hashDetection = new hashHandler();
 						contactsPromise : function() { return $scope.contactsPromise; },
 						eventsPromise : function() { return $scope.eventsPromise; },
 						tasksPromise : function() { return $scope.tasksPromise; },
-						tagsPromise : function() { return $scope.tagsPromise; }
+						tagsPromise : function() { return $scope.tagsPromise; },
+						creationType : function() {return type;}
 					}
 				});
 
 				modalInstance.result.then(function(newObject) {
 
-					if(newObject.type == "contact")
+					if(newObject)
 					{
-						delete newObject.type;
-						contactService.Contacts.create(newObject).$promise.then(function(){
-							console.log("Reloading contacts");
-							$scope.loadContacts();	
-						});
-					}
-					else if(newObject.type == "event")
-					{
-						delete newObject.type;
-						eventService.Events.create(newObject).$promise.then(function(){
-							console.log("Reloading events");
-							$scope.loadEvents();	
-						});
-						
-					}
-					else if(newObject.type == "task")
-					{
-						delete newObject.type;
-						taskService.Tasks.create(newObject).$promise.then(function(){
-							console.log("Reloading tasks");
-							$scope.loadTasks();	
-						});
-					}
-					else if(newObject.type == "tag")
-					{
-						delete newObject.type;
-						tagService.Tags.create(newObject).$promise.then(function(){
-							console.log("Reloading tags");
-							$scope.loadTags();	
-						});
+						if(newObject.type == "contact")
+						{
+							delete newObject.type;
+							contactService.Contacts.create(newObject).$promise.then(function(){
+								console.log("Reloading contacts");
+								$scope.loadContacts();	
+							});
+						}
+						else if(newObject.type == "event")
+						{
+							delete newObject.type;
+							eventService.Events.create(newObject).$promise.then(function(){
+								console.log("Reloading events");
+								$scope.loadEvents();	
+							});
+							
+						}
+						else if(newObject.type == "task")
+						{
+							delete newObject.type;
+							taskService.Tasks.create(newObject).$promise.then(function(){
+								console.log("Reloading tasks");
+								$scope.loadTasks();	
+							});
+						}
+						else if(newObject.type == "tag")
+						{
+							delete newObject.type;
+							tagService.Tags.create(newObject).$promise.then(function(){
+								console.log("Reloading tags");
+								$scope.loadTags();	
+							});
+						}
 					}
 					
 				});
@@ -518,9 +545,9 @@ var hashDetection = new hashHandler();
 						{
 							var today = moment();
 
-							if(allEvents[j].recurrence) //rules are different for recurrence events
+							if(allEvents[j].is_all_day) //rules are different all day events
 							{
-								if(moment(allEvents[j].end_datetime) > today)
+								if(moment(allEvents[j].end_date) > today)
 									filtered_list.push(eventShells[i]);
 							}
 							else
@@ -547,9 +574,9 @@ var hashDetection = new hashHandler();
 						{
 							var today = moment();
 
-							if(allEvents[j].recurrence) //rules are different for recurrence events
+							if(allEvents[j].is_all_day) //rules are different all day events
 							{
-								if(moment(allEvents[j].end_datetime) < today)
+								if(moment(allEvents[j].end_date) < today)
 									filtered_list.push(eventShells[i]);
 							}
 							else

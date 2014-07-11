@@ -2,15 +2,15 @@
 
 	var TasksModule = angular.module('Tasks', ['ngResource', 'TaskServices']);
 	
-	TasksModule.controller('TasksController', ['$resource', '$scope', 'taskService',
-		function($resource, $scope, taskService) {
+	TasksModule.controller('TasksController', ['$resource', '$scope', '$state', 'taskService',
+		function($resource, $scope, $state, taskService) {
 			
 			$scope.deleteTask = function(task){
 
 				var index;
 
 				for(var i = 0; i < $scope.FilteredTasks.length; i++)
-					if($scope.FilteredTasks[i].id == event.id)
+					if($scope.FilteredTasks[i].id == task.id)
 						index = i;
 
 				if(index > -1)
@@ -45,6 +45,7 @@
 				console.log(data);
 				$scope.task = data;
 			});
+
 
 			$scope.onSelect = function ($item, $model, $label) {
 
@@ -81,6 +82,17 @@
 
 				$scope.task.$save();
 			}
+
+			$scope.open = function($event) {
+		      $event.preventDefault();
+		      $event.stopPropagation();
+
+		      $scope.dateOpened = !($scope.dateOpened);
+		    };
+
+			$scope.taskDateChanged = function() {
+				$scope.task.$save();
+			};
 
 			$scope.saveTask = function() {
 				console.log($scope.task);

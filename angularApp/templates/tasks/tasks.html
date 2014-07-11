@@ -5,9 +5,11 @@
         <div class="col-md-4" id="taskpane1">
           <img src="img/tasks.png" / class="contactpadding">
           <h1 class="contactpadding" id="mobileTaskHead">Tasks ({{tasks.length}})</h1>
-          <form method="get" action="/search" class="search contactpadding" id="contactsearch">
-            <input name="q" type="text" size="40" placeholder="Search..." id="typeAheadJustTasks">
+
+          <form class="search contactpadding" id="contactsearch">
+            <input type="text" size="40" placeholder="Search..." ng-model="searchText.title">
           </form>
+
           <div class="filtercolumn contactpadding">
             <h4>Sort by:</h4>
             <div class="contsort">
@@ -19,9 +21,13 @@
           <button class="sortingToggle" id="byName">Sort</button>
           <button class="sortingToggle" id="byContact">Sort</button>
           <ul id="tasklist" class="sidelist">
-            <div ng-repeat="task in tasks | orderBy:TaskOrder.prop" >
-              <a ui-sref="tasks.task({task_id:task.id})"><li><img src="img/check.png" />{{task.title}}</li></a>
+
+            <div ng-repeat="task in tasks | orderBy:TaskOrder.prop | filter:searchText" >
+              <a ui-sref="tasks.task({task_id:task.id})">
+                <li><img src="img/check.png" /><span bind-html-unsafe="task.title | typeaheadHighlight:searchText.title"></span></li>
+              </a>
             </div>
+
           </ul>
         </div>
         <div ui-view></div>

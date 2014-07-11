@@ -2,8 +2,8 @@
 
 	var createModule = angular.module('CreateModule', []);
 
-	createModule.controller('CreationController', ['$scope', '$modalInstance', 'contactsPromise', 'eventsPromise', 'tasksPromise', 'tagsPromise',
-		function($scope, $modalInstance, contactsPromise, eventsPromise, tasksPromise, tagsPromise) {
+	createModule.controller('CreationController', ['$scope', '$modalInstance', 'contactsPromise', 'eventsPromise', 'tasksPromise', 'tagsPromise', 'creationType',
+		function($scope, $modalInstance, contactsPromise, eventsPromise, tasksPromise, tagsPromise, creationType) {
 
 			$scope.modalInstance = $modalInstance;
 
@@ -128,6 +128,18 @@
 				$scope.status.isopen = false;	
 				$scope.associatedObjects = [];			
 			};
+
+			if(creationType)
+			{
+				if(creationType == "contact")
+					$scope.selectCreation(1);
+				if(creationType == "event")
+					$scope.selectCreation(2);
+				if(creationType == "task")
+					$scope.selectCreation(3);
+				if(creationType == "tag")
+					$scope.selectCreation(4);
+			}
 
 			$scope.contactSelected = function() { return $scope.selection == 1; };
 			$scope.eventSelected = function() { return $scope.selection == 2; };
