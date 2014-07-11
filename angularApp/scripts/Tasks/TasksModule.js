@@ -15,9 +15,7 @@
 
 				if(index > -1)
 				{
-					$scope.FilteredTasks.splice(index, 1);
-					$scope.updateTaskList();
-				}
+					$scope.FilteredTasks.splice(index, 1);				}
 
 				taskService.Task.delete({task_id:task.id});
 
