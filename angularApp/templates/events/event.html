@@ -50,19 +50,41 @@
           </span>
         <br />
       </div>
+      
       <div>
-        <b>Event Start: </b>
-          DATE EDITING NOT IMPLEMENTED
+        <div class="col-md-6">
+          <b>Event Start: </b>
+          <div class="input-group">
+            <input type="text" class="form-control" datepicker-popup="shortDate" ng-model="eventDates.startDate" is-open="startDateOpened" datepicker-options="dateOptions" close-text="Close"  ng-change="eventDatesChanged()"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event, 'start')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6 timepickerUI" ng-hide="newEvent.is_all_day">
+          <timepicker ng-model="eventDates.startDate" minute-step="15" show-meridian="true" ng-change="eventDatesChanged()"></timepicker>
+        </div>
         <br />
       </div>
+
       <div>
-        <b>Event End: </b>
-          DATE EDITING NOT IMPLEMENTED
+        <div class="col-md-6">
+          <b>Event End: </b>
+          <div class="input-group">
+            <input type="text" class="form-control" datepicker-popup="shortDate" ng-model="eventDates.endDate" is-open="endDateOpened" datepicker-options="dateOptions" close-text="Close"  ng-change="eventDatesChanged()"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event, 'end')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6 timepickerUI" ng-hide="newEvent.is_all_day">
+          <timepicker ng-model="eventDates.endDate" minute-step="15" show-meridian="true" ng-change="eventDatesChanged()"></timepicker>
+        </div>
         <br />
       </div>
       <b>Recurring: </b>
         <span editable-select="event.recurring" e-ng-options="recur.value as recur.description for recur in recurrenceValues" onaftersave="saveEvent()">
-          {{event.recurring || 'No description'}}
+          {{recurrenceTitle(event.recurring)}}
         </span>
         <br />
     </div>

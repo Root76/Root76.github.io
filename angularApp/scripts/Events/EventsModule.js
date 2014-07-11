@@ -96,9 +96,22 @@
 			$scope.showOpenTasks = true;
 			$scope.showClosedTasks = true;
 
+			$scope.eventDates = { startDate : new Date(), endDate : new Date() };
+
 			$scope.eventPromise = eventService.Event.get({event_id: $stateParams['event_id']}, function(data) {
 				console.log(data);
 				$scope.event = data;
+
+				if($scope.event.is_all_day)
+				{
+					$scope.eventDates.startDate = $scope.event.start_date;
+					$scope.eventDates.endDate = $scope.event.end_date;
+				}
+				else
+				{
+					$scope.eventDates.startDate = $scope.event.start_datetime;
+					$scope.eventDates.endDate = $scope.event.end_datetime;
+				}
 			});
 
 			$scope.recurrenceValues = [
@@ -106,17 +119,27 @@
 				{ value : false, description : "No" }
 			];
 
-			$scope.eventStart = {
-				startDate : new Date(),
-				startTime: new Date()
+			$scope.recurrenceTitle = function(recurrence) {
+				if(recurrence) return 'Yes';
+				else return 'No';
+			}
+
+			$scope.eventDatesChanged = function() {
+				console.log("event dates changed!");
+				$scope.saveEvent();
 			};
 
-			$scope.open = function($event) {
+			$scope.open = function($event, which) {
 		      $event.preventDefault();
 		      $event.stopPropagation();
-		      
-		      $scope.startDateOpened = !($scope.startDateOpened);
+
+		      if(which == 'start')
+		      	$scope.startDateOpened = !($scope.startDateOpened);
+
+		      if(which == 'end')
+		      	$scope.endDateOpened = !($scope.endDateOpened);
 		    };
+
 
 			$scope.onSelect = function ($item, $model, $label) {
 
@@ -127,7 +150,7 @@
 				if($model.type == "tag")
 					$scope.event.tags.push($model);
 
-				$scope.event.$save();
+				$scope.saveEvent();
 			}
 
 			$scope.removeContact = function(contact) {
@@ -135,7 +158,7 @@
 				index = $scope.event.contacts.indexOf(contact);
 				$scope.event.contacts.splice(index, 1);					
 
-				$scope.event.$save();
+				$scope.saveEvent();
 			}
 
 			$scope.removeTask = function(task) {
@@ -143,7 +166,7 @@
 				index = $scope.event.tasks.indexOf(task);
 				$scope.event.tasks.splice(index, 1);					
 
-				$scope.event.$save();	
+				$scope.saveEvent();
 			}
 
 			$scope.removeTag = function(tag) {	
@@ -151,10 +174,32 @@
 				index = $scope.event.tags.indexOf(tag);
 				$scope.event.tags.splice(index, 1);					
 
-				$scope.event.$save();
+				$scope.saveEvent();
 			}
 
 			$scope.saveEvent = function() {
+
+				if($scope.event.is_all_day)
+				{
+					$scope.event.start_date = $scope.eventDates.startDate;
+					$scope.event.end_date = $scope.eventDates.endDate;
+
+					$scope.event.start_date.setHours(0);
+					$scope.event.start_date.setMinutes(0);
+					$scope.event.start_date.setSeconds(0);
+					$scope.event.start_date.setMilliseconds(0);
+			
+					$scope.event.end_date.setHours(0);
+					$scope.event.end_date.setMinutes(0);
+					$scope.event.end_date.setSeconds(0);
+					$scope.event.end_date.setMilliseconds(0);
+				}
+				else
+				{	
+					$scope.event.start_datetime = $scope.eventDates.startDate;
+					$scope.event.end_datetime = $scope.eventDates.endDate;
+				}
+
 				console.log($scope.event);
 				$scope.event.$save();
 			}
