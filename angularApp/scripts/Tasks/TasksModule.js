@@ -8,18 +8,21 @@
 			$scope.deleteTask = function(task){
 
 				var index;
-
-				for(var i = 0; i < $scope.FilteredTasks.length; i++)
-					if($scope.FilteredTasks[i].id == task.id)
-						index = i;
-
-				if(index > -1)
+				if($scope.FilteredTasks)
 				{
-					$scope.FilteredTasks.splice(index, 1);				}
+					for(var i = 0; i < $scope.FilteredTasks.length; i++)
+						if($scope.FilteredTasks[i].id == task.id)
+							index = i;
 
-				taskService.Task.delete({task_id:task.id});
+					if(index > -1)
+					{
+						$scope.FilteredTasks.splice(index, 1);				
+					}
 
-				$state.go('tasks.index');
+					taskService.Task.delete({task_id:task.id});
+
+					$state.go('tasks.index');
+				}
 			}
 
 			$scope.TaskSort = [
