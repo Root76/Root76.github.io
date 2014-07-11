@@ -26,7 +26,7 @@
               <li class="suboption">Alphabetical</li>
             </ul>    
           </div>
-          <div class="subcontitem sortitem selected" id="maincontact">
+          <div class="subcontitem sortitem" id="maincontact">
             <a><img src="img/contacts.png" /></a>
           </div>
           <div class="subcontitem sortitem" id="maintag">
@@ -56,29 +56,35 @@
       <h3 id="collapseall" class="reportToggler">Collapse all</h3>
       <h3 id="expandall" class="reportToggler">Expand all</h3>
       <ul class="list">
-        <li class="listitem maincontact" ng-repeat="contact in FilteredContacts">
+        <li class="listitem maincontact" ng-repeat="contact in FilteredContacts" ng-click="getObjectDetails(contact)">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <img src="img/contacts.png" class="listimg" />
             <span class="hidden">{{contact.id}}</span>
-            {{contact.name}}
+            {{contact.name || contact.emails[0].email || 'No name or email'}}
           </h3>
           <div class="subitems">
             <div class="subitem ss1 subEvent">
               <img class="subicon" src="img/calendar.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="event in contact.events">{{event.title}}</span>
+              <span class="subitemtext" ng-if="contact.events.length < 1">No events</span>
+              <span class="subitemtext" ng-if="!contact.events">Loading, please wait...</span>
             </div>
             <div class="subitem ss4 subTask">
               <img class="subicon" src="img/tasks.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="task in contact.tasks">{{task.title}}</span>
+              <span class="subitemtext" ng-if="contact.tasks.length < 1">No tasks</span>
+              <span class="subitemtext" ng-if="!contact.tasks">Loading, please wait...</span>
             </div>
             <div class="subitem ss2 subTag">
               <img class="subicon" src="img/tags.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="tag in contact.tags">{{tag.name}}</span>
+              <span class="subitemtext" ng-if="contact.tags.length < 1">No tags</span>
+              <span class="subitemtext" ng-if="!contact.tags">Loading, please wait...</span>
             </div>
           </div>
         </li>
-        <li class="listitem mainevent" ng-repeat="event in IndexController.FilteredEvents">
+        <li class="listitem mainevent" ng-repeat="event in FilteredEvents" ng-click="getObjectDetails(event)">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <img src="img/events.png" class="listimg" />
@@ -88,60 +94,78 @@
           <div class="subitems">
             <div class="subitem ss3 subContact">
               <img class="subicon" src="img/contacts.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="contact in event.contacts">{{contact.name}}</span>
+              <span class="subitemtext" ng-if="event.contacts.length < 1">No contacts</span>
+              <span class="subitemtext" ng-if="!event.contacts">Loading, please wait...</span>
             </div>
             <div class="subitem ss4 subTask">
               <img class="subicon" src="img/tasks.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="task in event.tasks">{{task.title}}</span>
+              <span class="subitemtext" ng-if="event.tasks.length < 1">No tasks</span>
+              <span class="subitemtext" ng-if="!event.tasks">Loading, please wait...</span>
             </div>
             <div class="subitem ss2 subTag">
               <img class="subicon" src="img/tags.png" />
-              <span class="subitemtext">Loading...</span>               
+              <span class="subitemtext" ng-repeat="tag in event.tags">{{tag.name}}</span>
+              <span class="subitemtext" ng-if="event.tags.length < 1">No tags</span>
+              <span class="subitemtext" ng-if="!event.tags">Loading, please wait...</span>
             </div>
           </div>
         </li> 
-        <li class="listitem maintask" ng-repeat="task in tasks">
+        <li class="listitem maintask" ng-repeat="task in tasks" ng-click="getObjectDetails(task)">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <img src="img/tasks.png" class="listimg" />
             <span class="hidden">{{task.id}}</span>
-            {{task.title}}
+            {{task.title || task.notes}}
             <img src="img/check.png" class="checkmark" />
           </h3>
           <div class="subitems">
             <div class="subitem ss3 subContact">
               <img class="subicon" src="img/contacts.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="contact in task.contacts">{{contact.name}}</span>
+              <span class="subitemtext" ng-if="task.contacts.length < 1">No contacts</span>
+              <span class="subitemtext" ng-if="!task.contacts">Loading, please wait...</span>
             </div>
             <div class="subitem ss1 subEvent">
               <img class="subicon" src="img/calendar.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="event in task.events">{{event.title}}</span>
+              <span class="subitemtext" ng-if="task.events.length < 1">No events</span>
+              <span class="subitemtext" ng-if="!task.events">Loading, please wait...</span>
             </div>
             <div class="subitem ss2 subTag">
               <img class="subicon" src="img/tags.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="tag in task.tags">{{tag.name}}</span>
+              <span class="subitemtext" ng-if="task.tags.length < 1">No tags</span>
+              <span class="subitemtext" ng-if="!task.tags">Loading, please wait...</span>
             </div>
           </div>
         </li>
-        <li class="listitem maintag" ng-repeat="tag in tags">
+        <li class="listitem maintag" ng-repeat="tag in tags" ng-click="getObjectDetails(tag)">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <img src="img/tags.png" class="listimg" />
             <span class="hidden">{{tag.id}}</span>
-            Tag Name
+            {{tag.name}}
           </h3>
           <div class="subitems">
             <div class="subitem ss3 subContact">
               <img class="subicon" src="img/contacts.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="contact in tag.contacts">{{contact.name}}</span>
+              <span class="subitemtext" ng-if="tag.contacts.length < 1">No contacts</span>
+              <span class="subitemtext" ng-if="!tag.contacts">Loading, please wait...</span>
             </div>
             <div class="subitem ss1 subEvent">
               <img class="subicon" src="img/calendar.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="event in tag.events">{{event.title}}</span>
+              <span class="subitemtext" ng-if="tag.events.length < 1">No events</span>
+              <span class="subitemtext" ng-if="!tag.events">Loading, please wait...</span>
             </div>
             <div class="subitem ss4 subTask">
               <img class="subicon" src="img/tasks.png" />
-              <span class="subitemtext">Loading...</span>
+              <span class="subitemtext" ng-repeat="task in tag.tasks">{{task.title}}</span>
+              <span class="subitemtext" ng-if="tag.tasks.length < 1">No tasks</span>
+              <span class="subitemtext" ng-if="!tag.tasks">Loading, please wait...</span>
             </div>
           </div>
         </li>                          

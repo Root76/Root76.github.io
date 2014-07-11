@@ -41,7 +41,7 @@ var hashDetection = new hashHandler();
 		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
 		'Calendar', 'Orphans',
-		'Routing', 'CreateModule']);
+		'Routing', 'CreateModule', 'ReportsModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-TOKEN'] = authToken;
@@ -258,7 +258,7 @@ var hashDetection = new hashHandler();
 
 				var checkPromises = setInterval(function() {
 
-					if (allObjects.contacts.length > 0 && allObjects.events.length > 0 && allObjects.tasks.length > 0 && allObjects.tags.length > 0) {
+					if (allObjects.contacts.length > 0 && allObjects.events.length) {
 
 						console.log("Promises fulfilled");
 						console.log("final object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
@@ -277,7 +277,7 @@ var hashDetection = new hashHandler();
             			}, 300);
 
 					} else {
-						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
+						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length);
 					}
 
 				}, 100);
