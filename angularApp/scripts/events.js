@@ -64,50 +64,6 @@ function rebindEvents() {
             }, 300);
         });
 
-        $('#collapseall').click(function(){
-        	$("#loader").addClass("showLoader");
-            var allItems = $('.listitem');
-        	setTimeout(function(){
-                for (var i = 0; i < 15; i++) {
-                    $(allItems[i]).addClass('active');
-                    $(allItems[i]).accordion({
-                        active: false,
-                        collapsible: true,
-                        header: "h3.mainsort"/*, // force only 1 header in this accordion
-                        beforeActivate: function(evt, obj) {
-                            var OFFSET = -30;
-                            var collapsing = obj.newHeader.length === 0;
-                            if (!collapsing)
-                                $('body').scrollTo($(this).offset().top - $('body').offset().top + OFFSET);
-                        }*/
-                    });
-                }
-    	        $('.accordionarrow').removeClass('arrowdown');
-    	        setTimeout(function(){
-    	    		$("#loader").removeClass("showLoader");
-    	    	}, 100);
-    	    }, 100);
-        });
-    	
-        $('#expandall').click(function(){
-        	setTimeout(function(){
-    			var oldScrollTo = $.fn.scrollTo; // temp disable scrollTo
-    			$.fn.scrollTo = function() {};		
-    	        var accord;
-    	        var accords = $('.mainsort');
-    	        for (var a = 0; a < accords.length; a++) {
-    	            accord = accords[a];
-    	            if ($(accord).attr("aria-selected") == "false") {
-    	                accord.click();
-    	            }
-    	        }
-    	        $('.accordionarrow').addClass('arrowdown');
-    			
-    			$.fn.scrollTo = oldScrollTo; // restore scrollTo
-
-    		}, 100);
-        });
-
         $('.detailCreate').click(function(){
             $("#createicon").click();
         });

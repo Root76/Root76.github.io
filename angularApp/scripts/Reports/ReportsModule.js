@@ -83,6 +83,32 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 
         });
 
+        $('#collapseall').click(function(){
+            setTimeout(function(){
+                var accords = $('.mainsort');
+                for (var a = 0; a < accords.length; a++) {
+                    accord = accords[a];
+                    if ($(accord).attr("aria-selected") == "true") {
+                        accord.click();
+                    }
+                }
+                $('.accordionarrow').removeClass('arrowdown');
+            }, 100);
+        });
+        
+        $('#expandall').click(function(){
+            setTimeout(function(){
+                var accords = $('.mainsort');
+                for (var a = 0; a < accords.length; a++) {
+                    accord = accords[a];
+                    if ($(accord).attr("aria-selected") == "false") {
+                        accord.click();
+                    }
+                }
+                $('.accordionarrow').addClass('arrowdown');
+            }, 100);
+        });
+
 		$scope.getObjectDetails = function(object) {
 
             if (object.type == 'contact') {
