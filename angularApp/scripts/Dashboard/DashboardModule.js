@@ -11,7 +11,7 @@
 
 		$scope.TaskShow = ['Open Tasks', 'Overdue', 'Today & Overdue', 'Next 7 Days'];
 
-		$scope.TaskFilter = 'Overdue';
+		$scope.TaskFilter = 'Open Tasks';
 
 		$scope.updateTaskList = function() {
 			

@@ -176,6 +176,14 @@
 					$scope.notesIndex = 0;
 					$scope.contact.extended_properties.push({key:'notes', value:''});
 				}
+
+				setTimeout(function(){
+					if (data.emails.length > 0) {
+						var emailString = 'https://mail.google.com/mail/u/?authuser=' + authEmail + '#search/from:' + data.emails[0].email + '+OR+to:' + data.emails[0].email;
+						$('.contactDetails .emailLink').attr("href", emailString);
+					}
+					console.log(emailString);
+				}, 100);
 			});
 
 			$scope.detailsView = false;
