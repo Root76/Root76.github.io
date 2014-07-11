@@ -48,7 +48,6 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             var sortType = this.id;
             var theseAccords = $('.listitem.' + sortType);
             $('.listitem').removeClass('fadeInto');
-            $('.listitem').unbind("click");
             setTimeout(function(){
 	            $('.listitem').removeClass('active');
 	            $('.accordionarrow').removeClass('arrowdown');
