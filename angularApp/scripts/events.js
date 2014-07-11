@@ -109,7 +109,7 @@ function rebindEvents() {
         });
 
     	$('.listitem > h3').unbind("click").bind("click", function(){
-
+            console.log("clicked");
             var thisArrow = $(this).parent().find(".accordionarrow");
             var thisId = $(this).find('span.ng-binding').html();
             thisId = thisId.replace( /^\D+/g, '');
