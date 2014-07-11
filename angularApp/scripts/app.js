@@ -41,7 +41,7 @@ var hashDetection = new hashHandler();
 		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
 		'Calendar', 'Orphans',
-		'Routing', 'CreateModule', 'ReportsModule']);
+		'Routing', 'CreateModule', 'ReportsModule', 'DashboardModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-TOKEN'] = authToken;
@@ -57,6 +57,8 @@ var hashDetection = new hashHandler();
 				tasks: "",
 				tags: ""
 			};
+
+			$scope.allReady = false;
 
 			$scope.loadContacts = function() {
 				$scope.contactsPromise = contactService.Contacts.query();
@@ -264,17 +266,8 @@ var hashDetection = new hashHandler();
 						console.log("final object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
 						clearInterval(checkPromises);
 						var combinedObjects = allObjects.contacts.concat(allObjects.events, allObjects.tasks, allObjects.tags);
-
+						$scope.allReady = true;
 						$scope.totalObjects = combinedObjects;
-
-						//console.log(combinedObjects);
-						//combinedObjects = combinedObjects.splice(10, 11);
-						//console.log(combinedObjects);
-            			$("#preload").addClass("fadeAway");
-            			setTimeout(function(){
-            				$("#preload").remove();
-            				$('.subitem.subdash.ss2').addClass('fadeInto');
-            			}, 300);
 
 					} else {
 						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length);
@@ -380,10 +373,10 @@ var hashDetection = new hashHandler();
 
 			$scope.TaskShow = ['Open Tasks', 'Overdue', 'Today & Overdue', 'Next 7 Days'];
 
-			$scope.TaskFilter = $scope.TaskShow[0];
+			$scope.TaskFilter = 'Overdue';
 
 			$scope.updateTaskList = function() {
-
+				
 				console.log("chosen filter");
 				console.log($scope.TaskFilter);
 				$scope.FilteredTasks = new Array();
@@ -393,7 +386,6 @@ var hashDetection = new hashHandler();
 					for (var i = 0; i < $scope.tasks.length; i++) {
 						if ($scope.tasks[i]['status'] == false) {
 							$scope.FilteredTasks.push($scope.tasks[i]);
-							console.log("status was false, pushing to array");
 							console.log($scope.FilteredTasks);
 						}
 					}
@@ -402,7 +394,6 @@ var hashDetection = new hashHandler();
 					for (var i = 0; i < $scope.tasks.length; i++) {
 						if ($scope.tasks[i]['status'] == true) {
 							$scope.FilteredTasks.push($scope.tasks[i]);
-							console.log("status was true, pushing to array");
 							console.log($scope.FilteredTasks);
 						}
 					}					
@@ -413,7 +404,6 @@ var hashDetection = new hashHandler();
 						taskDate = moment($scope.tasks[i]['due']).format('MMMM Do YYYY');
 						if ($scope.tasks[i]['status'] == true || taskDate == today) {
 							$scope.FilteredTasks.push($scope.tasks[i]);
-							console.log("status was true, pushing to array");
 						}
 					}					
 				}
@@ -431,10 +421,7 @@ var hashDetection = new hashHandler();
 						taskDate = moment($scope.tasks[i]['due']).format('MMMM Do YYYY');
 						if (next7Days.indexOf(taskDate) > -1) {
 							$scope.FilteredTasks.push($scope.tasks[i]);
-							console.log("date falls within timespan");
 							console.log($scope.FilteredTasks);
-						} else {
-							console.log("not in the array");
 						}
 					}		
 				}

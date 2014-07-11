@@ -6,7 +6,7 @@
       <div class="col-md-4 dashboardHeading" id="taskpane1">
         <img src="img/dashboard.png" / class="contactpadding">
         <h1 class="contactpadding dashHeading">Dashboard</h1>
-        <a href="javascript:void(0)"><img src="img/create.png" id="createicon" class="addContact" ng-click="create()" /></a>
+        <a href="javascript:void(0)"><img src="img/create.png" class="createicon addContact" ng-click="create()" /></a>
         <ul id="eventlist" class="sidelist dashList">
           <li class="currentcontact"><span>Recent Activities (last 10 edited)</span></li>
           <li><span>Tasks</span></li>
@@ -39,7 +39,7 @@
         </div>
         <div class="panelcontent dashContent" id="eventscontent">              
           <div class="infopanel selected">
-            <div id="preload">
+            <div id="preload" ng-if="allReady == false">
               <div>
                 <img src="img/logo.jpg" class="loadImage">
                 <h1>Loading, please wait.</h1>

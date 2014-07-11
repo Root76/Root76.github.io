@@ -46,9 +46,6 @@
 			lastWeek = moment(lastWeek).format('YYYYMMDDHHMMSS');
 			var lastMonth = moment().subtract('months', 1).calendar();
 			lastMonth = moment(lastMonth).format('YYYYMMDDHHMMSS');
-			console.log("today: " + today);
-			console.log("last month: " + lastMonth);
-			console.log("last week: " + lastWeek);
 			var thisCreateDate;
 
 			$scope.updateContactList = function() {

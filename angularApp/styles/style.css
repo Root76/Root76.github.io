@@ -21,15 +21,21 @@
 }
 
 #preload {
-	opacity: 1;
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
 	position: absolute;
-	left: 61px;
+	left: 52px;
 	margin: 0 auto;
 	top: 50px;
+}
+
+#preload.ng-enter, #preload.ng-leave {
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
 }
 
 #preload h1, #preload h5 {
@@ -1778,10 +1784,10 @@ to {
 	margin-left:0px;
 }
 
-.dashboardHeading #createicon {
-	position:absolute;
-	top: 17px;
-	left: 320px;
+.dashboardHeading .createicon {
+	position:absolute !important;
+	top: 17px !important;
+	left: 320px !important;
 }
 
 #detailTrash {
@@ -1964,13 +1970,13 @@ to {
 	background:none !important;
 }
 
-#createicon {
+.createicon {
 	position:absolute;
 	right:130px;
 	width:45px !important;
 }
 
-#trashicon {
+.trashicon {
 	position:absolute;
 	right:80px;
 	top:-3px;
@@ -2005,7 +2011,7 @@ to {
 	margin-bottom:20px !important;
 }
 
-.taskbar #trashicon {
+.taskbar .trashicon {
 	right:30px !important;
 }
 
@@ -3781,11 +3787,11 @@ color: #fff;
 	display:block;
 }
 
-.contactmenu > a > #createicon {
+.contactmenu > a > .createicon {
 	right:195px !important;
 }
 
-.contactmenu > #trashicon {
+.contactmenu > .trashicon {
 	right:145px !important;
 }
 
@@ -4671,7 +4677,6 @@ pre.ng-binding {
 }
 
 .subitem.subdash.ss2 {
-	opacity:0;
 	 -webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
@@ -4680,6 +4685,14 @@ pre.ng-binding {
 
 .fadeInto {
 	opacity:1 !important;
+}
+
+#preload.ng-enter, #preload.ng-leave.ng-leave.active {
+	opacity:0;
+}
+
+#preload.ng-leave, #preload.ng-enter.ng-enter-active {
+	opacity:1;
 }
 
 .detailDateContainer > div:first-child {
