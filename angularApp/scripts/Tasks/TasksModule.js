@@ -83,6 +83,17 @@
 				$scope.task.$save();
 			}
 
+			$scope.open = function($event) {
+		      $event.preventDefault();
+		      $event.stopPropagation();
+
+		      $scope.dateOpened = !($scope.dateOpened);
+		    };
+
+			$scope.taskDateChanged = function() {
+				$scope.task.$save();
+			};
+
 			$scope.saveTask = function() {
 				console.log($scope.task);
 				$scope.task.$save();

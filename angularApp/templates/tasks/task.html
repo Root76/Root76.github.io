@@ -63,11 +63,23 @@
           {{task.priority || 'No priority'}}
         </span>
       </div>
+
       <div>
-        <b>Task Due: </b>
-          DATE EDITING NOT IMPLEMENTED
+        <div class="col-md-6">
+          <b>Task Due: </b>
+          <div class="input-group">
+            <input type="text" class="form-control" datepicker-popup="shortDate" ng-model="task.due" is-open="dateOpened" datepicker-options="dateOptions" close-text="Close"  ng-change="taskDateChanged()"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6 timepickerUI">
+          <timepicker ng-model="task.due" minute-step="15" show-meridian="true" ng-change="taskDateChanged()"></timepicker>
+        </div>
         <br />
       </div>
+
     </div>
     <div class="infopanel">
       <form id="addForm">

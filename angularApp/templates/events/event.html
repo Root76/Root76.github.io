@@ -61,7 +61,7 @@
             </span>
           </div>
         </div>
-        <div class="col-md-6 timepickerUI" ng-hide="newEvent.is_all_day">
+        <div class="col-md-6 timepickerUI" ng-hide="event.is_all_day">
           <timepicker ng-model="eventDates.startDate" minute-step="15" show-meridian="true" ng-change="eventDatesChanged()"></timepicker>
         </div>
         <br />
@@ -77,7 +77,7 @@
             </span>
           </div>
         </div>
-        <div class="col-md-6 timepickerUI" ng-hide="newEvent.is_all_day">
+        <div class="col-md-6 timepickerUI" ng-hide="event.is_all_day">
           <timepicker ng-model="eventDates.endDate" minute-step="15" show-meridian="true" ng-change="eventDatesChanged()"></timepicker>
         </div>
         <br />
