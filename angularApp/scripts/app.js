@@ -30,6 +30,7 @@ function hashHandler(){
     this.Check = setInterval(function(){ detect() }, 100);
 }
 
+var baseURL = "https://daywon-api-prod.herokuapp.com";
 
 var hashDetection = new hashHandler();
 
@@ -49,8 +50,6 @@ var hashDetection = new hashHandler();
 
 	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
 		function($scope, $resource, $modal, contactService, tagService, taskService, eventService) {
-
-			$scope.baseURL = "https://daywon-api-prod.herokuapp.com";
 
 			var allObjects = {
 				contacts: "",

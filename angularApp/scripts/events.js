@@ -2,7 +2,7 @@ setTimeout(function() {
     var logSelect = document.getElementById("eaddr");
     logSelect.onchange = function() {
         if (logSelect.value === "Logout") {
-            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://daywon.s3-website-us-west-2.amazonaws.com/login.html";
+            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://daywon.s3-website-us-west-2.amazonaws.com/login.html";
         }
     }
 }, 2000);
@@ -305,7 +305,7 @@ function rebindEvents() {
 
         $(".settingToggler").change(function(){
                 
-            var url = "http://daywon-api-staging.herokuapp.com/users/settings";
+            var url = "https://daywon-api-prod.herokuapp.com/users/settings";
             var setting1 = new Boolean($("#toggle:checked").length);
             var setting2 = new Boolean($("#toggle2:checked").length);
             var setting3 = new Boolean($("#toggle3:checked").length);
@@ -477,7 +477,7 @@ function rebindEvents() {
         if ($('.ocount').length) {
             $.ajax({
                 type: 'GET',
-                url: 'http://daywon-api-staging.herokuapp.com/orphans',
+                url: 'https://daywon-api-prod.herokuapp.com/orphans',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {
@@ -511,7 +511,7 @@ function rebindEvents() {
             $("#reportCount > span").html(totalUsers);
             $.ajax({
                 type: 'GET',
-                url: 'http://daywon-api-staging.herokuapp.com/users/settings/',
+                url: 'https://daywon-api-prod.herokuapp.com/users/settings/',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {
@@ -552,7 +552,7 @@ function rebindEvents() {
             });
             $.ajax({
                 type: 'GET',
-                url: 'http://daywon-api-staging.herokuapp.com/users/info/',
+                url: 'https://daywon-api-prod.herokuapp.com/users/info/',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {
@@ -582,7 +582,7 @@ function rebindEvents() {
         if ($("#adminTable").length) {
             $.ajax({
                 type: 'GET',
-                url: 'http://daywon-api-staging.herokuapp.com/reports_admin',
+                url: 'https://daywon-api-prod.herokuapp.com/reports_admin',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {
@@ -914,7 +914,7 @@ function rebindEvents() {
 
         $.ajax({
             type: 'GET',
-            url: 'http://daywon-api-staging.herokuapp.com/contacts',
+            url: 'https://daywon-api-prod.herokuapp.com/contacts',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -944,7 +944,7 @@ function rebindEvents() {
                   datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
                   queryTokenizer: Bloodhound.tokenizers.whitespace,
                   prefetch: {
-                    url: 'http://daywon-api-staging.herokuapp.com/events',
+                    url: 'https://daywon-api-prod.herokuapp.com/events',
                     ajax: ajaxObj,
                     filter: function(obj) {
                       return obj.events;
@@ -956,7 +956,7 @@ function rebindEvents() {
                   datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
                   queryTokenizer: Bloodhound.tokenizers.whitespace,
                   prefetch: {
-                    url: 'http://daywon-api-staging.herokuapp.com/tasks',
+                    url: 'https://daywon-api-prod.herokuapp.com/tasks',
                     ajax: ajaxObj,
                     filter: function(obj) {
                       return obj.tasks;
@@ -968,7 +968,7 @@ function rebindEvents() {
                   datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
                   queryTokenizer: Bloodhound.tokenizers.whitespace,
                   prefetch: {
-                    url: 'http://daywon-api-staging.herokuapp.com/tags',
+                    url: 'https://daywon-api-prod.herokuapp.com/tags',
                     ajax: ajaxObj,
                     filter: function(obj) {
                       return obj.tags;
@@ -1114,7 +1114,7 @@ function rebindEvents() {
                     var displayText;
                     var objImage;
                     var payload;
-                    var url = 'http://daywon-api-staging.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
+                    var url = 'https://daywon-api-prod.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
                     //check which object has been selected
                     if (datum.hasOwnProperty('organization')) { // contact
                         objectID = 'contact' + datum.id;

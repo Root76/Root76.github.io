@@ -14,7 +14,7 @@
 				var getTasks = function(cb) {
 		            $.ajax({
 		                type: 'GET',
-		                url: 'https://daywon-api-staging.herokuapp.com/tasks',
+		                url: 'https://daywon-api-prod.herokuapp.com/tasks',
 		                contentType: "application/json",
 		                dataType: "json",
 		                headers: {
@@ -84,7 +84,7 @@
 								
 								$.ajax({
 							        type: 'GET',
-							        url: 'https://daywon-api-staging.herokuapp.com/events/' + calItem.id,
+							        url: 'https://daywon-api-prod.herokuapp.com/events/' + calItem.id,
 							        contentType: "application/json",
 							        dataType: "json",
 							        headers: {
@@ -127,7 +127,7 @@
 
 								$.ajax({
 							        type: 'GET',
-							        url: 'https://daywon-api-staging.herokuapp.com/tasks/' + calItem.id,
+							        url: 'https://daywon-api-prod.herokuapp.com/tasks/' + calItem.id,
 							        contentType: "application/json",
 							        dataType: "json",
 							        headers: {
