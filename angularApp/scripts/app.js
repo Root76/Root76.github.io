@@ -61,6 +61,8 @@ var hashDetection = new hashHandler();
 			$scope.allReady = false;
 
 			$scope.loadContacts = function() {
+
+				var thisName, theseEmails, emailObject;
 				$scope.contactsPromise = contactService.Contacts.query();
 				$scope.contactsPromise.$promise.then(function(data) {
 					
@@ -70,6 +72,19 @@ var hashDetection = new hashHandler();
 					for (var i = 0; i < allObjects.contacts.length; i++) {
 						allObjects.contacts[i]['type'] = "contact";
 						allObjects.contacts[i]['title'] = allObjects.contacts[i]['name'];
+						thisName = allObjects.contacts[i]['name'] || '';
+						theseEmails = allObjects.contacts.emails || '';
+						console.log(theseEmails.length)
+						if (thisName.indexOf('@') > -1) {
+							if (theseEmails.indexOf(thisName) < 0) {
+								console.log("not found in emails, pushing to slot " + theseEmails.length);
+								emailObject = {
+									email: thisName
+								};
+								allObjects.contacts[i]['emails'][theseEmails.length] = emailObject;
+								console.log(allObjects.contacts[i]);
+							}
+						}
 					}
 
 					$scope.FilteredContacts = allObjects.contacts;
@@ -82,6 +97,7 @@ var hashDetection = new hashHandler();
 					});
 
 				});
+
 			};
 
 			$scope.loadEvents = function() {

@@ -132,7 +132,6 @@
 			
 			$scope.contactPromise = contactService.Contact.get({contact_id: $stateParams['contact_id']}, function(data) {
 
-				console.log(data);
 				$scope.contact = data;
 
 				if($scope.contact.phones.length == 0)
