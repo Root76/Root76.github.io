@@ -6,20 +6,20 @@
 		function($resource, $scope, $state, eventService) {
 
 			$scope.EventShow = ['All', 'Tagged', 'New This Week', 'New This Month', 'Recent'];
-
 			$scope.EventFilter = $scope.EventShow[0];
+
+			var today = moment().format('YYYYMMDDHHMMSS');
+			var lastWeek = moment().subtract('days', 7).calendar();
+			lastWeek = moment(lastWeek).format('YYYYMMDDHHMMSS');
+			var lastMonth = moment().subtract('months', 1).calendar();
+			lastMonth = moment(lastMonth).format('YYYYMMDDHHMMSS');
+			var thisCreateDate;
 
 			$scope.updateEventList = function() {
 
 				console.log("chosen filter");
 				console.log($scope.EventFilter);
 				$scope.FilteredEvents = new Array();
-
-				var today = moment().format('YYYYMMDDHHMMSS');
-				var lastMonth = moment().subtract('months', 1).calendar();
-				lastMonth = moment(lastMonth).format('YYYYMMDDHHMMSS');
-				console.log("last month: " + lastMonth);
-				var thisDate;
 
 				if ($scope.EventFilter === "All") {
 					$scope.FilteredEvents = $scope.AllFilteredEvents;
@@ -32,22 +32,20 @@
 					}					
 				}
 				else if ($scope.EventFilter === "New This Week") {
-					for (var i = 0; i < $scope.events.length; i++) {
-						if ($scope.events[i]['status'] == true) {
-							$scope.FilteredEvents.push($scope.events[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredEvents);
+					for (var i = 0; i < $scope.AllFilteredEvents.length; i++) {
+						thisCreateDate = moment($scope.AllFilteredEvents[i]['created_at']).format('YYYYMMDDHHMMSS');
+						if (thisCreateDate > lastWeek) {
+							$scope.FilteredEvents.push($scope.AllFilteredEvents[i]);
 						}
 					}					
 				}
 				else if ($scope.EventFilter === "New This Month") {
-					for (var i = 0; i < $scope.events.length; i++) {
-						if ($scope.events[i]['status'] == true) {
-							$scope.FilteredEvents.push($scope.events[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredEvents);
+					for (var i = 0; i < $scope.AllFilteredEvents.length; i++) {
+						thisCreateDate = moment($scope.AllFilteredEvents[i]['created_at']).format('YYYYMMDDHHMMSS');
+						if (thisCreateDate > lastMonth) {
+							$scope.FilteredEvents.push($scope.AllFilteredEvents[i]);
 						}
-					}					
+					}	
 				}
 				else if ($scope.EventFilter === "Recent") {
 					$scope.EventList = $scope.events;
@@ -62,8 +60,6 @@
 					});
 					for (var i = 0; i < 10; i++) {
 						$scope.FilteredEvents.push($scope.EventList[i]);
-						console.log("status was true, pushing to array");
-						console.log($scope.FilteredEvents);
 					}					
 				}
 

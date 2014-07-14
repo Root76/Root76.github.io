@@ -68,7 +68,6 @@
 				else if ($scope.ContactFilter === "New This Week") {
 					for (var i = 0; i < $scope.contacts.length; i++) {
 						thisCreateDate = moment($scope.contacts[i]['created_at']).format('YYYYMMDDHHMMSS');
-						console.log("created at: " + thisCreateDate);
 						if (thisCreateDate > lastWeek) {
 							$scope.FilteredContacts.push($scope.contacts[i]);
 						}
@@ -80,8 +79,6 @@
 						console.log("created at: " + thisCreateDate);
 						if (thisCreateDate > lastMonth) {
 							$scope.FilteredContacts.push($scope.contacts[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredContacts);
 						}
 					}	
 				}
@@ -98,8 +95,6 @@
 					});
 					for (var i = 0; i < 10; i++) {
 						$scope.FilteredContacts.push($scope.ContactList[i]);
-						console.log("status was true, pushing to array");
-						console.log($scope.FilteredContacts);
 					}				
 				}
 

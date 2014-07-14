@@ -938,7 +938,7 @@ h1, h2, h3, h4 {
 
 #otheroptions {
 	position:absolute;
-	bottom:50px;
+	bottom:10px;
 	width:100%;
 	text-align:right;
 	padding-right:100px;
@@ -2029,7 +2029,7 @@ to {
 
 #settingsummary {
 	width:125px;
-	height:550px;
+	height:447px;
 	float:left;
 	border:1px solid #ccc;
 }
@@ -2123,10 +2123,10 @@ to {
 }
 
 #settingfooter {
-	padding:50px;
+	padding:25px;
 	float:right;
 	width:83%;
-	height:330px;
+	height:230px;
 	background:#fff;
 	position:relative;
 	top:20px;
@@ -4048,7 +4048,6 @@ input#toggle5:checked + label:after {
 	position: relative;
 	top: -10px;
 	height: 0px;
-	z-index: 1200;
 }
 .small-create-icon.calendar-create-icon {
 	height: 30px;
