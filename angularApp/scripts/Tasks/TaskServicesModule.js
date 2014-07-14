@@ -2,12 +2,10 @@
 
 	var TaskServicesModule = angular.module('TaskServices', ['ngResource']);
 
-	var baseURL = "https://daywon-api-staging.herokuapp.com";
-
 	TaskServicesModule.factory('taskService', ['$resource', '$http', '$log', 
 		function ($resource, $http, $log) {
 			return {
-				Tasks : $resource(baseURL + "/tasks", null, {
+				Tasks : $resource($scope.baseURL + "/tasks", null, {
 					
 					create:
 					{
@@ -20,7 +18,7 @@
 					}
 				}),
 
-				Task : $resource(baseURL + "/tasks/:task_id", {task_id:"@id"}, {
+				Task : $resource($scope.baseURL + "/tasks/:task_id", {task_id:"@id"}, {
 					
 					save:
 					{

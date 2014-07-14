@@ -10,11 +10,11 @@ function QueryStringToJSON() {
 
 var query_string = QueryStringToJSON();
 
-//var authToken = query_string.authentication_token;
-//var authEmail = query_string.user_email;
+var authToken = query_string.authentication_token;
+var authEmail = query_string.user_email;
 
-var authToken = '4N9-_NWfYvYxpesMVpne';
-var authEmail = 'hweaver@evenspring.com';
+//var authToken = '4N9-_NWfYvYxpesMVpne';
+//var authEmail = 'hweaver@evenspring.com';
 
 function hashHandler(){
     this.oldHash = window.location.hash;
@@ -30,7 +30,6 @@ function hashHandler(){
     this.Check = setInterval(function(){ detect() }, 100);
 }
 
-var baseURL = "https://daywon-api-staging.herokuapp.com";
 
 var hashDetection = new hashHandler();
 
@@ -50,6 +49,8 @@ var hashDetection = new hashHandler();
 
 	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
 		function($scope, $resource, $modal, contactService, tagService, taskService, eventService) {
+
+			$scope.baseURL = "https://daywon-api-prod.herokuapp.com";
 
 			var allObjects = {
 				contacts: "",
@@ -279,7 +280,7 @@ var hashDetection = new hashHandler();
 
 			$scope.loadOrphans = function() {
 
-				$scope.orphansPromise = $resource(baseURL + "/orphans").get();
+				$scope.orphansPromise = $resource($scope.baseURL + "/orphans").get();
 				$scope.eventOrphans = [];
 				$scope.taskOrphans = [];
 				$scope.tagOrphans = [];

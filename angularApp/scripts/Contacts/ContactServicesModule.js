@@ -2,12 +2,10 @@
 	
 	var ContactServicesModule = angular.module('ContactServices', ['ngResource']);
 
-	var baseURL = "https://daywon-api-staging.herokuapp.com";
-
-	ContactServicesModule.factory('contactService', ['$resource', '$http', '$log', 
-		function ($resource, $http, $log) {
+	ContactServicesModule.factory('contactService', ['$resource', '$scope', '$http', '$log', 
+		function ($resource, $scope, $http, $log) {
 			return {
-						Contacts: $resource(baseURL + '/contacts', null, {
+						Contacts: $resource($scope.baseURL + '/contacts', null, {
 							create:
 							{
 								method: 'POST',
@@ -22,7 +20,7 @@
 
 							}
 						}),
-						Contact:  $resource(baseURL + '/contacts/:contact_id', {contact_id:"@id"}, {
+						Contact:  $resource($scope.baseURL + '/contacts/:contact_id', {contact_id:"@id"}, {
 
 							save:
 							{
