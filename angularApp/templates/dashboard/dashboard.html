@@ -123,7 +123,7 @@
             <div class="subitem subdash" ng-repeat="tag in tags | orderBy:TagOrder.prop ">
               <a ui-sref="tags.tag({tag_id: tag.id})">
                 <img class="subicon" src="img/tags.png" />
-                <span class="subitemtext subdashtext">{{tag.name}}</span>          
+                <span class="subitemtext subdashtext">{{tag.name}} ({{tag.count}})</span>          
               </a>
             </div>
             <div class="subitem subdash" ng-if="tags.length == 0">

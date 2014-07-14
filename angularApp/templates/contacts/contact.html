@@ -104,9 +104,9 @@
 
     <div class="infopanel">
       <form id="addForm">
-        <div class="formrow">Add events: <br />
+        <div class="formrow typeaheadAssociated">Add events: <br />
           <!-- <input id="typeAheadAddEvent" /> -->
-          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in contact.events">
@@ -122,8 +122,8 @@
 
     <div class="infopanel">
       <form id="addForm">
-        <div class="formrow">Add tasks: <br />
-          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
+        <div class="formrow typeaheadAssociated">Add tasks: <br />
+          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="task in contact.tasks">
@@ -139,8 +139,8 @@
 
     <div class="infopanel">
       <form id="addForm">
-        <div class="formrow">Add tags: <br />
-          <input type="text" ng-model="selectedTag" placeholder="Type to select tag" typeahead="tag as tag.name for tag in tags | filter:{name:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTag = undefined;" class="form-control">
+        <div class="formrow typeaheadAssociated">Add tags: <br />
+          <input type="text" ng-model="selectedTag" placeholder="Type to select tag" typeahead="tag as tag.name for tag in tags | filter:{name:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedTag = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="tag in contact.tags">
