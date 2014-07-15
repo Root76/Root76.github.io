@@ -71,11 +71,13 @@ var hashDetection = new hashHandler();
 
 			$scope.loadContacts = function() {
 
+				$scope.globalUserSettings = $resource('/users/settings').get();
+
 				var thisName, theseEmails, emailObject;
 				$scope.contactsPromise = contactService.Contacts.query();
 				$scope.contactsPromise.$promise.then(function(data) {
-					
-					$scope.contacts = data
+
+					$scope.contacts = data;
 
 					allObjects.contacts = data;
 					for (var i = 0; i < allObjects.contacts.length; i++) {
@@ -104,7 +106,6 @@ var hashDetection = new hashHandler();
 							contact.tagcount = data.tags.length;
 						});
 					});
-
 				});
 
 			};
@@ -471,9 +472,20 @@ var hashDetection = new hashHandler();
 			}
 
 			$scope.getContactTitle = function(contact) {
+
 				if(contact)
 					if(contact.name)
-						return contact.name;
+						if($scope.globalUserSettings.sort_by_last_name)
+						{
+							//stuff
+							var fullname = contact.name.split(' ');
+							var firstname = fullname.slice(0, -1).join(' ');
+							var lastname = fullname.slice(-1).join(' ');
+
+							return lastname + ", " + firstname;
+						}
+						else
+							return contact.name;
 					else
 						if(contact.emails && contact.emails[0] && contact.emails[0].email)
 							return contact.emails[0].email;

@@ -37,7 +37,7 @@
 									delete contact["tags"];
 									delete contact["events"];
 									delete contact["tasks"];
-								
+
 									return {'contact': contact};
 
 								}].concat($http.defaults.transformRequest)

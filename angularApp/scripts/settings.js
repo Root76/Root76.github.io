@@ -27,7 +27,10 @@ SettingsModule.controller('SettingsController', ['$scope', '$resource', '$http',
 
 		$scope.saveSettings = function() {
 			console.log($scope.userSettings);
-			$scope.userSettings.$save();
+
+			$scope.userSettings.$save().then(function(){
+				$scope.loadContacts();
+			});
 		};
 
 	}]);

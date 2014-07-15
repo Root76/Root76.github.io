@@ -50,13 +50,12 @@
 
 			$scope.updateContactList = function() {
 
-				console.log("chosen filter");
-				console.log($scope.ContactFilter);
 				$scope.FilteredContacts = new Array();
 				var today = moment().format('MMMM Do YYYY');
 
 				if ($scope.ContactFilter === "All") {
-					$scope.FilteredContacts = $scope.contacts;
+					for(var i = 0; i < $scope.contacts.length; i++)
+						$scope.FilteredContacts.push($scope.contacts[i]);
 				}
 				else if ($scope.ContactFilter === "Tagged") {
 					for (var i = 0; i < $scope.contacts.length; i++) {
@@ -104,6 +103,29 @@
 				{title: 'Name', prop: 'name'}, 
 				{title: 'Company', prop: 'organization'}
 			];
+
+			$scope.ContactOrdering = function(contact) {
+				
+				if($scope.ContactOrder.prop == 'name')
+					if(contact.name)
+						if($scope.globalUserSettings.sort_by_last_name)
+						{
+							var fullname = contact.name.split(' ');
+							var firstname = fullname.slice(0, -1).join(' ');
+							var lastname = fullname.slice(-1).join(' ');
+
+							return lastname + ", " + firstname;
+						}
+						else
+							return contact.name;
+					else if(contact.emails && contact.emails[0] && contact.emails[0].email)
+						return contact.emails[0].email;
+					else 
+						return '';
+
+				else if($scope.ContactOrder.prop == 'organization')
+					return contact.organization;
+			};
 
 			$scope.ContactOrder = $scope.ContactSort[0];
 
