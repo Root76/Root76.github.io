@@ -16,8 +16,8 @@
 				if(index > -1)
 					$scope.tags.splice(index, 1);
 
-				tagService.Tag.delete({tag_id:tag.id});
-
+				tagService.Tag.delete({tag_id:tag.id}).$promise.then(function(){ $scope.loadOrphans(); });
+	
 				$state.go('tags.index');
 
 			}

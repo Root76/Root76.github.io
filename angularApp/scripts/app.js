@@ -438,6 +438,7 @@ var hashDetection = new hashHandler();
 							contactService.Contacts.create(newObject).$promise.then(function(){
 								console.log("Reloading contacts");
 								$scope.loadContacts();	
+								$scope.loadOrphans();
 							});
 						}
 						else if(newObject.type == "event")
@@ -445,7 +446,8 @@ var hashDetection = new hashHandler();
 							delete newObject.type;
 							eventService.Events.create(newObject).$promise.then(function(){
 								console.log("Reloading events");
-								$scope.loadEvents();	
+								$scope.loadEvents();
+								$scope.loadOrphans();
 							});
 							
 						}
@@ -455,6 +457,7 @@ var hashDetection = new hashHandler();
 							taskService.Tasks.create(newObject).$promise.then(function(){
 								console.log("Reloading tasks");
 								$scope.loadTasks();	
+								$scope.loadOrphans();
 							});
 						}
 						else if(newObject.type == "tag")
@@ -463,8 +466,10 @@ var hashDetection = new hashHandler();
 							tagService.Tags.create(newObject).$promise.then(function(){
 								console.log("Reloading tags");
 								$scope.loadTags();	
+								$scope.loadOrphans();
 							});
 						}
+
 					}
 					
 				});

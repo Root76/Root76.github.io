@@ -80,7 +80,7 @@
 				}
 
 				eventService.Event.delete({event_id:event.id});
-
+				$scope.loadOrphans();
 				$state.go('events.index');
 			}
 

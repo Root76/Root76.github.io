@@ -20,7 +20,7 @@
 					}
 
 					taskService.Task.delete({task_id:task.id});
-
+					$scope.loadOrphans();
 					$state.go('tasks.index');
 				}
 			}

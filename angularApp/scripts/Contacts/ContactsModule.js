@@ -143,7 +143,7 @@
 					$scope.FilteredContacts.splice(index, 1);
 
 				contactService.Contact.delete({contact_id:contact.id});
-
+				$scope.loadOrphans();
 				$state.go('contacts.index');
 
 			}
