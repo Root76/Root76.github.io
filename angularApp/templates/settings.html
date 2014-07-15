@@ -4,7 +4,7 @@
     <div class="section-container" id="taskscont">
       <div class="row">
         <div id="settingsummary">
-          <img src="img/contacts.png" id="settingimage" />
+          <img ng-src="{{user.avatar || 'img/contacts.png'}}" id="settingimage"/>
           <div class="itemcounts">
             <div class="itemcount">
               <a ui-sref="contacts.index"><img src="img/contacts.png" /><p>{{contacts.length}}</p></a>
@@ -22,9 +22,9 @@
         </div>
         <div id="settingmain">
           <div id="settingname">
-            <h1></h1>
+            <h1>{{user.name}}</h1>
             <hr />
-            <h3></h3>
+            <h3>{{user.email}}</h3>
           </div>
         </div>
         <div id="settingfooter">
@@ -53,23 +53,23 @@
             </div>
           </div>
           <div class="settingoption">
-            <input type="checkbox" name="toggle" id="toggle" class="settingToggler">
+            <input type="checkbox" name="toggle" id="toggle" ng-model="userSettings.sort_by_last_name" ng-change="saveSettings()">
             <label for="toggle"></label>
             <h5>Sort by last name</h5>
           </div>
           <div class="settingoption">
-            <input type="checkbox" name="toggle2" id="toggle2" class="settingToggler">
+            <input type="checkbox" name="toggle2" id="toggle2" ng-model="userSettings.show_new_user_popups" ng-change="saveSettings()">
             <label for="toggle2"></label>
             <h5>Turn new user popups back on</h5>
           </div>
           <div class="settingoption">
-            <input type="checkbox" name="toggle3" id="toggle3" class="settingToggler">
+            <input type="checkbox" name="toggle3" id="toggle3" ng-model="userSettings.display_contact_notes" ng-change="saveSettings()">
             <label for="toggle3"></label>
             <h5>Always display note field for Contact</h5>
           </div>
           <div class="settingoption">
-            <input type="checkbox" name="toggle4" id="toggle4" class="settingToggler">
-            <label for="toggle5"></label>
+            <input type="checkbox" name="toggle4" id="toggle4" ng-model="userSettings.receive_email" ng-change="saveSettings()">
+            <label for="toggle4"></label>
             <h5>Opt-out of emails from Day Won</h5>
           </div>
           <div id="otheroptions">

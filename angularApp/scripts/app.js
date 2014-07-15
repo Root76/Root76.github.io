@@ -30,8 +30,6 @@ function hashHandler(){
     this.Check = setInterval(function(){ detect() }, 100);
 }
 
-var baseURL = "https://daywon-api-staging.herokuapp.com";
-
 var hashDetection = new hashHandler();
 
 (function(){
@@ -40,12 +38,23 @@ var hashDetection = new hashHandler();
 		['ui.router', 'ui.bootstrap', 'xeditable',
 		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
-		'Calendar', 'Orphans',
+		'Calendar', 'Orphans', 'Settings',
 		'Routing', 'CreateModule', 'ReportsModule', 'DashboardModule']);
 
 	app.config(['$httpProvider', function($httpProvider) {
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-TOKEN'] = authToken;
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-EMAIL'] = authEmail; 
+
+		$httpProvider.interceptors.push(function($q) {
+			return {
+				'request': function(config) {
+					if(config.url.indexOf("template") == -1) //don't change the url if referencing templates
+						config.url =  "https://daywon-api-staging.herokuapp.com" + config.url;
+					return config || $q.when(config);
+				}
+			}
+		});
+
 	}]);
 
 	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
@@ -295,7 +304,7 @@ var hashDetection = new hashHandler();
 
 			$scope.loadOrphans = function() {
 
-				$scope.orphansPromise = $resource(baseURL + "/orphans").get();
+				$scope.orphansPromise = $resource("/orphans").get();
 				$scope.eventOrphans = [];
 				$scope.taskOrphans = [];
 				$scope.tagOrphans = [];
