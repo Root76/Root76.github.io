@@ -76,6 +76,15 @@
         </h4>
       </div>
 
+      <div class="contactrow">
+        <img src="img/location.png">
+        <h4>
+          <span editable-text="contact.organization" onaftersave="saveContact()">
+            {{contact.organization || 'No company'}}
+          </span>
+        </h4>
+      </div>
+
       <div class="contactpropertiesrow">
         <h3 class="propertiesHeader">
           Custom Fields
@@ -198,6 +207,12 @@
             <img src="img/location.png" />
             <span editable-text="contact.address" onaftersave="saveContact()">                  
               {{contact.address || 'No address'}}
+            </span>
+          </div>
+          <div class="contactitem">
+            <img src="img/location.png" />
+            <span editable-text="contact.organization" onaftersave="saveContact()">                  
+              {{contact.organization || 'No company'}}
             </span>
           </div>
         </div>
