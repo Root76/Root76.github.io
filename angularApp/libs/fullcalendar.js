@@ -6295,13 +6295,13 @@ function agendaListView(element, calendar) {
                     et      = moment(displayeventlist[i].end).subtract('hours', 4);
                     lurl    = displayeventlist[i].url;
                     classes = displayeventlist[i].className;
+                    	
+                    st = moment(st).format('hh:mm a');
 
                     if (displayeventlist[i].due) {
                     	et = st;
-                    	st = "Due at " + st;
                     	console.log("It's a Task");
                     } else {
-                    	st = moment(st).format('hh:mm a');
                     	et = moment(et).format('hh:mm a');
                     	console.log("It's an event");
                     }
@@ -6335,7 +6335,11 @@ function agendaListView(element, calendar) {
                     }
 
                     if (thisEventEnd > thisDayEnd) {
-                    	st = "Starts at " + st;
+                    	if (displayeventlist[i].due) {
+                    		st = "Due at " + st;
+                    	} else {
+                    		st = "Starts at " + st;
+                    	}
                     	et = '';
                     	console.log(thisEventEnd + " is greater than " + thisDayEnd);
                     } else {

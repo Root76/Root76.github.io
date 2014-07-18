@@ -283,21 +283,34 @@ var hashDetection = new hashHandler();
 			};
 
 			$scope.combineAll = function() {
+				var i = 0;
 
 				var checkPromises = setInterval(function() {
-
-					if (allObjects.contacts.length > 0 && allObjects.events.length) {
-
+					console.log("pass " + i);
+					if ((allObjects.contacts.length > 0 && allObjects.events.length) || (i > 50)) {
 						console.log("Promises fulfilled");
 						console.log("final object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
 						clearInterval(checkPromises);
-						var combinedObjects = allObjects.contacts.concat(allObjects.events, allObjects.tasks, allObjects.tags);
-						$scope.allReady = true;
+						var combinedObjects = new Array();
+						if (allObjects.contacts.length > 0) {
+							combinedObjects = combinedObjects.concat(allObjects.contacts);
+						}
+						if (allObjects.events.length > 0) {
+							combinedObjects = combinedObjects.concat(allObjects.events);
+						}
+						if (allObjects.tasks.length > 0) {
+							combinedObjects = combinedObjects.concat(allObjects.tasks);
+						}
+						if (allObjects.tags.length > 0) {
+							combinedObjects = combinedObjects.concat(allObjects.tags);
+						}
 						$scope.totalObjects = combinedObjects;
-
+						$scope.allReady = true;
 					} else {
 						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length);
 					}
+
+					i++;
 
 				}, 100);
 
