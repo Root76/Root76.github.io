@@ -6298,6 +6298,7 @@ function agendaListView(element, calendar) {
 
                     if (displayeventlist[i].due) {
                     	et = st;
+                    	st = "Due at " + st;
                     	console.log("It's a Task");
                     } else {
                     	st = moment(st).format('hh:mm a');
@@ -6313,7 +6314,7 @@ function agendaListView(element, calendar) {
                         $("<li class='fc-agendaList-dayHeader ui-widget-header'>" +
                             "<span class='fc-agendaList-day'>"+dd+"</span>" +
                             "<span class='fc-agendaList-date'>"+lday+"</span>" +
-                        "</li>").appendTo(html);                           
+                        "</li>").appendTo(html);
                         temp = lday;
                     }
 
