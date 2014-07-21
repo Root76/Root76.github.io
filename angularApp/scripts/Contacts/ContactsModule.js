@@ -194,11 +194,47 @@
 				}
 
 				setTimeout(function(){
+
 					if (data.emails.length > 0) {
 						var emailString = 'https://mail.google.com/mail/u/?authuser=' + authEmail + '#search/from:' + data.emails[0].email + '+OR+to:' + data.emails[0].email;
 						$('.contactDetails .emailLink').attr("href", emailString);
+					} else {
+						$('.contactDetails .emailLink').attr("href", "");
 					}
-					console.log(emailString);
+
+					new Opentip(".trashicon", "Delete", {
+		                style: "bottomtip"
+		            });
+
+		            var deleteTip = new Opentip(".trashicon", "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
+		                style: "deleteconfirm"
+		            });
+
+			        $(".trashicon").unbind("click").bind("click", function(){
+			        	deleteTip.show();
+			            setTimeout(function(){
+			                $(".deleteContainer > div:first-child").click(function(){
+			                    $("#destroy").click();
+			                    deleteTip.hide();
+			                    var deleteTip2 = new Opentip(".trashicon", '<span>Item deleted.</span>', {
+			                        style: "deleteconfirm2"
+			                    });
+			                    $("#deleteButton").click();
+			                    deleteTip2.show();
+			                    setTimeout(function(){
+			                        deleteTip2.hide();
+			                    }, 1500);
+			                });
+			                $(".deleteContainer > div:last-child").click(function(){
+			                    deleteTip.hide();
+			                });
+			            }, 100);
+			        });
+
+		            new Opentip("#detailmenubar > a > img", "Create", {
+		                style: "bottomtip"
+		            }); 
+
 				}, 100);
 			});
 

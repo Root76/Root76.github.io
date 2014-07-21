@@ -45,6 +45,11 @@
 			$scope.taskPromise = taskService.Task.get({task_id: $stateParams['task_id']}, function(data) {
 				console.log(data);
 				$scope.task = data;
+				setTimeout(function(){
+		            new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
+		                style: "bottomtip"
+		            }); 
+				}, 100);
 			});
 
 

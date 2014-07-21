@@ -10,11 +10,11 @@ function QueryStringToJSON() {
 
 var query_string = QueryStringToJSON();
 
-//var authToken = query_string.authentication_token;
-//var authEmail = query_string.user_email;
+var authToken = query_string.authentication_token;
+var authEmail = query_string.user_email;
 
-var authToken = '4N9-_NWfYvYxpesMVpne';
-var authEmail = 'hweaver@evenspring.com';
+//var authToken = '4N9-_NWfYvYxpesMVpne';
+//var authEmail = 'hweaver@evenspring.com';
 
 function hashHandler(){
     this.oldHash = window.location.hash;
@@ -23,6 +23,8 @@ function hashHandler(){
     var detect = function(){
         if(that.oldHash!=window.location.hash){
             console.log(window.location.hash);
+            $("#preload").remove();
+            $("#recent10").addClass('active');
             that.oldHash = window.location.hash;
             rebindEvents();
         }
@@ -85,15 +87,12 @@ var hashDetection = new hashHandler();
 						allObjects.contacts[i]['title'] = allObjects.contacts[i]['name'];
 						thisName = allObjects.contacts[i]['name'] || '';
 						theseEmails = allObjects.contacts.emails || '';
-						console.log(theseEmails.length)
 						if (thisName.indexOf('@') > -1) {
 							if (theseEmails.indexOf(thisName) < 0) {
-								console.log("not found in emails, pushing to slot " + theseEmails.length);
 								emailObject = {
 									email: thisName
 								};
 								allObjects.contacts[i]['emails'][theseEmails.length] = emailObject;
-								console.log(allObjects.contacts[i]);
 							}
 						}
 					}
@@ -283,36 +282,47 @@ var hashDetection = new hashHandler();
 			};
 
 			$scope.combineAll = function() {
+
 				var i = 0;
+				var contactSet = false;
+				var eventSet = false;
+				var taskSet = false;
+				var tagSet = false;
+				var combinedObjects = new Array();
+				$scope.totalObjects = combinedObjects;
 
 				var checkPromises = setInterval(function() {
-					console.log("pass " + i);
-					if ((allObjects.contacts.length > 0 && allObjects.events.length) || (i > 50)) {
-						console.log("Promises fulfilled");
+
+					if (allObjects.contacts.length > 0 && contactSet == false) {
+						$scope.totalObjects = $scope.totalObjects.concat(allObjects.contacts);
+						contactSet = true;
+					}
+					if (allObjects.events.length > 0 && eventSet == false) {
+						$scope.totalObjects = $scope.totalObjects.concat(allObjects.events);
+						eventSet = true;
+					}
+					if (allObjects.tasks.length > 0 && taskSet == false) {
+						$scope.totalObjects = $scope.totalObjects.concat(allObjects.tasks);
+						taskSet = true;
+					}
+					if (allObjects.tags.length > 0 && tagSet == false) {
+						$scope.totalObjects = $scope.totalObjects.concat(allObjects.tags);
+						tagSet = true;
+					}
+
+					if ((allObjects.contacts.length > 0 && allObjects.events.length > 0) || (i > 5)) {
+
 						console.log("final object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
+
 						clearInterval(checkPromises);
-						var combinedObjects = new Array();
-						if (allObjects.contacts.length > 0) {
-							combinedObjects = combinedObjects.concat(allObjects.contacts);
-						}
-						if (allObjects.events.length > 0) {
-							combinedObjects = combinedObjects.concat(allObjects.events);
-						}
-						if (allObjects.tasks.length > 0) {
-							combinedObjects = combinedObjects.concat(allObjects.tasks);
-						}
-						if (allObjects.tags.length > 0) {
-							combinedObjects = combinedObjects.concat(allObjects.tags);
-						}
-						$scope.totalObjects = combinedObjects;
 						$scope.allReady = true;
-					} else {
-						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length);
+						$("#preload").remove();
+						$("#recent10").addClass('active');
 					}
 
 					i++;
 
-				}, 100);
+				}, 1000);
 
 			}
 

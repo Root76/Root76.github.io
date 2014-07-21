@@ -2,7 +2,7 @@ setTimeout(function() {
     var logSelect = document.getElementById("eaddr");
     logSelect.onchange = function() {
         if (logSelect.value === "Logout") {
-            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://daywon.s3-website-us-west-2.amazonaws.com/login.html";
+            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://s3-us-west-2.amazonaws.com/daywon-prod/login.html";
         }
     }
 }, 2000);
@@ -100,31 +100,6 @@ function rebindEvents() {
     	function hasWhiteSpace(s) {
     	  return s.indexOf(' ') >= 0;
     	}
-
-        $(".emailLink").attr("href", "");
-
-        $(".emailLink").parent().click(function(){
-            /*Grabbing the innerHTML alone doesn't work because of the <script> tags Ember inserts around model data. As a workaround, we grab all of the innerHTML, load it into a hidden div, drop the <script> tags from the DOM, and grab the hidden div's innerHTML (just the email address)*/
-            var emailAddr = $(".emailfield");
-            emailAddr = $(emailAddr[0]).html();
-            $("#preloader").html(emailAddr);
-            $("#preloader > script").remove();
-            $("#preloader > span > script").remove();
-            emailAddr = $("#preloader > span").html();
-            if (emailAddr != null) {
-                emailAddr = emailAddr.replace(/\s+/g, '');
-                console.log("email: " + emailAddr);
-                $(".dynamicEmail").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&to=");
-                $(".mobileEmail").attr("href", "mailto:");
-                var desktopLink = $(".dynamicEmail").attr("href");
-                var mobileLink = $(".mobileEmail").attr("href");
-                $(".dynamicEmail").attr("href", desktopLink + emailAddr);
-                $(".mobileEmail").attr("href", mobileLink + emailAddr);
-            } else {
-                $('#openModal7').addClass('active');
-                return false;
-            }
-        });
 
         $("#mobileContact").click(function(){
             $(".backArrow").click();
@@ -246,25 +221,6 @@ function rebindEvents() {
                 $(".taskDate").show();
                 $(".taskDateTime").hide();
             }
-        });
-
-        $("#trashicon").unbind("click").bind("click", function(){
-            setTimeout(function(){
-                $(".deleteContainer > div:first-child").click(function(){
-                    $("#destroy").click();
-                    deleteTip.hide();
-                    var deleteTip2 = new Opentip("#trashicon", '<span>Item deleted.</span>', {
-                        style: "deleteconfirm2"
-                    });
-                    deleteTip2.show();
-                    setTimeout(function(){
-                        deleteTip2.hide();
-                    }, 1500);
-                });
-                $(".deleteContainer > div:last-child").click(function(){
-                    deleteTip.hide();
-                });
-            }, 100);
         });
 
         $("#detailTrash").unbind("click").bind("click", function(){
@@ -615,19 +571,7 @@ function rebindEvents() {
             });     
             new Opentip("#detailmenubar > img:nth-child(4)", "Tags", {
                 style: "toptip"
-            });   
-            new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
-                style: "bottomtip"
-            }); 
-            new Opentip("#trashicon", "Delete", {
-                style: "toptip"
-            }); 
-            var deleteTip = new Opentip("#trashicon", '<p>Are you sure you want to delete this item?</p><br /><div class="deleteContainer"><div>Yes</div><div>No</div></div>', {
-                style: "deleteconfirm"
             });
-            new Opentip("#detailmenubar > a > img", "Create", {
-                style: "bottomtip"
-            }); 
         }
         if ($("#detailTrash").length) {
             new Opentip("#detailTrash", "Delete", {
@@ -741,25 +685,6 @@ function rebindEvents() {
     	if (links.hasClass('active'))
     		viewMenu.addClass('active');
     	else viewMenu.removeClass('active');
-
-        // javascript-based calling of modals so as to not interfere with Ember URLS with #
-        var allModals = $('.modalDialog');
-        var closeButtons = $('.close');
-        closeButtons.click(function(){ allModals.removeClass('active'); }); 
-        var modal1Links = $('.openModal');
-        modal1Links.click(function(){ $('#openModal').addClass('active'); });
-        var modal2Links = $('.openModal2');
-        modal2Links.click(function(){ $('#openModal2').addClass('active'); });
-        var modal3Links = $('.openModal3');
-        modal3Links.click(function(){ $('#openModal3').addClass('active'); });
-        var modal4Links = $('.openModal4');
-        modal4Links.click(function(){ $('#openModal4').addClass('active'); });
-        var modal5Links = $('.openModal5');
-        modal5Links.click(function(){ $('#openModal5').addClass('active'); });
-        var modal6Links = $('.openModal6');
-        modal6Links.click(function(){ $('#openModal6').addClass('active'); });
-        var modal7Links = $('.openModal7');
-        modal6Links.click(function(){ $('#openModal7').addClass('active'); });
 
     	// set current email
         $("#eaddr option:first").html(authEmail);

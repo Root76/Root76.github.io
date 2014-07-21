@@ -953,6 +953,9 @@ h1, h2, h3, h4 {
 	padding-left:0px !important;
 }
 
+#deleteButton {
+}
+
 #appcont {
 	background:#f7f7f7;
 	height:650px;
@@ -1239,6 +1242,14 @@ h1, h2, h3, h4 {
 
 #recentdash {
 	background:#00a3ac;
+}
+
+#recent10 {
+	display:none;
+}
+
+#recent10.active {
+	display:block !important;
 }
 
 #tasksdash {
