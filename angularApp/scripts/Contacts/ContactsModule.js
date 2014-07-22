@@ -206,6 +206,52 @@
 		                style: "bottomtip"
 		            });
 
+		            var slideImages = $('.contactgroup img');
+		            new Opentip(slideImages[0], "Compose Email", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[1], "View Emails", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[2], "Phone Number", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[3], "Birthday", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[4], "Location", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[5], "Company", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[6], "Related Events", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[7], "Related Tasks", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[8], "Related Tags", {
+		                style: "lefttip"
+		            });
+
+		        	var contactImages = $('.contactAttrImg');
+		        	new Opentip(contactImages[0], "Phone Number", {
+		                style: "lefttip"
+		            });
+		        	new Opentip(contactImages[1], "Compose Email", {
+		                style: "lefttip"
+		            });
+		        	new Opentip(contactImages[2], "Birthday", {
+		                style: "lefttip"
+		            });
+		        	new Opentip(contactImages[3], "Location", {
+		                style: "lefttip"
+		            });
+		        	new Opentip(contactImages[4], "Company", {
+		                style: "lefttip"
+		            });
+
 		            var deleteTip = new Opentip(".trashicon", "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
 		                style: "deleteconfirm"
 		            });
@@ -229,10 +275,6 @@
 			                });
 			            }, 100);
 			        });
-
-		            new Opentip("#detailmenubar > a > img", "Create", {
-		                style: "bottomtip"
-		            }); 
 
 				}, 100);
 			});

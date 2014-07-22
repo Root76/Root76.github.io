@@ -43,6 +43,33 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
         	});
         }
 
+        $('.showitem').unbind("click").bind("click", function(event){
+            var subSortType = event.target.id;
+            var subSortList = document.getElementsByClassName(subSortType);
+            if ($(event.target).hasClass('selected')) {
+                $(event.target).removeClass('selected');
+                $(subSortList).css("display", "none");
+                if (this.id === 'maintask') {
+                    $('.calTask').removeClass('active');
+                } else if (this.id === 'mainevent') {
+                    $('.calEvent').removeClass('active');
+                } else {
+                    console.log('nope');
+                }
+            } else {
+                $(event.target).addClass('selected');
+                $(subSortList).css("display", "block");
+                if (this.id === 'maintask') {
+                    $('.calTask').addClass('active');
+                } else if (this.id === 'mainevent') {
+                    $('.calEvent').addClass('active');
+                } else {
+                    console.log('nope');
+                }
+            }
+            $(".listitem.active").accordion("refresh");
+        });
+
         $('.sortitem').unbind("click").bind("click", function(event){
 
             var sortType = this.id;
@@ -108,6 +135,47 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 $('.accordionarrow').addClass('arrowdown');
             }, 100);
         });
+
+        if ($("#subEvent").length) {
+            new Opentip("#subEvent", "Events", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#subTask").length) {
+            new Opentip("#subTask", "Tasks", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#subContact").length) {
+            new Opentip("#subContact", "Contacts", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#subTag").length) {
+            new Opentip("#subTag", "Tags", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#mainevent").length) {
+            new Opentip("#mainevent", "Events", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#maintask").length) {
+            new Opentip("#maintask", "Tasks", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#maincontact").length) {
+            new Opentip("#maincontact", "Contacts", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#maintag").length) {
+            new Opentip("#maintag", "Tags", {
+                style: "bottomtip"
+            });
+        }
 
 		$scope.getObjectDetails = function(object) {
 

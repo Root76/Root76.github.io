@@ -44,6 +44,17 @@
 	                style: "bottomtip"
 	            });
 
+	        	var taggedItems = $('.taggedObjects img');
+	            new Opentip(taggedItems[0], "Tagged Contacts", {
+	                style: "lefttip"
+	            });
+	            new Opentip(taggedItems[1], "Tagged Events", {
+	                style: "lefttip"
+	            });
+	            new Opentip(taggedItems[2], "Tagged Tasks", {
+	                style: "lefttip"
+	            });
+
 	            var deleteTip = new Opentip(".trashicon", "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
 	                style: "deleteconfirm"
 	            });

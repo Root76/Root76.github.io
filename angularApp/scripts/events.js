@@ -7,6 +7,77 @@ setTimeout(function() {
     }
 }, 2000);
 
+Opentip.styles.bottomtip = {
+  tipJoint: "top",
+  group: "tags",
+  target: true,
+  offset: [0, -140],
+  delay: 0
+};
+Opentip.styles.toptip = {
+  tipJoint: "bottom",
+  group: "tags",
+  target: true,
+  offset: [0, -130],
+  delay: 0
+};
+Opentip.styles.righttip = {
+  tipJoint: "left",
+  group: "tags",
+  target: true,
+  delay: 0,
+  offset: [10, -140]
+};
+Opentip.styles.lefttip = {
+  tipJoint: "right",
+  group: "tags",
+  target: true,
+  delay: 0,
+  offset: [10, -140]
+};    
+Opentip.styles.success = {
+  tipJoint: "top",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  background: "#72FF72",
+  borderColor: "#3CFF3C"
+};
+Opentip.styles.error = {
+  tipJoint: "top",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  background: "#FF7272",
+  borderColor: "#FF3C3C"
+};
+Opentip.styles.calitem = {
+  tipJoint: "bottom",
+  group: "tags",
+  target: true,
+  offset: [0, -140],
+  delay: 0
+};
+Opentip.styles.deleteconfirm = {
+  tipJoint: "top",
+  group: "deletion",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  showOn: "click",
+  hideTrigger: "closeButton"
+};
+Opentip.styles.deleteconfirm2 = {
+  tipJoint: "top",
+  group: "deletion",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  showOn: null,
+  background: "#72FF72",
+  borderColor: "#3CFF3C"
+};
+
 rebindEvents();
 
 function rebindEvents() { 
@@ -24,33 +95,6 @@ function rebindEvents() {
     		
     //		if (!samePage)
     //			$("#loader").addClass("showLoader");
-        });
-
-        $('.showitem').unbind("click").bind("click", function(event){
-            var subSortType = event.target.id;
-            var subSortList = document.getElementsByClassName(subSortType);
-            if ($(event.target).hasClass('selected')) {
-                $(event.target).removeClass('selected');
-                $(subSortList).css("display", "none");
-                if (this.id === 'maintask') {
-                    $('.calTask').removeClass('active');
-                } else if (this.id === 'mainevent') {
-                    $('.calEvent').removeClass('active');
-                } else {
-                    console.log('nope');
-                }
-            } else {
-                $(event.target).addClass('selected');
-                $(subSortList).css("display", "block");
-                if (this.id === 'maintask') {
-                    $('.calTask').addClass('active');
-                } else if (this.id === 'mainevent') {
-                    $('.calEvent').addClass('active');
-                } else {
-                    console.log('nope');
-                }
-            }
-            $(".listitem.active").accordion("refresh");
         });
 
         $('.sortcont').click(function(e) {
@@ -237,7 +281,7 @@ function rebindEvents() {
                 $(totalFields[(totalFields.length - 1)]).remove();
             }
         });
-        
+
         $("#phonesContainer img:last-of-type").unbind("click").bind("click", function(){
             var totalFields = $(this).siblings('input');
             if (totalFields.length > 1) {
@@ -422,117 +466,7 @@ function rebindEvents() {
 
         today = moment(today).format('dddd, MMMM Do, YYYY');
         $('#curDate').html(today);
-
-        Opentip.styles.bottomtip = {
-          tipJoint: "top",
-          group: "tags",
-          target: true,
-          offset: [0, -140],
-          delay: 0
-        };
-        Opentip.styles.toptip = {
-          tipJoint: "bottom",
-          group: "tags",
-          target: true,
-          offset: [0, -130],
-          delay: 0
-        };
-        Opentip.styles.righttip = {
-          tipJoint: "left",
-          group: "tags",
-          target: true,
-          delay: 0,
-          offset: [10, -140]
-        };
-        Opentip.styles.lefttip = {
-          tipJoint: "right",
-          group: "tags",
-          target: true,
-          delay: 0,
-          offset: [10, -140]
-        };    
-        Opentip.styles.success = {
-          tipJoint: "top",
-          target: true,
-          offset: [0, -140],
-          delay: 0,
-          background: "#72FF72",
-    	  borderColor: "#3CFF3C"
-        };
-        Opentip.styles.error = {
-          tipJoint: "top",
-          target: true,
-          offset: [0, -140],
-          delay: 0,
-          background: "#FF7272",
-    	  borderColor: "#FF3C3C"
-        };
-        Opentip.styles.calitem = {
-          tipJoint: "bottom",
-          group: "tags",
-          target: true,
-          offset: [0, -140],
-          delay: 0
-        };
-        Opentip.styles.deleteconfirm = {
-          tipJoint: "top",
-          group: "deletion",
-          target: true,
-          offset: [0, -140],
-          delay: 0,
-          showOn: "click",
-          hideTrigger: "closeButton"
-        };
-        Opentip.styles.deleteconfirm2 = {
-          tipJoint: "top",
-          group: "deletion",
-          target: true,
-          offset: [0, -140],
-          delay: 0,
-          showOn: null,
-          background: "#72FF72",
-          borderColor: "#3CFF3C"
-        };
-        if ($("#subEvent").length) {
-            new Opentip("#subEvent", "Events", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#subTask").length) {
-            new Opentip("#subTask", "Tasks", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#subContact").length) {
-            new Opentip("#subContact", "Contacts", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#subTag").length) {
-            new Opentip("#subTag", "Tags", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#mainevent").length) {
-            new Opentip("#mainevent", "Events", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#maintask").length) {
-            new Opentip("#maintask", "Tasks", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#maincontact").length) {
-            new Opentip("#maincontact", "Contacts", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#maintag").length) {
-            new Opentip("#maintag", "Tags", {
-                style: "bottomtip"
-            });
-        }
+        
         if ($("#printimg").length) {
             new Opentip("#printimg", "Print", {
                 style: "bottomtip"
@@ -565,8 +499,8 @@ function rebindEvents() {
                 style: "deleteconfirm"
             });
         }
-        if ($("#createicon").length) {
-            new Opentip("#createicon", "Create", {
+        if ($(".createicon").length) {
+            new Opentip(".createicon", "Create", {
                 style: "toptip"
             });
         }
@@ -600,60 +534,7 @@ function rebindEvents() {
                 style: "lefttip"
             });
         }
-        if ($('.contactDetails').length) {
-            var slideImages = $('.contactgroup img');
-            new Opentip(slideImages[0], "Compose Email", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[1], "View Emails", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[2], "Phone Number", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[3], "Birthday", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[4], "Location", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[5], "Related Events", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[6], "Related Tasks", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[7], "Related Tags", {
-                style: "lefttip"
-            });
-        }
-        if ($('.itemcounts').length) {
-        	var settingIcons = $('.itemcount');
-        	new Opentip(settingIcons[0], "Contacts", {
-                style: "lefttip"
-            });
-        	new Opentip(settingIcons[1], "Events", {
-                style: "lefttip"
-            });
-        	new Opentip(settingIcons[2], "Tasks", {
-                style: "lefttip"
-            });
-        	new Opentip(settingIcons[3], "Tags", {
-                style: "lefttip"
-            });
-        }
-        if ($('.taggedObjects').length) {
-        	var taggedItems = $('.taggedObjects img');
-            new Opentip(taggedItems[0], "Related Events", {
-                style: "lefttip"
-            });
-            new Opentip(taggedItems[1], "Related Tasks", {
-                style: "lefttip"
-            });
-            new Opentip(taggedItems[2], "Related Tags", {
-                style: "lefttip"
-            });
-        }
+
         if ($("#adminTable").length) {
             new Opentip("#analyticsLogo", "Google Analytics", {
                 style: "toptip"

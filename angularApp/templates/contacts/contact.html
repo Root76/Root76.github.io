@@ -25,7 +25,7 @@
     <div class="infopanel selected">
 
       <div class="contactrow" ng-repeat="phone in contact.phones">
-        <img src="img/cellphone.png">
+        <img src="img/cellphone.png" class="contactAttrImg">
         <div>
           <h4 class="phonenumber">
             <span editable-text="phone.number" onaftersave="saveContact()">
@@ -42,8 +42,7 @@
       </div>
 
       <div class="contactrow" ng-repeat="email in contact.emails">
-        <a href="javascript:void(0)" class="openModal7" style="display:none">No email</a>
-        <a href="" target="_blank" class="dynamicEmail emailLink desktopEmail"><img src="img/openmail.png"></a>
+        <a href="" target="_blank" class="dynamicEmail emailLink desktopEmail"><img src="img/openmail.png" class="contactAttrImg"></a>
         <a href="" class="dynamicEmail emailLink mobileEmail"><img src="img/openmail.png"></a>
         <h4 class="emailfield">
           <span editable-text="email.email" onaftersave="saveContact()">
@@ -59,7 +58,7 @@
       </div>
 
       <div class="contactrow">
-        <img id="bdayImage" src="img/birthday.png">
+        <img id="bdayImage" src="img/birthday.png" class="contactAttrImg">
         <h4 id="bday">
           <span editable-text="contact.extended_properties[birthdayIndex].value" onaftersave="saveContact()">
             {{contact.extended_properties[birthdayIndex].value || 'No birthday'}}
@@ -68,7 +67,7 @@
       </div>
 
       <div class="contactrow">
-        <img id="locationImage" src="img/location.png">
+        <img id="locationImage" src="img/location.png" class="contactAttrImg">
         <h4 class="contactlocation">
           <span editable-text="contact.address" onaftersave="saveContact()">
             {{contact.address || 'No location'}}
@@ -77,7 +76,7 @@
       </div>
 
       <div class="contactrow">
-        <img src="img/location.png">
+        <img src="img/location.png" class="contactAttrImg">
         <h4>
           <span editable-text="contact.organization" onaftersave="saveContact()">
             {{contact.organization || 'No company'}}
