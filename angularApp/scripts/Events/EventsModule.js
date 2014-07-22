@@ -95,7 +95,7 @@
 			$scope.eventDates = { startDate : new Date(), endDate : new Date() };
 
 			$scope.eventPromise = eventService.Event.get({event_id: $stateParams['event_id']}, function(data) {
-				console.log(data);
+
 				$scope.event = data;
 
 				if($scope.event.is_all_day)
@@ -108,6 +108,35 @@
 					$scope.eventDates.startDate = new Date($scope.event.start_datetime);
 					$scope.eventDates.endDate = new Date($scope.event.end_datetime);
 				}
+
+				new Opentip(".trashicon", "Delete", {
+	                style: "bottomtip"
+	            });
+
+	            var deleteTip = new Opentip(".trashicon", "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
+	                style: "deleteconfirm"
+	            });
+
+		        $(".trashicon").unbind("click").bind("click", function(){
+		        	deleteTip.show();
+		            setTimeout(function(){
+		                $(".deleteContainer > div:first-child").click(function(){
+		                    deleteTip.hide();
+		                    $("#deleteButton").click();
+		                    var deleteTip2 = new Opentip("#taskpane1 > img", '<span>Item deleted.</span>', {
+		                        style: "deleteconfirm2"
+		                    });
+		          			deleteTip2.show();
+		                    setTimeout(function(){
+		                        deleteTip2.hide();
+		                    }, 1500);
+		                });
+		                $(".deleteContainer > div:last-child").click(function(){
+		                    deleteTip.hide();
+		                });
+		            }, 100);
+		        });
+
 			});
 
 			$scope.recurrenceValues = [

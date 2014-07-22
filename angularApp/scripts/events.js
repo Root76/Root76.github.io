@@ -223,37 +223,21 @@ function rebindEvents() {
             }
         });
 
-        $("#detailTrash").unbind("click").bind("click", function(){
-            setTimeout(function(){
-                $(".deleteContainer > div:first-child").click(function(){
-                    $("#destroy").click();
-                    deleteTip3.hide();
-                    var deleteTip4 = new Opentip("#trashicon", '<span>Item deleted.</span>', {
-                        style: "deleteconfirm2"
-                    });
-                    deleteTip4.show();
-                    setTimeout(function(){
-                        deleteTip4.hide();
-                    }, 1500);
-                });
-                $(".deleteContainer > div:last-child").click(function(){
-                    deleteTip3.hide();
-                });
-            }, 100);
-        });
-
         $("#emailsContainer img:first-of-type").unbind("click").bind("click", function(){
             $("#emailsContainer").append('<input type="text" class="contactEmail" />');
         });
+
         $("#phonesContainer img:first-of-type").unbind("click").bind("click", function(){
             $("#phonesContainer").append('<input type="text" class="contactPhone" />');
         });
+
         $("#emailsContainer img:last-of-type").unbind("click").bind("click", function(){
             var totalFields = $(this).siblings('input');
             if (totalFields.length > 1) {
                 $(totalFields[(totalFields.length - 1)]).remove();
             }
         });
+        
         $("#phonesContainer img:last-of-type").unbind("click").bind("click", function(){
             var totalFields = $(this).siblings('input');
             if (totalFields.length > 1) {

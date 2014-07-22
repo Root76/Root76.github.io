@@ -14,8 +14,8 @@
     <img src="img/tags.png" />
     <span id="taskcheck"><img src="img/check.png" /></span>
     <a href="javascript:void(0)"><img src="img/create.png" class="createicon addTask" ng-click="create('task')" /></a>
-    <img src="img/trash.png" ng-click="deleteTask(task)" class="trashicon" />
-    <button id="destroy">{{task.id}}</button>           
+    <img src="img/trash.png" class="trashicon" />
+    <div id="deleteButton" ng-click="deleteTask(task)"></div>         
   </div>
   <div class="panelcontent" id="taskscontent">
     <div class="infopanel">

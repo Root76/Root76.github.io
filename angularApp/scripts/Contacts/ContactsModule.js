@@ -214,13 +214,12 @@
 			        	deleteTip.show();
 			            setTimeout(function(){
 			                $(".deleteContainer > div:first-child").click(function(){
-			                    $("#destroy").click();
 			                    deleteTip.hide();
-			                    var deleteTip2 = new Opentip(".trashicon", '<span>Item deleted.</span>', {
+			                    $("#deleteButton").click();
+			                    var deleteTip2 = new Opentip("#profilepic", '<span>Item deleted.</span>', {
 			                        style: "deleteconfirm2"
 			                    });
-			                    $("#deleteButton").click();
-			                    deleteTip2.show();
+			          			deleteTip2.show();
 			                    setTimeout(function(){
 			                        deleteTip2.hide();
 			                    }, 1500);
