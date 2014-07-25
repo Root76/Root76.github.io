@@ -490,7 +490,18 @@ var hashDetection = new hashHandler();
 								console.log("Reloading tags");
 								$scope.loadTags();	
 								$scope.loadOrphans();
+								reactivateAccords();
 							});
+						}
+
+						function reactivateAccords() {
+							if ($(".sortitem.selected").length) {
+								var thisActive = $(".sortitem.selected");
+								console.log("reactivating" + thisActive);
+								setTimeout(function(){
+									$(thisActive).click();
+								}, 100);
+							}
 						}
 
 					}

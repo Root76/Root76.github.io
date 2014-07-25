@@ -2041,7 +2041,7 @@ to {
 
 #settingsummary {
 	width:125px;
-	height:447px;
+	height:432px;
 	float:left;
 	border:1px solid #ccc;
 }
@@ -2138,7 +2138,7 @@ to {
 	padding:25px;
 	float:right;
 	width:83%;
-	height:230px;
+	height:215px;
 	background:#fff;
 	position:relative;
 	top:20px;
@@ -2211,6 +2211,7 @@ to {
 
 .settingspage h1 {
 	margin-left:0px !important;
+	margin-top:0px !important;
 }
 
 #adminTable {

@@ -195,11 +195,21 @@
 
 				setTimeout(function(){
 
-					if (data.emails.length > 0) {
-						var emailString = 'https://mail.google.com/mail/u/?authuser=' + authEmail + '#search/from:' + data.emails[0].email + '+OR+to:' + data.emails[0].email;
-						$('.contactDetails .emailLink').attr("href", emailString);
+					var theseDetails = $(".contactitem");
+
+					if ($scope.contact.emails[0]['email'].length > 0) {
+						console.log("it's got an email");
 					} else {
-						$('.contactDetails .emailLink').attr("href", "");
+						$('.emailLink').removeAttr("href");
+						console.log("no email");
+						var thisCompose = $(theseDetails[0]).find('a');
+			            new Opentip(thisCompose[0], "<span>No email address to compose to.</span>", {
+			                style: "error2"
+			            });
+			            var thisView = $(theseDetails[1]).find('a');
+			            new Opentip(thisView, "<span>No email address to view.</span>", {
+			                style: "error2"
+			            });
 					}
 
 					new Opentip(".trashicon", "Delete", {

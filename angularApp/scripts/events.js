@@ -2,7 +2,7 @@ setTimeout(function() {
     var logSelect = document.getElementById("eaddr");
     logSelect.onchange = function() {
         if (logSelect.value === "Logout") {
-            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://s3-us-west-2.amazonaws.com/daywon-prod/login.html";
+            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://s3-us-west-2.amazonaws.com/daywon-staging/login.html";
         }
     }
 }, 2000);
@@ -50,6 +50,15 @@ Opentip.styles.error = {
   delay: 0,
   background: "#FF7272",
   borderColor: "#FF3C3C"
+};
+Opentip.styles.error2 = {
+  tipJoint: "top",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  background: "#FF7272",
+  borderColor: "#FF3C3C",
+  showOn: "click"
 };
 Opentip.styles.calitem = {
   tipJoint: "bottom",
@@ -543,7 +552,7 @@ function rebindEvents() {
                 style: "toptip"
             });
         }
-    	
+
     	// navbar active state for the dropdown View button
     	var viewMenu = $('#viewmenu');
     	var links = $('a', viewMenu);

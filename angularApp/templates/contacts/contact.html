@@ -76,7 +76,7 @@
       </div>
 
       <div class="contactrow">
-        <img src="img/location.png" class="contactAttrImg">
+        <img src="img/company.png" class="contactAttrImg">
         <h4>
           <span editable-text="contact.organization" onaftersave="saveContact()">
             {{contact.organization || 'No company'}}
@@ -181,14 +181,16 @@
         </h1>
         <div class="contactgroup contactDetails">
           <div class="contactitem">
-            <a href="" target="_blank" class="dynamicEmail emailLink"><img src="img/openmail.png"></a>
+            <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" target="_blank" class="dynamicEmail emailLink" ng-if="contact.emails[0].email"><img src="img/openmail.png"></a>
+            <a href="" target="_blank" class="dynamicEmail" ng-if="!contact.emails[0].email"><img src="img/openmail.png"></a>
             <span editable-text="contact.emails[0].email" onaftersave="saveContact()">
               {{contact.emails[0].email || 'No email'}}
             </span>
           </div>
           <div class="contactitem">
             <img src="img/openmail.png" />
-            <a href="emailLink" target="_blank" class="emailLink">View Emails</a>
+            <a ng-href="https://mail.google.com/mail/u/1/#search/from:{{contact.emails[0].email}}+OR+to:{{contact.emails[0].email}}" target="_blank" class="emailLink viewEmails" ng-if="contact.emails[0].email">View Emails</a>
+            <a href="" class="viewEmails" ng-if="!contact.emails[0].email">View Emails</a>
           </div>
           <div class="contactitem">
             <img src="img/cellphone.png" />
@@ -209,7 +211,7 @@
             </span>
           </div>
           <div class="contactitem">
-            <img src="img/location.png" />
+            <img src="img/company.png" />
             <span editable-text="contact.organization" onaftersave="saveContact()">                  
               {{contact.organization || 'No company'}}
             </span>
