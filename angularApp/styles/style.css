@@ -231,7 +231,7 @@ hr {
 }
 
 .formrow .dropdown-menu {
-	width:auto;
+	width:100%;
 	opacity:.9;
 	background-color:#000;
 	color:#fff;
@@ -299,6 +299,8 @@ hr {
 
 .formrow .dropdown-menu li a {
 	color:#eee;
+	white-space:normal;
+	position:relative;
 }
 
 #orphancount {
@@ -4152,7 +4154,6 @@ input#toggle5:checked + label:after {
 .typeaheadAssociated img {
 	width: 40px;
 	height: auto;
-	position: relative;
 	top: -8px;
 	right: -35px;
 	float: right;
@@ -4170,7 +4171,6 @@ input#toggle5:checked + label:after {
 	height:40px;
 	width:auto;
 }
-
 
 .squaredTwo {
 	width: 28px;

@@ -2,7 +2,7 @@ setTimeout(function() {
     var logSelect = document.getElementById("eaddr");
     logSelect.onchange = function() {
         if (logSelect.value === "Logout") {
-            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://s3-us-west-2.amazonaws.com/daywon-staging/login.html";
+            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://s3-us-west-2.amazonaws.com/daywon/login.html";
         }
     }
 }, 2000);
