@@ -13,20 +13,19 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 var currentSort = $('.sortitem.selected').attr('id');
                 var allItems = $('.listitem.' + currentSort);
                 var j = 0;
-                for (var i = 0; j < 15; i++) {
-                    if (!$(allItems[i]).hasClass('active')) {
-
-                        $(allItems[i]).addClass('active');
-                        $(allItems[i]).accordion({
-                            active: false,
-                            collapsible: true,
-                            header: "h3.mainsort"
-                        });
-
-                        bindArrow(allItems[i]);
-                        $(allItems[i]).addClass('fadeInto');
-                        j++;
-
+                for (var i = 0; i < allItems.length; i++) {
+                    if (j < 15) {
+                        if ($(allItems[i]).hasClass('notYet')) {
+                            $(allItems[i]).removeClass('notYet');
+                            $(allItems[i]).accordion({
+                                active: false,
+                                collapsible: true,
+                                header: "h3.mainsort"
+                            });
+                            bindArrow(allItems[i]);
+                            $(allItems[i]).addClass('fadeInto');
+                            j++;
+                        }
                     }
                 }
             }
@@ -70,7 +69,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             $(".listitem.active").accordion("refresh");
         });
 
-        $('.sortitem').unbind("click").bind("click", function(event){
+        /*$('.sortitem').unbind("click").bind("click", function(event){
 
             var sortType = this.id;
             var theseAccords = $('.listitem.' + sortType);
@@ -108,7 +107,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 		        $(allItems).addClass('fadeInto');
 		    }, 300);
 
-        });
+        });*/
 
         $('#collapseall').click(function(){
             setTimeout(function(){
@@ -206,6 +205,41 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             }
 
         };
+
+        $scope.changeSortBy = function($event) {
+
+            var selectedId = $event.currentTarget.id;
+            $(".sortitem").removeClass('selected');
+            $("#" + selectedId).addClass('selected');
+
+            if (selectedId == "maincontact") {
+                $scope.selectedSortBy = 'contact';
+            } else if (selectedId == "mainevent") {
+                $scope.selectedSortBy = 'event';
+            } else if (selectedId == "maintask") {
+                $scope.selectedSortBy = 'task';
+            } else if (selectedId == "maintag") {
+                $scope.selectedSortBy = 'tag';
+            }
+
+            setTimeout(function(){
+                var allItems = $('.listitem');
+                for (var i = 0; i < allItems.length; i++) {
+                    if (i < 15) {
+                        $(allItems[i]).accordion({
+                            active: true,
+                            collapsible: true,
+                            header: "h3.mainsort"
+                        });
+                        bindArrow(allItems[i]);
+                    } else {
+                        $(allItems[i]).addClass('notYet');
+                    }
+                }
+                $(allItems).addClass('fadeInto');
+            }, 100);
+
+        }
 
 	}, 100);
 

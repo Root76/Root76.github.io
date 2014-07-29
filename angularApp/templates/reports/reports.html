@@ -15,10 +15,10 @@
       <div id="sortby" class="menucont">
         <div><h2>Sort by:</h2></div>
         <div class="menusubcont">
-          <div class="subcontitem sortitem"  id="mainevent">
+          <div class="subcontitem sortitem" id="mainevent" ng-click="changeSortBy($event)">
             <a><img src="img/events.png" /></a>
           </div>
-          <div class="subcontitem sortitem" id="maintask">
+          <div class="subcontitem sortitem" id="maintask" ng-click="changeSortBy($event)">
             <a><img src="img/tasks.png" /></a>
             <ul>
               <li class="suboption">Date</li>
@@ -26,10 +26,10 @@
               <li class="suboption">Alphabetical</li>
             </ul>    
           </div>
-          <div class="subcontitem sortitem" id="maincontact">
+          <div class="subcontitem sortitem" id="maincontact" ng-click="changeSortBy($event)">
             <a><img src="img/contacts.png" /></a>
           </div>
-          <div class="subcontitem sortitem" id="maintag">
+          <div class="subcontitem sortitem" id="maintag" ng-click="changeSortBy($event)">
             <a><img src="img/tags.png" /></a>
             <ul>
               <li class="suboption">Alphabetical</li>
@@ -56,7 +56,7 @@
       <h3 id="collapseall" class="reportToggler">Collapse all</h3>
       <h3 id="expandall" class="reportToggler">Expand all</h3>
       <ul class="list">
-        <li class="listitem maincontact" ng-repeat="contact in FilteredContacts" ng-click="getObjectDetails(contact)">
+        <li class="listitem maincontact" ng-repeat="contact in FilteredContacts" ng-click="getObjectDetails(contact)" ng-if="selectedSortBy == 'contact'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <a ui-sref="contacts.contact({contact_id: contact.id})"><img src="img/contacts.png" class="listimg" /></a>
@@ -84,7 +84,7 @@
             </div>
           </div>
         </li>
-        <li class="listitem mainevent" ng-repeat="event in FilteredEvents" ng-click="getObjectDetails(event)">
+        <li class="listitem mainevent" ng-repeat="event in FilteredEvents" ng-click="getObjectDetails(event)" ng-if="selectedSortBy == 'event'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <a ui-sref="events.event({event_id: event.id})"><img src="img/events.png" class="listimg" /></a>
@@ -112,7 +112,7 @@
             </div>
           </div>
         </li> 
-        <li class="listitem maintask" ng-repeat="task in tasks" ng-click="getObjectDetails(task)">
+        <li class="listitem maintask" ng-repeat="task in tasks" ng-click="getObjectDetails(task)" ng-if="selectedSortBy == 'task'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <a ui-sref="tasks.task({task_id: task.id})"><img src="img/tasks.png" class="listimg" /></a>
@@ -141,7 +141,7 @@
             </div>
           </div>
         </li>
-        <li class="listitem maintag" ng-repeat="tag in tags" ng-click="getObjectDetails(tag)">
+        <li class="listitem maintag" ng-repeat="tag in tags" ng-click="getObjectDetails(tag)" ng-if="selectedSortBy == 'tag'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <a ui-sref="tags.tag({tag_id: tag.id})"><img src="img/tags.png" class="listimg" /></a>

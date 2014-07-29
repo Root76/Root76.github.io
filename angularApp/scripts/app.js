@@ -100,11 +100,11 @@ var hashDetection = new hashHandler();
 					$scope.FilteredContacts = allObjects.contacts;
 					$scope.AllFilteredContacts = $scope.FilteredContacts;
 
-					$scope.FilteredContacts.forEach(function(contact){
+					/*$scope.FilteredContacts.forEach(function(contact){
 						contactService.Contact.get({contact_id: contact.id}, function(data) {
 							contact.tagcount = data.tags.length;
 						});
-					});
+					});*/
 				});
 
 			};
@@ -201,14 +201,14 @@ var hashDetection = new hashHandler();
 						return 0;
 					});
 
-					$scope.FilteredEvents.forEach(function(event){
+					/*$scope.FilteredEvents.forEach(function(event){
 						eventService.Event.get({event_id: event.id}, function(data) {
 							event.tagcount = data.tags.length;
 							if (data.tags.length > 0) {
 								console.log(data.title + " tagged " + data.tags.length + " times");
 							}
 						});
-					});
+					});*/
 
 					$scope.AllFilteredEvents = $scope.FilteredEvents;
 
@@ -401,12 +401,12 @@ var hashDetection = new hashHandler();
 					});
 
 					$scope.FilteredOrphanEvents.forEach(function(event){
-						eventService.Event.get({event_id: event.id}, function(data) {
+						/*eventService.Event.get({event_id: event.id}, function(data) {
 							event.tagcount = data.tags.length;
 							if (data.tags.length > 0) {
 								console.log(data.title + " tagged " + data.tags.length + " times");
 							}
-						});
+						});*/
 					});
 
 					$scope.AllFilteredOrphanEvents = $scope.FilteredOrphanEvents;
