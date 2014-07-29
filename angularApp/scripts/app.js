@@ -34,6 +34,12 @@ function hashHandler(){
 
 var hashDetection = new hashHandler();
 
+var previouslySelected;
+var relatedContacts = true;
+var relatedEvents = true;
+var relatedTasks = true;
+var relatedTags = true;
+
 (function(){
 
 	var app = angular.module('DayWonApplication', 
@@ -116,7 +122,7 @@ var hashDetection = new hashHandler();
 					$scope.events = data.events;
 
 					var today = moment().format('MMMM Do YYYY');
-					var todayRaw = moment().format('YYYYMMDDHHMMSS')
+					var todayRaw = moment().format('YYYYMMDDHHMMSS');
 					var tomorrow = moment().add('days', 1).format('MMMM Do YYYY');
 					var day3 = moment().add('days', 2).format('MMMM Do YYYY');
 					var day4 = moment().add('days', 3).format('MMMM Do YYYY');

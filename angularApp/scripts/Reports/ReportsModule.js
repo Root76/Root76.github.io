@@ -5,8 +5,31 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 	function($scope, $resource, $modal, contactService, tagService, taskService, eventService){
 
 	setTimeout(function(){
-		console.log("starting our attack run...");
-        
+
+		console.log("starting our attack run..." + previouslySelected);
+        setTimeout(function(){
+            $("#" + previouslySelected).click()
+            $scope.showContacts = relatedContacts;
+            $scope.showEvents = relatedEvents;
+            $scope.showTasks = relatedTasks;
+            $scope.showTags = relatedTags;
+            console.log($scope.showContacts + " " + $scope.showEvents + " " + $scope.showTasks + " " + $scope.showTags)
+
+            if ($scope.showContacts == false) {
+                $("#subContact").removeClass("selected");
+            }
+            if ($scope.showEvents == false) {
+                $("#subEvent").removeClass("selected");
+            }
+            if ($scope.showTasks == false) {
+                $("#subTask").removeClass("selected");
+            }
+            if ($scope.showTags == false) {
+                $("#subTag").removeClass("selected");
+            }
+
+        }, 1);
+
         window.onscroll = function(ev) {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 155) {
                 console.log("you've really hit rock bottom, pal");
@@ -42,7 +65,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
         	});
         }
 
-        $('.showitem').unbind("click").bind("click", function(event){
+        /*$('.showitem').unbind("click").bind("click", function(event){
             var subSortType = event.target.id;
             var subSortList = document.getElementsByClassName(subSortType);
             if ($(event.target).hasClass('selected')) {
@@ -67,7 +90,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 }
             }
             $(".listitem.active").accordion("refresh");
-        });
+        });*/
 
         /*$('.sortitem').unbind("click").bind("click", function(event){
 
@@ -176,8 +199,9 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             });
         }
 
-		$scope.getObjectDetails = function(object) {
+		$scope.getObjectDetails = function(object, $event) {
 
+            var thisAccord = $event.currentTarget;
             if (object.type == 'contact') {
                 contactService.Contact.get({contact_id: object.id}, function(data) {
                		object.events = data.events;
@@ -206,21 +230,39 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 
         };
 
+        $scope.changeShowMe = function($event) {
+            var selectedShowMe = $event.currentTarget;
+            if ($(selectedShowMe).hasClass("selected")) {
+                $(selectedShowMe).removeClass("selected");
+            } else {
+                $(selectedShowMe).addClass("selected");
+            }
+            var selectedId = selectedShowMe.id;
+            if (selectedId == "subContact") {
+                $scope.showContacts = !$scope.showContacts;
+                relatedContacts = $scope.showContacts;
+            }
+            else if (selectedId == "subEvent") {
+                $scope.showEvents = !$scope.showEvents;
+                relatedEvents = $scope.showEvents;
+            }
+            else if (selectedId == "subTask") {
+                $scope.showTasks = !$scope.showTasks;
+                relatedTasks = $scope.showTasks;
+            }
+            else if (selectedId == "subTag") {
+                $scope.showTags = !$scope.showTags;
+                relatedTags = $scope.showTags;
+            }
+        }
+
         $scope.changeSortBy = function($event) {
 
             var selectedId = $event.currentTarget.id;
             $(".sortitem").removeClass('selected');
             $("#" + selectedId).addClass('selected');
 
-            if (selectedId == "maincontact") {
-                $scope.selectedSortBy = 'contact';
-            } else if (selectedId == "mainevent") {
-                $scope.selectedSortBy = 'event';
-            } else if (selectedId == "maintask") {
-                $scope.selectedSortBy = 'task';
-            } else if (selectedId == "maintag") {
-                $scope.selectedSortBy = 'tag';
-            }
+            $scope.selectedSortBy = selectedId;
 
             setTimeout(function(){
                 var allItems = $('.listitem');
@@ -229,7 +271,8 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                         $(allItems[i]).accordion({
                             active: true,
                             collapsible: true,
-                            header: "h3.mainsort"
+                            header: "h3.mainsort",
+                            heightStyle: "content"
                         });
                         bindArrow(allItems[i]);
                     } else {
@@ -239,8 +282,11 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 $(allItems).addClass('fadeInto');
             }, 100);
 
+            previouslySelected = selectedId;
+            console.log(previouslySelected);
+
         }
 
-	}, 100);
+	}, 1);
 
 }]);
