@@ -280,10 +280,11 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                     }
                 }
                 $(allItems).addClass('fadeInto');
-            }, 100);
+            }, 1);
 
             previouslySelected = selectedId;
             console.log(previouslySelected);
+            console.log(listCount + " accordions displayed");
 
         }
 

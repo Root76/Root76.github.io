@@ -34,7 +34,7 @@ function hashHandler(){
 
 var hashDetection = new hashHandler();
 
-var previouslySelected;
+var previouslySelected, listCount;
 var relatedContacts = true;
 var relatedEvents = true;
 var relatedTasks = true;
@@ -468,6 +468,7 @@ var relatedTags = true;
 								console.log("Reloading contacts");
 								$scope.loadContacts();	
 								$scope.loadOrphans();
+								reactivateAccords();
 							});
 						}
 						else if(newObject.type == "event")
@@ -477,6 +478,7 @@ var relatedTags = true;
 								console.log("Reloading events");
 								$scope.loadEvents();
 								$scope.loadOrphans();
+								reactivateAccords();
 							});
 							
 						}
@@ -487,6 +489,7 @@ var relatedTags = true;
 								console.log("Reloading tasks");
 								$scope.loadTasks();	
 								$scope.loadOrphans();
+								reactivateAccords();
 							});
 						}
 						else if(newObject.type == "tag")
@@ -501,13 +504,10 @@ var relatedTags = true;
 						}
 
 						function reactivateAccords() {
-							if ($(".sortitem.selected").length) {
-								var thisActive = $(".sortitem.selected");
-								console.log("reactivating" + thisActive);
-								setTimeout(function(){
-									$(thisActive).click();
-								}, 100);
-							}
+							console.log("reactivating " + $('.listitem').length + " accordions");
+							setTimeout(function(){
+								$('.sortitem.selected').click();
+							}, 500);
 						}
 
 					}

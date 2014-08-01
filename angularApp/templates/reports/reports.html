@@ -89,7 +89,7 @@
           <h3 class="mainsort">
             <a ui-sref="events.event({event_id: event.id})"><img src="img/events.png" class="listimg" /></a>
             <span class="hidden">{{event.id}}</span>
-            {{event.title}}
+            {{event.title || 'No event title'}}
           </h3>
           <div class="subitems">
             <div class="subitem ss3 subContact" ng-if="showContacts">
@@ -117,7 +117,7 @@
           <h3 class="mainsort">
             <a ui-sref="tasks.task({task_id: task.id})"><img src="img/tasks.png" class="listimg" /></a>
             <span class="hidden">{{task.id}}</span>
-            {{task.title || task.notes}}
+            {{task.title || task.notes || 'No task name'}}
             <img src="img/check.png" class="checkmark" />
           </h3>
           <div class="subitems">
@@ -146,7 +146,7 @@
           <h3 class="mainsort">
             <a ui-sref="tags.tag({tag_id: tag.id})"><img src="img/tags.png" class="listimg" /></a>
             <span class="hidden">{{tag.id}}</span>
-            {{tag.name}}
+            {{tag.name || 'No tag name'}}
           </h3>
           <div class="subitems">
             <div class="subitem ss3 subContact" ng-if="showContacts">
