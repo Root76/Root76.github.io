@@ -52,7 +52,6 @@ var relatedTags = true;
 	app.config(['$httpProvider', function($httpProvider) {
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-TOKEN'] = authToken;
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-EMAIL'] = authEmail; 
-
 		$httpProvider.interceptors.push(function($q) {
 			return {
 				'request': function(config) {
