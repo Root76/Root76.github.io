@@ -43,11 +43,8 @@
   <div id="schedule" class="menucont">
     <div><h3>Upcoming Schedule:</h3></div>
     <div class="selectcont">
-      <select>
-        <option>Option 1</option>
-        <option>Option 2</option>
-        <option>Option 3</option>
-      </select>
+      <!--<select ng-model="ContactFilter" ng-options="option for option in ContactShow" ng-change="updateContactList()"></select>-->
+      <select ng-model="ScheduleFilter" ng-options="option for option in ScheduleShow" ng-change="updateSchedule()"></select>
       <img src="img/downarrow.jpg" />
     </div>
   </div>
@@ -112,7 +109,7 @@
             </div>
           </div>
         </li> 
-        <li class="listitem maintask" ng-repeat="task in tasks" ng-click="getObjectDetails(task, $event)" ng-if="selectedSortBy == 'maintask'">
+        <li class="listitem maintask" ng-repeat="task in FilteredTasks" ng-click="getObjectDetails(task, $event)" ng-if="selectedSortBy == 'maintask'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <a ui-sref="tasks.task({task_id: task.id})"><img src="img/tasks.png" class="listimg" /></a>
