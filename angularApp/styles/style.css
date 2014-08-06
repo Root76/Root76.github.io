@@ -1951,10 +1951,6 @@ to {
 	height:0px;
 }
 
-.contactrow h4:hover {
-	text-decoration:underline;
-}
-
 .panelfooter h5 {
 	color: #fff;
 	padding-left: 25px;
@@ -4562,9 +4558,16 @@ span.editable-click {
     color: white;
     border-bottom: dotted 2px white;
 }
+.panelcontent span.editable-click {
+    border-bottom: dotted 2px #666;
+}
+#contactcontent span.editable-click {
+	border-bottom: dotted 2px white;
+} 
 span.editable-click:hover { 
     color: #FDFDFD;
     border-bottom-color: #FDFDFD;
+    cursor:pointer;
 }
 .notesField.editable {
 	margin-left:15px;

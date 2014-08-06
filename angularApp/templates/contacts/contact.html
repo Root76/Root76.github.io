@@ -42,8 +42,8 @@
       </div>
 
       <div class="contactrow" ng-repeat="email in contact.emails">
-        <a href="" target="_blank" class="dynamicEmail emailLink desktopEmail"><img src="img/openmail.png" class="contactAttrImg"></a>
-        <a href="" class="dynamicEmail emailLink mobileEmail"><img src="img/openmail.png"></a>
+        <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" target="_blank" class="dynamicEmail emailLink desktopEmail composeEmail"><img src="img/openmail.png" class="contactAttrImg"></a>
+        <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" class="dynamicEmail emailLink mobileEmail composeEmail"><img src="img/openmail.png"></a>
         <h4 class="emailfield">
           <span editable-text="email.email" onaftersave="saveContact()">
             {{email.email || 'No email'}}
@@ -181,8 +181,8 @@
         </h1>
         <div class="contactgroup contactDetails">
           <div class="contactitem">
-            <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" target="_blank" class="dynamicEmail emailLink" ng-if="contact.emails[0].email"><img src="img/openmail.png"></a>
-            <a href="" target="_blank" class="dynamicEmail" ng-if="!contact.emails[0].email"><img src="img/openmail.png"></a>
+            <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" target="_blank" class="dynamicEmail emailLink composeEmail" ng-if="contact.emails[0].email"><img src="img/openmail.png"></a>
+            <a href="" target="_blank" class="dynamicEmail composeEmail" ng-if="!contact.emails[0].email"><img src="img/openmail.png"></a>
             <span editable-text="contact.emails[0].email" onaftersave="saveContact()">
               {{contact.emails[0].email || 'No email'}}
             </span>

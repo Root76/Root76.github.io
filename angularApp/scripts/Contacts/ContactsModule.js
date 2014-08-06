@@ -203,10 +203,19 @@
 					} else {
 						$('.emailLink').removeAttr("href");
 						console.log("no email");
-						var thisCompose = $(theseDetails[0]).find('a');
-			            new Opentip(thisCompose[0], "<span>No email address to compose to.</span>", {
-			                style: "error2"
-			            });
+						var thisCompose = $('.composeEmail');
+						console.log(thisCompose);
+						if (thisCompose.length > 1) {
+				            for (var i = 0; i < thisCompose.length; i++) {
+					            new Opentip(thisCompose[i], "<span>No email address to compose to.</span>", {
+					                style: "error2"
+					            });
+				            }
+			        	} else if (thisCompose.length) {
+			        		new Opentip(thisCompose, "<span>No email address to compose to.</span>", {
+				                style: "error2"
+				            });
+			        	}
 			            var thisView = $(theseDetails[1]).find('a');
 			            new Opentip(thisView, "<span>No email address to view.</span>", {
 			                style: "error2"

@@ -6,6 +6,120 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 
 	setTimeout(function(){
 
+        $scope.ScheduleShow = ['All Open Activities', 'Today', 'Tomorrow', 'This Week', 'Next Week'];
+        $scope.ScheduleFilter = $scope.ScheduleShow[0];
+
+        $scope.updateSchedule = function() {
+
+            console.log($scope.ScheduleFilter);
+            $scope.FilteredContacts = new Array();
+            $scope.FilteredEvents = new Array();
+            $scope.FilteredTasks = new Array();
+            $scope.FilteredTags = new Array();
+            var today = moment().format('MMDDYY');
+            var tomorrow = moment().add('days', 1);
+            tomorrow = moment(tomorrow).format('MMDDYY');
+            console.log(today + " " + tomorrow);
+
+            if ($scope.ScheduleFilter == 'All Open Activities') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    $scope.FilteredTasks.push($scope.tasks[i]);
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }
+            }
+            else if ($scope.ScheduleFilter == 'Today') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    if ($scope.tasks[i]['due']) {
+                        var thisDue = moment($scope.tasks[i]['due']).format('MMDDYY');
+                        if (today == thisDue) {
+                            console.log($scope.tasks[i]['title'] + " is due today: " + thisDue);
+                            $scope.FilteredTasks.push($scope.tasks[i]);
+                        }
+                    }
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }
+            }
+            else if ($scope.ScheduleFilter == 'Tomorrow') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    if ($scope.tasks[i]['due']) {
+                        var thisDue = moment($scope.tasks[i]['due']).format('MMDDYY');
+                        if (tomorrow == thisDue) {
+                            console.log($scope.tasks[i]['title'] + " is due tomorrow: " + thisDue);
+                            $scope.FilteredTasks.push($scope.tasks[i]);
+                        }
+                    }
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }
+            }
+            else if ($scope.ScheduleFilter == 'This Week') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    $scope.FilteredTasks.push($scope.tasks[i]);
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }
+            }
+            else if ($scope.ScheduleFilter == 'Next Week') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    $scope.FilteredTasks.push($scope.tasks[i]);
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }              
+            }
+            setTimeout(function(){
+                $(".sortitem.selected").click()
+                var allAccords = $('.listitem');
+                console.log(allAccords.length);
+                if (allAccords.length > 1) {
+                    for (var i = 0; i < allAccords.length; i++) {
+                        if (i < 15) {
+                            $(allAccords[i]).removeClass('notYet');
+                            console.log("removing");
+                        }
+                    }
+                } else if (allAccords) {
+                    $(allAccords).removeClass('notYet');
+                }
+            }, 100);
+        }
+
 		console.log("starting our attack run..." + previouslySelected);
         setTimeout(function(){
             $("#" + previouslySelected).click()
