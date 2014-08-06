@@ -1770,6 +1770,16 @@ to {
 	width:100%;
 }
 
+.taskList img {
+	width:50px;
+	cursor:pointer;
+	opacity:.5;
+}
+
+.taskList img.selected {
+	opacity:1;
+}
+
 .panelcontent {
 	top:35px;
 	width:100%;

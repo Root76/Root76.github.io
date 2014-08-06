@@ -40,6 +40,7 @@ var relatedEvents = true;
 var relatedTasks = true;
 var relatedTags = true;
 
+
 (function(){
 
 	var app = angular.module('DayWonApplication', 
@@ -64,8 +65,8 @@ var relatedTags = true;
 
 	}]);
 
-	app.controller('IndexController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
-		function($scope, $resource, $modal, contactService, tagService, taskService, eventService) {
+	app.controller('IndexController', ['$scope', '$resource', '$modal', '$state', 'contactService', 'tagService', 'taskService', 'eventService', 
+		function($scope, $resource, $modal, $state, contactService, tagService, taskService, eventService) {
 
 			var allObjects = {
 				contacts: "",
@@ -538,6 +539,22 @@ var relatedTags = true;
 				return "No name or email";		
 			}
 
+			$scope.toggleTaskComplete = function(task) {
+				task.status = !task.status;
+				task.$save();
+
+				for(var i = 0; i < $scope.tasks.length; i++)
+				{
+					if($scope.tasks[i].id == task.id)
+						if($scope.tasks[i].status != task.status)
+							$scope.tasks[i].status = task.status;	
+				}
+			}
+
+			$scope.toggleListTaskComplete = function(task) {
+				task.status = !task.status;
+				$scope.$broadcast("reimportListTaskStatus");
+			}
 		}]);
 
 

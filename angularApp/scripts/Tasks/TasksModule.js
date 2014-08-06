@@ -45,6 +45,33 @@
 			$scope.taskPromise = taskService.Task.get({task_id: $stateParams['task_id']}, function(data) {
 				console.log(data);
 				$scope.task = data;
+
+
+				$scope.importListTaskStatus = function(tasks)
+				{
+					if(tasks)
+						for(var i = 0; i < tasks.length; i++)
+						{
+							if($scope.task.id == tasks[i].id)
+							{
+								if($scope.task.status != tasks[i].status)
+								{
+									$scope.task.status = tasks[i].status;
+									$scope.saveTask();
+								}	
+
+								break;
+							}
+						}
+				}
+
+				$scope.$on('reimportListTaskStatus', function(e) {
+					$scope.importListTaskStatus($scope.tasks);
+				});
+
+				$scope.importListTaskStatus($scope.tasks);
+
+
 				setTimeout(function(){
 		            new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
 		                style: "bottomtip"
