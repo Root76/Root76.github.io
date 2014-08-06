@@ -61,7 +61,7 @@
           <h3 class="mainsort">
             <a ui-sref="contacts.contact({contact_id: contact.id})"><img src="img/contacts.png" class="listimg" /></a>
             <span class="hidden">{{contact.id}}</span>
-            {{contact.name || contact.emails[0].email || 'No name or email'}}
+            {{getContactTitle(contact)}}
           </h3>
           <div class="subitems">
             <div class="subitem ss1 subEvent" ng-if="showEvents">

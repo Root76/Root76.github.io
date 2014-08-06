@@ -15,7 +15,7 @@
     <img src="img/tags.png"/>
     <a href="javascript:void(0)"><img src="img/create.png" class="addContact createicon" ng-click="create('contact')"/></a>
     <img src="img/trash.png" class="trashicon" />
-    <div id="deleteButton" ng-click="deleteContact(contact)"></div>
+    <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 215 of ContactsModule.js"-->
   </div>
 
 
@@ -238,7 +238,8 @@
           </div>
         </h5>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('contact')" /></a>
-        <img class="detailTrash" src="img/trash.png" />
+        <img src="img/trash.png" class="trashicon" />
+        <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 215 of ContactsModule.js"-->
       </div>
       <img class="columnDivider" src="img/divider_blue.png" />
     </div>

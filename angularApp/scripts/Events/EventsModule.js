@@ -26,7 +26,9 @@
 				}
 				else if ($scope.EventFilter === "Tagged") {
 					for (var i = 0; i < $scope.events.length; i++) {
-						if ($scope.events[i]['tagcount'] > 0) {
+						if($scope.events[i].title == "wimbledon 4")
+							console.log($scope.events[i]);
+						if ($scope.events[i]['tags'] > 0) {
 							$scope.FilteredEvents.push($scope.events[i]);
 						}
 					}					
@@ -109,33 +111,37 @@
 					$scope.eventDates.endDate = new Date($scope.event.end_datetime);
 				}
 
-				new Opentip(".trashicon", "Delete", {
-	                style: "bottomtip"
-	            });
+				$(".trashicon").each(function(){
 
-	            var deleteTip = new Opentip(".trashicon", "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
-	                style: "deleteconfirm"
-	            });
+					new Opentip($(this), "Delete", {
+		                style: "bottomtip"
+		            });
 
-		        $(".trashicon").unbind("click").bind("click", function(){
-		        	deleteTip.show();
-		            setTimeout(function(){
-		                $(".deleteContainer > div:first-child").click(function(){
-		                    deleteTip.hide();
-		                    $("#deleteButton").click();
-		                    var deleteTip2 = new Opentip("#taskpane1 > img", '<span>Item deleted.</span>', {
-		                        style: "deleteconfirm2"
-		                    });
-		          			deleteTip2.show();
-		                    setTimeout(function(){
-		                        deleteTip2.hide();
-		                    }, 1500);
-		                });
-		                $(".deleteContainer > div:last-child").click(function(){
-		                    deleteTip.hide();
-		                });
-		            }, 100);
-		        });
+			        $(this).bind("click", function(){
+			            var deleteTip = new Opentip($(this), "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
+			                style: "deleteconfirm"
+			            });
+			        	deleteTip.show();
+			            setTimeout(function(){
+			                $(".deleteContainer > div:first-child").click(function(){
+			                    deleteTip.hide();
+
+			                    $scope.deleteEvent($scope.event);
+			                    var deleteTip2 = new Opentip("#taskpane1 > img", '<span>Item deleted.</span>', {
+			                        style: "deleteconfirm2"
+			                    });
+			          			deleteTip2.show();
+			                    setTimeout(function(){
+			                        deleteTip2.hide();
+			                    }, 1500);
+			                });
+			                $(".deleteContainer > div:last-child").click(function(){
+			                    deleteTip.hide();
+			                });
+			            }, 100);
+			        });	
+				})
+				
 
 			});
 
@@ -173,7 +179,17 @@
 				if($model.type == "task")
 					$scope.event.tasks.push($model);
 				if($model.type == "tag")
+				{
 					$scope.event.tags.push($model);
+					for(var i = 0; i < $scope.events.length; i++)
+					{
+						if($scope.events[i].id == $scope.event.id)
+						{
+							$scope.events[i].tags++
+							break;
+						}	
+					}
+				}
 
 				$scope.saveEvent();
 			}
