@@ -552,8 +552,21 @@ var relatedTags = true;
 			}
 
 			$scope.toggleListTaskComplete = function(task) {
+
 				task.status = !task.status;
-				$scope.$broadcast("reimportListTaskStatus");
+
+				for(var i = 0; i < $scope.tasks.length; i++)
+				{
+					if($scope.tasks[i].id == task.id)
+						if($scope.tasks[i].status != task.status)
+							$scope.tasks[i].status = task.status;	
+				}
+				
+				$scope.taskPromise = taskService.Task.get({task_id: task.id}, function(data) {
+					data.status = task.status;
+					data.$save();
+					$scope.$broadcast("reimportListTaskStatus");
+				});	
 			}
 		}]);
 
