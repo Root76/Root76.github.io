@@ -23,6 +23,8 @@ function hashHandler(){
     var detect = function(){
         if(that.oldHash!=window.location.hash){
             console.log(window.location.hash);
+            $("#preload").remove();
+            $("#recent10").addClass('active');
             that.oldHash = window.location.hash;
             rebindEvents();
         }
@@ -31,6 +33,12 @@ function hashHandler(){
 }
 
 var hashDetection = new hashHandler();
+
+var previouslySelected, listCount;
+var relatedContacts = true;
+var relatedEvents = true;
+var relatedTasks = true;
+var relatedTags = true;
 
 (function(){
 
@@ -44,7 +52,6 @@ var hashDetection = new hashHandler();
 	app.config(['$httpProvider', function($httpProvider) {
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-TOKEN'] = authToken;
 		$httpProvider.defaults.headers.common['X-AUTHENTICATION-EMAIL'] = authEmail; 
-
 		$httpProvider.interceptors.push(function($q) {
 			return {
 				'request': function(config) {
@@ -85,15 +92,12 @@ var hashDetection = new hashHandler();
 						allObjects.contacts[i]['title'] = allObjects.contacts[i]['name'];
 						thisName = allObjects.contacts[i]['name'] || '';
 						theseEmails = allObjects.contacts.emails || '';
-						console.log(theseEmails.length)
 						if (thisName.indexOf('@') > -1) {
 							if (theseEmails.indexOf(thisName) < 0) {
-								console.log("not found in emails, pushing to slot " + theseEmails.length);
 								emailObject = {
 									email: thisName
 								};
 								allObjects.contacts[i]['emails'][theseEmails.length] = emailObject;
-								console.log(allObjects.contacts[i]);
 							}
 						}
 					}
@@ -101,11 +105,11 @@ var hashDetection = new hashHandler();
 					$scope.FilteredContacts = allObjects.contacts;
 					$scope.AllFilteredContacts = $scope.FilteredContacts;
 
-					$scope.FilteredContacts.forEach(function(contact){
+					/*$scope.FilteredContacts.forEach(function(contact){
 						contactService.Contact.get({contact_id: contact.id}, function(data) {
 							contact.tagcount = data.tags.length;
 						});
-					});
+					});*/
 				});
 
 			};
@@ -117,7 +121,7 @@ var hashDetection = new hashHandler();
 					$scope.events = data.events;
 
 					var today = moment().format('MMMM Do YYYY');
-					var todayRaw = moment().format('YYYYMMDDHHMMSS')
+					var todayRaw = moment().format('YYYYMMDDHHMMSS');
 					var tomorrow = moment().add('days', 1).format('MMMM Do YYYY');
 					var day3 = moment().add('days', 2).format('MMMM Do YYYY');
 					var day4 = moment().add('days', 3).format('MMMM Do YYYY');
@@ -202,14 +206,14 @@ var hashDetection = new hashHandler();
 						return 0;
 					});
 
-					$scope.FilteredEvents.forEach(function(event){
+					/*$scope.FilteredEvents.forEach(function(event){
 						eventService.Event.get({event_id: event.id}, function(data) {
 							event.tagcount = data.tags.length;
 							if (data.tags.length > 0) {
 								console.log(data.title + " tagged " + data.tags.length + " times");
 							}
 						});
-					});
+					});*/
 
 					$scope.AllFilteredEvents = $scope.FilteredEvents;
 
@@ -284,22 +288,46 @@ var hashDetection = new hashHandler();
 
 			$scope.combineAll = function() {
 
+				var i = 0;
+				var contactSet = false;
+				var eventSet = false;
+				var taskSet = false;
+				var tagSet = false;
+				var combinedObjects = new Array();
+				$scope.totalObjects = combinedObjects;
+
 				var checkPromises = setInterval(function() {
 
-					if (allObjects.contacts.length > 0 && allObjects.events.length) {
-
-						console.log("Promises fulfilled");
-						console.log("final object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
-						clearInterval(checkPromises);
-						var combinedObjects = allObjects.contacts.concat(allObjects.events, allObjects.tasks, allObjects.tags);
-						$scope.allReady = true;
-						$scope.totalObjects = combinedObjects;
-
-					} else {
-						console.log("current object count: " + allObjects.contacts.length + " " + allObjects.events.length);
+					if (allObjects.contacts.length > 0 && contactSet == false) {
+						$scope.totalObjects = $scope.totalObjects.concat(allObjects.contacts);
+						contactSet = true;
+					}
+					if (allObjects.events.length > 0 && eventSet == false) {
+						$scope.totalObjects = $scope.totalObjects.concat(allObjects.events);
+						eventSet = true;
+					}
+					if (allObjects.tasks.length > 0 && taskSet == false) {
+						$scope.totalObjects = $scope.totalObjects.concat(allObjects.tasks);
+						taskSet = true;
+					}
+					if (allObjects.tags.length > 0 && tagSet == false) {
+						$scope.totalObjects = $scope.totalObjects.concat(allObjects.tags);
+						tagSet = true;
 					}
 
-				}, 100);
+					if ((allObjects.contacts.length > 0 && allObjects.events.length > 0) || (i > 5)) {
+
+						console.log("final object count: " + allObjects.contacts.length + " " + allObjects.events.length + " " + allObjects.tasks.length + " " + allObjects.tags.length);
+
+						clearInterval(checkPromises);
+						$scope.allReady = true;
+						$("#preload").remove();
+						$("#recent10").addClass('active');
+					}
+
+					i++;
+
+				}, 1000);
 
 			}
 
@@ -378,12 +406,12 @@ var hashDetection = new hashHandler();
 					});
 
 					$scope.FilteredOrphanEvents.forEach(function(event){
-						eventService.Event.get({event_id: event.id}, function(data) {
+						/*eventService.Event.get({event_id: event.id}, function(data) {
 							event.tagcount = data.tags.length;
 							if (data.tags.length > 0) {
 								console.log(data.title + " tagged " + data.tags.length + " times");
 							}
-						});
+						});*/
 					});
 
 					$scope.AllFilteredOrphanEvents = $scope.FilteredOrphanEvents;
@@ -439,6 +467,7 @@ var hashDetection = new hashHandler();
 								console.log("Reloading contacts");
 								$scope.loadContacts();	
 								$scope.loadOrphans();
+								reactivateAccords();
 							});
 						}
 						else if(newObject.type == "event")
@@ -448,6 +477,7 @@ var hashDetection = new hashHandler();
 								console.log("Reloading events");
 								$scope.loadEvents();
 								$scope.loadOrphans();
+								reactivateAccords();
 							});
 							
 						}
@@ -458,6 +488,7 @@ var hashDetection = new hashHandler();
 								console.log("Reloading tasks");
 								$scope.loadTasks();	
 								$scope.loadOrphans();
+								reactivateAccords();
 							});
 						}
 						else if(newObject.type == "tag")
@@ -467,7 +498,15 @@ var hashDetection = new hashHandler();
 								console.log("Reloading tags");
 								$scope.loadTags();	
 								$scope.loadOrphans();
+								reactivateAccords();
 							});
+						}
+
+						function reactivateAccords() {
+							console.log("reactivating " + $('.listitem').length + " accordions");
+							setTimeout(function(){
+								$('.sortitem.selected').click();
+							}, 500);
 						}
 
 					}

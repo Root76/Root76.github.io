@@ -72,7 +72,7 @@
 			            header: {
 			                left: 'prev,next today',
 			                center: 'title',
-			                right: 'month,agendaWeek,agendaDay'
+			                right: 'month,agendaWeek,agendaDay,agendaList'
 			            },
 			            editable: true,
 			            events: totalEvents,
@@ -166,13 +166,37 @@
 							        }
 							    });
 
-							} else {
-								alert("something's wrong");
 							}
 					    }
 			        });
 
 		        }
+
+		        $('.showitem').unbind("click").bind("click", function(event){
+		            var subSortType = event.target.id;
+		            var subSortList = document.getElementsByClassName(subSortType);
+		            if ($(event.target).hasClass('selected')) {
+		                $(event.target).removeClass('selected');
+		                $(subSortList).css("display", "none");
+		                if (this.id === 'maintask') {
+		                    $('.calTask').removeClass('active');
+		                } else if (this.id === 'mainevent') {
+		                    $('.calEvent').removeClass('active');
+		                } else {
+		                    console.log('nope');
+		                }
+		            } else {
+		                $(event.target).addClass('selected');
+		                $(subSortList).css("display", "block");
+		                if (this.id === 'maintask') {
+		                    $('.calTask').addClass('active');
+		                } else if (this.id === 'mainevent') {
+		                    $('.calEvent').addClass('active');
+		                } else {
+		                    console.log('nope');
+		                }
+		            }
+		        });
 
 		        getTasks(callback);
 		        console.log(totalEvents);

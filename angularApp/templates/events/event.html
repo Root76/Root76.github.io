@@ -13,8 +13,8 @@
     <img src="img/tasks.png" />
     <img src="img/tags.png" /> 
     <a href="javascript:void(0)"><img src="img/create.png" class="createicon addEvent" ng-click="create('event')"/></a>
-    <img src="img/trash.png" ng-click="deleteEvent(event)" class="trashicon"/>
-    <button id="destroy">{{event.id}}</button>
+    <img src="img/trash.png" class="trashicon" />
+    <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 112 of EventsModule.js"-->
   </div>
   <div class="panelcontent" id="eventscontent">                
     
@@ -146,7 +146,8 @@
           </div>
         </div>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('event')"/></a>
-        <img class="detailTrash" src="img/trash.png" ng-click="deleteEvent(event)"/>
+        <img src="img/trash.png" class="trashicon" />
+        <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 112 of EventsModule.js"-->
       </div>
       <img class="columnDivider" src="img/divider_orange.png" />
     </div>

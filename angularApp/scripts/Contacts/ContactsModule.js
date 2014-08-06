@@ -155,6 +155,7 @@
 			$scope.contactPromise = contactService.Contact.get({contact_id: $stateParams['contact_id']}, function(data) {
 
 				$scope.contact = data;
+				console.log(data);
 
 				if($scope.contact.phones.length == 0)
 					$scope.contact.phones.push({number:''});
@@ -194,11 +195,109 @@
 				}
 
 				setTimeout(function(){
-					if (data.emails.length > 0) {
-						var emailString = 'https://mail.google.com/mail/u/?authuser=' + authEmail + '#search/from:' + data.emails[0].email + '+OR+to:' + data.emails[0].email;
-						$('.contactDetails .emailLink').attr("href", emailString);
+
+					var theseDetails = $(".contactitem");
+
+					if ($scope.contact.emails[0]['email'].length > 0) {
+						console.log("it's got an email");
+					} else {
+						$('.emailLink').removeAttr("href");
+						console.log("no email");
+						var thisCompose = $('.composeEmail');
+						console.log(thisCompose);
+						if (thisCompose.length > 1) {
+				            for (var i = 0; i < thisCompose.length; i++) {
+					            new Opentip(thisCompose[i], "<span>No email address to compose to.</span>", {
+					                style: "error2"
+					            });
+				            }
+			        	} else if (thisCompose.length) {
+			        		new Opentip(thisCompose, "<span>No email address to compose to.</span>", {
+				                style: "error2"
+				            });
+			        	}
+			            var thisView = $(theseDetails[1]).find('a');
+			            new Opentip(thisView, "<span>No email address to view.</span>", {
+			                style: "error2"
+			            });
 					}
-					console.log(emailString);
+
+					$('.trashicon').each(function(){
+						new Opentip( $(this), "Delete", {
+							style: "bottomtip"
+						});
+			        	$(this).bind("click", function(){
+				            var deleteTip = new Opentip($(this), "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
+		                		style: "deleteconfirm"
+		            		});
+				        	deleteTip.show();
+
+				            setTimeout(function(){
+				                $(".deleteContainer > div:first-child").click(function(){
+				                	deleteTip.hide();
+
+				                    $scope.deleteContact($scope.contact);
+				                    var deleteTip2 = new Opentip("#profilepic", '<span>Item deleted.</span>', {
+				                        style: "deleteconfirm2"
+				                    });
+				          			deleteTip2.show();
+				                    setTimeout(function(){
+				                        deleteTip2.hide();
+				                    }, 1500);
+				                });
+				                $(".deleteContainer > div:last-child").click(function(){
+				                    deleteTip.hide();
+				                });
+				            }, 100);
+				        });
+					});
+
+		            var slideImages = $('.contactgroup img');
+		            new Opentip(slideImages[0], "Compose Email", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[1], "View Emails", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[2], "Phone Number", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[3], "Birthday", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[4], "Location", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[5], "Company", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[6], "Related Events", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[7], "Related Tasks", {
+		                style: "lefttip"
+		            });
+		            new Opentip(slideImages[8], "Related Tags", {
+		                style: "lefttip"
+		            });
+
+		        	var contactImages = $('.contactAttrImg');
+		        	new Opentip(contactImages[0], "Phone Number", {
+		                style: "lefttip"
+		            });
+		        	new Opentip(contactImages[1], "Compose Email", {
+		                style: "lefttip"
+		            });
+		        	new Opentip(contactImages[2], "Birthday", {
+		                style: "lefttip"
+		            });
+		        	new Opentip(contactImages[3], "Location", {
+		                style: "lefttip"
+		            });
+		        	new Opentip(contactImages[4], "Company", {
+		                style: "lefttip"
+		            });
+
 				}, 100);
 			});
 
@@ -273,7 +372,17 @@
 				if($model.type == "task")
 					$scope.contact.tasks.push($model);
 				if($model.type == "tag")
+				{
 					$scope.contact.tags.push($model);
+					for(var i = 0; i < $scope.contacts.length; i++)
+					{
+						if($scope.contacts[i].id == $scope.contact.id)
+						{
+							$scope.contacts[i].tags++
+							break;
+						}	
+					}
+				}
 
 				$scope.contact.$save();
 			}

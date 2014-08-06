@@ -47,28 +47,30 @@
                 <h5>We're preparing your Contacts, Events, Tasks and Tags. Just a moment, please!</h5>
               </div>
             </div>
-            <div class="subitem subdash ss2" ng-repeat="object in totalObjects | orderBy : IndexSort | limitTo:10 ">
-              <a ui-sref="contacts.contact({contact_id: object.id})" ng-if="object.type == 'contact' ">
-                <img class="subicon" src="img/contacts.png" />
-                <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
-                <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length > 0 " >{{object.emails[0].email}}</span>
-                <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length == 0 ">No Name or Email</span>
-              </a>
-              <a ui-sref="events.event({event_id: object.id})" ng-if="object.type == 'event' ">
-                <img class="subicon" src="img/events.png" />
-                <span class="subitemtext subdashtext" ng-if="object.title != null ">{{object.title}}</span>
-                <span class="subitemtext subdashtext" ng-if="object.title == null ">No Title</span>
-              </a>
-              <a ui-sref="tasks.task({task_id: object.id})" ng-if="object.type == 'task' ">
-                <img class="subicon" src="img/tasks.png" />
-                <span class="subitemtext subdashtext" ng-if="object.title != title ">{{object.title}}</span>
-                <span class="subitemtext subdashtext" ng-if="object.title == null ">No Task Title</span>
-              </a>
-              <a ui-sref="tags.tag({tag_id: object.id})" ng-if="object.type == 'tag' ">
-                <img class="subicon" src="img/tags.png" />
-                <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
-                <span class="subitemtext subdashtext" ng-if="object.name == null ">No Name</span>
-              </a>
+            <div id="recent10">
+              <div class="subitem subdash ss2" ng-repeat="object in totalObjects | orderBy : IndexSort | limitTo:10 ">
+                <a ui-sref="contacts.contact({contact_id: object.id})" ng-if="object.type == 'contact' ">
+                  <img class="subicon" src="img/contacts.png" />
+                  <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
+                  <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length > 0 " >{{object.emails[0].email}}</span>
+                  <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length == 0 ">No Name or Email</span>
+                </a>
+                <a ui-sref="events.event({event_id: object.id})" ng-if="object.type == 'event' ">
+                  <img class="subicon" src="img/events.png" />
+                  <span class="subitemtext subdashtext" ng-if="object.title != null ">{{object.title}}</span>
+                  <span class="subitemtext subdashtext" ng-if="object.title == null ">No Title</span>
+                </a>
+                <a ui-sref="tasks.task({task_id: object.id})" ng-if="object.type == 'task' ">
+                  <img class="subicon" src="img/tasks.png" />
+                  <span class="subitemtext subdashtext" ng-if="object.title != title ">{{object.title}}</span>
+                  <span class="subitemtext subdashtext" ng-if="object.title == null ">No Task Title</span>
+                </a>
+                <a ui-sref="tags.tag({tag_id: object.id})" ng-if="object.type == 'tag' ">
+                  <img class="subicon" src="img/tags.png" />
+                  <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
+                  <span class="subitemtext subdashtext" ng-if="object.name == null ">No Name</span>
+                </a>
+              </div>
             </div>
           </div>
           <div class="infopanel">

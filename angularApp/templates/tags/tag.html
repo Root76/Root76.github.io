@@ -13,8 +13,8 @@
     <img src="img/tasks.png" />
     <img src="img/tags.png" class="selected" />   
     <a href="javascript:void(0)"><img src="img/create.png" class="createicon addTag" ng-click="create('tag')" /></a>
-    <img src="img/trash.png" ng-click="deleteTag(tag)" class="trashicon" />    
-    <button id="destroy">{{tag.id}}</button>
+        <img src="img/trash.png" class="trashicon" />
+        <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 58 of TagsModule.js"-->
   </div>
   <div class="panelcontent" id="tagscontent">
     <div class="infopanel">
@@ -96,7 +96,8 @@
           </div>
         </div>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('tag')" /></a>
-        <img class="detailTrash" src="img/trash.png" ng-click="deleteTag(tag)"/>
+        <img src="img/trash.png" class="trashicon" />
+        <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 58 of TagsModule.js"-->
       </div>
       <img class="columnDivider" src="img/divider_yellow.png" />
     </div>

@@ -14,8 +14,8 @@
     <img src="img/tags.png" />
     <span id="taskcheck"><img src="img/check.png" /></span>
     <a href="javascript:void(0)"><img src="img/create.png" class="createicon addTask" ng-click="create('task')" /></a>
-    <img src="img/trash.png" ng-click="deleteTask(task)" class="trashicon" />
-    <button id="destroy">{{task.id}}</button>           
+    <img src="img/trash.png" class="trashicon" />
+    <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 55 of TasksModule.js"-->       
   </div>
   <div class="panelcontent" id="taskscontent">
     <div class="infopanel">
@@ -123,7 +123,8 @@
           </div>
         </div>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('task')"/></a>
-        <img class="detailTrash" src="img/trash.png" ng-click="deleteTask(task)" />
+        <img src="img/trash.png" class="trashicon" />
+        <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 55 of TasksModule.js"-->       
       </div>
       <img class="columnDivider" src="img/divider_green.png" />
     </div>

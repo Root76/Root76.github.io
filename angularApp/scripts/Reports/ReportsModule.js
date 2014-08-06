@@ -5,28 +5,164 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 	function($scope, $resource, $modal, contactService, tagService, taskService, eventService){
 
 	setTimeout(function(){
-		console.log("starting our attack run...");
-        
+
+        $scope.ScheduleShow = ['All Open Activities', 'Today', 'Tomorrow', 'This Week', 'Next Week'];
+        $scope.ScheduleFilter = $scope.ScheduleShow[0];
+
+        $scope.updateSchedule = function() {
+
+            console.log($scope.ScheduleFilter);
+            $scope.FilteredContacts = new Array();
+            $scope.FilteredEvents = new Array();
+            $scope.FilteredTasks = new Array();
+            $scope.FilteredTags = new Array();
+            var today = moment().format('MMDDYY');
+            var tomorrow = moment().add('days', 1);
+            tomorrow = moment(tomorrow).format('MMDDYY');
+            console.log(today + " " + tomorrow);
+
+            if ($scope.ScheduleFilter == 'All Open Activities') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    $scope.FilteredTasks.push($scope.tasks[i]);
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }
+            }
+            else if ($scope.ScheduleFilter == 'Today') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    if ($scope.tasks[i]['due']) {
+                        var thisDue = moment($scope.tasks[i]['due']).format('MMDDYY');
+                        if (today == thisDue) {
+                            console.log($scope.tasks[i]['title'] + " is due today: " + thisDue);
+                            $scope.FilteredTasks.push($scope.tasks[i]);
+                        }
+                    }
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }
+            }
+            else if ($scope.ScheduleFilter == 'Tomorrow') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    if ($scope.tasks[i]['due']) {
+                        var thisDue = moment($scope.tasks[i]['due']).format('MMDDYY');
+                        if (tomorrow == thisDue) {
+                            console.log($scope.tasks[i]['title'] + " is due tomorrow: " + thisDue);
+                            $scope.FilteredTasks.push($scope.tasks[i]);
+                        }
+                    }
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }
+            }
+            else if ($scope.ScheduleFilter == 'This Week') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    $scope.FilteredTasks.push($scope.tasks[i]);
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }
+            }
+            else if ($scope.ScheduleFilter == 'Next Week') {
+                for(var i = 0; i < $scope.contacts.length; i++) {
+                    $scope.FilteredContacts.push($scope.contacts[i]);
+                }
+                for(var i = 0; i < $scope.events.length; i++) {
+                    $scope.FilteredEvents.push($scope.events[i]);
+                }
+                for(var i = 0; i < $scope.tasks.length; i++) {
+                    $scope.FilteredTasks.push($scope.tasks[i]);
+                }
+                for(var i = 0; i < $scope.tags.length; i++) {
+                    $scope.FilteredTags.push($scope.tags[i]);
+                }              
+            }
+            setTimeout(function(){
+                $(".sortitem.selected").click()
+                var allAccords = $('.listitem');
+                console.log(allAccords.length);
+                if (allAccords.length > 1) {
+                    for (var i = 0; i < allAccords.length; i++) {
+                        if (i < 15) {
+                            $(allAccords[i]).removeClass('notYet');
+                            console.log("removing");
+                        }
+                    }
+                } else if (allAccords) {
+                    $(allAccords).removeClass('notYet');
+                }
+            }, 100);
+        }
+
+		console.log("starting our attack run..." + previouslySelected);
+        setTimeout(function(){
+            $("#" + previouslySelected).click()
+            $scope.showContacts = relatedContacts;
+            $scope.showEvents = relatedEvents;
+            $scope.showTasks = relatedTasks;
+            $scope.showTags = relatedTags;
+            console.log($scope.showContacts + " " + $scope.showEvents + " " + $scope.showTasks + " " + $scope.showTags)
+
+            if ($scope.showContacts == false) {
+                $("#subContact").removeClass("selected");
+            }
+            if ($scope.showEvents == false) {
+                $("#subEvent").removeClass("selected");
+            }
+            if ($scope.showTasks == false) {
+                $("#subTask").removeClass("selected");
+            }
+            if ($scope.showTags == false) {
+                $("#subTag").removeClass("selected");
+            }
+
+        }, 1);
+
         window.onscroll = function(ev) {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 155) {
                 console.log("you've really hit rock bottom, pal");
                 var currentSort = $('.sortitem.selected').attr('id');
                 var allItems = $('.listitem.' + currentSort);
                 var j = 0;
-                for (var i = 0; j < 15; i++) {
-                    if (!$(allItems[i]).hasClass('active')) {
-
-                        $(allItems[i]).addClass('active');
-                        $(allItems[i]).accordion({
-                            active: false,
-                            collapsible: true,
-                            header: "h3.mainsort"
-                        });
-
-                        bindArrow(allItems[i]);
-                        $(allItems[i]).addClass('fadeInto');
-                        j++;
-
+                for (var i = 0; i < allItems.length; i++) {
+                    if (j < 15) {
+                        if ($(allItems[i]).hasClass('notYet')) {
+                            $(allItems[i]).removeClass('notYet');
+                            $(allItems[i]).accordion({
+                                active: false,
+                                collapsible: true,
+                                header: "h3.mainsort"
+                            });
+                            bindArrow(allItems[i]);
+                            $(allItems[i]).addClass('fadeInto');
+                            j++;
+                        }
                     }
                 }
             }
@@ -43,7 +179,34 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
         	});
         }
 
-        $('.sortitem').unbind("click").bind("click", function(event){
+        /*$('.showitem').unbind("click").bind("click", function(event){
+            var subSortType = event.target.id;
+            var subSortList = document.getElementsByClassName(subSortType);
+            if ($(event.target).hasClass('selected')) {
+                $(event.target).removeClass('selected');
+                $(subSortList).css("display", "none");
+                if (this.id === 'maintask') {
+                    $('.calTask').removeClass('active');
+                } else if (this.id === 'mainevent') {
+                    $('.calEvent').removeClass('active');
+                } else {
+                    console.log('nope');
+                }
+            } else {
+                $(event.target).addClass('selected');
+                $(subSortList).css("display", "block");
+                if (this.id === 'maintask') {
+                    $('.calTask').addClass('active');
+                } else if (this.id === 'mainevent') {
+                    $('.calEvent').addClass('active');
+                } else {
+                    console.log('nope');
+                }
+            }
+            $(".listitem.active").accordion("refresh");
+        });*/
+
+        /*$('.sortitem').unbind("click").bind("click", function(event){
 
             var sortType = this.id;
             var theseAccords = $('.listitem.' + sortType);
@@ -81,7 +244,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 		        $(allItems).addClass('fadeInto');
 		    }, 300);
 
-        });
+        });*/
 
         $('#collapseall').click(function(){
             setTimeout(function(){
@@ -109,8 +272,50 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             }, 100);
         });
 
-		$scope.getObjectDetails = function(object) {
+        if ($("#subEvent").length) {
+            new Opentip("#subEvent", "Events", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#subTask").length) {
+            new Opentip("#subTask", "Tasks", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#subContact").length) {
+            new Opentip("#subContact", "Contacts", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#subTag").length) {
+            new Opentip("#subTag", "Tags", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#mainevent").length) {
+            new Opentip("#mainevent", "Events", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#maintask").length) {
+            new Opentip("#maintask", "Tasks", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#maincontact").length) {
+            new Opentip("#maincontact", "Contacts", {
+                style: "bottomtip"
+            });
+        }
+        if ($("#maintag").length) {
+            new Opentip("#maintag", "Tags", {
+                style: "bottomtip"
+            });
+        }
 
+		$scope.getObjectDetails = function(object, $event) {
+
+            var thisAccord = $event.currentTarget;
             if (object.type == 'contact') {
                 contactService.Contact.get({contact_id: object.id}, function(data) {
                		object.events = data.events;
@@ -139,6 +344,64 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 
         };
 
-	}, 100);
+        $scope.changeShowMe = function($event) {
+            var selectedShowMe = $event.currentTarget;
+            if ($(selectedShowMe).hasClass("selected")) {
+                $(selectedShowMe).removeClass("selected");
+            } else {
+                $(selectedShowMe).addClass("selected");
+            }
+            var selectedId = selectedShowMe.id;
+            if (selectedId == "subContact") {
+                $scope.showContacts = !$scope.showContacts;
+                relatedContacts = $scope.showContacts;
+            }
+            else if (selectedId == "subEvent") {
+                $scope.showEvents = !$scope.showEvents;
+                relatedEvents = $scope.showEvents;
+            }
+            else if (selectedId == "subTask") {
+                $scope.showTasks = !$scope.showTasks;
+                relatedTasks = $scope.showTasks;
+            }
+            else if (selectedId == "subTag") {
+                $scope.showTags = !$scope.showTags;
+                relatedTags = $scope.showTags;
+            }
+        }
+
+        $scope.changeSortBy = function($event) {
+
+            var selectedId = $event.currentTarget.id;
+            $(".sortitem").removeClass('selected');
+            $("#" + selectedId).addClass('selected');
+
+            $scope.selectedSortBy = selectedId;
+
+            setTimeout(function(){
+                var allItems = $('.listitem');
+                for (var i = 0; i < allItems.length; i++) {
+                    if (i < 15) {
+                        $(allItems[i]).accordion({
+                            active: true,
+                            collapsible: true,
+                            header: "h3.mainsort",
+                            heightStyle: "content"
+                        });
+                        bindArrow(allItems[i]);
+                    } else {
+                        $(allItems[i]).addClass('notYet');
+                    }
+                }
+                $(allItems).addClass('fadeInto');
+            }, 1);
+
+            previouslySelected = selectedId;
+            console.log(previouslySelected);
+            console.log(listCount + " accordions displayed");
+
+        }
+
+	}, 1);
 
 }]);
