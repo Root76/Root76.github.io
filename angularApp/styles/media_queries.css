@@ -25,7 +25,9 @@
 	#fliparrow {
 		top:215px;
 	}
-
+	.modal-content > .ng-scope{
+		max-height:660px;
+	}
 }
 
 @media screen and (max-height:720px) {
@@ -72,6 +74,21 @@
 	}
 	#contactname {
 		top:0px !important;
+	}
+	.modal-content > .ng-scope{
+		max-height:560px;
+	}
+}
+
+@media screen and (max-height:620px) {
+	.modal-content > .ng-scope{
+		max-height:460px;
+	}
+}
+
+@media screen and (max-height:520px) {
+	.modal-content > .ng-scope{
+		max-height:360px;
 	}
 }
 

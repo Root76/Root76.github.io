@@ -538,6 +538,12 @@ var relatedTags = true;
 				return "No name or email";		
 			}
 
+			$scope.showHelp = function(){
+				$modal.open({
+					templateUrl: 'templates/help.html'
+				});
+			}
+
 		}]);
 
 

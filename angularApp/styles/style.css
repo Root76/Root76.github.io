@@ -1433,6 +1433,11 @@ h1, h2, h3, h4 {
 	padding:0px;
 }
 
+#contactcontent > .infopanel:first-child {
+	overflow-y:scroll;
+	height:100%;
+}
+
 #contactscont h1, #taskscont h1 {
 	font-size:32px;
 	position:relative;
@@ -1729,6 +1734,11 @@ to {
 	z-index:11;
 }
 
+.modal-content > .ng-scope{
+	overflow-y:auto;
+	max-height:820px;
+}
+
 .panelIn {
 	animation-name: dIn;
 	-webkit-animation-name: dIn;
@@ -1777,10 +1787,9 @@ to {
 	height:476px;
 	padding:10px;
 	background:#fff;
-	overflow:auto;
-	overflow-x:hidden;
 	z-index:1000;
 	display:block !important;
+	overflow-y:visible;
 }
 
 .dashContent {
@@ -2442,10 +2451,10 @@ to {
 	background: #606061;
 	color: #FFFFFF;
 	line-height: 25px;
-	position: relative;
-	right: -12px;
+	position: fixed;
+	right: 20px;
 	text-align: center;
-	top: -10px;
+	top: 10px;
 	width: 24px;
 	text-decoration: none;
 	font-weight: bold;
@@ -2455,9 +2464,10 @@ to {
 	-moz-box-shadow: 1px 1px 3px #000;
 	-webkit-box-shadow: 1px 1px 3px #000;
 	box-shadow: 1px 1px 3px #000;
+	z-index:99999;
 }
 
-.close:hover { background: #00d9ff; }
+.close:hover { background: #428bca; }
 
 #feedbacktext input {
 	padding:5px;
