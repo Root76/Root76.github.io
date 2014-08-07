@@ -58,7 +58,7 @@
           <h3 class="mainsort">
             <a ui-sref="contacts.contact({contact_id: contact.id})"><img src="img/contacts.png" class="listimg" /></a>
             <span class="hidden">{{contact.id}}</span>
-            {{contact.name || contact.emails[0].email || 'No name or email'}}
+            {{getContactTitle(contact)}}
           </h3>
           <div class="subitems">
             <div class="subitem ss1 subEvent" ng-if="showEvents">
@@ -115,7 +115,10 @@
             <a ui-sref="tasks.task({task_id: task.id})"><img src="img/tasks.png" class="listimg" /></a>
             <span class="hidden">{{task.id}}</span>
             {{task.title || task.notes || 'No task name'}}
-            <img src="img/check.png" class="checkmark" />
+            <span ng-click="toggleListTaskComplete(task)" class="taskList">
+              <img src="img/check.png" ng-class="{selected: task.status == true}"/>
+            </span>
+
           </h3>
           <div class="subitems">
             <div class="subitem ss3 subContact" ng-if="showContacts">

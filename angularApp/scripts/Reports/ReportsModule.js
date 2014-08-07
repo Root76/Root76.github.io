@@ -9,6 +9,10 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
         $scope.ScheduleShow = ['All Open Activities', 'Today', 'Tomorrow', 'This Week', 'Next Week'];
         $scope.ScheduleFilter = $scope.ScheduleShow[0];
 
+
+        $scope.$on('reimportListTaskStatus', function(e) {
+        });
+
         $scope.updateSchedule = function() {
 
             console.log($scope.ScheduleFilter);

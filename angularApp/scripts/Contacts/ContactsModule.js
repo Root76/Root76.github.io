@@ -155,6 +155,7 @@
 			$scope.contactPromise = contactService.Contact.get({contact_id: $stateParams['contact_id']}, function(data) {
 
 				$scope.contact = data;
+				console.log(data);
 
 				if($scope.contact.phones.length == 0)
 					$scope.contact.phones.push({number:''});
@@ -221,9 +222,35 @@
 			            });
 					}
 
-					new Opentip(".trashicon", "Delete", {
-		                style: "bottomtip"
-		            });
+					$('.trashicon').each(function(){
+						new Opentip( $(this), "Delete", {
+							style: "bottomtip"
+						});
+			        	$(this).bind("click", function(){
+				            var deleteTip = new Opentip($(this), "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
+		                		style: "deleteconfirm"
+		            		});
+				        	deleteTip.show();
+
+				            setTimeout(function(){
+				                $(".deleteContainer > div:first-child").click(function(){
+				                	deleteTip.hide();
+
+				                    $scope.deleteContact($scope.contact);
+				                    var deleteTip2 = new Opentip("#profilepic", '<span>Item deleted.</span>', {
+				                        style: "deleteconfirm2"
+				                    });
+				          			deleteTip2.show();
+				                    setTimeout(function(){
+				                        deleteTip2.hide();
+				                    }, 1500);
+				                });
+				                $(".deleteContainer > div:last-child").click(function(){
+				                    deleteTip.hide();
+				                });
+				            }, 100);
+				        });
+					});
 
 		            var slideImages = $('.contactgroup img');
 		            new Opentip(slideImages[0], "Compose Email", {
@@ -270,30 +297,6 @@
 		        	new Opentip(contactImages[4], "Company", {
 		                style: "lefttip"
 		            });
-
-		            var deleteTip = new Opentip(".trashicon", "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
-		                style: "deleteconfirm"
-		            });
-
-			        $(".trashicon").unbind("click").bind("click", function(){
-			        	deleteTip.show();
-			            setTimeout(function(){
-			                $(".deleteContainer > div:first-child").click(function(){
-			                    deleteTip.hide();
-			                    $("#deleteButton").click();
-			                    var deleteTip2 = new Opentip("#profilepic", '<span>Item deleted.</span>', {
-			                        style: "deleteconfirm2"
-			                    });
-			          			deleteTip2.show();
-			                    setTimeout(function(){
-			                        deleteTip2.hide();
-			                    }, 1500);
-			                });
-			                $(".deleteContainer > div:last-child").click(function(){
-			                    deleteTip.hide();
-			                });
-			            }, 100);
-			        });
 
 				}, 100);
 			});
@@ -369,7 +372,17 @@
 				if($model.type == "task")
 					$scope.contact.tasks.push($model);
 				if($model.type == "tag")
+				{
 					$scope.contact.tags.push($model);
+					for(var i = 0; i < $scope.contacts.length; i++)
+					{
+						if($scope.contacts[i].id == $scope.contact.id)
+						{
+							$scope.contacts[i].tags++
+							break;
+						}	
+					}
+				}
 
 				$scope.contact.$save();
 			}

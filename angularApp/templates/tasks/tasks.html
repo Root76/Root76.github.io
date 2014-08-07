@@ -24,7 +24,12 @@
 
             <div ng-repeat="task in tasks | orderBy:TaskOrder.prop | filter:searchText" >
               <a ui-sref="tasks.task({task_id:task.id})">
-                <li><img src="img/check.png" /><span bind-html-unsafe="(task.title || 'No title') | typeaheadHighlight:searchText.title"></span></li>
+                <li>
+                  <div ng-click="toggleListTaskComplete(task)" class="taskList">
+                    <img src="img/check.png" ng-class="{selected: task.status == true}"/>
+                  </div>
+                  <span bind-html-unsafe="(task.title || 'No title') | typeaheadHighlight:searchText.title"></span>
+                </li>
               </a>
             </div>
 

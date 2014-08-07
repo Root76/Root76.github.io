@@ -45,38 +45,67 @@
 			$scope.taskPromise = taskService.Task.get({task_id: $stateParams['task_id']}, function(data) {
 				console.log(data);
 				$scope.task = data;
+
+
+				$scope.importListTaskStatus = function(tasks)
+				{
+					if(tasks)
+						for(var i = 0; i < tasks.length; i++)
+						{
+							if($scope.task.id == tasks[i].id)
+							{
+								if($scope.task.status != tasks[i].status)
+								{
+									$scope.task.status = tasks[i].status;
+									$scope.saveTask();
+								}	
+
+								break;
+							}
+						}
+				}
+
+				$scope.$on('reimportListTaskStatus', function(e) {
+					$scope.importListTaskStatus($scope.tasks);
+				});
+
+				$scope.importListTaskStatus($scope.tasks);
+
+
 				setTimeout(function(){
 		            new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
 		                style: "bottomtip"
 		            }); 
 				}, 100);
 
-				new Opentip(".trashicon", "Delete", {
-	                style: "bottomtip"
-	            });
 
-	            var deleteTip = new Opentip(".trashicon", "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
-	                style: "deleteconfirm"
-	            });
+		        $(".trashicon").each(function() {
+		  			new Opentip($(this), "Delete", {
+		                style: "bottomtip"
+		            });
+		        	$(this).bind("click", function(){
 
-		        $(".trashicon").unbind("click").bind("click", function(){
-		        	deleteTip.show();
-		            setTimeout(function(){
-		                $(".deleteContainer > div:first-child").click(function(){
-		                    deleteTip.hide();
-		                    $("#deleteButton").click();
-		                    var deleteTip2 = new Opentip("#taskpane1 > img", '<span>Item deleted.</span>', {
-		                        style: "deleteconfirm2"
-		                    });
-		          			deleteTip2.show();
-		                    setTimeout(function(){
-		                        deleteTip2.hide();
-		                    }, 1500);
-		                });
-		                $(".deleteContainer > div:last-child").click(function(){
-		                    deleteTip.hide();
-		                });
-		            }, 100);
+			            var deleteTip = new Opentip($(this), "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
+			                style: "deleteconfirm"
+			            });
+			        	deleteTip.show();
+			            setTimeout(function(){
+			                $(".deleteContainer > div:first-child").click(function(){
+			                    deleteTip.hide();
+			                    $scope.deleteTask($scope.task);
+			                    var deleteTip2 = new Opentip("#taskpane1 > img", '<span>Item deleted.</span>', {
+			                        style: "deleteconfirm2"
+			                    });
+			          			deleteTip2.show();
+			                    setTimeout(function(){
+			                        deleteTip2.hide();
+			                    }, 1500);
+			                });
+			                $(".deleteContainer > div:last-child").click(function(){
+			                    deleteTip.hide();
+			                });
+			            }, 100);
+			        });
 		        });
 				
 			});
@@ -89,7 +118,17 @@
 				if($model.type == "event")
 					$scope.task.events.push($model);
 				if($model.type == "tag")
+				{
 					$scope.task.tags.push($model);
+					for(var i = 0; i < $scope.tasks.length; i++)
+					{
+						if($scope.tasks[i].id == $scope.task.id)
+						{
+							$scope.tasks[i].tags++
+							break;
+						}	
+					}
+				}
 
 				$scope.task.$save();
 			}
