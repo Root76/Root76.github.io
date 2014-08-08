@@ -2164,8 +2164,8 @@ to {
 
 #phonenumber {
 	position: absolute;
-	top: 25px;
-	right: 20px;
+	top: -5px;
+	right: 60px;
 }
 
 .phonenumber {

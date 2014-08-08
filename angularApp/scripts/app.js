@@ -74,7 +74,7 @@ var relatedTags = true;
 				tasks: "",
 				tags: ""
 			};
-
+			
 			$scope.allReady = false;
 
 			$scope.loadContacts = function() {
@@ -568,6 +568,18 @@ var relatedTags = true;
 					$scope.$broadcast("reimportListTaskStatus");
 				});	
 			}
+
+			$scope.showHelp = function(){
+				var helpModal = $modal.open({
+					templateUrl: 'templates/help.html'
+				});
+			}
+
+			$scope.closeHelp = function() {
+				console.log("Quitting create functionality");
+				$helpModal.close();
+			}
+
 		}]);
 
 
