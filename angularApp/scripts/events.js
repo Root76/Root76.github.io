@@ -91,7 +91,7 @@ rebindEvents();
 
 function rebindEvents() { 
 
-    var baseURL = "https://daywon-api-staging.herokuapp.com";
+    var baseURL = "https://daywon-api-prod.herokuapp.com";
 
     setTimeout(function(){
 

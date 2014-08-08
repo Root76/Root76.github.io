@@ -56,7 +56,7 @@ var relatedTags = true;
 			return {
 				'request': function(config) {
 					if(config.url.indexOf("template") == -1) //don't change the url if referencing templates
-						config.url =  "https://daywon-api-staging.herokuapp.com" + config.url;
+						config.url =  "https://daywon-api-prod.herokuapp.com" + config.url;
 					return config || $q.when(config);
 				}
 			}
