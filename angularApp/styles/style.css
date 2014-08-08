@@ -231,7 +231,7 @@ hr {
 }
 
 .formrow .dropdown-menu {
-	width:auto;
+	width:100%;
 	opacity:.9;
 	background-color:#000;
 	color:#fff;
@@ -299,6 +299,8 @@ hr {
 
 .formrow .dropdown-menu li a {
 	color:#eee;
+	white-space:normal;
+	position:relative;
 }
 
 #orphancount {
@@ -938,7 +940,7 @@ h1, h2, h3, h4 {
 
 #otheroptions {
 	position:absolute;
-	bottom:50px;
+	bottom:10px;
 	width:100%;
 	text-align:right;
 	padding-right:100px;
@@ -951,6 +953,10 @@ h1, h2, h3, h4 {
 #deleteaccount {
 	float:left;
 	padding-left:0px !important;
+}
+
+#deleteButton {
+	display:none;
 }
 
 #appcont {
@@ -1127,15 +1133,14 @@ h1, h2, h3, h4 {
 	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.3);
 	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.3);
 	box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.3);
-	display:none;
-	opacity:0;
+	opacity:1;
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
 }
-.listitem.active {
-	display:block;
+.listitem.notYet {
+	display:none;
 }
 .listitem.active:last-child {
 	margin-bottom:0px;
@@ -1239,6 +1244,14 @@ h1, h2, h3, h4 {
 
 #recentdash {
 	background:#00a3ac;
+}
+
+#recent10 {
+	display:none;
+}
+
+#recent10.active {
+	display:block !important;
 }
 
 #tasksdash {
@@ -1938,10 +1951,6 @@ to {
 	height:0px;
 }
 
-.contactrow h4:hover {
-	text-decoration:underline;
-}
-
 .panelfooter h5 {
 	color: #fff;
 	padding-left: 25px;
@@ -2029,7 +2038,7 @@ to {
 
 #settingsummary {
 	width:125px;
-	height:550px;
+	height:432px;
 	float:left;
 	border:1px solid #ccc;
 }
@@ -2123,10 +2132,10 @@ to {
 }
 
 #settingfooter {
-	padding:50px;
+	padding:25px;
 	float:right;
 	width:83%;
-	height:330px;
+	height:215px;
 	background:#fff;
 	position:relative;
 	top:20px;
@@ -2199,6 +2208,7 @@ to {
 
 .settingspage h1 {
 	margin-left:0px !important;
+	margin-top:0px !important;
 }
 
 #adminTable {
@@ -4048,7 +4058,6 @@ input#toggle5:checked + label:after {
 	position: relative;
 	top: -10px;
 	height: 0px;
-	z-index: 1200;
 }
 .small-create-icon.calendar-create-icon {
 	height: 30px;
@@ -4140,7 +4149,6 @@ input#toggle5:checked + label:after {
 .typeaheadAssociated img {
 	width: 40px;
 	height: auto;
-	position: relative;
 	top: -8px;
 	right: -35px;
 	float: right;
@@ -4158,7 +4166,6 @@ input#toggle5:checked + label:after {
 	height:40px;
 	width:auto;
 }
-
 
 .squaredTwo {
 	width: 28px;
@@ -4551,9 +4558,16 @@ span.editable-click {
     color: white;
     border-bottom: dotted 2px white;
 }
+.panelcontent span.editable-click {
+    border-bottom: dotted 2px #666;
+}
+#contactcontent span.editable-click {
+	border-bottom: dotted 2px white;
+} 
 span.editable-click:hover { 
     color: #FDFDFD;
     border-bottom-color: #FDFDFD;
+    cursor:pointer;
 }
 .notesField.editable {
 	margin-left:15px;

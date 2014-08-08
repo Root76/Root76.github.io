@@ -16,8 +16,8 @@
 				if(index > -1)
 					$scope.tags.splice(index, 1);
 
-				tagService.Tag.delete({tag_id:tag.id});
-
+				tagService.Tag.delete({tag_id:tag.id}).$promise.then(function(){ $scope.loadOrphans(); });
+	
 				$state.go('tags.index');
 
 			}
@@ -39,6 +39,52 @@
 			$scope.tagPromise = tagService.Tag.get({tag_id: $stateParams['tag_id']}, function(data) {
 				console.log(data);
 				$scope.tag = data;
+
+
+
+	        	var taggedItems = $('.taggedObjects img');
+	            new Opentip(taggedItems[0], "Tagged Contacts", {
+	                style: "lefttip"
+	            });
+	            new Opentip(taggedItems[1], "Tagged Events", {
+	                style: "lefttip"
+	            });
+	            new Opentip(taggedItems[2], "Tagged Tasks", {
+	                style: "lefttip"
+	            });
+
+		        $(".trashicon").each(function() {
+					new Opentip($(this), "Delete", {
+		                style: "bottomtip"
+		            });
+			        $(this).bind("click", function(){
+			            var deleteTip = new Opentip($(this), "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
+	                		style: "deleteconfirm"
+	            		});
+			        	deleteTip.show();
+
+			            setTimeout(function(){
+			                $(".deleteContainer > div:first-child").click(function(){
+			                    deleteTip.hide();
+
+			                    $scope.deleteTag($scope.tag);
+			                    var deleteTip2 = new Opentip("#taskpane1 > img", '<span>Item deleted.</span>', {
+			                        style: "deleteconfirm2"
+			                    });
+			          			deleteTip2.show();
+			                    setTimeout(function(){
+			                        deleteTip2.hide();
+			                    }, 1500);
+			                });
+			                $(".deleteContainer > div:last-child").click(function(){
+			                    deleteTip.hide();
+			                });
+			            }, 100);
+			        });
+		        });
+
+
+
 			});
 
 			$scope.TagSort = [
@@ -52,9 +98,11 @@
 				if($model.type == "contact")
 					$scope.tag.contacts.push($model);
 				if($model.type == "event")
-					$scope.tag.events.push($model);
+					$model.tags++;
 				if($model.type == "task")
 					$scope.tag.tasks.push($model);
+
+				$model.tags++;
 
 				$scope.tag.$save();
 			}

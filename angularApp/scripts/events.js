@@ -2,14 +2,96 @@ setTimeout(function() {
     var logSelect = document.getElementById("eaddr");
     logSelect.onchange = function() {
         if (logSelect.value === "Logout") {
-            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://daywon.s3-website-us-west-2.amazonaws.com/login.html";
+            document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://s3-us-west-2.amazonaws.com/daywon/login.html";
         }
     }
 }, 2000);
 
+Opentip.styles.bottomtip = {
+  tipJoint: "top",
+  group: "tags",
+  target: true,
+  offset: [0, -140],
+  delay: 0
+};
+Opentip.styles.toptip = {
+  tipJoint: "bottom",
+  group: "tags",
+  target: true,
+  offset: [0, -130],
+  delay: 0
+};
+Opentip.styles.righttip = {
+  tipJoint: "left",
+  group: "tags",
+  target: true,
+  delay: 0,
+  offset: [10, -140]
+};
+Opentip.styles.lefttip = {
+  tipJoint: "right",
+  group: "tags",
+  target: true,
+  delay: 0,
+  offset: [10, -140]
+};    
+Opentip.styles.success = {
+  tipJoint: "top",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  background: "#72FF72",
+  borderColor: "#3CFF3C"
+};
+Opentip.styles.error = {
+  tipJoint: "top",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  background: "#FF7272",
+  borderColor: "#FF3C3C"
+};
+Opentip.styles.error2 = {
+  tipJoint: "top",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  background: "#FF7272",
+  borderColor: "#FF3C3C",
+  showOn: "click"
+};
+Opentip.styles.calitem = {
+  tipJoint: "bottom",
+  group: "tags",
+  target: true,
+  offset: [0, -140],
+  delay: 0
+};
+Opentip.styles.deleteconfirm = {
+  tipJoint: "top",
+  group: "deletion",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  showOn: "click",
+  hideTrigger: "closeButton"
+};
+Opentip.styles.deleteconfirm2 = {
+  tipJoint: "top",
+  group: "deletion",
+  target: true,
+  offset: [0, -140],
+  delay: 0,
+  showOn: null,
+  background: "#72FF72",
+  borderColor: "#3CFF3C"
+};
+
 rebindEvents();
 
 function rebindEvents() { 
+
+    var baseURL = "https://daywon-api-staging.herokuapp.com";
 
     setTimeout(function(){
 
@@ -22,33 +104,6 @@ function rebindEvents() {
     		
     //		if (!samePage)
     //			$("#loader").addClass("showLoader");
-        });
-
-        $('.showitem').unbind("click").bind("click", function(event){
-            var subSortType = event.target.id;
-            var subSortList = document.getElementsByClassName(subSortType);
-            if ($(event.target).hasClass('selected')) {
-                $(event.target).removeClass('selected');
-                $(subSortList).css("display", "none");
-                if (this.id === 'maintask') {
-                    $('.calTask').removeClass('active');
-                } else if (this.id === 'mainevent') {
-                    $('.calEvent').removeClass('active');
-                } else {
-                    console.log('nope');
-                }
-            } else {
-                $(event.target).addClass('selected');
-                $(subSortList).css("display", "block");
-                if (this.id === 'maintask') {
-                    $('.calTask').addClass('active');
-                } else if (this.id === 'mainevent') {
-                    $('.calEvent').addClass('active');
-                } else {
-                    console.log('nope');
-                }
-            }
-            $(".listitem.active").accordion("refresh");
         });
 
         $('.sortcont').click(function(e) {
@@ -98,31 +153,6 @@ function rebindEvents() {
     	function hasWhiteSpace(s) {
     	  return s.indexOf(' ') >= 0;
     	}
-
-        $(".emailLink").attr("href", "");
-
-        $(".emailLink").parent().click(function(){
-            /*Grabbing the innerHTML alone doesn't work because of the <script> tags Ember inserts around model data. As a workaround, we grab all of the innerHTML, load it into a hidden div, drop the <script> tags from the DOM, and grab the hidden div's innerHTML (just the email address)*/
-            var emailAddr = $(".emailfield");
-            emailAddr = $(emailAddr[0]).html();
-            $("#preloader").html(emailAddr);
-            $("#preloader > script").remove();
-            $("#preloader > span > script").remove();
-            emailAddr = $("#preloader > span").html();
-            if (emailAddr != null) {
-                emailAddr = emailAddr.replace(/\s+/g, '');
-                console.log("email: " + emailAddr);
-                $(".dynamicEmail").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&to=");
-                $(".mobileEmail").attr("href", "mailto:");
-                var desktopLink = $(".dynamicEmail").attr("href");
-                var mobileLink = $(".mobileEmail").attr("href");
-                $(".dynamicEmail").attr("href", desktopLink + emailAddr);
-                $(".mobileEmail").attr("href", mobileLink + emailAddr);
-            } else {
-                $('#openModal7').addClass('active');
-                return false;
-            }
-        });
 
         $("#mobileContact").click(function(){
             $(".backArrow").click();
@@ -246,56 +276,21 @@ function rebindEvents() {
             }
         });
 
-        $("#trashicon").unbind("click").bind("click", function(){
-            setTimeout(function(){
-                $(".deleteContainer > div:first-child").click(function(){
-                    $("#destroy").click();
-                    deleteTip.hide();
-                    var deleteTip2 = new Opentip("#trashicon", '<span>Item deleted.</span>', {
-                        style: "deleteconfirm2"
-                    });
-                    deleteTip2.show();
-                    setTimeout(function(){
-                        deleteTip2.hide();
-                    }, 1500);
-                });
-                $(".deleteContainer > div:last-child").click(function(){
-                    deleteTip.hide();
-                });
-            }, 100);
-        });
-
-        $("#detailTrash").unbind("click").bind("click", function(){
-            setTimeout(function(){
-                $(".deleteContainer > div:first-child").click(function(){
-                    $("#destroy").click();
-                    deleteTip3.hide();
-                    var deleteTip4 = new Opentip("#trashicon", '<span>Item deleted.</span>', {
-                        style: "deleteconfirm2"
-                    });
-                    deleteTip4.show();
-                    setTimeout(function(){
-                        deleteTip4.hide();
-                    }, 1500);
-                });
-                $(".deleteContainer > div:last-child").click(function(){
-                    deleteTip3.hide();
-                });
-            }, 100);
-        });
-
         $("#emailsContainer img:first-of-type").unbind("click").bind("click", function(){
             $("#emailsContainer").append('<input type="text" class="contactEmail" />');
         });
+
         $("#phonesContainer img:first-of-type").unbind("click").bind("click", function(){
             $("#phonesContainer").append('<input type="text" class="contactPhone" />');
         });
+
         $("#emailsContainer img:last-of-type").unbind("click").bind("click", function(){
             var totalFields = $(this).siblings('input');
             if (totalFields.length > 1) {
                 $(totalFields[(totalFields.length - 1)]).remove();
             }
         });
+
         $("#phonesContainer img:last-of-type").unbind("click").bind("click", function(){
             var totalFields = $(this).siblings('input');
             if (totalFields.length > 1) {
@@ -303,44 +298,6 @@ function rebindEvents() {
             }
         });
 
-        $(".settingToggler").change(function(){
-                
-            var url = "https://daywon-api-prod.herokuapp.com/users/settings";
-            var setting1 = new Boolean($("#toggle:checked").length);
-            var setting2 = new Boolean($("#toggle2:checked").length);
-            var setting3 = new Boolean($("#toggle3:checked").length);
-            var setting4 = new Boolean($("#toggle4:checked").length);
-
-            var data = {
-                user: {
-                    sort_by_last_name: setting1,
-                    show_new_user_popups: setting2,
-                    display_contact_notes: setting3,
-                    push_info_to_webmail: false,
-                    receive_email: setting4
-                }
-            };
-
-            $.ajax({
-                type: 'PUT',
-                url: url,
-                contentType: "application/json",
-                dataType: "json",
-                data: JSON.stringify(data),
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": authEmail
-                },
-                success: function (data) {
-                    console.log(data);
-                    setTimeout(refetchTypeaheadData, 1000);
-                },
-                error: function (e) {
-                    console.log(e.statusText);
-                }
-            });
-
-        });
 
         $('#tasklist > li').click(function(event){
             //$("#contactname").html($(event.target).html());
@@ -474,115 +431,11 @@ function rebindEvents() {
             deleteTip.hide();
         });
 
-        if ($('.ocount').length) {
-            $.ajax({
-                type: 'GET',
-                url: 'https://daywon-api-prod.herokuapp.com/orphans',
-                contentType: "application/json",
-                dataType: "json",
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": authEmail
-                },
-                success: function (data) {
-                    var orphanObj = JSON.stringify(data);
-                    orphanObj = JSON.parse(orphanObj);
-                    var orphanObjRoot = orphanObj.orphans;
-                    orphanObjRoot = JSON.stringify(orphanObjRoot);
-                    orphanObjRoot = orphanObjRoot.substring(1, orphanObjRoot.length-1);
-                    var orphanEvents = JSON.parse(orphanObjRoot);
-                    orphanEvents = orphanEvents.events;
-                    orphanEvents = orphanEvents.length;
-                    var orphanTasks = JSON.parse(orphanObjRoot);
-                    orphanTasks = orphanTasks.tasks;
-                    orphanTasks = orphanTasks.length;
-                    var orphanTags = JSON.parse(orphanObjRoot);
-                    orphanTags = orphanTags.tags;
-                    orphanTags = orphanTags.length;
-                },
-                error: function (e) {
-                    //alert("There was an error loading orphans: " + e);
-                }
-            });
-        }
-
-        if ($('#settingmain').length) {
-            var totalUsers = $(".userRow").length;
-            $("#reportCount > span").html(totalUsers);
-            $.ajax({
-                type: 'GET',
-                url: 'https://daywon-api-prod.herokuapp.com/users/settings/',
-                contentType: "application/json",
-                dataType: "json",
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": authEmail
-                },
-                success: function (data) {
-                    var arr = [];
-                        for (var key in data) {
-                        if (data.hasOwnProperty(key)) {
-                            arr.push(data[key]);  
-                        }
-                    }
-                    if (arr[0] === true) {
-                        $("#toggle").attr("checked", "checked");
-                    } else {
-                        $("#toggle").removeAttr("checked");
-                    }
-                    if (arr[1] === true) {
-                        $("#toggle2").attr("checked", "checked");
-                    } else {
-                        $("#toggle2").removeAttr("checked");
-                    }
-                    if (arr[2] === true) {
-                        $("#toggle3").attr("checked", "checked");
-                    } else {
-                        $("#toggle3").removeAttr("checked");
-                    }
-                    if (arr[4] === true) {
-                        $("#toggle4").attr("checked", "checked");
-                    } else {
-                        $("#toggle4").removeAttr("checked");
-                    }
-                },
-                error: function (e) {
-                    alert("There was an error loading settings: " + e);
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                url: 'https://daywon-api-prod.herokuapp.com/users/info/',
-                contentType: "application/json",
-                dataType: "json",
-                headers: {
-                    "X-AUTHENTICATION-TOKEN": authToken,
-                    "X-AUTHENTICATION-EMAIL": authEmail
-                },
-                success: function (data) {
-                    var arr = [];
-                        for (var key in data) {
-                        if (data.hasOwnProperty(key)) {
-                            arr.push(data[key]);  
-                        }
-                    }
-                    for (var i = 0; i < arr.length; i++) {
-                        console.log(arr[i]);
-                    }
-                    $("#settingname > h1").html(arr[0]);
-                    $("#settingname > h3").html(arr[1]);
-                    $("#settingimage").attr("src", arr[2]);
-                },
-                error: function (e) {
-                    //alert("There was an error loading settings: " + e);
-                }
-            });
-        }
 
         if ($("#adminTable").length) {
             $.ajax({
                 type: 'GET',
-                url: 'https://daywon-api-prod.herokuapp.com/reports_admin',
+                url: baseURL + '/reports_admin',
                 contentType: "application/json",
                 dataType: "json",
                 headers: {
@@ -623,117 +476,7 @@ function rebindEvents() {
 
         today = moment(today).format('dddd, MMMM Do, YYYY');
         $('#curDate').html(today);
-
-        Opentip.styles.bottomtip = {
-          tipJoint: "top",
-          group: "tags",
-          target: true,
-          offset: [0, -140],
-          delay: 0
-        };
-        Opentip.styles.toptip = {
-          tipJoint: "bottom",
-          group: "tags",
-          target: true,
-          offset: [0, -130],
-          delay: 0
-        };
-        Opentip.styles.righttip = {
-          tipJoint: "left",
-          group: "tags",
-          target: true,
-          delay: 0,
-          offset: [10, -140]
-        };
-        Opentip.styles.lefttip = {
-          tipJoint: "right",
-          group: "tags",
-          target: true,
-          delay: 0,
-          offset: [10, -140]
-        };    
-        Opentip.styles.success = {
-          tipJoint: "top",
-          target: true,
-          offset: [0, -140],
-          delay: 0,
-          background: "#72FF72",
-    	  borderColor: "#3CFF3C"
-        };
-        Opentip.styles.error = {
-          tipJoint: "top",
-          target: true,
-          offset: [0, -140],
-          delay: 0,
-          background: "#FF7272",
-    	  borderColor: "#FF3C3C"
-        };
-        Opentip.styles.calitem = {
-          tipJoint: "bottom",
-          group: "tags",
-          target: true,
-          offset: [0, -140],
-          delay: 0
-        };
-        Opentip.styles.deleteconfirm = {
-          tipJoint: "top",
-          group: "deletion",
-          target: true,
-          offset: [0, -140],
-          delay: 0,
-          showOn: "click",
-          hideTrigger: "closeButton"
-        };
-        Opentip.styles.deleteconfirm2 = {
-          tipJoint: "top",
-          group: "deletion",
-          target: true,
-          offset: [0, -140],
-          delay: 0,
-          showOn: null,
-          background: "#72FF72",
-          borderColor: "#3CFF3C"
-        };
-        if ($("#subEvent").length) {
-            new Opentip("#subEvent", "Events", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#subTask").length) {
-            new Opentip("#subTask", "Tasks", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#subContact").length) {
-            new Opentip("#subContact", "Contacts", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#subTag").length) {
-            new Opentip("#subTag", "Tags", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#mainevent").length) {
-            new Opentip("#mainevent", "Events", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#maintask").length) {
-            new Opentip("#maintask", "Tasks", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#maincontact").length) {
-            new Opentip("#maincontact", "Contacts", {
-                style: "bottomtip"
-            });
-        }
-        if ($("#maintag").length) {
-            new Opentip("#maintag", "Tags", {
-                style: "bottomtip"
-            });
-        }
+        
         if ($("#printimg").length) {
             new Opentip("#printimg", "Print", {
                 style: "bottomtip"
@@ -756,19 +499,7 @@ function rebindEvents() {
             });     
             new Opentip("#detailmenubar > img:nth-child(4)", "Tags", {
                 style: "toptip"
-            });   
-            new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
-                style: "bottomtip"
-            }); 
-            new Opentip("#trashicon", "Delete", {
-                style: "toptip"
-            }); 
-            var deleteTip = new Opentip("#trashicon", '<p>Are you sure you want to delete this item?</p><br /><div class="deleteContainer"><div>Yes</div><div>No</div></div>', {
-                style: "deleteconfirm"
             });
-            new Opentip("#detailmenubar > a > img", "Create", {
-                style: "bottomtip"
-            }); 
         }
         if ($("#detailTrash").length) {
             new Opentip("#detailTrash", "Delete", {
@@ -778,8 +509,8 @@ function rebindEvents() {
                 style: "deleteconfirm"
             });
         }
-        if ($("#createicon").length) {
-            new Opentip("#createicon", "Create", {
+        if ($(".createicon").length) {
+            new Opentip(".createicon", "Create", {
                 style: "toptip"
             });
         }
@@ -813,60 +544,7 @@ function rebindEvents() {
                 style: "lefttip"
             });
         }
-        if ($('.contactDetails').length) {
-            var slideImages = $('.contactgroup img');
-            new Opentip(slideImages[0], "Compose Email", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[1], "View Emails", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[2], "Phone Number", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[3], "Birthday", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[4], "Location", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[5], "Related Events", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[6], "Related Tasks", {
-                style: "lefttip"
-            });
-            new Opentip(slideImages[7], "Related Tags", {
-                style: "lefttip"
-            });
-        }
-        if ($('.itemcounts').length) {
-        	var settingIcons = $('.itemcount');
-        	new Opentip(settingIcons[0], "Contacts", {
-                style: "lefttip"
-            });
-        	new Opentip(settingIcons[1], "Events", {
-                style: "lefttip"
-            });
-        	new Opentip(settingIcons[2], "Tasks", {
-                style: "lefttip"
-            });
-        	new Opentip(settingIcons[3], "Tags", {
-                style: "lefttip"
-            });
-        }
-        if ($('.taggedObjects').length) {
-        	var taggedItems = $('.taggedObjects img');
-            new Opentip(taggedItems[0], "Related Events", {
-                style: "lefttip"
-            });
-            new Opentip(taggedItems[1], "Related Tasks", {
-                style: "lefttip"
-            });
-            new Opentip(taggedItems[2], "Related Tags", {
-                style: "lefttip"
-            });
-        }
+
         if ($("#adminTable").length) {
             new Opentip("#analyticsLogo", "Google Analytics", {
                 style: "toptip"
@@ -875,32 +553,13 @@ function rebindEvents() {
                 style: "toptip"
             });
         }
-    	
+
     	// navbar active state for the dropdown View button
     	var viewMenu = $('#viewmenu');
     	var links = $('a', viewMenu);
     	if (links.hasClass('active'))
     		viewMenu.addClass('active');
     	else viewMenu.removeClass('active');
-
-        // javascript-based calling of modals so as to not interfere with Ember URLS with #
-        var allModals = $('.modalDialog');
-        var closeButtons = $('.close');
-        closeButtons.click(function(){ allModals.removeClass('active'); }); 
-        var modal1Links = $('.openModal');
-        modal1Links.click(function(){ $('#openModal').addClass('active'); });
-        var modal2Links = $('.openModal2');
-        modal2Links.click(function(){ $('#openModal2').addClass('active'); });
-        var modal3Links = $('.openModal3');
-        modal3Links.click(function(){ $('#openModal3').addClass('active'); });
-        var modal4Links = $('.openModal4');
-        modal4Links.click(function(){ $('#openModal4').addClass('active'); });
-        var modal5Links = $('.openModal5');
-        modal5Links.click(function(){ $('#openModal5').addClass('active'); });
-        var modal6Links = $('.openModal6');
-        modal6Links.click(function(){ $('#openModal6').addClass('active'); });
-        var modal7Links = $('.openModal7');
-        modal6Links.click(function(){ $('#openModal7').addClass('active'); });
 
     	// set current email
         $("#eaddr option:first").html(authEmail);
@@ -914,7 +573,7 @@ function rebindEvents() {
 
         $.ajax({
             type: 'GET',
-            url: 'https://daywon-api-prod.herokuapp.com/contacts',
+            url: baseURL + '/contacts',
             contentType: "application/json",
             dataType: "json",
             headers: {
@@ -944,7 +603,7 @@ function rebindEvents() {
                   datumTokenizer: function(event) { return Bloodhound.tokenizers.whitespace(event.title || ""); },
                   queryTokenizer: Bloodhound.tokenizers.whitespace,
                   prefetch: {
-                    url: 'https://daywon-api-prod.herokuapp.com/events',
+                    url: baseURL + '/events',
                     ajax: ajaxObj,
                     filter: function(obj) {
                       return obj.events;
@@ -956,7 +615,7 @@ function rebindEvents() {
                   datumTokenizer: function(task) { return Bloodhound.tokenizers.whitespace(task.title || ""); },
                   queryTokenizer: Bloodhound.tokenizers.whitespace,
                   prefetch: {
-                    url: 'https://daywon-api-prod.herokuapp.com/tasks',
+                    url: baseURL + '/tasks',
                     ajax: ajaxObj,
                     filter: function(obj) {
                       return obj.tasks;
@@ -968,7 +627,7 @@ function rebindEvents() {
                   datumTokenizer: function(tag) { return Bloodhound.tokenizers.whitespace(tag.name || ""); },
                   queryTokenizer: Bloodhound.tokenizers.whitespace,
                   prefetch: {
-                    url: 'https://daywon-api-prod.herokuapp.com/tags',
+                    url: baseURL + '/tags',
                     ajax: ajaxObj,
                     filter: function(obj) {
                       return obj.tags;
@@ -1114,7 +773,7 @@ function rebindEvents() {
                     var displayText;
                     var objImage;
                     var payload;
-                    var url = 'https://daywon-api-prod.herokuapp.com/' + mainObjectType + 's/' + mainObjectId;
+                    var url = baseURL + mainObjectType + 's/' + mainObjectId;
                     //check which object has been selected
                     if (datum.hasOwnProperty('organization')) { // contact
                         objectID = 'contact' + datum.id;

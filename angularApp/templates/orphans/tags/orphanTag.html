@@ -4,7 +4,7 @@
   <h2 id="contactname" class="taskname orphantitle">{{tag.name}}</h2>
   <div class="panelcontent dashContent" id="eventscontent">              
     <form>
-      <div class="formrow">Connect related items: <br />
+      <div class="formrow typeaheadAssociated">Connect related items: <br />
         <input type="text" ng-model="selectedObject" placeholder="Type to select item" typeahead="object as object.title for object in totalObjects | filter:{title:$viewValue} | associatedTagObjects" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedObject = undefined;" class="form-control">
       </div>
       

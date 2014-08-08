@@ -20,7 +20,7 @@
 					}
 
 					taskService.Task.delete({task_id:task.id});
-
+					$scope.loadOrphans();
 					$state.go('tasks.index');
 				}
 			}
@@ -45,6 +45,42 @@
 			$scope.taskPromise = taskService.Task.get({task_id: $stateParams['task_id']}, function(data) {
 				console.log(data);
 				$scope.task = data;
+				setTimeout(function(){
+		            new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
+		                style: "bottomtip"
+		            }); 
+				}, 100);
+
+
+		        $(".trashicon").each(function() {
+		  			new Opentip($(this), "Delete", {
+		                style: "bottomtip"
+		            });
+		        	$(this).bind("click", function(){
+
+			            var deleteTip = new Opentip($(this), "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
+			                style: "deleteconfirm"
+			            });
+			        	deleteTip.show();
+			            setTimeout(function(){
+			                $(".deleteContainer > div:first-child").click(function(){
+			                    deleteTip.hide();
+			                    $scope.deleteTask($scope.task);
+			                    var deleteTip2 = new Opentip("#taskpane1 > img", '<span>Item deleted.</span>', {
+			                        style: "deleteconfirm2"
+			                    });
+			          			deleteTip2.show();
+			                    setTimeout(function(){
+			                        deleteTip2.hide();
+			                    }, 1500);
+			                });
+			                $(".deleteContainer > div:last-child").click(function(){
+			                    deleteTip.hide();
+			                });
+			            }, 100);
+			        });
+		        });
+				
 			});
 
 
@@ -55,7 +91,17 @@
 				if($model.type == "event")
 					$scope.task.events.push($model);
 				if($model.type == "tag")
+				{
 					$scope.task.tags.push($model);
+					for(var i = 0; i < $scope.tasks.length; i++)
+					{
+						if($scope.tasks[i].id == $scope.task.id)
+						{
+							$scope.tasks[i].tags++
+							break;
+						}	
+					}
+				}
 
 				$scope.task.$save();
 			}

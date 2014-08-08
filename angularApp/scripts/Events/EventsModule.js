@@ -6,8 +6,14 @@
 		function($resource, $scope, $state, eventService) {
 
 			$scope.EventShow = ['All', 'Tagged', 'New This Week', 'New This Month', 'Recent'];
-
 			$scope.EventFilter = $scope.EventShow[0];
+
+			var today = moment().format('YYYYMMDDHHMMSS');
+			var lastWeek = moment().subtract('days', 7).calendar();
+			lastWeek = moment(lastWeek).format('YYYYMMDDHHMMSS');
+			var lastMonth = moment().subtract('months', 1).calendar();
+			lastMonth = moment(lastMonth).format('YYYYMMDDHHMMSS');
+			var thisCreateDate;
 
 			$scope.updateEventList = function() {
 
@@ -15,39 +21,33 @@
 				console.log($scope.EventFilter);
 				$scope.FilteredEvents = new Array();
 
-				var today = moment().format('YYYYMMDDHHMMSS');
-				var lastMonth = moment().subtract('months', 1).calendar();
-				lastMonth = moment(lastMonth).format('YYYYMMDDHHMMSS');
-				console.log("last month: " + lastMonth);
-				var thisDate;
-
 				if ($scope.EventFilter === "All") {
 					$scope.FilteredEvents = $scope.AllFilteredEvents;
 				}
 				else if ($scope.EventFilter === "Tagged") {
 					for (var i = 0; i < $scope.events.length; i++) {
-						if ($scope.events[i]['tagcount'] > 0) {
+						if($scope.events[i].title == "wimbledon 4")
+							console.log($scope.events[i]);
+						if ($scope.events[i]['tags'] > 0) {
 							$scope.FilteredEvents.push($scope.events[i]);
 						}
 					}					
 				}
 				else if ($scope.EventFilter === "New This Week") {
-					for (var i = 0; i < $scope.events.length; i++) {
-						if ($scope.events[i]['status'] == true) {
-							$scope.FilteredEvents.push($scope.events[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredEvents);
+					for (var i = 0; i < $scope.AllFilteredEvents.length; i++) {
+						thisCreateDate = moment($scope.AllFilteredEvents[i]['created_at']).format('YYYYMMDDHHMMSS');
+						if (thisCreateDate > lastWeek) {
+							$scope.FilteredEvents.push($scope.AllFilteredEvents[i]);
 						}
 					}					
 				}
 				else if ($scope.EventFilter === "New This Month") {
-					for (var i = 0; i < $scope.events.length; i++) {
-						if ($scope.events[i]['status'] == true) {
-							$scope.FilteredEvents.push($scope.events[i]);
-							console.log("status was true, pushing to array");
-							console.log($scope.FilteredEvents);
+					for (var i = 0; i < $scope.AllFilteredEvents.length; i++) {
+						thisCreateDate = moment($scope.AllFilteredEvents[i]['created_at']).format('YYYYMMDDHHMMSS');
+						if (thisCreateDate > lastMonth) {
+							$scope.FilteredEvents.push($scope.AllFilteredEvents[i]);
 						}
-					}					
+					}	
 				}
 				else if ($scope.EventFilter === "Recent") {
 					$scope.EventList = $scope.events;
@@ -62,8 +62,6 @@
 					});
 					for (var i = 0; i < 10; i++) {
 						$scope.FilteredEvents.push($scope.EventList[i]);
-						console.log("status was true, pushing to array");
-						console.log($scope.FilteredEvents);
 					}					
 				}
 
@@ -84,7 +82,7 @@
 				}
 
 				eventService.Event.delete({event_id:event.id});
-
+				$scope.loadOrphans();
 				$state.go('events.index');
 			}
 
@@ -99,7 +97,7 @@
 			$scope.eventDates = { startDate : new Date(), endDate : new Date() };
 
 			$scope.eventPromise = eventService.Event.get({event_id: $stateParams['event_id']}, function(data) {
-				console.log(data);
+
 				$scope.event = data;
 
 				if($scope.event.is_all_day)
@@ -112,6 +110,39 @@
 					$scope.eventDates.startDate = new Date($scope.event.start_datetime);
 					$scope.eventDates.endDate = new Date($scope.event.end_datetime);
 				}
+
+				$(".trashicon").each(function(){
+
+					new Opentip($(this), "Delete", {
+		                style: "bottomtip"
+		            });
+
+			        $(this).bind("click", function(){
+			            var deleteTip = new Opentip($(this), "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {
+			                style: "deleteconfirm"
+			            });
+			        	deleteTip.show();
+			            setTimeout(function(){
+			                $(".deleteContainer > div:first-child").click(function(){
+			                    deleteTip.hide();
+
+			                    $scope.deleteEvent($scope.event);
+			                    var deleteTip2 = new Opentip("#taskpane1 > img", '<span>Item deleted.</span>', {
+			                        style: "deleteconfirm2"
+			                    });
+			          			deleteTip2.show();
+			                    setTimeout(function(){
+			                        deleteTip2.hide();
+			                    }, 1500);
+			                });
+			                $(".deleteContainer > div:last-child").click(function(){
+			                    deleteTip.hide();
+			                });
+			            }, 100);
+			        });	
+				})
+				
+
 			});
 
 			$scope.recurrenceValues = [
@@ -148,7 +179,17 @@
 				if($model.type == "task")
 					$scope.event.tasks.push($model);
 				if($model.type == "tag")
+				{
 					$scope.event.tags.push($model);
+					for(var i = 0; i < $scope.events.length; i++)
+					{
+						if($scope.events[i].id == $scope.event.id)
+						{
+							$scope.events[i].tags++
+							break;
+						}	
+					}
+				}
 
 				$scope.saveEvent();
 			}

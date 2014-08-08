@@ -6112,7 +6112,7 @@ fcViews.agendaList = agendaListView;
 defaults.buttonText.agendaList='Agenda';
 defaults.titleFormat.agendaList='W';
 
-defaults.agendaDisType   = true;
+defaults.agendaDisType = true;
 
 function agendaListView(element, calendar) {
 
@@ -6246,12 +6246,10 @@ function agendaListView(element, calendar) {
             var tstart, tend;
             var j = 0;
             for(i in events) {
-            	console.log(j);
             	try {
 	                displayeventlist[j] = Object.create(events[i]);
 	                tstart = cloneDate(events[i].start,true);
 	                tend   = cloneDate(events[i].end,true);
-	               console.log(" Event start date "+ displayeventlist[i].start +" end date "+ displayeventlist[i].end+" "+ displayeventlist[i].title);
 	                while( (tend - tstart) > 0 ) {
 	                    j = j + 1;
 	                    displayeventlist[j] = Object.create(events[i]);
@@ -6275,6 +6273,8 @@ function agendaListView(element, calendar) {
 			var mm, dd, tt, dt, lurl, ltitle, em;
 			var temp, i = 0;
             var vm = formatDate(t.visStart, 'W');
+            var today = moment().format('YYYYMMDDHHmm');
+            console.log(today);
 
             for (i in displayeventlist) {
 				//console.log(" Event start date "+ displayeventlist[i].start +" end date "+ displayeventlist[i].end+" "+ displayeventlist[i].title);
@@ -6291,10 +6291,20 @@ function agendaListView(element, calendar) {
                     ltitle  = displayeventlist[i].title;
                     ldesc	= displayeventlist[i].description;
                     allDay  = displayeventlist[i].allDay;
-                    st      = formatDate(displayeventlist[i].start, 'H:mm');
-                    et      = formatDate(displayeventlist[i].end, 'H:mm');
+                    st      = moment(displayeventlist[i].start).subtract('hours', 4);
+                    et      = moment(displayeventlist[i].end).subtract('hours', 4);
                     lurl    = displayeventlist[i].url;
                     classes = displayeventlist[i].className;
+                    	
+                    st = moment(st).format('hh:mm a');
+
+                    if (displayeventlist[i].due) {
+                    	et = st;
+                    	console.log("It's a Task");
+                    } else {
+                    	et = moment(et).format('hh:mm a');
+                    	console.log("It's an event");
+                    }
 
                     if (!ldesc) {
                     	ldesc = "No description";
@@ -6304,10 +6314,46 @@ function agendaListView(element, calendar) {
                         $("<li class='fc-agendaList-dayHeader ui-widget-header'>" +
                             "<span class='fc-agendaList-day'>"+dd+"</span>" +
                             "<span class='fc-agendaList-date'>"+lday+"</span>" +
-                        "</li>").appendTo(html);                           
+                        "</li>").appendTo(html);
                         temp = lday;
-                    }  
-                    if (allDay) {
+                    }
+
+                    console.log(displayeventlist[i]);
+                    var thisStart = displayeventlist[i]['start'];
+                    var thisDayStart = moment(thisStart).startOf('day');
+                    var thisStartHour = moment(thisStart).format('hh:mm a');
+                    var thisEventStart = moment(thisStart).format('YYYYMMDDHHmm');
+                    var thisEnd = moment(thisStart).endOf('day');
+                    var thisDayEnd = moment(thisEnd).format('YYYYMMDDHHmm');
+                    thisEnd = displayeventlist[i]['end'];
+                    var thisEventEnd = moment(thisEnd).format('YYYYMMDDHHmm');
+
+                    if (thisStartHour == '12:00 am' && thisDayEnd < thisEventEnd) {
+                    	allDay = true;
+                    } else {
+                    	allDay = false;
+                    }
+
+                    if (thisEventEnd > thisDayEnd) {
+                    	if (displayeventlist[i].due) {
+                    		st = "Due at " + st;
+                    	} else {
+                    		st = "Starts at " + st;
+                    	}
+                    	et = '';
+                    	console.log(thisEventEnd + " is greater than " + thisDayEnd);
+                    } else {
+                    	console.log("event ends today. start time is " + thisStartHour);
+                    	if (thisStartHour == '12:00 am') {
+                    		st = 'Ends at ' + et;
+                    		et = '';
+                    		console.log('multi-day finally ends here');
+                    	}
+                    }
+
+                    if (this)
+
+                    if (allDay == true) {
                         eventdisplay = $("<li class='fc-agendaList-item fc-today fc-thu'>"+
                                             "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
@@ -6320,7 +6366,6 @@ function agendaListView(element, calendar) {
                                             "</div></div>"+
                                           "</" + (lurl ? "a" : "div") + ">"+ 
                                         "</li>").appendTo(html);
-                        console.log("all day: " + eventdisplay);                                    
                     } else {
                         eventdisplay = $("<li class='fc-agendaList-item fc-today fc-thu'>"+
                                         "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
@@ -6331,11 +6376,10 @@ function agendaListView(element, calendar) {
                                             "</div>"+
                                             "<div class='fc-agendaList-eventDetails col-md-8'>"+
                                               "<div class='fc-eventlist-title'>"+ltitle+"</div>"+
-                                              "<div class='fc-eventlist-desc'>"+ltitle+"</div>"+
+                                              "<div class='fc-eventlist-desc'>"+ldesc+"</div>"+
                                             "</div></div>"+
                                           "</" + (lurl ? "a" : "div") + ">"+                                        
                                         "</li>").appendTo(html);   
-						 console.log("not all day: " + eventdisplay);                                    
                     }
                     eventElementHandlers(displayeventlist[i], eventdisplay);
                 }

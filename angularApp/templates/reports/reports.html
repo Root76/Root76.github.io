@@ -6,19 +6,19 @@
       <div id="showme" class="menucont">
         <div><h2>Show:<a href="javascript:void(0)" class="small-create-icon"><img src="img/create.png" ng-click="create()"/></a></h2></div>
         <div class="menusubcont">
-          <div class="subcontitem showitem selected" id="subEvent" ><img src="img/calendar.png" /></div>
-          <div class="subcontitem showitem selected" id="subTask" ><img src="img/tasks.png" /></div>
-          <div class="subcontitem showitem selected" id="subContact" ><img src="img/contacts.png" /></div>
-          <div class="subcontitem showitem selected" id="subTag" ><img src="img/tags.png" /></div>
+          <div class="subcontitem showitem selected" id="subEvent" ng-click="changeShowMe($event)" ><img src="img/events.png" /></div>
+          <div class="subcontitem showitem selected" id="subTask" ng-click="changeShowMe($event)" ><img src="img/tasks.png" /></div>
+          <div class="subcontitem showitem selected" id="subContact" ng-click="changeShowMe($event)" ><img src="img/contacts.png" /></div>
+          <div class="subcontitem showitem selected" id="subTag" ng-click="changeShowMe($event)" ><img src="img/tags.png" /></div>
         </div>
       </div>
       <div id="sortby" class="menucont">
         <div><h2>Sort by:</h2></div>
         <div class="menusubcont">
-          <div class="subcontitem sortitem"  id="mainevent">
-            <a><img src="img/calendar.png" /></a>
+          <div class="subcontitem sortitem" id="mainevent" ng-click="changeSortBy($event)">
+            <a><img src="img/events.png" /></a>
           </div>
-          <div class="subcontitem sortitem" id="maintask">
+          <div class="subcontitem sortitem" id="maintask" ng-click="changeSortBy($event)">
             <a><img src="img/tasks.png" /></a>
             <ul>
               <li class="suboption">Date</li>
@@ -26,10 +26,10 @@
               <li class="suboption">Alphabetical</li>
             </ul>    
           </div>
-          <div class="subcontitem sortitem" id="maincontact">
+          <div class="subcontitem sortitem" id="maincontact" ng-click="changeSortBy($event)">
             <a><img src="img/contacts.png" /></a>
           </div>
-          <div class="subcontitem sortitem" id="maintag">
+          <div class="subcontitem sortitem" id="maintag" ng-click="changeSortBy($event)">
             <a><img src="img/tags.png" /></a>
             <ul>
               <li class="suboption">Alphabetical</li>
@@ -43,11 +43,8 @@
   <div id="schedule" class="menucont">
     <div><h3>Upcoming Schedule:</h3></div>
     <div class="selectcont">
-      <select>
-        <option>Option 1</option>
-        <option>Option 2</option>
-        <option>Option 3</option>
-      </select>
+      <!--<select ng-model="ContactFilter" ng-options="option for option in ContactShow" ng-change="updateContactList()"></select>-->
+      <select ng-model="ScheduleFilter" ng-options="option for option in ScheduleShow" ng-change="updateSchedule()"></select>
       <img src="img/downarrow.jpg" />
     </div>
   </div>
@@ -56,27 +53,27 @@
       <h3 id="collapseall" class="reportToggler">Collapse all</h3>
       <h3 id="expandall" class="reportToggler">Expand all</h3>
       <ul class="list">
-        <li class="listitem maincontact" ng-repeat="contact in FilteredContacts" ng-click="getObjectDetails(contact)">
+        <li class="listitem maincontact" ng-repeat="contact in FilteredContacts" ng-click="getObjectDetails(contact, $event)" ng-if="selectedSortBy == 'maincontact'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
-            <img src="img/contacts.png" class="listimg" />
+            <a ui-sref="contacts.contact({contact_id: contact.id})"><img src="img/contacts.png" class="listimg" /></a>
             <span class="hidden">{{contact.id}}</span>
-            {{contact.name || contact.emails[0].email || 'No name or email'}}
+            {{getContactTitle(contact)}}
           </h3>
           <div class="subitems">
-            <div class="subitem ss1 subEvent">
-              <img class="subicon" src="img/calendar.png" />
+            <div class="subitem ss1 subEvent" ng-if="showEvents">
+              <img class="subicon" src="img/events.png" />
               <span class="subitemtext" ng-repeat="event in contact.events">{{event.title}}</span>
               <span class="subitemtext" ng-if="contact.events.length < 1">No events</span>
               <span class="subitemtext" ng-if="!contact.events">Loading, please wait...</span>
             </div>
-            <div class="subitem ss4 subTask">
+            <div class="subitem ss4 subTask" ng-if="showTasks">
               <img class="subicon" src="img/tasks.png" />
               <span class="subitemtext" ng-repeat="task in contact.tasks">{{task.title}}</span>
               <span class="subitemtext" ng-if="contact.tasks.length < 1">No tasks</span>
               <span class="subitemtext" ng-if="!contact.tasks">Loading, please wait...</span>
             </div>
-            <div class="subitem ss2 subTag">
+            <div class="subitem ss2 subTag" ng-if="showTags">
               <img class="subicon" src="img/tags.png" />
               <span class="subitemtext" ng-repeat="tag in contact.tags">{{tag.name}}</span>
               <span class="subitemtext" ng-if="contact.tags.length < 1">No tags</span>
@@ -84,27 +81,27 @@
             </div>
           </div>
         </li>
-        <li class="listitem mainevent" ng-repeat="event in FilteredEvents" ng-click="getObjectDetails(event)">
+        <li class="listitem mainevent" ng-repeat="event in FilteredEvents" ng-click="getObjectDetails(event, $event)" ng-if="selectedSortBy == 'mainevent'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
-            <img src="img/events.png" class="listimg" />
+            <a ui-sref="events.event({event_id: event.id})"><img src="img/events.png" class="listimg" /></a>
             <span class="hidden">{{event.id}}</span>
-            {{event.title}}
+            {{event.title || 'No event title'}}
           </h3>
           <div class="subitems">
-            <div class="subitem ss3 subContact">
+            <div class="subitem ss3 subContact" ng-if="showContacts">
               <img class="subicon" src="img/contacts.png" />
               <span class="subitemtext" ng-repeat="contact in event.contacts">{{contact.name}}</span>
               <span class="subitemtext" ng-if="event.contacts.length < 1">No contacts</span>
               <span class="subitemtext" ng-if="!event.contacts">Loading, please wait...</span>
             </div>
-            <div class="subitem ss4 subTask">
+            <div class="subitem ss4 subTask" ng-if="showTasks">
               <img class="subicon" src="img/tasks.png" />
               <span class="subitemtext" ng-repeat="task in event.tasks">{{task.title}}</span>
               <span class="subitemtext" ng-if="event.tasks.length < 1">No tasks</span>
               <span class="subitemtext" ng-if="!event.tasks">Loading, please wait...</span>
             </div>
-            <div class="subitem ss2 subTag">
+            <div class="subitem ss2 subTag" ng-if="showTags">
               <img class="subicon" src="img/tags.png" />
               <span class="subitemtext" ng-repeat="tag in event.tags">{{tag.name}}</span>
               <span class="subitemtext" ng-if="event.tags.length < 1">No tags</span>
@@ -112,28 +109,28 @@
             </div>
           </div>
         </li> 
-        <li class="listitem maintask" ng-repeat="task in tasks" ng-click="getObjectDetails(task)">
+        <li class="listitem maintask" ng-repeat="task in FilteredTasks" ng-click="getObjectDetails(task, $event)" ng-if="selectedSortBy == 'maintask'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
-            <img src="img/tasks.png" class="listimg" />
+            <a ui-sref="tasks.task({task_id: task.id})"><img src="img/tasks.png" class="listimg" /></a>
             <span class="hidden">{{task.id}}</span>
-            {{task.title || task.notes}}
+            {{task.title || task.notes || 'No task name'}}
             <img src="img/check.png" class="checkmark" />
           </h3>
           <div class="subitems">
-            <div class="subitem ss3 subContact">
+            <div class="subitem ss3 subContact" ng-if="showContacts">
               <img class="subicon" src="img/contacts.png" />
               <span class="subitemtext" ng-repeat="contact in task.contacts">{{contact.name}}</span>
               <span class="subitemtext" ng-if="task.contacts.length < 1">No contacts</span>
               <span class="subitemtext" ng-if="!task.contacts">Loading, please wait...</span>
             </div>
-            <div class="subitem ss1 subEvent">
-              <img class="subicon" src="img/calendar.png" />
+            <div class="subitem ss1 subEvent" ng-if="showEvents">
+              <img class="subicon" src="img/events.png" />
               <span class="subitemtext" ng-repeat="event in task.events">{{event.title}}</span>
               <span class="subitemtext" ng-if="task.events.length < 1">No events</span>
               <span class="subitemtext" ng-if="!task.events">Loading, please wait...</span>
             </div>
-            <div class="subitem ss2 subTag">
+            <div class="subitem ss2 subTag" ng-if="showTags">
               <img class="subicon" src="img/tags.png" />
               <span class="subitemtext" ng-repeat="tag in task.tags">{{tag.name}}</span>
               <span class="subitemtext" ng-if="task.tags.length < 1">No tags</span>
@@ -141,27 +138,27 @@
             </div>
           </div>
         </li>
-        <li class="listitem maintag" ng-repeat="tag in tags" ng-click="getObjectDetails(tag)">
+        <li class="listitem maintag" ng-repeat="tag in tags" ng-click="getObjectDetails(tag, $event)" ng-if="selectedSortBy == 'maintag'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
-            <img src="img/tags.png" class="listimg" />
+            <a ui-sref="tags.tag({tag_id: tag.id})"><img src="img/tags.png" class="listimg" /></a>
             <span class="hidden">{{tag.id}}</span>
-            {{tag.name}}
+            {{tag.name || 'No tag name'}}
           </h3>
           <div class="subitems">
-            <div class="subitem ss3 subContact">
+            <div class="subitem ss3 subContact" ng-if="showContacts">
               <img class="subicon" src="img/contacts.png" />
               <span class="subitemtext" ng-repeat="contact in tag.contacts">{{contact.name}}</span>
               <span class="subitemtext" ng-if="tag.contacts.length < 1">No contacts</span>
               <span class="subitemtext" ng-if="!tag.contacts">Loading, please wait...</span>
             </div>
-            <div class="subitem ss1 subEvent">
-              <img class="subicon" src="img/calendar.png" />
+            <div class="subitem ss1 subEvent" ng-if="showEvents">
+              <img class="subicon" src="img/events.png" />
               <span class="subitemtext" ng-repeat="event in tag.events">{{event.title}}</span>
               <span class="subitemtext" ng-if="tag.events.length < 1">No events</span>
               <span class="subitemtext" ng-if="!tag.events">Loading, please wait...</span>
             </div>
-            <div class="subitem ss4 subTask">
+            <div class="subitem ss4 subTask" ng-if="showTasks">
               <img class="subicon" src="img/tasks.png" />
               <span class="subitemtext" ng-repeat="task in tag.tasks">{{task.title}}</span>
               <span class="subitemtext" ng-if="tag.tasks.length < 1">No tasks</span>

@@ -2,12 +2,10 @@
 
 	var EventServicesModule = angular.module('EventServices', ['ngResource']);
 
-	var baseURL = "https://daywon-api-prod.herokuapp.com";
-
 	EventServicesModule.factory('eventService', ['$resource', '$http', '$log', 
 		function($resource, $http, $log) {
 			return {
-				Events : $resource(baseURL + "/events", null, {
+				Events : $resource("/events", null, {
 					create:
 					{
 						method: 'POST',
@@ -19,7 +17,7 @@
 					}
 				}),
 
-				Event : $resource(baseURL + "/events/:event_id", {event_id:"@id"}, {
+				Event : $resource("/events/:event_id", {event_id:"@id"}, {
 					save:
 					{
 						method: 'PUT',

@@ -13,14 +13,14 @@
     <img src="img/tasks.png" />
     <img src="img/tags.png" class="selected" />   
     <a href="javascript:void(0)"><img src="img/create.png" class="createicon addTag" ng-click="create('tag')" /></a>
-    <img src="img/trash.png" ng-click="deleteTag(tag)" class="trashicon" />    
-    <button id="destroy">{{tag.id}}</button>
+        <img src="img/trash.png" class="trashicon" />
+        <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 58 of TagsModule.js"-->
   </div>
   <div class="panelcontent" id="tagscontent">
     <div class="infopanel">
       <form id="addForm">
-        <div class="formrow">Add contacts: <br />
-          <input type="text" ng-model="selectedContact" placeholder="Type to select contact" typeahead="contact as contact.name for contact in contacts | filter:{name:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedContact = undefined;" class="form-control">
+        <div class="formrow typeaheadAssociated">Add contacts: <br />
+          <input type="text" ng-model="selectedContact" placeholder="Type to select contact" typeahead="contact as contact.name for contact in contacts | filter:{name:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedContact = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="contact in tag.contacts | orderBy: ['name', 'emails[0].email', 'id']">
@@ -35,8 +35,8 @@
     </div>
     <div class="infopanel">
       <form id="addForm">
-        <div class="formrow">Add events: <br />
-          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
+        <div class="formrow typeaheadAssociated">Add events: <br />
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in tag.events">
@@ -51,8 +51,8 @@
     </div>
     <div class="infopanel">
       <form id="addForm">
-        <div class="formrow">Add tasks: <br />
-          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
+        <div class="formrow typeaheadAssociated">Add tasks: <br />
+          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="task in tag.tasks">
@@ -96,7 +96,8 @@
           </div>
         </div>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('tag')" /></a>
-        <img class="detailTrash" src="img/trash.png" ng-click="deleteTag(tag)"/>
+        <img src="img/trash.png" class="trashicon" />
+        <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 58 of TagsModule.js"-->
       </div>
       <img class="columnDivider" src="img/divider_yellow.png" />
     </div>

@@ -14,8 +14,8 @@
     <img src="img/tasks.png"/>
     <img src="img/tags.png"/>
     <a href="javascript:void(0)"><img src="img/create.png" class="addContact createicon" ng-click="create('contact')"/></a>
-    <img src="img/trash.png" ng-click="deleteContact(contact)" class="trashicon" />
-    <button id="destroy">{{contact.id}}</button>
+    <img src="img/trash.png" class="trashicon" />
+    <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 215 of ContactsModule.js"-->
   </div>
 
 
@@ -25,7 +25,7 @@
     <div class="infopanel selected">
 
       <div class="contactrow" ng-repeat="phone in contact.phones">
-        <img src="img/cellphone.png">
+        <img src="img/cellphone.png" class="contactAttrImg">
         <div>
           <h4 class="phonenumber">
             <span editable-text="phone.number" onaftersave="saveContact()">
@@ -42,9 +42,8 @@
       </div>
 
       <div class="contactrow" ng-repeat="email in contact.emails">
-        <a href="javascript:void(0)" class="openModal7" style="display:none">No email</a>
-        <a href="" target="_blank" class="dynamicEmail emailLink desktopEmail"><img src="img/openmail.png"></a>
-        <a href="" class="dynamicEmail emailLink mobileEmail"><img src="img/openmail.png"></a>
+        <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" target="_blank" class="dynamicEmail emailLink desktopEmail composeEmail"><img src="img/openmail.png" class="contactAttrImg"></a>
+        <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" class="dynamicEmail emailLink mobileEmail composeEmail"><img src="img/openmail.png"></a>
         <h4 class="emailfield">
           <span editable-text="email.email" onaftersave="saveContact()">
             {{email.email || 'No email'}}
@@ -59,7 +58,7 @@
       </div>
 
       <div class="contactrow">
-        <img id="bdayImage" src="img/birthday.png">
+        <img id="bdayImage" src="img/birthday.png" class="contactAttrImg">
         <h4 id="bday">
           <span editable-text="contact.extended_properties[birthdayIndex].value" onaftersave="saveContact()">
             {{contact.extended_properties[birthdayIndex].value || 'No birthday'}}
@@ -68,10 +67,19 @@
       </div>
 
       <div class="contactrow">
-        <img id="locationImage" src="img/location.png">
+        <img id="locationImage" src="img/location.png" class="contactAttrImg">
         <h4 class="contactlocation">
           <span editable-text="contact.address" onaftersave="saveContact()">
             {{contact.address || 'No location'}}
+          </span>
+        </h4>
+      </div>
+
+      <div class="contactrow">
+        <img src="img/company.png" class="contactAttrImg">
+        <h4>
+          <span editable-text="contact.organization" onaftersave="saveContact()">
+            {{contact.organization || 'No company'}}
           </span>
         </h4>
       </div>
@@ -104,9 +112,9 @@
 
     <div class="infopanel">
       <form id="addForm">
-        <div class="formrow">Add events: <br />
+        <div class="formrow typeaheadAssociated">Add events: <br />
           <!-- <input id="typeAheadAddEvent" /> -->
-          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in contact.events">
@@ -122,8 +130,8 @@
 
     <div class="infopanel">
       <form id="addForm">
-        <div class="formrow">Add tasks: <br />
-          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
+        <div class="formrow typeaheadAssociated">Add tasks: <br />
+          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="task in contact.tasks">
@@ -139,8 +147,8 @@
 
     <div class="infopanel">
       <form id="addForm">
-        <div class="formrow">Add tags: <br />
-          <input type="text" ng-model="selectedTag" placeholder="Type to select tag" typeahead="tag as tag.name for tag in tags | filter:{name:$viewValue}" typeahead-on-select="onSelect($item, $model, $label); selectedTag = undefined;" class="form-control">
+        <div class="formrow typeaheadAssociated">Add tags: <br />
+          <input type="text" ng-model="selectedTag" placeholder="Type to select tag" typeahead="tag as tag.name for tag in tags | filter:{name:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedTag = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="tag in contact.tags">
@@ -173,14 +181,16 @@
         </h1>
         <div class="contactgroup contactDetails">
           <div class="contactitem">
-            <a href="" target="_blank" class="dynamicEmail emailLink"><img src="img/openmail.png"></a>
+            <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" target="_blank" class="dynamicEmail emailLink composeEmail" ng-if="contact.emails[0].email"><img src="img/openmail.png"></a>
+            <a href="" target="_blank" class="dynamicEmail composeEmail" ng-if="!contact.emails[0].email"><img src="img/openmail.png"></a>
             <span editable-text="contact.emails[0].email" onaftersave="saveContact()">
               {{contact.emails[0].email || 'No email'}}
             </span>
           </div>
           <div class="contactitem">
             <img src="img/openmail.png" />
-            <a href="emailLink" target="_blank" class="emailLink">View Emails</a>
+            <a ng-href="https://mail.google.com/mail/u/1/#search/from:{{contact.emails[0].email}}+OR+to:{{contact.emails[0].email}}" target="_blank" class="emailLink viewEmails" ng-if="contact.emails[0].email">View Emails</a>
+            <a href="" class="viewEmails" ng-if="!contact.emails[0].email">View Emails</a>
           </div>
           <div class="contactitem">
             <img src="img/cellphone.png" />
@@ -198,6 +208,12 @@
             <img src="img/location.png" />
             <span editable-text="contact.address" onaftersave="saveContact()">                  
               {{contact.address || 'No address'}}
+            </span>
+          </div>
+          <div class="contactitem">
+            <img src="img/company.png" />
+            <span editable-text="contact.organization" onaftersave="saveContact()">                  
+              {{contact.organization || 'No company'}}
             </span>
           </div>
         </div>
@@ -222,7 +238,8 @@
           </div>
         </h5>
         <a href="javascript:void(0)"><img src="img/create.png" class="detailCreate" ng-click="create('contact')" /></a>
-        <img class="detailTrash" src="img/trash.png" ng-click="deleteContact(contact)"/>
+        <img src="img/trash.png" class="trashicon" />
+        <div class="deleteButton"></div> <!-- Works via a jquery event, bound on line 215 of ContactsModule.js"-->
       </div>
       <img class="columnDivider" src="img/divider_blue.png" />
     </div>

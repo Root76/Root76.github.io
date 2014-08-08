@@ -2,12 +2,10 @@
 
 	var TagServicesModule = angular.module('TagServices', ['ngResource']);
 
-	var baseURL = "https://daywon-api-prod.herokuapp.com";
-
 	TagServicesModule.factory('tagService', ['$resource', '$http', '$log', 
 		function ($resource, $http, $log) {
 			return {
-				Tags : $resource(baseURL + "/tags", null, {
+				Tags : $resource("/tags", null, {
 					create:
 					{
 						method: 'POST',
@@ -19,7 +17,7 @@
 					}
 				}),
 
-				Tag : $resource(baseURL + "/tags/:tag_id", {tag_id:"@id"}, {
+				Tag : $resource("/tags/:tag_id", {tag_id:"@id"}, {
 						save:
 						{
 							method: 'PUT',
