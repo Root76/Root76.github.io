@@ -10,11 +10,11 @@ function QueryStringToJSON() {
 
 var query_string = QueryStringToJSON();
 
-//var authToken = query_string.authentication_token;
-//var authEmail = query_string.user_email;
+var authToken = query_string.authentication_token;
+var authEmail = query_string.user_email;
 
-var authToken = '4N9-_NWfYvYxpesMVpne';
-var authEmail = 'hweaver@evenspring.com';
+//var authToken = '4N9-_NWfYvYxpesMVpne';
+//var authEmail = 'hweaver@evenspring.com';
 
 function hashHandler(){
     this.oldHash = window.location.hash;
@@ -39,7 +39,6 @@ var relatedContacts = true;
 var relatedEvents = true;
 var relatedTasks = true;
 var relatedTags = true;
-
 
 (function(){
 

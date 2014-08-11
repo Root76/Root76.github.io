@@ -11,24 +11,7 @@
 
 				console.log(totalEvents.length + "events");
 
-				var getTasks = function(cb) {
-		            $.ajax({
-		                type: 'GET',
-		                url: 'https://daywon-api-staging.herokuapp.com/tasks',
-		                contentType: "application/json",
-		                dataType: "json",
-		                headers: {
-		                    "X-AUTHENTICATION-TOKEN": authToken,
-		                    "X-AUTHENTICATION-EMAIL": authEmail
-		                },
-		                success: cb,
-		                error: function(e) {
-		                    console.log("couldn't fetch tasks: " + e);
-		                }
-		            });
-		        }
-
-		        var callback = function(data) {
+				taskService.Tasks.get(function(data){
 
 		        	var allTasks = data.tasks;
 		        	var jsonTask = [];
@@ -170,35 +153,19 @@
 					    }
 			        });
 
-		        }
+		        });
 
 		        $('.showitem').unbind("click").bind("click", function(event){
 		            var subSortType = event.target.id;
-		            var subSortList = document.getElementsByClassName(subSortType);
 		            if ($(event.target).hasClass('selected')) {
 		                $(event.target).removeClass('selected');
-		                $(subSortList).css("display", "none");
-		                if (this.id === 'maintask') {
-		                    $('.calTask').removeClass('active');
-		                } else if (this.id === 'mainevent') {
-		                    $('.calEvent').removeClass('active');
-		                } else {
-		                    console.log('nope');
-		                }
+		                $("#calendarcont").addClass(subSortType);
 		            } else {
 		                $(event.target).addClass('selected');
-		                $(subSortList).css("display", "block");
-		                if (this.id === 'maintask') {
-		                    $('.calTask').addClass('active');
-		                } else if (this.id === 'mainevent') {
-		                    $('.calEvent').addClass('active');
-		                } else {
-		                    console.log('nope');
-		                }
+		                $("#calendarcont").removeClass(subSortType);
 		            }
 		        });
 
-		        getTasks(callback);
 		        console.log(totalEvents);
 
 			});

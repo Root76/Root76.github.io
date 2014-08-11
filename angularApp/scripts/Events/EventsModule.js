@@ -111,11 +111,18 @@
 					$scope.eventDates.endDate = new Date($scope.event.end_datetime);
 				}
 
-				$(".trashicon").each(function(){
+				var trash1 = $("#detailPanel .trashicon"),
+					trash2 = $("#detailmenubar .trashicon");
 
-					new Opentip($(this), "Delete", {
-		                style: "bottomtip"
-		            });
+				new Opentip(trash1, "Delete", {
+					style: "bottomtip"
+				});
+
+				new Opentip(trash2, "Delete", {
+					style: "toptip"
+				});
+
+				$(".trashicon").each(function(){
 
 			        $(this).bind("click", function(){
 			            var deleteTip = new Opentip($(this), "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {

@@ -1807,6 +1807,7 @@ to {
 	padding:0px;
 	height:545px;
 	top:14px;
+	overflow-y:scroll;
 }
 
 .dashContent .formrow {
@@ -2006,10 +2007,10 @@ to {
 }
 
 .trashicon {
-	position:absolute;
-	right:80px;
-	top:-3px;
-	width:55px !important;
+	position: absolute;
+	right: 0px;
+	top: 6px;
+	width: 55px !important;
 }
 
 .calPopupCont p {
@@ -3765,15 +3766,19 @@ table.fc-border-separate {
 .calEvent {
 	background: #e35d32;
 	border: 1px solid #e35d32;
-	display:none;
+	display:block;
 }
 
 .calTask {
+	display:block;
+}
+
+#calendarcont.mainevent .calEvent {
 	display:none;
 }
 
-.calEvent.active, .calTask.active {
-	display:block;
+#calendarcont.maintask .calTask {
+	display:none;
 }
 
 .beforeDropdown {
@@ -3822,9 +3827,17 @@ color: #fff;
 	right:195px !important;
 }
 
+#detailmenubar > .trashicon {
+	right: 80px;
+	top: -4px;	
+}
+
 .contactmenu > .trashicon {
 	right:145px !important;
+	top:-3px;
 }
+
+
 
 input#toggle, 
 input#toggle2,
