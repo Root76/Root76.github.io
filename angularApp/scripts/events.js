@@ -570,7 +570,7 @@ function rebindEvents() {
             }
         };
 
-        $.ajax({
+        /*$.ajax({
             type: 'GET',
             url: baseURL + '/contacts',
             contentType: "application/json",
@@ -995,7 +995,7 @@ function rebindEvents() {
             error: function (e) {
                 console.log("There was an error prefetching contacts: " + e);
             }
-        });
+        });*/
 
         setTimeout(function(){
 

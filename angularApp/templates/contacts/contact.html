@@ -42,8 +42,8 @@
       </div>
 
       <div class="contactrow" ng-repeat="email in contact.emails">
-        <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" target="_blank" class="dynamicEmail emailLink desktopEmail composeEmail"><img src="img/openmail.png" class="contactAttrImg"></a>
-        <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{contact.emails[0].email}}" class="dynamicEmail emailLink mobileEmail composeEmail"><img src="img/openmail.png"></a>
+        <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{email.email}}" target="_blank" class="dynamicEmail emailLink desktopEmail composeEmail"><img src="img/openmail.png" class="contactAttrImg"></a>
+        <a ng-href="https://mail.google.com/mail/u/0/?view=cm&to={{email.email}}" class="dynamicEmail emailLink mobileEmail composeEmail"><img src="img/openmail.png"></a>
         <h4 class="emailfield">
           <span editable-text="email.email" onaftersave="saveContact()">
             {{email.email || 'No email'}}
@@ -76,7 +76,7 @@
       </div>
 
       <div class="contactrow">
-        <img src="img/company.png" class="contactAttrImg">
+        <img id="companyImage" src="img/company.png" class="contactAttrImg">
         <h4>
           <span editable-text="contact.organization" onaftersave="saveContact()">
             {{contact.organization || 'No company'}}

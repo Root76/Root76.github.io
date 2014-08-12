@@ -222,6 +222,18 @@
 			            });
 					}
 
+		            function composeTooltips(){
+		            	var composeLinks = $("#contactcontent .composeEmail > img");
+		            	console.log(composeLinks);
+		            	for (var i = 0; i < composeLinks.length; i++) {
+		            		new Opentip(composeLinks[i], "Compose Email", {
+		            			style: "lefttip"
+		            		})
+		            	}
+		            }
+
+		            composeTooltips();
+
 					var trash1 = $("#detailPanel .trashicon"),
 						trash2 = $("#detailmenubar .trashicon");
 
@@ -293,16 +305,13 @@
 		        	new Opentip(contactImages[0], "Phone Number", {
 		                style: "lefttip"
 		            });
-		        	new Opentip(contactImages[1], "Compose Email", {
+		            new Opentip("#bdayImage", "Birthday", {
 		                style: "lefttip"
 		            });
-		        	new Opentip(contactImages[2], "Birthday", {
+		            new Opentip("#locationImage", "Location", {
 		                style: "lefttip"
 		            });
-		        	new Opentip(contactImages[3], "Location", {
-		                style: "lefttip"
-		            });
-		        	new Opentip(contactImages[4], "Company", {
+		            new Opentip("#companyImage", "Company", {
 		                style: "lefttip"
 		            });
 
@@ -345,8 +354,18 @@
 
 			$scope.addEmail = function() {
 				$scope.contact.emails.push({email:''});
-
 				$scope.contact.$save();
+
+				setTimeout(function(){
+	            	composeLinks = $("#contactcontent .composeEmail > img");
+	            	console.log(composeLinks);
+	            	for (var i = 0; i < composeLinks.length; i++) {
+	            		new Opentip(composeLinks[i], "Compose Email", {
+	            			style: "lefttip"
+	            		})
+	            	}
+            	}, 100);
+
 			}
 
 			$scope.removeEmail = function(email) {

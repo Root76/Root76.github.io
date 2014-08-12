@@ -6275,6 +6275,7 @@ function agendaListView(element, calendar) {
             var vm = formatDate(t.visStart, 'W');
             var today = moment().format('YYYYMMDDHHmm');
             console.log(today);
+            console.log(displayeventlist);
 
             for (i in displayeventlist) {
 				//console.log(" Event start date "+ displayeventlist[i].start +" end date "+ displayeventlist[i].end+" "+ displayeventlist[i].title);
@@ -6300,10 +6301,8 @@ function agendaListView(element, calendar) {
 
                     if (displayeventlist[i].due) {
                     	et = st;
-                    	console.log("It's a Task");
                     } else {
                     	et = moment(et).format('hh:mm a');
-                    	console.log("It's an event");
                     }
 
                     if (!ldesc) {
@@ -6311,14 +6310,13 @@ function agendaListView(element, calendar) {
                     }
                     
                     if (lday != temp) { //on change de jour
-                        $("<li class='fc-agendaList-dayHeader ui-widget-header'>" +
+                        $("<li class='fc-agendaList-dayHeader agendaItem dayHeader ui-widget-header'>" +
                             "<span class='fc-agendaList-day'>"+dd+"</span>" +
                             "<span class='fc-agendaList-date'>"+lday+"</span>" +
                         "</li>").appendTo(html);
                         temp = lday;
                     }
 
-                    console.log(displayeventlist[i]);
                     var thisStart = displayeventlist[i]['start'];
                     var thisDayStart = moment(thisStart).startOf('day');
                     var thisStartHour = moment(thisStart).format('hh:mm a');
@@ -6341,20 +6339,17 @@ function agendaListView(element, calendar) {
                     		st = "Starts at " + st;
                     	}
                     	et = '';
-                    	console.log(thisEventEnd + " is greater than " + thisDayEnd);
                     } else {
-                    	console.log("event ends today. start time is " + thisStartHour);
                     	if (thisStartHour == '12:00 am') {
                     		st = 'Ends at ' + et;
                     		et = '';
-                    		console.log('multi-day finally ends here');
                     	}
                     }
 
                     if (this)
 
                     if (allDay == true) {
-                        eventdisplay = $("<li class='fc-agendaList-item fc-today fc-thu'>"+
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'>"+
                                             "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
                                             "<div class='fc-event-time col-md-4'>"+
@@ -6367,7 +6362,7 @@ function agendaListView(element, calendar) {
                                           "</" + (lurl ? "a" : "div") + ">"+ 
                                         "</li>").appendTo(html);
                     } else {
-                        eventdisplay = $("<li class='fc-agendaList-item fc-today fc-thu'>"+
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'>"+
                                         "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
                                             "<div class='fc-event-time col-md-4'>"+
@@ -6386,8 +6381,35 @@ function agendaListView(element, calendar) {
 			}
 		    $(element).html(html);
             trigger('eventAfterAllRender');
+            var allItems = $('.agendaItem');
+            var j = 0;
+            for (i = 0; j < 10; i++) {
+            	if ($(allItems[i]).hasClass('dayHeader')) {
+            		j++;
+            	}
+            	//don't render the last header
+            	if (j < 10) {
+            		$(allItems[i]).removeClass('agendaItem');
+            	}
+            }
         }
         
+        window.onscroll = function(ev) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 155) {
+            	console.log("ROCK BOTTOM");
+	            var allItems = $('.agendaItem');
+	            var j = 0;
+	            for (i = 0; j < 10; i++) {
+	            	if ($(allItems[i]).hasClass('dayHeader')) {
+	            		j++;
+	            	}
+	            	//don't render the last header
+	            	if (j < 10) {
+	            		$(allItems[i]).removeClass('agendaItem');
+	            	}
+	            }
+            }
+        };
 
 		function clearEvents() {
 			//implement this in case we wanna do list based display

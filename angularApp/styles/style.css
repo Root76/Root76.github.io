@@ -1807,7 +1807,7 @@ to {
 	padding:0px;
 	height:545px;
 	top:14px;
-	overflow-y:scroll;
+	overflow-y:auto;
 }
 
 .dashContent .formrow {
@@ -3729,6 +3729,10 @@ table.fc-border-separate {
 	padding:10px;
 	background:#88c44c;
 	color:#fff;
+}
+
+.agendaItem {
+	display:none;
 }
 
 .fc-agendaList-date {

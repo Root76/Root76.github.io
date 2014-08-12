@@ -2,18 +2,14 @@
 
 	var CalendarModule = angular.module("Calendar", ['TaskServices', 'EventServices']);
 
-	CalendarModule.controller('CalendarController', ['$resource', 'taskService', 'eventService',
-		function($resource, taskService, eventService) {
+	CalendarModule.controller('CalendarController', ['$scope', '$resource', 'taskService', 'eventService',
+		function($scope, $resource, taskService, eventService) {
 
-			eventService.Events.get(function(data){
+					var totalEvents = $scope.events;
 
-				var totalEvents = data.events;
+					console.log(totalEvents.length + "events");
 
-				console.log(totalEvents.length + "events");
-
-				taskService.Tasks.get(function(data){
-
-		        	var allTasks = data.tasks;
+		        	var allTasks = $scope.tasks;
 		        	var jsonTask = [];
 		        	var j = 0;
 		        	for (var i = totalEvents.length; j < allTasks.length; j++) {
@@ -98,7 +94,7 @@
 						            		closeButtonRadius: 15,
 						            		closeButtonCrossSize: 10,
 						            		closeButtonCrossColor: "#ffffff"
-						        		});	
+						        		});
 
 								    },
 							        error: function(e) {
@@ -153,7 +149,6 @@
 					    }
 			        });
 
-		        });
 
 		        $('.showitem').unbind("click").bind("click", function(event){
 		            var subSortType = event.target.id;
@@ -166,9 +161,6 @@
 		            }
 		        });
 
-		        console.log(totalEvents);
-
-			});
 
 		}]);
 })();
