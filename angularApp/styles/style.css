@@ -1434,7 +1434,7 @@ h1, h2, h3, h4 {
 }
 
 #contactcontent > .infopanel:first-child {
-	overflow-y:scroll;
+	overflow-y:auto;
 	height:100%;
 }
 
@@ -1768,7 +1768,7 @@ to {
 }
 
 #profilepic {
-	top:50px;
+	top:25px;
 	width:70px;
 	float:left;
 	position:absolute;
