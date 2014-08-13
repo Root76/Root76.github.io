@@ -1,29 +1,11 @@
 @media screen and (max-height:880px) {
-	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2, #detailPanel, .dCol, .columnDivider {
-		height:500px;
-	}
 	.columnDivider {
 		width:10px;
 		z-index:1000;
 	}
-	.panelcontent {
-		height:325px !important;
-	}
-	#contactcontent.panelcontent {
-		height:300px !important;
-	}
-	.dashContent {
-		height:395px !important;
-	}
 	.panelfooter {
 		height: 35px !important;
 		top: 43px !important;
-	}
-	.flipswitch {
-		height:500px;
-	}
-	#fliparrow {
-		top:215px;
 	}
 	.modal-content > .ng-scope{
 		max-height:660px;
@@ -31,34 +13,11 @@
 }
 
 @media screen and (max-height:720px) {
-	#contactpanel2, #taskpanel2, #eventpanel2, #tagpanel2, #detailPanel, .dCol, .columnDivider {
-		height:378px;
-	}
-	.flipswitch {
-		height:378px;
-	}
-	#fliparrow {
-		top:150px;
-	}
-	.panelcontent {
-		height:228px !important;
-		top:10px;
-	}
-	#contactcontent.panelcontent {
-		height:203px !important;
-	}
-	.dashContent {
-		height:275px !important;
-		top:14px;
-	}
 	#profilepic {
 		top:25px !important;
 	}
 	.contacttext {
 		top:0px !important;
-	}
-	#detailmenubar {
-		top:0px;
 	}
 	.contactrow {
 		height: 40px;
@@ -72,9 +31,6 @@
 	.dashList li {
 		padding:15px !important;
 	}
-	#contactname {
-		top:0px !important;
-	}
 	.modal-content > .ng-scope{
 		max-height:560px;
 	}
@@ -83,6 +39,11 @@
 @media screen and (max-height:620px) {
 	.modal-content > .ng-scope{
 		max-height:460px;
+	}
+	#fliparrow {
+		position: absolute;
+		top: 40%;
+		left: 25%;
 	}
 }
 

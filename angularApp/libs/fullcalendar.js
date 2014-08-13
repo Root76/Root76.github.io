@@ -6383,11 +6383,10 @@ function agendaListView(element, calendar) {
             trigger('eventAfterAllRender');
             var allItems = $('.agendaItem');
             var j = 0;
-            for (i = 0; j < 10; i++) {
+            for (i = 0; i < allItems.length; i++) {
             	if ($(allItems[i]).hasClass('dayHeader')) {
             		j++;
             	}
-            	//don't render the last header
             	if (j < 10) {
             		$(allItems[i]).removeClass('agendaItem');
             	}
@@ -6399,11 +6398,10 @@ function agendaListView(element, calendar) {
             	console.log("ROCK BOTTOM");
 	            var allItems = $('.agendaItem');
 	            var j = 0;
-	            for (i = 0; j < 10; i++) {
+	            for (i = 0; i < allItems.length; i++) {
 	            	if ($(allItems[i]).hasClass('dayHeader')) {
 	            		j++;
 	            	}
-	            	//don't render the last header
 	            	if (j < 10) {
 	            		$(allItems[i]).removeClass('agendaItem');
 	            	}

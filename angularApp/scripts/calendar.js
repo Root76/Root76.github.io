@@ -5,6 +5,11 @@
 	CalendarModule.controller('CalendarController', ['$scope', '$resource', 'taskService', 'eventService',
 		function($scope, $resource, taskService, eventService) {
 
+			var checkEvents = setInterval(function() {
+
+				if ($scope.events && $scope.tasks) {
+
+					clearInterval(checkEvents);
 					var totalEvents = $scope.events;
 
 					console.log(totalEvents.length + "events");
@@ -150,17 +155,21 @@
 			        });
 
 
-		        $('.showitem').unbind("click").bind("click", function(event){
-		            var subSortType = event.target.id;
-		            if ($(event.target).hasClass('selected')) {
-		                $(event.target).removeClass('selected');
-		                $("#calendarcont").addClass(subSortType);
-		            } else {
-		                $(event.target).addClass('selected');
-		                $("#calendarcont").removeClass(subSortType);
-		            }
-		        });
+			        $('.showitem').unbind("click").bind("click", function(event){
+			            var subSortType = event.target.id;
+			            if ($(event.target).hasClass('selected')) {
+			                $(event.target).removeClass('selected');
+			                $("#calendarcont").addClass(subSortType);
+			            } else {
+			                $(event.target).addClass('selected');
+			                $("#calendarcont").removeClass(subSortType);
+			            }
+			        });
 
+
+				}
+
+			}, 1000);
 
 		}]);
 })();
