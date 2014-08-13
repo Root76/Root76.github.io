@@ -3738,8 +3738,23 @@ table.fc-border-separate {
 .fc-agendaList-item {
 	border-left:1px solid #88c44c;
 	border-right:1px solid #88c44c;
+	-moz-transition: .1s ease-in-out;
+	-webkit-transition: .1s ease-in-out;
+	transition: .1s ease-in-out;
+	border:1px solid #fff;
+	color:#333;
 }
-
+.fc-agendaList-item:hover {
+	background:#88c44c;
+	border:1px solid #88c44c;
+	color:#fff;
+}
+.fc-agendaList-item > a {
+	color:inherit;
+}
+.fc-agendaList-item > a:hover {
+	color:inherit;
+}
 .fc-agendaList-item:last-child {
 	border-bottom:1px solid #88c44c;
 }

@@ -154,6 +154,34 @@
 					    }
 			        });
 
+			        $('.calchoice').click(function(event){
+			            if ($(event.target).hasClass('selected')) {
+			                console.log('already selected');
+			            } else {
+			                $(event.target).parent().find('.selected').removeClass('selected');
+			                $(event.target).addClass('selected');
+			                var timeView = $(event.target).html();
+			                timeView = timeView.toLowerCase();
+			                if (timeView == "today") {
+			                    timeView = "day";
+			                }
+			                if (timeView == "list") {
+			                    timeView = "Agenda";
+			                    $("#calToday").addClass("hidden");
+			                    $(".fc-header-left").addClass("hidden");
+			                    $(".fc-header-center").addClass("hidden");
+			                } else {
+			                    $("#calToday").removeClass("hidden");
+			                    $(".fc-header-left").removeClass("hidden");
+			                    $(".fc-header-center").removeClass("hidden");
+			                }
+			                $( "span:contains('" + timeView + "')" ).click();
+			            }
+			        });
+
+			        $('#calToday').click(function() {
+			            $('.fc').fullCalendar('today');
+			        });
 
 			        $('.showitem').unbind("click").bind("click", function(event){
 			            var subSortType = event.target.id;
@@ -165,7 +193,6 @@
 			                $("#calendarcont").removeClass(subSortType);
 			            }
 			        });
-
 
 				}
 

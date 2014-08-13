@@ -6349,7 +6349,7 @@ function agendaListView(element, calendar) {
                     if (this)
 
                     if (allDay == true) {
-                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'>"+
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'><a href='#/events/" + displayeventlist[i].id + "'>"+
                                             "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
                                             "<div class='fc-event-time col-md-4'>"+
@@ -6360,9 +6360,9 @@ function agendaListView(element, calendar) {
                                               "<div class='fc-eventlist-desc'>"+ldesc+"</div>"+
                                             "</div></div>"+
                                           "</" + (lurl ? "a" : "div") + ">"+ 
-                                        "</li>").appendTo(html);
-                    } else {
-                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'>"+
+                                        "</li></a>").appendTo(html);
+                    } else if (displayeventlist[i].due) {
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'><a href='#/tasks/" + displayeventlist[i].id + "'>"+
                                         "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
                                             "<div class='fc-event-time col-md-4'>"+
@@ -6374,7 +6374,21 @@ function agendaListView(element, calendar) {
                                               "<div class='fc-eventlist-desc'>"+ldesc+"</div>"+
                                             "</div></div>"+
                                           "</" + (lurl ? "a" : "div") + ">"+                                        
-                                        "</li>").appendTo(html);   
+                                        "</li></a>").appendTo(html);   
+                    } else {
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'><a href='#/events/" + displayeventlist[i].id + "'>"+
+                                        "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
+                                            "<div class='row'>" +
+                                            "<div class='fc-event-time col-md-4'>"+
+                                                "<span class='fc-event-start-time'>"+st+"</span> "+
+                                                "<span class='fc-event-end-time'>"+et+"</span>"+
+                                            "</div>"+
+                                            "<div class='fc-agendaList-eventDetails col-md-8'>"+
+                                              "<div class='fc-eventlist-title'>"+ltitle+"</div>"+
+                                              "<div class='fc-eventlist-desc'>"+ldesc+"</div>"+
+                                            "</div></div>"+
+                                          "</" + (lurl ? "a" : "div") + ">"+                                        
+                                        "</li></a>").appendTo(html);                      	
                     }
                     eventElementHandlers(displayeventlist[i], eventdisplay);
                 }
