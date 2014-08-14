@@ -1,0 +1,21 @@
+<div>
+  <div class="modal-header">
+    <a href="javascript:void(0)" title="Close" class="close" onclick="$('.modal').click()">X</a>
+    <h2 id="createHeader">Feedback</h2>
+  </div>
+  <div class="modal-body">   
+    <form id="feedbacktext" action="templates/send_form_email.php" method="POST" enctype="text/plain">
+      <select id="feedbackselect" name="topic">
+        <option>Tell us what you love</option>
+        <option>Tell us what you dislike</option>
+        <option>Report a bug</option>
+        <option>Feature request</option>
+        <option>Request help</option>
+        <option>Other</option>
+      </select>
+      <input name="email" /></input>
+      <textarea name="message"></textarea>
+      <input type="submit" name="submit" value="Submit"></input>
+    </form>
+  </div>
+</div>

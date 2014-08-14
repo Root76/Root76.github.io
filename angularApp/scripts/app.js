@@ -42,7 +42,7 @@ var relatedTags = true;
 
 (function(){
 
-	var app = angular.module('DayWonApplication', 
+	var app = angular.module('DayWonApplication',
 		['ui.router', 'ui.bootstrap', 'xeditable',
 		'Contacts', 'Events', 'Tasks','Tags',
 		'ContactServices', 'TagServices', 'TaskServices', 'EventServices', 
@@ -571,6 +571,24 @@ var relatedTags = true;
 			$scope.showHelp = function(){
 				var helpModal = $modal.open({
 					templateUrl: 'templates/help.html'
+				});
+			}
+
+			$scope.showTerms = function(){
+				var helpModal = $modal.open({
+					templateUrl: 'templates/terms.html'
+				});				
+			}
+
+			$scope.showPrivacy = function(){
+				var helpModal = $modal.open({
+					templateUrl: 'templates/privacy.html'
+				});
+			}
+
+			$scope.showFeedback = function(){
+				var helpModal = $modal.open({
+					templateUrl: 'templates/feedback.html'
 				});
 			}
 
