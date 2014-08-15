@@ -48,8 +48,8 @@
             </div>
             <div id="otheroptionsMobile">
               <a href="#">Delete Account</a>
-              <a href="#">Terms of Agreement</a>
-              <a href="#">Privacy Policy</a>
+              <a ng-click="showTerms()">Terms of Agreement</a>
+              <a ng-click="showPrivacy()">Privacy Policy</a>
             </div>
           </div>
           <div class="settingoption">
@@ -74,8 +74,8 @@
           </div>
           <div id="otheroptions">
             <a href="#" id="deleteaccount" ng-click="deleteAccount()">Delete Account</a>
-            <a href="javascript:void(0)" class="openModal4">Terms of Agreement</a>
-            <a href="javascript:void(0)" class="openModal5">Privacy Policy</a>
+            <a ng-click="showTerms()">Terms of Agreement</a>
+            <a ng-click="showPrivacy()">Privacy Policy</a>
           </div>
           <div id="helplinksMobile">
             <a href="javascript:void(0)" class="openModal2"><div><img src="img/help.png" id="helpimg" /><span>Help</span></div></a>

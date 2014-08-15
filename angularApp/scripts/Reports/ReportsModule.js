@@ -1,8 +1,8 @@
 
 var reportsModule = angular.module('ReportsModule', []);
 
-reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 'contactService', 'tagService', 'taskService', 'eventService', 
-	function($scope, $resource, $modal, contactService, tagService, taskService, eventService){
+reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 'contactService', 'eventService', 'taskService', 'tagService', 
+	function($scope, $resource, $modal, contactService, eventService, taskService, tagService){
 
 	setTimeout(function(){
 
@@ -26,11 +26,18 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             console.log(today + " " + tomorrow);
 
             if ($scope.ScheduleFilter == 'All Open Activities') {
-                for(var i = 0; i < $scope.contacts.length; i++) {
-                    $scope.FilteredContacts.push($scope.contacts[i]);
+                if ($scope.contacts) {
+                    for (var i = 0; i < $scope.contacts.length; i++) {
+                        contactService.Contact.get({contact_id: $scope.contacts[i]['id']}, function(data) {
+                            console.log(data);
+                            $scope.FilteredContacts.push(data);
+                        });
+                    }
                 }
-                for(var i = 0; i < $scope.events.length; i++) {
-                    $scope.FilteredEvents.push($scope.events[i]);
+                if ($scope.events) {
+                    for (var i = 0; i < $scope.events.length; i++) {
+                        $scope.FilteredEvents.push($scope.events[i]);
+                    }
                 }
                 for(var i = 0; i < $scope.tasks.length; i++) {
                     $scope.FilteredTasks.push($scope.tasks[i]);
@@ -40,11 +47,15 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 }
             }
             else if ($scope.ScheduleFilter == 'Today') {
-                for(var i = 0; i < $scope.contacts.length; i++) {
-                    $scope.FilteredContacts.push($scope.contacts[i]);
+                if ($scope.contacts) {
+                    for(var i = 0; i < $scope.contacts.length; i++) {
+                        $scope.FilteredContacts.push($scope.contacts[i]);
+                    }
                 }
-                for(var i = 0; i < $scope.events.length; i++) {
-                    $scope.FilteredEvents.push($scope.events[i]);
+                if ($scope.events) {
+                    for (var i = 0; i < $scope.events.length; i++) {
+                        $scope.FilteredEvents.push($scope.events[i]);
+                    }
                 }
                 for(var i = 0; i < $scope.tasks.length; i++) {
                     if ($scope.tasks[i]['due']) {
@@ -60,11 +71,15 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 }
             }
             else if ($scope.ScheduleFilter == 'Tomorrow') {
-                for(var i = 0; i < $scope.contacts.length; i++) {
-                    $scope.FilteredContacts.push($scope.contacts[i]);
+                if ($scope.contacts) {
+                    for(var i = 0; i < $scope.contacts.length; i++) {
+                        $scope.FilteredContacts.push($scope.contacts[i]);
+                    }
                 }
-                for(var i = 0; i < $scope.events.length; i++) {
-                    $scope.FilteredEvents.push($scope.events[i]);
+                if ($scope.events) {
+                    for (var i = 0; i < $scope.events.length; i++) {
+                        $scope.FilteredEvents.push($scope.events[i]);
+                    }
                 }
                 for(var i = 0; i < $scope.tasks.length; i++) {
                     if ($scope.tasks[i]['due']) {
@@ -80,11 +95,15 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 }
             }
             else if ($scope.ScheduleFilter == 'This Week') {
-                for(var i = 0; i < $scope.contacts.length; i++) {
-                    $scope.FilteredContacts.push($scope.contacts[i]);
+                if ($scope.contacts) {
+                    for(var i = 0; i < $scope.contacts.length; i++) {
+                        $scope.FilteredContacts.push($scope.contacts[i]);
+                    }
                 }
-                for(var i = 0; i < $scope.events.length; i++) {
-                    $scope.FilteredEvents.push($scope.events[i]);
+                if ($scope.events) {
+                    for (var i = 0; i < $scope.events.length; i++) {
+                        $scope.FilteredEvents.push($scope.events[i]);
+                    }
                 }
                 for(var i = 0; i < $scope.tasks.length; i++) {
                     $scope.FilteredTasks.push($scope.tasks[i]);
@@ -94,11 +113,15 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 }
             }
             else if ($scope.ScheduleFilter == 'Next Week') {
-                for(var i = 0; i < $scope.contacts.length; i++) {
-                    $scope.FilteredContacts.push($scope.contacts[i]);
+                if ($scope.contacts) {
+                    for(var i = 0; i < $scope.contacts.length; i++) {
+                        $scope.FilteredContacts.push($scope.contacts[i]);
+                    }
                 }
-                for(var i = 0; i < $scope.events.length; i++) {
-                    $scope.FilteredEvents.push($scope.events[i]);
+                if ($scope.events) {
+                    for (var i = 0; i < $scope.events.length; i++) {
+                        $scope.FilteredEvents.push($scope.events[i]);
+                    }
                 }
                 for(var i = 0; i < $scope.tasks.length; i++) {
                     $scope.FilteredTasks.push($scope.tasks[i]);
@@ -398,11 +421,11 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                     }
                 }
                 $(allItems).addClass('fadeInto');
+                console.log(allItems.length + " accordions displayed");
             }, 1);
 
             previouslySelected = selectedId;
             console.log(previouslySelected);
-            console.log(listCount + " accordions displayed");
 
         }
 

@@ -74,15 +74,22 @@
 
 				setTimeout(function(){
 		            new Opentip("#detailmenubar > *:nth-child(5) > img", "Task Completed", {
-		                style: "bottomtip"
+		                style: "toptip"
 		            }); 
 				}, 100);
+			
+				var trash1 = $("#detailPanel .trashicon"),
+					trash2 = $("#detailmenubar .trashicon");
 
+				new Opentip(trash1, "Delete", {
+					style: "bottomtip"
+				});
+
+				new Opentip(trash2, "Delete", {
+					style: "toptip"
+				});
 
 		        $(".trashicon").each(function() {
-		  			new Opentip($(this), "Delete", {
-		                style: "bottomtip"
-		            });
 		        	$(this).bind("click", function(){
 
 			            var deleteTip = new Opentip($(this), "<p>Are you sure you want to delete this item?</p><br /><div class='deleteContainer'><div>Yes</div><div>No</div></div>", {

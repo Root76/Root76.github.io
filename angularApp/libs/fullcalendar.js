@@ -46,8 +46,8 @@ var defaults = {
 	// time formats
 	titleFormat: {
 		month: 'MMMM yyyy',
-		week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
-		day: 'dddd, MMM d, yyyy'
+		week: "MMM dS[ yyyy]{ '-'[ MMM] dS, yyyy}",
+		day: 'dddd, MMM dS, yyyy'
 	},
 	columnFormat: {
 		month: 'ddd',
@@ -6275,6 +6275,7 @@ function agendaListView(element, calendar) {
             var vm = formatDate(t.visStart, 'W');
             var today = moment().format('YYYYMMDDHHmm');
             console.log(today);
+            console.log(displayeventlist);
 
             for (i in displayeventlist) {
 				//console.log(" Event start date "+ displayeventlist[i].start +" end date "+ displayeventlist[i].end+" "+ displayeventlist[i].title);
@@ -6300,10 +6301,8 @@ function agendaListView(element, calendar) {
 
                     if (displayeventlist[i].due) {
                     	et = st;
-                    	console.log("It's a Task");
                     } else {
                     	et = moment(et).format('hh:mm a');
-                    	console.log("It's an event");
                     }
 
                     if (!ldesc) {
@@ -6311,14 +6310,13 @@ function agendaListView(element, calendar) {
                     }
                     
                     if (lday != temp) { //on change de jour
-                        $("<li class='fc-agendaList-dayHeader ui-widget-header'>" +
+                        $("<li class='fc-agendaList-dayHeader agendaItem dayHeader ui-widget-header'>" +
                             "<span class='fc-agendaList-day'>"+dd+"</span>" +
                             "<span class='fc-agendaList-date'>"+lday+"</span>" +
                         "</li>").appendTo(html);
                         temp = lday;
                     }
 
-                    console.log(displayeventlist[i]);
                     var thisStart = displayeventlist[i]['start'];
                     var thisDayStart = moment(thisStart).startOf('day');
                     var thisStartHour = moment(thisStart).format('hh:mm a');
@@ -6341,20 +6339,17 @@ function agendaListView(element, calendar) {
                     		st = "Starts at " + st;
                     	}
                     	et = '';
-                    	console.log(thisEventEnd + " is greater than " + thisDayEnd);
                     } else {
-                    	console.log("event ends today. start time is " + thisStartHour);
                     	if (thisStartHour == '12:00 am') {
                     		st = 'Ends at ' + et;
                     		et = '';
-                    		console.log('multi-day finally ends here');
                     	}
                     }
 
                     if (this)
 
                     if (allDay == true) {
-                        eventdisplay = $("<li class='fc-agendaList-item fc-today fc-thu'>"+
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'><a href='#/events/" + displayeventlist[i].id + "'>"+
                                             "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
                                             "<div class='fc-event-time col-md-4'>"+
@@ -6365,9 +6360,9 @@ function agendaListView(element, calendar) {
                                               "<div class='fc-eventlist-desc'>"+ldesc+"</div>"+
                                             "</div></div>"+
                                           "</" + (lurl ? "a" : "div") + ">"+ 
-                                        "</li>").appendTo(html);
-                    } else {
-                        eventdisplay = $("<li class='fc-agendaList-item fc-today fc-thu'>"+
+                                        "</li></a>").appendTo(html);
+                    } else if (displayeventlist[i].due) {
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'><a href='#/tasks/" + displayeventlist[i].id + "'>"+
                                         "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
                                             "<div class='fc-event-time col-md-4'>"+
@@ -6379,15 +6374,54 @@ function agendaListView(element, calendar) {
                                               "<div class='fc-eventlist-desc'>"+ldesc+"</div>"+
                                             "</div></div>"+
                                           "</" + (lurl ? "a" : "div") + ">"+                                        
-                                        "</li>").appendTo(html);   
+                                        "</li></a>").appendTo(html);   
+                    } else {
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'><a href='#/events/" + displayeventlist[i].id + "'>"+
+                                        "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
+                                            "<div class='row'>" +
+                                            "<div class='fc-event-time col-md-4'>"+
+                                                "<span class='fc-event-start-time'>"+st+"</span> "+
+                                                "<span class='fc-event-end-time'>"+et+"</span>"+
+                                            "</div>"+
+                                            "<div class='fc-agendaList-eventDetails col-md-8'>"+
+                                              "<div class='fc-eventlist-title'>"+ltitle+"</div>"+
+                                              "<div class='fc-eventlist-desc'>"+ldesc+"</div>"+
+                                            "</div></div>"+
+                                          "</" + (lurl ? "a" : "div") + ">"+                                        
+                                        "</li></a>").appendTo(html);                      	
                     }
                     eventElementHandlers(displayeventlist[i], eventdisplay);
                 }
 			}
 		    $(element).html(html);
             trigger('eventAfterAllRender');
+            var allItems = $('.agendaItem');
+            var j = 0;
+            for (i = 0; i < allItems.length; i++) {
+            	if ($(allItems[i]).hasClass('dayHeader')) {
+            		j++;
+            	}
+            	if (j < 10) {
+            		$(allItems[i]).removeClass('agendaItem');
+            	}
+            }
         }
         
+        window.onscroll = function(ev) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 155) {
+            	console.log("ROCK BOTTOM");
+	            var allItems = $('.agendaItem');
+	            var j = 0;
+	            for (i = 0; i < allItems.length; i++) {
+	            	if ($(allItems[i]).hasClass('dayHeader')) {
+	            		j++;
+	            	}
+	            	if (j < 10) {
+	            		$(allItems[i]).removeClass('agendaItem');
+	            	}
+	            }
+            }
+        };
 
 		function clearEvents() {
 			//implement this in case we wanna do list based display

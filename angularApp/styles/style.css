@@ -1069,6 +1069,10 @@ h1, h2, h3, h4 {
 	padding-top:17px;
 }
 
+#helplinks div {
+	cursor:pointer;
+}
+
 .section-container {
 	padding:15px;
 	height:100%;
@@ -1433,6 +1437,11 @@ h1, h2, h3, h4 {
 	padding:0px;
 }
 
+#contactcontent > .infopanel:first-child {
+	overflow-y:auto;
+	height:100%;
+}
+
 #contactscont h1, #taskscont h1 {
 	font-size:32px;
 	position:relative;
@@ -1621,7 +1630,8 @@ h1, h2, h3, h4 {
 
 #contactpanel2 {
 	background:#41bee1;
-	height:650px;
+	bottom:80px;
+	min-height:372px;
 	padding-left:30px;
 	padding-right:30px;
 	position: fixed;
@@ -1633,7 +1643,8 @@ h1, h2, h3, h4 {
 
 #taskpanel2 {
 	background:#88c44c;
-	height:650px;
+	bottom:80px;
+	min-height:372px;
 	padding-left:30px;
 	padding-right:30px;
 	position: fixed;
@@ -1644,7 +1655,8 @@ h1, h2, h3, h4 {
 
 #eventpanel2 {
 	background: #e35d32;
-	height: 650px;
+	bottom:80px;
+	min-height:372px;
 	padding-left: 30px;
 	padding-right: 30px;
 	position: fixed;
@@ -1655,9 +1667,10 @@ h1, h2, h3, h4 {
 
 #tagpanel2 {
 	background: #ec8f38;
-	height: 650px;
+	bottom:80px;
+	min-height:372px;
 	padding-left: 30px;
-	padding-right: 30px;	
+	padding-right: 30px;
 	position: fixed;
 	width: 680px;
 	margin-left:380px;
@@ -1665,12 +1678,17 @@ h1, h2, h3, h4 {
 }
 
 #detailPanel {
-	height: 650px;
+	bottom:80px;
+	min-height:372px;
 	position: fixed;
 	width: 680px;
 	margin-left: -300px;
 	top: 150px;
 	z-index:10;
+}
+
+#detailPanel > .row {
+	height:100%;
 }
 
 #detailPanel .editable-buttons {
@@ -1719,7 +1737,8 @@ to {
 
 #detailPanelHider {
 	background: #fff;
-	height: 650px;
+	bottom:80px;
+	min-height:372px;
 	padding-left: 30px;
 	padding-right: 30px;
 	position: fixed;
@@ -1727,6 +1746,11 @@ to {
 	margin-left: -300px;
 	top: 150px;
 	z-index:11;
+}
+
+.modal-content > .ng-scope{
+	overflow-y:auto;
+	max-height:820px;
 }
 
 .panelIn {
@@ -1748,7 +1772,7 @@ to {
 }
 
 #profilepic {
-	top:50px;
+	top:25px;
 	width:70px;
 	float:left;
 	position:absolute;
@@ -1765,7 +1789,6 @@ to {
 }
 
 #detailmenubar {
-	top:25px;
 	position:relative;
 	width:100%;
 }
@@ -1782,22 +1805,22 @@ to {
 }
 
 .panelcontent {
-	top:35px;
-	width:100%;
-	position:relative;
-	height:476px;
+	top:120px;
+	bottom:25px;
+	left:25px;
+	right:25px;
+	position:absolute;
 	padding:10px;
 	background:#fff;
-	overflow:auto;
-	overflow-x:hidden;
 	z-index:1000;
 	display:block !important;
+	overflow-y:visible;
 }
 
 .dashContent {
 	padding:0px;
-	height:545px;
-	top:14px;
+	top:75px;
+	overflow-y:auto;
 }
 
 .dashContent .formrow {
@@ -1882,10 +1905,6 @@ to {
 	color: #000;
 }
 
-#contactpanel2 .panelcontent {
-	height:400px;
-}
-
 .panelcontent p {
 	position:absolute;
 	top:10px;
@@ -1899,11 +1918,6 @@ to {
 	top:initial;
 	padding:initial;
 	font-size:initial;
-}
-
-#contactcontent {
-	background:#2a799c;
-	height:400px;
 }
 
 #tasksfooter {
@@ -1997,10 +2011,10 @@ to {
 }
 
 .trashicon {
-	position:absolute;
-	right:80px;
-	top:-3px;
-	width:55px !important;
+	position: absolute;
+	right: 0px;
+	top: 6px;
+	width: 55px !important;
 }
 
 .calPopupCont p {
@@ -2033,11 +2047,6 @@ to {
 
 .taskbar .trashicon {
 	right:30px !important;
-}
-
-.taskname {
-	position:relative;
-	top:25px;
 }
 
 #taskcheck > img {
@@ -2155,8 +2164,8 @@ to {
 
 #phonenumber {
 	position: absolute;
-	top: 25px;
-	right: 20px;
+	top: -5px;
+	right: 60px;
 }
 
 .phonenumber {
@@ -2453,10 +2462,10 @@ to {
 	background: #606061;
 	color: #FFFFFF;
 	line-height: 25px;
-	position: relative;
-	right: -12px;
+	position: fixed;
+	right: 20px;
 	text-align: center;
-	top: -10px;
+	top: 10px;
 	width: 24px;
 	text-decoration: none;
 	font-weight: bold;
@@ -2466,9 +2475,10 @@ to {
 	-moz-box-shadow: 1px 1px 3px #000;
 	-webkit-box-shadow: 1px 1px 3px #000;
 	box-shadow: 1px 1px 3px #000;
+	z-index:99999;
 }
 
-.close:hover { background: #00d9ff; }
+.close:hover { background: #428bca; }
 
 #feedbacktext input {
 	padding:5px;
@@ -2476,21 +2486,21 @@ to {
 }
 
 #feedbacktext textarea{
-	margin-top:5px;
-	margin-bottom:5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	width: 100%;
-	height: 120px;
+	height: 250px;
 	padding: 5px;
 	background-position: bottom right;
 	background-repeat: no-repeat;
+	border: 1px solid;
 }
 
 #feedbackselect {
-padding: 10px;
-margin-left: 3px;
-background: none;
-border: 1px solid #999;
-margin-bottom: 10px;
+	padding: 10px;
+	background: none;
+	border: 1px solid #999;
+	margin-bottom: 10px;
 }
 
 .eventCounter, .taskCounter, .tagCounter {
@@ -2626,7 +2636,8 @@ font-family:'Open Sans', sans-serif;
 
 .flipswitch {
 	width:80px;
-	height:650px;
+	bottom:80px;
+	min-height:372px;
 	position:fixed;
 	top: 150px;
 	margin-left:1060px;
@@ -2702,7 +2713,7 @@ font-family:'Open Sans', sans-serif;
 }
 
 .dCol {
-	height:650px;
+	height:100%;
 	width: 33.33%;
 	float: left;
 	overflow:hidden;
@@ -2908,9 +2919,9 @@ font-family:'Open Sans', sans-serif;
 }
 
 #fliparrow {
-	position:absolute;
-	top:285px;
-	right:20px;
+	position: absolute;
+	top: 44%;
+	left: 25%;
 }
 
 .style-calpop {
@@ -3720,6 +3731,10 @@ table.fc-border-separate {
 	color:#fff;
 }
 
+.agendaItem {
+	display:none;
+}
+
 .fc-agendaList-date {
 	float:right;
 }
@@ -3727,8 +3742,23 @@ table.fc-border-separate {
 .fc-agendaList-item {
 	border-left:1px solid #88c44c;
 	border-right:1px solid #88c44c;
+	-moz-transition: .1s ease-in-out;
+	-webkit-transition: .1s ease-in-out;
+	transition: .1s ease-in-out;
+	border:1px solid #fff;
+	color:#333;
 }
-
+.fc-agendaList-item:hover {
+	background:#88c44c;
+	border:1px solid #88c44c;
+	color:#fff;
+}
+.fc-agendaList-item > a {
+	color:inherit;
+}
+.fc-agendaList-item > a:hover {
+	color:inherit;
+}
 .fc-agendaList-item:last-child {
 	border-bottom:1px solid #88c44c;
 }
@@ -3755,15 +3785,19 @@ table.fc-border-separate {
 .calEvent {
 	background: #e35d32;
 	border: 1px solid #e35d32;
-	display:none;
+	display:block;
 }
 
 .calTask {
+	display:block;
+}
+
+#calendarcont.mainevent .calEvent {
 	display:none;
 }
 
-.calEvent.active, .calTask.active {
-	display:block;
+#calendarcont.maintask .calTask {
+	display:none;
 }
 
 .beforeDropdown {
@@ -3779,7 +3813,6 @@ color: #fff;
 
 #contactname.contacttext {
 	position: relative;
-	top: 25px;
 	left: 80px !important;
 }
 
@@ -3787,7 +3820,6 @@ color: #fff;
 	color:#fff;
 	margin-left: 0px !important;
 	left: 0px !important;
-	top: 25px;
 	position:relative;
 }
 
@@ -3812,9 +3844,17 @@ color: #fff;
 	right:195px !important;
 }
 
+#detailmenubar > .trashicon {
+	right: 80px;
+	top: -4px;	
+}
+
 .contactmenu > .trashicon {
 	right:145px !important;
+	top:-3px;
 }
+
+
 
 input#toggle, 
 input#toggle2,
@@ -4572,6 +4612,9 @@ span.editable-click {
 .panelcontent span.editable-click {
     border-bottom: dotted 2px #666;
 }
+#contactcontent {
+	background:#2a799c;
+}
 #contactcontent span.editable-click {
 	border-bottom: dotted 2px white;
 } 
@@ -4720,11 +4763,18 @@ pre.ng-binding {
 	opacity:1;
 }
 
-.detailDateContainer > div:first-child {
-	padding-left:0px;
-	padding-top:14px;
+.detailDateContainer {
+	float:left;
+	padding-bottom:4px;
 }
 
+.detailDateContainer > div:first-child {
+	padding-left:0px;
+	padding-top:4px;
+}
+#eventscontent .infopanel > div {
+	padding-bottom:4px;
+}
 .detailDateContainer > .timepickerUI {
 	padding-top:12px;
 }

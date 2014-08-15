@@ -2,35 +2,19 @@
 
 	var CalendarModule = angular.module("Calendar", ['TaskServices', 'EventServices']);
 
-	CalendarModule.controller('CalendarController', ['$resource', 'taskService', 'eventService',
-		function($resource, taskService, eventService) {
+	CalendarModule.controller('CalendarController', ['$scope', '$resource', 'taskService', 'eventService',
+		function($scope, $resource, taskService, eventService) {
 
-			eventService.Events.get(function(data){
+			var checkEvents = setInterval(function() {
 
-				var totalEvents = data.events;
+				if ($scope.events && $scope.tasks) {
 
-				console.log(totalEvents.length + "events");
+					clearInterval(checkEvents);
+					var totalEvents = $scope.events;
 
-				var getTasks = function(cb) {
-		            $.ajax({
-		                type: 'GET',
-		                url: 'https://daywon-api-staging.herokuapp.com/tasks',
-		                contentType: "application/json",
-		                dataType: "json",
-		                headers: {
-		                    "X-AUTHENTICATION-TOKEN": authToken,
-		                    "X-AUTHENTICATION-EMAIL": authEmail
-		                },
-		                success: cb,
-		                error: function(e) {
-		                    console.log("couldn't fetch tasks: " + e);
-		                }
-		            });
-		        }
+					console.log(totalEvents.length + "events");
 
-		        var callback = function(data) {
-
-		        	var allTasks = data.tasks;
+		        	var allTasks = $scope.tasks;
 		        	var jsonTask = [];
 		        	var j = 0;
 		        	for (var i = totalEvents.length; j < allTasks.length; j++) {
@@ -115,7 +99,7 @@
 						            		closeButtonRadius: 15,
 						            		closeButtonCrossSize: 10,
 						            		closeButtonCrossColor: "#ffffff"
-						        		});	
+						        		});
 
 								    },
 							        error: function(e) {
@@ -170,38 +154,49 @@
 					    }
 			        });
 
-		        }
+			        $('.calchoice').click(function(event){
+			            if ($(event.target).hasClass('selected')) {
+			                console.log('already selected');
+			            } else {
+			                $(event.target).parent().find('.selected').removeClass('selected');
+			                $(event.target).addClass('selected');
+			                var timeView = $(event.target).html();
+			                timeView = timeView.toLowerCase();
+			                if (timeView == "today") {
+			                    timeView = "day";
+			                }
+			                if (timeView == "list") {
+			                    timeView = "Agenda";
+			                    $("#calToday").addClass("hidden");
+			                    $(".fc-header-left").addClass("hidden");
+			                    $(".fc-header-center").addClass("hidden");
+			                } else {
+			                    $("#calToday").removeClass("hidden");
+			                    $(".fc-header-left").removeClass("hidden");
+			                    $(".fc-header-center").removeClass("hidden");
+			                }
+			                $( "span:contains('" + timeView + "')" ).click();
+			            }
+			        });
 
-		        $('.showitem').unbind("click").bind("click", function(event){
-		            var subSortType = event.target.id;
-		            var subSortList = document.getElementsByClassName(subSortType);
-		            if ($(event.target).hasClass('selected')) {
-		                $(event.target).removeClass('selected');
-		                $(subSortList).css("display", "none");
-		                if (this.id === 'maintask') {
-		                    $('.calTask').removeClass('active');
-		                } else if (this.id === 'mainevent') {
-		                    $('.calEvent').removeClass('active');
-		                } else {
-		                    console.log('nope');
-		                }
-		            } else {
-		                $(event.target).addClass('selected');
-		                $(subSortList).css("display", "block");
-		                if (this.id === 'maintask') {
-		                    $('.calTask').addClass('active');
-		                } else if (this.id === 'mainevent') {
-		                    $('.calEvent').addClass('active');
-		                } else {
-		                    console.log('nope');
-		                }
-		            }
-		        });
+			        $('#calToday').click(function() {
+			            $('.fc').fullCalendar('today');
+			        });
 
-		        getTasks(callback);
-		        console.log(totalEvents);
+			        $('.showitem').unbind("click").bind("click", function(event){
+			            var subSortType = event.target.id;
+			            if ($(event.target).hasClass('selected')) {
+			                $(event.target).removeClass('selected');
+			                $("#calendarcont").addClass(subSortType);
+			            } else {
+			                $(event.target).addClass('selected');
+			                $("#calendarcont").removeClass(subSortType);
+			            }
+			        });
 
-			});
+				}
+
+			}, 1000);
 
 		}]);
 })();

@@ -317,28 +317,6 @@ function rebindEvents() {
             $(event.target).addClass("currentcontact");
         });
 
-        $('.calchoice').click(function(event){
-            if ($(event.target).hasClass('selected')) {
-                console.log('already selected');
-            } else {
-                $(event.target).parent().find('.selected').removeClass('selected');
-                $(event.target).addClass('selected');
-                var timeView = $(event.target).html();
-                timeView = timeView.toLowerCase();
-                if (timeView == "today") {
-                    timeView = "day";
-                }
-                if (timeView == "list") {
-                    timeView = "Agenda";
-                }
-                $( "span:contains('" + timeView + "')" ).click();
-            }
-        });
-
-        $('#calToday').click(function() {
-            $('.fc').fullCalendar('today');
-        });
-
         $('#detailmenubar > img').click(function(){
             if (this.src.indexOf("trash") == -1) {
                 var viewChoice = $('.infopanel');
@@ -571,7 +549,7 @@ function rebindEvents() {
             }
         };
 
-        $.ajax({
+        /*$.ajax({
             type: 'GET',
             url: baseURL + '/contacts',
             contentType: "application/json",
@@ -996,7 +974,7 @@ function rebindEvents() {
             error: function (e) {
                 console.log("There was an error prefetching contacts: " + e);
             }
-        });
+        });*/
 
         setTimeout(function(){
 
