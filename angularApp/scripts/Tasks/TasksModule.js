@@ -1,7 +1,32 @@
 (function() {
 
 	var TasksModule = angular.module('Tasks', ['ngResource', 'TaskServices']);
-	
+
+
+	TasksModule.filter('taskTypeaheadFilter', function() {
+		return function(objects, type, task) {
+
+			for(var i = 0; i < objects.length; i++)
+			{
+				for(var j = 0; j < task[type].length; j++)
+					if(objects[i].id == task[type][j].id)
+					{
+						objects.splice(i, 1);
+						break;
+					}
+					else if(type == 'events')
+					{
+						if(objects[i].recurring && objects[i].title == task.events[j].title)
+						{
+								objects.splice(i, 1);
+								break;
+						}
+					}
+			}
+			return objects;
+		}
+	});
+
 	TasksModule.controller('TasksController', ['$resource', '$scope', '$state', 'taskService',
 		function($resource, $scope, $state, taskService) {
 			

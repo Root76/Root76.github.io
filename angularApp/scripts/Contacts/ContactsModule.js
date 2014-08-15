@@ -3,27 +3,17 @@
 	var ContactsModule = angular.module('Contacts', ['ngResource', 'ContactServices']);
 
 	ContactsModule.filter('contactSearchFilter', function() {
-		return function(contacts, searchText) {
+		return function(contacts, searchText, $scope) {
 
 			var filtered_list = [];
-			var defaultTitleString = "no name or email";
 
 			if(contacts && searchText)
 			{			
 				for(var i = 0; i < contacts.length; i++) 
 				{
 					
-					if(contacts[i].name && contacts[i].name != "")
-					{
-						if(contacts[i].name.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-							filtered_list.push(contacts[i]);
-					}
-					else if(contacts[i].email && contacts[i].email != "")
-					{
-						if(contacts[i].email.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-							filtered_list.push(contacts[i]);
-					}
-					else if(defaultTitleString.indexOf(searchText.toLowerCase()) > -1)
+					var contactTitle = $scope.getContactTitle(contacts[i]);
+					if(contactTitle.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
 						filtered_list.push(contacts[i]);
 				}
 			}
@@ -33,6 +23,31 @@
 			return filtered_list;
 		}
 	});
+
+	ContactsModule.filter('contactTypeaheadFilter', function() {
+		return function(objects, type, contact) {
+
+			for(var i = 0; i < objects.length; i++)
+			{
+				for(var j = 0; j < contact[type].length; j++)
+					if(objects[i].id == contact[type][j].id)
+					{
+						objects.splice(i, 1);
+						break;
+					}
+					else if(type == 'events')
+					{
+						if(objects[i].recurring && objects[i].title == contact.events[j].title)
+						{
+								objects.splice(i, 1);
+								break;
+						}
+					}
+			}
+			return objects;
+		}
+	});
+
 
 	ContactsModule.controller('ContactsController', ['$resource', '$scope', '$state', 'contactService',
 		function($resource, $scope, $state, contactService) {

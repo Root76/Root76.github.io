@@ -298,6 +298,7 @@ function rebindEvents() {
             }
         });
 
+
         $('#tasklist > li').click(function(event){
             //$("#contactname").html($(event.target).html());
             $('.currentcontact').removeClass("currentcontact");

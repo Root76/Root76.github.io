@@ -20,23 +20,23 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow typeaheadAssociated">Add contacts: <br />
-          <input type="text" ng-model="selectedContact" placeholder="Type to select contact" typeahead="contact as contact.name for contact in contacts | filter:{name:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedContact = undefined;" class="form-control">
+          <input type="text" ng-model="selectedContact" placeholder="Type to select contact" typeahead="contact as contact.name for contact in contacts | filter:{name:$viewValue} | tagTypeaheadFilter:'contacts':tag" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedContact = undefined;" class="form-control">
         </div>
       </form>
-      <div ng-repeat="contact in tag.contacts | orderBy: ['name', 'emails[0].email', 'id']">
+      <div ng-repeat="contact in TagContacts | orderBy: ['name', 'emails[0].email', 'id']">
         <div class="contactrow personrow">
           <a ui-sref="contacts.contact({contact_id:contact.id})"><img src="img/contacts.png" class="contactIcon">
           <h4>{{getContactTitle(contact)}}</h4><span class="hidden">{{contact.id}}</span></a><img src="img/close.png" ng-click="removeContact(contact)" class="removeAssoc" />
         </div>
       </div>
-      <div class="contactrow personrow" ng-if="tag.contacts.length == 0">
+      <div class="contactrow personrow" ng-if="TagContacts.length == 0">
         <h4><i>No associated contacts</i></h4>
       </div>
     </div>
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow typeaheadAssociated">Add events: <br />
-          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
+          <input type="text" ng-model="selectedEvent" placeholder="Type to select event" typeahead="event as event.title for event in FilteredEvents | filter:{title:$viewValue} | tagTypeaheadFilter:'events':tag" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedEvent = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="event in tag.events">
@@ -52,7 +52,7 @@
     <div class="infopanel">
       <form id="addForm">
         <div class="formrow typeaheadAssociated">Add tasks: <br />
-          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue}" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
+          <input type="text" ng-model="selectedTask" placeholder="Type to select task" typeahead="task as task.title for task in tasks | filter:{title:$viewValue} | tagTypeaheadFilter:'contacts':tasks" typeahead-template-url="templates/createAssociateTemplate.html" typeahead-on-select="onSelect($item, $model, $label); selectedTask = undefined;" class="form-control">
         </div>
       </form>
       <div ng-repeat="task in tag.tasks">
@@ -84,7 +84,7 @@
         <div class="contactgroup relatedObjects taggedObjects">
           <div class="contactitem">
             <img src="img/contacts.png" />
-            <span>({{tag.contacts.length}})</span>
+            <span>({{TagContacts.length}})</span>
           </div>
           <div class="contactitem">
             <img src="img/events.png" />
@@ -137,10 +137,10 @@
         </div>
         <br />
         <ul class="columnlist">
-          <div ng-repeat="contact in tag.contacts | orderBy: ['name', 'emails[0].email', 'id']">
+          <div ng-repeat="contact in TagContacts | orderBy: ['name', 'emails[0].email', 'id']">
             <li><a ui-sref="contacts.contact({contact_id:contact.id})">{{getContactTitle(contact)}}</a></li>
           </div>
-          <li ng-if="tag.contacts.length == 0"><i>No associated contacts</i></li>
+          <li ng-if="TagContacts.length == 0"><i>No associated contacts</i></li>
         </ul>
       </div>
     </div>

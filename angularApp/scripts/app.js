@@ -333,7 +333,11 @@ var relatedTags = true;
 
 			$scope.loadOrphans = function() {
 
+				$scope.orphansCount = $resource("/orphans?count=true").get();
+				$scope.orphansCount.$promise.then(function(data){ console.log(data); });
+
 				$scope.orphansPromise = $resource("/orphans").get();
+
 				$scope.eventOrphans = [];
 				$scope.taskOrphans = [];
 				$scope.tagOrphans = [];
@@ -405,16 +409,8 @@ var relatedTags = true;
 						return 0;
 					});
 
-					$scope.FilteredOrphanEvents.forEach(function(event){
-						/*eventService.Event.get({event_id: event.id}, function(data) {
-							event.tagcount = data.tags.length;
-							if (data.tags.length > 0) {
-								console.log(data.title + " tagged " + data.tags.length + " times");
-							}
-						});*/
-					});
-
 					$scope.AllFilteredOrphanEvents = $scope.FilteredOrphanEvents;
+					console.log($scope.FilteredOrphanEvents);
 				});
 			}
 
