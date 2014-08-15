@@ -10,11 +10,11 @@ function QueryStringToJSON() {
 
 var query_string = QueryStringToJSON();
 
-var authToken = query_string.authentication_token;
-var authEmail = query_string.user_email;
+//var authToken = query_string.authentication_token;
+//var authEmail = query_string.user_email;
 
-//var authToken = '4N9-_NWfYvYxpesMVpne';
-//var authEmail = 'hweaver@evenspring.com';
+var authToken = '4N9-_NWfYvYxpesMVpne';
+var authEmail = 'hweaver@evenspring.com';
 
 function hashHandler(){
     this.oldHash = window.location.hash;
@@ -56,7 +56,7 @@ var relatedTags = true;
 			return {
 				'request': function(config) {
 					if(config.url.indexOf("template") == -1) //don't change the url if referencing templates
-						config.url =  "https://daywon-api-prod.herokuapp.com" + config.url;
+						config.url =  "https://daywon-api-staging.herokuapp.com" + config.url;
 					return config || $q.when(config);
 				}
 			}
@@ -333,6 +333,8 @@ var relatedTags = true;
 
 			$scope.loadOrphans = function() {
 
+				$scope.orphansCount = $resource("/orphans?count=true").get();
+				$scope.orphansCount.$promise.then(function(data){ console.log(data); });
 
 				$scope.orphansPromise = $resource("/orphans").get();
 
@@ -407,16 +409,8 @@ var relatedTags = true;
 						return 0;
 					});
 
-					$scope.FilteredOrphanEvents.forEach(function(event){
-						/*eventService.Event.get({event_id: event.id}, function(data) {
-							event.tagcount = data.tags.length;
-							if (data.tags.length > 0) {
-								console.log(data.title + " tagged " + data.tags.length + " times");
-							}
-						});*/
-					});
-
 					$scope.AllFilteredOrphanEvents = $scope.FilteredOrphanEvents;
+					console.log($scope.FilteredOrphanEvents);
 				});
 			}
 

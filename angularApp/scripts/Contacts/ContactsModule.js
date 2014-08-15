@@ -34,6 +34,31 @@
 		}
 	});
 
+	ContactsModule.filter('contactTypeaheadFilter', function() {
+		return function(objects, type, contact) {
+
+			for(var i = 0; i < objects.length; i++)
+			{
+				for(var j = 0; j < contact[type].length; j++)
+					if(objects[i].id == contact[type][j].id)
+					{
+						objects.splice(i, 1);
+						break;
+					}
+					else if(type == 'events')
+					{
+						if(objects[i].recurring && objects[i].title == contact.events[j].title)
+						{
+								objects.splice(i, 1);
+								break;
+						}
+					}
+			}
+			return objects;
+		}
+	});
+
+
 	ContactsModule.controller('ContactsController', ['$resource', '$scope', '$state', 'contactService',
 		function($resource, $scope, $state, contactService) {
 
