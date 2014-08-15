@@ -33,6 +33,9 @@ SettingsModule.controller('SettingsController', ['$scope', '$resource', '$http',
 			});
 		};
 
+		$scope.deleteAccount = function() {
+		};
+
     	var settingIcons = $('.itemcount');
     	new Opentip(settingIcons[0], "Contacts", {
             style: "lefttip"
