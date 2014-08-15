@@ -1,14 +1,9 @@
 <?php
 
-/* Code by David McKeown - craftedbydavid.com */
-/* Editable entries are bellow */
-
 $send_to = "harrisweaver@gmail.com";
 $send_subject = "DayWon Feedback";
 
 if (isset($_POST['email'])) {
-
-/*Be careful when editing below this line */
 
     $f_subject = $_POST["subject"];
     $f_email = $_POST["email"];
