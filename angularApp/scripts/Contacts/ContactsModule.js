@@ -3,27 +3,17 @@
 	var ContactsModule = angular.module('Contacts', ['ngResource', 'ContactServices']);
 
 	ContactsModule.filter('contactSearchFilter', function() {
-		return function(contacts, searchText) {
+		return function(contacts, searchText, $scope) {
 
 			var filtered_list = [];
-			var defaultTitleString = "no name or email";
 
 			if(contacts && searchText)
 			{			
 				for(var i = 0; i < contacts.length; i++) 
 				{
 					
-					if(contacts[i].name && contacts[i].name != "")
-					{
-						if(contacts[i].name.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-							filtered_list.push(contacts[i]);
-					}
-					else if(contacts[i].email && contacts[i].email != "")
-					{
-						if(contacts[i].email.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-							filtered_list.push(contacts[i]);
-					}
-					else if(defaultTitleString.indexOf(searchText.toLowerCase()) > -1)
+					var contactTitle = $scope.getContactTitle(contacts[i]);
+					if(contactTitle.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
 						filtered_list.push(contacts[i]);
 				}
 			}
