@@ -4,8 +4,8 @@
     <h2 id="createHeader">Feedback</h2>
   </div>
   <div class="modal-body">   
-    <form id="feedbacktext" action="templates/send_form_email.php" method="POST" enctype="text/plain">
-      <select id="feedbackselect" name="topic">
+    <form id="feedbacktext" action="" method="POST" enctype="text/plain">
+      <select id="feedbackselect" name="su">
         <option>Tell us what you love</option>
         <option>Tell us what you dislike</option>
         <option>Report a bug</option>
@@ -13,9 +13,30 @@
         <option>Request help</option>
         <option>Other</option>
       </select>
-      <input name="email" /></input>
-      <textarea name="message"></textarea>
-      <input type="submit" name="submit" value="Submit"></input>
+      <!--<input name="email" /></input>-->
+      <textarea name="body"></textarea>
+      <input type="submit" name="submit" value="Submit" id="feedbacksubmit"></input>
     </form>
   </div>
 </div>
+<script>
+  $("#feedbacksubmit").click(function(){
+    //PHP mail submitted via AJAX so we don't transition the user onto a new page
+    var formData = $("#feedbacktext").serialize();
+    console.log(formData);
+    /*$.ajax({
+          type: "POST",
+      url: "templates/send_form_email.php",
+      data: $('#feedbacktext').serialize(),
+      success: function(msg){
+        alert(msg); 
+      },
+      error: function(){
+        alert("failure");
+      }
+    });*/
+    var redirect = "https://mail.google.com/mail/u/0/?view=cm&to=info@daywon.com&" + formData;
+    console.log(redirect);
+    window.open(redirect);
+  });
+</script>
