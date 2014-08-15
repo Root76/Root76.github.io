@@ -2,6 +2,30 @@
 
 	var TagsModule = angular.module('Tags', ['ngResource', 'TagServices']);
 
+	TagsModule.filter('tagTypeaheadFilter', function() {
+		return function(objects, type, tag) {
+
+			for(var i = 0; i < objects.length; i++)
+			{
+				for(var j = 0; j < tag[type].length; j++)
+					if(objects[i].id == tag[type][j].id)
+					{
+						objects.splice(i, 1);
+						break;
+					}
+					else if(type == 'events')
+					{
+						if(objects[i].recurring && objects[i].title == tag.events[j].title)
+						{
+								objects.splice(i, 1);
+								break;
+						}
+					}
+			}
+			return objects;
+		}
+	});
+
 	TagsModule.controller('TagsController', ['$resource', '$scope', '$state','tagService',
 		function($resource, $scope, $state, tagService){
 			
@@ -92,7 +116,23 @@
 		        });
 
 
+				$scope.TagContacts = $scope.tag.contacts;
 
+				$scope.contactsPromise.$promise.then(function(data) {
+					
+					console.log(data);
+					for(var i = 0; i < $scope.TagContacts.length; i++)
+					{
+						for(var j =0; j < data.length; j++)
+						{
+							if(data[j].id == $scope.TagContacts[i].id)
+							{
+								$scope.TagContacts[i] = data[j];
+								break;
+							}
+						}		
+					}
+				});
 			});
 
 			$scope.TagSort = [

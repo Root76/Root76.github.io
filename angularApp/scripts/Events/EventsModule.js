@@ -2,6 +2,21 @@
 
 	var EventsModule = angular.module('Events', ['ngResource', 'EventServices']);
 
+	EventsModule.filter('eventTypeaheadFilter', function() {
+		return function(objects, type, event) {
+
+			for(var i = 0; i < objects.length; i++)
+			{
+				for(var j = 0; j < event[type].length; j++)
+					if(objects[i].id == event[type][j].id)
+					{
+						objects.splice(i, 1);
+						break;
+					}
+			}
+			return objects;
+		}
+	});
 	EventsModule.controller('EventsController', ['$resource', '$scope', '$state', 'eventService',
 		function($resource, $scope, $state, eventService) {
 
