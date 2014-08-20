@@ -6295,8 +6295,14 @@ function agendaListView(element, calendar) {
                     st      = moment(displayeventlist[i].start).subtract('hours', 4);
                     et      = moment(displayeventlist[i].end).subtract('hours', 4);
                     lurl    = displayeventlist[i].url;
-                    classes = displayeventlist[i].className;
-                    	
+                    classes = "";
+
+                    for(var j = 0; j < displayeventlist[i].className.length; j++)
+                    {
+                    	classes += " ";
+                    	classes += displayeventlist[i].className[j];
+                    }
+
                     st = moment(st).format('hh:mm a');
 
                     if (displayeventlist[i].due) {
@@ -6349,7 +6355,7 @@ function agendaListView(element, calendar) {
                     if (this)
 
                     if (allDay == true) {
-                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'><a href='#/events/" + displayeventlist[i].id + "'>"+
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu "+classes+"'><a href='#/events/" + displayeventlist[i].id + "'>"+
                                             "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
                                             "<div class='fc-event-time col-md-4'>"+
@@ -6362,7 +6368,7 @@ function agendaListView(element, calendar) {
                                           "</" + (lurl ? "a" : "div") + ">"+ 
                                         "</li></a>").appendTo(html);
                     } else if (displayeventlist[i].due) {
-                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'><a href='#/tasks/" + displayeventlist[i].id + "'>"+
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu "+classes+"'><a href='#/tasks/" + displayeventlist[i].id + "'>"+
                                         "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
                                             "<div class='fc-event-time col-md-4'>"+
@@ -6376,7 +6382,7 @@ function agendaListView(element, calendar) {
                                           "</" + (lurl ? "a" : "div") + ">"+                                        
                                         "</li></a>").appendTo(html);   
                     } else {
-                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu'><a href='#/events/" + displayeventlist[i].id + "'>"+
+                        eventdisplay = $("<li class='fc-agendaList-item agendaItem fc-today fc-thu "+classes+"'><a href='#/events/" + displayeventlist[i].id + "'>"+
                                         "<"+ (lurl ? "a href='"+ lurl +"'" : "div") + " class='fc-agendaList-event fc-eventlist "+classes+"'>"+
                                             "<div class='row'>" +
                                             "<div class='fc-event-time col-md-4'>"+
