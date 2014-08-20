@@ -10,47 +10,49 @@
 				if ($scope.events && $scope.tasks) {
 
 					clearInterval(checkEvents);
-					var totalEvents = $scope.events;
+					$scope.totalEvents = $scope.events.slice(0);
 
-					console.log(totalEvents.length + "events");
+					console.log($scope.totalEvents.length + "events");
 
 		        	var allTasks = $scope.tasks;
 		        	var jsonTask = [];
 		        	var j = 0;
-		        	for (var i = totalEvents.length; j < allTasks.length; j++) {
-		        		totalEvents[i] = allTasks[j];
+		        	for (var i = $scope.totalEvents.length; j < allTasks.length; j++) {
+		        		$scope.totalEvents[i] = allTasks[j];
 		        		i++;
 		        	}
 
-		        	console.log("with tasks: " + totalEvents.length);
+		        	console.log("with tasks: " + $scope.totalEvents.length);
 
-		        	var json = totalEvents;
+		        	var json = $scope.totalEvents;
 
 			        for (var i = 0; i < json.length; i++) {
 
-			        	if (totalEvents[i].hasOwnProperty("start_datetime")) {
-			        		totalEvents[i]["start"] = totalEvents[i]["start_datetime"];
+			        	if ($scope.totalEvents[i].hasOwnProperty("start_datetime")) {
+			        		$scope.totalEvents[i]["start"] = $scope.totalEvents[i]["start_datetime"];
 			        	} else
-			        	if (totalEvents[i].hasOwnProperty("start_date")) {
-			        		totalEvents[i]["start"] = totalEvents[i]["start_date"];
+			        	if ($scope.totalEvents[i].hasOwnProperty("start_date")) {
+			        		$scope.totalEvents[i]["start"] = $scope.totalEvents[i]["start_date"];
 			        	} 
 
-			        	if (totalEvents[i].hasOwnProperty("end_datetime")) {
-			        		totalEvents[i]["end"] = totalEvents[i]["end_datetime"];
+			        	if ($scope.totalEvents[i].hasOwnProperty("end_datetime")) {
+			        		$scope.totalEvents[i]["end"] = $scope.totalEvents[i]["end_datetime"];
 			        	} else
-			        	if (totalEvents[i].hasOwnProperty("end_date")) {
-			        		totalEvents[i]["end"] = totalEvents[i]["end_date"];
+			        	if ($scope.totalEvents[i].hasOwnProperty("end_date")) {
+			        		$scope.totalEvents[i]["end"] = $scope.totalEvents[i]["end_date"];
 			        	}
 
-			        	if (totalEvents[i].hasOwnProperty("due")) {
+			        	if ($scope.totalEvents[i].hasOwnProperty("due")) {
 			        		console.log("there's a due");
-			        		totalEvents[i]['start'] = totalEvents[i]["due"];
-			        		totalEvents[i]['end'] = totalEvents[i]["due"];
-			        		totalEvents[i]['className'] = 'calTask active';
+			        		$scope.totalEvents[i]['start'] = $scope.totalEvents[i]["due"];
+			        		$scope.totalEvents[i]['end'] = $scope.totalEvents[i]["due"];
+			        		$scope.totalEvents[i]['className'] = 'calTask active';
 			        	} else {
-			        		totalEvents[i]['className'] = 'calEvent active';
+			        		$scope.totalEvents[i]['className'] = 'calEvent active';
 			        	}
 			        }
+
+			        $scope.savedEvents = $scope.totalEvents.slice(0);
 
 			        $('#calendarcont').fullCalendar({
 			            header: {
@@ -59,7 +61,7 @@
 			                right: 'month,agendaWeek,agendaDay,agendaList'
 			            },
 			            editable: true,
-			            events: totalEvents,
+			            events: $scope.totalEvents,
 			            eventClick: function(calItem, jsEvent, view) {
 
 					        var calElement = this;
@@ -182,12 +184,13 @@
 			        $('#calToday').click(function() {
 			            $('.fc').fullCalendar('today');
 			        });
-
+			        
 			        $('.showitem').unbind("click").bind("click", function(event){
 			            var subSortType = event.target.id;
 			            if ($(event.target).hasClass('selected')) {
 			                $(event.target).removeClass('selected');
 			                $("#calendarcont").addClass(subSortType);
+
 			            } else {
 			                $(event.target).addClass('selected');
 			                $("#calendarcont").removeClass(subSortType);

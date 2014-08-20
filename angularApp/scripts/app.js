@@ -343,7 +343,7 @@ var relatedTags = true;
 				$scope.tagOrphans = [];
 
 				$scope.orphansPromise.$promise.then(function(data) {
-
+					console.log(data);
 					$scope.eventOrphans = data.orphans[0].events;
 					$scope.taskOrphans = data.orphans[0].tasks;
 					$scope.tagOrphans = data.orphans[0].tags;

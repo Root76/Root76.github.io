@@ -145,6 +145,7 @@
 			$scope.eventSelected = function() { return $scope.selection == 2; };
 			$scope.taskSelected = function() { return $scope.selection == 3; };
 			$scope.tagSelected = function() { return $scope.selection == 4; };
+			$scope.nothingSelected = function() { return $scope.selection == 0; };
 
 			$scope.quit = function() {
 				console.log("Quitting create functionality");
