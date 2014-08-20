@@ -3010,11 +3010,14 @@ font-family:'Open Sans', sans-serif;
 	height: 55px;
 	position: absolute;
 	top: 6px;
+}
+
+.detailTrash {
 	left:140px;
 }
 
 .detailCreate {
-	left: 100px;
+	left: 110px;
 	height: 45px;
 	top: 10px;
 	width:45px;
