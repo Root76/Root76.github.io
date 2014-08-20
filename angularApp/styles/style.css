@@ -2034,7 +2034,7 @@ h1, h2, h3, h4 {
 
 .trashicon {
 	position: absolute;
-	right: 0px;
+	left: 150px;
 	top: 6px;
 	width: 55px !important;
 }
