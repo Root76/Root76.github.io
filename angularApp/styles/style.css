@@ -3010,6 +3010,9 @@ font-family:'Open Sans', sans-serif;
 	height: 55px;
 	position: absolute;
 	top: 6px;
+}
+
+.detailTrash {
 	left:140px;
 }
 
@@ -3750,12 +3753,12 @@ table.fc-border-separate {
 .fc-agendaList-dayHeader {
 	font-weight:700;
 	padding:10px;
-	background:#88c44c;
+	background:#70676a;
 	color:#fff;
 }
 
 .agendaItem {
-	display:none;
+	display:none !important;
 }
 
 .fc-agendaList-date {
@@ -3812,6 +3815,8 @@ table.fc-border-separate {
 }
 
 .calTask {
+	background: #88c44c;
+	border: 1px solid #88c44c;
 	display:block;
 }
 
