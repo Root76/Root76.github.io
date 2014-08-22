@@ -5,7 +5,6 @@ var SettingsModule = angular.module('Settings', []);
 SettingsModule.controller('SettingsController', ['$scope', '$resource', '$http',
 	function($scope, $resource, $http) {
 
-		$scope.user = $resource("/users/info").get();
 		$scope.userSettings = $resource("/users/settings", null, 
 			{ 
 				save:

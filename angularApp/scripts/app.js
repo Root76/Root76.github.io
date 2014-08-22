@@ -76,9 +76,10 @@ var relatedTags = true;
 			
 			$scope.allReady = false;
 
+			$scope.user = $resource("/users/info").get();
+			$scope.globalUserSettings = $resource('/users/settings').get();
+			
 			$scope.loadContacts = function() {
-
-				$scope.globalUserSettings = $resource('/users/settings').get();
 
 				var thisName, theseEmails, emailObject;
 				$scope.contactsPromise = contactService.Contacts.query();
@@ -586,6 +587,15 @@ var relatedTags = true;
 				var helpModal = $modal.open({
 					templateUrl: 'templates/feedback.html'
 				});
+			}
+
+			$scope.shareWithFriends = function() {
+				console.log($scope.user);
+				var subject = $scope.user.name + " invited you to Day Won";
+				var body = "Hello, I'm using Day Won and suggest you use it too.  It's a free productivity tool for Gmail that offers a simple way to keep your Calendar, Events %26 Tasks associated with specific Contacts on one screen.  Sign up now at www.daywon.com."
+			    var redirect = "https://mail.google.com/mail/u/0/?view=cm&bcc=info@daywon.com&su="+subject+"&body="+body;
+			 
+			    window.open(redirect);
 			}
 
 			$scope.closeHelp = function() {

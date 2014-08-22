@@ -26,6 +26,15 @@ RoutingModule.config(function($stateProvider, $urlRouterProvider) {
 			url: "/calendar",
 			templateUrl: "templates/calendar.html"
 		})
+		.state('search', {
+			url: "/search",
+			templateUrl: "templates/search.html"
+		})
+//MOBILE ROUTES
+		.state('mobileView', {
+			url: "/mobileView",
+			templateUrl: "templates/view.html"
+		})
 //ORPHANS ROUTES
 		.state('orphans', {
 			url: "/orphans",
