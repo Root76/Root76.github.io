@@ -1,5 +1,5 @@
 <div class="mobileCover" id="settingsCover"></div>
-  <div id="appcont" class="settingspage viewcont" ng-controller="IndexController">
+  <div id="appcont" class="settingspage viewcont">
     <h1>Settings</h1>
     <div class="section-container" id="taskscont">
       <div class="row">
@@ -29,25 +29,25 @@
         </div>
         <div id="settingfooter">
           <div id="settingsMobile">
-            <img src="img/tyler.png" id="settingimageMobile" />
-            <h1>Tyler Carbone</h1>
-            <h3>tyler@evenspring.com</h3>
+            <img src="{{user.avatar || 'img/contacts.png'}}" id="settingimageMobile" />
+            <h1>{{user.name}}</h1>
+            <h3>{{user.email}}</h3>
             <div id="objectCount">
               <div class="itemcountMobile">
-                <img src="img/contacts.png" /><p>{{contacts.length}}</p>
+                <a ui-sref="contacts.index"><img src="img/contacts.png" /><p>{{contacts.length}}</p></a>
               </div>
               <div class="itemcountMobile">
-                <img src="img/events.png" /><p>{{events.length}}</p>
+                <a ui-sref="events.index"><img src="img/events.png" /><p>{{FilteredEvents.length}}</p></a>
               </div>
               <div class="itemcountMobile">
-                <img src="img/tasks.png" /><p>{{tasks.length}}</p>
+                <a ui-sref="tasks.index"><img src="img/tasks.png" /><p>{{tasks.length}}</p></a>
               </div>
               <div class="itemcountMobile">
-                <img src="img/tags.png" /><p>{{tags.length}}</p>
+                <a ui-sref="tags.index"><img src="img/tags.png" /><p>{{tags.length}}</p></a>
               </div>
-            </div>
+              </div>
             <div id="otheroptionsMobile">
-              <a href="#">Delete Account</a>
+              <a ng-click="deleteAccount()">Delete Account</a>
               <a ng-click="showTerms()">Terms of Agreement</a>
               <a ng-click="showPrivacy()">Privacy Policy</a>
             </div>
@@ -73,7 +73,7 @@
             <h5>Opt-out of emails from Day Won</h5>
           </div>
           <div id="otheroptions">
-            <a href="#" id="deleteaccount" ng-click="deleteAccount()">Delete Account</a>
+            <a ng-click="deleteAccount()" id="deleteaccount">Delete Account</a>
             <a ng-click="showTerms()">Terms of Agreement</a>
             <a ng-click="showPrivacy()">Privacy Policy</a>
           </div>
