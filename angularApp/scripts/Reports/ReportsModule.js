@@ -2,9 +2,20 @@
 var reportsModule = angular.module('ReportsModule', []);
 
 reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 'contactService', 'eventService', 'taskService', 'tagService', 
-	function($scope, $resource, $modal, contactService, eventService, taskService, tagService){
+	function($scope, $resource, $modal, contactService, eventService, taskService, tagService) {
+
 
 	setTimeout(function(){
+
+        var today = moment().format('MMDDYY');
+        var tomorrow = moment().add('days', 1).format('MMDDYY');
+        var endOfThisWeek = moment().add('days', 7).format('MMDDYY');
+        var endOfNextWeek = moment().add('days', 14).format('MMDDYY');
+
+        $scope.contactsFullRelations = $resource('/search?show=contacts&include[]=tasks&include[]=events&include[]=tags&sort=asc').get();
+        $scope.eventsFullRelations = $resource('/search?show=events&include[]=tasks&include[]=contacts&include[]=tags&sort=asc').get();
+        $scope.tasksFullRelations = $resource('/search?show=tasks&include[]=contacts&include[]=events&include[]=tags&sort=asc').get();
+        //$scope.tagsFullRelations = $resource('/search?show=tags').get();
 
         $scope.ScheduleShow = ['All Open Activities', 'Today', 'Tomorrow', 'This Week', 'Next Week'];
         $scope.ScheduleFilter = $scope.ScheduleShow[0];
@@ -13,132 +24,117 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
         $scope.$on('reimportListTaskStatus', function(e) {
         });
 
+        extractDates = function(object) {
+            //Extract the dates associated with the object
+            var objectDates = [];
+
+            //Extract event dates
+            if(object.events) {
+                var events = object.events;
+
+                for(var j = 0; j < events.length; j++) {
+
+                    if(events[j].is_all_day) {
+                        if(events[j].start_date) { objectDates.push(events[j].start_date); }
+                        if(events[j].end_date) { objectDates.push(events[j].end_date); }
+                    } 
+                    else {
+                        if(events[j].start_datetime) { objectDates.push(events[j].start_datetime); }
+                        if(events[j].end_datetime) { objectDates.push(events[j].end_datetime); }
+                    }
+                }
+            }
+
+            //Extract Task dates
+            if(object.tasks) {
+
+                var tasks = object.tasks;
+
+                for(var j = 0; j < tasks.length; j++) {
+                    if(tasks[j].due) { objectDates.push(tasks[j].due); }
+                }
+            }
+
+            //Extract inherent dates on the object itself
+           if(object.is_all_day) {
+                if(object.start_date) { objectDates.push(object.start_date); }
+                if(object.end_date) { objectDates.push(object.end_date); }
+            } 
+            else {
+                if(object.start_datetime) { objectDates.push(object.start_datetime); }
+                if(object.end_datetime) { objectDates.push(object.end_datetime); }
+            }
+
+            if(object.due) { objectDates.push(object.due); }
+
+
+            return objectDates;
+        }
+
+        filterObjectData = function(FilteredObjects, data) {
+
+            var contactDates = [];
+            for(var i = 0; i < data.length; i++) 
+            {
+                if($scope.ScheduleFilter == 'AllOpenActivities') 
+                {
+                    FilteredObjects.push(data[i]);
+                }
+                else 
+                {
+                    var dates = extractDates(data[i]);
+                    for(var j = 0; j < dates.length; j++) {
+                        var date = moment(dates[j]).format('MMDDYY');
+
+                        //If the date logic matches the filter, add that object
+                        if( ($scope.ScheduleFilter == 'Today'     && date == today)    ||
+                            ($scope.ScheduleFilter == 'Tomorrow'  && date == tomorrow) ||
+                            ($scope.ScheduleFilter == 'This Week' && today <= date && date <= endOfThisWeek) ||
+                            ($scope.ScheduleFilter == 'Next Week' && endOfThisWeek < date && date <= endOfNextWeek) )
+                        {
+                            if(FilteredObjects.indexOf(data[i]) < 0)
+                            {
+                                console.log(dates);
+                                console.log(data[i]);
+                                FilteredObjects.push(data[i]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         $scope.updateSchedule = function() {
 
-            console.log($scope.ScheduleFilter);
             $scope.FilteredContacts = new Array();
             $scope.FilteredEvents = new Array();
             $scope.FilteredTasks = new Array();
             $scope.FilteredTags = new Array();
-            var today = moment().format('MMDDYY');
-            var tomorrow = moment().add('days', 1);
-            tomorrow = moment(tomorrow).format('MMDDYY');
-            console.log(today + " " + tomorrow);
 
-            if ($scope.ScheduleFilter == 'All Open Activities') {
-                if ($scope.contacts) {
-                    for (var i = 0; i < $scope.contacts.length; i++) {
-                        contactService.Contact.get({contact_id: $scope.contacts[i]['id']}, function(data) {
-                            console.log(data);
-                            $scope.FilteredContacts.push(data);
-                        });
-                    }
-                }
-                if ($scope.events) {
-                    for (var i = 0; i < $scope.events.length; i++) {
-                        $scope.FilteredEvents.push($scope.events[i]);
-                    }
-                }
-                for(var i = 0; i < $scope.tasks.length; i++) {
-                    $scope.FilteredTasks.push($scope.tasks[i]);
-                }
-                for(var i = 0; i < $scope.tags.length; i++) {
-                    $scope.FilteredTags.push($scope.tags[i]);
-                }
-            }
-            else if ($scope.ScheduleFilter == 'Today') {
-                if ($scope.contacts) {
-                    for(var i = 0; i < $scope.contacts.length; i++) {
-                        $scope.FilteredContacts.push($scope.contacts[i]);
-                    }
-                }
-                if ($scope.events) {
-                    for (var i = 0; i < $scope.events.length; i++) {
-                        $scope.FilteredEvents.push($scope.events[i]);
-                    }
-                }
-                for(var i = 0; i < $scope.tasks.length; i++) {
-                    if ($scope.tasks[i]['due']) {
-                        var thisDue = moment($scope.tasks[i]['due']).format('MMDDYY');
-                        if (today == thisDue) {
-                            console.log($scope.tasks[i]['title'] + " is due today: " + thisDue);
-                            $scope.FilteredTasks.push($scope.tasks[i]);
-                        }
-                    }
-                }
-                for(var i = 0; i < $scope.tags.length; i++) {
-                    $scope.FilteredTags.push($scope.tags[i]);
-                }
-            }
-            else if ($scope.ScheduleFilter == 'Tomorrow') {
-                if ($scope.contacts) {
-                    for(var i = 0; i < $scope.contacts.length; i++) {
-                        $scope.FilteredContacts.push($scope.contacts[i]);
-                    }
-                }
-                if ($scope.events) {
-                    for (var i = 0; i < $scope.events.length; i++) {
-                        $scope.FilteredEvents.push($scope.events[i]);
-                    }
-                }
-                for(var i = 0; i < $scope.tasks.length; i++) {
-                    if ($scope.tasks[i]['due']) {
-                        var thisDue = moment($scope.tasks[i]['due']).format('MMDDYY');
-                        if (tomorrow == thisDue) {
-                            console.log($scope.tasks[i]['title'] + " is due tomorrow: " + thisDue);
-                            $scope.FilteredTasks.push($scope.tasks[i]);
-                        }
-                    }
-                }
-                for(var i = 0; i < $scope.tags.length; i++) {
-                    $scope.FilteredTags.push($scope.tags[i]);
-                }
-            }
-            else if ($scope.ScheduleFilter == 'This Week') {
-                if ($scope.contacts) {
-                    for(var i = 0; i < $scope.contacts.length; i++) {
-                        $scope.FilteredContacts.push($scope.contacts[i]);
-                    }
-                }
-                if ($scope.events) {
-                    for (var i = 0; i < $scope.events.length; i++) {
-                        $scope.FilteredEvents.push($scope.events[i]);
-                    }
-                }
-                for(var i = 0; i < $scope.tasks.length; i++) {
-                    $scope.FilteredTasks.push($scope.tasks[i]);
-                }
-                for(var i = 0; i < $scope.tags.length; i++) {
-                    $scope.FilteredTags.push($scope.tags[i]);
-                }
-            }
-            else if ($scope.ScheduleFilter == 'Next Week') {
-                if ($scope.contacts) {
-                    for(var i = 0; i < $scope.contacts.length; i++) {
-                        $scope.FilteredContacts.push($scope.contacts[i]);
-                    }
-                }
-                if ($scope.events) {
-                    for (var i = 0; i < $scope.events.length; i++) {
-                        $scope.FilteredEvents.push($scope.events[i]);
-                    }
-                }
-                for(var i = 0; i < $scope.tasks.length; i++) {
-                    $scope.FilteredTasks.push($scope.tasks[i]);
-                }
-                for(var i = 0; i < $scope.tags.length; i++) {
-                    $scope.FilteredTags.push($scope.tags[i]);
-                }              
-            }
+            $scope.contactsFullRelations.$promise.then(function(data) {
+                //Filter the objects based on dates
+                filterObjectData($scope.FilteredContacts, data.contacts);         
+            });
+            $scope.eventsFullRelations.$promise.then(function(data) {
+                //Filter the objects based on dates
+                filterObjectData($scope.FilteredEvents, data.events);         
+            });
+            $scope.tasksFullRelations.$promise.then(function(data) {
+                //Filter the objects based on dates
+                filterObjectData($scope.FilteredTasks, data.tasks);         
+            });/*
+            $scope.tagsFullRelations.$promise.then(function(data) {
+                //Filter the objects based on dates
+                filterObjectData($scope.FilteredTags, data.tags);         
+            });*/
+
             setTimeout(function(){
                 $(".sortitem.selected").click()
                 var allAccords = $('.listitem');
-                console.log(allAccords.length);
                 if (allAccords.length > 1) {
                     for (var i = 0; i < allAccords.length; i++) {
                         if (i < 15) {
                             $(allAccords[i]).removeClass('notYet');
-                            console.log("removing");
                         }
                     }
                 } else if (allAccords) {
@@ -147,7 +143,6 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             }, 100);
         }
 
-		console.log("starting our attack run..." + previouslySelected);
         setTimeout(function(){
             $("#" + previouslySelected).click()
             $scope.showContacts = relatedContacts;
@@ -206,72 +201,6 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
         	});
         }
 
-        /*$('.showitem').unbind("click").bind("click", function(event){
-            var subSortType = event.target.id;
-            var subSortList = document.getElementsByClassName(subSortType);
-            if ($(event.target).hasClass('selected')) {
-                $(event.target).removeClass('selected');
-                $(subSortList).css("display", "none");
-                if (this.id === 'maintask') {
-                    $('.calTask').removeClass('active');
-                } else if (this.id === 'mainevent') {
-                    $('.calEvent').removeClass('active');
-                } else {
-                    console.log('nope');
-                }
-            } else {
-                $(event.target).addClass('selected');
-                $(subSortList).css("display", "block");
-                if (this.id === 'maintask') {
-                    $('.calTask').addClass('active');
-                } else if (this.id === 'mainevent') {
-                    $('.calEvent').addClass('active');
-                } else {
-                    console.log('nope');
-                }
-            }
-            $(".listitem.active").accordion("refresh");
-        });*/
-
-        /*$('.sortitem').unbind("click").bind("click", function(event){
-
-            var sortType = this.id;
-            var theseAccords = $('.listitem.' + sortType);
-            $('.listitem').removeClass('fadeInto');
-            setTimeout(function(){
-	            $('.listitem').removeClass('active');
-	            $('.accordionarrow').removeClass('arrowdown');
-	            for (var i = 0; i < 15; i++) {
-	            	$(theseAccords[i]).addClass('active');
-	            }
-	            if ($(event.target).parent().hasClass('selected')) {
-	                if ($(event.target).find('ul').hasClass('invis')) {
-	                    $(event.target).find('ul').removeClass('invis');
-	                } else {
-	                    $(event.target).find('ul').addClass('invis');
-	                }
-	            } else {
-	                $('.selected').find('ul').removeClass("sortby");
-	                $('.sortitem.selected').removeClass('selected');
-	                $('.invis').removeClass('invis');
-	                $(event.target).parent().addClass('selected');
-	                $(event.target).find('ul').addClass("sortby");
-	            }
-	  
-	            var allItems = $('.listitem.active');
-		        for (var i = 0; i < 15; i++) {
-		        	$(allItems[i]).accordion({
-				        active: true,
-				        collapsible: true,
-				        header: "h3.mainsort"
-				    });
-		            $(allItems[i]).addClass('active');
-		            bindArrow(allItems[i]);
-		        }
-		        $(allItems).addClass('fadeInto');
-		    }, 300);
-
-        });*/
 
         $('#collapseall').click(function(){
             setTimeout(function(){
