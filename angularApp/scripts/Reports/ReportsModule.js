@@ -15,7 +15,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
         $scope.contactsFullRelations = $resource('/search?show=contacts&include[]=tasks&include[]=events&include[]=tags&sort=asc').get();
         $scope.eventsFullRelations = $resource('/search?show=events&include[]=tasks&include[]=contacts&include[]=tags&sort=asc').get();
         $scope.tasksFullRelations = $resource('/search?show=tasks&include[]=contacts&include[]=events&include[]=tags&sort=asc').get();
-        //$scope.tagsFullRelations = $resource('/search?show=tags').get();
+        $scope.tagsFullRelations = $resource('/search?show=tags&include[]=contacts&include[]=events&include[]=tasks&sort=asc').get();
 
         $scope.ScheduleShow = ['All Open Activities', 'Today', 'Tomorrow', 'This Week', 'Next Week'];
         $scope.ScheduleFilter = $scope.ScheduleShow[0];
@@ -76,31 +76,25 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             var contactDates = [];
             for(var i = 0; i < data.length; i++) 
             {
-                if($scope.ScheduleFilter == 'AllOpenActivities') 
-                {
-                    FilteredObjects.push(data[i]);
-                }
-                else 
-                {
-                    var dates = extractDates(data[i]);
-                    for(var j = 0; j < dates.length; j++) {
-                        var date = moment(dates[j]).format('MMDDYY');
+                var dates = extractDates(data[i]);
+                for(var j = 0; j < dates.length; j++) {
+                    var date = moment(dates[j]).format('MMDDYY');
 
-                        //If the date logic matches the filter, add that object
-                        if( ($scope.ScheduleFilter == 'Today'     && date == today)    ||
-                            ($scope.ScheduleFilter == 'Tomorrow'  && date == tomorrow) ||
-                            ($scope.ScheduleFilter == 'This Week' && today <= date && date <= endOfThisWeek) ||
-                            ($scope.ScheduleFilter == 'Next Week' && endOfThisWeek < date && date <= endOfNextWeek) )
+                    //If the date logic matches the filter, add that object
+                    if( ($scope.ScheduleFilter == 'Today'     && date == today)    ||
+                        ($scope.ScheduleFilter == 'Tomorrow'  && date == tomorrow) ||
+                        ($scope.ScheduleFilter == 'This Week' && today <= date && date <= endOfThisWeek) ||
+                        ($scope.ScheduleFilter == 'Next Week' && endOfThisWeek < date && date <= endOfNextWeek) )
+                    {
+                        if(FilteredObjects.indexOf(data[i]) < 0)
                         {
-                            if(FilteredObjects.indexOf(data[i]) < 0)
-                            {
-                                console.log(dates);
-                                console.log(data[i]);
-                                FilteredObjects.push(data[i]);
-                            }
+                            console.log(dates);
+                            console.log(data[i]);
+                            FilteredObjects.push(data[i]);
                         }
                     }
                 }
+            
             }
         }
 
@@ -113,20 +107,45 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 
             $scope.contactsFullRelations.$promise.then(function(data) {
                 //Filter the objects based on dates
-                filterObjectData($scope.FilteredContacts, data.contacts);         
+                if($scope.ScheduleFilter == 'All Open Activities') {
+                    console.log("hullo!");
+                    console.log(data);
+                    $scope.FilteredContacts = data.contacts;
+                }
+                else {
+                    filterObjectData($scope.FilteredContacts, data.contacts);             
+                }
+                
             });
             $scope.eventsFullRelations.$promise.then(function(data) {
                 //Filter the objects based on dates
-                filterObjectData($scope.FilteredEvents, data.events);         
+                if($scope.ScheduleFilter == 'All Open Activities') {
+                    $scope.FilteredEvents = data.events;
+                }
+                else {
+                    filterObjectData($scope.FilteredEvents, data.events);             
+                }
+                
             });
             $scope.tasksFullRelations.$promise.then(function(data) {
                 //Filter the objects based on dates
-                filterObjectData($scope.FilteredTasks, data.tasks);         
-            });/*
+                if($scope.ScheduleFilter == 'All Open Activities') {
+                    $scope.FilteredTasks = data.tasks;
+                }
+                else {
+                    filterObjectData($scope.FilteredTasks, data.tasks);         
+                }
+            });
             $scope.tagsFullRelations.$promise.then(function(data) {
                 //Filter the objects based on dates
-                filterObjectData($scope.FilteredTags, data.tags);         
-            });*/
+                if($scope.ScheduleFilter == 'All Open Activities') {
+                    $scope.FilteredTags = data.tags;
+                }
+                else {
+                    filterObjectData($scope.FilteredTags, data.tags);             
+                }
+                
+            });
 
             setTimeout(function(){
                 $(".sortitem.selected").click()
