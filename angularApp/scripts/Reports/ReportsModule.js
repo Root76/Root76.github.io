@@ -7,10 +7,10 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
 
 	setTimeout(function(){
 
-        var today = moment().format('MMDDYY');
-        var tomorrow = moment().add('days', 1).format('MMDDYY');
-        var endOfThisWeek = moment().add('days', 7).format('MMDDYY');
-        var endOfNextWeek = moment().add('days', 14).format('MMDDYY');
+        var today = moment().format('YYYY-MM-DD');
+        var tomorrow = moment().add('days', 1).format('YYYY-MM-DD');
+        var endOfThisWeek = moment().add('days', 7).format('YYYY-MM-DD');
+        var endOfNextWeek = moment().add('days', 14).format('YYYY-MM-DD');
 
         $scope.contactsFullRelations = $resource('/search?show=contacts&include[]=tasks&include[]=events&include[]=tags&sort=asc').get();
         $scope.eventsFullRelations = $resource('/search?show=events&include[]=tasks&include[]=contacts&include[]=tags&sort=asc').get();
@@ -37,10 +37,40 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                     if(events[j].is_all_day) {
                         if(events[j].start_date) { objectDates.push(events[j].start_date); }
                         if(events[j].end_date) { objectDates.push(events[j].end_date); }
+
+                        if(events[j].start_date && events[j].end_date)
+                        {
+                            var dateArray = [];
+                            var currentDate = moment(events[j].start_date).add('days', 1);
+                            
+                            while(currentDate < moment(events[j].end_date)) {
+                                
+                                var newDate = moment(currentDate).format('YYYY-MM-DD');;
+                                objectDates.push(newDate);
+
+                                currentDate = currentDate.add('days', 1);
+                            }
+
+                        }
                     } 
                     else {
                         if(events[j].start_datetime) { objectDates.push(events[j].start_datetime); }
                         if(events[j].end_datetime) { objectDates.push(events[j].end_datetime); }
+
+                        if(events[j].start_datetime && events[j].end_datetime)
+                        {
+                            var dateArray = [];
+                            var currentDate = moment(events[j].start_datetime).add('days', 1);
+                            
+                            while(currentDate < moment(events[j].end_datetime)) {
+                                
+                                var newDate = moment(currentDate).format('YYYY-MM-DD');;
+                                objectDates.push(newDate);
+
+                                currentDate = currentDate.add('days', 1);
+                            }
+
+                        }
                     }
                 }
             }
@@ -59,10 +89,39 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
            if(object.is_all_day) {
                 if(object.start_date) { objectDates.push(object.start_date); }
                 if(object.end_date) { objectDates.push(object.end_date); }
+
+                if(object.start_date && object.end_date)
+                {
+                    var dateArray = [];
+                    var currentDate = moment(object.start_date).add('days', 1);
+                    
+                    while(currentDate < moment(object.end_date)) {
+
+                        var newDate = moment(currentDate).format('YYYY-MM-DD');;
+                        objectDates.push(newDate);
+
+                        currentDate = currentDate.add('days', 1);
+                    }
+                    console.log(objectDates);
+                }
             } 
             else {
                 if(object.start_datetime) { objectDates.push(object.start_datetime); }
                 if(object.end_datetime) { objectDates.push(object.end_datetime); }
+
+                if(object.start_datetime && object.end_datetime)
+                {
+                    var dateArray = [];
+                    var currentDate = moment(object.start_datetime).add('days', 1);
+                    
+                    while(currentDate < moment(object.end_datetime)) {
+                        
+                        var newDate = moment(currentDate).format('YYYY-MM-DD');;
+                        objectDates.push(newDate);
+
+                        currentDate = currentDate.add('days', 1);
+                    }
+                }
             }
 
             if(object.due) { objectDates.push(object.due); }
@@ -78,7 +137,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             {
                 var dates = extractDates(data[i]);
                 for(var j = 0; j < dates.length; j++) {
-                    var date = moment(dates[j]).format('MMDDYY');
+                    var date = moment(dates[j]).format('YYYY-MM-DD');
 
                     //If the date logic matches the filter, add that object
                     if( ($scope.ScheduleFilter == 'Today'     && date == today)    ||
@@ -88,8 +147,6 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                     {
                         if(FilteredObjects.indexOf(data[i]) < 0)
                         {
-                            console.log(dates);
-                            console.log(data[i]);
                             FilteredObjects.push(data[i]);
                         }
                     }
