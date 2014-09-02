@@ -108,8 +108,6 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             $scope.contactsFullRelations.$promise.then(function(data) {
                 //Filter the objects based on dates
                 if($scope.ScheduleFilter == 'All Open Activities') {
-                    console.log("hullo!");
-                    console.log(data);
                     $scope.FilteredContacts = data.contacts;
                 }
                 else {
