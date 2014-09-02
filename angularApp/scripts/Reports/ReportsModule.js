@@ -20,7 +20,6 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
         $scope.ScheduleShow = ['All Open Activities', 'Today', 'Tomorrow', 'This Week', 'Next Week'];
         $scope.ScheduleFilter = $scope.ScheduleShow[0];
 
-
         $scope.$on('reimportListTaskStatus', function(e) {
         });
 
@@ -135,6 +134,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             for(var i = 0; i < data.length; i++) 
             {
                 var dates = extractDates(data[i]);
+
                 for(var j = 0; j < dates.length; j++) {
                     var date = moment(dates[j]).format('YYYY-MM-DD');
 
@@ -181,6 +181,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 }
                 
             });
+
             $scope.tasksFullRelations.$promise.then(function(data) {
                 //Filter the objects based on dates
                 if($scope.ScheduleFilter == 'All Open Activities') {
@@ -215,6 +216,9 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 }
             }, 100);
         }
+
+        
+        $scope.updateSchedule();
 
         setTimeout(function(){
             $("#" + previouslySelected).click()

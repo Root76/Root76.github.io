@@ -141,7 +141,7 @@
             </div>
           </div>
         </li>
-        <li class="listitem maintag" ng-repeat="tag in tags" ng-click="getObjectDetails(tag, $event)" ng-if="selectedSortBy == 'maintag'">
+        <li class="listitem maintag" ng-repeat="tag in FilteredTags" ng-click="getObjectDetails(tag, $event)" ng-if="selectedSortBy == 'maintag'">
           <img src="img/arrow_black.png" class="accordionarrow reportarrow">
           <h3 class="mainsort">
             <a ui-sref="tags.tag({tag_id: tag.id})"><img src="img/tags.png" class="listimg" /></a>
