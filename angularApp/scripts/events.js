@@ -28,6 +28,13 @@ Opentip.styles.righttip = {
   delay: 0,
   offset: [10, -140]
 };
+Opentip.styles.righttip2 = {
+  tipJoint: "left",
+  group: "tags",
+  target: true,
+  delay: 0,
+  offset: [-25, -140]
+};
 Opentip.styles.lefttip = {
   tipJoint: "right",
   group: "tags",

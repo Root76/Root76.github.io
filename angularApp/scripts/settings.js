@@ -37,16 +37,16 @@ SettingsModule.controller('SettingsController', ['$scope', '$resource', '$http',
 
     	var settingIcons = $('.itemcount');
     	new Opentip(settingIcons[0], "Contacts", {
-            style: "lefttip"
+            style: "righttip2"
         });
     	new Opentip(settingIcons[1], "Events", {
-            style: "lefttip"
+            style: "righttip2"
         });
     	new Opentip(settingIcons[2], "Tasks", {
-            style: "lefttip"
+            style: "righttip2"
         });
     	new Opentip(settingIcons[3], "Tags", {
-            style: "lefttip"
+            style: "righttip2"
         });
 
 	}]);

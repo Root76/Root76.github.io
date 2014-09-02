@@ -13,8 +13,8 @@ var query_string = QueryStringToJSON();
 //var authToken = query_string.authentication_token;
 //var authEmail = query_string.user_email;
 
-var authToken = 'qoRyedh9o5xFLY8cpDzA';
-var authEmail = 'pastadiablo@gmail.com';
+var authToken = '4N9-_NWfYvYxpesMVpne';
+var authEmail = 'hweaver@evenspring.com';
 
 function hashHandler(){
     this.oldHash = window.location.hash;

@@ -2,7 +2,7 @@
 <div id="appcont" class="viewcont" >
   <div class="section-container dashboardContainer" id="taskscont">
     <div class="row">
-      <p class="descriptionText">This page provides you a quick overview & access to your relavent Contacts, Calendar Events & Tasks from Gmail.</p>
+      <p class="descriptionText">This page provides you a quick overview & access to your relevant Contacts, Calendar Events & Tasks from Gmail.</p>
       <div class="col-md-4 dashboardHeading" id="taskpane1">
         <img src="img/dashboard.png" / class="contactpadding">
         <h1 class="contactpadding dashHeading">Dashboard</h1>
@@ -52,7 +52,7 @@
                 <a ui-sref="contacts.contact({contact_id: object.id})" ng-if="object.type == 'contact' ">
                   <img class="subicon" src="img/contacts.png" />
                   <span class="subitemtext subdashtext" ng-if="object.name != null ">{{object.name}}</span>
-                  <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length > 0 " >{{object.emails[0].email}}</span>
+                  <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length > 0 ">{{object.emails[0].email}}</span>
                   <span class="subitemtext subdashtext" ng-if="object.name == null && object.emails.length == 0 ">No Name or Email</span>
                 </a>
                 <a ui-sref="events.event({event_id: object.id})" ng-if="object.type == 'event' ">
