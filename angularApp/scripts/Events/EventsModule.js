@@ -113,8 +113,6 @@
 
 			$scope.eventPromise = eventService.Event.get({event_id: $stateParams['event_id']}, function(data) {
 
-				console.log(data);
-
 				$scope.event = data;
 
 				if($scope.event.is_all_day)

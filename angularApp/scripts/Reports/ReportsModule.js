@@ -85,10 +85,6 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                 }
             }
 
-            if(object.title == 'Labor Day') {
-                console.log('labor day');
-                console.log(object);
-            }
             //Extract inherent dates on the object itself
            if(object.is_all_day) {
                 if(object.start_date) { objectDates.push(object.start_date); }
@@ -101,7 +97,6 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                     
                     while(currentDate < moment(object.end_date)) {
 
-                        console.log("in current date while loop");
                         var newDate = moment(currentDate).format('YYYY-MM-DD');
                         objectDates.push(newDate);
 
