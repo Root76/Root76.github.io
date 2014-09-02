@@ -117,13 +117,13 @@
 
 				if($scope.event.is_all_day)
 				{
-					$scope.eventDates.startDate = new Date($scope.event.start_date);
-					$scope.eventDates.endDate = new Date($scope.event.end_date);
+					$scope.eventDates.startDate = moment($scope.event.start_date).format("MM-DD-YYYY");
+					$scope.eventDates.endDate = moment($scope.event.end_date).format("MM-DD-YYYY");
 				}
 				else
 				{
-					$scope.eventDates.startDate = new Date($scope.event.start_datetime);
-					$scope.eventDates.endDate = new Date($scope.event.end_datetime);
+					$scope.eventDates.startDate = moment($scope.event.start_datetime).format("MM-DD-YYYY");
+					$scope.eventDates.endDate =  moment($scope.event.end_datetime).format("MM-DD-YYYY");
 				}
 
 				var trash1 = $("#detailPanel .trashicon"),

@@ -44,8 +44,8 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                             var currentDate = moment(events[j].start_date).add('days', 1);
                             
                             while(currentDate < moment(events[j].end_date)) {
-                                
-                                var newDate = moment(currentDate).format('YYYY-MM-DD');;
+
+                                var newDate = moment(currentDate).format('YYYY-MM-DD');
                                 objectDates.push(newDate);
 
                                 currentDate = currentDate.add('days', 1);
@@ -64,7 +64,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                             
                             while(currentDate < moment(events[j].end_datetime)) {
                                 
-                                var newDate = moment(currentDate).format('YYYY-MM-DD');;
+                                var newDate = moment(currentDate).format('YYYY-MM-DD');
                                 objectDates.push(newDate);
 
                                 currentDate = currentDate.add('days', 1);
@@ -97,12 +97,11 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                     
                     while(currentDate < moment(object.end_date)) {
 
-                        var newDate = moment(currentDate).format('YYYY-MM-DD');;
+                        var newDate = moment(currentDate).format('YYYY-MM-DD');
                         objectDates.push(newDate);
 
                         currentDate = currentDate.add('days', 1);
                     }
-                    console.log(objectDates);
                 }
             } 
             else {
@@ -116,7 +115,7 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
                     
                     while(currentDate < moment(object.end_datetime)) {
                         
-                        var newDate = moment(currentDate).format('YYYY-MM-DD');;
+                        var newDate = moment(currentDate).format('YYYY-MM-DD');
                         objectDates.push(newDate);
 
                         currentDate = currentDate.add('days', 1);
@@ -223,7 +222,6 @@ reportsModule.controller('ReportsController', ['$scope', '$resource', '$modal', 
             $scope.showEvents = relatedEvents;
             $scope.showTasks = relatedTasks;
             $scope.showTags = relatedTags;
-            console.log($scope.showContacts + " " + $scope.showEvents + " " + $scope.showTasks + " " + $scope.showTags)
 
             if ($scope.showContacts == false) {
                 $("#subContact").removeClass("selected");
