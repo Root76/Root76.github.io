@@ -1968,9 +1968,11 @@ h1, h2, h3, h4 {
 }
 
 .panelfooter {
-	top:45px;
-	position:relative;
-	height:65px;
+	bottom: 25px;
+	position: absolute;
+	height: 25px;
+	right: 25px;
+	left: 25px;
 }
 
 #contactfooter {
@@ -2017,8 +2019,8 @@ h1, h2, h3, h4 {
 
 .panelfooter h5 {
 	color: #fff;
-	padding-left: 25px;
-	padding-top:10px;
+	padding-left: 8px;
+	margin-top: 6px;
 }
 
 .col-lg-12 {
@@ -4659,6 +4661,7 @@ span.editable-click {
 }
 #contactcontent {
 	background:#2a799c;
+	bottom:75px;
 }
 #contactcontent span.editable-click {
 	border-bottom: dotted 2px white;
@@ -4671,6 +4674,18 @@ span.editable-click:hover {
 .notesField.editable {
 	margin-left:15px;
 	margin-right:15px;
+}
+.panelfooter > .notesField {
+	position: absolute;
+	right: -10px;
+	top: 2px;
+	left: 35px;
+}
+.panelfooter > .editable-wrap {
+	position: absolute;
+	left: 35px;
+	top: 2px;
+	right: -125px;
 }
 #detailPanel .notesField.editable {
 	margin-left:0px;

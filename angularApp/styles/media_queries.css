@@ -3,10 +3,6 @@
 		width:10px;
 		z-index:1000;
 	}
-	.panelfooter {
-		height: 35px !important;
-		top: 43px !important;
-	}
 	.modal-content > .ng-scope{
 		max-height:660px;
 	}
@@ -24,9 +20,6 @@
 		width: 100%;
 		position: relative;
 		margin-bottom:10px;
-	}
-	.panelfooter {
-		top:18px !important;
 	}
 	.dashList li {
 		padding:15px !important;
@@ -783,11 +776,6 @@
 	.panelcontent {
 		top:-8px;
 	}
-
-	.panelfooter {
-		top:0px;
-	}
-
 	/* section login.html */
 	#wrapper {
 		width: 100%;
