@@ -690,6 +690,10 @@ a {
 	text-decoration:none;
 }
 
+.subitemtext > a {
+color: #3399ff;
+}
+
 label {
 	color: #fff;
 }

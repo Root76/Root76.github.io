@@ -63,19 +63,19 @@
           <div class="subitems">
             <div class="subitem ss1 subEvent" ng-if="showEvents">
               <img class="subicon" src="img/events.png" />
-              <span class="subitemtext" ng-repeat="event in contact.events">{{event.title}}</span>
+              <span class="subitemtext" ng-repeat="event in contact.events"><a ui-sref="events.event({event_id: event.id})">{{event.title}}</a></span>
               <span class="subitemtext" ng-if="contact.events.length < 1">No events</span>
               <span class="subitemtext" ng-if="!contact.events">Loading, please wait...</span>
             </div>
             <div class="subitem ss4 subTask" ng-if="showTasks">
               <img class="subicon" src="img/tasks.png" />
-              <span class="subitemtext" ng-repeat="task in contact.tasks">{{task.title}}</span>
+              <span class="subitemtext" ng-repeat="task in contact.tasks"><a ui-sref="tasks.task({task_id: task.id})">{{task.title}}</a></span>
               <span class="subitemtext" ng-if="contact.tasks.length < 1">No tasks</span>
               <span class="subitemtext" ng-if="!contact.tasks">Loading, please wait...</span>
             </div>
             <div class="subitem ss2 subTag" ng-if="showTags">
               <img class="subicon" src="img/tags.png" />
-              <span class="subitemtext" ng-repeat="tag in contact.tags">{{tag.name}}</span>
+              <span class="subitemtext" ng-repeat="tag in contact.tags"><a ui-sref="tags.tag({tag_id: tag.id})">{{tag.name}}</a></span>
               <span class="subitemtext" ng-if="contact.tags.length < 1">No tags</span>
               <span class="subitemtext" ng-if="!contact.tags">Loading, please wait...</span>
             </div>
@@ -91,19 +91,19 @@
           <div class="subitems">
             <div class="subitem ss3 subContact" ng-if="showContacts">
               <img class="subicon" src="img/contacts.png" />
-              <span class="subitemtext" ng-repeat="contact in event.contacts">{{contact.name}}</span>
+              <span class="subitemtext" ng-repeat="contact in event.contacts"><a ui-sref="contacts.contact({contact_id: contact.id})">{{contact.name}}</a></span>
               <span class="subitemtext" ng-if="event.contacts.length < 1">No contacts</span>
               <span class="subitemtext" ng-if="!event.contacts">Loading, please wait...</span>
             </div>
             <div class="subitem ss4 subTask" ng-if="showTasks">
               <img class="subicon" src="img/tasks.png" />
-              <span class="subitemtext" ng-repeat="task in event.tasks">{{task.title}}</span>
+              <span class="subitemtext" ng-repeat="task in event.tasks"><a ui-sref="tasks.task({task_id: task.id})">{{task.title}}</a></span>
               <span class="subitemtext" ng-if="event.tasks.length < 1">No tasks</span>
               <span class="subitemtext" ng-if="!event.tasks">Loading, please wait...</span>
             </div>
             <div class="subitem ss2 subTag" ng-if="showTags">
               <img class="subicon" src="img/tags.png" />
-              <span class="subitemtext" ng-repeat="tag in event.tags">{{tag.name}}</span>
+              <span class="subitemtext" ng-repeat="tag in event.tags"><a ui-sref="tags.tag({tag_id: tag.id})">{{tag.name}}</a></span>
               <span class="subitemtext" ng-if="event.tags.length < 1">No tags</span>
               <span class="subitemtext" ng-if="!event.tags">Loading, please wait...</span>
             </div>
@@ -118,24 +118,23 @@
             <span ng-click="toggleListTaskComplete(task)" class="taskList">
               <img src="img/check.png" ng-class="{selected: task.status == true}"/>
             </span>
-
           </h3>
           <div class="subitems">
             <div class="subitem ss3 subContact" ng-if="showContacts">
               <img class="subicon" src="img/contacts.png" />
-              <span class="subitemtext" ng-repeat="contact in task.contacts">{{contact.name}}</span>
+              <span class="subitemtext" ng-repeat="contact in task.contacts"><a ui-sref="contacts.contact({contact_id: contact.id})">{{contact.name}}</a></span>
               <span class="subitemtext" ng-if="task.contacts.length < 1">No contacts</span>
               <span class="subitemtext" ng-if="!task.contacts">Loading, please wait...</span>
             </div>
             <div class="subitem ss1 subEvent" ng-if="showEvents">
               <img class="subicon" src="img/events.png" />
-              <span class="subitemtext" ng-repeat="event in task.events">{{event.title}}</span>
+              <span class="subitemtext" ng-repeat="event in task.events"><a ui-sref="events.event({event_id: event.id})">{{event.title}}</a></span>
               <span class="subitemtext" ng-if="task.events.length < 1">No events</span>
               <span class="subitemtext" ng-if="!task.events">Loading, please wait...</span>
             </div>
             <div class="subitem ss2 subTag" ng-if="showTags">
               <img class="subicon" src="img/tags.png" />
-              <span class="subitemtext" ng-repeat="tag in task.tags">{{tag.name}}</span>
+              <span class="subitemtext" ng-repeat="tag in task.tags"><a ui-sref="tags.tag({tag_id: tag.id})">{{tag.name}}</a></span>
               <span class="subitemtext" ng-if="task.tags.length < 1">No tags</span>
               <span class="subitemtext" ng-if="!task.tags">Loading, please wait...</span>
             </div>
@@ -151,19 +150,19 @@
           <div class="subitems">
             <div class="subitem ss3 subContact" ng-if="showContacts">
               <img class="subicon" src="img/contacts.png" />
-              <span class="subitemtext" ng-repeat="contact in tag.contacts">{{contact.name}}</span>
+              <span class="subitemtext" ng-repeat="contact in tag.contacts"><a ui-sref="contacts.contact({contact_id: contact.id})">{{contact.name}}</a></span>
               <span class="subitemtext" ng-if="tag.contacts.length < 1">No contacts</span>
               <span class="subitemtext" ng-if="!tag.contacts">Loading, please wait...</span>
             </div>
             <div class="subitem ss1 subEvent" ng-if="showEvents">
               <img class="subicon" src="img/events.png" />
-              <span class="subitemtext" ng-repeat="event in tag.events">{{event.title}}</span>
+              <span class="subitemtext" ng-repeat="event in tag.events"><a ui-sref="events.event({event_id: event.id})">{{event.title}}</a></span>
               <span class="subitemtext" ng-if="tag.events.length < 1">No events</span>
               <span class="subitemtext" ng-if="!tag.events">Loading, please wait...</span>
             </div>
             <div class="subitem ss4 subTask" ng-if="showTasks">
               <img class="subicon" src="img/tasks.png" />
-              <span class="subitemtext" ng-repeat="task in tag.tasks">{{task.title}}</span>
+              <span class="subitemtext" ng-repeat="task in tag.tasks"><a ui-sref="tasks.task({task_id: task.id})">{{task.title}}</a></span>
               <span class="subitemtext" ng-if="tag.tasks.length < 1">No tasks</span>
               <span class="subitemtext" ng-if="!tag.tasks">Loading, please wait...</span>
             </div>
