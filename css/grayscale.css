@@ -179,7 +179,7 @@ a:focus {
     height: 70px;
     margin-top: 15px;
     padding: 7px 16px;
-    border: 2px solid #fff;
+    border: 2px solid #a51e51;
     border-radius: 35px;
     font-size: 40px;
     color: #fff;
@@ -193,7 +193,8 @@ a:focus {
 .btn-circle:focus {
     outline: 0;
     color: #fff;
-    background: rgba(255,255,255,.1);
+    background: #a51e51;
+    border: 2px solid #fff;
 }
 
 .btn-circle i.animated {
