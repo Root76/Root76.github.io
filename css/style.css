@@ -10,7 +10,7 @@
 	opacity:.7;
 }
 
-#about {
+#about, #contact {
 /*	background: url(../img/intro-bg2.jpg) no-repeat top center scroll;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -19,8 +19,8 @@
 	width: 100%;
 }
 
-#aboutUs {
+#aboutUs, #contactUs {
 	border: 1px solid #ccc;
-	background: rgba(0, 0, 0, .9);
+	background: rgba(0, 0, 0, .8);
 	padding: 50px;
 }
