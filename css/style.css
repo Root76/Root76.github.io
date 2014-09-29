@@ -33,3 +33,24 @@
     text-shadow: 0px 0px 0 #fff, -1px 0px 0 #fff, 1px -1px 0 #fff, 0px 1px 0 #fff, 0px 0px 0 #fff;
     color: #a51e51;
 }
+
+#mainBg {
+	position: absolute;
+	opacity: 0;
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+}
+
+#introText {
+	opacity: 0;
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+}
+
+#mainBg.active, #introText.active {
+	opacity: 1;
+}
