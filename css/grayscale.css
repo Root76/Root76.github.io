@@ -179,14 +179,19 @@ a:focus {
     height: 70px;
     margin-top: 15px;
     padding: 7px 16px;
-    border: 2px solid #a51e51;
+    border: 2px solid #fff;
     border-radius: 35px;
     font-size: 40px;
     color: #fff;
     background: 0 0;
-    -webkit-transition: background .3s ease-in-out;
-    -moz-transition: background .3s ease-in-out;
-    transition: background .3s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+    opacity: 0;
+}
+
+.btn-circle.active {
+    opacity: 1;
 }
 
 .btn-circle:hover,
@@ -194,7 +199,6 @@ a:focus {
     outline: 0;
     color: #fff;
     background: #a51e51;
-    border: 2px solid #fff;
 }
 
 .btn-circle i.animated {

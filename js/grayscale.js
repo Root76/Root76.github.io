@@ -179,6 +179,9 @@ function init() {
         $("#mainBg").addClass("active");
         setTimeout(function(){
             $("#introText").addClass("active");
+            setTimeout(function(){
+                $(".btn-circle").addClass("active");
+            }, 1000);
         }, 1000);
     }, 100);
 }
