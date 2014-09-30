@@ -15,6 +15,7 @@ $(window).scroll(function() {
 
 // jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {
+
     $('a.page-scroll').bind('click', function(event) {
         var $anchor = $(this);
         $('html, body').stop().animate({
@@ -22,9 +23,9 @@ $(function() {
         }, 1000, 'easeInOutExpo');
         event.preventDefault();
     });
+
     window.onscroll = function(ev) {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 300) {
-            console.log("you're at the bottom of the page")
             $("#about").addClass("active");
             $("#about1").textillate({
                 initialDelay: 400,
@@ -50,14 +51,18 @@ $(function() {
                     }  
                 });
                 setTimeout(function(){
+
                     $("#contact2").addClass("active");
+
                     setTimeout(function(){
                         $(".banner-social-buttons").addClass("active");
                     }, 700);
+
                 }, 3000);
             }
         }
     };
+
 });
 
 // Closes the Responsive Menu on Menu Item Click
