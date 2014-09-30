@@ -25,6 +25,37 @@ $(function() {
     window.onscroll = function(ev) {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 300) {
             console.log("you're at the bottom of the page")
+            $("#about").addClass("active");
+            $("#about1").textillate({
+                initialDelay: 400,
+                in: {  
+                    effect: 'flipInY',
+                    delay: 3
+                }  
+            });
+            $("#about2").textillate({
+                initialDelay: 2400,
+                in: {  
+                    effect: 'flipInY',
+                    delay: 3
+                }  
+            });
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 1080) {
+                $("#contact").addClass("active");
+                $("#contact1").textillate({
+                    initialDelay: 400,
+                    in: {  
+                        effect: 'flipInY',
+                        delay: 3
+                    }  
+                });
+                setTimeout(function(){
+                    $("#contact2").addClass("active");
+                    setTimeout(function(){
+                        $(".banner-social-buttons").addClass("active");
+                    }, 700);
+                }, 3000);
+            }
         }
     };
 });
