@@ -27,38 +27,49 @@ $(function() {
     window.onscroll = function(ev) {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 300) {
             $("#about").addClass("active");
-            $("#about1").textillate({
-                initialDelay: 400,
-                in: {  
-                    effect: 'flipInY',
-                    delay: 3
-                }  
-            });
-            $("#about2").textillate({
-                initialDelay: 2400,
-                in: {  
-                    effect: 'flipInY',
-                    delay: 3
-                }  
-            });
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 1080) {
-                $("#contact").addClass("active");
-                $("#contact1").textillate({
+            if ($("body").width() > 768) {
+                $("#about1").textillate({
                     initialDelay: 400,
                     in: {  
                         effect: 'flipInY',
                         delay: 3
                     }  
                 });
-                setTimeout(function(){
+                $("#about2").textillate({
+                    initialDelay: 2400,
+                    in: {  
+                        effect: 'flipInY',
+                        delay: 3
+                    }  
+                });
+            }
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 1080) {
+                $("#contact").addClass("active");
+                if ($("body").width() > 768) {
 
-                    $("#contact2").addClass("active");
+                    $("#contact1").textillate({
+                        initialDelay: 400,
+                        in: {  
+                            effect: 'flipInY',
+                            delay: 3
+                        }  
+                    });  
 
                     setTimeout(function(){
-                        $(".banner-social-buttons").addClass("active");
-                    }, 700);
+                        $("#contact2").addClass("active");
+                        setTimeout(function(){
+                            $(".banner-social-buttons").addClass("active");
+                        }, 700);
+                    }, 3000);
 
-                }, 3000);
+                }
+
+                $("#contact2").addClass("active");
+
+                setTimeout(function(){
+                    $(".banner-social-buttons").addClass("active");
+                }, 700);
+
             }
         }
     };
