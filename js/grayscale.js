@@ -22,6 +22,11 @@ $(function() {
         }, 1000, 'easeInOutExpo');
         event.preventDefault();
     });
+    window.onscroll = function(ev) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 300) {
+            console.log("you're at the bottom of the page")
+        }
+    };
 });
 
 // Closes the Responsive Menu on Menu Item Click
@@ -178,10 +183,20 @@ function init() {
     setTimeout(function(){
         $("#mainBg").addClass("active");
         setTimeout(function(){
-            $("#introText").addClass("active");
+            $("#root").addClass("active");
             setTimeout(function(){
-                $(".btn-circle").addClass("active");
-            }, 1000);
-        }, 1000);
+                $("#seventySix").removeClass("notYet");
+                $("#seventySix").addClass("active");
+                $('#seventySix').textillate({
+                    initialDelay: 400,
+                    in: {  
+                        effect: 'rollIn'  
+                    }  
+                });
+                setTimeout(function(){
+                    $("#downButton").addClass("active");
+                }, 1500);
+            }, 500);
+        }, 800);
     }, 100);
 }

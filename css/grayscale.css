@@ -184,10 +184,11 @@ a:focus {
     font-size: 40px;
     color: #fff;
     background: 0 0;
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    transition: all 1s ease-in-out;
+    -webkit-transition: all 1.5s ease-in-out;
+    -moz-transition: all 1.5s ease-in-out;
+    transition: all 1.5s ease-in-out;
     opacity: 0;
+    position: relative;
 }
 
 .btn-circle.active {
