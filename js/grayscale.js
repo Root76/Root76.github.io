@@ -62,13 +62,15 @@ $(function() {
                         }, 700);
                     }, 3000);
 
+                } else {
+
+                    $("#contact2").addClass("active");
+
+                    setTimeout(function(){
+                        $(".banner-social-buttons").addClass("active");
+                    }, 700);
+                
                 }
-
-                $("#contact2").addClass("active");
-
-                setTimeout(function(){
-                    $(".banner-social-buttons").addClass("active");
-                }, 700);
 
             }
         }
