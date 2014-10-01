@@ -71,6 +71,20 @@ li.active > a {
 	transition: all 1s ease-in-out;
 }
 
+.splitter {
+	position: relative;
+	width: 100%;
+	opacity: .5;
+}
+
+.splitter:first-child {
+	top: 8px;
+}
+
+.splitter:last-child {
+	bottom: 9px;
+}
+
 #contact {
 	opacity: 0;
 	-webkit-transition: all 1s ease-in-out;
