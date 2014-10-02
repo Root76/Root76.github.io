@@ -155,6 +155,7 @@ li.active > a {
 	border-radius: 50%;
 	height: 42px;
 	width: 42px;
+	left: 2px;
 	top: 4px;
 	background: #fff;
 	-webkit-animation: glowIt 2s infinite;
