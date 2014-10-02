@@ -24,6 +24,10 @@ $(function() {
         event.preventDefault();
     });
 
+    $("#navLogo > img").click(function(){
+        $(".nav > li:first-child > a").click()
+    });
+
     window.onscroll = function(ev) {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 300) {
             $("#about").addClass("active");

@@ -136,6 +136,71 @@ li.active > a {
 	background-color: #f5f5f5;
 }
 
+#navLogo {
+	position: relative;
+	height: 50px;
+}
+
+#navLogo img {
+	height: 46px;
+	width: 46px;
+	top: 2px;
+	position: absolute;
+	z-index: 1;
+	cursor: pointer;
+}
+
+#glow {
+	position: absolute;
+	border-radius: 50%;
+	height: 42px;
+	width: 42px;
+	top: 4px;
+	background: #fff;
+	-webkit-animation: glowIt 2s infinite;
+	-o-animation: glowIt 2s infinite;
+	animation: glowIt 2s infinite;
+}
+
+/* key-frame-animations */
+
+
+@-webkit-keyframes glowIt {
+	0% { 
+		opacity: .3;
+	}
+	50% { 
+		opacity: 1;
+	}
+	100% { 
+		opacity: .3;
+	}
+}
+
+@-o-keyframes glowIt {
+	0% { 
+		opacity: .3;
+	}
+	50% { 
+		opacity: 1;
+	}
+	100% { 
+		opacity: .3;
+	}
+}
+
+@keyframes glowIt {
+	0% { 
+		opacity: .3;
+	}
+	50% { 
+		opacity: 1;
+	}
+	100% { 
+		opacity: .3;
+	}
+}
+
 @media screen and (max-width: 767px) {
 	#aboutUs, #contactUs {
 		border: 0px;
