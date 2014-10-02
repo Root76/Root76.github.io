@@ -101,13 +101,13 @@ a:focus {
 
 .navbar-custom .nav li.active {
     outline: none;
-    background-color: #fff;
+    background: none;
 }
 
 .navbar-custom .nav li a {
-    -webkit-transition: background .3s ease-in-out;
-    -moz-transition: background .3s ease-in-out;
-    transition: background .3s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 .navbar-custom .nav li a:hover,

@@ -10,6 +10,11 @@
 	opacity:.85;
 }
 
+.navbar-nav>li>a {
+	padding: 25px;
+	line-height: 25px;
+}
+
 #about, #contact {
 /*	background: url(../img/intro-bg2.jpg) no-repeat top center scroll;
 	-webkit-background-size: cover;
@@ -30,12 +35,18 @@
 	display: inline-block;
 }
 
-a:hover {
+section a:hover {
 	color: #f6f06a;
 }
 
+li > a {
+	-webkit-transition: all 1.5s ease-in-out;
+	-o-transition: all 1.5s ease-in-out;
+	transition: all 1.5s ease-in-out;
+}
+
 li.active > a {
-	color: #a51e51;
+	color: #ff478d;
 }
 
 #seventySix {
@@ -138,13 +149,14 @@ li.active > a {
 
 #navLogo {
 	position: relative;
-	height: 50px;
+	height: 75px;
 }
 
 #navLogo img {
-	height: 46px;
-	width: 46px;
-	top: 2px;
+	height: 61px;
+	width: 61px;
+	top: 7px;
+	left: 7px;
 	position: absolute;
 	z-index: 1;
 	cursor: pointer;
@@ -153,14 +165,14 @@ li.active > a {
 #glow {
 	position: absolute;
 	border-radius: 50%;
-	height: 42px;
-	width: 42px;
-	left: 2px;
-	top: 4px;
+	height: 55px;
+	width: 55px;
+	left: 10px;
+	top: 10px;
 	background: #fff;
-	-webkit-animation: glowIt 2s infinite;
-	-o-animation: glowIt 2s infinite;
-	animation: glowIt 2s infinite;
+	-webkit-animation: glowIt 3.5s infinite;
+	-o-animation: glowIt 3.5s infinite;
+	animation: glowIt 3.5s infinite;
 }
 
 /* key-frame-animations */
@@ -168,37 +180,37 @@ li.active > a {
 
 @-webkit-keyframes glowIt {
 	0% { 
-		opacity: .3;
+		opacity: .5;
 	}
 	50% { 
 		opacity: 1;
 	}
 	100% { 
-		opacity: .3;
+		opacity: .5;
 	}
 }
 
 @-o-keyframes glowIt {
 	0% { 
-		opacity: .3;
+		opacity: .5;
 	}
 	50% { 
 		opacity: 1;
 	}
 	100% { 
-		opacity: .3;
+		opacity: .5;
 	}
 }
 
 @keyframes glowIt {
 	0% { 
-		opacity: .3;
+		opacity: .5;
 	}
 	50% { 
 		opacity: 1;
 	}
 	100% { 
-		opacity: .3;
+		opacity: .5;
 	}
 }
 
