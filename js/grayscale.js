@@ -28,7 +28,7 @@ $(function() {
         $(".nav > li:first-child > a").click()
     });
 
-    $(".gameImage").click(function(){
+    $(".gameImage").click(function(event){
         $("#modalImage").attr("src", $(event.target).attr("src"));
         setTimeout(function(){
             $(".modal-backdrop").click(function(){
