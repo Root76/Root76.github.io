@@ -7,7 +7,7 @@
 }
 
 .navbar-fixed-top.top-nav-collapse {
-	opacity:.85;
+	opacity:1;
 }
 
 .navbar-nav>li>a {
@@ -15,7 +15,7 @@
 	line-height: 25px;
 }
 
-#about, #contact {
+#about, #work, #contact {
 /*	background: url(../img/intro-bg2.jpg) no-repeat top center scroll;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -24,7 +24,7 @@
 	width: 100%;
 }
 
-#aboutUs, #contactUs {
+#aboutUs, #ourWork, #contactUs {
 /*	border: 1px solid #ccc;
 */	background: rgba(0, 0, 0, .8);
 	padding: 50px;
@@ -33,6 +33,17 @@
 	overflow: visible !important;
 	position: relative;
 	display: inline-block;
+}
+
+#contactUs .btn-default {
+	border: 0px;
+	padding: 10px;
+	border-radius: 150px;
+}
+
+#contactUs .btn-default
+.btn-circle.active {
+    opacity: 1;
 }
 
 section a:hover {
@@ -49,23 +60,60 @@ li.active > a {
 	color: #ff478d;
 }
 
+.splitter {
+	position: relative;
+	width: 100%;
+	opacity: .5;
+	display: none;
+}
+
+.splitter:first-child {
+	top: 8px;
+}
+
+.splitter:last-child {
+	bottom: 9px;
+}
+
 #seventySix {
     /*text-shadow: 0px 0px 0 #fff, -1px 0px 0 #fff, 1px -1px 0 #fff, 0px 1px 0 #fff, 0px 0px 0 #fff;*/
     color: #a51e51;
     background: rgba(255, 255, 255, 0);
-	-webkit-transition: background 1.5s ease-in-out;
-	-o-transition: background 1.5s ease-in-out;
-	transition: background 1.5s ease-in-out;
+    border-radius: 100px;
+    padding: 20px;
+	-webkit-transition: 1s ease-in-out;
+	-o-transition: 1s ease-in-out;
+	transition: 1s ease-in-out;
+}
+
+#downButton {
+	-webkit-transition: 1s ease-in-out;
+	-o-transition: 1s ease-in-out;
+	transition: 1s ease-in-out;	
+}
+
+#downButton.active {
+	opacity: 1;
 }
 
 #mainBg {
 	position: fixed;
 	opacity: 0;
-	max-width: 120%;
 	width: 100%;
+	max-width: 100%;
+	left: 0%;
+	top: -15%;
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;
+}
+
+#whiteCircle {
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	border-radius: 100px;
+	background: #fff;
 }
 
 #root {
@@ -73,6 +121,7 @@ li.active > a {
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;
+	color: #fff;
 }
 
 #about {
@@ -82,18 +131,11 @@ li.active > a {
 	transition: all 1s ease-in-out;
 }
 
-.splitter {
-	position: relative;
-	width: 100%;
-	opacity: .5;
-}
-
-.splitter:first-child {
-	top: 8px;
-}
-
-.splitter:last-child {
-	bottom: 9px;
+#work {
+	opacity: 0;
+	-webkit-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
 }
 
 #contact {
@@ -118,6 +160,11 @@ li.active > a {
 
 #contact2 a {
 	font-size: 28px;
+	color: #a51e51;
+}
+
+#contact2 a:hover {
+	color: #fff;
 }
 
 .banner-social-buttons {
@@ -127,7 +174,7 @@ li.active > a {
 	transition: all 1s ease-in-out;			
 }
 
-#mainBg.active, #root.active, #about.active, #contact.active, #contact2.active, .banner-social-buttons.active {
+#mainBg.active, #root.active, #about.active, #work.active, #contact.active, #contact2.active, .banner-social-buttons.active {
 	opacity: 1;
 }
 
@@ -175,6 +222,52 @@ li.active > a {
 	animation: glowIt 3.5s infinite;
 }
 
+.gameImage {
+	width: 100%;
+	margin-bottom: 30px;
+	cursor: pointer;
+	opacity: 0;
+	border: 1px solid rgba(255,255,255,0);
+	-webkit-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+}
+
+.gameImage.active {
+	opacity: 1;
+}
+
+.gameImage:hover {
+	border: 1px solid rgba(255,255,255,1);
+}
+
+#myModal {
+	width: 80%;
+	left: 10%;
+	height: 80%;
+	top: 10%;
+}
+
+#modalImage {
+	width: 100%;
+}
+
+.modal-backdrop.in {
+	opacity: .8;
+}
+
+#shareImage {
+	margin-top: 10px;
+	cursor: pointer;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+#shareImage:hover {
+	opacity: .8;
+}
+
 /* key-frame-animations */
 
 
@@ -214,8 +307,69 @@ li.active > a {
 	}
 }
 
-@media screen and (max-width: 767px) {
-	#aboutUs, #contactUs {
+@media screen and (max-width: 1440px) {
+	#mainBg {
+		width: 125%;
+		max-width: 125%;
+		left: -12.5%;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	#mainBg {
+		width: 150%;
+		max-width: 150%;
+		left: -15%;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	#aboutUs, #ourWork, #contactUs {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	#mainBg {
+		width: 175%;
+		max-width: 175%;
+		left: -17.5%;
+	}
+}
+
+@media screen and (max-width: 880px) {
+	#aboutUs, #ourWork, #contactUs {
 		border: 0px;
+		padding: 25px;
+	}
+	#mainBg {
+		width: 200%;
+		max-width: 200%;
+		left: -20%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	#aboutUs, #ourWork, #contactUs {
+		border: 0px;
+		padding: 25px;
+	}
+	#mainBg {
+		width: 225%;
+		max-width: 225%;
+		left: -22.5%;
+	}
+}
+
+@media screen and (max-width: 640px) {
+	#aboutUs, #ourWork, #contactUs {
+		border: 0px;
+		padding: 25px;
+	}
+	#mainBg {
+		width: 250%;
+		max-width: 250%;
+		height: 115%;
+		left: -25%;
 	}
 }
