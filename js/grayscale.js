@@ -76,7 +76,37 @@ $(function() {
                     }
                 }, 700);
             }
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 1880) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 1900) {
+                $("#games").addClass("active");
+                if ($("body").width() > 768) {
+
+                    // $("#contact1").textillate({
+                    //     initialDelay: 400,
+                    //     in: {  
+                    //         effect: 'flipInY',
+                    //         delay: 3
+                    //     }  
+                    // });  
+
+                    // setTimeout(function(){
+                    //     $("#contact2").addClass("active");
+                    //     setTimeout(function(){
+                    //         $(".banner-social-buttons").addClass("active");
+                    //     }, 700);
+                    // }, 1000);
+
+                } else {
+
+                    // $("#contact2").addClass("active");
+
+                    // setTimeout(function(){
+                    //     $(".banner-social-buttons").addClass("active");
+                    // }, 700);
+                
+                }
+
+            }
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 2600) {
                 $("#contact").addClass("active");
                 if ($("body").width() > 768) {
 

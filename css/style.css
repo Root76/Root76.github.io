@@ -138,6 +138,13 @@ li.active > a {
 	transition: all 1s ease-in-out;
 }
 
+#games {
+	opacity: 0;
+	-webkit-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+}
+
 #contact {
 	opacity: 0;
 	-webkit-transition: all 1s ease-in-out;
@@ -174,7 +181,7 @@ li.active > a {
 	transition: all 1s ease-in-out;			
 }
 
-#mainBg.active, #root.active, #about.active, #work.active, #contact.active, #contact2.active, .banner-social-buttons.active {
+#mainBg.active, #root.active, #about.active, #work.active, #games.active, #contact.active, #contact2.active, .banner-social-buttons.active {
 	opacity: 1;
 }
 
@@ -252,6 +259,13 @@ li.active > a {
 .gameImageContainer > a > img {
 	padding: 10px;
 	padding-top: 0px;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.gameImageContainer > a > img:hover {
+	opacity: .7;
 }
 
 .gameImage {
@@ -296,37 +310,37 @@ li.active > a {
 
 @-webkit-keyframes glowIt {
 	0% { 
-		opacity: .5;
+		opacity: .3;
 	}
 	50% { 
 		opacity: 1;
 	}
 	100% { 
-		opacity: .5;
+		opacity: .3;
 	}
 }
 
 @-o-keyframes glowIt {
 	0% { 
-		opacity: .5;
+		opacity: .3;
 	}
 	50% { 
 		opacity: 1;
 	}
 	100% { 
-		opacity: .5;
+		opacity: .3;
 	}
 }
 
 @keyframes glowIt {
 	0% { 
-		opacity: .5;
+		opacity: .3;
 	}
 	50% { 
 		opacity: 1;
 	}
 	100% { 
-		opacity: .5;
+		opacity: .3;
 	}
 }
 
