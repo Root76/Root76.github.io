@@ -28,7 +28,7 @@ $(function() {
         $(".nav > li:first-child > a").click()
     });
 
-    $(".gameImage").click(function(event){
+    $(".projectImage").click(function(event){
         $("#modalImage").attr("src", $(event.target).attr("src"));
         setTimeout(function(){
             $(".modal-backdrop").click(function(){
@@ -65,7 +65,7 @@ $(function() {
             }
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 1180) {
                 $("#work").addClass("active");
-                var allScreenshots = $(".gameImage");
+                var allScreenshots = $(".projectImage");
                 var thisImage;
                 console.log(allScreenshots);
                 setTimeout(function(){

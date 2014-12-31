@@ -15,7 +15,7 @@
 	line-height: 25px;
 }
 
-#about, #work, #contact {
+#about, #work, #games, #contact {
 /*	background: url(../img/intro-bg2.jpg) no-repeat top center scroll;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -24,7 +24,7 @@
 	width: 100%;
 }
 
-#aboutUs, #ourWork, #contactUs {
+#aboutUs, #ourWork, #ourGames, #contactUs {
 /*	border: 1px solid #ccc;
 */	background: rgba(0, 0, 0, .8);
 	padding: 50px;
@@ -222,7 +222,7 @@ li.active > a {
 	animation: glowIt 3.5s infinite;
 }
 
-.gameImage {
+.projectImage {
 	width: 100%;
 	margin-bottom: 30px;
 	cursor: pointer;
@@ -233,17 +233,40 @@ li.active > a {
 	transition: all 1s ease-in-out;
 }
 
-.gameImage.active {
+.projectImage.active {
 	opacity: 1;
 }
 
-.gameImage:hover {
+.projectImage:hover {
 	border: 1px solid rgba(255,255,255,1);
 }
 
+#gamesHead {
+	margin-bottom: 0px;
+}
+
+.gameImageContainer {
+	margin-top: 50px;
+}
+
+.gameImageContainer > a > img {
+	padding: 10px;
+	padding-top: 0px;
+}
+
+.gameImage {
+	width: 100%;
+	max-width: 284px;
+}
+
+.availableHeading {
+	margin-top: 30px;
+	font-weight: 100;
+}
+
 #myModal {
-	width: 80%;
-	left: 10%;
+	width: 66%;
+	left: 17%;
 	height: 80%;
 	top: 10%;
 }
@@ -324,7 +347,7 @@ li.active > a {
 }
 
 @media screen and (max-width: 1200px) {
-	#aboutUs, #ourWork, #contactUs {
+	#aboutUs, #ourWork, #ourGames, #contactUs {
 		width: 100%;
 	}
 }
@@ -338,7 +361,7 @@ li.active > a {
 }
 
 @media screen and (max-width: 880px) {
-	#aboutUs, #ourWork, #contactUs {
+	#aboutUs, #ourWork, #ourGames, #contactUs {
 		border: 0px;
 		padding: 25px;
 	}
@@ -350,7 +373,7 @@ li.active > a {
 }
 
 @media screen and (max-width: 768px) {
-	#aboutUs, #ourWork, #contactUs {
+	#aboutUs, #ourWork, #ourGames, #contactUs {
 		border: 0px;
 		padding: 25px;
 	}
@@ -362,7 +385,7 @@ li.active > a {
 }
 
 @media screen and (max-width: 640px) {
-	#aboutUs, #ourWork, #contactUs {
+	#aboutUs, #ourWork, #ourGames, #contactUs {
 		border: 0px;
 		padding: 25px;
 	}
