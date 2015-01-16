@@ -19,7 +19,7 @@ $(function() {
     $('a.page-scroll').bind('click', function(event) {
         var $anchor = $(this);
         $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top
+            scrollTop: $($anchor.attr('href')).offset().top - 100
         }, 1000, 'easeInOutExpo');
         event.preventDefault();
     });
@@ -38,7 +38,7 @@ $(function() {
     });
 
     window.onscroll = function(ev) {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 300) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 250) {
             $("#about").addClass("active");
             if ($("body").width() > 768) {
                 $("#about1").textillate({
@@ -63,7 +63,7 @@ $(function() {
                     }  
                 });
             }
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 880) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 940) {
                 $("#work").addClass("active");
                 var allScreenshots = $(".projectImage");
                 var thisImage;
