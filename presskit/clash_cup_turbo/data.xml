@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<game>
+	<title>Clash Cup Turbo</title>
+	<release-date>2015??</release-date>
+	<website>http://root76.io</website>
+	<press-can-request-copy>TRUE</press-can-request-copy>
+
+	<platforms>
+		<platform>
+			<name>PC / Mac</name>
+		</platform>
+	</platforms>
+	
+	<prices>
+		<price>
+			<currency>USD</currency>
+			<value>???</value>
+		</price>
+	</prices>
+
+	<description>
+	Clash Cup Turbo is a colorful 2-4 player local multiplayer sports game, focused on crazy fun competition with friends and family. Smack the puck into the opponent's goal in a variety of stylized levels filled with obstacles and traps.
+	</description>
+	
+	<history>
+	Clash Cup Turbo was by classic local multiplayer games that were deep and satisfying, yet simple and accessible. Our art director Mike pitched the idea to the team, focusing on 4-player local multiplayer, accessible 1-button controls, and a unique art style, and we couldn't resist trying it out. We jammed on the game for about 10 days, just in time to show off a 1v1 version at VGU Con in DC, and it was a big hit. Ever since then, we've been expanding the game with more levels, special moves, modes, and constant playtesting to make the most satisfying, beautiful, and accessible game we can.
+	</history>
+
+	<features>
+		<feature>2 to 4 local players!</feature>
+		<feature>Playable with 360 controllers, DualShock 4s, and any other standard USB controller, as well as keyboard.</feature>
+		<feature>6 different level themes, based on stylized real-world locations, each featuring level-specific mechanics.</feature>
+		<feature>Unique level designs for 2, 3, and 4 players. Every level is hand-crafted to be fun for everyonE!</feature>
+		<feature>Skill-based gameplay with pick-up-and-play accessible 2-button controls, but a high skill ceiling.</feature>
+		<feature>10 different characters with varied special moves to enhance the already crazy core gameplay.</feature>
+	</features>
+	
+	<trailers>
+		<trailer>
+			<name>Clash Cup Turbo - October 1st Promo</name>
+			<youtube>jqBkIkr7KKQ</youtube>
+		</trailer>
+		<trailer>
+			<name>Clash Cup Turbo - Megabooth Trailer</name>
+			<youtube>tmLtRg3dFRw</youtube>
+		</trailer>
+	</trailers>
+	
+	<!-- <awards>
+		<award>
+			<description>Winner in this highly relevant contest.</description>
+			<info>Award Location, 20 October, 1989</info>
+		</award>
+		<award>
+			<description>Nomination for this prestigious award.</description>
+			<info>Award Ceremony, 4 December, 1991</info>
+		</award>
+		<award>
+			<description>Winner in this highly relevant contest.</description>
+			<info>Award Location, 20 October, 1989</info>
+		</award>
+		<award>
+			<description>Nomination for this prestigious award.</description>
+			<info>Award Ceremony, 4 December, 1991</info>
+		</award>
+	</awards> -->
+	
+	<!-- <quotes>
+		<quote>
+			<description>This is a rather insignificant quote by a highly important person.</description>
+			<name>Person Name</name>
+			<website>Website</website>
+			<link>http://</link>
+		</quote>
+		<quote>
+			<description>An extremely positive quote from a rather insignificant person. Also great.</description>
+			<name>Some Guy</name>
+			<website>This Page Is Visited By 12 Visitors A Month</website>
+			<link>http://</link>
+		</quote>
+		<quote>
+			<description>I pretend to love this game even though I do not actually understand it.</description>
+			<name>Pretentious Bastard</name>
+			<website>Artsy Page</website>
+			<link>http://</link>
+		</quote>
+		<quote>
+			<description>HOLY SHIT SO AMAZING</description>
+			<name>Caps Guy</name>
+			<website>Angry Review</website>
+			<link>http://</link>
+		</quote>
+	</quotes> -->
+	
+	<!-- <additionals>
+		<additional>
+			<title>Original Soundtrack</title>
+			<description>Available for free from</description>
+			<link>http://somemusicsite.com/thislink</link>
+		</additional>
+		<additional>
+			<title>Release Blog Post</title>
+			<description>The blog-post through which this game was released is available at</description>
+			<link>http://vlambeer.com/bloglink</link>
+		</additional>
+	</additionals> -->
+	
+	<credits>
+		<credit>
+			<person>Mike Odum</person>
+			<website>www.mikeodumart.com</website>
+			<role>Design, Art, Animation</role>
+		</credit>
+		<credit>
+			<person>Momin Khan</person>
+			<website>www.foolmoron.io</website>
+			<role>Programming, Design</role>
+		</credit>
+		<credit>
+			<person>Lauren Morton</person>
+			<role>Design</role>
+		</credit>
+		<credit>
+			<person>Chris Hooe</person>
+			<role>Programming</role>
+		</credit>
+		<credit>
+			<person>Brendan Mauer</person>
+			<role>Art, Animation</role>
+		</credit>
+	</credits>
+</game>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<game>	
+	<title>Root 76, LLC</title>
+	<founding-date>October 17, 2014</founding-date>
+	<website>http://root76.io/</website>
+	<based-in>Richmond, Virginia</based-in>
+	
+	<press-contact>contact@root76.io</press-contact>
+	<phone>703-939-2031</phone>
+	<!-- <address>
+		<line>608 Hancock St</line>
+		<line>Richmond VA, 23220</line>
+		<line>Address Line 3</line>
+	</address> -->
+
+	<socials>
+		<social>
+			<name>Twitter</name>
+			<link>twitter.com/root76games</link>
+		</social>
+		<social>
+			<name>Facebook</name>
+			<link>facebook.com/root76games</link>
+		</social>
+		<social>
+			<name>Skype</name>
+			<link>callto:foolmoron</link>
+		</social>
+	</socials>
+
+	<description>	
+		We're a group of RVA (that's slang for Richmond, Virginia) game devs who formed Root 76 to show the world what amazing local talent we have here. We are currently working on Clash Cup Turbo, which came out of a game jam that we did in the summer of 2014, and we're always on the lookout for awesome new ideas to work on! We have been firmly rooted in RVA for a while, but now it's time to uproot with Root 76.
+	</description>
+		
+	<histories>
+		<history>
+			<header>SRRN Games</header>
+			<text>In 2009, a group of students from the University of Virginia formed SRRN Games in Richmond, VA (RVA), to develop the classic-style RPG Ash for iOS. Over the years, many developers came and went, and many projects were developed. However, in 2013, game development started to slow down as resources were allocated elsewhere.</text>
+		</history>
+		<history>
+			<header>Game Jams</header>
+			<text>In 2014, a group of SRRN developers decided to start up a monthly internal game jam done in our free time, to re-energize the game development at the company. Several games were prototyped, including Uncivilize and Night Shift Ninja (both currently on the iOS and Play stores), and Clash Cup Turbo, which is currently in development. The local <a href="http://rvagamejams.com/">RVA Game Jams</a> group also provided plenty of opportunity to jam and discover just how talented RVA game devs are.</text>
+		</history>
+		<history>
+			<header>Root 76</header>
+			<text>At the end of summer 2014, financial reorganizations at SRRN Games led to a new company being formed by the game jam team. This new company would focus on lean, efficient development processes, and a strong focus on working with super talented individuals. There's so much great talent in RVA, and we all love making high quality games very fast, so this new philosophy was a perfect fit. Root 76 is the result. We are now working on Clash Cup Turbo, our console-style local competitive multiplayer sports game.</text>
+		</history>
+	</histories>
+		
+	<trailers>
+		<trailer>
+			<name>Night Shift Ninja - Random Gameplay</name>
+			<youtube>pYUgUKNTBsc</youtube>
+		</trailer>
+		<trailer>
+			<name>Clash Cup Turbo - October 1st Promo</name>
+			<youtube>jqBkIkr7KKQ</youtube>
+		</trailer>
+		<trailer>
+			<name>Clash Cup Turbo - Megabooth Trailer</name>
+			<youtube>tmLtRg3dFRw</youtube>
+		</trailer>
+	</trailers>
+	
+	<!-- <awards>
+		<award>
+			<description>Winner in this highly relevant contest.</description>
+			<info>Award Location, 20 October, 1989</info>
+		</award>
+		<award>
+			<description>Nomination for this prestigious award.</description>
+			<info>Award Ceremony, 4 December, 1991</info>
+		</award>
+		<award>
+			<description>Winner in this highly relevant contest.</description>
+			<info>Award Location, 20 October, 1989</info>
+		</award>
+		<award>
+			<description>Nomination for this prestigious award.</description>
+			<info>Award Ceremony, 4 December, 1991</info>
+		</award>
+	</awards> -->
+	
+	<quotes>
+		<quote>
+			<description>This game is impossible to stop playing once you start.</description>
+			<name>Lauren's brother</name>
+			<website>Uncivilize App Store</website>
+			<link>https://itunes.apple.com/us/app/uncivilize/id886780787</link>
+		</quote>
+		<quote>
+			<description>Only 15 levels and I wanted more.</description>
+			<name>Random reviewer</name>
+			<website>Night Shift Ninja Play Store</website>
+			<link>https://play.google.com/store/apps/details?id=com.SRRN.NightShiftNinja</link>
+		</quote>
+		<quote>
+			<description>The game is fun and easy to control.</description>
+			<name>Random reviewer</name>
+			<website>Night Shift Ninja Play Store</website>
+			<link>https://play.google.com/store/apps/details?id=com.SRRN.NightShiftNinja</link>
+		</quote>
+	</quotes>
+	
+	<press-can-request-copy>TRUE</press-can-request-copy> <!-- can be true or false -->
+	<monetization-permission>monetize</monetization-permission> <!-- can be: 	false (no video allowed),
+																			 	ask (permission on case-per-case basis),
+																			 	non-commercial (no monetization allowed),
+																			 	monetize (full permission) -->	
+	<!-- <additionals>
+		<additional>
+			<title>Company Link #1</title>
+			<description>This link is a link that might be useful. You can check it out at</description>
+			<link>http://somemusicsite.com/thislink</link>
+		</additional>
+	</additionals> -->
+	
+	<credits>
+		<credit>
+			<person>Momin Khan</person>
+			<website>www.foolmoron.io</website>
+			<role>Programming, Design, Business</role>
+		</credit>
+		<credit>
+			<person>Mike Odum</person>
+			<website>www.mikeodumart.com</website>
+			<role>Art, Design</role>
+		</credit>
+		<credit>
+			<person>Chris Hooe</person>
+			<role>Programming</role>
+		</credit>
+		<credit>
+			<person>Brendan Mauer</person>
+			<role>Art, Animation</role>
+		</credit>
+		<credit>
+			<person>Lauren Morton</person>
+			<role>Design</role>
+		</credit>
+		<credit>
+			<person>Harris Weaver</person>
+			<role>Web Dev</role>
+		</credit>
+		<credit>
+			<person>Andrew Elgert</person>
+			<role>Business, Web Dev</role>
+		</credit>
+	</credits>
+	
+	<contacts>
+		<contact>
+			<name>Inquiries</name>
+			<mail>contact@root76.io</mail>
+		</contact>
+		<contact>
+			<name>Twitter</name>
+			<link>http://twitter.com/root76games</link>
+		</contact>
+		<contact>
+			<name>Facebook</name>
+			<link>http://facebook.com/root76games</link>
+		</contact>
+		<contact>
+			<name>Web</name>
+			<link>http://root76.io/</link>
+		</contact>
+	</contacts>
+</game>
