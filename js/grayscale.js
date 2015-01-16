@@ -60,7 +60,7 @@ $(function() {
                     in: {  
                         effect: 'flipInY',
                         delay: 3
-                    }  
+                    }
                 });
             }
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 940) {
