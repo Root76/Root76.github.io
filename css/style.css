@@ -229,6 +229,17 @@ li.active > a {
 	animation: glowIt 3.5s infinite;
 }
 
+#workHead {
+	margin-bottom: 15px;
+}
+
+.projectLogo > img {
+	max-width: 400px;
+	width: 100%;
+	position: relative;
+	top: -15px;
+}
+
 .projectImage {
 	width: 100%;
 	margin-bottom: 30px;
