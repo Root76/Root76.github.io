@@ -116,7 +116,7 @@
 		<credit>
 			<person>Momin Khan</person>
 			<website>www.foolmoron.io</website>
-			<role>Programming, Design, Business</role>
+			<role>Programming, Design</role>
 		</credit>
 		<credit>
 			<person>Mike Odum</person>
@@ -128,14 +128,6 @@
 			<role>Programming</role>
 		</credit>
 		<credit>
-			<person>Brendan Mauer</person>
-			<role>Art, Animation</role>
-		</credit>
-		<credit>
-			<person>Lauren Morton</person>
-			<role>Design</role>
-		</credit>
-		<credit>
 			<person>Harris Weaver</person>
 			<website>harrisweaver.com</website>
 			<role>Web Dev</role>
@@ -143,6 +135,14 @@
 		<credit>
 			<person>Andrew Elgert</person>
 			<role>Business, Web Dev</role>
+		</credit>
+		<credit>
+			<person>Brendan Mauer</person>
+			<role>Art, Animation</role>
+		</credit>
+		<credit>
+			<person>Lauren Morton</person>
+			<role>Design</role>
 		</credit>
 	</credits>
 	
