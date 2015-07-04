@@ -31,19 +31,16 @@
 		<feature>2 to 4 local players!</feature>
 		<feature>Playable with 360 controllers, DualShock 4s, and any other standard USB controller, as well as keyboard.</feature>
 		<feature>6 different level themes, based on stylized real-world locations, each featuring level-specific mechanics.</feature>
-		<feature>Unique level designs for 2, 3, and 4 players. Every level is hand-crafted to be fun for everyonE!</feature>
+		<feature>Unique level designs for 2, 3, and 4 players. Every level is hand-crafted to be fun for everyone!</feature>
+		<feature>Play free-for-all, 2v2, 1v3, or any other setup you can think of, on any level!</feature>
 		<feature>Skill-based gameplay with pick-up-and-play accessible 2-button controls, but a high skill ceiling.</feature>
 		<feature>10 different characters with varied special moves to enhance the already crazy core gameplay.</feature>
 	</features>
 	
 	<trailers>
 		<trailer>
-			<name>Clash Cup Turbo - October 1st Promo</name>
-			<youtube>jqBkIkr7KKQ</youtube>
-		</trailer>
-		<trailer>
-			<name>Clash Cup Turbo - Megabooth Trailer</name>
-			<youtube>tmLtRg3dFRw</youtube>
+			<name>Clash Cup Turbo - Teaser #1</name>
+			<youtube>elwZk-3gfQA</youtube>
 		</trailer>
 	</trailers>
 	
@@ -119,15 +116,15 @@
 		</credit>
 		<credit>
 			<person>Lauren Morton</person>
-			<role>Design</role>
+			<role>Level Design</role>
 		</credit>
 		<credit>
 			<person>Chris Hooe</person>
-			<role>Programming</role>
+			<role>Additional Programming</role>
 		</credit>
 		<credit>
 			<person>Brendan Mauer</person>
-			<role>Art, Animation</role>
+			<role>Additional Art, Animation</role>
 		</credit>
 	</credits>
 </game>
