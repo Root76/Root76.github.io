@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <game>	
-	<title>Root 76, LLC</title>
+	<title>ROOT 76, LLC</title>
 	<founding-date>October 17, 2014</founding-date>
 	<website>http://root76.io/</website>
 	<based-in>Richmond, Virginia</based-in>
@@ -44,22 +44,18 @@
 		</history>
 		<history>
 			<header>Root 76</header>
-			<text>At the end of summer 2014, financial reorganizations at SRRN Games led to a new company being formed by the game jam team. This new company would focus on lean, efficient development processes, and a strong focus on working with super talented individuals. There's so much great talent in RVA, and we all love making high quality games very fast, so this new philosophy was a perfect fit. Root 76 is the result. We are now working on Clash Cup Turbo, our console-style local competitive multiplayer sports game.</text>
+			<text>At the end of summer 2014, financial reorganizations at SRRN Games led to a new company being formed by the game jam team. This new company would focus on lean, efficient development processes, and a strong focus on working with super talented individuals. There's so much great talent in RVA, and we all love making high quality games very fast, so this new philosophy was a perfect fit. Root 76 is the result. We are now working on Clash Cup Turbo, our console-style couch competitive multiplayer sports game.</text>
 		</history>
 	</histories>
 		
 	<trailers>
 		<trailer>
+			<name>Clash Cup Turbo - Teaser #1</name>
+			<youtube>elwZk-3gfQA</youtube>
+		</trailer>
+		<trailer>
 			<name>Night Shift Ninja - Random Gameplay</name>
 			<youtube>pYUgUKNTBsc</youtube>
-		</trailer>
-		<trailer>
-			<name>Clash Cup Turbo - October 1st Promo</name>
-			<youtube>jqBkIkr7KKQ</youtube>
-		</trailer>
-		<trailer>
-			<name>Clash Cup Turbo - Megabooth Trailer</name>
-			<youtube>tmLtRg3dFRw</youtube>
 		</trailer>
 	</trailers>
 	
@@ -96,10 +92,10 @@
 			<link>https://play.google.com/store/apps/details?id=com.SRRN.NightShiftNinja</link>
 		</quote>
 		<quote>
-			<description>The game is fun and easy to control.</description>
-			<name>Random reviewer</name>
-			<website>Night Shift Ninja Play Store</website>
-			<link>https://play.google.com/store/apps/details?id=com.SRRN.NightShiftNinja</link>
+			<description>It’s easy to pick up, hard to put down.</description>
+			<name>Chris "Gallant-Z" Ruiz</name>
+			<website>Nerd Caliber</website>
+			<link>http://nerdcaliber.com/the-making-of-clash-cup-turbo/</link>
 		</quote>
 	</quotes>
 	
@@ -141,6 +137,7 @@
 		</credit>
 		<credit>
 			<person>Harris Weaver</person>
+			<website>harrisweaver.com</website>
 			<role>Web Dev</role>
 		</credit>
 		<credit>
