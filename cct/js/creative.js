@@ -46,9 +46,7 @@
     new WOW().init();
 
     var portraits = $(".charPorts img");
-    console.log("ports");
-    console.log(portraits);
-    console.log(portraits.length);
+
     var bounce = new Bounce();
     bounce.translate({
       from: { x: 0, y: 0 },
@@ -72,7 +70,27 @@
       from: { x: 0.5, y: 0.5 },
       to: { x: 1, y: 1 }
     });
+
     bounce4.applyTo($("#mainLogo"));
+
+    var largeCharacters = $("#charCarousel img");
+    var charIndex = 0;
+    $(largeCharacters[charIndex]).addClass("animating");
+    charIndex++;
+    $(largeCharacters[charIndex]).addClass("animating");
+    charIndex++;
+    var animatedCharacters = setInterval(function(){
+        console.log(charIndex);
+        $(largeCharacters[charIndex]).removeClass("animating").removeClass("startAnimation");
+        setTimeout(function(){
+            $(largeCharacters[charIndex]).addClass("animating");
+            charIndex++;
+            if (charIndex == largeCharacters.length) {
+                charIndex = 0;
+            }
+        }, 1000);
+    }, 30000);
+
     setTimeout(function(){
         var i = 0;
         var showPortraits = setInterval(function(){
@@ -106,6 +124,7 @@
                                 i++;
                             } else {
                                 clearInterval(showSocials);
+                                $("#charCarousel").addClass("active");
                             }
                         }, 200);
                     }, 1500);
