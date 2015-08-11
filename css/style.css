@@ -98,7 +98,7 @@ li.active > a {
 
 #mainBg {
 	position: fixed;
-	opacity: 0;
+	/*opacity: 0;*/
 	width: 100%;
 	max-width: 100%;
 	left: 0%;
@@ -117,7 +117,7 @@ li.active > a {
 }
 
 #root {
-	opacity: 0;
+	/*opacity: 0;*/
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;
@@ -125,28 +125,28 @@ li.active > a {
 }
 
 #about {
-	opacity: 0;
+	/*opacity: 0;*/
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;
 }
 
 #work {
-	opacity: 0;
+	/*opacity: 0;*/
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;
 }
 
 #games {
-	opacity: 0;
+	/*opacity: 0;*/
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;
 }
 
 #contact {
-	opacity: 0;
+	/*opacity: 0;*/
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;
@@ -159,7 +159,7 @@ li.active > a {
 }
 
 #contact2 {
-	opacity: 0;
+	/*opacity: 0;*/
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;		
@@ -175,7 +175,7 @@ li.active > a {
 }
 
 .banner-social-buttons {
-	opacity: 0;
+	/*opacity: 0;*/
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;			
@@ -190,7 +190,7 @@ li.active > a {
 }
 
 .notYet {
-	opacity: 0;
+	/*opacity: 0;*/
 }
 
 .footer {
@@ -244,7 +244,7 @@ li.active > a {
 	width: 100%;
 	margin-bottom: 30px;
 	cursor: pointer;
-	opacity: 0;
+	/*opacity: 0;*/
 	border: 1px solid rgba(255,255,255,0);
 	-webkit-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;

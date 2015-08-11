@@ -37,107 +37,107 @@ $(function() {
         }, 200);
     });
 
-    window.onscroll = function(ev) {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 250) {
-            $("#about").addClass("active");
-            if ($("body").width() > 768) {
-                $("#about1").textillate({
-                    initialDelay: 400,
-                    in: {  
-                        effect: 'flipInY',
-                        delay: 3
-                    }  
-                });
-                $("#about2").textillate({
-                    initialDelay: 2400,
-                    in: {  
-                        effect: 'flipInY',
-                        delay: 3
-                    }  
-                });
-                $("#about3").textillate({
-                    initialDelay: 6000,
-                    in: {  
-                        effect: 'flipInY',
-                        delay: 3
-                    }
-                });
-            }
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 940) {
-                $("#work").addClass("active");
-                var allScreenshots = $(".projectImage");
-                var thisImage;
-                console.log(allScreenshots);
-                setTimeout(function(){
-                    for (var i = 0; i < allScreenshots.length; i++) {
-                        thisImage = allScreenshots[i];
-                        console.log(thisImage);
-                        $(thisImage).addClass("active");
-                    }
-                }, 700);
-            }
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 1900) {
-                $("#games").addClass("active");
-                if ($("body").width() > 768) {
+    // window.onscroll = function(ev) {
+    //     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 250) {
+    //         $("#about").addClass("active");
+    //         if ($("body").width() > 768) {
+    //             $("#about1").textillate({
+    //                 initialDelay: 400,
+    //                 in: {  
+    //                     effect: 'flipInY',
+    //                     delay: 3
+    //                 }  
+    //             });
+    //             $("#about2").textillate({
+    //                 initialDelay: 2400,
+    //                 in: {  
+    //                     effect: 'flipInY',
+    //                     delay: 3
+    //                 }  
+    //             });
+    //             $("#about3").textillate({
+    //                 initialDelay: 6000,
+    //                 in: {  
+    //                     effect: 'flipInY',
+    //                     delay: 3
+    //                 }
+    //             });
+    //         }
+    //         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 940) {
+    //             $("#work").addClass("active");
+    //             var allScreenshots = $(".projectImage");
+    //             var thisImage;
+    //             console.log(allScreenshots);
+    //             setTimeout(function(){
+    //                 for (var i = 0; i < allScreenshots.length; i++) {
+    //                     thisImage = allScreenshots[i];
+    //                     console.log(thisImage);
+    //                     $(thisImage).addClass("active");
+    //                 }
+    //             }, 700);
+    //         }
+    //         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 1900) {
+    //             $("#games").addClass("active");
+    //             if ($("body").width() > 768) {
 
-                    // $("#contact1").textillate({
-                    //     initialDelay: 400,
-                    //     in: {  
-                    //         effect: 'flipInY',
-                    //         delay: 3
-                    //     }  
-                    // });  
+    //                 // $("#contact1").textillate({
+    //                 //     initialDelay: 400,
+    //                 //     in: {  
+    //                 //         effect: 'flipInY',
+    //                 //         delay: 3
+    //                 //     }  
+    //                 // });  
 
-                    // setTimeout(function(){
-                    //     $("#contact2").addClass("active");
-                    //     setTimeout(function(){
-                    //         $(".banner-social-buttons").addClass("active");
-                    //     }, 700);
-                    // }, 1000);
+    //                 // setTimeout(function(){
+    //                 //     $("#contact2").addClass("active");
+    //                 //     setTimeout(function(){
+    //                 //         $(".banner-social-buttons").addClass("active");
+    //                 //     }, 700);
+    //                 // }, 1000);
 
-                } else {
+    //             } else {
 
-                    // $("#contact2").addClass("active");
+    //                 // $("#contact2").addClass("active");
 
-                    // setTimeout(function(){
-                    //     $(".banner-social-buttons").addClass("active");
-                    // }, 700);
+    //                 // setTimeout(function(){
+    //                 //     $(".banner-social-buttons").addClass("active");
+    //                 // }, 700);
                 
-                }
+    //             }
 
-            }
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 2600) {
-                $("#contact").addClass("active");
-                if ($("body").width() > 768) {
+    //         }
+    //         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 2600) {
+    //             $("#contact").addClass("active");
+    //             if ($("body").width() > 768) {
 
-                    $("#contact1").textillate({
-                        initialDelay: 400,
-                        in: {  
-                            effect: 'flipInY',
-                            delay: 3
-                        }  
-                    });  
+    //                 $("#contact1").textillate({
+    //                     initialDelay: 400,
+    //                     in: {  
+    //                         effect: 'flipInY',
+    //                         delay: 3
+    //                     }  
+    //                 });  
 
-                    setTimeout(function(){
-                        $("#contact2").addClass("active");
-                        setTimeout(function(){
-                            $(".banner-social-buttons").addClass("active");
-                        }, 700);
-                    }, 1000);
+    //                 setTimeout(function(){
+    //                     $("#contact2").addClass("active");
+    //                     setTimeout(function(){
+    //                         $(".banner-social-buttons").addClass("active");
+    //                     }, 700);
+    //                 }, 1000);
 
-                } else {
+    //             } else {
 
-                    $("#contact2").addClass("active");
+    //                 $("#contact2").addClass("active");
 
-                    setTimeout(function(){
-                        $(".banner-social-buttons").addClass("active");
-                    }, 700);
+    //                 setTimeout(function(){
+    //                     $(".banner-social-buttons").addClass("active");
+    //                 }, 700);
                 
-                }
+    //             }
 
-            }
-        }
-    };
+    //         }
+    //     }
+    // };
 
 });
 
