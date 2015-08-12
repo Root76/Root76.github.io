@@ -89,7 +89,7 @@
                 charIndex = 0;
             }
         }, 1000);
-    }, 30000);
+    }, 45000);
 
     setTimeout(function(){
         var i = 0;
@@ -115,6 +115,7 @@
                     });
                     $("#mainHeader").addClass("active");
                     setTimeout(function(){
+                        $("#secondHeader").addClass("active");
                         var socialIcons = $("#socialImages img");
                         i = 0;
                         var showSocials = setInterval(function(){

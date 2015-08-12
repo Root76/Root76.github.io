@@ -224,28 +224,100 @@ header {
 
 #charCarousel img {
     position: absolute;
-    top: -35%;
-    height: 170%;
+    top: -30%;
+    height: 160%;
     right: 100%;
     opacity: 0.1;
 }
 
 #charCarousel img.animating {
-    -webkit-transition: all 60s linear;
-    -moz-transition: all 60s linear;
-    -ms-transition: all 60s linear;
-    -o-transition: all 60s linear;
-    transition: all 60s linear;
-    right: -150% !important;
+  -moz-animation-duration: 120s;
+  -webkit-animation-duration: 120s;
+  animation-duration: 120s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+  animation-name: slidein;
+  -moz-animation-direction: normal;
+  -webkit-animation-direction: normal;
+  animation-direction: normal;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+    
+@-moz-keyframes slidein {
+  from {
+    right: 100%;
+  }
+      
+  to {
+    right: -100%;
+  }
+}
+
+@-webkit-keyframes slidein {
+  from {
+    right: 100%;
+  }
+      
+  to {
+    right: -100%;
+  }
+}
+
+@keyframes slidein {
+  from {
+    right: 100%;
+  }
+      
+  to {
+    right: -100%;
+  }
 }
 
 #charCarousel img.startAnimation {
-    right: -25%;
-    -webkit-transition: all 30s linear;
-    -moz-transition: all 30s linear;
-    -ms-transition: all 30s linear;
-    -o-transition: all 30s linear;
-    transition: all 30s linear;
+  -moz-animation-duration: 60s;
+  -webkit-animation-duration: 60s;
+  animation-duration: 60s;
+  -moz-animation-name: slidein2;
+  -webkit-animation-name: slidein2;
+  animation-name: slidein2;
+  -moz-animation-direction: normal;
+  -webkit-animation-direction: normal;
+  animation-direction: normal;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+
+@-moz-keyframes slidein2 {
+  from {
+    right: 0%;
+  }
+      
+  to {
+    right: -100%;
+  }
+}
+
+@-webkit-keyframes slidein2 {
+  from {
+    right: 0%;
+  }
+      
+  to {
+    right: -100%;
+  }
+}
+
+@keyframes slidein2 {
+  from {
+    right: 0%;
+  }
+      
+  to {
+    right: -100%;
+  }
 }
 
 header .header-content {
@@ -543,14 +615,40 @@ body {
     z-index: 100;
 }
 
-#mainHeader {
+#mainHeader, #secondHeader {
     font-family: 'Permanent Marker', cursive;
     opacity: 0;
     position: relative;
+}
+
+#mainHeader {
     top: -15px;
 }
 
+#secondHeader {
+    border: 1px solid rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.2);
+    padding: 5px;
+    width: 200px;
+    margin: 0 auto;
+    cursor: pointer;
+    top: -5px;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+
 #mainHeader.active {
+    opacity: 1;
+}
+
+#secondHeader.active {
+    opacity: 0.5;
+}
+
+#secondHeader.active:hover {
     opacity: 1;
 }
 
@@ -611,7 +709,7 @@ body {
 
 #socialImages {
     position: absolute;
-    bottom: 6%;
+    bottom: 5%;
     width: 100%;
 }
 
