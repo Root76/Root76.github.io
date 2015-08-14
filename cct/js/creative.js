@@ -116,6 +116,33 @@
                     $("#mainHeader").addClass("active");
                     setTimeout(function(){
                         $("#secondHeader").addClass("active");
+                        $("#secondHeader").click(function(){
+                            $("#trailerContainer").addClass("active");
+                            $("#darkOverlay").addClass("active");
+                            $("#charCarousel").removeClass("active");
+                            setTimeout(function(){
+                                $('object').addClass('active');
+                                $('#closePlayer').addClass('active');
+                                var killTrailer = function(){
+                                    var thisVid = $("#trailerContainer").html();
+                                    $("#trailerContainer").html('');
+                                    $("#closePlayer").unbind('click').removeClass("active");
+                                    $("#darkOverlay").unbind('click').removeClass("active");
+                                    $("#trailerContainer").removeClass("active");
+                                    $("#charCarousel").addClass("active");
+                                    $("object").removeClass("active");
+                                    setTimeout(function(){
+                                        $("#trailerContainer").html(thisVid);
+                                    }, 400);
+                                };
+                                $('#closePlayer').click(function(){
+                                    killTrailer()
+                                });
+                                $('#darkOverlay').click(function(){
+                                    killTrailer()
+                                });
+                            }, 500);
+                        });
                         var socialIcons = $("#socialImages img");
                         i = 0;
                         var showSocials = setInterval(function(){
@@ -126,6 +153,10 @@
                             } else {
                                 clearInterval(showSocials);
                                 $("#charCarousel").addClass("active");
+                                setTimeout(function(){
+                                    $("#contactLink").addClass("active");
+                                    $("#walter").addClass("active");
+                                }, 200);
                             }
                         }, 200);
                     }, 1500);

@@ -73,10 +73,6 @@ aside {
     padding: 50px 0;
 }
 
-img {
-    pointer-events: none;
-}
-
 .no-padding {
     padding: 0;
 }
@@ -202,6 +198,7 @@ header {
     bottom: 0px;
     left: 0px;
     right: 0px;
+    pointer-events: none;
 }
 
 #charCarousel {
@@ -211,6 +208,7 @@ header {
     left: 0px;
     right: 0px;
     opacity: 0;
+    pointer-events: none;
     -webkit-transition: all 1s linear;
     -moz-transition: all 1s linear;
     -ms-transition: all 1s linear;
@@ -227,7 +225,7 @@ header {
     top: -30%;
     height: 160%;
     right: 100%;
-    opacity: 0.1;
+    opacity: 0.07;
 }
 
 #charCarousel img.animating {
@@ -650,6 +648,9 @@ body {
 
 #secondHeader.active:hover {
     opacity: 1;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
+    box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
 }
 
 .charPorts {
@@ -657,6 +658,7 @@ body {
     top: 0px;
     width: 30%;
     height: 100%;
+    pointer-events: none;
 }
 
 .charPorts img {
@@ -727,5 +729,144 @@ body {
 }
 
 #socialImages img.active {
+    opacity: 0.5;
+}
+
+#socialImages img.active:hover {
     opacity: 1;
+}
+
+#trailerContainer {
+    height: 0%;
+    width: 90%;
+    left: 5%;
+    top: 50%;
+    position: absolute;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+#trailerContainer.active {
+    height: 90%;
+    width: 90%;
+    left: 5%;
+    top: 5%;
+    opacity: 1;
+    z-index: 10;
+}
+
+#trailerContainer embed {
+    width: 100%;
+    height: 100%;
+}
+
+object {
+    opacity: 0;
+    -webkit-transition: all 1.4s ease;
+    -moz-transition: all 1.4s ease;
+    -ms-transition: all 1.4s ease;
+    -o-transition: all 1.4s ease;
+    transition: all 1.4s ease;
+}
+
+object.active {
+    opacity: 1;
+}
+
+#darkOverlay {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#darkOverlay.active {
+    opacity: 0.7;
+    pointer-events: auto;
+}
+
+#closePlayer {
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    z-index: 11;
+    opacity: 0;
+    width: 50px;
+    cursor: pointer;
+    -webkit-transition: all 1.4s ease;
+    -moz-transition: all 1.4s ease;
+    -ms-transition: all 1.4s ease;
+    -o-transition: all 1.4s ease;
+    transition: all 1.4s ease;
+}
+
+#closePlayer.active {
+    opacity: 0.8;
+}
+
+#closePlayer.active:hover {
+    opacity: 1;
+}
+
+#contactLink {
+    font-family: 'Permanent Marker', cursive;
+    position: absolute;
+    bottom: 3%;
+    left: 3%;
+    color: #fff;
+    opacity: 0;
+    font-size: 24px;
+    -webkit-transition: all 1.5s ease;
+    -moz-transition: all 1.5s ease;
+    -ms-transition: all 1.5s ease;
+    -o-transition: all 1.5s ease;
+    transition: all 1.5s ease;
+}
+
+#contactLink.active {
+    opacity: 0.2;
+}
+
+#contactLink.active:hover {
+    text-decoration: none;
+    opacity: 1;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#walter {
+    position: absolute;
+    bottom: 3%;
+    right: 3%;
+    opacity: 0;
+    -webkit-transition: all 1.5s ease;
+    -moz-transition: all 1.5s ease;
+    -ms-transition: all 1.5s ease;
+    -o-transition: all 1.5s ease;
+    transition: all 1.5s ease;
+}
+
+#walter.active {
+    opacity: 0.2;
+}
+
+#walter.active:hover {
+    opacity: 0.8;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
