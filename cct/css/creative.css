@@ -617,16 +617,17 @@ body {
 }
 
 #mainHeader, #secondHeader {
-    font-family: 'Permanent Marker', cursive;
     opacity: 0;
     position: relative;
 }
 
 #mainHeader {
     top: -15px;
+    font-family: 'Permanent Marker', cursive;
 }
 
 #secondHeader {
+    font-family: 'Montserrat', sans-serif;
     border: 1px solid rgba(255,255,255,0.5);
     background: rgba(255,255,255,0.2);
     padding: 5px;
@@ -826,7 +827,7 @@ object.active {
 }
 
 #contactLink {
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'Montserrat', sans-serif;
     position: absolute;
     bottom: 3%;
     left: 3%;
