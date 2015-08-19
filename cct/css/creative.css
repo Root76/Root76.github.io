@@ -880,6 +880,27 @@ object.active {
     transition: all 0.5s ease;
 }
 
+#preload {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background: #000;
+    z-index: 1000;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    opacity: 1;
+}
+
+#preload.active {
+    opacity: 0;
+    pointer-events: none;
+}
+
 @media screen and (max-width: 1680px) {
     .charPorts img {
         max-width: 110%;

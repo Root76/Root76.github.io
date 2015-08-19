@@ -71,6 +71,7 @@ $(window).load(function() {
       to: { x: 1, y: 1 }
     });
 
+    $("#preload").addClass("active");
     bounce4.applyTo($("#mainLogo"));
 
     var largeCharacters = $("#charCarousel img");
