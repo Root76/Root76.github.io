@@ -188,6 +188,7 @@ header {
     background-size: cover;
     -o-background-size: cover;
     z-index: 1;
+    overflow: hidden;
 }
 
 #shadowBox {
@@ -1194,7 +1195,7 @@ object.active {
     }
 }
 
-@media screen and (max-height: 767px) {
+@media screen and (max-height: 767px) and (min-width: 768px) {
     #mainLogo {
         max-height: 75%;
         -webkit-transition: all 0.5s ease;
@@ -1209,15 +1210,44 @@ object.active {
     }
 }
 
+@media screen and (max-height: 767px) and (max-width: 767px) {
+    #mainLogo {
+        max-height: 75%;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+    #chars1 {
+        left: -5%;
+    }
+    #chars2 {
+        right: -5%;
+    }
+    #chars1 img:first-child {
+        top: 2%;
+    }
+    #chars2 img:first-child {
+        top: 2%;
+    }
+}
+
 @media screen and (max-height: 660px) {
     #mainLogo {
         max-height: 70%;
     }
 }
 
-@media screen and (max-height: 560px) {
+@media screen and (max-height: 560px) and (max-width: 767px) {
     #mainLogo {
         max-height: 65%;
+    }
+    #chars1 img:last-child {
+        top: 16%;
+    }
+    #chars2 img:last-child {
+        top: 16%;
     }
 }
 
