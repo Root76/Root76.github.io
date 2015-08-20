@@ -1105,6 +1105,12 @@ object.active {
     }
 }
 
+@media screen and (max-width: 767px) {
+    #charCarousel {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 680px) {
     #chars1 img:first-child {
         left: -50%;
