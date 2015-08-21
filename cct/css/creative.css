@@ -617,12 +617,12 @@ body {
     z-index: 100;
 }
 
-#mainHeader, #secondHeader {
+#mainHead, #secondHeader {
     opacity: 0;
     position: relative;
 }
 
-#mainHeader {
+#mainHead {
     top: -15px;
     font-family: 'Permanent Marker', cursive;
 }
@@ -643,7 +643,7 @@ body {
     transition: all 0.25s ease-out;
 }
 
-#mainHeader.active {
+#mainHead.active {
     opacity: 1;
 }
 
@@ -1134,7 +1134,7 @@ object.active {
 }
 
 @media screen and (max-width: 580px) {
-    #mainHeader {
+    #mainHead {
         font-size: 24px;
     }
     #secondHeader {
@@ -1274,7 +1274,7 @@ object.active {
     #mainLogo {
         max-height: 60%;
     }
-    #mainHeader {
+    #mainHead {
         font-size: 24px;
         top: -5px;
     }
@@ -1294,7 +1294,7 @@ object.active {
     #mainLogo {
         max-height: 50%;
     }
-    #mainHeader {
+    #mainHead {
         font-size: 18px;
     }
     #secondHeader {

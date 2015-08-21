@@ -68,14 +68,14 @@ $(window).load(function() {
             } else {
                 clearInterval(showPortraits);
                 setTimeout(function(){
-                    $("#mainHeader").textillate({ 
+                    var thisHeader = $("#mainHead").textillate({ 
                         in: { 
                             effect: 'bounceInDown',
                             delay: 50,
                             shuffle: true
                         } 
                     });
-                    $("#mainHeader").addClass("active");
+                    $("#mainHead").addClass("active");
                     setTimeout(function(){
                         $("#secondHeader").addClass("active");
                         $("#secondHeader").click(function(){
