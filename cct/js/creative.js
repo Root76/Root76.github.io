@@ -5,7 +5,6 @@
  */
 
 $(window).load(function() {
-    "use strict"; // Start of use strict
 
     var portraits = $(".charPorts img");
 
