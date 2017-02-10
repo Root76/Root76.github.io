@@ -51,7 +51,7 @@ $(window).load(function() {
                 charIndex = 0;
             }
         }, 1000);
-    }, 45000);
+    }, 50000);
 
     setTimeout(function(){
         var i = 0;
@@ -68,17 +68,17 @@ $(window).load(function() {
             } else {
                 clearInterval(showPortraits);
                 setTimeout(function(){
-                    var thisHeader = $("#mainHead").textillate({ 
-                        in: { 
+                    var thisHeader = $("#mainHead").textillate({
+                        in: {
                             effect: 'bounceInDown',
                             delay: 50,
                             shuffle: true
-                        } 
+                        }
                     });
                     $("#mainHead").addClass("active");
                     setTimeout(function(){
-                        $("#secondHeader").addClass("active");
-                        $("#secondHeader").click(function(){
+                        $(".secondHeader").addClass("active");
+                        $("#playTrailer").click(function(){
                             $("#trailerContainer").addClass("active");
                             $("#darkOverlay").addClass("active");
                             $("#charCarousel").removeClass("active");

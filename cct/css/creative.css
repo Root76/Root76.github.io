@@ -245,12 +245,12 @@ header {
   -moz-animation-timing-function: linear;
   animation-timing-function: linear;
 }
-    
+
 @-moz-keyframes slidein {
   from {
     right: 100%;
   }
-      
+
   to {
     right: -100%;
   }
@@ -260,7 +260,7 @@ header {
   from {
     right: 100%;
   }
-      
+
   to {
     right: -100%;
   }
@@ -270,7 +270,7 @@ header {
   from {
     right: 100%;
   }
-      
+
   to {
     right: -100%;
   }
@@ -295,7 +295,7 @@ header {
   from {
     right: 0%;
   }
-      
+
   to {
     right: -100%;
   }
@@ -305,7 +305,7 @@ header {
   from {
     right: 0%;
   }
-      
+
   to {
     right: -100%;
   }
@@ -315,7 +315,7 @@ header {
   from {
     right: 0%;
   }
-      
+
   to {
     right: -100%;
   }
@@ -617,7 +617,7 @@ body {
     z-index: 100;
 }
 
-#mainHead, #secondHeader {
+#mainHead, .secondHeader {
     opacity: 0;
     position: relative;
 }
@@ -627,7 +627,7 @@ body {
     font-family: 'Permanent Marker', cursive;
 }
 
-#secondHeader {
+.secondHeader {
     font-family: 'Montserrat', sans-serif;
     border: 1px solid rgba(255,255,255,0.5);
     background: rgba(255,255,255,0.2);
@@ -647,15 +647,20 @@ body {
     opacity: 1;
 }
 
-#secondHeader.active {
+.secondHeader.active {
     opacity: 0.5;
 }
 
-#secondHeader.active:hover {
+.secondHeader.active:hover {
     opacity: 1;
     -webkit-box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
     -moz-box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
     box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
+}
+
+#viewPresskit {
+  color: #fff;
+  text-decoration: none;
 }
 
 .charPorts {
@@ -915,7 +920,7 @@ object.active {
     }
 
     #chars2 img:first-child {
-        right: -4%;    
+        right: -4%;
     }
 
     #chars2 img:last-child {
@@ -1137,7 +1142,7 @@ object.active {
     #mainHead {
         font-size: 24px;
     }
-    #secondHeader {
+    .secondHeader {
         font-size: 18px;
     }
     #chars1 img:first-child {
@@ -1278,7 +1283,7 @@ object.active {
         font-size: 24px;
         top: -5px;
     }
-    #secondHeader {
+    .secondHeader {
         font-size: 18px;
         top: 0px;
     }
@@ -1297,7 +1302,7 @@ object.active {
     #mainHead {
         font-size: 18px;
     }
-    #secondHeader {
+    .secondHeader {
         font-size: 14px;
         top: 0px;
     }
