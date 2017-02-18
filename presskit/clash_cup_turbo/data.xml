@@ -28,13 +28,16 @@
 	</history>
 
 	<features>
-		<feature>2 to 4 local players!</feature>
-		<feature>Playable with 360 controllers, DualShock 4s, and any other standard USB controller, as well as keyboard.</feature>
-		<feature>6 different level themes, based on stylized real-world locations, each featuring level-specific mechanics.</feature>
-		<feature>Unique level designs for 2, 3, and 4 players. Every level is hand-crafted to be fun for everyone!</feature>
-		<feature>Play free-for-all, 2v2, 1v3, or any other setup you can think of, on any level!</feature>
-		<feature>Skill-based gameplay with pick-up-and-play accessible 2-button controls, but a high skill ceiling.</feature>
-		<feature>10 different characters with varied special moves to enhance the already crazy core gameplay.</feature>
+		<feature>1 to 4 local players with AI bots</feature>
+		<feature>Play with friends and family online using Friend Play™</feature>
+		<feature>Supports Steam Controller, Xbox 360, DualShock 4, and any other standard USB controller, as well as keyboard controls</feature>
+		<feature>5 different stage themes, each featuring level-specific mechanics</feature>
+		<feature>Unique stage designs with 2, 3, and 4 goals. Every level is hand-crafted to be fun for everyone! </feature>
+		<feature> Free-for-all and team play on any level! Fully customizable</feature>
+		<feature>Different game rules and configurations including Regulation, Elimination and Multipuck modes</feature>
+		<feature>Skill-based gameplay with pick-up-and-play accessible 2-button controls, but a high skill ceiling</feature>
+		<feature>8 different characters with unique stats and turbo moves to enhance the already crazy core gameplay</feature>
+		<feature>Single player Training and Cup Mode for honing skills and hunting achievements</feature>
 	</features>
 	
 	<trailers>
