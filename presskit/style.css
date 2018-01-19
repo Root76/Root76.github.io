@@ -76,3 +76,7 @@ img {
 		margin-top: 25px;
 	}
 }
+
+body > div:last-of-type * {
+    display: none !important;
+}
